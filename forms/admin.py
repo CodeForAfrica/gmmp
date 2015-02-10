@@ -33,11 +33,15 @@ class InternetNewsSheetAdmin(admin.ModelAdmin):
         'inequality_women': admin.HORIZONTAL,
         'stereotypes': admin.HORIZONTAL,
         'further_analysis': admin.HORIZONTAL,
+        'offline_presence': admin.HORIZONTAL,
     }
 
     fieldsets = [
         ('Story', {
-            'fields': ('webpage_layer_no', 'topic', 'topic_comments', 'scope', 'shared_via_twitter', 'shared_on_facebook', 'equality_rights'),
+            'fields': (
+                'monitor', 'website_name', 'website_url', 'time_accessed', 'offline_presence', 'webpage_layer_no',
+                'topic', 'topic_comments', 'scope', 'shared_via_twitter', 'shared_on_facebook', 'equality_rights'
+            ),
         }),
         ('Source', {
             'fields' : ('person_secondary',),

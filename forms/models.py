@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 
 WEB_LAYER = zip(range(1, 10), range(1, 10))
@@ -201,8 +202,19 @@ class Person(models.Model):
     class Meta:
         verbose_name = _('Person')
 
-class InternetNewsSheet(models.Model):
+class SheetModel(models.Model):
+    monitor = models.ForeignKey(User, null=False)
+
+    class Meta:
+        abstract = True
+
+class InternetNewsSheet(SheetModel):
     # Story
+    website_name = models.CharField(max_length=255, verbose_name=_('Website Name'))
+    website_url = models.CharField(max_length=255, verbose_name=_('URL'))
+    time_accessed = models.DateTimeField(verbose_name=_('Date and Time Accessed'))
+    offline_presence = models.CharField(max_length=1, choices=YESNO, verbose_name=_('Offline presence?'))
+    
     webpage_layer_no = models.PositiveIntegerField(choices=WEB_LAYER, help_text=_('Webpage Layer Number. Homepage=1, One click away=2, Five clicks away= 5, etc'), verbose_name=_('Webpage Layer Number'))
     topic = models.PositiveIntegerField(choices=TOPICS, help_text=_('Topic'), verbose_name=_('Topic'))
     topic_comments = models.TextField(verbose_name=_('Topic Comments'), help_text=_('Complete if no topic above is applicable'), blank=True)
