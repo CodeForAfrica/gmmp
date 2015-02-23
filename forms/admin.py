@@ -22,8 +22,8 @@ Do not code: (i) Unnamed journalists (e.g. 'Staff reporter', 'Our correspondent'
 class JournalistAdmin(admin.ModelAdmin):
     pass
 
-class PersonInline(admin.StackedInline):
-    model = models.Person
+class InternetNewPerson(admin.StackedInline):
+    model = models.InternetNewsPerson
     verbose_name_plural = _('People in the news')
     verbose_name = _('Person in the news')
     # Setting the unicode to blank in the admin
@@ -65,7 +65,7 @@ class TwitterSheetAdmin(admin.ModelAdmin):
 class InternetNewsSheetAdmin(admin.ModelAdmin):
     inlines = [
         InternetJournalistInline,
-        PersonInline,
+        InternetNewPerson,
     ]
 
     radio_fields = {
