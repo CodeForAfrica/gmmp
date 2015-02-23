@@ -2,8 +2,8 @@ from django.utils.translation import ugettext_lazy as _
 from django.contrib import admin
 import models
 
-class JournalistInline(admin.TabularInline):
-    model = models.Journalist
+class InternetJournalistInline(admin.TabularInline):
+    model = models.InternetNewsJournalist
     verbose_name_plural = _('''Add a new record for each journalist who: 
 (i) wrote the story and whose name appears, or 
 (ii) is visible in video clips, or 
@@ -11,16 +11,60 @@ class JournalistInline(admin.TabularInline):
 
 Do not code: (i) Unnamed journalists (e.g. ''Staff reporter'', ''Our correspondent''); (ii) News agencies.''')
 
+class TwitterJournalistInline(admin.TabularInline):
+    model = models.TwitterJournalist
+    verbose_name_plural = _('''
+        Code the journalist to who the twitter account belongs if the account does not belong to the media house. Code any
+journalist referenced in the tweet. Code each journalist/reporter in a separate row.
+Do not code: (i) Unnamed journalists (e.g. 'Staff reporter', 'Our correspondent'); (ii) News agencies
+''')
+
+class JournalistAdmin(admin.ModelAdmin):
+    pass
+
 class PersonInline(admin.StackedInline):
     model = models.Person
     verbose_name_plural = _('People in the news')
+    verbose_name = _('Person in the news')
+    # Setting the unicode to blank in the admin
+    model.__unicode__ = lambda x : ""
 
     class Media:
         js = ['forms/admin/move_fields.js']
 
+class TwitterPersonInline(admin.StackedInline):
+    model = models.TwitterPerson
+    verbose_name_plural = _('People in the tweet')
+    verbose_name = _('Person mentioned in the tweet')
+
+class TwitterSheetAdmin(admin.ModelAdmin):
+    inlines = [
+        TwitterPersonInline,
+        TwitterJournalistInline,
+    ]
+
+    radio_fields = {
+        'retweet' : admin.HORIZONTAL,
+        'about_women': admin.HORIZONTAL,
+        'stereotypes': admin.HORIZONTAL,
+        'further_analysis': admin.HORIZONTAL,
+    }
+
+    fieldsets = [
+
+        ('Story', {
+            'fields': (
+                'monitor', 'media_name', 'twitter_handle', 'retweet', 'topic'
+            ),
+        }),
+        ('Analysis', {
+            'fields' : ('about_women', 'stereotypes', 'further_analysis', 'url_and_multimedia', ),
+        }),
+    ]
+
 class InternetNewsSheetAdmin(admin.ModelAdmin):
     inlines = [
-        JournalistInline,
+        InternetJournalistInline,
         PersonInline,
     ]
 
@@ -53,4 +97,5 @@ class InternetNewsSheetAdmin(admin.ModelAdmin):
     ]
 
 admin.site.register(models.InternetNewsSheet, InternetNewsSheetAdmin)
+admin.site.register(models.TwitterSheet, TwitterSheetAdmin)
 
