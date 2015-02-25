@@ -41,6 +41,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 	'forms',
 	'gmmp',
+	'django_countries',
 )
 
 MIDDLEWARE_CLASSES = (
