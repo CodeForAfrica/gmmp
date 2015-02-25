@@ -1,14 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
+from django.utils.encoding import force_text
 
-class SheetModel(models.Model):
-    monitor = models.ForeignKey(User, null=False)
-
-    class Meta:
-        abstract = True
-
-WEB_LAYER = zip(range(1, 10), range(1, 10))
+NUMBER_OPTIONS = zip(range(1, 10), range(1, 10))
 TOPICS = (
     (1,  _('Women politicians, women electoral candidates...')),
     (2,  _('Peace, negotiations, treaties')),
@@ -187,3 +182,104 @@ RETWEET = [
     (2, _('Retweet')),
 ]
 
+SPACE = [
+    (1, _('Full page')),
+    (2, _('Half page')),
+    (3, _('One third page')),
+    (4, _('Quarter page')),
+    (5, _('Less than quarter page')),
+]
+
+TV_ROLE = [
+    (1, _('Anchor, announcer or presenter: Usually in the television studio')),
+    (2, _('Reporter: Usually outside the studio. Include reporters who do not appear on screen, but whose voice is heard (e.g. as voice-over).')),
+    (3, _('Other journalist: Sportscaster, weather forecaster, commentator/analyst etc.')),
+]
+
+class SheetModel(models.Model):
+    monitor = models.ForeignKey(User, null=False)
+
+    class Meta:
+        abstract = True
+
+
+class Person(models.Model):
+    sex = models.PositiveIntegerField(choices=GENDER, verbose_name=_('Sex'))
+    age = models.PositiveIntegerField(choices=AGES, verbose_name=_('Age (person appears)'))
+    occupation = models.PositiveIntegerField(choices=OCCUPATION, verbose_name=_('Occupation or Position'))
+    occupation_other = models.TextField(verbose_name=_('Other Occupation'), blank=True)
+    function = models.PositiveIntegerField(choices=FUNCTION, verbose_name=_('Function in the news story'))
+    # TODO - need more information here
+    family_role = models.CharField(max_length=1, choices=YESNO, verbose_name=_('Family Role Given.'), help_text=_('''Code yes only if the word 'wife', 'husband' etc is actually used to describe the person.'''))
+    victim_or_survivor = models.CharField(max_length=1, choices=YESNO, 
+        verbose_name=_('Does the story identify the person as either a victim or survivor?'),
+        help_text=_('''<p>You should code a person as a <strong>victim</strong> either if the word 'victim' is used to describe her/him, or if the story Implies that the person is a victim - e.g. by using language or images that evoke particular emotions such as shock, horror, pity for the person.</p><p>You should code a person as a <strong>survivor</strong> either if the word 'survivor' is used to describe her/him, or if the story implies that the person is a survivor - e.g. by using language or images that evoke particular emotions such as admiration or respect for the person.</p>''')
+        )
+
+    # TODO - hide this if no to the previous question
+    victim_of = models.PositiveIntegerField(choices=VICTIM_OF, verbose_name=_('The story identifies the person as a victim of:'))
+    victim_comments = models.TextField(verbose_name=_('Add comments if ''Other Victim'' was selected above'), blank=True)
+
+    # TODO - hide this if no to the previous question
+    survivor_of = models.PositiveIntegerField(choices=SURVIVOR_OF, verbose_name=_('The story identifies the person as a survivor of:'))
+    survivor_comments = models.TextField(verbose_name=_('Add comments if ''Other Survivor'' was selected above'), blank=True)
+    is_quoted = models.CharField(max_length=1, choices=YESNO, 
+        verbose_name=_('Is the person directly quoted'), 
+        help_text=_('<p>A person is <strong>directly quoted</strong> if their own words are printed, e.g. "The war against terror is our first priority" said President Bush.</p><p>If the story paraphrases what the person said, that is not a direct quote, e.g. President Bush said that top priority would be given to fighting the war against terror.</p>')
+    )
+    is_photograph = models.PositiveIntegerField(choices=IS_PHOTOGRAPH, verbose_name=_('Is there a photograph of the person in the story?'))
+
+    class Meta:
+        verbose_name = _('Person')
+        abstract = True
+
+class Journalist(models.Model):
+    # Journalists / Reporters
+    sex = models.PositiveIntegerField(choices=GENDER, verbose_name=_('Journalist''s Sex'))
+    age = models.PositiveIntegerField(choices=AGES, verbose_name=_('Age (person appears)'), null=True)
+    tbl = dict(GENDER)
+
+    def __unicode__(self):
+        return u"%s" % (self.tbl[self.sex])
+
+    class Meta:
+        abstract = True
+
+class BroadcastJournalist(Journalist):
+    role = models.PositiveIntegerField(choices=TV_ROLE, verbose_name=_('Role'))
+
+    class Meta:
+        abstract = True
+
+##### Standard Fields ###########
+field_scope = models.PositiveIntegerField(choices=SCOPE, verbose_name=_('Scope'), help_text=_('Code the widest geographical scope that applies: if the event has both local and national importance, code national.'))
+field_topic = models.PositiveIntegerField(choices=TOPICS, verbose_name=_('Topic'), help_text=_('''Choose one topic that best describes how the story is reported. Remember that a single event can be reported in different ways. Within each broad category, we include a code for 'other stories'. Please use these codes only as a <strong>last resort</strong>.'''))
+
+field_person_secondary = models.PositiveIntegerField(choices=SOURCE, verbose_name=_('Source'), help_text=_('''<br><br>
+    Select ''Secondary Source'' only if the story is based solely on information from a report, article, or other piece of written information.<br><br>
+<strong>Code information for:</strong><br>
+  - Any person whom the story is about even if they are not interviewed or quoted<br>
+  - Each person who is interviewed<br>
+  - Each person in the story who is quoted, either directly or indirectly. Code only individual people.<br>
+<br>
+<strong>Do not code:</strong>
+  - Groups (e.g. a group of nurses, a group of soldiers);</br>
+  - Organisations, companies, collectivities (e.g. political parties);</br>
+  - Characters in novels or movies (unless the story is about them);</br>
+  - Deceased historical figures (unless the story is about them);</br>
+  - Interpreters (Code the person being interviewed as if they spoke without an interpreter).</br>
+'''))
+
+# TODO - I am not sure whether all this force_text stuff will bypass translation or not. Without it, labels are shown containing __proxy__ objects
+field_equality_rights = models.PositiveIntegerField(choices=YESNO, verbose_name=_('Reference to gender equality / human rights legislation/ policy'), help_text=_('''Scan the full news story and code 'Yes' if it quotes or makes reference to any piece of legislation or policy that promotes gender equality or human rights.'''))
+field_comments = lambda x : models.TextField(verbose_name=_('Describe any photographs included in the story and the conclusions you draw from them.'), blank=True)
+field_about_women = lambda x : models.CharField(max_length=1, choices=YESNO, verbose_name=_('Is the %s about a particular woman or group of women?' % force_text(x)))
+field_inequality_women = lambda x : models.PositiveIntegerField(choices=AGREE_DISAGREE, verbose_name=_('This %s clearly highlights issues of inequality between women and men' % force_text(x) ))
+field_stereotypes = lambda x : models.PositiveIntegerField(choices=AGREE_DISAGREE, verbose_name='Stereotypes', help_text=_('This %s clearly challenges gender stereotypes' % force_text(x)))
+field_further_analysis = lambda x : models.CharField(max_length=1, choices=YESNO, verbose_name=_('Does this %s warrant further analysis?' % force_text(x)), help_text=_('<br><br>A %s warrants further analysis if it clearly perpetuates or clearly challenges gender stereotypes, if it includes women''s opinions in a remarkable way, if it contributes to an understanding of inequalities between women and men, if it mentions or calls attention to women''s human rights, etc. Consult the guide for further explanation' % force_text(x)))
+field_url_and_multimedia = lambda x : models.TextField(verbose_name=_('Copy and paste the URL of the %s. Describe any photographs, images, other multimedia features included in the %s. Note down the conclusions you draw from the images, audio and video.' % (force_text(x), force_text(x))), blank=True)
+
+field_num_female_anchors = models.PositiveIntegerField(choices=NUMBER_OPTIONS, verbose_name=_('Number of female anchors'), help_text=_('The anchor (or announcer, or presenter) is the person who introduces the newscast and the individual items within it. <strong>Note: You should only include the anchors/announcers. Do not include reporters or other'))
+
+field_num_male_anchors = models.PositiveIntegerField(choices=NUMBER_OPTIONS, verbose_name=_('Number of male anchors'), help_text=_('The anchor (or announcer, or presenter) is the person who introduces the newscast and the individual items within it. <strong>Note: You should only include the anchors/announcers. Do not include reporters or other journalists</strong>'))
+field_item_number = models.PositiveIntegerField(choices=NUMBER_OPTIONS, verbose_name=_('Item Number'), help_text=_('Write in the number that describes the position of the story within the newscast. E.g. the first story in the newscast is item 1; the seventh story is item 7.'))
