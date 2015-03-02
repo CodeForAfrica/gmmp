@@ -10,12 +10,13 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+from os import environ as env
 import django.conf.global_settings as DEFAULT_SETTINGS
 import dj_database_url
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-DATABASES['default'] =  dj_database_url.config()
+DATABASES = {'default': dj_database_url.config()}
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Quick-start development settings - unsuitable for production
