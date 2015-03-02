@@ -75,16 +75,6 @@ WSGI_APPLICATION = 'gmmp.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': env.get('DJANGO_DB_ENGINE', 'django.db.backends.postgresql_psycopg2'),
-        'NAME': env.get('DJANGO_DB_NAME', 'gmmp'),
-        'USER': env.get('DJANGO_DB_USER', 'gmmp'),
-        'PASSWORD': env.get('DJANGO_DB_PASS', 'gmmp'),
-        'HOST': env.get('DJANGO_DB_HOST', 'localhost'),
-    }
-}
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 
