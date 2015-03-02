@@ -21,14 +21,15 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = env.get('DJANGO_DEBUG', 'true') == 'true'
+
 # SECURITY WARNING: keep the secret key used in production secret!
 if DEBUG:
     SECRET_KEY = 'tm-v^$krw+%-vk5-u31dpini-e5dw(mi_pk0%s5g$$m%xp(r+r'
 else:
     SECRET_KEY = env.get('DJANGO_SECRET_KEY')
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env.get('DJANGO_DEBUG', 'true') == 'true'
 
 TEMPLATE_DEBUG = True
 
