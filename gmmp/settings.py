@@ -14,17 +14,30 @@ from os import environ as env
 import django.conf.global_settings as DEFAULT_SETTINGS
 import dj_database_url
 
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = env.get('DJANGO_DEBUG', 'true') == 'true'
+
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-DATABASES = {'default': dj_database_url.config()}
+if DEBUG:
+    DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'gmmp',                      
+        'USER': 'gmmp',
+        'PASSWORD': 'gmmp',
+        'HOST': 'localhost'
+    }
+}
+else:
+    DATABASES['default'] =  dj_database_url.config()
+
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env.get('DJANGO_DEBUG', 'true') == 'true'
 
 # SECURITY WARNING: keep the secret key used in production secret!
 if DEBUG:
