@@ -19,10 +19,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'tm-v^$krw+%-vk5-u31dpini-e5dw(mi_pk0%s5g$$m%xp(r+r'
+if DEBUG:
+    SECRET_KEY = 'tm-v^$krw+%-vk5-u31dpini-e5dw(mi_pk0%s5g$$m%xp(r+r'
+else:
+    SECRET_KEY = env.get('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.get('DJANGO_DEBUG', 'true') == 'true'
 
 TEMPLATE_DEBUG = True
 
@@ -70,11 +73,11 @@ WSGI_APPLICATION = 'gmmp.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'gmmp',
-        'USER': 'gmmp',
-        'PASSWORD': 'gmmp',
-        'HOST': 'localhost'
+        'ENGINE': env.get('DJANGO_DB_ENGINE', 'django.db.backends.postgresql_psycopg2'),
+        'NAME': env.get('DJANGO_DB_NAME', 'gmmp'),
+        'USER': env.get('DJANGO_DB_USER', 'gmmp'),
+        'PASSWORD': env.get('DJANGO_DB_PASS', 'gmmp'),
+        'HOST': env.get('DJANGO_DB_HOST', 'localhost'),
     }
 }
 
