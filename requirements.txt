@@ -1,0 +1,12 @@
+Django==1.7.4
+argparse==1.2.1
+chardet==2.0.1
+colorama==0.2.5
+django-countries==3.2
+django-grappelli==2.6.3
+django-guardian==1.2.5
+html5lib==0.999
+requests==2.2.1
+six==1.5.2
+urllib3==1.7.1
+wsgiref==0.1.2
