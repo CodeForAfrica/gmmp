@@ -4,6 +4,7 @@ import models
 
 class InternetJournalistInline(admin.TabularInline):
     model = models.InternetNewsJournalist
+    extra = 1
     verbose_name_plural = _('''Add a new record for each journalist who: 
 (i) wrote the story and whose name appears, or 
 (ii) is visible in video clips, or 
@@ -13,6 +14,7 @@ Do not code: (i) Unnamed journalists (e.g. ''Staff reporter'', ''Our corresponde
 
 class TwitterJournalistInline(admin.TabularInline):
     model = models.TwitterJournalist
+    extra = 1
     verbose_name_plural = _('''
         Code the journalist to whom the twitter account belongs if the account does not belong to the media house. Code any
 journalist referenced in the tweet. Code each journalist/reporter in a separate row.
@@ -21,6 +23,7 @@ Do not code: (i) Unnamed journalists (e.g. 'Staff reporter', 'Our correspondent'
 
 class NewspaperJournalistInline(admin.TabularInline):
     model = models.NewspaperJournalist
+    extra = 1
     verbose_name_plural = _('''
     For each newspaper story, you should code each journalist/reporter who wrote the story and whose name appears.
 <strong>Do not code:</strong>
@@ -30,6 +33,7 @@ News agencies
 
 class TelevisionJournalistInline(admin.TabularInline):
     model = models.TelevisionJournalist
+    extra = 1
     verbose_name_plural = _('''Add a new record for each journalist who: 
 (i) wrote the story and whose name appears, or 
 (ii) is visible in video clips, or 
@@ -39,6 +43,7 @@ Do not code: (i) Unnamed journalists (e.g. ''Staff reporter'', ''Our corresponde
 
 class RadioJournalistInline(admin.TabularInline):
     model = models.RadioJournalist
+    extra = 1
     verbose_name_plural = _('''Add a new record for each journalist who: 
 (i) wrote the story and whose name appears, or 
 (ii) is visible in video clips, or 
@@ -51,6 +56,7 @@ class JournalistAdmin(admin.ModelAdmin):
 
 class InternetNewsPersonInline(admin.StackedInline):
     model = models.InternetNewsPerson
+    extra = 1
     verbose_name_plural = _('People in the news')
     verbose_name = _('Person in the news')
     # Setting the unicode to blank in the admin
@@ -74,21 +80,25 @@ class InternetNewsPersonInline(admin.StackedInline):
 
 class TwitterPersonInline(admin.StackedInline):
     model = models.TwitterPerson
+    extra = 1
     verbose_name_plural = _('People in the tweet')
     verbose_name = _('Person mentioned in the tweet')
 
 class NewspaperPersonInline(admin.StackedInline):
     model = models.NewspaperPerson
+    extra = 1
     verbose_name_plural = _('People in the article')
     verbose_name = _('Person mentioned in the article')
 
 class TelevisionPersonInline(admin.StackedInline):
     model = models.TelevisionPerson
+    extra = 1
     verbose_name_plural = _('People in the broadcast')
     verbose_name = _('Person mentioned in the broadcast')
 
 class RadioPersonInline(admin.StackedInline):
     model = models.RadioPerson
+    extra = 1
     verbose_name_plural = _('People in the broadcast')
     verbose_name = _('Person mentioned in the broadcast')
 
