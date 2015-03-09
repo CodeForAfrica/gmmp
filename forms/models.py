@@ -6,6 +6,17 @@ class InternetNewsJournalist(Journalist):
     internetnews_sheet = models.ForeignKey('InternetNewsSheet')
 
 class InternetNewsPerson(Person):
+    sex = field_sex
+    age = field_age
+    occupation = field_occupation
+    function = field_function
+    family_role = field_family_role
+    victim_or_survivor = field_victim_or_survivor
+    victim_of = field_victim_of
+    survivor_of = field_survivor_of
+    is_quoted = field_is_quoted
+    is_photograph = field_is_photograph
+
     internetnews_sheet = models.ForeignKey('InternetNewsSheet')
 
 class InternetNewsSheet(SheetModel):
@@ -45,6 +56,9 @@ class TwitterJournalist(Journalist):
     twitter_sheet = models.ForeignKey('TwitterSheet')
 
 class TwitterPerson(Person):
+    sex = field_sex
+    is_photograph = field_is_photograph
+
     twitter_sheet = models.ForeignKey('TwitterSheet')
 
 class TwitterSheet(SheetModel):
@@ -72,6 +86,17 @@ class NewspaperJournalist(Journalist):
     newspaper_sheet = models.ForeignKey('NewspaperSheet')
 
 class NewspaperPerson(Person):
+    sex = field_sex
+    age = field_age
+    occupation = field_occupation
+    function = field_function
+    family_role = field_family_role
+    victim_or_survivor = field_victim_or_survivor
+    victim_of = field_victim_of
+    survivor_of = field_survivor_of
+    is_quoted = field_is_quoted
+    is_photograph = field_is_photograph
+
     newspaper_sheet = models.ForeignKey('NewspaperSheet')
 
 class NewspaperSheet(SheetModel):
@@ -92,6 +117,15 @@ class NewspaperSheet(SheetModel):
     further_analysis = field_further_analysis('story')
 
 class TelevisionPerson(Person):
+    sex = field_sex
+    age = field_age
+    occupation = field_occupation
+    function = field_function
+    family_role = field_family_role
+    victim_or_survivor = field_victim_or_survivor
+    victim_of = field_victim_of
+    survivor_of = field_survivor_of
+
     television_sheet = models.ForeignKey('TelevisionSheet')
 
 class TelevisionJournalist(BroadcastJournalist):
@@ -100,10 +134,7 @@ class TelevisionJournalist(BroadcastJournalist):
 class TelevisionSheet(SheetModel):
     station_name = models.CharField(max_length=255, verbose_name=_('Name of TV Station'), help_text=_('''Name of the television channel or station : Be as specific as possible. E.g. if the television company is called RTV, and if the newscast is broadcast on its second channel, write in 'RTV-2' '''))
 
-    class Meta:
-        verbose_name = _('Television Submission')
-
-    television_station = models.CharField(max_length=255, verbose_name=_('Television Station'), help_text=_('''Be as specific as possible. E.g. if the television company is called RTV, and if the newscast is broadcast on its second channel, write in 'RTV-2' '''))
+    television_channel = models.CharField(max_length=255, verbose_name=_('Channel'), help_text=_('''Be as specific as possible. E.g. if the television company is called RTV, and if the newscast is broadcast on its second channel, write in 'RTV-2' '''))
     start_time = models.TimeField(verbose_name=_('Time of Broadcast'))
     num_female_anchors = field_num_female_anchors
     num_male_anchors = field_num_male_anchors
@@ -116,7 +147,19 @@ class TelevisionSheet(SheetModel):
     stereotypes = field_stereotypes(_('story'))
     further_analysis = field_further_analysis('story')
 
+    class Meta:
+        verbose_name = _('Television Submission')
+
+
 class RadioPerson(Person):
+    sex = field_sex
+    occupation = field_occupation
+    function = field_function
+    family_role = field_family_role
+    victim_or_survivor = field_victim_or_survivor
+    victim_of = field_victim_of
+    survivor_of = field_survivor_of
+
     radio_sheet = models.ForeignKey('RadioSheet')
 
 class RadioJournalist(BroadcastJournalist):

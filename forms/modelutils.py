@@ -205,31 +205,6 @@ class SheetModel(models.Model):
 
 
 class Person(models.Model):
-    sex = models.PositiveIntegerField(choices=GENDER, verbose_name=_('Sex'))
-    age = models.PositiveIntegerField(choices=AGES, verbose_name=_('Age (person appears)'))
-    occupation = models.PositiveIntegerField(choices=OCCUPATION, verbose_name=_('Occupation or Position'))
-    occupation_other = models.TextField(verbose_name=_('Other Occupation'), blank=True)
-    function = models.PositiveIntegerField(choices=FUNCTION, verbose_name=_('Function in the news story'))
-    # TODO - need more information here
-    family_role = models.CharField(max_length=1, choices=YESNO, verbose_name=_('Family Role Given.'), help_text=_('''Code yes only if the word 'wife', 'husband' etc is actually used to describe the person.'''))
-    victim_or_survivor = models.CharField(max_length=1, choices=YESNO, 
-        verbose_name=_('Does the story identify the person as either a victim or survivor?'),
-        help_text=_('''<p>You should code a person as a <strong>victim</strong> either if the word 'victim' is used to describe her/him, or if the story Implies that the person is a victim - e.g. by using language or images that evoke particular emotions such as shock, horror, pity for the person.</p><p>You should code a person as a <strong>survivor</strong> either if the word 'survivor' is used to describe her/him, or if the story implies that the person is a survivor - e.g. by using language or images that evoke particular emotions such as admiration or respect for the person.</p>''')
-        )
-
-    # TODO - hide this if no to the previous question
-    victim_of = models.PositiveIntegerField(choices=VICTIM_OF, verbose_name=_('The story identifies the person as a victim of:'))
-    victim_comments = models.TextField(verbose_name=_('Add comments if ''Other Victim'' was selected above'), blank=True)
-
-    # TODO - hide this if no to the previous question
-    survivor_of = models.PositiveIntegerField(choices=SURVIVOR_OF, verbose_name=_('The story identifies the person as a survivor of:'))
-    survivor_comments = models.TextField(verbose_name=_('Add comments if ''Other Survivor'' was selected above'), blank=True)
-    is_quoted = models.CharField(max_length=1, choices=YESNO, 
-        verbose_name=_('Is the person directly quoted'), 
-        help_text=_('<p>A person is <strong>directly quoted</strong> if their own words are printed, e.g. "The war against terror is our first priority" said President Bush.</p><p>If the story paraphrases what the person said, that is not a direct quote, e.g. President Bush said that top priority would be given to fighting the war against terror.</p>')
-    )
-    is_photograph = models.PositiveIntegerField(choices=IS_PHOTOGRAPH, verbose_name=_('Is there a photograph of the person in the story?'))
-
     class Meta:
         verbose_name = _('Person')
         abstract = True
@@ -284,3 +259,22 @@ field_num_female_anchors = models.PositiveIntegerField(choices=ZNUMBER_OPTIONS, 
 
 field_num_male_anchors = models.PositiveIntegerField(choices=ZNUMBER_OPTIONS, verbose_name=_('Number of male anchors'), help_text=_('The anchor (or announcer, or presenter) is the person who introduces the newscast and the individual items within it. <strong>Note: You should only include the anchors/announcers. Do not include reporters or other journalists</strong>'))
 field_item_number = models.PositiveIntegerField(choices=NUMBER_OPTIONS, verbose_name=_('Item Number'), help_text=_('Write in the number that describes the position of the story within the newscast. E.g. the first story in the newscast is item 1; the seventh story is item 7.'))
+field_sex = models.PositiveIntegerField(choices=GENDER, verbose_name=_('Sex'))
+field_age = models.PositiveIntegerField(choices=AGES, verbose_name=_('Age (person appears)'))
+field_occupation = models.PositiveIntegerField(choices=OCCUPATION, verbose_name=_('Occupation or Position'))
+field_occupation_other = models.TextField(verbose_name=_('Other Occupation'), blank=True)
+field_function = models.PositiveIntegerField(choices=FUNCTION, verbose_name=_('Function in the news story'))
+field_family_role = models.CharField(max_length=1, choices=YESNO, verbose_name=_('Family Role Given.'), help_text=_('''Code yes only if the word 'wife', 'husband' etc is actually used to describe the person.'''))
+field_victim_or_survivor = models.CharField(max_length=1, choices=YESNO, 
+    verbose_name=_('Does the story identify the person as either a victim or survivor?'),
+    help_text=_('''<p>You should code a person as a <strong>victim</strong> either if the word 'victim' is used to describe her/him, or if the story Implies that the person is a victim - e.g. by using language or images that evoke particular emotions such as shock, horror, pity for the person.</p><p>You should code a person as a <strong>survivor</strong> either if the word 'survivor' is used to describe her/him, or if the story implies that the person is a survivor - e.g. by using language or images that evoke particular emotions such as admiration or respect for the person.</p>''')
+    )
+field_victim_of = models.PositiveIntegerField(choices=VICTIM_OF, verbose_name=_('The story identifies the person as a victim of:'))
+field_victim_comments = models.TextField(verbose_name=_('Add comments if ''Other Victim'' was selected above'), blank=True)
+field_survivor_of = models.PositiveIntegerField(choices=SURVIVOR_OF, verbose_name=_('The story identifies the person as a survivor of:'))
+field_survivor_comments = models.TextField(verbose_name=_('Add comments if ''Other Survivor'' was selected above'), blank=True)
+field_is_quoted = models.CharField(max_length=1, choices=YESNO, 
+    verbose_name=_('Is the person directly quoted'), 
+    help_text=_('<p>A person is <strong>directly quoted</strong> if their own words are printed, e.g. "The war against terror is our first priority" said President Bush.</p><p>If the story paraphrases what the person said, that is not a direct quote, e.g. President Bush said that top priority would be given to fighting the war against terror.</p>')
+)
+field_is_photograph = models.PositiveIntegerField(choices=IS_PHOTOGRAPH, verbose_name=_('Is there a photograph of the person in the story?'))

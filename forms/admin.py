@@ -65,18 +65,21 @@ class InternetNewsPersonInline(admin.StackedInline):
     fieldsets = [
 
         ('General', {
-            'fields': ('sex', 'age', 'occupation', 'occupation_other', 'family_role')
-        }),
-        ('News', {
-            'fields': ('function', 'is_quoted', 'is_photograph')
+            'fields': ('sex', 'age', 'occupation', 'function', 'family_role')
         }),
         ('Victim or Survivor', {
-            'fields': ('victim_or_survivor', 'victim_of', 'victim_comments', 'survivor_of', 'survivor_comments')
-        })
+            'fields': ('victim_or_survivor', 'victim_of', 'survivor_of')
+        }),
+        ('News', {
+            'fields': ('is_quoted', 'is_photograph')
+        }),
     ]
 
     class Media:
-        js = ['forms/admin/move_fields.js']
+        js = [
+            'forms/admin/move_fields.js',
+            'forms/admin/move_internet_fields.js'
+        ]
 
 class TwitterPersonInline(admin.StackedInline):
     model = models.TwitterPerson
@@ -100,7 +103,7 @@ class RadioPersonInline(admin.StackedInline):
     model = models.RadioPerson
     extra = 1
     verbose_name_plural = _('People in the broadcast')
-    verbose_name = _('Person mentioned in the broadcast')
+    verbose_name = _('Person mentioned In the broadcast')
 
 class TwitterSheetAdmin(admin.ModelAdmin):
     inlines = [
@@ -121,11 +124,18 @@ class TwitterSheetAdmin(admin.ModelAdmin):
             'fields': (
                 'monitor', 'media_name', 'twitter_handle', 'retweet', 'topic'
             ),
+            'classes' : ('story-fieldset',),
         }),
         ('Analysis', {
             'fields' : ('about_women', 'stereotypes', 'further_analysis', 'url_and_multimedia', ),
         }),
     ]
+
+    class Media:
+        js = [
+            'forms/admin/move_fields.js',
+            'forms/admin/move_twitter_fields.js'
+        ]
 
 class InternetNewsSheetAdmin(admin.ModelAdmin):
     inlines = [
@@ -151,6 +161,7 @@ class InternetNewsSheetAdmin(admin.ModelAdmin):
                 'monitor', 'website_name', 'website_url', 'time_accessed', 'offline_presence', 'webpage_layer_no',
                 'topic', 'topic_comments', 'scope', 'shared_via_twitter', 'shared_on_facebook', 'equality_rights'
             ),
+            'classes' : ('story-fieldset',),
         }),
         ('Source', {
             'fields' : ('person_secondary',),
@@ -160,21 +171,6 @@ class InternetNewsSheetAdmin(admin.ModelAdmin):
             'fields' : ('about_women', 'inequality_women', 'stereotypes', 'further_analysis', 'url_and_multimedia', 'comments'),
         }),
     ]
-
-class NewspaperSheetAdmin(admin.ModelAdmin):
-    inlines = [
-        NewspaperPersonInline,
-    ]
-
-    radio_fields = {
-        'person_secondary': admin.HORIZONTAL,
-    }
-
-    exclude = ['sources']
-
-    class Media:
-        # TODO annoying that I need one js file for each person model
-        js = ['forms/admin/move_fields_newspaper.js']
 
 class NewspaperSheetAdmin(admin.ModelAdmin):
     inlines = [
@@ -197,6 +193,7 @@ class NewspaperSheetAdmin(admin.ModelAdmin):
                 'monitor', 'newspaper_name', 'page_number',
                 'topic', 'scope', 'space', 'equality_rights'
             ),
+            'classes' : ('story-fieldset',),
         }),
         ('Source', {
             'fields' : ('person_secondary',),
@@ -206,6 +203,13 @@ class NewspaperSheetAdmin(admin.ModelAdmin):
             'fields' : ('about_women', 'inequality_women', 'stereotypes', 'further_analysis', 'comments'),
         }),
     ]
+
+    class Media:
+        js = [
+            'forms/admin/move_fields.js',
+            'forms/admin/move_fields_newspaper.js'
+        ]
+
 
 class TelevisionSheetAdmin(admin.ModelAdmin):
     inlines = [
@@ -224,7 +228,7 @@ class TelevisionSheetAdmin(admin.ModelAdmin):
     fieldsets = [
         ('Basic Information', {
             'fields': (
-                'monitor', 'television_station', 'start_time',
+                'monitor', 'station_name', 'television_channel', 'start_time',
                 'num_female_anchors', 'num_male_anchors'
             ),
         }),
@@ -232,11 +236,18 @@ class TelevisionSheetAdmin(admin.ModelAdmin):
             'fields': (
                 'item_number', 'topic', 'scope', 'equality_rights'
             ),
+            'classes' : ('story-fieldset',),
         }),
         ('Analysis', {
             'fields' : ('about_women', 'inequality_women', 'stereotypes', 'further_analysis'),
         }),
     ]
+
+    class Media:
+        js = [
+            'forms/admin/move_fields.js',
+            'forms/admin/move_television_fields.js'
+        ]
 
 class RadioSheetAdmin(admin.ModelAdmin):
     inlines = [
@@ -263,11 +274,18 @@ class RadioSheetAdmin(admin.ModelAdmin):
             'fields': (
                 'item_number', 'topic', 'scope', 'equality_rights'
             ),
+            'classes' : ('story-fieldset',),
         }),
         ('Analysis', {
             'fields' : ('about_women', 'inequality_women', 'stereotypes', 'further_analysis'),
         }),
     ]
+
+    class Media:
+        js = [
+            'forms/admin/move_fields.js',
+            'forms/admin/move_radio_fields.js'
+        ]
 
 admin.site.register(models.InternetNewsSheet, InternetNewsSheetAdmin)
 admin.site.register(models.TwitterSheet, TwitterSheetAdmin)
