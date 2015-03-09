@@ -10,23 +10,44 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+from os import environ as env
 import django.conf.global_settings as DEFAULT_SETTINGS
+import dj_database_url
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = env.get('DJANGO_DEBUG', 'true') == 'true'
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
+if DEBUG:
+    DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'gmmp',                      
+        'USER': 'gmmp',
+        'PASSWORD': 'gmmp',
+        'HOST': 'localhost'
+    }
+}
+else:
+    DATABASES['default'] =  dj_database_url.config()
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'tm-v^$krw+%-vk5-u31dpini-e5dw(mi_pk0%s5g$$m%xp(r+r'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+
+# SECURITY WARNING: keep the secret key used in production secret!
+if DEBUG:
+    SECRET_KEY = 'tm-v^$krw+%-vk5-u31dpini-e5dw(mi_pk0%s5g$$m%xp(r+r'
+else:
+    SECRET_KEY = env.get('DJANGO_SECRET_KEY')
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -68,16 +89,6 @@ WSGI_APPLICATION = 'gmmp.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'gmmp',
-        'USER': 'gmmp',
-        'PASSWORD': 'gmmp',
-        'HOST': 'localhost'
-    }
-}
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 
@@ -95,8 +106,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
+STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
+
 GRAPPELLI_ADMIN_TITLE='Global Media Monitoring Project'
 LOCALE_PATHS = [
     os.path.join(BASE_DIR, 'locale'),
