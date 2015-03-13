@@ -59,6 +59,7 @@ class JournalistAdmin(admin.ModelAdmin):
 
 class InternetNewsPersonInline(admin.StackedInline):
     model = models.InternetNewsPerson
+    inline_classes = ('grp-collapse grp-open',)
     extra = 1
     verbose_name_plural = _('People in the news')
     verbose_name = _('Person in the news')
@@ -86,24 +87,28 @@ class InternetNewsPersonInline(admin.StackedInline):
 
 class TwitterPersonInline(admin.StackedInline):
     model = models.TwitterPerson
+    inline_classes = ('grp-collapse grp-open',)
     extra = 1
     verbose_name_plural = _('People in the tweet')
     verbose_name = _('Person mentioned in the tweet')
 
 class NewspaperPersonInline(admin.StackedInline):
     model = models.NewspaperPerson
+    inline_classes = ('grp-collapse grp-open',)
     extra = 1
     verbose_name_plural = _('People in the article')
     verbose_name = _('Person mentioned in the article')
 
 class TelevisionPersonInline(admin.StackedInline):
     model = models.TelevisionPerson
+    inline_classes = ('grp-collapse grp-open',)
     extra = 1
     verbose_name_plural = _('People in the broadcast')
     verbose_name = _('Person mentioned in the broadcast')
 
 class RadioPersonInline(admin.StackedInline):
     model = models.RadioPerson
+    inline_classes = ('grp-collapse grp-open',)
     extra = 1
     verbose_name_plural = _('People in the broadcast')
     verbose_name = _('Person mentioned In the broadcast')
