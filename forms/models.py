@@ -43,7 +43,6 @@ class InternetNewsSheet(SheetModel):
     stereotypes = field_stereotypes('story')
     further_analysis = field_further_analysis(_('story'))
     url_and_multimedia = field_url_and_multimedia('story')
-    comments = field_comments(_('Story'))
 
     def __unicode__(self):
         return self.website_url
@@ -74,7 +73,7 @@ class TwitterSheet(SheetModel):
         help_text=_('Only retweets from the same media house can be coded. Do not code retweets from other news providers')
     )
     topic = field_topic
-    comments = field_comments(_('tweet'))
+    comments = field_comments
     url_and_multimedia = field_url_and_multimedia('tweet')
 
     # Analysis
@@ -110,7 +109,7 @@ class NewspaperSheet(SheetModel):
     space = models.PositiveIntegerField(choices=SPACE, verbose_name=_('Space'))
     equality_rights = field_equality_rights
     person_secondary = field_person_secondary
-    comments = field_comments(_('story'))
+    comments = field_comments
     about_women = field_about_women(_('story'))
     inequality_women = field_inequality_women(_('story'))
     stereotypes = field_stereotypes(_('story'))
@@ -146,6 +145,7 @@ class TelevisionSheet(SheetModel):
     inequality_women = field_inequality_women(_('story'))
     stereotypes = field_stereotypes(_('story'))
     further_analysis = field_further_analysis('story')
+    comments = field_comments
 
     class Meta:
         verbose_name = _('Television Submission')
@@ -179,6 +179,7 @@ class RadioSheet(SheetModel):
     inequality_women = field_inequality_women(_('story'))
     stereotypes = field_stereotypes(_('story'))
     further_analysis = field_further_analysis('story')
+    comments = field_comments
 
     class Meta:
         verbose_name = _('Radio Submission')

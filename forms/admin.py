@@ -20,6 +20,7 @@ class TwitterJournalistInline(admin.TabularInline):
 journalist referenced in the tweet. Code each journalist/reporter in a separate row.
 Do not code: (i) Unnamed journalists (e.g. 'Staff reporter', 'Our correspondent'); (ii) News agencies
 ''')
+    exclude = ('age',)
 
 class NewspaperJournalistInline(admin.TabularInline):
     model = models.NewspaperJournalist
@@ -30,6 +31,7 @@ class NewspaperJournalistInline(admin.TabularInline):
 Unnamed journalists (e.g. 'Staff reporter', 'Our correspondent')
 News agencies
 ''')
+    exclude = ('age',)                
 
 class TelevisionJournalistInline(admin.TabularInline):
     model = models.TelevisionJournalist
@@ -50,6 +52,7 @@ class RadioJournalistInline(admin.TabularInline):
 (iii) can be heard in audio clips. 
 
 Do not code: (i) Unnamed journalists (e.g. ''Staff reporter'', ''Our correspondent''); (ii) News agencies.''')
+    exclude = ('age',)
 
 class JournalistAdmin(admin.ModelAdmin):
     pass
@@ -120,14 +123,22 @@ class TwitterSheetAdmin(admin.ModelAdmin):
 
     fieldsets = [
 
+        ('Basic Information', {
+            'fields': (
+                'monitor', 'country', 'media_name', 'twitter_handle'
+            ),
+        }),
         ('Story', {
             'fields': (
-                'monitor', 'media_name', 'twitter_handle', 'retweet', 'topic'
+                'retweet', 'topic'
             ),
             'classes' : ('story-fieldset',),
         }),
         ('Analysis', {
-            'fields' : ('about_women', 'stereotypes', 'further_analysis', 'url_and_multimedia', ),
+            'fields' : ('about_women', 'stereotypes', 'further_analysis'),
+        }),
+        ('Comments & Explanations', {
+            'fields' : ('url_and_multimedia', ),
         }),
     ]
 
@@ -156,10 +167,15 @@ class InternetNewsSheetAdmin(admin.ModelAdmin):
     }
 
     fieldsets = [
+        ('Basic Information', {
+            'fields': (
+                'monitor', 'country', 'website_name', 'website_url', 'time_accessed', 'offline_presence'
+            ),
+        }),
         ('Story', {
             'fields': (
-                'monitor', 'website_name', 'website_url', 'time_accessed', 'offline_presence', 'webpage_layer_no',
-                'topic', 'topic_comments', 'scope', 'shared_via_twitter', 'shared_on_facebook', 'equality_rights'
+                'webpage_layer_no', 'topic', 'topic_comments', 'scope', 'shared_via_twitter',
+                'shared_on_facebook', 'equality_rights'
             ),
             'classes' : ('story-fieldset',),
         }),
@@ -168,7 +184,10 @@ class InternetNewsSheetAdmin(admin.ModelAdmin):
             'classes' : ('source-fieldset',),
         }),
         ('Analysis', {
-            'fields' : ('about_women', 'inequality_women', 'stereotypes', 'further_analysis', 'url_and_multimedia', 'comments'),
+            'fields' : ('about_women', 'inequality_women', 'stereotypes', 'further_analysis'),
+        }),
+        ('Comments & Explanations', {
+            'fields' : ('url_and_multimedia',),
         }),
     ]
 
@@ -188,10 +207,14 @@ class NewspaperSheetAdmin(admin.ModelAdmin):
     }
 
     fieldsets = [
+        ('Basic Information', {
+            'fields': (
+                'monitor', 'country', 'newspaper_name'
+            ),
+        }),
         ('Story', {
             'fields': (
-                'monitor', 'newspaper_name', 'page_number',
-                'topic', 'scope', 'space', 'equality_rights'
+                'page_number', 'topic', 'scope', 'space', 'equality_rights'
             ),
             'classes' : ('story-fieldset',),
         }),
@@ -200,7 +223,10 @@ class NewspaperSheetAdmin(admin.ModelAdmin):
             'classes' : ('source-fieldset',),
         }),
         ('Analysis', {
-            'fields' : ('about_women', 'inequality_women', 'stereotypes', 'further_analysis', 'comments'),
+            'fields' : ('about_women', 'inequality_women', 'stereotypes', 'further_analysis'),
+        }),
+        ('Comments & Explanations', {
+            'fields' : ('comments',),
         }),
     ]
 
@@ -228,7 +254,7 @@ class TelevisionSheetAdmin(admin.ModelAdmin):
     fieldsets = [
         ('Basic Information', {
             'fields': (
-                'monitor', 'station_name', 'television_channel', 'start_time',
+                'monitor', 'country', 'station_name', 'television_channel', 'start_time',
                 'num_female_anchors', 'num_male_anchors'
             ),
         }),
@@ -240,6 +266,9 @@ class TelevisionSheetAdmin(admin.ModelAdmin):
         }),
         ('Analysis', {
             'fields' : ('about_women', 'inequality_women', 'stereotypes', 'further_analysis'),
+        }),
+        ('Comments & Explanations', {
+            'fields' : ('comments',),
         }),
     ]
 
@@ -266,7 +295,7 @@ class RadioSheetAdmin(admin.ModelAdmin):
     fieldsets = [
         ('Basic Information', {
             'fields': (
-                'monitor', 'station_name', 'start_time',
+                'monitor', 'country', 'station_name', 'start_time',
                 'num_female_anchors', 'num_male_anchors'
             ),
         }),
@@ -278,6 +307,9 @@ class RadioSheetAdmin(admin.ModelAdmin):
         }),
         ('Analysis', {
             'fields' : ('about_women', 'inequality_women', 'stereotypes', 'further_analysis'),
+        }),
+        ('Comments & Explanations', {
+            'fields' : ('comments',),
         }),
     ]
 

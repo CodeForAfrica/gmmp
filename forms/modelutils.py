@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 from django.utils.encoding import force_text
+from django_countries.fields import CountryField
 
 NUMBER_OPTIONS = zip(range(1, 10), range(1, 10))
 ZNUMBER_OPTIONS = zip(range(0, 10), range(0, 10))
@@ -199,6 +200,7 @@ TV_ROLE = [
 
 class SheetModel(models.Model):
     monitor = models.ForeignKey(User, null=False)
+    country = CountryField(null=True)
 
     class Meta:
         abstract = True
@@ -248,7 +250,7 @@ field_person_secondary = models.PositiveIntegerField(choices=SOURCE, verbose_nam
 
 # TODO - I am not sure whether all this force_text stuff will bypass translation or not. Without it, labels are shown containing __proxy__ objects
 field_equality_rights = models.CharField(choices=YESNO, verbose_name=_('Reference to gender equality / human rights legislation/ policy'), max_length=1, help_text=_('''Scan the full news story and code 'Yes' if it quotes or makes reference to any piece of legislation or policy that promotes gender equality or human rights.'''))
-field_comments = lambda x : models.TextField(verbose_name=_('Describe any photographs included in the story and the conclusions you draw from them.'), blank=True)
+field_comments = models.TextField(verbose_name=_('Describe any photographs included in the story and the conclusions you draw from them.'), blank=True)
 field_about_women = lambda x : models.CharField(max_length=1, choices=YESNO, verbose_name=_('Is the %s about a particular woman or group of women?' % force_text(x)))
 field_inequality_women = lambda x : models.PositiveIntegerField(choices=AGREE_DISAGREE, verbose_name=_('This %s clearly highlights issues of inequality between women and men' % force_text(x) ))
 field_stereotypes = lambda x : models.PositiveIntegerField(choices=AGREE_DISAGREE, verbose_name='Stereotypes', help_text=_('This %s clearly challenges gender stereotypes' % force_text(x)))
@@ -264,7 +266,7 @@ field_age = models.PositiveIntegerField(choices=AGES, verbose_name=_('Age (perso
 field_occupation = models.PositiveIntegerField(choices=OCCUPATION, verbose_name=_('Occupation or Position'))
 field_occupation_other = models.TextField(verbose_name=_('Other Occupation'), blank=True)
 field_function = models.PositiveIntegerField(choices=FUNCTION, verbose_name=_('Function in the news story'))
-field_family_role = models.CharField(max_length=1, choices=YESNO, verbose_name=_('Family Role Given.'), help_text=_('''Code yes only if the word 'wife', 'husband' etc is actually used to describe the person.'''))
+field_family_role = models.CharField(max_length=1, choices=YESNO, verbose_name=_('Family Role Given?'), help_text=_('''Code yes only if the word 'wife', 'husband' etc is actually used to describe the person.'''))
 field_victim_or_survivor = models.CharField(max_length=1, choices=YESNO, 
     verbose_name=_('Does the story identify the person as either a victim or survivor?'),
     help_text=_('''<p>You should code a person as a <strong>victim</strong> either if the word 'victim' is used to describe her/him, or if the story Implies that the person is a victim - e.g. by using language or images that evoke particular emotions such as shock, horror, pity for the person.</p><p>You should code a person as a <strong>survivor</strong> either if the word 'survivor' is used to describe her/him, or if the story implies that the person is a survivor - e.g. by using language or images that evoke particular emotions such as admiration or respect for the person.</p>''')
