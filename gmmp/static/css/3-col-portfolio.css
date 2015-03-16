@@ -59,5 +59,10 @@ footer {
 }
 
 body {
-    padding-top: 0px;
+    padding-top: 30px;
+}
+
+.user-greeting img {
+    margin-bottom: 3px;
+    margin-left: 3px;
 }
