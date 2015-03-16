@@ -113,7 +113,7 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
-GRAPPELLI_ADMIN_TITLE='Global Media Monitoring Project'
+GRAPPELLI_ADMIN_TITLE='<a href="/">Global Media Monitoring Project - 2015</a>'
 LOCALE_PATHS = [
     os.path.join(BASE_DIR, 'locale'),
     '/gmmp/forms/locale/',
