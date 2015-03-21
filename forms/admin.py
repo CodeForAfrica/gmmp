@@ -1,6 +1,35 @@
 from django.utils.translation import ugettext_lazy as _
 from django.contrib import admin
+from guardian.admin import GuardedModelAdmin
+from guardian import shortcuts
+from django.contrib.auth.models import Group
+
 import models
+
+class PermsAdmin(GuardedModelAdmin):
+
+    def save_model(self, request, obj, form, change):
+        obj.monitor = request.user
+        obj.save()
+        self.assign_permissions(request.user, obj)
+
+    def perms_queryset(self, request, perm):
+        if request.user.is_superuser:
+            return super(PermsAdmin, self).get_queryset(request)
+
+        return shortcuts.get_objects_for_user(request.user, [perm])
+
+    def get_queryset(self, request):
+        return self.perms_queryset(request, 'forms.change_%s' % self.permcode)
+
+    def assign_permissions(self, user, obj):
+        country = user.monitor.country
+        shortcuts.assign_perm('forms.change_%s' % self.permcode, user, obj)
+        shortcuts.assign_perm('forms.add_%s' % self.permcode, user, obj)
+        shortcuts.assign_perm('forms.delete_%s' % self.permcode, user, obj)
+
+        group, _ = Group.objects.get_or_create(name='%s_admin' % country)
+        shortcuts.assign_perm('forms.change_%s' % self.permcode, group, obj)
 
 class InternetJournalistInline(admin.TabularInline):
     model = models.InternetNewsJournalist
@@ -115,7 +144,12 @@ class RadioPersonInline(admin.StackedInline):
 
 basic_filters = ('country', 'topic', 'about_women', 'stereotypes', 'further_analysis')
 
-class TwitterSheetAdmin(admin.ModelAdmin):
+class TwitterSheetAdmin(PermsAdmin):
+
+    @property
+    def permcode(self):
+        return 'twittersheet'
+
     inlines = [
         TwitterPersonInline,
         TwitterJournalistInline,
@@ -156,7 +190,12 @@ class TwitterSheetAdmin(admin.ModelAdmin):
             'forms/admin/move_twitter_fields.js'
         ]
 
-class InternetNewsSheetAdmin(admin.ModelAdmin):
+class InternetNewsSheetAdmin(PermsAdmin):
+
+    @property
+    def permcode(self):
+        return 'internetnewssheet'
+
     inlines = [
         InternetJournalistInline,
         InternetNewsPersonInline,
@@ -201,7 +240,12 @@ class InternetNewsSheetAdmin(admin.ModelAdmin):
 
     list_filter = basic_filters
 
-class NewspaperSheetAdmin(admin.ModelAdmin):
+class NewspaperSheetAdmin(PermsAdmin):
+
+    @property
+    def permcode(self):
+        return 'newspapersheet'
+
     inlines = [
         NewspaperPersonInline,
         NewspaperJournalistInline,
@@ -249,7 +293,12 @@ class NewspaperSheetAdmin(admin.ModelAdmin):
         ]
 
 
-class TelevisionSheetAdmin(admin.ModelAdmin):
+class TelevisionSheetAdmin(PermsAdmin):
+
+    @property
+    def permcode(self):
+        return 'televisionsheet'
+
     inlines = [
         TelevisionPersonInline,
         TelevisionJournalistInline
@@ -292,7 +341,12 @@ class TelevisionSheetAdmin(admin.ModelAdmin):
             'forms/admin/move_television_fields.js'
         ]
 
-class RadioSheetAdmin(admin.ModelAdmin):
+class RadioSheetAdmin(PermsAdmin):
+
+    @property
+    def permcode(self):
+        return 'radiosheet'
+
     inlines = [
         RadioPersonInline,
         RadioJournalistInline,
