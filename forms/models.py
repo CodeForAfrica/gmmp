@@ -81,6 +81,9 @@ class TwitterSheet(SheetModel):
     stereotypes = field_stereotypes(_('tweet'))
     further_analysis = field_further_analysis(_('tweet'))
 
+    def __unicode__(self):
+        return self.twitter_handle
+
 class NewspaperJournalist(Journalist):
     newspaper_sheet = models.ForeignKey('NewspaperSheet')
 
@@ -115,6 +118,9 @@ class NewspaperSheet(SheetModel):
     stereotypes = field_stereotypes(_('story'))
     further_analysis = field_further_analysis('story')
 
+    def __unicode__(self):
+        return self.newspaper_name
+
 class TelevisionPerson(Person):
     sex = field_sex
     age = field_age
@@ -146,6 +152,9 @@ class TelevisionSheet(SheetModel):
     stereotypes = field_stereotypes(_('story'))
     further_analysis = field_further_analysis('story')
     comments = field_comments
+
+    def __unicode__(self):
+        return self.station_name
 
     class Meta:
         verbose_name = _('Television Submission')
@@ -180,6 +189,9 @@ class RadioSheet(SheetModel):
     stereotypes = field_stereotypes(_('story'))
     further_analysis = field_further_analysis('story')
     comments = field_comments
+
+    def __unicode__(self):
+        return self.station_name
 
     class Meta:
         verbose_name = _('Radio Submission')
