@@ -67,7 +67,8 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header"></h1>
-                <p>Welcome to the 2015 GMMP Database. Select one of the following forms to capture the relevant information.</p>
+                <h2>Welcome to the 2015 GMMP Database.</h2>
+                <p class=header-instructions>Select one of the following forms to capture the relevant information.</p>
             </div>
         </div>
         <!-- /.row -->
@@ -101,7 +102,7 @@
             <div class="col-md-4 portfolio-item">
                 <div class="box">
                     <a href="{% url 'admin:forms_twittersheet_add' %}">
-                        <div>Add Twitter Submission</div>
+                        <div>Add Tweets</div>
                         <i class="glyphicon glyphicon-plus-sign"></i>
                     </a>
                 </div>
@@ -141,8 +142,8 @@
             </div>
             <div class="col-md-4 portfolio-item">
                 <div class="box">
-                    <a href="{% url 'admin:index' %}">
-                        <div>All data collection</div>
+                    <a href="{% url 'admin:app_list' app_label='forms' %}">
+                        <div>View All Data</div>
                         <i class="glyphicon glyphicon-plus-sign"></i>
                     </a>
                 </div>
