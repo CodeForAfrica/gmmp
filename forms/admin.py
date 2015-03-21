@@ -113,6 +113,8 @@ class RadioPersonInline(admin.StackedInline):
     verbose_name_plural = _('People in the broadcast')
     verbose_name = _('Person mentioned In the broadcast')
 
+basic_filters = ('topic', 'about_women', 'stereotypes', 'further_analysis')
+
 class TwitterSheetAdmin(admin.ModelAdmin):
     inlines = [
         TwitterPersonInline,
@@ -146,6 +148,7 @@ class TwitterSheetAdmin(admin.ModelAdmin):
             'fields' : ('url_and_multimedia', ),
         }),
     ]
+    list_filter = basic_filters
 
     class Media:
         js = [
@@ -196,6 +199,8 @@ class InternetNewsSheetAdmin(admin.ModelAdmin):
         }),
     ]
 
+    list_filter = basic_filters
+
 class NewspaperSheetAdmin(admin.ModelAdmin):
     inlines = [
         NewspaperPersonInline,
@@ -234,6 +239,8 @@ class NewspaperSheetAdmin(admin.ModelAdmin):
             'fields' : ('comments',),
         }),
     ]
+
+    list_filter = basic_filters
 
     class Media:
         js = [
@@ -277,6 +284,8 @@ class TelevisionSheetAdmin(admin.ModelAdmin):
         }),
     ]
 
+    list_filter = basic_filters
+
     class Media:
         js = [
             'forms/admin/move_fields.js',
@@ -317,6 +326,8 @@ class RadioSheetAdmin(admin.ModelAdmin):
             'fields' : ('comments',),
         }),
     ]
+
+    list_filter = basic_filters
 
     class Media:
         js = [
