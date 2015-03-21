@@ -113,7 +113,7 @@ class RadioPersonInline(admin.StackedInline):
     verbose_name_plural = _('People in the broadcast')
     verbose_name = _('Person mentioned In the broadcast')
 
-basic_filters = ('topic', 'about_women', 'stereotypes', 'further_analysis')
+basic_filters = ('country', 'topic', 'about_women', 'stereotypes', 'further_analysis')
 
 class TwitterSheetAdmin(admin.ModelAdmin):
     inlines = [
