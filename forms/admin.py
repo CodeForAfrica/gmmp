@@ -166,7 +166,7 @@ class TwitterSheetAdmin(PermsAdmin):
 
         ('Basic Information', {
             'fields': (
-                'monitor', 'country', 'media_name', 'twitter_handle'
+                'media_name', 'twitter_handle'
             ),
         }),
         ('Story', {
@@ -216,7 +216,7 @@ class InternetNewsSheetAdmin(PermsAdmin):
     fieldsets = [
         ('Basic Information', {
             'fields': (
-                'monitor', 'country', 'website_name', 'website_url', 'time_accessed', 'offline_presence'
+                'website_name', 'website_url', 'time_accessed', 'offline_presence'
             ),
         }),
         ('Story', {
@@ -263,7 +263,7 @@ class NewspaperSheetAdmin(PermsAdmin):
     fieldsets = [
         ('Basic Information', {
             'fields': (
-                'monitor', 'country', 'newspaper_name'
+                'newspaper_name',
             ),
         }),
         ('Story', {
@@ -315,7 +315,7 @@ class TelevisionSheetAdmin(PermsAdmin):
     fieldsets = [
         ('Basic Information', {
             'fields': (
-                'monitor', 'country', 'station_name', 'television_channel', 'start_time',
+                'station_name', 'television_channel', 'start_time',
                 'num_female_anchors', 'num_male_anchors'
             ),
         }),
@@ -363,7 +363,7 @@ class RadioSheetAdmin(PermsAdmin):
     fieldsets = [
         ('Basic Information', {
             'fields': (
-                'monitor', 'country', 'station_name', 'start_time',
+                'station_name', 'start_time',
                 'num_female_anchors', 'num_male_anchors'
             ),
         }),
