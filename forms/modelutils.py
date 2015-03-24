@@ -199,8 +199,6 @@ TV_ROLE = [
 ]
 
 class SheetModel(models.Model):
-    monitor = models.ForeignKey(User, null=False)
-    country = CountryField(null=True)
 
     class Meta:
         abstract = True
