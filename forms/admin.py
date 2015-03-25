@@ -72,6 +72,12 @@ class TelevisionJournalistInline(admin.TabularInline):
 
 Do not code: (i) Unnamed journalists (e.g. ''Staff reporter'', ''Our correspondent''); (ii) News agencies.''')
 
+    fieldsets = [
+        ('', {
+            'fields': ('role', 'sex', 'age')
+        }),
+    ]
+
 class RadioJournalistInline(admin.TabularInline):
     model = models.RadioJournalist
     extra = 1
@@ -82,6 +88,12 @@ class RadioJournalistInline(admin.TabularInline):
 
 Do not code: (i) Unnamed journalists (e.g. ''Staff reporter'', ''Our correspondent''); (ii) News agencies.''')
     exclude = ('age',)
+
+    fieldsets = [
+        ('', {
+            'fields': ('role', 'sex')
+        }),
+    ]
 
 class JournalistAdmin(admin.ModelAdmin):
     pass
@@ -175,11 +187,11 @@ class TwitterSheetAdmin(PermsAdmin):
             ),
             'classes' : ('story-fieldset',),
         }),
-        ('Analysis', {
-            'fields' : ('about_women', 'stereotypes', 'further_analysis'),
-        }),
         ('Comments & Explanations', {
             'fields' : ('url_and_multimedia', ),
+        }),
+        ('Analysis', {
+            'fields' : ('about_women', 'stereotypes', 'further_analysis'),
         }),
     ]
     list_filter = basic_filters
@@ -230,11 +242,11 @@ class InternetNewsSheetAdmin(PermsAdmin):
             'fields' : ('person_secondary',),
             'classes' : ('source-fieldset',),
         }),
-        ('Analysis', {
-            'fields' : ('about_women', 'inequality_women', 'stereotypes', 'further_analysis'),
-        }),
         ('Comments & Explanations', {
             'fields' : ('url_and_multimedia',),
+        }),
+        ('Analysis', {
+            'fields' : ('about_women', 'inequality_women', 'stereotypes', 'further_analysis'),
         }),
     ]
 
@@ -276,11 +288,11 @@ class NewspaperSheetAdmin(PermsAdmin):
             'fields' : ('person_secondary',),
             'classes' : ('source-fieldset',),
         }),
-        ('Analysis', {
-            'fields' : ('about_women', 'inequality_women', 'stereotypes', 'further_analysis'),
-        }),
         ('Comments & Explanations', {
             'fields' : ('comments',),
+        }),
+        ('Analysis', {
+            'fields' : ('about_women', 'inequality_women', 'stereotypes', 'further_analysis'),
         }),
     ]
 
