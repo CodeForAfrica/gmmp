@@ -168,21 +168,21 @@ SURVIVOR_OF = [
 ]
 
 IS_PHOTOGRAPH = [
-    (1, _('(0) Yes')),
-    (2, _('(1) No')),
-    (3, _('(2) Do not know')),
+    (1, _('(1) Yes')),
+    (2, _('(2) No')),
+    (3, _('(3) Do not know')),
 ]
 
 AGREE_DISAGREE = [
-    (1, _('(0) Agree')),
-    (2, _('(1) Disagree')),
-    (3, _('(2) Neither agree nor disagree')),
-    (4, _('(3) Do not know')),
+    (1, _('(1) Agree')),
+    (2, _('(2) Disagree')),
+    (3, _('(3) Neither agree nor disagree')),
+    (4, _('(4) Do not know')),
 ]
 
 RETWEET = [
-    (1, _('(0) Tweet')),
-    (2, _('(1) Retweet')),
+    (1, _('(1) Tweet')),
+    (2, _('(2) Retweet')),
 ]
 
 SPACE = [
