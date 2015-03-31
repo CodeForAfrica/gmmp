@@ -47,14 +47,18 @@
                         <a href="#">About</a>
                     </li>
                     -->
+                    {% if user.is_authenticated %}
                     <li class="user-greeting">
-                        {% if user.is_authenticated %}
                         <a href="#">Hi {{ user.first_name }} <img src="{{ user.monitor.country.flag }}"/></a>
-                        {% else %}
-                        <a href="{% url 'admin:index' %}">Login</a>
-                        {% endif %}
-                    
                     </li>
+                    <li>
+                        <a href="{% url 'admin:logout' %}">Logout</a>
+                    </li>
+                    {% else %}
+                    <li>
+                        <a href="{% url 'admin:app_list' app_label='forms' %}">Login</a>
+                    </li>
+                    {% endif %}
                 </ul>
             </div>
         </div>
