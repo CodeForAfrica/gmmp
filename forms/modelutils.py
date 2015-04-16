@@ -4,8 +4,6 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils.encoding import force_text
 from django_countries.fields import CountryField
 
-NUMBER_OPTIONS = zip(range(1, 10), range(1, 10))
-ZNUMBER_OPTIONS = zip(range(0, 10), range(0, 10))
 TOPICS = (
     (1,  _('(1) Women politicians, women electoral candidates...')),
     (2,  _('(2) Peace, negotiations, treaties')),
@@ -256,10 +254,10 @@ field_stereotypes = lambda x, y: models.PositiveIntegerField(choices=AGREE_DISAG
 field_further_analysis = lambda x, y: models.CharField(max_length=1, choices=YESNO, verbose_name=_('(%s) Does this %s warrant further analysis?' % (x, force_text(y))), help_text=_('''<br><br>A %s warrants further analysis if it clearly perpetuates or clearly challenges gender stereotypes, if it includes women's opinions in a remarkable way, if it contributes to an understanding of inequalities between women and men, if it mentions or calls attention to women's human rights, etc. Consult the guide for further explanation''' % force_text(y)))
 field_url_and_multimedia = lambda x, y: models.TextField(verbose_name=_('(%s) Copy and paste the URL of the %s. Describe any photographs, images, other multimedia features included in the %s. Note down the conclusions you draw from the images, audio and video.' % (x, force_text(y), force_text(y))), blank=True)
 
-field_num_female_anchors = models.PositiveIntegerField(choices=ZNUMBER_OPTIONS, verbose_name=_('Number of female anchors'), help_text=_('The anchor (or announcer, or presenter) is the person who introduces the newscast and the individual items within it. <strong>Note: You should only include the anchors/announcers. Do not include reporters or other'))
+field_num_female_anchors = models.PositiveIntegerField(verbose_name=_('Number of female anchors'), help_text=_('The anchor (or announcer, or presenter) is the person who introduces the newscast and the individual items within it. <strong>Note: You should only include the anchors/announcers. Do not include reporters or other'))
 
-field_num_male_anchors = models.PositiveIntegerField(choices=ZNUMBER_OPTIONS, verbose_name=_('Number of male anchors'), help_text=_('The anchor (or announcer, or presenter) is the person who introduces the newscast and the individual items within it. <strong>Note: You should only include the anchors/announcers. Do not include reporters or other journalists</strong>'))
-field_item_number = lambda x: models.PositiveIntegerField(choices=NUMBER_OPTIONS, verbose_name=_('(%s) Item Number' % x), help_text=_('Write in the number that describes the position of the story within the newscast. E.g. the first story in the newscast is item 1; the seventh story is item 7.'))
+field_num_male_anchors = models.PositiveIntegerField(verbose_name=_('Number of male anchors'), help_text=_('The anchor (or announcer, or presenter) is the person who introduces the newscast and the individual items within it. <strong>Note: You should only include the anchors/announcers. Do not include reporters or other journalists</strong>'))
+field_item_number = lambda x: models.PositiveIntegerField(verbose_name=_('(%s) Item Number' % x), help_text=_('Write in the number that describes the position of the story within the newscast. E.g. the first story in the newscast is item 1; the seventh story is item 7.'))
 field_sex = lambda x: models.PositiveIntegerField(choices=GENDER, verbose_name=_('(%s) Sex' % x))
 
 field_age = lambda x: models.PositiveIntegerField(choices=AGES, verbose_name=_('(%s) Age (person appears)' % x))

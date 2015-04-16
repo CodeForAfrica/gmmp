@@ -34,7 +34,7 @@ class InternetNewsSheet(SheetModel):
     time_accessed = models.DateTimeField(verbose_name=_('Date and Time Accessed'))
     offline_presence = models.CharField(max_length=1, choices=YESNO, verbose_name=_('Offline presence?'))
     
-    webpage_layer_no = models.PositiveIntegerField(choices=NUMBER_OPTIONS, help_text=_('Webpage Layer Number. Homepage=1, One click away=2, Five clicks away= 5, etc. Note that if a story appears on the front page, code with 1'), verbose_name=_('(1) Webpage Layer Number'))
+    webpage_layer_no = models.PositiveIntegerField(help_text=_('Webpage Layer Number. Homepage=1, One click away=2, Five clicks away= 5, etc. Note that if a story appears on the front page, code with 1'), verbose_name=_('(1) Webpage Layer Number'))
     topic = field_topic('2')
     topic_comments = models.TextField(verbose_name=_('(2a) Topic Comments'), help_text=_('Complete if no topic above is applicable'), blank=True)
     scope = field_scope('3')
@@ -133,7 +133,7 @@ class NewspaperSheet(SheetModel):
         verbose_name = _('Newspaper Submission')
 
     newspaper_name = models.CharField(max_length=255, verbose_name=_('Newspaper'), help_text=_('''Be as specific as possible. If the paper has different regional editions, write in the name of the edition you are monitoring - e.g. 'The Hindu - Delhi edition'.'''))
-    page_number = models.PositiveIntegerField(choices=NUMBER_OPTIONS, verbose_name=_('(1) Page Number'), help_text=_('Write in the number of the page on which the story begins. Story appears on first page = 1, Seventh page = 7, etc.'))
+    page_number = models.PositiveIntegerField(verbose_name=_('(1) Page Number'), help_text=_('Write in the number of the page on which the story begins. Story appears on first page = 1, Seventh page = 7, etc.'))
     topic = field_topic('2')
     scope = field_scope('3')
     space = models.PositiveIntegerField(choices=SPACE, verbose_name=_('(4) Space'))
