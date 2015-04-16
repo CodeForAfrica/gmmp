@@ -1,1 +1,1 @@
-web: gunicorn gmmp.wsgi:application --log-file -
+web: newrelic-admin run-program gunicorn gmmp.wsgi:application --log-file -
