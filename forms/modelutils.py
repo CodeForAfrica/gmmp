@@ -184,17 +184,17 @@ RETWEET = [
 ]
 
 SPACE = [
-    (1, _('(0) Full page')),
-    (2, _('(1) Half page')),
-    (3, _('(2) One third page')),
-    (4, _('(3) Quarter page')),
-    (5, _('(4) Less than quarter page')),
+    (1, _('(1) Full page')),
+    (2, _('(2) Half page')),
+    (3, _('(3) One third page')),
+    (4, _('(4) Quarter page')),
+    (5, _('(5) Less than quarter page')),
 ]
 
 TV_ROLE = [
-    (1, _('(0) Anchor, announcer or presenter: Usually in the television studio')),
-    (2, _('(1) Reporter: Usually outside the studio. Include reporters who do not appear on screen, but whose voice is heard (e.g. as voice-over).')),
-    (3, _('(2) Other journalist: Sportscaster, weather forecaster, commentator/analyst etc.')),
+    (1, _('(1) Anchor, announcer or presenter: Usually in the television studio')),
+    (2, _('(2) Reporter: Usually outside the studio. Include reporters who do not appear on screen, but whose voice is heard (e.g. as voice-over).')),
+    (3, _('(3) Other journalist: Sportscaster, weather forecaster, commentator/analyst etc.')),
 ]
 
 class SheetModel(models.Model):
