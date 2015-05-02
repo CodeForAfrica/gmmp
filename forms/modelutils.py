@@ -200,7 +200,7 @@ TV_ROLE = [
 
 class SheetModel(models.Model):
 
-    monitor = models.ForeignKey(Monitor, null=True)
+    monitor = models.ForeignKey(Monitor, null=False)
 
     class Meta:
         abstract = True
