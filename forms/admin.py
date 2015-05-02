@@ -9,7 +9,7 @@ import models
 class PermsAdmin(GuardedModelAdmin):
 
     def save_model(self, request, obj, form, change):
-        obj.monitor = request.user
+        obj.monitor = request.user.monitor
         obj.save()
         self.assign_permissions(request.user, obj)
 
@@ -20,7 +20,14 @@ class PermsAdmin(GuardedModelAdmin):
         return shortcuts.get_objects_for_user(request.user, [perm])
 
     def get_queryset(self, request):
-        return self.perms_queryset(request, 'forms.change_%s' % self.permcode)
+        qs = super(PermsAdmin, self).queryset(request)
+        if request.user.is_superuser:
+            return qs
+        groups = request.user.groups.all()
+        for g in groups:
+            if '_admin' in g.name:
+                return qs.filter(monitor__country=request.user.monitor.country) 
+        return qs.filter(monitor__user=request.user)
 
     def assign_permissions(self, user, obj):
         country = user.monitor.country
@@ -30,6 +37,20 @@ class PermsAdmin(GuardedModelAdmin):
 
         group, _ = Group.objects.get_or_create(name='%s_admin' % country)
         shortcuts.assign_perm('forms.change_%s' % self.permcode, group, obj)
+
+    def submission(self, instance):
+        return unicode(instance)
+
+    def country(self, instance):
+        if instance.monitor:
+            return instance.monitor.country
+        return None
+
+    def monitor_name(self, instance):
+        return instance.monitor.user
+
+    list_display = ('submission', 'country', 'monitor_name')
+
 
 class InternetJournalistInline(admin.TabularInline):
     model = models.InternetNewsJournalist
@@ -154,7 +175,7 @@ class RadioPersonInline(admin.StackedInline):
     verbose_name_plural = _('People in the broadcast')
     verbose_name = _('Person mentioned In the broadcast')
 
-basic_filters = ('topic', 'about_women', 'stereotypes', 'further_analysis')
+basic_filters = ('topic', 'about_women', 'stereotypes', 'further_analysis', 'monitor__country')
 
 class TwitterSheetAdmin(PermsAdmin):
 

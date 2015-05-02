@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 from django.utils.encoding import force_text
 from django_countries.fields import CountryField
+from gmmp.models import Monitor
 
 TOPICS = (
     (1,  _('(1) Women politicians, women electoral candidates...')),
@@ -198,6 +199,8 @@ TV_ROLE = [
 ]
 
 class SheetModel(models.Model):
+
+    monitor = models.ForeignKey(Monitor, null=True)
 
     class Meta:
         abstract = True
