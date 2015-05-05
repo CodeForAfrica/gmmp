@@ -1,13 +1,23 @@
 from django.utils.translation import ugettext_lazy as _
 from django.contrib import admin
+from guardian.admin import GuardedModelAdmin
+from guardian import shortcuts
+from django.contrib.auth.models import Group
 
 import models
 
-class PermsAdmin(admin.ModelAdmin):
+class PermsAdmin(GuardedModelAdmin):
 
     def save_model(self, request, obj, form, change):
         obj.monitor = request.user.monitor
         obj.save()
+        self.assign_permissions(request.user, obj)
+
+    def perms_queryset(self, request, perm):
+        if request.user.is_superuser:
+            return super(PermsAdmin, self).get_queryset(request)
+
+        return shortcuts.get_objects_for_user(request.user, [perm])
 
     def get_queryset(self, request):
         qs = super(PermsAdmin, self).queryset(request)
@@ -19,6 +29,15 @@ class PermsAdmin(admin.ModelAdmin):
                 return qs.filter(monitor__country=request.user.monitor.country) 
         return qs.filter(monitor__user=request.user)
 
+    def assign_permissions(self, user, obj):
+        country = user.monitor.country
+        shortcuts.assign_perm('forms.change_%s' % self.permcode, user, obj)
+        shortcuts.assign_perm('forms.add_%s' % self.permcode, user, obj)
+        shortcuts.assign_perm('forms.delete_%s' % self.permcode, user, obj)
+
+        group, _ = Group.objects.get_or_create(name='%s_admin' % country)
+        shortcuts.assign_perm('forms.change_%s' % self.permcode, group, obj)
+
     def submission(self, instance):
         return unicode(instance)
 
@@ -27,13 +46,15 @@ class PermsAdmin(admin.ModelAdmin):
             return instance.monitor.country
         return None
 
+    country.admin_order_field = 'monitor__country'
+
     def monitor_name(self, instance):
         return instance.monitor.user
 
     monitor_name.admin_order_field = 'monitor__user'
-    country.admin_order_field = 'monitor__country'
 
     list_display = ('submission', 'country', 'monitor_name')
+
 
 class InternetJournalistInline(admin.TabularInline):
     model = models.InternetNewsJournalist
