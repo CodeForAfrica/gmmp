@@ -46,8 +46,6 @@ class PermsAdmin(GuardedModelAdmin):
             return instance.monitor.country
         return None
 
-    country.admin_order_field = 'monitor__country'
-
     def monitor_name(self, instance):
         return instance.monitor.user
 
