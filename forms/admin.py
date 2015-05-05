@@ -51,8 +51,6 @@ class PermsAdmin(GuardedModelAdmin):
     def monitor_name(self, instance):
         return instance.monitor.user
 
-    monitor_name.admin_order_field = 'monitor__user'
-
     list_display = ('submission', 'country', 'monitor_name')
 
 
