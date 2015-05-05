@@ -22,7 +22,7 @@ if DEBUG:
     DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'gmmp',                      
+        'NAME': 'gmmp',
         'USER': 'gmmp',
         'PASSWORD': 'gmmp',
         'HOST': 'localhost'
@@ -61,10 +61,11 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'guardian', 
+    'guardian',
 	'forms',
 	'gmmp',
 	'django_countries',
+    'reports'
 )
 
 AUTHENTICATION_BACKENDS = (
