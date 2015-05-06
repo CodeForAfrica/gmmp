@@ -54,15 +54,15 @@ class XLSXReportBuilder:
         self.P.set_num_format(9)  # percentage
 
         # Add generic sheets here.
-        self.medium_per_country_worksheet(workbook)
-        self.topics_by_region_worksheet(workbook)
+        self.ws_2_media_by_country(workbook)
+        self.ws_4_topics_by_region(workbook)
 
         workbook.close()
         output.seek(0)
 
         return output.read()
 
-    def medium_per_country_worksheet(self, wb):
+    def ws_2_media_by_country(self, wb):
         ws = wb.add_worksheet('Medium per country')
 
         ws.write(0, 0, 'Participating Countries in each Region')
@@ -92,7 +92,7 @@ class XLSXReportBuilder:
                 row += 1
             col += 1
 
-    def topics_by_region_worksheet(self, wb):
+    def ws_4_topics_by_region(self, wb):
         ws = wb.add_worksheet('4 - Topics by region')
 
         ws.write(0, 0, 'Topics in the news by region')
