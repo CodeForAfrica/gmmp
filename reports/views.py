@@ -2,13 +2,29 @@
 from django.views.generic import View
 from django.shortcuts import render
 from django.http import HttpResponse
+from django import forms
 
 # 3rd Party
 import xlsxwriter
+from django_countries import countries
 
 # Project
-from reports.forms import ReportFilterForm
 from reports.report_builder import XLSXReportBuilder
+
+
+class ReportFilterForm(forms.Form):
+    COUNTRIES = [('ALL', 'Global')] + [(code, name) for code, name in list(countries)]
+
+    country = forms.ChoiceField(
+        label='Country',
+        choices=COUNTRIES)
+
+    def get_countries(self):
+        if self.cleaned_data['country'] == 'ALL':
+            return [code for code, name in list(countries)]
+        else:
+            return [self.cleaned_data['country']]
+
 
 class ReportView(View):
     template_name = 'report_filter.html'
