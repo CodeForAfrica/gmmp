@@ -4,18 +4,24 @@ from django.shortcuts import render
 from reports.forms import ReportFilterForm
 
 class ReportView(View):
-    template_name = 'growers/dashboard.html'
+    template_name = 'report_filter.html'
 
     def get(self, request, *args, **kwargs):
-        report_filter = ReportFilterForm()
-        context = {form = report_filter}
+        filter_form = ReportFilterForm()
+        import ipdb; ipdb.set_trace()
+        context = {'form' : filter_form}
         return render(
             request,
             self.template_name,
             context)
 
     def post(self, request, *args, **kwargs):
-        context = {form = report_filter}
+        import ipdb; ipdb.set_trace()
+        filter_form = ReportFilterForm(request.POST)
+        if filter_form.is_valid():
+
+        report_filter = ReportFilterForm()
+        context = {'form' : filter_form}
         return render(
             request,
             self.template_name,

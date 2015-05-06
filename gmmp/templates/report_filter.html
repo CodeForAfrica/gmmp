@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block page_content %}
+    <!-- Page Header -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header"></h1>
+            <h2>Welcome to the 2015 GMMP Reporting tool.</h2>
+            <p class=header-instructions>Select one of the following options to generate the relevant report.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 portfolio-item">
+            <form action="/reports/" method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+            <input type="submit" value="Generate report" />
+        </div>
+    </div>
+{% endblock page_content %}

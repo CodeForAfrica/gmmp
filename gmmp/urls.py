@@ -11,5 +11,6 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^grappelli/', include('grappelli.urls')), # grappelli URLS
     url(r'^$', TemplateView.as_view(template_name="index.html")),
+    url(r'^reports/', include('reports.urls')),
 )
 
