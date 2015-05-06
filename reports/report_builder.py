@@ -15,6 +15,7 @@ from forms.models import (
     TelevisionSheet,
     RadioSheet)
 
+
 sheet_models = OrderedDict([
     ('Internet News', InternetNewsSheet),
     ('Print', NewspaperSheet),
@@ -62,11 +63,19 @@ class XLSXReportBuilder:
         ws.write(3, 2, self.gmmp_year)
 
         row, col = 4, 2
-        for media_type, model in sheet_models.iteritems():
-            ws.write(row, col, media_type)
+        for name, sheet_model in sheet_models.iteritems():
+            ws.write(row, col, name)
             col += 1
 
-        row, col = 5, 2
+        col = 2
+        for name, sheet_model in sheet_models.iteritems():
+            row = 5
+            for country in self.countries:
+                data = sheet_model.objects.filter(country=country).count()
+                ws.write(row, col, data)
+                row += 1
+            col += 1
+
 
 
 
