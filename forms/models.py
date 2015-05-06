@@ -33,7 +33,7 @@ class InternetNewsSheet(SheetModel):
     website_url = models.CharField(max_length=255, verbose_name=_('URL'))
     time_accessed = models.DateTimeField(verbose_name=_('Date and Time Accessed'))
     offline_presence = models.CharField(max_length=1, choices=YESNO, verbose_name=_('Offline presence?'))
-    
+
     webpage_layer_no = models.PositiveIntegerField(help_text=_('Webpage Layer Number. Homepage=1, One click away=2, Five clicks away= 5, etc. Note that if a story appears on the front page, code with 1'), verbose_name=_('(1) Webpage Layer Number'))
     topic = field_topic('2')
     topic_comments = models.TextField(verbose_name=_('(2a) Topic Comments'), help_text=_('Complete if no topic above is applicable'), blank=True)
@@ -85,7 +85,7 @@ class TwitterSheet(SheetModel):
     twitter_handle = models.CharField(max_length=255, verbose_name=_('Twitter Handle'), help_text=_('e.g. https://twitter.com/cnnbrk'))
 
     # Story
-    retweet = models.PositiveIntegerField(choices=RETWEET, 
+    retweet = models.PositiveIntegerField(choices=RETWEET,
         verbose_name=_('(1) Tweet or Retweet'),
         help_text=_('Only retweets from the same media house can be coded. Do not code retweets from other news providers')
     )

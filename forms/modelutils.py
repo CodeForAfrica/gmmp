@@ -4,6 +4,9 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils.encoding import force_text
 from django_countries.fields import CountryField
 
+from gmmp.models import Monitor
+
+
 TOPICS = (
     (1,  _('(1) Women politicians, women electoral candidates...')),
     (2,  _('(2) Peace, negotiations, treaties')),
@@ -197,7 +200,10 @@ TV_ROLE = [
     (3, _('(3) Other journalist: Sportscaster, weather forecaster, commentator/analyst etc.')),
 ]
 
+
 class SheetModel(models.Model):
+    monitor = models.ForeignKey(Monitor, null=True)
+    country = CountryField(null=True)
 
     class Meta:
         abstract = True
@@ -265,7 +271,7 @@ field_occupation = lambda x: models.PositiveIntegerField(choices=OCCUPATION, ver
 field_occupation_other = models.TextField(verbose_name=_('Other Occupation'), blank=True)
 field_function = lambda x: models.PositiveIntegerField(choices=FUNCTION, verbose_name=_('(%s) Function in the news story' % x))
 field_family_role = lambda x: models.CharField(max_length=1, choices=YESNO, verbose_name=_('(%s) Family Role Given?' % x), help_text=_('''Code yes only if the word 'wife', 'husband' etc is actually used to describe the person.'''))
-field_victim_or_survivor = lambda x: models.CharField(max_length=1, choices=YESNO, 
+field_victim_or_survivor = lambda x: models.CharField(max_length=1, choices=YESNO,
     verbose_name=_('(%s) Does the story identify the person as either a victim or survivor?' % x),
     help_text=_('''<p>You should code a person as a <strong>victim</strong> either if the word 'victim' is used to describe her/him, or if the story Implies that the person is a victim - e.g. by using language or images that evoke particular emotions such as shock, horror, pity for the person.</p><p>You should code a person as a <strong>survivor</strong> either if the word 'survivor' is used to describe her/him, or if the story implies that the person is a survivor - e.g. by using language or images that evoke particular emotions such as admiration or respect for the person.</p>''')
     )
@@ -273,7 +279,7 @@ field_victim_of = lambda x: models.PositiveIntegerField(choices=VICTIM_OF, verbo
 field_victim_comments = lambda x: models.TextField(verbose_name=_('(%s) Add comments if ''Other Victim'' was selected above' % x), blank=True)
 field_survivor_of = lambda x: models.PositiveIntegerField(choices=SURVIVOR_OF, verbose_name=_('(%s) The story identifies the person as a survivor of:' % x), null=True, blank=True)
 field_survivor_comments = lambda x: models.TextField(verbose_name=_('(%s) Add comments if ''Other Survivor'' was selected above' % x), blank=True)
-field_is_quoted = lambda x: models.CharField(max_length=1, choices=YESNO, verbose_name=_('(%s) Is the person directly quoted' % x), 
+field_is_quoted = lambda x: models.CharField(max_length=1, choices=YESNO, verbose_name=_('(%s) Is the person directly quoted' % x),
     help_text=_('<p>A person is <strong>directly quoted</strong> if their own words are printed, e.g. "The war against terror is our first priority" said President Bush.</p><p>If the story paraphrases what the person said, that is not a direct quote, e.g. President Bush said that top priority would be given to fighting the war against terror.</p>')
 )
 field_is_photograph = lambda x: models.PositiveIntegerField(choices=IS_PHOTOGRAPH, verbose_name=_('(%s) Is there a photograph of the person in the story?' % x))

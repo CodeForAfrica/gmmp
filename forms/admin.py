@@ -34,10 +34,10 @@ class PermsAdmin(GuardedModelAdmin):
 class InternetJournalistInline(admin.TabularInline):
     model = models.InternetNewsJournalist
     extra = 1
-    verbose_name_plural = _('''Add a new record for each journalist who: 
-(i) wrote the story and whose name appears, or 
-(ii) is visible in video clips, or 
-(iii) can be heard in audio clips. 
+    verbose_name_plural = _('''Add a new record for each journalist who:
+(i) wrote the story and whose name appears, or
+(ii) is visible in video clips, or
+(iii) can be heard in audio clips.
 
 Do not code: (i) Unnamed journalists (e.g. ''Staff reporter'', ''Our correspondent''); (ii) News agencies.''')
 
@@ -60,15 +60,15 @@ class NewspaperJournalistInline(admin.TabularInline):
 Unnamed journalists (e.g. 'Staff reporter', 'Our correspondent')
 News agencies
 ''')
-    exclude = ('age',)                
+    exclude = ('age',)
 
 class TelevisionJournalistInline(admin.TabularInline):
     model = models.TelevisionJournalist
     extra = 1
-    verbose_name_plural = _('''Add a new record for each journalist who: 
-(i) wrote the story and whose name appears, or 
-(ii) is visible in video clips, or 
-(iii) can be heard in audio clips. 
+    verbose_name_plural = _('''Add a new record for each journalist who:
+(i) wrote the story and whose name appears, or
+(ii) is visible in video clips, or
+(iii) can be heard in audio clips.
 
 Do not code: (i) Unnamed journalists (e.g. ''Staff reporter'', ''Our correspondent''); (ii) News agencies.''')
 
@@ -81,10 +81,10 @@ Do not code: (i) Unnamed journalists (e.g. ''Staff reporter'', ''Our corresponde
 class RadioJournalistInline(admin.TabularInline):
     model = models.RadioJournalist
     extra = 1
-    verbose_name_plural = _('''Add a new record for each journalist who: 
-(i) wrote the story and whose name appears, or 
-(ii) is visible in video clips, or 
-(iii) can be heard in audio clips. 
+    verbose_name_plural = _('''Add a new record for each journalist who:
+(i) wrote the story and whose name appears, or
+(ii) is visible in video clips, or
+(iii) can be heard in audio clips.
 
 Do not code: (i) Unnamed journalists (e.g. ''Staff reporter'', ''Our correspondent''); (ii) News agencies.''')
     exclude = ('age',)
@@ -202,6 +202,12 @@ class TwitterSheetAdmin(PermsAdmin):
             'forms/admin/move_twitter_fields.js'
         ]
 
+    def save_model(self, request, obj, form, change):
+        obj.monitor = request.user.monitor
+        obj.country = request.user.monitor.country
+        obj.save()
+
+
 class InternetNewsSheetAdmin(PermsAdmin):
 
     @property
@@ -251,6 +257,12 @@ class InternetNewsSheetAdmin(PermsAdmin):
     ]
 
     list_filter = basic_filters
+
+    def save_model(self, request, obj, form, change):
+        obj.monitor = request.user.monitor
+        obj.country = request.user.monitor.country
+        obj.save()
+
 
 class NewspaperSheetAdmin(PermsAdmin):
 
@@ -304,6 +316,11 @@ class NewspaperSheetAdmin(PermsAdmin):
             'forms/admin/move_fields_newspaper.js'
         ]
 
+    def save_model(self, request, obj, form, change):
+        obj.monitor = request.user.monitor
+        obj.country = request.user.monitor.country
+        obj.save()
+
 
 class TelevisionSheetAdmin(PermsAdmin):
 
@@ -353,6 +370,12 @@ class TelevisionSheetAdmin(PermsAdmin):
             'forms/admin/move_television_fields.js'
         ]
 
+    def save_model(self, request, obj, form, change):
+        obj.monitor = request.user.monitor
+        obj.country = request.user.monitor.country
+        obj.save()
+
+
 class RadioSheetAdmin(PermsAdmin):
 
     @property
@@ -400,6 +423,11 @@ class RadioSheetAdmin(PermsAdmin):
             'forms/admin/move_fields.js',
             'forms/admin/move_radio_fields.js'
         ]
+
+    def save_model(self, request, obj, form, change):
+        obj.monitor = request.user.monitor
+        obj.country = request.user.monitor.country
+        obj.save()
 
 admin.site.register(models.InternetNewsSheet, InternetNewsSheetAdmin)
 admin.site.register(models.TwitterSheet, TwitterSheetAdmin)

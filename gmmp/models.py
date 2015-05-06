@@ -7,4 +7,7 @@ class Monitor(models.Model):
     user = models.OneToOneField(User)
     country = CountryField()
 
+    def __unicode__(self):
+        return "%s" % self.country
+
 
