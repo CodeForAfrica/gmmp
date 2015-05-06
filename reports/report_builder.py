@@ -14,8 +14,9 @@ from forms.models import (
     TwitterSheet,
     NewspaperSheet,
     TelevisionSheet,
-    RadioSheet)
-from forms.modelutils import TOPICS
+    RadioSheet,
+    Person)
+from forms.modelutils import TOPICS, GENDER
 
 
 sheet_models = OrderedDict([
@@ -34,6 +35,15 @@ def p(n, d):
     if d == 0:
         return 0.0
     return float(n) / d
+
+
+def person_field(model):
+    """
+    Return the person-related field for this model
+    """
+    for fld in model._meta.get_all_related_objects():
+        if fld.model and issubclass(fld.model, Person):
+            return fld
 
 
 class XLSXReportBuilder:
@@ -56,6 +66,7 @@ class XLSXReportBuilder:
         # Add generic sheets here.
         self.ws_2_media_by_country(workbook)
         self.ws_4_topics_by_region(workbook)
+        self.ws_7_sex_by_media(workbook)
 
         workbook.close()
         output.seek(0)
@@ -126,6 +137,44 @@ class XLSXReportBuilder:
             total = sum(counts.itervalues())
 
             for i, topic in enumerate(TOPICS):
+                id, topic = topic
+                ws.write(row + i, col, counts.get(id, 0))
+                ws.write(row + i, col + 1, p(counts.get(id, 0), total), self.P)
+
+            col += 2
+
+    def ws_7_sex_by_media(self, wb):
+        ws = wb.add_worksheet('7 - Sex by media')
+
+        ws.write(0, 0, 'Women in the news (sources) by medium')
+        ws.write(1, 0, 'Breakdown by sex of all mediums')
+        ws.write(3, 2, self.gmmp_year)
+
+        row, col = 6, 1
+
+        # row titles
+        for i, gender in enumerate(GENDER):
+            id, gender = gender
+            ws.write(row + i, col, unicode(gender))
+
+        col += 1
+
+        for media_type, model in sheet_models.iteritems():
+            # column title
+            ws.write(row - 2, col, media_type)
+            ws.write(row - 1, col, "N")
+            ws.write(row - 1, col + 1, "%")
+
+            # row values
+            field = '%s__sex' % person_field(model).name.split(':')[-1]
+            rows = model.objects\
+                    .values(field)\
+                    .filter(country__in=self.countries)\
+                    .annotate(n=Count(field))
+            counts = {r[field]: r['n'] for r in rows}
+            total = sum(counts.itervalues())
+
+            for i, topic in enumerate(GENDER):
                 id, topic = topic
                 ws.write(row + i, col, counts.get(id, 0))
                 ws.write(row + i, col + 1, p(counts.get(id, 0), total), self.P)
