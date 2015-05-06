@@ -27,6 +27,15 @@ sheet_models = OrderedDict([
 )
 
 
+def p(n, d):
+    """ Helper to calculate the percentage of n / d,
+    returning 0 if d == 0.
+    """
+    if d == 0:
+        return 0.0
+    return float(n) / d
+
+
 class XLSXReportBuilder:
     def __init__(self, form):
         self.form = form
@@ -39,6 +48,10 @@ class XLSXReportBuilder:
         """
         output = StringIO.StringIO()
         workbook = xlsxwriter.Workbook(output)
+
+        # setup formats
+        self.P = workbook.add_format()
+        self.P.set_num_format(9)  # percentage
 
         # Add generic sheets here.
         self.medium_per_country_worksheet(workbook)
@@ -79,7 +92,6 @@ class XLSXReportBuilder:
                 row += 1
             col += 1
 
-
     def topics_by_region_worksheet(self, wb):
         ws = wb.add_worksheet('4 - Topics by region')
 
@@ -90,7 +102,7 @@ class XLSXReportBuilder:
         # Is there a more efficient wat to do this?
         ws.write(5, 0, 'Region name here')
 
-        row, col = 5, 1
+        row, col = 6, 1
 
         # row titles
         for i, topic in enumerate(TOPICS):
@@ -101,7 +113,9 @@ class XLSXReportBuilder:
 
         for media_type, model in sheet_models.iteritems():
             # column title
-            ws.write(row - 1, col, media_type)
+            ws.write(row - 2, col, media_type)
+            ws.write(row - 1, col, "N")
+            ws.write(row - 1, col + 1, "%")
 
             # row values
             rows = model.objects\
@@ -109,9 +123,11 @@ class XLSXReportBuilder:
                     .filter(country__in=self.countries)\
                     .annotate(n=Count('topic'))
             counts = {r['topic']: r['n'] for r in rows}
+            total = sum(counts.itervalues())
 
             for i, topic in enumerate(TOPICS):
                 id, topic = topic
                 ws.write(row + i, col, counts.get(id, 0))
+                ws.write(row + i, col + 1, p(counts.get(id, 0), total), self.P)
 
-            col += 1
+            col += 2
