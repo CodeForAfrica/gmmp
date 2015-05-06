@@ -1,12 +1,13 @@
 # Python
 import StringIO
+from collections import OrderedDict
 
 # 3rd Party
 import xlsxwriter
 from django_countries import countries
 
 # Project
-from reports.constants import *
+
 from forms.models import (
     InternetNewsSheet,
     TwitterSheet,
@@ -14,13 +15,13 @@ from forms.models import (
     TelevisionSheet,
     RadioSheet)
 
-sheet_models = {
-    'Internet News': InternetNewsSheet,
-    'Print': NewspaperSheet,
-    'Radio': RadioSheet,
-    'Television': TelevisionSheet,
-    'Twitter': TwitterSheet
-}
+sheet_models = OrderedDict([
+    ('Internet News', InternetNewsSheet),
+    ('Print', NewspaperSheet),
+    ('Radio', RadioSheet),
+    ('Television', TelevisionSheet),
+    ('Twitter', TwitterSheet)]
+)
 
 
 class XLSXReportBuilder:
@@ -61,8 +62,7 @@ class XLSXReportBuilder:
         ws.write(3, 2, self.gmmp_year)
 
         row, col = 4, 2
-
-        for media_type in MEDIA_TYPES:
+        for media_type, model in sheet_models.iteritems():
             ws.write(row, col, media_type)
             col += 1
 
