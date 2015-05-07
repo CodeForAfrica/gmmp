@@ -4,4 +4,5 @@ from reports.views import ReportView
 
 urlpatterns = patterns('',
     # url(r'^$', ReportView.as_view(), name='get_xlsx_reports'),
+    url(r'^data_export$', 'reports.views.data_export', name='get_data_export'),
 )

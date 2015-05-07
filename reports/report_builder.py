@@ -31,6 +31,24 @@ def p(n, d):
     return float(n) / d
 
 
+class XLSXDataExportBuilder():
+    def build(self):
+        """
+        Generate an Excel spreadsheet and return it as a string.
+        """
+        output = StringIO.StringIO()
+        workbook = xlsxwriter.Workbook(output)
+
+        # setup formats
+        self.P = workbook.add_format()
+        self.P.set_num_format(9)  # percentage
+
+        workbook.close()
+        output.seek(0)
+
+        return output.read()
+
+
 class XLSXReportBuilder:
     def __init__(self, form):
         self.form = form

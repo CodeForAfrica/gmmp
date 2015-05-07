@@ -3,13 +3,14 @@ from django.views.generic import View
 from django.shortcuts import render
 from django.http import HttpResponse
 from django import forms
+from django.contrib.auth.decorators import user_passes_test
 
 # 3rd Party
 import xlsxwriter
 from django_countries import countries
 
 # Project
-from reports.report_builder import XLSXReportBuilder
+from reports.report_builder import XLSXReportBuilder, XLSXDataExportBuilder
 
 
 class ReportFilterForm(forms.Form):
@@ -58,3 +59,13 @@ class ReportView(View):
             request,
             self.template_name,
             context)
+
+
+@user_passes_test(lambda u: u.is_superuser)
+def data_export(request):
+    xlsx = XLSXDataExportBuilder().build()
+    filename = 'GMMP Data export'
+
+    response = HttpResponse(xlsx, content_type='application/vnd.ms-excel')
+    response['Content-Disposition'] = 'attachment; filename=%s.xlsx' % filename
+    return response

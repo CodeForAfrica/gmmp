@@ -130,3 +130,6 @@ LOCALE_PATHS = [
     os.path.join(BASE_DIR, 'locale'),
     '/gmmp/forms/locale/',
 ]
+
+# Temporary login screen for downloading the exported data
+LOGIN_URL = '/admin/login/'
