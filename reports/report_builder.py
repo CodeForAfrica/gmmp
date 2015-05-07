@@ -11,7 +11,7 @@ import xlsxwriter
 
 # Project
 from forms.models import NewspaperSheet, person_models, sheet_models
-from forms.modelutils import TOPICS, GENDER, SPACE, OCCUPATION
+from forms.modelutils import TOPICS, GENDER, SPACE, OCCUPATION, FUNCTION
 
 
 def has_field(model, fld):
@@ -56,6 +56,7 @@ class XLSXReportBuilder:
         self.ws_10_space_per_topic(workbook)
         self.ws_13_topic_by_journalist_sex(workbook)
         self.ws_14_source_occupation_by_sex(workbook)
+        self.ws_15_subject_function_by_sex(workbook)
 
         workbook.close()
         output.seek(0)
@@ -259,6 +260,29 @@ class XLSXReportBuilder:
             counts.update({(r['sex'], r['occupation']): r['n'] for r in rows})
 
         self.tabulate(ws, counts, GENDER, OCCUPATION, row_perc=True)
+
+    def ws_15_subject_function_by_sex(self, wb):
+        ws = wb.add_worksheet('15 - Subject function by sex')
+
+        ws.write(0, 0, 'News subject''s Function in news story, by sex')
+        ws.write(1, 0, 'Breakdown by sex and function')
+        ws.write(3, 2, self.gmmp_year)
+
+        counts = Counter()
+
+        for model in person_models.itervalues():
+            # some models don't have a function
+            if not has_field(model, 'function'):
+                continue
+
+            rows = model.objects\
+                    .values('sex', 'function')\
+                    .filter(**{model.sheet_name() + '__country__in': self.countries})\
+                    .annotate(n=Count('id'))
+            counts.update({(r['sex'], r['function']): r['n'] for r in rows})
+
+        self.tabulate(ws, counts, GENDER, FUNCTION, row_perc=True)
+
 
     # -------------------------------------------------------------------------------
     # Helper functions
