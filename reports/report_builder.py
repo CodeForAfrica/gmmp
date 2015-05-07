@@ -248,15 +248,6 @@ class XLSXReportBuilder:
         ws.write(1, 0, 'Breakdown by major topic by space (q.4) in newspapers')
         ws.write(3, 2, self.gmmp_year)
 
-        row, col = 6, 1
-
-        # row titles
-        for i, topic in enumerate(TOPICS):
-            id, topic = topic
-            ws.write(row + i, col, unicode(topic))
-
-        col += 1
-
         # Calculate row values for column
         rows = NewspaperSheet.objects\
                 .values('space', 'topic')\
@@ -264,26 +255,7 @@ class XLSXReportBuilder:
                 .annotate(n=Count('id'))
         counts = {(r['space'], r['topic']): r['n'] for r in rows}
 
-        row_totals = {}
-        for topic_id, t in TOPICS:
-            row_totals[topic_id] = sum(counts.get((space_id, topic_id), 0) for space_id, s in SPACE)
-
-        for i, space in enumerate(SPACE):
-            space_id, space = space
-
-            # column title
-            ws.write(row - 2, col, unicode(space))
-            ws.write(row - 1, col, "N")
-            ws.write(row - 1, col + 1, "%")
-
-            # row values
-            for i, topic in enumerate(TOPICS):
-                topic_id, topic = topic
-                c = counts.get((space_id, topic_id), 0)
-                ws.write(row + i, col, c)
-                ws.write(row + i, col + 1, p(c, row_totals[topic_id]), self.P)
-
-            col += 2
+        self.tabulate(ws, counts, SPACE, TOPICS, row_perc=True)
 
     def ws_13_topic_by_journalist_sex(self, wb):
         ws = wb.add_worksheet('13 - Topic by reporter sex')
