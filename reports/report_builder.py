@@ -16,7 +16,7 @@ from forms.models import (
     TelevisionSheet,
     RadioSheet,
     Person)
-from forms.modelutils import TOPICS, GENDER
+from forms.modelutils import TOPICS, GENDER, SPACE
 
 
 sheet_models = OrderedDict([
@@ -72,6 +72,7 @@ class XLSXReportBuilder:
         self.ws_4_topics_by_region(workbook)
         self.ws_7_sex_by_media(workbook)
         self.ws_9_topic_by_sex(workbook)
+        self.ws_10_space_per_topic(workbook)
 
         workbook.close()
         output.seek(0)
@@ -231,3 +232,47 @@ class XLSXReportBuilder:
                 ws.write(row + i, col + 1, p(c, row_totals[topic_id]), self.P)
 
             col += 2
+
+    def ws_10_space_per_topic(self, wb):
+        ws = wb.add_worksheet('10 - Space per topic')
+
+        ws.write(0, 0, 'Space allocated to major topics in Newspapers')
+        ws.write(1, 0, 'Breakdown by major topic by space (q.4) in newspapers')
+        ws.write(3, 2, self.gmmp_year)
+
+        row, col = 6, 1
+
+        # row titles
+        for i, topic in enumerate(TOPICS):
+            id, topic = topic
+            ws.write(row + i, col, unicode(topic))
+
+        col += 1
+
+        for i, space in enumerate(SPACE):
+            space_id, space_title = space
+            import ipdb; ipdb.set_trace()
+            # column title
+            ws.write(row - 2, col, unicode(space_title))
+            ws.write(row - 1, col, "N")
+            ws.write(row - 1, col + 1, "%")
+
+            # row values
+            rows = NewspaperSheet.objects\
+                    .values('topic')\
+                    .filter(country__in=self.countries)\
+                    .annotate(n=Count('topic'))
+            counts = {r['topic']: r['n'] for r in rows if r['topic'] is not None}
+            total = sum(counts.itervalues())
+
+            for i, topic in enumerate(TOPICS):
+                id, topic = topic
+                ws.write(row + i, col, counts.get(id, 0))
+                ws.write(row + i, col + 1, p(counts.get(id, 0), total), self.P)
+
+            col += 2
+
+
+
+
+
