@@ -30,15 +30,6 @@ sheet_models = OrderedDict([
 )
 
 
-MEDIA_TYPES = (
-    (1, _('(1) Internet News')),
-    (2, _('(2) Print')),
-    (3, _('(3) Radio')),
-    (4, _('(4) Television')),
-    (5, _('(5) Twitter')),
-)
-
-
 def p(n, d):
     """ Helper to calculate the percentage of n / d,
     returning 0 if d == 0.
@@ -248,6 +239,7 @@ class XLSXReportBuilder:
             col += 2
 
     def ws_10_space_per_topic(self, wb):
+
         ws = wb.add_worksheet('10 - Space per topic')
 
         ws.write(0, 0, 'Space allocated to major topics in Newspapers')
@@ -263,25 +255,31 @@ class XLSXReportBuilder:
 
         col += 1
 
+        # Calculate row values for column
+        rows = NewspaperSheet.objects\
+                .values('space', 'topic')\
+                .filter(country__in=self.countries)\
+                .annotate(n=Count('id'))
+        counts = {(r['space'], r['topic']): r['n'] for r in rows}
+
+        row_totals = {}
+        for topic_id, t in TOPICS:
+            row_totals[topic_id] = sum(counts.get((space_id, topic_id), 0) for space_id, s in SPACE)
+
         for i, space in enumerate(SPACE):
-            space_id, space_title = space
+            space_id, space = space
+
             # column title
-            ws.write(row - 2, col, unicode(space_title))
+            ws.write(row - 2, col, unicode(space))
             ws.write(row - 1, col, "N")
             ws.write(row - 1, col + 1, "%")
 
             # row values
-            rows = NewspaperSheet.objects\
-                    .values('topic')\
-                    .filter(country__in=self.countries)\
-                    .annotate(n=Count('topic'))
-            counts = {r['topic']: r['n'] for r in rows if r['topic'] is not None}
-            total = sum(counts.itervalues())
-
             for i, topic in enumerate(TOPICS):
-                id, topic = topic
-                ws.write(row + i, col, counts.get(id, 0))
-                ws.write(row + i, col + 1, p(counts.get(id, 0), total), self.P)
+                topic_id, topic = topic
+                c = counts.get((space_id, topic_id), 0)
+                ws.write(row + i, col, c)
+                ws.write(row + i, col + 1, p(c, row_totals[topic_id]), self.P)
 
             col += 2
 
