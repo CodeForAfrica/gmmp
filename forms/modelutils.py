@@ -208,11 +208,40 @@ class SheetModel(models.Model):
     class Meta:
         abstract = True
 
+    @classmethod
+    def person_field(self):
+        """ Return the person-related field for this model
+        """
+        for fld in self._meta.get_all_related_objects():
+            if fld.model and issubclass(fld.model, Person):
+                return fld
+
+    @classmethod
+    def person_field_name(self):
+        """ Return the nawe of the person-related field for this model
+        """
+        return self.person_field().name.split(':')[-1]
+
+    @classmethod
+    def journalist_field(self):
+        """ Return the journalist-related field for this model
+        """
+        for fld in self._meta.get_all_related_objects():
+            if fld.model and issubclass(fld.model, Journalist):
+                return fld
+
+    @classmethod
+    def journalist_field_name(self):
+        """ Return the nawe of the journalist-related field for this model
+        """
+        return self.journalist_field().name.split(':')[-1]
+
 
 class Person(models.Model):
     class Meta:
         verbose_name = _('Person')
         abstract = True
+
 
 class Journalist(models.Model):
     # Journalists / Reporters

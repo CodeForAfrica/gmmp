@@ -37,19 +37,6 @@ def p(n, d):
     return float(n) / d
 
 
-def person_field(model):
-    """
-    Return the person-related field for this model
-    """
-    for fld in model._meta.get_all_related_objects():
-        if fld.model and issubclass(fld.model, Person):
-            return fld
-
-
-def person_field_name(model):
-    return person_field(model).name.split(':')[-1]
-
-
 class XLSXReportBuilder:
     def __init__(self, form):
         self.form = form
@@ -71,8 +58,9 @@ class XLSXReportBuilder:
         self.ws_2_media_by_country(workbook)
         self.ws_4_topics_by_region(workbook)
         self.ws_7_sex_by_media(workbook)
-        self.ws_9_topic_by_sex(workbook)
+        self.ws_9_topic_by_source_sex(workbook)
         self.ws_10_space_per_topic(workbook)
+        self.ws_13_topic_by_journalist_sex(workbook)
 
         workbook.close()
         output.seek(0)
@@ -172,7 +160,7 @@ class XLSXReportBuilder:
             ws.write(row - 1, col + 1, "%")
 
             # row values
-            sex = '%s__sex' % person_field_name(model)
+            sex = '%s__sex' % model.person_field_name()
             rows = model.objects\
                     .values(sex)\
                     .filter(country__in=self.countries)\
@@ -187,8 +175,8 @@ class XLSXReportBuilder:
 
             col += 2
 
-    def ws_9_topic_by_sex(self, wb):
-        ws = wb.add_worksheet('9 - Topic by sex')
+    def ws_9_topic_by_source_sex(self, wb):
+        ws = wb.add_worksheet('9 - Topic by source sex')
 
         ws.write(0, 0, 'Sex of news subjects in different story topics')
         ws.write(1, 0, 'Breakdown of topic by sex')
@@ -205,7 +193,7 @@ class XLSXReportBuilder:
 
         counts = Counter()
         for media_type, model in sheet_models.iteritems():
-            sex = '%s__sex' % person_field_name(model)
+            sex = '%s__sex' % model.person_field_name()
             rows = model.objects\
                     .values(sex, 'topic')\
                     .filter(country__in=self.countries)\
@@ -271,7 +259,48 @@ class XLSXReportBuilder:
 
             col += 2
 
+    def ws_13_topic_by_journalist_sex(self, wb):
+        ws = wb.add_worksheet('13 - Topic by reporter sex')
 
+        ws.write(0, 0, 'Sex of reporter in different story topics')
+        ws.write(1, 0, 'Breakdown of topic by reporter sex')
+        ws.write(3, 2, self.gmmp_year)
 
+        row, col = 6, 1
 
+        # row titles
+        for i, topic in enumerate(TOPICS):
+            id, topic = topic
+            ws.write(row + i, col, unicode(topic))
 
+        col += 1
+
+        counts = Counter()
+        for media_type, model in sheet_models.iteritems():
+            sex = '%s__sex' % model.journalist_field_name()
+            rows = model.objects\
+                    .values(sex, 'topic')\
+                    .filter(country__in=self.countries)\
+                    .annotate(n=Count('id'))
+            counts.update({(r[sex], r['topic']): r['n'] for r in rows if r[sex] is not None})
+
+        row_totals = {}
+        for topic_id, t in TOPICS:
+            row_totals[topic_id] = sum(counts.get((sex_id, topic_id), 0) for sex_id, s in GENDER)
+
+        for i, gender in enumerate(GENDER):
+            gender_id, gender = gender
+
+            # column title
+            ws.write(row - 2, col, unicode(gender))
+            ws.write(row - 1, col, "N")
+            ws.write(row - 1, col + 1, "%")
+
+            # row values
+            for i, topic in enumerate(TOPICS):
+                topic_id, topic = topic
+                c = counts.get((gender_id, topic_id), 0)
+                ws.write(row + i, col, c)
+                ws.write(row + i, col + 1, p(c, row_totals[topic_id]), self.P)
+
+            col += 2
