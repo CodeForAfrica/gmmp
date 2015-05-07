@@ -45,6 +45,8 @@ class XLSXDataExportBuilder():
         self.P.set_num_format(9)  # percentage
         for model in sheet_models.itervalues():
             self.create_sheet_export(model, workbook)
+        for model in person_models.itervalues():
+            self.create_person_export(model, workbook)
 
         workbook.close()
         output.seek(0)
@@ -70,7 +72,7 @@ class XLSXDataExportBuilder():
         col = 0
         for y, obj in enumerate(obj_list):
             for x, field in enumerate(fields):
-                # Topics, scope, agree_disagree, space are 1-indexed
+                # Certain fields are 1-indexed
                 if field.name == 'country':
                     ws.write(row+y, col+x, getattr(obj, field.name).code)
                 elif field.name == 'topic':
@@ -89,6 +91,46 @@ class XLSXDataExportBuilder():
                     ws.write(row+y, col+x, unicode(RETWEET[getattr(obj, field.name)-1][1]))
                 else:
                     ws.write(row+y,col+x, getattr(obj, field.name))
+
+
+    def create_person_export(self, model, wb):
+        ws = wb.add_worksheet(model._meta.object_name)
+        obj_list = model.objects.all()
+
+        row, col = 0, 0
+
+        exclude_fields = ['monitor', 'url_and_multimedia', 'time_accessed']
+
+        fields = [field for field in model._meta.fields if not field.name in exclude_fields]
+
+        for i, field in enumerate(fields):
+            ws.write(row, col+i, unicode(field.name))
+
+        row += 1
+
+        col = 0
+        for y, obj in enumerate(obj_list):
+            for x, field in enumerate(fields):
+                # Certain fields are 1-indexed
+                if field.name == 'occupation':
+                    ws.write(row+y, col+x, unicode(OCCUPATION[getattr(obj, field.name)][1]))
+                elif field.name == 'function':
+                    ws.write(row+y, col+x, unicode(FUNCTION[getattr(obj, field.name)][1]))
+                elif field.name == 'victim_of' and not getattr(obj, field.name) == None:
+                    ws.write(row+y, col+x, unicode(VICTIM_OF[getattr(obj, field.name)][1]))
+                elif field.name == 'survivor_of' and not getattr(obj, field.name) == None:
+                    ws.write(row+y, col+x, unicode(SURVIVOR_OF[getattr(obj, field.name)][1]))
+                elif field.name == 'is_photograph':
+                    ws.write(row+y, col+x, unicode(IS_PHOTOGRAPH[getattr(obj, field.name)-1][1]))
+                elif field.name == 'space':
+                    ws.write(row+y, col+x, unicode(SPACE[getattr(obj, field.name)-1][1]))
+                elif field.name == 'retweet':
+                    ws.write(row+y, col+x, unicode(RETWEET[getattr(obj, field.name)-1][1]))
+                elif field.get_internal_type == 'ForeignKey':
+                    ws.write(row+y, col+x, getattr(obj, field.name).id)
+                else:
+                    ws.write(row+y,col+x, getattr(obj, field.name))
+
 
 
 class XLSXReportBuilder:
