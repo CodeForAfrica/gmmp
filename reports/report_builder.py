@@ -3,7 +3,6 @@ import StringIO
 from collections import Counter
 
 # Django
-from django.utils.translation import ugettext_lazy as _
 from django_countries import countries
 from django.db.models import Count, FieldDoesNotExist
 
@@ -11,15 +10,7 @@ from django.db.models import Count, FieldDoesNotExist
 import xlsxwriter
 
 # Project
-from forms.models import (
-    InternetNewsSheet,
-    TwitterSheet,
-    NewspaperSheet,
-    TelevisionSheet,
-    RadioSheet,
-    Person,
-    person_models,
-    sheet_models)
+from forms.models import NewspaperSheet, person_models, sheet_models
 from forms.modelutils import TOPICS, GENDER, SPACE, OCCUPATION
 
 
@@ -287,7 +278,7 @@ class XLSXReportBuilder:
             # we'll need percentage by rows
             row_totals = {}
             for row_id, row_title in rows:
-                row_totals[row_id] = sum(counts.get((col_id, row_id), 0) for col_id, _ in cols)
+                row_totals[row_id] = sum(counts.get((col_id, row_id), 0) for col_id, _ in cols)  # noqa
 
         # row titles
         for i, row in enumerate(rows):
