@@ -3,7 +3,6 @@ import StringIO
 from collections import Counter
 
 # Django
-from django.utils.translation import ugettext_lazy as _
 from django_countries import countries
 from django.db.models import Count, FieldDoesNotExist
 
@@ -11,15 +10,7 @@ from django.db.models import Count, FieldDoesNotExist
 import xlsxwriter
 
 # Project
-from forms.models import (
-    InternetNewsSheet,
-    TwitterSheet,
-    NewspaperSheet,
-    TelevisionSheet,
-    RadioSheet,
-    Person,
-    person_models,
-    sheet_models)
+from forms.models import NewspaperSheet, person_models, sheet_models
 from forms.modelutils import TOPICS, GENDER, SPACE, OCCUPATION
 
 
@@ -202,14 +193,6 @@ class XLSXReportBuilder:
         ws.write(1, 0, 'Breakdown of topic by sex')
         ws.write(3, 2, self.gmmp_year)
 
-        row, col = 6, 1
-
-        # row titles
-        for i, topic in enumerate(TOPICS):
-            id, topic = topic
-            ws.write(row + i, col, unicode(topic))
-
-        col += 1
         counts = Counter()
         for media_type, model in sheet_models.iteritems():
             sex = '%s__sex' % model.person_field_name()
@@ -219,26 +202,7 @@ class XLSXReportBuilder:
                     .annotate(n=Count('id'))
             counts.update({(r[sex], r['topic']): r['n'] for r in rows if r[sex] is not None})
 
-        row_totals = {}
-        for topic_id, t in TOPICS:
-            row_totals[topic_id] = sum(counts.get((sex_id, topic_id), 0) for sex_id, s in GENDER)
-
-        for i, gender in enumerate(GENDER):
-            gender_id, gender = gender
-
-            # column title
-            ws.write(row - 2, col, unicode(gender))
-            ws.write(row - 1, col, "N")
-            ws.write(row - 1, col + 1, "%")
-
-            # row values
-            for i, topic in enumerate(TOPICS):
-                topic_id, topic = topic
-                c = counts.get((gender_id, topic_id), 0)
-                ws.write(row + i, col, c)
-                ws.write(row + i, col + 1, p(c, row_totals[topic_id]), self.P)
-
-            col += 2
+        self.tabulate(ws, counts, GENDER, TOPICS, row_perc=True)
 
     def ws_10_space_per_topic(self, wb):
 
@@ -248,15 +212,6 @@ class XLSXReportBuilder:
         ws.write(1, 0, 'Breakdown by major topic by space (q.4) in newspapers')
         ws.write(3, 2, self.gmmp_year)
 
-        row, col = 6, 1
-
-        # row titles
-        for i, topic in enumerate(TOPICS):
-            id, topic = topic
-            ws.write(row + i, col, unicode(topic))
-
-        col += 1
-
         # Calculate row values for column
         rows = NewspaperSheet.objects\
                 .values('space', 'topic')\
@@ -264,26 +219,7 @@ class XLSXReportBuilder:
                 .annotate(n=Count('id'))
         counts = {(r['space'], r['topic']): r['n'] for r in rows}
 
-        row_totals = {}
-        for topic_id, t in TOPICS:
-            row_totals[topic_id] = sum(counts.get((space_id, topic_id), 0) for space_id, s in SPACE)
-
-        for i, space in enumerate(SPACE):
-            space_id, space = space
-
-            # column title
-            ws.write(row - 2, col, unicode(space))
-            ws.write(row - 1, col, "N")
-            ws.write(row - 1, col + 1, "%")
-
-            # row values
-            for i, topic in enumerate(TOPICS):
-                topic_id, topic = topic
-                c = counts.get((space_id, topic_id), 0)
-                ws.write(row + i, col, c)
-                ws.write(row + i, col + 1, p(c, row_totals[topic_id]), self.P)
-
-            col += 2
+        self.tabulate(ws, counts, SPACE, TOPICS, row_perc=True)
 
     def ws_13_topic_by_journalist_sex(self, wb):
         ws = wb.add_worksheet('13 - Topic by reporter sex')
@@ -291,15 +227,6 @@ class XLSXReportBuilder:
         ws.write(0, 0, 'Sex of reporter in different story topics')
         ws.write(1, 0, 'Breakdown of topic by reporter sex')
         ws.write(3, 2, self.gmmp_year)
-
-        row, col = 6, 1
-
-        # row titles
-        for i, topic in enumerate(TOPICS):
-            id, topic = topic
-            ws.write(row + i, col, unicode(topic))
-
-        col += 1
 
         counts = Counter()
         for media_type, model in sheet_models.iteritems():
@@ -310,26 +237,7 @@ class XLSXReportBuilder:
                     .annotate(n=Count('id'))
             counts.update({(r[sex], r['topic']): r['n'] for r in rows if r[sex] is not None})
 
-        row_totals = {}
-        for topic_id, t in TOPICS:
-            row_totals[topic_id] = sum(counts.get((sex_id, topic_id), 0) for sex_id, s in GENDER)
-
-        for i, gender in enumerate(GENDER):
-            gender_id, gender = gender
-
-            # column title
-            ws.write(row - 2, col, unicode(gender))
-            ws.write(row - 1, col, "N")
-            ws.write(row - 1, col + 1, "%")
-
-            # row values
-            for i, topic in enumerate(TOPICS):
-                topic_id, topic = topic
-                c = counts.get((gender_id, topic_id), 0)
-                ws.write(row + i, col, c)
-                ws.write(row + i, col + 1, p(c, row_totals[topic_id]), self.P)
-
-            col += 2
+        self.tabulate(ws, counts, GENDER, TOPICS, row_perc=True)
 
     def ws_14_source_occupation_by_sex(self, wb):
         ws = wb.add_worksheet('14 - Source occupation by sex')
@@ -337,15 +245,6 @@ class XLSXReportBuilder:
         ws.write(0, 0, 'Position or occupation of news sources, by sex')
         ws.write(1, 0, 'Breakdown of new sources by occupation and sex')
         ws.write(3, 2, self.gmmp_year)
-
-        row, col = 6, 1
-
-        # row titles
-        for i, occupation in enumerate(OCCUPATION):
-            id, occupation = occupation
-            ws.write(row + i, col, unicode(occupation))
-
-        col += 1
 
         counts = Counter()
         for model in person_models.itervalues():
@@ -359,23 +258,56 @@ class XLSXReportBuilder:
                     .annotate(n=Count('id'))
             counts.update({(r['sex'], r['occupation']): r['n'] for r in rows})
 
-        row_totals = {}
-        for occ_id, t in OCCUPATION:
-            row_totals[occ_id] = sum(counts.get((sex_id, occ_id), 0) for sex_id, s in GENDER)
+        self.tabulate(ws, counts, GENDER, OCCUPATION, row_perc=True)
 
-        for i, gender in enumerate(GENDER):
-            gender_id, gender = gender
+    # -------------------------------------------------------------------------------
+    # Helper functions
+    #
+    def tabulate(self, ws, counts, cols, rows, row_perc=False):
+        """ Emit a table.
 
+        :param ws: worksheet to write to
+        :param dict counts: dict from `(col_id, row_id)` tuples to count for that combination.
+        :param list cols: list of `(col_id, col_title)` tuples of column ids and titles
+        :param list rows: list of `(row_id, row_title)` tuples of row ids and titles
+        :param bool row_perc: should percentages by calculated by row instead of column (default: False)
+        """
+        r, c = 6, 1
+
+        if row_perc:
+            # we'll need percentage by rows
+            row_totals = {}
+            for row_id, row_title in rows:
+                row_totals[row_id] = sum(counts.get((col_id, row_id), 0) for col_id, _ in cols)  # noqa
+
+        # row titles
+        for i, row in enumerate(rows):
+            row_id, row_title = row
+            ws.write(r + i, c, unicode(row_title))
+
+        c += 1
+
+        # values, written by column
+        for col_id, col_title in cols:
             # column title
-            ws.write(row - 2, col, unicode(gender))
-            ws.write(row - 1, col, "N")
-            ws.write(row - 1, col + 1, "%")
+            ws.write(r - 2, c, unicode(col_title))
+            ws.write(r - 1, c, "N")
+            ws.write(r - 1, c + 1, "%")
 
-            # row values
-            for i, occupation in enumerate(OCCUPATION):
-                occ_id, occupation = occupation
-                c = counts.get((gender_id, occ_id), 0)
-                ws.write(row + i, col, c)
-                ws.write(row + i, col + 1, p(c, row_totals[occ_id]), self.P)
+            if not row_perc:
+                # column totals
+                total = sum(counts.itervalues())
 
-            col += 2
+            # row values for this column
+            for i, row in enumerate(rows):
+                row_id, row_title = row
+
+                if row_perc:
+                    # row totals
+                    total = row_totals[row_id]
+
+                n = counts.get((col_id, row_id), 0)
+                ws.write(r + i, c, n)
+                ws.write(r + i, c + 1, p(n, total), self.P)
+
+            c += 2
