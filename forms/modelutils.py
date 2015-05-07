@@ -242,6 +242,14 @@ class Person(models.Model):
         verbose_name = _('Person')
         abstract = True
 
+    @classmethod
+    def sheet_name(self):
+        """ Return the name of the sheet relation field
+        """
+        for fld in self._meta.fields:
+            if hasattr(fld, 'related') and fld.related and issubclass(fld.related.parent_model, SheetModel):
+                return fld.name.split(':')[-1]
+
 
 class Journalist(models.Model):
     # Journalists / Reporters

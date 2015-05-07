@@ -1,3 +1,5 @@
+from collections import OrderedDict
+
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from modelutils import *
@@ -246,3 +248,20 @@ class RadioSheet(SheetModel):
 
     class Meta:
         verbose_name = _('Radio Submission')
+
+
+sheet_models = OrderedDict([
+    ('Internet News', InternetNewsSheet),
+    ('Print', NewspaperSheet),
+    ('Radio', RadioSheet),
+    ('Television', TelevisionSheet),
+    ('Twitter', TwitterSheet)]
+)
+
+person_models = OrderedDict([
+    ('Internet News', InternetNewsPerson),
+    ('Print', NewspaperPerson),
+    ('Radio', RadioPerson),
+    ('Television', TelevisionPerson),
+    ('Twitter', TwitterPerson)]
+)

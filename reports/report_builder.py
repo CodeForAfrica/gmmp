@@ -1,11 +1,11 @@
 # Python
 import StringIO
-from collections import OrderedDict, Counter
+from collections import Counter
 
 # Django
 from django.utils.translation import ugettext_lazy as _
 from django_countries import countries
-from django.db.models import Count
+from django.db.models import Count, FieldDoesNotExist
 
 # 3rd Party
 import xlsxwriter
@@ -17,17 +17,18 @@ from forms.models import (
     NewspaperSheet,
     TelevisionSheet,
     RadioSheet,
-    Person)
-from forms.modelutils import TOPICS, GENDER, SPACE
+    Person,
+    person_models,
+    sheet_models)
+from forms.modelutils import TOPICS, GENDER, SPACE, OCCUPATION
 
 
-sheet_models = OrderedDict([
-    ('Internet News', InternetNewsSheet),
-    ('Print', NewspaperSheet),
-    ('Radio', RadioSheet),
-    ('Television', TelevisionSheet),
-    ('Twitter', TwitterSheet)]
-)
+def has_field(model, fld):
+    try:
+        model._meta.get_field(fld)
+        return True
+    except FieldDoesNotExist:
+        return False
 
 
 def p(n, d):
@@ -63,6 +64,7 @@ class XLSXReportBuilder:
         self.ws_9_topic_by_source_sex(workbook)
         self.ws_10_space_per_topic(workbook)
         self.ws_13_topic_by_journalist_sex(workbook)
+        self.ws_14_source_occupation_by_sex(workbook)
 
         workbook.close()
         output.seek(0)
@@ -326,5 +328,54 @@ class XLSXReportBuilder:
                 c = counts.get((gender_id, topic_id), 0)
                 ws.write(row + i, col, c)
                 ws.write(row + i, col + 1, p(c, row_totals[topic_id]), self.P)
+
+            col += 2
+
+    def ws_14_source_occupation_by_sex(self, wb):
+        ws = wb.add_worksheet('14 - Source occupation by sex')
+
+        ws.write(0, 0, 'Position or occupation of news sources, by sex')
+        ws.write(1, 0, 'Breakdown of new sources by occupation and sex')
+        ws.write(3, 2, self.gmmp_year)
+
+        row, col = 6, 1
+
+        # row titles
+        for i, occupation in enumerate(OCCUPATION):
+            id, occupation = occupation
+            ws.write(row + i, col, unicode(occupation))
+
+        col += 1
+
+        counts = Counter()
+        for model in person_models.itervalues():
+            # some models don't have an occupation
+            if not has_field(model, 'occupation'):
+                continue
+
+            rows = model.objects\
+                    .values('sex', 'occupation')\
+                    .filter(**{model.sheet_name() + '__country__in': self.countries})\
+                    .annotate(n=Count('id'))
+            counts.update({(r['sex'], r['occupation']): r['n'] for r in rows})
+
+        row_totals = {}
+        for occ_id, t in OCCUPATION:
+            row_totals[occ_id] = sum(counts.get((sex_id, occ_id), 0) for sex_id, s in GENDER)
+
+        for i, gender in enumerate(GENDER):
+            gender_id, gender = gender
+
+            # column title
+            ws.write(row - 2, col, unicode(gender))
+            ws.write(row - 1, col, "N")
+            ws.write(row - 1, col + 1, "%")
+
+            # row values
+            for i, occupation in enumerate(OCCUPATION):
+                occ_id, occupation = occupation
+                c = counts.get((gender_id, occ_id), 0)
+                ws.write(row + i, col, c)
+                ws.write(row + i, col + 1, p(c, row_totals[occ_id]), self.P)
 
             col += 2
