@@ -202,14 +202,6 @@ class XLSXReportBuilder:
         ws.write(1, 0, 'Breakdown of topic by sex')
         ws.write(3, 2, self.gmmp_year)
 
-        row, col = 6, 1
-
-        # row titles
-        for i, topic in enumerate(TOPICS):
-            id, topic = topic
-            ws.write(row + i, col, unicode(topic))
-
-        col += 1
         counts = Counter()
         for media_type, model in sheet_models.iteritems():
             sex = '%s__sex' % model.person_field_name()
@@ -219,26 +211,7 @@ class XLSXReportBuilder:
                     .annotate(n=Count('id'))
             counts.update({(r[sex], r['topic']): r['n'] for r in rows if r[sex] is not None})
 
-        row_totals = {}
-        for topic_id, t in TOPICS:
-            row_totals[topic_id] = sum(counts.get((sex_id, topic_id), 0) for sex_id, s in GENDER)
-
-        for i, gender in enumerate(GENDER):
-            gender_id, gender = gender
-
-            # column title
-            ws.write(row - 2, col, unicode(gender))
-            ws.write(row - 1, col, "N")
-            ws.write(row - 1, col + 1, "%")
-
-            # row values
-            for i, topic in enumerate(TOPICS):
-                topic_id, topic = topic
-                c = counts.get((gender_id, topic_id), 0)
-                ws.write(row + i, col, c)
-                ws.write(row + i, col + 1, p(c, row_totals[topic_id]), self.P)
-
-            col += 2
+        self.tabulate(ws, counts, GENDER, TOPICS, row_perc=True)
 
     def ws_10_space_per_topic(self, wb):
 
