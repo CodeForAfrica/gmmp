@@ -53,7 +53,7 @@ class XLSXReportBuilder:
         self.ws_4_topics_by_region(workbook)
         self.ws_7_sex_by_media(workbook)
         self.ws_9_topic_by_source_sex(workbook)
-        self.ws_10_space_per_topic(workbook)
+        self.ws_10_topic_by_space(workbook)
         self.ws_13_topic_by_journalist_sex(workbook)
         self.ws_14_source_occupation_by_sex(workbook)
         self.ws_15_subject_function_by_sex(workbook)
@@ -205,7 +205,7 @@ class XLSXReportBuilder:
 
         self.tabulate(ws, counts, GENDER, TOPICS, row_perc=True)
 
-    def ws_10_space_per_topic(self, wb):
+    def ws_10_topic_by_space(self, wb):
 
         ws = wb.add_worksheet('10 - Space per topic')
 
