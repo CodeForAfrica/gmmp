@@ -251,7 +251,6 @@ class XLSXReportBuilder:
 
         for i, space in enumerate(SPACE):
             space_id, space_title = space
-            import ipdb; ipdb.set_trace()
             # column title
             ws.write(row - 2, col, unicode(space_title))
             ws.write(row - 1, col, "N")

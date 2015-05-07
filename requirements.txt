@@ -1,9 +1,12 @@
+Django==1.7.4
+Werkzeug==0.10.4
+XlsxWriter==0.7.2
 chardet==2.1.1
 colorama==0.2.5
 dj-database-url==0.3.0
 dj-static==0.0.6
-Django==1.7.4
 django-countries==3.2
+django-extensions==1.5.3
 django-grappelli==2.6.3
 django-guardian==1.2.5
 django-toolbelt==0.0.1
@@ -17,4 +20,4 @@ requests==2.2.1
 six==1.5.2
 static3==0.5.1
 urllib3==1.7.1
-XlsxWriter==0.7.2
+wsgiref==0.1.2
