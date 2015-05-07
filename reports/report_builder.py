@@ -15,17 +15,18 @@ from forms.models import (
     NewspaperSheet,
     TelevisionSheet,
     RadioSheet,
-    Person)
-from forms.modelutils import TOPICS, GENDER, SPACE
+    Person,
+    person_models,
+    sheet_models)
+from forms.modelutils import TOPICS, GENDER, SPACE, OCCUPATION
 
 
-sheet_models = OrderedDict([
-    ('Internet News', InternetNewsSheet),
-    ('Print', NewspaperSheet),
-    ('Radio', RadioSheet),
-    ('Television', TelevisionSheet),
-    ('Twitter', TwitterSheet)]
-)
+def has_field(model, fld):
+    try:
+        model._meta.get_field(fld)
+        return True
+    except FieldDoesNotExist:
+        return False
 
 
 def p(n, d):
