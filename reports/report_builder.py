@@ -2,13 +2,15 @@
 import StringIO
 from collections import OrderedDict, Counter
 
-# 3rd Party
-import xlsxwriter
+# Django
+from django.utils.translation import ugettext_lazy as _
 from django_countries import countries
 from django.db.models import Count
 
-# Project
+# 3rd Party
+import xlsxwriter
 
+# Project
 from forms.models import (
     InternetNewsSheet,
     TwitterSheet,
@@ -25,6 +27,15 @@ sheet_models = OrderedDict([
     ('Radio', RadioSheet),
     ('Television', TelevisionSheet),
     ('Twitter', TwitterSheet)]
+)
+
+
+MEDIA_TYPES = (
+    (1, _('(1) Internet News')),
+    (2, _('(2) Print')),
+    (3, _('(3) Radio')),
+    (4, _('(4) Television')),
+    (5, _('(5) Twitter')),
 )
 
 
@@ -79,34 +90,51 @@ class XLSXReportBuilder:
         return output.read()
 
     def ws_2_media_by_country(self, wb):
-        ws = wb.add_worksheet('Medium per country')
+        ws = wb.add_worksheet('2 - Medium per country')
 
         ws.write(0, 0, 'Participating Countries in each Region')
         ws.write(1, 0, 'Breakdown of all media by country')
-
-        # Is there a more efficient wat to do this?
-        ws.write(5, 0, 'Region name here')
-
-        row, col = 5, 1
-        for country in self.countries:
-            ws.write(row, col, dict(countries)[country])
-            row += 1
-
         ws.write(3, 2, self.gmmp_year)
 
-        row, col = 4, 2
-        for name, sheet_model in sheet_models.iteritems():
-            ws.write(row, col, name)
-            col += 1
+        ws.write(5, 0, 'Region name here')
 
-        col = 2
-        for name, sheet_model in sheet_models.iteritems():
-            row = 5
-            for country in self.countries:
-                data = sheet_model.objects.filter(country=country).count()
-                ws.write(row, col, data)
-                row += 1
-            col += 1
+        row, col = 6, 1
+
+        # row headings
+        for i, country in enumerate(self.countries):
+            # Is this the best way to do this?
+            ws.write(row + i, col, dict(countries)[country])
+
+        col += 1
+
+        counts = Counter()
+
+        for media_type, model in sheet_models.iteritems():
+            # row values
+            rows = model.objects\
+                    .values('country')\
+                    .filter(country__in=self.countries)\
+                    .annotate(n=Count('country'))
+
+            counts.update({(media_type, r['country']): r['n'] for r in rows})
+
+        row_totals = {}
+        for country in self.countries:
+            row_totals[country] = sum(counts.get((media_type, country), 0) for media_type, m in sheet_models.iteritems())
+
+        for media_type, model in sheet_models.iteritems():
+            # column title
+            ws.write(row - 2, col, media_type)
+            ws.write(row - 1, col, "N")
+            ws.write(row - 1, col + 1, "%")
+
+            # row values
+            for i, country in enumerate(self.countries):
+                c = counts.get((media_type, country), 0)
+                ws.write(row + i, col, c)
+                ws.write(row + i, col + 1, p(c, row_totals[country]), self.P)
+
+            col += 2
 
     def ws_4_topics_by_region(self, wb):
         ws = wb.add_worksheet('4 - Topics by region')
@@ -115,7 +143,6 @@ class XLSXReportBuilder:
         ws.write(1, 0, 'Breakdown of major news topics by region by medium')
         ws.write(3, 2, self.gmmp_year)
 
-        # Is there a more efficient wat to do this?
         ws.write(5, 0, 'Region name here')
 
         row, col = 6, 1
@@ -201,7 +228,6 @@ class XLSXReportBuilder:
             ws.write(row + i, col, unicode(topic))
 
         col += 1
-
         counts = Counter()
         for media_type, model in sheet_models.iteritems():
             sex = '%s__sex' % person_field_name(model)
