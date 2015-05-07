@@ -228,9 +228,11 @@ class XLSXReportBuilder:
         self.ws_8_scope_by_source_sex(workbook)
         self.ws_9_topic_by_source_sex(workbook)
         self.ws_10_topic_by_space(workbook)
+        self.ws_11_topic_by_gender_equality_reference(workbook)
         self.ws_13_topic_by_journalist_sex(workbook)
         self.ws_14_source_occupation_by_sex(workbook)
         self.ws_15_subject_function_by_sex(workbook)
+
 
         workbook.close()
         output.seek(0)
@@ -424,7 +426,7 @@ class XLSXReportBuilder:
 
     def ws_10_topic_by_space(self, wb):
 
-        ws = wb.add_worksheet('10 - Space per topic')
+        ws = wb.add_worksheet('10 - Topic by space')
 
         ws.write(0, 0, 'Space allocated to major topics in Newspapers')
         ws.write(1, 0, 'Breakdown by major topic by space (q.4) in newspapers')
@@ -438,6 +440,25 @@ class XLSXReportBuilder:
         counts = {(r['space'], r['topic']): r['n'] for r in rows}
 
         self.tabulate(ws, counts, SPACE, TOPICS, row_perc=True)
+
+    def ws_11_topic_by_gender_equality_reference(self, wb):
+
+        ws = wb.add_worksheet('11 - Topic by reference to gender equality')
+
+        ws.write(0, 0, 'Stories making reference to issues of gender equality/inequality, legislation, policy by major topic')
+        ws.write(1, 0, 'Breakdown by major topic by reference to gender equality/human rights/policy ')
+        ws.write(3, 2, self.gmmp_year)
+
+        row, col = 6, 1
+
+        # row titles
+        for i, topic in enumerate(TOPICS):
+            id, topic = topic
+            ws.write(row + i, col, unicode(topic))
+
+        col += 1
+
+
 
     def ws_13_topic_by_journalist_sex(self, wb):
         ws = wb.add_worksheet('13 - Topic by reporter sex')
