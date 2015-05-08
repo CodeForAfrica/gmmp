@@ -263,6 +263,14 @@ class Journalist(models.Model):
     class Meta:
         abstract = True
 
+    @classmethod
+    def sheet_name(self):
+        """ Return the name of the sheet relation field
+        """
+        for fld in self._meta.fields:
+            if hasattr(fld, 'related') and fld.related and issubclass(fld.related.parent_model, SheetModel):
+                return fld.name.split(':')[-1]
+
 class BroadcastJournalist(Journalist):
     role = models.PositiveIntegerField(choices=TV_ROLE, verbose_name=_('Role'))
 

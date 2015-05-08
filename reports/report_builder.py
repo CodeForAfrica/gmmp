@@ -35,7 +35,7 @@ def p(n, d):
 
 class XLSXDataExportBuilder():
     def __init__(self, request):
-        self.edit_url = "%s/admin/forms" % get_current_site(request).domain
+        self.edit_url = "http://%s/admin/forms" % get_current_site(request).domain
 
 
     def build(self):
@@ -45,14 +45,12 @@ class XLSXDataExportBuilder():
         output = StringIO.StringIO()
         workbook = xlsxwriter.Workbook(output)
 
-        # setup formats
-        self.P = workbook.add_format()
-        self.P.set_num_format(9)  # percentage
-
         for model in sheet_models.itervalues():
             self.create_sheet_export(model, workbook)
+
         for model in person_models.itervalues():
             self.create_person_export(model, workbook)
+
         for model in journalist_models.itervalues():
             self.create_journalist_export(model, workbook)
 
@@ -102,7 +100,7 @@ class XLSXDataExportBuilder():
 
     def create_person_export(self, model, wb):
         ws = wb.add_worksheet(model._meta.object_name)
-        obj_list = model.objects.all()
+        obj_list = model.objects.all().prefetch_related(model.sheet_name())
         row, col = 0, 0
         exclude_fields = []
         fields = [field for field in model._meta.fields if not field.name in exclude_fields]
@@ -148,7 +146,7 @@ class XLSXDataExportBuilder():
 
     def create_journalist_export(self, model, wb):
         ws = wb.add_worksheet(model._meta.object_name)
-        obj_list = model.objects.all()
+        obj_list = model.objects.all().prefetch_related(model.sheet_name())
         row, col = 0, 0
         exclude_fields = []
         fields = [field for field in model._meta.fields if not field.name in exclude_fields]
