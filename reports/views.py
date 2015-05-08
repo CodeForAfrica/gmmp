@@ -63,9 +63,10 @@ class ReportView(View):
 
 @user_passes_test(lambda u: u.is_superuser)
 def data_export(request):
-    xlsx = XLSXDataExportBuilder().build()
+    xlsx = XLSXDataExportBuilder(request).build()
     filename = 'GMMP Data export'
 
     response = HttpResponse(xlsx, content_type='application/vnd.ms-excel')
     response['Content-Disposition'] = 'attachment; filename=%s.xlsx' % filename
+
     return response

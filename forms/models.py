@@ -265,3 +265,11 @@ person_models = OrderedDict([
     ('Television', TelevisionPerson),
     ('Twitter', TwitterPerson)]
 )
+
+journalist_models = OrderedDict([
+    ('Internet News', InternetNewsJournalist),
+    ('Print', NewspaperJournalist),
+    ('Radio', RadioJournalist),
+    ('Television', TelevisionJournalist),
+    ('Twitter', TwitterJournalist)]
+)

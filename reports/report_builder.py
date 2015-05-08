@@ -5,12 +5,13 @@ from collections import Counter
 # Django
 from django_countries import countries
 from django.db.models import Count, FieldDoesNotExist
+from django.contrib.sites.shortcuts import get_current_site
 
 # 3rd Party
 import xlsxwriter
 
 # Project
-from forms.models import NewspaperSheet, person_models, sheet_models
+from forms.models import NewspaperSheet, person_models, sheet_models, journalist_models
 from forms.modelutils import (TOPICS, GENDER, SPACE, OCCUPATION, FUNCTION, SCOPE,
     YESNO, AGES, SOURCE, VICTIM_OF, SURVIVOR_OF, IS_PHOTOGRAPH, AGREE_DISAGREE,  RETWEET, TV_ROLE)
 
@@ -33,6 +34,10 @@ def p(n, d):
 
 
 class XLSXDataExportBuilder():
+    def __init__(self, request):
+        self.edit_url = "%s/admin/forms" % get_current_site(request).domain
+
+
     def build(self):
         """
         Generate an Excel spreadsheet and return it as a string.
@@ -43,10 +48,13 @@ class XLSXDataExportBuilder():
         # setup formats
         self.P = workbook.add_format()
         self.P.set_num_format(9)  # percentage
+
         for model in sheet_models.itervalues():
             self.create_sheet_export(model, workbook)
         for model in person_models.itervalues():
             self.create_person_export(model, workbook)
+        for model in journalist_models.itervalues():
+            self.create_journalist_export(model, workbook)
 
         workbook.close()
         output.seek(0)
@@ -57,19 +65,17 @@ class XLSXDataExportBuilder():
     def create_sheet_export(self, model, wb):
         ws = wb.add_worksheet(model._meta.object_name)
         obj_list = model.objects.all()
-
         row, col = 0, 0
-
         exclude_fields = ['monitor', 'url_and_multimedia', 'time_accessed']
-
         fields = [field for field in model._meta.fields if not field.name in exclude_fields]
 
         for i, field in enumerate(fields):
             ws.write(row, col+i, unicode(field.name))
+        ws.write(row, col+i+1, unicode('edit_url'))
 
         row += 1
-
         col = 0
+
         for y, obj in enumerate(obj_list):
             for x, field in enumerate(fields):
                 # Certain fields are 1-indexed
@@ -91,28 +97,31 @@ class XLSXDataExportBuilder():
                     ws.write(row+y, col+x, unicode(RETWEET[getattr(obj, field.name)-1][1]))
                 else:
                     ws.write(row+y,col+x, getattr(obj, field.name))
+            ws.write_url(row+y, col+x+1, "%s/%s/%s/" % (self.edit_url, model._meta.model_name, obj.id))
 
 
     def create_person_export(self, model, wb):
         ws = wb.add_worksheet(model._meta.object_name)
         obj_list = model.objects.all()
-
         row, col = 0, 0
-
-        exclude_fields = ['monitor', 'url_and_multimedia', 'time_accessed']
-
+        exclude_fields = []
         fields = [field for field in model._meta.fields if not field.name in exclude_fields]
 
         for i, field in enumerate(fields):
             ws.write(row, col+i, unicode(field.name))
+        ws.write(row, col+i+1, unicode('edit_url'))
 
         row += 1
-
         col = 0
+
         for y, obj in enumerate(obj_list):
             for x, field in enumerate(fields):
                 # Certain fields are 1-indexed
-                if field.name == 'occupation':
+                if field.name == 'sex':
+                    ws.write(row+y, col+x, unicode(GENDER[getattr(obj, field.name)-1][1]))
+                elif field.name == 'age':
+                    ws.write(row+y, col+x, unicode(AGES[getattr(obj, field.name)][1]))
+                elif field.name == 'occupation':
                     ws.write(row+y, col+x, unicode(OCCUPATION[getattr(obj, field.name)][1]))
                 elif field.name == 'function':
                     ws.write(row+y, col+x, unicode(FUNCTION[getattr(obj, field.name)][1]))
@@ -126,11 +135,46 @@ class XLSXDataExportBuilder():
                     ws.write(row+y, col+x, unicode(SPACE[getattr(obj, field.name)-1][1]))
                 elif field.name == 'retweet':
                     ws.write(row+y, col+x, unicode(RETWEET[getattr(obj, field.name)-1][1]))
-                elif field.get_internal_type == 'ForeignKey':
+                elif field.get_internal_type() == 'ForeignKey':
                     ws.write(row+y, col+x, getattr(obj, field.name).id)
+                    # Get the parent model and id for building the edit link
+                    parent_model = field.related.parent_model
+                    parent_id = getattr(obj, field.name).id
                 else:
                     ws.write(row+y,col+x, getattr(obj, field.name))
+            # Write link to end of row
+            ws.write_url(row+y, col+x+1, "%s/%s/%s/" % (self.edit_url, parent_model._meta.model_name, parent_id))
 
+
+    def create_journalist_export(self, model, wb):
+        ws = wb.add_worksheet(model._meta.object_name)
+        obj_list = model.objects.all()
+        row, col = 0, 0
+        exclude_fields = []
+        fields = [field for field in model._meta.fields if not field.name in exclude_fields]
+
+        for i, field in enumerate(fields):
+            ws.write(row, col+i, unicode(field.name))
+        ws.write(row, col+i+1, unicode('edit_url'))
+
+        row += 1
+        col = 0
+
+        for y, obj in enumerate(obj_list):
+            for x, field in enumerate(fields):
+                if field.name == 'sex':
+                    ws.write(row+y, col+x, unicode(GENDER[getattr(obj, field.name)-1][1]))
+                elif field.name == 'age' and not getattr(obj, field.name) == None:
+                    ws.write(row+y, col+x, unicode(AGES[getattr(obj, field.name)][1]))
+                elif field.get_internal_type() == 'ForeignKey':
+                    ws.write(row+y, col+x, getattr(obj, field.name).id)
+                    # Get the parent model and id for building the edit link
+                    parent_model = field.related.parent_model
+                    parent_id = getattr(obj, field.name).id
+                else:
+                    ws.write(row+y,col+x, getattr(obj, field.name))
+            # Write link to end of row
+            ws.write_url(row+y, col+x+1, "%s/%s/%s/" % (self.edit_url, parent_model._meta.model_name, parent_id))
 
 
 class XLSXReportBuilder:
