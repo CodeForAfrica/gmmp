@@ -30,6 +30,10 @@ class ReportFilterForm(forms.Form):
 class ReportView(View):
     template_name = 'report_filter.html'
 
+    # @method_decorator(login_required)
+    # def dispatch(self, *args, **kwargs):
+    #     return super(ReportView, self).dispatch(*args, **kwargs)
+
     def get(self, request, *args, **kwargs):
         filter_form = ReportFilterForm()
         context = {'form' : filter_form}
