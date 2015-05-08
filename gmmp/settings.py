@@ -18,19 +18,8 @@ DEBUG = env.get('DJANGO_DEBUG', 'true') == 'true'
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-if DEBUG:
-    DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'gmmp',
-        'USER': 'gmmp',
-        'PASSWORD': 'gmmp',
-        'HOST': 'localhost'
-    }
-}
-else:
-    import dj_database_url
-    DATABASES = {'default' : dj_database_url.config()}
+import dj_database_url
+DATABASES = {'default' : dj_database_url.config(default='postgres://gmmp:gmmp@localhost:5432/gmmp')}
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
