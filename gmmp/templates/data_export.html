@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block page_content %}
+    <!-- Page Header -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header"></h1>
+            <h2>Data export</h2>
+            <p class=header-instructions>Click on the button below to export the data.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 portfolio-item">
+            <form action="{% url 'get_data_export' %}" method="post">
+            {% csrf_token %}
+            <input type="submit" value="Get data export" />
+        </div>
+    </div>
+{% endblock page_content %}
