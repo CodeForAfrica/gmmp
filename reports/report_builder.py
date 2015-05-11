@@ -183,7 +183,6 @@ class XLSXDataExportBuilder():
                 else:
                     ws.write(row+y,col+x, getattr(obj, field.name))
             # Write link to end of row
-            # ws.write_url(row+y, col+x+1, "%s/%s/%s/" % (self.edit_url, parent_model._meta.model_name, parent_id))
             change_url = urlresolvers.reverse(
                 'admin:%s_%s_change' % (
                     parent_model._meta.app_label,
