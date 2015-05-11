@@ -203,8 +203,14 @@ class TwitterSheetAdmin(PermsAdmin):
         ]
 
     def save_model(self, request, obj, form, change):
+        """
+        Get the country from the user creating the model instance,
+        and relate it to the appropriate CountryRegion model.
+        """
+        country = request.user.monitor.country
         obj.monitor = request.user.monitor
-        obj.country = request.user.monitor.country
+        obj.country = country
+        obj.country_region = models.CountryRegion.objects.get(country=country)
         obj.save()
 
 
@@ -259,8 +265,14 @@ class InternetNewsSheetAdmin(PermsAdmin):
     list_filter = basic_filters
 
     def save_model(self, request, obj, form, change):
+        """
+        Get the country from the user creating the model instance,
+        and relate it to the appropriate CountryRegion model.
+        """
+        country = request.user.monitor.country
         obj.monitor = request.user.monitor
-        obj.country = request.user.monitor.country
+        obj.country = country
+        obj.country_region = models.CountryRegion.objects.get(country=country)
         obj.save()
 
 
@@ -317,8 +329,14 @@ class NewspaperSheetAdmin(PermsAdmin):
         ]
 
     def save_model(self, request, obj, form, change):
+        """
+        Get the country from the user creating the model instance,
+        and relate it to the appropriate CountryRegion model.
+        """
+        country = request.user.monitor.country
         obj.monitor = request.user.monitor
-        obj.country = request.user.monitor.country
+        obj.country = country
+        obj.country_region = models.CountryRegion.objects.get(country=country)
         obj.save()
 
 
@@ -371,8 +389,14 @@ class TelevisionSheetAdmin(PermsAdmin):
         ]
 
     def save_model(self, request, obj, form, change):
+        """
+        Get the country from the user creating the model instance,
+        and relate it to the appropriate CountryRegion model.
+        """
+        country = request.user.monitor.country
         obj.monitor = request.user.monitor
-        obj.country = request.user.monitor.country
+        obj.country = country
+        obj.country_region = models.CountryRegion.objects.get(country=country)
         obj.save()
 
 
@@ -425,8 +449,14 @@ class RadioSheetAdmin(PermsAdmin):
         ]
 
     def save_model(self, request, obj, form, change):
+        """
+        Get the country from the user creating the model instance,
+        and relate it to the appropriate CountryRegion model.
+        """
+        country = request.user.monitor.country
         obj.monitor = request.user.monitor
-        obj.country = request.user.monitor.country
+        obj.country = country
+        obj.country_region = models.CountryRegion.objects.get(country=country)
         obj.save()
 
 admin.site.register(models.InternetNewsSheet, InternetNewsSheetAdmin)
