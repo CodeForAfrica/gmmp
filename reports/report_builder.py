@@ -133,7 +133,7 @@ class XLSXDataExportBuilder():
                     ws.write(row+y, col+x, unicode(SPACE[getattr(obj, field.name)-1][1]))
                 elif field.name == 'retweet':
                     ws.write(row+y, col+x, unicode(RETWEET[getattr(obj, field.name)-1][1]))
-                elif field.get_internal_type() == 'ForeignKey':
+                elif field.name == obj.sheet_name():
                     ws.write(row+y, col+x, getattr(obj, field.name).id)
                     # Get the parent model and id for building the edit link
                     parent_model = field.related.parent_model
@@ -164,7 +164,7 @@ class XLSXDataExportBuilder():
                     ws.write(row+y, col+x, unicode(GENDER[getattr(obj, field.name)-1][1]))
                 elif field.name == 'age' and not getattr(obj, field.name) == None:
                     ws.write(row+y, col+x, unicode(AGES[getattr(obj, field.name)][1]))
-                elif field.get_internal_type() == 'ForeignKey':
+                elif field.name == obj.sheet_name():
                     ws.write(row+y, col+x, getattr(obj, field.name).id)
                     # Get the parent model and id for building the edit link
                     parent_model = field.related.parent_model
