@@ -3,6 +3,7 @@ import StringIO
 from collections import Counter
 
 # Django
+from django.core import urlresolvers
 from django_countries import countries
 from django.db.models import Count, FieldDoesNotExist
 from django.contrib.sites.shortcuts import get_current_site
@@ -35,7 +36,7 @@ def p(n, d):
 
 class XLSXDataExportBuilder():
     def __init__(self, request):
-        self.edit_url = "http://%s/admin/forms" % get_current_site(request).domain
+        self.domain = "http://%s" % get_current_site(request).domain
 
 
     def build(self):
@@ -95,7 +96,12 @@ class XLSXDataExportBuilder():
                     ws.write(row+y, col+x, unicode(RETWEET[getattr(obj, field.name)-1][1]))
                 else:
                     ws.write(row+y,col+x, getattr(obj, field.name))
-            ws.write_url(row+y, col+x+1, "%s/%s/%s/" % (self.edit_url, model._meta.model_name, obj.id))
+            change_url = urlresolvers.reverse(
+                'admin:%s_%s_change' % (
+                    obj._meta.app_label,
+                    obj._meta.model_name),
+                args=(obj.id,))
+            ws.write_url(row+y, col+x+1, "%s%s" % (self.domain, change_url))
 
 
     def create_person_export(self, model, wb):
@@ -133,7 +139,7 @@ class XLSXDataExportBuilder():
                     ws.write(row+y, col+x, unicode(SPACE[getattr(obj, field.name)-1][1]))
                 elif field.name == 'retweet':
                     ws.write(row+y, col+x, unicode(RETWEET[getattr(obj, field.name)-1][1]))
-                elif field.get_internal_type() == 'ForeignKey':
+                elif field.name == obj.sheet_name():
                     ws.write(row+y, col+x, getattr(obj, field.name).id)
                     # Get the parent model and id for building the edit link
                     parent_model = field.related.parent_model
@@ -141,7 +147,12 @@ class XLSXDataExportBuilder():
                 else:
                     ws.write(row+y,col+x, getattr(obj, field.name))
             # Write link to end of row
-            ws.write_url(row+y, col+x+1, "%s/%s/%s/" % (self.edit_url, parent_model._meta.model_name, parent_id))
+            change_url = urlresolvers.reverse(
+                'admin:%s_%s_change' % (
+                    parent_model._meta.app_label,
+                    parent_model._meta.model_name),
+                args=(parent_id,))
+            ws.write_url(row+y, col+x+1, "%s%s" % (self.domain, change_url))
 
 
     def create_journalist_export(self, model, wb):
@@ -164,7 +175,7 @@ class XLSXDataExportBuilder():
                     ws.write(row+y, col+x, unicode(GENDER[getattr(obj, field.name)-1][1]))
                 elif field.name == 'age' and not getattr(obj, field.name) == None:
                     ws.write(row+y, col+x, unicode(AGES[getattr(obj, field.name)][1]))
-                elif field.get_internal_type() == 'ForeignKey':
+                elif field.name == obj.sheet_name():
                     ws.write(row+y, col+x, getattr(obj, field.name).id)
                     # Get the parent model and id for building the edit link
                     parent_model = field.related.parent_model
@@ -172,7 +183,12 @@ class XLSXDataExportBuilder():
                 else:
                     ws.write(row+y,col+x, getattr(obj, field.name))
             # Write link to end of row
-            ws.write_url(row+y, col+x+1, "%s/%s/%s/" % (self.edit_url, parent_model._meta.model_name, parent_id))
+            change_url = urlresolvers.reverse(
+                'admin:%s_%s_change' % (
+                    parent_model._meta.app_label,
+                    parent_model._meta.model_name),
+                args=(parent_id,))
+            ws.write_url(row+y, col+x+1, "%s%s" % (self.domain, change_url))
 
 
 class XLSXReportBuilder:
