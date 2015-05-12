@@ -224,7 +224,7 @@ class XLSXReportBuilder:
         return output.read()
 
     def ws_2_media_by_country(self, wb):
-        ws = wb.add_worksheet('2 - Medium per country')
+        ws = wb.add_worksheet('2 - Medium by country')
 
         ws.write(0, 0, 'Participating Countries in each Region')
         ws.write(1, 0, 'Breakdown of all media by country')
