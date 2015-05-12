@@ -225,6 +225,7 @@ class XLSXReportBuilder:
         self.ws_2_media_by_country(workbook)
         self.ws_4_topics_by_region(workbook)
         self.ws_7_sex_by_media(workbook)
+        self.ws_8_scope_by_source_sex(workbook)
         self.ws_9_topic_by_source_sex(workbook)
         self.ws_10_topic_by_space(workbook)
         self.ws_13_topic_by_journalist_sex(workbook)
@@ -383,6 +384,25 @@ class XLSXReportBuilder:
                 ws.write(row + i, col + 1, p(counts.get(id, 0), total), self.P)
 
             col += 2
+
+    def ws_8_scope_by_source_sex(self, wb):
+        ws = wb.add_worksheet('8 - Scope by source sex')
+        self.write_headers(
+            ws,
+            'Sex of news subjects (sources) inlocal,national,sub-regional/regional, foreign/intnl news',
+            'Breakdown by sex local,national,sub-regional/regional, intnl news')
+
+        counts = Counter()
+        for media_type, model in sheet_models.iteritems():
+            if 'scope' in model._meta.get_all_field_names():
+                sex = '%s__sex' % model.person_field_name()
+                rows = model.objects\
+                        .values(sex, 'scope')\
+                        .filter(country__in=self.countries)\
+                        .annotate(n=Count('id'))
+                counts.update({(r[sex], r['scope']): r['n'] for r in rows if r[sex] is not None})
+
+        self.tabulate(ws, counts, GENDER, SCOPE, row_perc=True)
 
     def ws_9_topic_by_source_sex(self, wb):
         ws = wb.add_worksheet('9 - Topic by source sex')
