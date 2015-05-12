@@ -200,6 +200,14 @@ TV_ROLE = [
     (3, _('(3) Other journalist: Sportscaster, weather forecaster, commentator/analyst etc.')),
 ]
 
+MEDIA_TYPES = [
+    (1, 'Internet News'),
+    (2, 'Print'),
+    (3, 'Radio'),
+    (4, 'Television'),
+    (5, 'Twitter')
+]
+
 
 class CountryRegion(models.Model):
     """
