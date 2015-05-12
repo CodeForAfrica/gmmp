@@ -442,23 +442,23 @@ class XLSXReportBuilder:
         self.tabulate(ws, counts, SPACE, TOPICS, row_perc=True)
 
     def ws_11_topic_by_gender_equality_reference(self, wb):
+        ws = wb.add_worksheet('11 - Topic by ref to gender eq')
 
-        ws = wb.add_worksheet('11 - Topic by reference to gender equality')
+        self.write_headers(
+            ws,
+            'Stories making reference to issues of gender equality/inequality, legislation, policy by major topic',
+            'Breakdown by major topic by reference to gender equality/human rights/policy')
 
-        ws.write(0, 0, 'Stories making reference to issues of gender equality/inequality, legislation, policy by major topic')
-        ws.write(1, 0, 'Breakdown by major topic by reference to gender equality/human rights/policy ')
-        ws.write(3, 2, self.gmmp_year)
+        counts = Counter()
 
-        row, col = 6, 1
-
-        # row titles
-        for i, topic in enumerate(TOPICS):
-            id, topic = topic
-            ws.write(row + i, col, unicode(topic))
-
-        col += 1
-
-
+        for media_type, model in sheet_models.iteritems():
+            if 'equality_rights' in model._meta.get_all_field_names():
+                rows = model.objects\
+                    .values('equality_rights', 'topic')\
+                    .filter(country__in=self.countries)\
+                    .annotate(n=Count('id'))
+                counts = {(r['equality_rights'], r['topic']): r['n'] for r in rows}
+            self.tabulate(ws, counts, YESNO, TOPICS, row_perc=True)
 
     def ws_13_topic_by_journalist_sex(self, wb):
         ws = wb.add_worksheet('13 - Topic by reporter sex')
