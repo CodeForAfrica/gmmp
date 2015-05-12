@@ -65,7 +65,7 @@ class XLSXDataExportBuilder():
         ws = wb.add_worksheet(model._meta.object_name)
         obj_list = model.objects.all()
         row, col = 0, 0
-        exclude_fields = ['monitor', 'url_and_multimedia', 'time_accessed']
+        exclude_fields = ['monitor', 'url_and_multimedia', 'time_accessed', 'country_region']
         fields = [field for field in model._meta.fields if not field.name in exclude_fields]
 
         for i, field in enumerate(fields):
