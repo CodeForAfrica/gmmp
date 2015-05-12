@@ -16,5 +16,7 @@ class Command(BaseCommand):
                     sheet.country_region = country_region
                     sheet.save()
                 except CountryRegion.DoesNotExist:
-                    # Country is None
-                    pass
+                    # Assign to unmapped CountryRegion object
+                    country_region = CountryRegion.objects.get(region='Unmapped')
+                    sheet.country_region = country_region
+                    sheet.save()

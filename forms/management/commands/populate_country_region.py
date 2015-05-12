@@ -159,6 +159,7 @@ class Command(BaseCommand):
         country_region_objs = CountryRegion.objects.all()
         region_map = {}
 
+        # Map country codes to regions
         for country_region in COUNTRY_REGION:
             code = countries.by_name(country_region[0])
             if code:
@@ -167,8 +168,16 @@ class Command(BaseCommand):
                 else:
                     region_map[country_region[1]] = [code]
 
+        # Create CountryRegion for unmapped countries
+        if not country_region_objs.filter(country="ZZ"):
+            CountryRegion.objects.create(
+                country="ZZ",
+                region="Unmapped")
+
+        # Create CountryRegion objects for supplied pairs
         for region, countries in region_map.iteritems():
             for country in countries:
+                # Is this check necessary?
                 if not country_region_objs.filter(country=country):
                     CountryRegion.objects.create(
                         country=country,
