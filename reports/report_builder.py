@@ -228,9 +228,11 @@ class XLSXReportBuilder:
         self.ws_8_scope_by_source_sex(workbook)
         self.ws_9_topic_by_source_sex(workbook)
         self.ws_10_topic_by_space(workbook)
+        self.ws_11_topic_by_gender_equality_reference(workbook)
         self.ws_13_topic_by_journalist_sex(workbook)
         self.ws_14_source_occupation_by_sex(workbook)
         self.ws_15_subject_function_by_sex(workbook)
+
 
         workbook.close()
         output.seek(0)
@@ -424,7 +426,7 @@ class XLSXReportBuilder:
 
     def ws_10_topic_by_space(self, wb):
 
-        ws = wb.add_worksheet('10 - Space per topic')
+        ws = wb.add_worksheet('10 - Topic by space')
 
         ws.write(0, 0, 'Space allocated to major topics in Newspapers')
         ws.write(1, 0, 'Breakdown by major topic by space (q.4) in newspapers')
@@ -438,6 +440,25 @@ class XLSXReportBuilder:
         counts = {(r['space'], r['topic']): r['n'] for r in rows}
 
         self.tabulate(ws, counts, SPACE, TOPICS, row_perc=True)
+
+    def ws_11_topic_by_gender_equality_reference(self, wb):
+        ws = wb.add_worksheet('11 - Topic by ref to gender eq')
+
+        self.write_headers(
+            ws,
+            'Stories making reference to issues of gender equality/inequality, legislation, policy by major topic',
+            'Breakdown by major topic by reference to gender equality/human rights/policy')
+
+        counts = Counter()
+
+        for media_type, model in sheet_models.iteritems():
+            if 'equality_rights' in model._meta.get_all_field_names():
+                rows = model.objects\
+                    .values('equality_rights', 'topic')\
+                    .filter(country__in=self.countries)\
+                    .annotate(n=Count('id'))
+                counts = {(r['equality_rights'], r['topic']): r['n'] for r in rows}
+            self.tabulate(ws, counts, YESNO, TOPICS, row_perc=True)
 
     def ws_13_topic_by_journalist_sex(self, wb):
         ws = wb.add_worksheet('13 - Topic by reporter sex')
