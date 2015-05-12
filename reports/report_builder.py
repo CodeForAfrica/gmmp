@@ -14,7 +14,9 @@ import xlsxwriter
 # Project
 from forms.models import NewspaperSheet, person_models, sheet_models, journalist_models
 from forms.modelutils import (TOPICS, GENDER, SPACE, OCCUPATION, FUNCTION, SCOPE,
-    YESNO, AGES, SOURCE, VICTIM_OF, SURVIVOR_OF, IS_PHOTOGRAPH, AGREE_DISAGREE,  RETWEET, TV_ROLE)
+    YESNO, AGES, SOURCE, VICTIM_OF, SURVIVOR_OF, IS_PHOTOGRAPH, AGREE_DISAGREE,
+    RETWEET, TV_ROLE, MEDIA_TYPES,
+    CountryRegion)
 
 
 def has_field(model, fld):
@@ -33,6 +35,15 @@ def p(n, d):
         return 0.0
     return float(n) / d
 
+def get_regions():
+    """
+    Return a list of (id, region_name) tuples which exists in the db
+    """
+    country_regions = CountryRegion.objects\
+                        .values('region')\
+                        .exclude(region='Unmapped')
+    regions = set(item['region'] for item in country_regions)
+    return [(i, region) for i, region in enumerate(regions)]
 
 class XLSXDataExportBuilder():
     def __init__(self, request):
@@ -195,6 +206,7 @@ class XLSXReportBuilder:
     def __init__(self, form):
         self.form = form
         self.countries = form.get_countries()
+        self.regions = get_regions()
         self.gmmp_year = '2015'
 
     def build(self):
@@ -209,6 +221,7 @@ class XLSXReportBuilder:
         self.P.set_num_format(9)  # percentage
 
         # Add generic sheets here.
+        self.ws_1_media_by_region(workbook)
         self.ws_2_media_by_country(workbook)
         self.ws_4_topics_by_region(workbook)
         self.ws_7_sex_by_media(workbook)
@@ -222,6 +235,30 @@ class XLSXReportBuilder:
         output.seek(0)
 
         return output.read()
+
+    def ws_1_media_by_region(self, wb):
+        ws = wb.add_worksheet('1 - Medium by region')
+
+        self.write_headers(ws, 'Participating Countries', 'Breakdown of all media by region')
+
+        counts = Counter()
+        for media_type, model in sheet_models.iteritems():
+            region_field = 'country_region__region'
+            rows = model.objects\
+                    .values('country_region__region')\
+                    .exclude(country_region__region='Unmapped')\
+                    .annotate(n=Count('id'))
+            for row in rows:
+                if row['country_region__region'] is not None:
+                    # Get media and region id's to assign to counts
+                    media_id = [media[0] for media in MEDIA_TYPES if media[1] == media_type][0]
+                    region_id = [region[0] for region in self.regions if region[1] == row['country_region__region']][0]
+
+                    counts.update({(media_id, region_id): row['n']})
+                # counts.update({(media_type, r[region]): r['n'] for r in rows if r[region] is not None})
+
+        self.tabulate(ws, counts, MEDIA_TYPES, self.regions, row_perc=True)
+
 
     def ws_2_media_by_country(self, wb):
         ws = wb.add_worksheet('2 - Medium by country')
@@ -447,6 +484,15 @@ class XLSXReportBuilder:
     # -------------------------------------------------------------------------------
     # Helper functions
     #
+    def write_headers(self, ws, title, description):
+        """
+        Write the headers to the worksheet
+        """
+        ws.write(0, 0, title)
+        ws.write(1, 0, description)
+        ws.write(3, 2, self.gmmp_year)
+
+
     def tabulate(self, ws, counts, cols, rows, row_perc=False):
         """ Emit a table.
 
