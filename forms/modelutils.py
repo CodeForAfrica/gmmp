@@ -201,9 +201,20 @@ TV_ROLE = [
 ]
 
 
+class CountryRegion(models.Model):
+    """
+    Model for mapping countries to regions
+
+    """
+    country = models.CharField(max_length=2, unique=True)
+    region = models.CharField(max_length=30)
+
+
 class SheetModel(models.Model):
     monitor = models.ForeignKey(Monitor, null=True)
     country = CountryField(null=True)
+    country_region = models.ForeignKey(CountryRegion, null=True)
+
 
     class Meta:
         abstract = True

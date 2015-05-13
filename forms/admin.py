@@ -9,7 +9,15 @@ import models
 class PermsAdmin(GuardedModelAdmin):
 
     def save_model(self, request, obj, form, change):
-        obj.monitor = request.user
+        """
+        Get the country from the user creating the model instance,
+        and relate it to the appropriate CountryRegion model.
+
+        """
+        country = request.user.monitor.country
+        obj.monitor = request.user.monitor
+        obj.country = country
+        obj.country_region = models.CountryRegion.objects.get(country=country)
         obj.save()
         self.assign_permissions(request.user, obj)
 
@@ -156,6 +164,7 @@ class RadioPersonInline(admin.StackedInline):
 
 basic_filters = ('topic', 'about_women', 'stereotypes', 'further_analysis')
 
+
 class TwitterSheetAdmin(PermsAdmin):
 
     @property
@@ -201,11 +210,6 @@ class TwitterSheetAdmin(PermsAdmin):
             'forms/admin/move_fields.js',
             'forms/admin/move_twitter_fields.js'
         ]
-
-    def save_model(self, request, obj, form, change):
-        obj.monitor = request.user.monitor
-        obj.country = request.user.monitor.country
-        obj.save()
 
 
 class InternetNewsSheetAdmin(PermsAdmin):
@@ -257,11 +261,6 @@ class InternetNewsSheetAdmin(PermsAdmin):
     ]
 
     list_filter = basic_filters
-
-    def save_model(self, request, obj, form, change):
-        obj.monitor = request.user.monitor
-        obj.country = request.user.monitor.country
-        obj.save()
 
 
 class NewspaperSheetAdmin(PermsAdmin):
@@ -316,11 +315,6 @@ class NewspaperSheetAdmin(PermsAdmin):
             'forms/admin/move_fields_newspaper.js'
         ]
 
-    def save_model(self, request, obj, form, change):
-        obj.monitor = request.user.monitor
-        obj.country = request.user.monitor.country
-        obj.save()
-
 
 class TelevisionSheetAdmin(PermsAdmin):
 
@@ -369,11 +363,6 @@ class TelevisionSheetAdmin(PermsAdmin):
             'forms/admin/move_fields.js',
             'forms/admin/move_television_fields.js'
         ]
-
-    def save_model(self, request, obj, form, change):
-        obj.monitor = request.user.monitor
-        obj.country = request.user.monitor.country
-        obj.save()
 
 
 class RadioSheetAdmin(PermsAdmin):
@@ -424,10 +413,6 @@ class RadioSheetAdmin(PermsAdmin):
             'forms/admin/move_radio_fields.js'
         ]
 
-    def save_model(self, request, obj, form, change):
-        obj.monitor = request.user.monitor
-        obj.country = request.user.monitor.country
-        obj.save()
 
 admin.site.register(models.InternetNewsSheet, InternetNewsSheetAdmin)
 admin.site.register(models.TwitterSheet, TwitterSheetAdmin)
