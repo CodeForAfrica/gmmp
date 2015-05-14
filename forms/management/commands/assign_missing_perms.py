@@ -18,11 +18,10 @@ from sheets import (radio_sheets, twitter_sheets, internetnews_sheets,
 class Command(BaseCommand):
 
     def handle(self, *args, **options):
-
         sheet_types = [
             (RadioSheet, RadioSheetAdmin, radio_sheets),
             (TwitterSheet, TwitterSheetAdmin, twitter_sheets),
-            (InternetnewsSheet, InternetNewsSheetAdmin, internetnews_sheets),
+            (InternetNewsSheet, InternetNewsSheetAdmin, internetnews_sheets),
             (NewspaperSheet, NewspaperSheetAdmin, newspaper_sheets),
             (TelevisionSheet, TelevisionSheetAdmin, television_sheets)
         ]
