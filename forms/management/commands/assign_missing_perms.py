@@ -15,17 +15,17 @@ from sheets import (radio_sheets, twitter_sheets, internetnews_sheets,
     newspaper_sheets, television_sheets)
 
 
+sheet_types = [
+    (RadioSheet, RadioSheetAdmin, radio_sheets),
+    (TwitterSheet, TwitterSheetAdmin, twitter_sheets),
+    (InternetnewsSheet, InternetNewsSheetAdmin, internetnews_sheets),
+    (NewspaperSheet, NewspaperSheetAdmin, newspaper_sheets),
+    (TelevisionSheet, TelevisionSheetAdmin, television_sheets)
+]
+
 class Command(BaseCommand):
 
     def handle(self, *args, **options):
-
-        sheet_types = [
-            (RadioSheet, RadioSheetAdmin, radio_sheets),
-            (TwitterSheet, TwitterSheetAdmin, twitter_sheets),
-            (InternetnewsSheet, InternetNewsSheetAdmin, internetnews_sheets),
-            (NewspaperSheet, NewspaperSheetAdmin, newspaper_sheets),
-            (TelevisionSheet, TelevisionSheetAdmin, television_sheets)
-        ]
 
         for model, model_admin, sheet_monitor_list in sheet_types:
             admin_obj =model_admin(model, admin.site)
