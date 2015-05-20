@@ -46,11 +46,6 @@ class XLSXDataExportBuilder():
         output = StringIO.StringIO()
         workbook = xlsxwriter.Workbook(output)
 
-        # from forms.models import InternetNewsSheet, InternetNewsPerson, InternetNewsJournalist
-        # # self.create_sheet_export(InternetNewsSheet, workbook)
-        # self.create_person_export(InternetNewsPerson, workbook)
-        # # self.create_journalist_export(InternetNewsJournalist, workbook)
-
         for model in sheet_models.itervalues():
             self.create_sheet_export(model, workbook)
 
@@ -154,8 +149,6 @@ class XLSXDataExportBuilder():
 
         sheet_name = model.sheet_name()
         sheet_model = getattr(model, sheet_name).get_queryset().first()._meta.model
-
-        model.internetnews_sheet.get_queryset
 
         sheet_exclude_fields = ['monitor', 'url_and_multimedia', 'time_accessed', 'country_region']
         sheet_fields_with_id = ['topic', 'scope', 'person_secondary', 'inequality_women', 'stereotypes']
