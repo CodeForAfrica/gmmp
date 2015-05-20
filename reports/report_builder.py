@@ -160,7 +160,7 @@ class XLSXDataExportBuilder():
             if field.name in sheet_fields_with_id:
                 ws.write(row, col+i, unicode("sheet_" + field.name + "_id"))
                 i += 1
-        ws.write(row, col+i+1, unicode('sheet_edit_url'))
+        ws.write(row, col+i, unicode('sheet_edit_url'))
 
         row += 1
         col = 0
