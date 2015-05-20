@@ -145,7 +145,7 @@ class XLSXDataExportBuilder():
         ws.write(row, col+i, unicode('edit_url'))
 
         # Append the sheet titles
-        i += 2
+        i += 1
 
         sheet_name = model.sheet_name()
         sheet_model = getattr(model, sheet_name).get_queryset().first()._meta.model
@@ -160,7 +160,7 @@ class XLSXDataExportBuilder():
             if field.name in sheet_fields_with_id:
                 ws.write(row, col+i, unicode("sheet_" + field.name + "_id"))
                 i += 1
-        ws.write(row, col+i+1, unicode('edit_url'))
+        ws.write(row, col+i+1, unicode('sheet_edit_url'))
 
         row += 1
         col = 0
@@ -219,7 +219,7 @@ class XLSXDataExportBuilder():
                 args=(parent_id,))
             ws.write_url(row+y, col+x, "%s%s" % (self.domain, change_url))
 
-            x += 2
+            x += 1
 
             sheet_obj = getattr(obj, sheet_name)
             for field in sheet_fields:
@@ -258,13 +258,13 @@ class XLSXDataExportBuilder():
                     except UnicodeEncodeError:
                         ws.write(row+y,col+x, unicode(getattr(sheet_obj, field.name).encode('ascii', 'replace')))
                 x += 1
+
             change_url = urlresolvers.reverse(
                 'admin:%s_%s_change' % (
                     sheet_obj._meta.app_label,
                     sheet_obj._meta.model_name),
                 args=(obj.id,))
             ws.write_url(row+y, col+x, "%s%s" % (self.domain, change_url))
-
 
 
     def create_journalist_export(self, model, wb):
