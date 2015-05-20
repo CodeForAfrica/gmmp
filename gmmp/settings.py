@@ -122,3 +122,32 @@ LOCALE_PATHS = [
 
 # Temporary login screen for downloading the exported data
 LOGIN_URL = '/admin/login/'
+
+
+# Logging
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True,
+    'formatters': {
+        'simple': {
+            'format': '%(asctime)s %(levelname)s %(module)s %(process)d %(thread)d %(message)s'
+        }
+    },
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple'
+        }
+    },
+    'loggers': {
+        '': {
+            'handlers': ['console'],
+            'level': 'ERROR'
+        },
+        'django': {
+            'level': 'DEBUG' if DEBUG else 'INFO',
+        }
+    }
+}
+

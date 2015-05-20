@@ -45,12 +45,9 @@ class ReportView(View):
     def post(self, request, *args, **kwargs):
         filter_form = ReportFilterForm(request.POST)
         if filter_form.is_valid():
-            # country = filter_form.cleaned_data['country']
-            # wb = xlsxwriter.Workbook('GMMP Report - %s.xlsx' % country)
-            # ws = wb.add_worksheet('Countries per medium')
             xlsx = XLSXReportBuilder(filter_form).build()
 
-            # Where should filename should be determined?
+            # TODO: The file name should be correctly determined
 
             filename = 'Report'
             response = HttpResponse(xlsx, content_type='application/vnd.ms-excel')

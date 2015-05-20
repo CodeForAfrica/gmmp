@@ -95,7 +95,10 @@ class XLSXDataExportBuilder():
                 elif field.name == 'retweet':
                     ws.write(row+y, col+x, unicode(RETWEET[getattr(obj, field.name)-1][1]))
                 else:
-                    ws.write(row+y,col+x, getattr(obj, field.name))
+                    try:
+                        ws.write(row+y,col+x, unicode(getattr(obj, field.name)))
+                    except UnicodeEncodeError:
+                        ws.write(row+y,col+x, unicode(getattr(obj, field.name).encode('ascii', 'replace')))
             change_url = urlresolvers.reverse(
                 'admin:%s_%s_change' % (
                     obj._meta.app_label,
@@ -145,7 +148,10 @@ class XLSXDataExportBuilder():
                     parent_model = field.related.parent_model
                     parent_id = getattr(obj, field.name).id
                 else:
-                    ws.write(row+y,col+x, getattr(obj, field.name))
+                    try:
+                        ws.write(row+y,col+x, unicode(getattr(obj, field.name)))
+                    except UnicodeEncodeError:
+                        ws.write(row+y,col+x, unicode(getattr(obj, field.name).encode('ascii', 'replace')))
             # Write link to end of row
             change_url = urlresolvers.reverse(
                 'admin:%s_%s_change' % (
@@ -181,7 +187,10 @@ class XLSXDataExportBuilder():
                     parent_model = field.related.parent_model
                     parent_id = getattr(obj, field.name).id
                 else:
-                    ws.write(row+y,col+x, getattr(obj, field.name))
+                    try:
+                        ws.write(row+y,col+x, unicode(getattr(obj, field.name)))
+                    except UnicodeEncodeError:
+                        ws.write(row+y,col+x, unicode(getattr(obj, field.name).encode('ascii', 'replace')))
             # Write link to end of row
             change_url = urlresolvers.reverse(
                 'admin:%s_%s_change' % (
