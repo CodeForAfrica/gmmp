@@ -46,6 +46,11 @@ class XLSXDataExportBuilder():
         output = StringIO.StringIO()
         workbook = xlsxwriter.Workbook(output)
 
+        # from forms.models import InternetNewsSheet, InternetNewsPerson, InternetNewsJournalist
+        # # self.create_sheet_export(InternetNewsSheet, workbook)
+        # self.create_person_export(InternetNewsPerson, workbook)
+        # # self.create_journalist_export(InternetNewsJournalist, workbook)
+
         for model in sheet_models.itervalues():
             self.create_sheet_export(model, workbook)
 
@@ -75,7 +80,7 @@ class XLSXDataExportBuilder():
             if field.name in fields_with_id:
                 ws.write(row, col+i, unicode(field.name+"_id"))
                 i += 1
-        ws.write(row, col+i+1, unicode('edit_url'))
+        ws.write(row, col+i, unicode('edit_url'))
 
         row += 1
         col = 0
@@ -123,7 +128,7 @@ class XLSXDataExportBuilder():
                     obj._meta.app_label,
                     obj._meta.model_name),
                 args=(obj.id,))
-            ws.write_url(row+y, col+x+1, "%s%s" % (self.domain, change_url))
+            ws.write_url(row+y, col+x, "%s%s" % (self.domain, change_url))
 
 
     def create_person_export(self, model, wb):
@@ -142,11 +147,30 @@ class XLSXDataExportBuilder():
             if field.name in fields_with_id:
                 ws.write(row, col+i, unicode(field.name+"_id"))
                 i += 1
+        ws.write(row, col+i, unicode('edit_url'))
+
+        # Append the sheet titles
+        i += 2
+
+        sheet_name = model.sheet_name()
+        sheet_model = getattr(model, sheet_name).get_queryset().first()._meta.model
+
+        model.internetnews_sheet.get_queryset
+
+        sheet_exclude_fields = ['monitor', 'url_and_multimedia', 'time_accessed', 'country_region']
+        sheet_fields_with_id = ['topic', 'scope', 'person_secondary', 'inequality_women', 'stereotypes']
+        sheet_fields = [field for field in sheet_model._meta.fields if not field.name in sheet_exclude_fields]
+
+        for field in sheet_fields:
+            ws.write(row, col+i, unicode("sheet_" + field.name))
+            i += 1
+            if field.name in sheet_fields_with_id:
+                ws.write(row, col+i, unicode("sheet_" + field.name + "_id"))
+                i += 1
         ws.write(row, col+i+1, unicode('edit_url'))
 
         row += 1
         col = 0
-
         for y, obj in enumerate(obj_list):
             x = 0
             for field in fields:
@@ -200,7 +224,54 @@ class XLSXDataExportBuilder():
                     parent_model._meta.app_label,
                     parent_model._meta.model_name),
                 args=(parent_id,))
-            ws.write_url(row+y, col+x+1, "%s%s" % (self.domain, change_url))
+            ws.write_url(row+y, col+x, "%s%s" % (self.domain, change_url))
+
+            x += 2
+
+            sheet_obj = getattr(obj, sheet_name)
+            for field in sheet_fields:
+                # Certain fields are 1-indexed
+                if field.name == 'country':
+                    ws.write(row+y, col+x, getattr(sheet_obj, field.name).code)
+                elif field.name == 'topic':
+                    ws.write(row+y, col+x, unicode(TOPICS[getattr(sheet_obj, field.name)-1][1]))
+                    x += 1
+                    ws.write(row+y, col+x, unicode(TOPICS[getattr(sheet_obj, field.name)-1][0]))
+                elif field.name == 'scope':
+                    ws.write(row+y, col+x, unicode(SCOPE[getattr(sheet_obj, field.name)-1][1]))
+                    x += 1
+                    ws.write(row+y, col+x, unicode(SCOPE[getattr(sheet_obj, field.name)-1][0]))
+                elif field.name == 'person_secondary':
+                    ws.write(row+y, col+x, unicode(SOURCE[getattr(sheet_obj, field.name)][1]))
+                    x += 1
+                    ws.write(row+y, col+x, unicode(SOURCE[getattr(sheet_obj, field.name)][0]))
+                elif field.name == 'inequality_women':
+                    ws.write(row+y, col+x, unicode(AGREE_DISAGREE[getattr(sheet_obj, field.name)-1][1]))
+                    x += 1
+                    ws.write(row+y, col+x, unicode(AGREE_DISAGREE[getattr(sheet_obj, field.name)-1][0]))
+                elif field.name == 'stereotypes':
+                    ws.write(row+y, col+x, unicode(AGREE_DISAGREE[getattr(sheet_obj, field.name)-1][1]))
+                    x += 1
+                    ws.write(row+y, col+x, unicode(AGREE_DISAGREE[getattr(sheet_obj, field.name)-1][0]))
+                elif field.name == 'space':
+                    ws.write(row+y, col+x, unicode(SPACE[getattr(sheet_obj, field.name)-1][1]))
+                elif field.name == 'retweet':
+                    ws.write(row+y, col+x, unicode(RETWEET[getattr(sheet_obj, field.name)-1][1]))
+                else:
+                    try:
+                        ws.write(row+y,col+x, unicode(getattr(sheet_obj, field.name)))
+                        if field.name in fields_with_id:
+                            x += 1
+                    except UnicodeEncodeError:
+                        ws.write(row+y,col+x, unicode(getattr(sheet_obj, field.name).encode('ascii', 'replace')))
+                x += 1
+            change_url = urlresolvers.reverse(
+                'admin:%s_%s_change' % (
+                    sheet_obj._meta.app_label,
+                    sheet_obj._meta.model_name),
+                args=(obj.id,))
+            ws.write_url(row+y, col+x, "%s%s" % (self.domain, change_url))
+
 
 
     def create_journalist_export(self, model, wb):
@@ -218,7 +289,7 @@ class XLSXDataExportBuilder():
             if field.name in fields_with_id:
                 ws.write(row, col+i, unicode(field.name+"_id"))
                 i += 1
-        ws.write(row, col+i+1, unicode('edit_url'))
+        ws.write(row, col+i, unicode('edit_url'))
 
         row += 1
         col = 0
@@ -253,7 +324,7 @@ class XLSXDataExportBuilder():
                     parent_model._meta.app_label,
                     parent_model._meta.model_name),
                 args=(parent_id,))
-            ws.write_url(row+y, col+x+1, "%s%s" % (self.domain, change_url))
+            ws.write_url(row+y, col+x, "%s%s" % (self.domain, change_url))
 
 
 class XLSXReportBuilder:
