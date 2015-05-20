@@ -66,30 +66,46 @@ class XLSXDataExportBuilder():
         obj_list = model.objects.all()
         row, col = 0, 0
         exclude_fields = ['monitor', 'url_and_multimedia', 'time_accessed', 'country_region']
+        fields_with_id = ['topic', 'scope', 'person_secondary', 'inequality_women', 'stereotypes']
         fields = [field for field in model._meta.fields if not field.name in exclude_fields]
-
-        for i, field in enumerate(fields):
+        i = 0
+        for field in fields:
             ws.write(row, col+i, unicode(field.name))
+            i += 1
+            if field.name in fields_with_id:
+                ws.write(row, col+i, unicode(field.name+"_id"))
+                i += 1
         ws.write(row, col+i+1, unicode('edit_url'))
 
         row += 1
         col = 0
 
         for y, obj in enumerate(obj_list):
-            for x, field in enumerate(fields):
+            x = 0
+            for field in fields:
                 # Certain fields are 1-indexed
                 if field.name == 'country':
                     ws.write(row+y, col+x, getattr(obj, field.name).code)
                 elif field.name == 'topic':
                     ws.write(row+y, col+x, unicode(TOPICS[getattr(obj, field.name)-1][1]))
+                    x += 1
+                    ws.write(row+y, col+x, unicode(TOPICS[getattr(obj, field.name)-1][0]))
                 elif field.name == 'scope':
                     ws.write(row+y, col+x, unicode(SCOPE[getattr(obj, field.name)-1][1]))
+                    x += 1
+                    ws.write(row+y, col+x, unicode(SCOPE[getattr(obj, field.name)-1][0]))
                 elif field.name == 'person_secondary':
                     ws.write(row+y, col+x, unicode(SOURCE[getattr(obj, field.name)][1]))
+                    x += 1
+                    ws.write(row+y, col+x, unicode(SOURCE[getattr(obj, field.name)][0]))
                 elif field.name == 'inequality_women':
                     ws.write(row+y, col+x, unicode(AGREE_DISAGREE[getattr(obj, field.name)-1][1]))
+                    x += 1
+                    ws.write(row+y, col+x, unicode(AGREE_DISAGREE[getattr(obj, field.name)-1][0]))
                 elif field.name == 'stereotypes':
                     ws.write(row+y, col+x, unicode(AGREE_DISAGREE[getattr(obj, field.name)-1][1]))
+                    x += 1
+                    ws.write(row+y, col+x, unicode(AGREE_DISAGREE[getattr(obj, field.name)-1][0]))
                 elif field.name == 'space':
                     ws.write(row+y, col+x, unicode(SPACE[getattr(obj, field.name)-1][1]))
                 elif field.name == 'retweet':
@@ -97,8 +113,11 @@ class XLSXDataExportBuilder():
                 else:
                     try:
                         ws.write(row+y,col+x, unicode(getattr(obj, field.name)))
+                        if field.name in fields_with_id:
+                            x += 1
                     except UnicodeEncodeError:
                         ws.write(row+y,col+x, unicode(getattr(obj, field.name).encode('ascii', 'replace')))
+                x += 1
             change_url = urlresolvers.reverse(
                 'admin:%s_%s_change' % (
                     obj._meta.app_label,
@@ -112,30 +131,50 @@ class XLSXDataExportBuilder():
         obj_list = model.objects.all().prefetch_related(model.sheet_name())
         row, col = 0, 0
         exclude_fields = []
+        fields_with_id = ['sex', 'age', 'occupation', 'function', 'survivor_of', 'victim_of']
+
         fields = [field for field in model._meta.fields if not field.name in exclude_fields]
 
-        for i, field in enumerate(fields):
+        i = 0
+        for field in fields:
             ws.write(row, col+i, unicode(field.name))
+            i += 1
+            if field.name in fields_with_id:
+                ws.write(row, col+i, unicode(field.name+"_id"))
+                i += 1
         ws.write(row, col+i+1, unicode('edit_url'))
 
         row += 1
         col = 0
 
         for y, obj in enumerate(obj_list):
-            for x, field in enumerate(fields):
+            x = 0
+            for field in fields:
                 # Certain fields are 1-indexed
                 if field.name == 'sex':
                     ws.write(row+y, col+x, unicode(GENDER[getattr(obj, field.name)-1][1]))
+                    x += 1
+                    ws.write(row+y, col+x, unicode(GENDER[getattr(obj, field.name)-1][0]))
                 elif field.name == 'age':
                     ws.write(row+y, col+x, unicode(AGES[getattr(obj, field.name)][1]))
+                    x += 1
+                    ws.write(row+y, col+x, unicode(AGES[getattr(obj, field.name)][0]))
                 elif field.name == 'occupation':
                     ws.write(row+y, col+x, unicode(OCCUPATION[getattr(obj, field.name)][1]))
+                    x += 1
+                    ws.write(row+y, col+x, unicode(OCCUPATION[getattr(obj, field.name)][0]))
                 elif field.name == 'function':
                     ws.write(row+y, col+x, unicode(FUNCTION[getattr(obj, field.name)][1]))
+                    x += 1
+                    ws.write(row+y, col+x, unicode(FUNCTION[getattr(obj, field.name)][0]))
                 elif field.name == 'victim_of' and not getattr(obj, field.name) == None:
                     ws.write(row+y, col+x, unicode(VICTIM_OF[getattr(obj, field.name)][1]))
+                    x += 1
+                    ws.write(row+y, col+x, unicode(VICTIM_OF[getattr(obj, field.name)][0]))
                 elif field.name == 'survivor_of' and not getattr(obj, field.name) == None:
                     ws.write(row+y, col+x, unicode(SURVIVOR_OF[getattr(obj, field.name)][1]))
+                    x += 1
+                    ws.write(row+y, col+x, unicode(SURVIVOR_OF[getattr(obj, field.name)][0]))
                 elif field.name == 'is_photograph':
                     ws.write(row+y, col+x, unicode(IS_PHOTOGRAPH[getattr(obj, field.name)-1][1]))
                 elif field.name == 'space':
@@ -150,8 +189,11 @@ class XLSXDataExportBuilder():
                 else:
                     try:
                         ws.write(row+y,col+x, unicode(getattr(obj, field.name)))
+                        if field.name in fields_with_id:
+                            x += 1
                     except UnicodeEncodeError:
                         ws.write(row+y,col+x, unicode(getattr(obj, field.name).encode('ascii', 'replace')))
+                x += 1
             # Write link to end of row
             change_url = urlresolvers.reverse(
                 'admin:%s_%s_change' % (
@@ -166,21 +208,32 @@ class XLSXDataExportBuilder():
         obj_list = model.objects.all().prefetch_related(model.sheet_name())
         row, col = 0, 0
         exclude_fields = []
+        fields_with_id = ['sex', 'age']
         fields = [field for field in model._meta.fields if not field.name in exclude_fields]
 
-        for i, field in enumerate(fields):
+        i = 0
+        for field in fields:
             ws.write(row, col+i, unicode(field.name))
+            i += 1
+            if field.name in fields_with_id:
+                ws.write(row, col+i, unicode(field.name+"_id"))
+                i += 1
         ws.write(row, col+i+1, unicode('edit_url'))
 
         row += 1
         col = 0
 
         for y, obj in enumerate(obj_list):
-            for x, field in enumerate(fields):
+            x = 0
+            for field in fields:
                 if field.name == 'sex':
                     ws.write(row+y, col+x, unicode(GENDER[getattr(obj, field.name)-1][1]))
+                    x += 1
+                    ws.write(row+y, col+x, unicode(GENDER[getattr(obj, field.name)-1][0]))
                 elif field.name == 'age' and not getattr(obj, field.name) == None:
                     ws.write(row+y, col+x, unicode(AGES[getattr(obj, field.name)][1]))
+                    x += 1
+                    ws.write(row+y, col+x, unicode(AGES[getattr(obj, field.name)][0]))
                 elif field.name == obj.sheet_name():
                     ws.write(row+y, col+x, getattr(obj, field.name).id)
                     # Get the parent model and id for building the edit link
@@ -189,8 +242,11 @@ class XLSXDataExportBuilder():
                 else:
                     try:
                         ws.write(row+y,col+x, unicode(getattr(obj, field.name)))
+                        if field.name in fields_with_id:
+                            x += 1
                     except UnicodeEncodeError:
                         ws.write(row+y,col+x, unicode(getattr(obj, field.name).encode('ascii', 'replace')))
+                x += 1
             # Write link to end of row
             change_url = urlresolvers.reverse(
                 'admin:%s_%s_change' % (
