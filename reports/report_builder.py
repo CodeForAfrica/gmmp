@@ -89,23 +89,23 @@ class XLSXDataExportBuilder():
                 elif field.name == 'topic':
                     ws.write(row+y, col+x, unicode(TOPICS[getattr(obj, field.name)-1][1]))
                     x += 1
-                    ws.write(row+y, col+x, unicode(TOPICS[getattr(obj, field.name)-1][0]))
+                    ws.write(row+y, col+x, TOPICS[getattr(obj, field.name)-1][0])
                 elif field.name == 'scope':
                     ws.write(row+y, col+x, unicode(SCOPE[getattr(obj, field.name)-1][1]))
                     x += 1
-                    ws.write(row+y, col+x, unicode(SCOPE[getattr(obj, field.name)-1][0]))
+                    ws.write(row+y, col+x, SCOPE[getattr(obj, field.name)-1][0])
                 elif field.name == 'person_secondary':
                     ws.write(row+y, col+x, unicode(SOURCE[getattr(obj, field.name)][1]))
                     x += 1
-                    ws.write(row+y, col+x, unicode(SOURCE[getattr(obj, field.name)][0]))
+                    ws.write(row+y, col+x, SOURCE[getattr(obj, field.name)][0])
                 elif field.name == 'inequality_women':
                     ws.write(row+y, col+x, unicode(AGREE_DISAGREE[getattr(obj, field.name)-1][1]))
                     x += 1
-                    ws.write(row+y, col+x, unicode(AGREE_DISAGREE[getattr(obj, field.name)-1][0]))
+                    ws.write(row+y, col+x, AGREE_DISAGREE[getattr(obj, field.name)-1][0])
                 elif field.name == 'stereotypes':
                     ws.write(row+y, col+x, unicode(AGREE_DISAGREE[getattr(obj, field.name)-1][1]))
                     x += 1
-                    ws.write(row+y, col+x, unicode(AGREE_DISAGREE[getattr(obj, field.name)-1][0]))
+                    ws.write(row+y, col+x, AGREE_DISAGREE[getattr(obj, field.name)-1][0])
                 elif field.name == 'space':
                     ws.write(row+y, col+x, unicode(SPACE[getattr(obj, field.name)-1][1]))
                 elif field.name == 'retweet':
@@ -171,27 +171,27 @@ class XLSXDataExportBuilder():
                 if field.name == 'sex':
                     ws.write(row+y, col+x, unicode(GENDER[getattr(obj, field.name)-1][1]))
                     x += 1
-                    ws.write(row+y, col+x, unicode(GENDER[getattr(obj, field.name)-1][0]))
+                    ws.write(row+y, col+x, GENDER[getattr(obj, field.name)-1][0])
                 elif field.name == 'age':
                     ws.write(row+y, col+x, unicode(AGES[getattr(obj, field.name)][1]))
                     x += 1
-                    ws.write(row+y, col+x, unicode(AGES[getattr(obj, field.name)][0]))
+                    ws.write(row+y, col+x, AGES[getattr(obj, field.name)][0])
                 elif field.name == 'occupation':
                     ws.write(row+y, col+x, unicode(OCCUPATION[getattr(obj, field.name)][1]))
                     x += 1
-                    ws.write(row+y, col+x, unicode(OCCUPATION[getattr(obj, field.name)][0]))
+                    ws.write(row+y, col+x, OCCUPATION[getattr(obj, field.name)][0])
                 elif field.name == 'function':
                     ws.write(row+y, col+x, unicode(FUNCTION[getattr(obj, field.name)][1]))
                     x += 1
-                    ws.write(row+y, col+x, unicode(FUNCTION[getattr(obj, field.name)][0]))
+                    ws.write(row+y, col+x, FUNCTION[getattr(obj, field.name)][0])
                 elif field.name == 'victim_of' and not getattr(obj, field.name) == None:
                     ws.write(row+y, col+x, unicode(VICTIM_OF[getattr(obj, field.name)][1]))
                     x += 1
-                    ws.write(row+y, col+x, unicode(VICTIM_OF[getattr(obj, field.name)][0]))
+                    ws.write(row+y, col+x, VICTIM_OF[getattr(obj, field.name)][0])
                 elif field.name == 'survivor_of' and not getattr(obj, field.name) == None:
                     ws.write(row+y, col+x, unicode(SURVIVOR_OF[getattr(obj, field.name)][1]))
                     x += 1
-                    ws.write(row+y, col+x, unicode(SURVIVOR_OF[getattr(obj, field.name)][0]))
+                    ws.write(row+y, col+x, SURVIVOR_OF[getattr(obj, field.name)][0])
                 elif field.name == 'is_photograph':
                     ws.write(row+y, col+x, unicode(IS_PHOTOGRAPH[getattr(obj, field.name)-1][1]))
                 elif field.name == 'space':
@@ -229,23 +229,23 @@ class XLSXDataExportBuilder():
                 elif field.name == 'topic':
                     ws.write(row+y, col+x, unicode(TOPICS[getattr(sheet_obj, field.name)-1][1]))
                     x += 1
-                    ws.write(row+y, col+x, unicode(TOPICS[getattr(sheet_obj, field.name)-1][0]))
+                    ws.write(row+y, col+x, TOPICS[getattr(sheet_obj, field.name)-1][0])
                 elif field.name == 'scope':
                     ws.write(row+y, col+x, unicode(SCOPE[getattr(sheet_obj, field.name)-1][1]))
                     x += 1
-                    ws.write(row+y, col+x, unicode(SCOPE[getattr(sheet_obj, field.name)-1][0]))
+                    ws.write(row+y, col+x, SCOPE[getattr(sheet_obj, field.name)-1][0])
                 elif field.name == 'person_secondary':
                     ws.write(row+y, col+x, unicode(SOURCE[getattr(sheet_obj, field.name)][1]))
                     x += 1
-                    ws.write(row+y, col+x, unicode(SOURCE[getattr(sheet_obj, field.name)][0]))
+                    ws.write(row+y, col+x, SOURCE[getattr(sheet_obj, field.name)][0])
                 elif field.name == 'inequality_women':
                     ws.write(row+y, col+x, unicode(AGREE_DISAGREE[getattr(sheet_obj, field.name)-1][1]))
                     x += 1
-                    ws.write(row+y, col+x, unicode(AGREE_DISAGREE[getattr(sheet_obj, field.name)-1][0]))
+                    ws.write(row+y, col+x, AGREE_DISAGREE[getattr(sheet_obj, field.name)-1][0])
                 elif field.name == 'stereotypes':
                     ws.write(row+y, col+x, unicode(AGREE_DISAGREE[getattr(sheet_obj, field.name)-1][1]))
                     x += 1
-                    ws.write(row+y, col+x, unicode(AGREE_DISAGREE[getattr(sheet_obj, field.name)-1][0]))
+                    ws.write(row+y, col+x, AGREE_DISAGREE[getattr(sheet_obj, field.name)-1][0])
                 elif field.name == 'space':
                     ws.write(row+y, col+x, unicode(SPACE[getattr(sheet_obj, field.name)-1][1]))
                 elif field.name == 'retweet':
@@ -293,11 +293,11 @@ class XLSXDataExportBuilder():
                 if field.name == 'sex':
                     ws.write(row+y, col+x, unicode(GENDER[getattr(obj, field.name)-1][1]))
                     x += 1
-                    ws.write(row+y, col+x, unicode(GENDER[getattr(obj, field.name)-1][0]))
+                    ws.write(row+y, col+x, GENDER[getattr(obj, field.name)-1][0])
                 elif field.name == 'age' and not getattr(obj, field.name) == None:
                     ws.write(row+y, col+x, unicode(AGES[getattr(obj, field.name)][1]))
                     x += 1
-                    ws.write(row+y, col+x, unicode(AGES[getattr(obj, field.name)][0]))
+                    ws.write(row+y, col+x, AGES[getattr(obj, field.name)][0])
                 elif field.name == obj.sheet_name():
                     ws.write(row+y, col+x, getattr(obj, field.name).id)
                     # Get the parent model and id for building the edit link
