@@ -55,8 +55,11 @@ INSTALLED_APPS = (
     'forms',
     'gmmp',
     'django_countries',
-    'reports'
+    'reports',
 )
+
+if DEBUG:
+    INSTALLED_APPS += ('debug_toolbar',)
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
