@@ -91,8 +91,7 @@ class XLSXDataExportBuilder():
         fields = [field for field in model._meta.fields if not field.name in self.person_exclude_fields]
         ws, col = self.write_ws_titles(ws, row, col, fields, self.person_fields_with_id)
 
-        sheet_name = model.sheet_name()
-        sheet_model = getattr(model, sheet_name).get_queryset().first()._meta.model
+        sheet_model = model._meta.get_field(model.sheet_name()).rel.to
 
         sheet_fields = [field for field in sheet_model._meta.fields if not field.name in self.sheet_exclude_fields]
         ws, col = self.write_ws_titles(ws, row, col, sheet_fields, self.sheet_fields_with_id, append_sheet=True)
@@ -103,7 +102,7 @@ class XLSXDataExportBuilder():
             col = 0
             ws, col = self.write_person_row(obj, ws, row+y, col, fields, self.person_fields_with_id)
             col += 1
-            sheet_obj = getattr(obj, sheet_name)
+            sheet_obj = getattr(obj, model.sheet_name())
             ws, col = self.write_sheet_row(sheet_obj, ws, row+y, col, sheet_fields, self.sheet_fields_with_id)
 
     def create_journalist_export(self, model, wb):
@@ -114,8 +113,7 @@ class XLSXDataExportBuilder():
 
         ws, col = self.write_ws_titles(ws, row, col, fields, self.journalist_fields_with_id)
 
-        sheet_name = model.sheet_name()
-        sheet_model = getattr(model, sheet_name).get_queryset().first()._meta.model
+        sheet_model = model._meta.get_field(model.sheet_name()).rel.to
 
         sheet_fields = [field for field in sheet_model._meta.fields if not field.name in self.sheet_exclude_fields]
         ws, col = self.write_ws_titles(ws, row, col, sheet_fields, self.sheet_fields_with_id, append_sheet=True)
@@ -127,7 +125,7 @@ class XLSXDataExportBuilder():
             col = 0
             ws, col = self.write_journalist_row(obj, ws, row+y, col, fields, self.journalist_fields_with_id)
             col += 1
-            sheet_obj = getattr(obj, sheet_name)
+            sheet_obj = getattr(obj, model.sheet_name())
             ws, col = self.write_sheet_row(sheet_obj, ws, row+y, col, sheet_fields, self.sheet_fields_with_id)
 
     def write_ws_titles(self, ws, row, col, fields, fields_with_id, append_sheet=False):
