@@ -152,6 +152,15 @@ class XLSXDataExportBuilder():
         return ws, col
 
     def write_sheet_row(self, obj, ws, row, col, fields, fields_with_id):
+        """
+        Writes a row of data of Sheet models to the worksheet
+
+        :param obj: Reference to the model instance which is being written to the sheet_fields_with_id
+        :param ws: Reference to the current worksheet
+        :param row, col: y,x postion of the cursor
+        :param fields: list of fields of the model which need to be written to the sheet_fields_with_id
+        :param fields_with_id: fields which need to be written over two columns: id + name
+        """
         for field in fields:
             # Certain fields are 1-indexed
             if field.name == 'country':
@@ -198,6 +207,15 @@ class XLSXDataExportBuilder():
         return ws, col
 
     def write_person_row(self, obj, ws, row, col, fields, fields_with_id):
+        """
+        Writes a row of data of Person models to the worksheet
+
+        :param obj: Reference to the model instance which is being written to the sheet_fields_with_id
+        :param ws: Reference to the current worksheet
+        :param row, col: y,x postion of the cursor
+        :param fields: list of fields of the model which need to be written to the sheet_fields_with_id
+        :param fields_with_id: fields which need to be written over two columns: id + name
+        """
         for field in fields:
             # Certain fields are 1-indexed
             if field.name == 'sex':
@@ -254,6 +272,15 @@ class XLSXDataExportBuilder():
         return ws, col
 
     def write_journalist_row(self, obj, ws, row, col, fields, fields_with_id):
+        """
+        Writes a row of data of Journalist models to the worksheet
+
+        :param obj: Reference to the model instance which is being written to the sheet_fields_with_id
+        :param ws: Reference to the current worksheet
+        :param row, col: y,x postion of the cursor
+        :param fields: list of fields of the model which need to be written to the sheet_fields_with_id
+        :param fields_with_id: fields which need to be written over two columns: id + name
+        """
         for field in fields:
             if field.name == 'sex':
                 ws.write(row, col, unicode(GENDER[getattr(obj, field.name)-1][1]))
