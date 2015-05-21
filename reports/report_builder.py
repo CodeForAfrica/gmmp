@@ -74,7 +74,7 @@ class XLSXDataExportBuilder():
         row, col = 0, 0
 
         fields = [field for field in model._meta.fields if not field.name in self.sheet_exclude_fields]
-        ws, col = self.write_ws_titles(fields, ws, row, col, self.sheet_fields_with_id)
+        ws, col = self.write_ws_titles(ws, row, col, fields, self.sheet_fields_with_id)
 
         row += 1
         col = 0
@@ -89,13 +89,13 @@ class XLSXDataExportBuilder():
         row, col = 0, 0
 
         fields = [field for field in model._meta.fields if not field.name in self.person_exclude_fields]
-        ws, col = self.write_ws_titles(fields, ws, row, col, self.person_fields_with_id)
+        ws, col = self.write_ws_titles(ws, row, col, fields, self.person_fields_with_id)
 
         sheet_name = model.sheet_name()
         sheet_model = getattr(model, sheet_name).get_queryset().first()._meta.model
 
         sheet_fields = [field for field in sheet_model._meta.fields if not field.name in self.sheet_exclude_fields]
-        ws, col = self.write_ws_titles(sheet_fields, ws, row, col, self.sheet_fields_with_id, append_sheet=True)
+        ws, col = self.write_ws_titles(ws, row, col, sheet_fields, self.sheet_fields_with_id, append_sheet=True)
 
         row += 1
 
@@ -112,13 +112,13 @@ class XLSXDataExportBuilder():
         row, col = 0, 0
         fields = [field for field in model._meta.fields if not field.name in self.journalist_exclude_fields]
 
-        ws, col = self.write_ws_titles(fields, ws, row, col, self.journalist_fields_with_id)
+        ws, col = self.write_ws_titles(ws, row, col, fields, self.journalist_fields_with_id)
 
         sheet_name = model.sheet_name()
         sheet_model = getattr(model, sheet_name).get_queryset().first()._meta.model
 
         sheet_fields = [field for field in sheet_model._meta.fields if not field.name in self.sheet_exclude_fields]
-        ws, col = self.write_ws_titles(sheet_fields, ws, row, col, self.sheet_fields_with_id, append_sheet=True)
+        ws, col = self.write_ws_titles(ws, row, col, sheet_fields, self.sheet_fields_with_id, append_sheet=True)
 
         row += 1
         col = 0
@@ -130,7 +130,17 @@ class XLSXDataExportBuilder():
             sheet_obj = getattr(obj, sheet_name)
             ws, col = self.write_sheet_row(sheet_obj, ws, row+y, col, sheet_fields, self.sheet_fields_with_id)
 
-    def write_ws_titles(self, fields, ws, row, col, fields_with_id, append_sheet=False):
+    def write_ws_titles(self, ws, row, col, fields, fields_with_id, append_sheet=False):
+        """
+        Writes the column titles to the worksheet
+
+        :param ws: Reference to the current worksheet
+        :param row, col: y,x postion of the cursor
+        :param fields: list of fields of the model which need to be written to the sheet
+        :param fields_with_id: fields which need to be written over two columns: id + name
+        :param append_sheet: Boolean specifying whether the related sheet object
+                             needs to be appended to the row.
+        """
         if not append_sheet:
             for field in fields:
                 ws.write(row, col, unicode(field.name))
@@ -155,10 +165,10 @@ class XLSXDataExportBuilder():
         """
         Writes a row of data of Sheet models to the worksheet
 
-        :param obj: Reference to the model instance which is being written to the sheet_fields_with_id
+        :param obj: Reference to the model instance which is being written to the sheet
         :param ws: Reference to the current worksheet
         :param row, col: y,x postion of the cursor
-        :param fields: list of fields of the model which need to be written to the sheet_fields_with_id
+        :param fields: list of fields of the model which need to be written to the sheet
         :param fields_with_id: fields which need to be written over two columns: id + name
         """
         for field in fields:
@@ -210,10 +220,10 @@ class XLSXDataExportBuilder():
         """
         Writes a row of data of Person models to the worksheet
 
-        :param obj: Reference to the model instance which is being written to the sheet_fields_with_id
+        :param obj: Reference to the model instance which is being written to the sheet
         :param ws: Reference to the current worksheet
         :param row, col: y,x postion of the cursor
-        :param fields: list of fields of the model which need to be written to the sheet_fields_with_id
+        :param fields: list of fields of the model which need to be written to the sheet
         :param fields_with_id: fields which need to be written over two columns: id + name
         """
         for field in fields:
