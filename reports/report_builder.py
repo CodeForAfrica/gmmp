@@ -54,19 +54,14 @@ class XLSXDataExportBuilder():
         output = StringIO.StringIO()
         workbook = xlsxwriter.Workbook(output)
 
-        from forms.models import InternetNewsSheet, InternetNewsPerson, InternetNewsJournalist
-        self.create_sheet_export(InternetNewsSheet, workbook)
-        self.create_person_export(InternetNewsPerson, workbook)
-        self.create_journalist_export(InternetNewsJournalist, workbook)
+        for model in sheet_models.itervalues():
+            self.create_sheet_export(model, workbook)
 
-        # for model in sheet_models.itervalues():
-        #     self.create_sheet_export(model, workbook)
+        for model in person_models.itervalues():
+            self.create_person_export(model, workbook)
 
-        # for model in person_models.itervalues():
-        #     self.create_person_export(model, workbook)
-
-        # for model in journalist_models.itervalues():
-        #     self.create_journalist_export(model, workbook)
+        for model in journalist_models.itervalues():
+            self.create_journalist_export(model, workbook)
 
         workbook.close()
         output.seek(0)
