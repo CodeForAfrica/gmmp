@@ -12,7 +12,8 @@ from django.contrib.sites.shortcuts import get_current_site
 import xlsxwriter
 
 # Project
-from forms.models import NewspaperSheet, person_models, sheet_models, journalist_models
+from forms.models import (
+    NewspaperSheet, NewspaperPerson, person_models, sheet_models, journalist_models)
 from forms.modelutils import (TOPICS, GENDER, SPACE, OCCUPATION, FUNCTION, SCOPE,
     YESNO, AGES, SOURCE, VICTIM_OF, SURVIVOR_OF, IS_PHOTOGRAPH, AGREE_DISAGREE,
     RETWEET, TV_ROLE, MEDIA_TYPES,
@@ -353,25 +354,11 @@ class XLSXReportBuilder:
         self.P.set_num_format(9)  # percentage
 
         # Add generic sheets here.
-        # self.ws_1_media_by_region(workbook)
-        # self.ws_2_media_by_country(workbook)
-        # self.ws_4_topics_by_region(workbook)
-        # self.ws_7_sex_by_media(workbook)
-        # self.ws_8_scope_by_source_sex(workbook)
-        # self.ws_9_topic_by_source_sex(workbook)
-        # self.ws_10_topic_by_space(workbook)
-        # self.ws_11_topic_by_gender_equality_reference(workbook)
-        # self.ws_12_topics_referencing_gender_equality(workbook)
-        # self.ws_13_topic_by_journalist_sex(workbook)
-        # self.ws_14_source_occupation_by_sex(workbook)
-        # self.ws_15_subject_function_by_sex(workbook)
-        # self.ws_16_subject_function_by_sex_by_occupation(workbook, WS_INFO['ws_16'])
-        # self.ws_17_subject_function_by_sex_by_age(workbook, WS_INFO['ws_17'])
+        self.ws_18_subject_age_by_sex_by_print(workbook, WS_INFO['ws_18'])
 
-        sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0:2]))
-        for ws, ws_info in sheet_info.iteritems():
-            getattr(self, ws_info['function'])(workbook, ws_info)
-
+        # sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0))
+        # for ws, ws_info in sheet_info.iteritems():
+        #     getattr(self, ws_info['function'])(workbook, ws_info)
 
         workbook.close()
         output.seek(0)
@@ -714,6 +701,19 @@ class XLSXReportBuilder:
             secondary_counts[age] = counts
         self.tabulate_secondary_cols(ws, secondary_counts, GENDER, FUNCTION, row_perc=True, sec_cols=8)
 
+    def ws_18_subject_age_by_sex_by_print(self, wb, ws_info):
+        ws = wb.add_worksheet(ws_info['name'])
+        self.write_headers(ws, ws_info['title'], ws_info['desc'])
+
+        counts = Counter()
+        import ipdb; ipdb.set_trace()
+        rows = NewspaperPerson.objects\
+                .values('sex', 'age')\
+                .filter(newspaper_sheet__country__in=self.countries)\
+                .annotate(n=Count('id'))
+        counts.update({(r['sex'], r['age']): r['n'] for r in rows})
+
+        self.tabulate(ws, counts, GENDER, AGES, row_perc=True)
 
     # -------------------------------------------------------------------------------
     # Helper functions

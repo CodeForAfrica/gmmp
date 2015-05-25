@@ -10,7 +10,11 @@ WS_INFO = {
         'title': 'Function of news subjects by sex - by age',
         'desc': 'Breakdown of  Function of news subjects by sex - by age',
         'function': 'ws_17_subject_function_by_sex_by_age'
+    },
+    'ws_18': {
+        'name': '18-Function by sex by age',
+        'title': 'Age of news subjects by print, by sex',
+        'desc': 'B.down of  Age of news subjects by print, by sex',
+        'function': 'ws_18_subject_age_by_sex_by_print'
     }
 }
-
-
