@@ -12,9 +12,16 @@ WS_INFO = {
         'function': 'ws_17_subject_function_by_sex_by_age'
     },
     'ws_18': {
-        'name': '18-Function by sex by age',
+        'name': '18-Age by sex for print',
         'title': 'Age of news subjects by print, by sex',
         'desc': 'B.down of  Age of news subjects by print, by sex',
         'function': 'ws_18_subject_age_by_sex_by_print'
+    },
+    'ws_19': {
+        'name': '19-Age by sex for broadcast',
+        'title': 'Age of news subjects by broadcast, by sex',
+        'desc': 'B.down of  Age of news subjects by broadcast, by sex',
+        'function': 'ws_19_subject_age_by_sex_for_broadcast',
     }
+
 }
