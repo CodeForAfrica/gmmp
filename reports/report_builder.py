@@ -17,7 +17,7 @@ from forms.modelutils import (TOPICS, GENDER, SPACE, OCCUPATION, FUNCTION, SCOPE
     YESNO, AGES, SOURCE, VICTIM_OF, SURVIVOR_OF, IS_PHOTOGRAPH, AGREE_DISAGREE,
     RETWEET, TV_ROLE, MEDIA_TYPES,
     CountryRegion)
-from report_details import worksheets
+from report_details import WS_INFO
 
 
 def has_field(model, fld):
@@ -361,11 +361,16 @@ class XLSXReportBuilder:
         # self.ws_9_topic_by_source_sex(workbook)
         # self.ws_10_topic_by_space(workbook)
         # self.ws_11_topic_by_gender_equality_reference(workbook)
-        self.ws_12_topics_referencing_gender_equality(workbook)
+        # self.ws_12_topics_referencing_gender_equality(workbook)
         # self.ws_13_topic_by_journalist_sex(workbook)
         # self.ws_14_source_occupation_by_sex(workbook)
         # self.ws_15_subject_function_by_sex(workbook)
-        self.ws_16_subject_function_by_sex_by_occupation(workbook)
+        # self.ws_16_subject_function_by_sex_by_occupation(workbook, WS_INFO['ws_16'])
+        # self.ws_17_subject_function_by_sex_by_age(workbook, WS_INFO['ws_17'])
+
+        sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0:2]))
+        for ws, ws_info in sheet_info.iteritems():
+            getattr(self, ws_info['function'])(workbook, ws_info)
 
 
         workbook.close()
@@ -673,11 +678,9 @@ class XLSXReportBuilder:
 
         self.tabulate(ws, counts, GENDER, FUNCTION, row_perc=True)
 
-    def ws_16_subject_function_by_sex_by_occupation(self, wb):
-        sheet = worksheets['ws_16']
-        ws = wb.add_worksheet(sheet['name'])
-
-        self.write_headers(ws, sheet['title'], sheet['desc'])
+    def ws_16_subject_function_by_sex_by_occupation(self, wb, ws_info):
+        ws = wb.add_worksheet(ws_info['name'])
+        self.write_headers(ws, ws_info['title'], ws_info['desc'])
 
         secondary_counts = OrderedDict()
         for occ_id, occupation in OCCUPATION:
@@ -692,6 +695,25 @@ class XLSXReportBuilder:
                     counts.update({(r['sex'], r['function']): r['n'] for r in rows})
             secondary_counts[occupation] = counts
         self.tabulate_secondary_cols(ws, secondary_counts, GENDER, FUNCTION, row_perc=True, sec_cols=8)
+
+    def ws_17_subject_function_by_sex_by_age(self, wb, ws_info):
+        ws = wb.add_worksheet(ws_info['name'])
+        self.write_headers(ws, ws_info['title'], ws_info['desc'])
+
+        secondary_counts = OrderedDict()
+        for age_id, age in AGES:
+            counts = Counter()
+            for model in person_models.itervalues():
+                if 'function' and 'age' in model._meta.get_all_field_names():
+                    rows = model.objects\
+                            .values('sex', 'function')\
+                            .filter(**{model.sheet_name() + '__country__in':self.countries})\
+                            .filter(age=age_id)\
+                            .annotate(n=Count('id'))
+                    counts.update({(r['sex'], r['function']): r['n'] for r in rows})
+            secondary_counts[age] = counts
+        self.tabulate_secondary_cols(ws, secondary_counts, GENDER, FUNCTION, row_perc=True, sec_cols=8)
+
 
     # -------------------------------------------------------------------------------
     # Helper functions
