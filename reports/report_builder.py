@@ -17,6 +17,7 @@ from forms.modelutils import (TOPICS, GENDER, SPACE, OCCUPATION, FUNCTION, SCOPE
     YESNO, AGES, SOURCE, VICTIM_OF, SURVIVOR_OF, IS_PHOTOGRAPH, AGREE_DISAGREE,
     RETWEET, TV_ROLE, MEDIA_TYPES,
     CountryRegion)
+from report_details import worksheets
 
 
 def has_field(model, fld):
@@ -673,12 +674,10 @@ class XLSXReportBuilder:
         self.tabulate(ws, counts, GENDER, FUNCTION, row_perc=True)
 
     def ws_16_subject_function_by_sex_by_occupation(self, wb):
-        ws = wb.add_worksheet('16 - Subject function by sex')
+        sheet = worksheets['ws_16']
+        ws = wb.add_worksheet(sheet['name'])
 
-        self.write_headers(
-            ws,
-            'Function of news subjects by sex - by occupation',
-            'Breakdown of  Function of news subjects by sex - by occupation')
+        self.write_headers(ws, sheet['title'], sheet['desc'])
 
         secondary_counts = OrderedDict()
         for occ_id, occupation in OCCUPATION:
