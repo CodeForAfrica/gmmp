@@ -352,18 +352,19 @@ class XLSXReportBuilder:
         self.P.set_num_format(9)  # percentage
 
         # Add generic sheets here.
-        self.ws_1_media_by_region(workbook)
-        self.ws_2_media_by_country(workbook)
-        self.ws_4_topics_by_region(workbook)
-        self.ws_7_sex_by_media(workbook)
-        self.ws_8_scope_by_source_sex(workbook)
-        self.ws_9_topic_by_source_sex(workbook)
-        self.ws_10_topic_by_space(workbook)
-        self.ws_11_topic_by_gender_equality_reference(workbook)
-        self.ws_12_topics_referencing_gender_equality(workbook)
-        self.ws_13_topic_by_journalist_sex(workbook)
-        self.ws_14_source_occupation_by_sex(workbook)
-        self.ws_15_subject_function_by_sex(workbook)
+        # self.ws_1_media_by_region(workbook)
+        # self.ws_2_media_by_country(workbook)
+        # self.ws_4_topics_by_region(workbook)
+        # self.ws_7_sex_by_media(workbook)
+        # self.ws_8_scope_by_source_sex(workbook)
+        # self.ws_9_topic_by_source_sex(workbook)
+        # self.ws_10_topic_by_space(workbook)
+        # self.ws_11_topic_by_gender_equality_reference(workbook)
+        # self.ws_12_topics_referencing_gender_equality(workbook)
+        # self.ws_13_topic_by_journalist_sex(workbook)
+        # self.ws_14_source_occupation_by_sex(workbook)
+        # self.ws_15_subject_function_by_sex(workbook)
+        self.ws_16_subject_function_by_sex_by_occupation(workbook)
 
 
         workbook.close()
@@ -672,6 +673,28 @@ class XLSXReportBuilder:
         self.tabulate(ws, counts, GENDER, FUNCTION, row_perc=True)
 
 
+    def ws_16_subject_function_by_sex_by_occupation(self, wb):
+        ws = wb.add_worksheet('16 - Subject function by sex')
+
+        self.write_headers(
+            ws,
+            'Function of news subjects by sex - by occupation',
+            'Breakdown of  Function of news subjects by sex - by occupation')
+
+        second_counts = {}
+        for occ_id, occupation in OCCUPATION:
+            counts = Counter()
+            for model in person_models.itervalues():
+                if 'function' and 'occupation' in model._meta.get_all_field_names():
+                    rows = model.objects\
+                            .values('sex', 'function')\
+                            .filter(**{model.sheet_name() + '__country__in':self.countries})\
+                            .filter(occupation=occ_id)\
+                            .annotate(n=Count('id'))
+                    counts.update({(r['sex'], r['function']): r['n'] for r in rows})
+            second_counts[occupation] = counts
+        self.tabulate_secondary_cols(ws, second_counts, GENDER, FUNCTION, row_perc=True, sec_cols=8)
+
     # -------------------------------------------------------------------------------
     # Helper functions
     #
@@ -696,8 +719,29 @@ class XLSXReportBuilder:
 
         for region, counts in region_counts.iteritems():
             ws.write(r - 3, c, unicode(region))
-            self.tabulate(ws, counts, YESNO, TOPICS, row_perc=True, sec_col=True, r=7, c=c)
+            self.tabulate(ws, counts, cols, rows, row_perc=row_perc, sec_col=True, r=7, c=c)
             c += 4
+
+    def tabulate_secondary_cols(self, ws, secondary_counts, cols, rows, row_perc=False, sec_cols=4):
+        """
+        :param secondary_counts: dict in following format:
+            {'Secondary column heading': Count object, ...}
+        :param sec_cols: amount of cols used by each secondary heading
+        """
+        r, c = 7, 1
+
+        # row titles
+        for i, row in enumerate(rows):
+            row_id, row_title = row
+            ws.write(r + i, c, unicode(row_title))
+
+        c += 1
+
+        for field, counts in secondary_counts.iteritems():
+            ws.write(r - 3, c, unicode(field))
+            self.tabulate(ws, counts, cols, rows, row_perc=row_perc, sec_col=True, r=7, c=c)
+            c += sec_cols
+
 
     def tabulate(self, ws, counts, cols, rows, row_perc=False, sec_col=False, r=6, c=1):
         """ Emit a table.
