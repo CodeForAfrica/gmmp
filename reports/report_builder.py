@@ -1,6 +1,6 @@
 # Python
 import StringIO
-from collections import Counter
+from collections import Counter, OrderedDict
 
 # Django
 from django.core import urlresolvers
@@ -360,7 +360,7 @@ class XLSXReportBuilder:
         # self.ws_9_topic_by_source_sex(workbook)
         # self.ws_10_topic_by_space(workbook)
         # self.ws_11_topic_by_gender_equality_reference(workbook)
-        # self.ws_12_topics_referencing_gender_equality(workbook)
+        self.ws_12_topics_referencing_gender_equality(workbook)
         # self.ws_13_topic_by_journalist_sex(workbook)
         # self.ws_14_source_occupation_by_sex(workbook)
         # self.ws_15_subject_function_by_sex(workbook)
@@ -600,7 +600,7 @@ class XLSXReportBuilder:
             'Stories making reference to issues of gender equality/inequality, legislation, policy by region',
             'Breakdown by major topic by region by reference to gender equality/human rights/policy ')
 
-        region_counts = {}
+        secondary_counts = OrderedDict()
         for region_id, region_name in get_regions():
             counts = Counter()
             for media_type, model in sheet_models.iteritems():
@@ -612,8 +612,8 @@ class XLSXReportBuilder:
                         .filter(country_region__region=region_name)\
                         .annotate(n=Count('id'))
                     counts.update({(r['equality_rights'], r['topic']): r['n'] for r in rows})
-            region_counts[region_name] = counts
-        self.tabulate_secondary_cols(ws, region_counts, YESNO, TOPICS, row_perc=True, sec_cols=4)
+            secondary_counts[region_name] = counts
+        self.tabulate_secondary_cols(ws, secondary_counts, YESNO, TOPICS, row_perc=True, sec_cols=4)
 
     def ws_13_topic_by_journalist_sex(self, wb):
         ws = wb.add_worksheet('13 - Topic by reporter sex')
@@ -672,7 +672,6 @@ class XLSXReportBuilder:
 
         self.tabulate(ws, counts, GENDER, FUNCTION, row_perc=True)
 
-
     def ws_16_subject_function_by_sex_by_occupation(self, wb):
         ws = wb.add_worksheet('16 - Subject function by sex')
 
@@ -681,7 +680,7 @@ class XLSXReportBuilder:
             'Function of news subjects by sex - by occupation',
             'Breakdown of  Function of news subjects by sex - by occupation')
 
-        second_counts = {}
+        secondary_counts = OrderedDict()
         for occ_id, occupation in OCCUPATION:
             counts = Counter()
             for model in person_models.itervalues():
@@ -692,8 +691,8 @@ class XLSXReportBuilder:
                             .filter(occupation=occ_id)\
                             .annotate(n=Count('id'))
                     counts.update({(r['sex'], r['function']): r['n'] for r in rows})
-            occ_counts[occupation] = counts
-        self.tabulate_secondary_cols(ws, occ_counts, GENDER, FUNCTION, row_perc=True, sec_cols=8)
+            secondary_counts[occupation] = counts
+        self.tabulate_secondary_cols(ws, secondary_counts, GENDER, FUNCTION, row_perc=True, sec_cols=8)
 
     # -------------------------------------------------------------------------------
     # Helper functions
