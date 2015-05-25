@@ -352,17 +352,17 @@ class XLSXReportBuilder:
         self.P.set_num_format(9)  # percentage
 
         # Add generic sheets here.
-        # self.ws_1_media_by_region(workbook)
-        # self.ws_2_media_by_country(workbook)
-        # self.ws_4_topics_by_region(workbook)
-        # self.ws_7_sex_by_media(workbook)
-        # self.ws_8_scope_by_source_sex(workbook)
-        # self.ws_9_topic_by_source_sex(workbook)
-        # self.ws_10_topic_by_space(workbook)
+        self.ws_1_media_by_region(workbook)
+        self.ws_2_media_by_country(workbook)
+        self.ws_4_topics_by_region(workbook)
+        self.ws_7_sex_by_media(workbook)
+        self.ws_8_scope_by_source_sex(workbook)
+        self.ws_9_topic_by_source_sex(workbook)
+        self.ws_10_topic_by_space(workbook)
         self.ws_11_topic_by_gender_equality_reference(workbook)
         self.ws_12_topics_referencing_gender_equality(workbook)
-        # self.ws_13_topic_by_journalist_sex(workbook)
-        # self.ws_14_source_occupation_by_sex(workbook)
+        self.ws_13_topic_by_journalist_sex(workbook)
+        self.ws_14_source_occupation_by_sex(workbook)
         self.ws_15_subject_function_by_sex(workbook)
 
 
@@ -641,20 +641,17 @@ class XLSXReportBuilder:
 
         counts = Counter()
         for model in person_models.itervalues():
-            # some models don't have an occupation
-            if not has_field(model, 'occupation'):
-                continue
-
-            rows = model.objects\
-                    .values('sex', 'occupation')\
-                    .filter(**{model.sheet_name() + '__country__in': self.countries})\
-                    .annotate(n=Count('id'))
-            counts.update({(r['sex'], r['occupation']): r['n'] for r in rows})
+            # some Person models don't have an occupation field
+            if 'occupation' in model._meta.get_all_field_names():
+                rows = model.objects\
+                        .values('sex', 'occupation')\
+                        .filter(**{model.sheet_name() + '__country__in': self.countries})\
+                        .annotate(n=Count('id'))
+                counts.update({(r['sex'], r['occupation']): r['n'] for r in rows})
 
         self.tabulate(ws, counts, GENDER, OCCUPATION, row_perc=True)
 
     def ws_15_subject_function_by_sex(self, wb):
-        import ipdb; ipdb.set_trace()
         ws = wb.add_worksheet('15 - Subject function by sex')
 
         ws.write(0, 0, 'News subject''s Function in news story, by sex')
@@ -664,15 +661,13 @@ class XLSXReportBuilder:
         counts = Counter()
 
         for model in person_models.itervalues():
-            # some models don't have a function
-            if not has_field(model, 'function'):
-                continue
-
-            rows = model.objects\
-                    .values('sex', 'function')\
-                    .filter(**{model.sheet_name() + '__country__in': self.countries})\
-                    .annotate(n=Count('id'))
-            counts.update({(r['sex'], r['function']): r['n'] for r in rows})
+            # some Person models don't have a function field
+            if 'function' in model._meta.get_all_field_names():
+                rows = model.objects\
+                        .values('sex', 'function')\
+                        .filter(**{model.sheet_name() + '__country__in': self.countries})\
+                        .annotate(n=Count('id'))
+                counts.update({(r['sex'], r['function']): r['n'] for r in rows})
 
         self.tabulate(ws, counts, GENDER, FUNCTION, row_perc=True)
 
