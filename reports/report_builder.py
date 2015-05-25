@@ -352,17 +352,18 @@ class XLSXReportBuilder:
         self.P.set_num_format(9)  # percentage
 
         # Add generic sheets here.
-        self.ws_1_media_by_region(workbook)
-        self.ws_2_media_by_country(workbook)
-        self.ws_4_topics_by_region(workbook)
-        self.ws_7_sex_by_media(workbook)
-        self.ws_8_scope_by_source_sex(workbook)
-        self.ws_9_topic_by_source_sex(workbook)
-        self.ws_10_topic_by_space(workbook)
+        # self.ws_1_media_by_region(workbook)
+        # self.ws_2_media_by_country(workbook)
+        # self.ws_4_topics_by_region(workbook)
+        # self.ws_7_sex_by_media(workbook)
+        # self.ws_8_scope_by_source_sex(workbook)
+        # self.ws_9_topic_by_source_sex(workbook)
+        # self.ws_10_topic_by_space(workbook)
         self.ws_11_topic_by_gender_equality_reference(workbook)
-        self.ws_13_topic_by_journalist_sex(workbook)
-        self.ws_14_source_occupation_by_sex(workbook)
-        self.ws_15_subject_function_by_sex(workbook)
+        self.ws_12_topics_referencing_gender_equality(workbook)
+        # self.ws_13_topic_by_journalist_sex(workbook)
+        # self.ws_14_source_occupation_by_sex(workbook)
+        # self.ws_15_subject_function_by_sex(workbook)
 
 
         workbook.close()
@@ -581,7 +582,6 @@ class XLSXReportBuilder:
             'Breakdown by major topic by reference to gender equality/human rights/policy')
 
         counts = Counter()
-
         for media_type, model in sheet_models.iteritems():
             if 'equality_rights' in model._meta.get_all_field_names():
                 rows = model.objects\
@@ -589,7 +589,30 @@ class XLSXReportBuilder:
                     .filter(country__in=self.countries)\
                     .annotate(n=Count('id'))
                 counts = {(r['equality_rights'], r['topic']): r['n'] for r in rows}
-            self.tabulate(ws, counts, YESNO, TOPICS, row_perc=True)
+        self.tabulate(ws, counts, YESNO, TOPICS, row_perc=True)
+
+    def ws_12_topics_referencing_gender_equality(self, wb):
+        ws = wb.add_worksheet('12 - Topic by ref to gender eq')
+
+        self.write_headers(
+            ws,
+            'Stories making reference to issues of gender equality/inequality, legislation, policy by region',
+            'Breakdown by major topic by region by reference to gender equality/human rights/policy ')
+
+        counts = Counter()
+        region_counts = {}
+        for region_id, region_name in get_regions():
+            for media_type, model in sheet_models.iteritems():
+                # Some models has no equality rights field
+                if 'equality_rights' in model._meta.get_all_field_names():
+                    rows = model.objects\
+                        .values('equality_rights', 'topic', 'country_region__id')\
+                        .filter(country__in=self.countries)\
+                        .filter(country_region__region=region_name)\
+                        .annotate(n=Count('id'))
+                    counts = {(r['equality_rights'], r['topic']): r['n'] for r in rows}
+            region_counts[region_name] = counts
+        self.tabulate_regions(ws, region_counts, YESNO, TOPICS, row_perc=True)
 
     def ws_13_topic_by_journalist_sex(self, wb):
         ws = wb.add_worksheet('13 - Topic by reporter sex')
@@ -665,7 +688,22 @@ class XLSXReportBuilder:
         ws.write(3, 2, self.gmmp_year)
 
 
-    def tabulate(self, ws, counts, cols, rows, row_perc=False):
+    def tabulate_regions(self, ws, region_counts, cols, rows, row_perc=False):
+        # row titles
+        r, c = 7, 1
+
+        for i, row in enumerate(rows):
+            row_id, row_title = row
+            ws.write(r + i, c, unicode(row_title))
+
+        c += 1
+
+        for region, counts in region_counts.iteritems():
+            ws.write(r - 3, c, unicode(region))
+            self.tabulate(ws, counts, YESNO, TOPICS, row_perc=True, sec_col=True, r=7, c=c)
+            c += 4
+
+    def tabulate(self, ws, counts, cols, rows, row_perc=False, sec_col=False, r=6, c=1):
         """ Emit a table.
 
         :param ws: worksheet to write to
@@ -673,9 +711,9 @@ class XLSXReportBuilder:
         :param list cols: list of `(col_id, col_title)` tuples of column ids and titles
         :param list rows: list of `(row_id, row_title)` tuples of row ids and titles
         :param bool row_perc: should percentages by calculated by row instead of column (default: False)
+        :param sec_col: is there a secondary column title to create (default: False)
+        :param r, c: initial position where cursor should start writing to
         """
-        r, c = 6, 1
-
         if row_perc:
             # we'll need percentage by rows
             row_totals = {}
@@ -683,11 +721,13 @@ class XLSXReportBuilder:
                 row_totals[row_id] = sum(counts.get((col_id, row_id), 0) for col_id, _ in cols)  # noqa
 
         # row titles
-        for i, row in enumerate(rows):
-            row_id, row_title = row
-            ws.write(r + i, c, unicode(row_title))
+        if not sec_col:
+            # Else already written
+            for i, row in enumerate(rows):
+                row_id, row_title = row
+                ws.write(r + i, c, unicode(row_title))
 
-        c += 1
+            c += 1
 
         # values, written by column
         for col_id, col_title in cols:
