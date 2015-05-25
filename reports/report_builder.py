@@ -363,7 +363,7 @@ class XLSXReportBuilder:
         self.ws_12_topics_referencing_gender_equality(workbook)
         # self.ws_13_topic_by_journalist_sex(workbook)
         # self.ws_14_source_occupation_by_sex(workbook)
-        # self.ws_15_subject_function_by_sex(workbook)
+        self.ws_15_subject_function_by_sex(workbook)
 
 
         workbook.close()
@@ -588,7 +588,7 @@ class XLSXReportBuilder:
                     .values('equality_rights', 'topic')\
                     .filter(country__in=self.countries)\
                     .annotate(n=Count('id'))
-                counts = {(r['equality_rights'], r['topic']): r['n'] for r in rows}
+                counts.update({(r['equality_rights'], r['topic']): r['n'] for r in rows})
         self.tabulate(ws, counts, YESNO, TOPICS, row_perc=True)
 
     def ws_12_topics_referencing_gender_equality(self, wb):
@@ -599,18 +599,18 @@ class XLSXReportBuilder:
             'Stories making reference to issues of gender equality/inequality, legislation, policy by region',
             'Breakdown by major topic by region by reference to gender equality/human rights/policy ')
 
-        counts = Counter()
         region_counts = {}
         for region_id, region_name in get_regions():
+            counts = Counter()
             for media_type, model in sheet_models.iteritems():
                 # Some models has no equality rights field
                 if 'equality_rights' in model._meta.get_all_field_names():
                     rows = model.objects\
-                        .values('equality_rights', 'topic', 'country_region__id')\
+                        .values('equality_rights', 'topic', 'country_region__region')\
                         .filter(country__in=self.countries)\
                         .filter(country_region__region=region_name)\
                         .annotate(n=Count('id'))
-                    counts = {(r['equality_rights'], r['topic']): r['n'] for r in rows}
+                    counts.update({(r['equality_rights'], r['topic']): r['n'] for r in rows})
             region_counts[region_name] = counts
         self.tabulate_regions(ws, region_counts, YESNO, TOPICS, row_perc=True)
 
@@ -654,6 +654,7 @@ class XLSXReportBuilder:
         self.tabulate(ws, counts, GENDER, OCCUPATION, row_perc=True)
 
     def ws_15_subject_function_by_sex(self, wb):
+        import ipdb; ipdb.set_trace()
         ws = wb.add_worksheet('15 - Subject function by sex')
 
         ws.write(0, 0, 'News subject''s Function in news story, by sex')
