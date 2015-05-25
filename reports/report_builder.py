@@ -613,7 +613,7 @@ class XLSXReportBuilder:
                         .annotate(n=Count('id'))
                     counts.update({(r['equality_rights'], r['topic']): r['n'] for r in rows})
             region_counts[region_name] = counts
-        self.tabulate_regions(ws, region_counts, YESNO, TOPICS, row_perc=True)
+        self.tabulate_secondary_cols(ws, region_counts, YESNO, TOPICS, row_perc=True, sec_cols=4)
 
     def ws_13_topic_by_journalist_sex(self, wb):
         ws = wb.add_worksheet('13 - Topic by reporter sex')
@@ -692,8 +692,8 @@ class XLSXReportBuilder:
                             .filter(occupation=occ_id)\
                             .annotate(n=Count('id'))
                     counts.update({(r['sex'], r['function']): r['n'] for r in rows})
-            second_counts[occupation] = counts
-        self.tabulate_secondary_cols(ws, second_counts, GENDER, FUNCTION, row_perc=True, sec_cols=8)
+            occ_counts[occupation] = counts
+        self.tabulate_secondary_cols(ws, occ_counts, GENDER, FUNCTION, row_perc=True, sec_cols=8)
 
     # -------------------------------------------------------------------------------
     # Helper functions
@@ -707,21 +707,6 @@ class XLSXReportBuilder:
         ws.write(3, 2, self.gmmp_year)
 
 
-    def tabulate_regions(self, ws, region_counts, cols, rows, row_perc=False):
-        # row titles
-        r, c = 7, 1
-
-        for i, row in enumerate(rows):
-            row_id, row_title = row
-            ws.write(r + i, c, unicode(row_title))
-
-        c += 1
-
-        for region, counts in region_counts.iteritems():
-            ws.write(r - 3, c, unicode(region))
-            self.tabulate(ws, counts, cols, rows, row_perc=row_perc, sec_col=True, r=7, c=c)
-            c += 4
-
     def tabulate_secondary_cols(self, ws, secondary_counts, cols, rows, row_perc=False, sec_cols=4):
         """
         :param secondary_counts: dict in following format:
@@ -734,7 +719,6 @@ class XLSXReportBuilder:
         for i, row in enumerate(rows):
             row_id, row_title = row
             ws.write(r + i, c, unicode(row_title))
-
         c += 1
 
         for field, counts in secondary_counts.iteritems():
