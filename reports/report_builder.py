@@ -354,7 +354,7 @@ class XLSXReportBuilder:
         self.P.set_num_format(9)  # percentage
 
         # Add generic sheets here.
-        self.ws_18_subject_age_by_sex_by_print(workbook, WS_INFO['ws_18'])
+        self.ws_19_subject_age_by_sex_for_broadcast(workbook, WS_INFO['ws_19'])
 
         # sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0))
         # for ws, ws_info in sheet_info.iteritems():
@@ -706,14 +706,31 @@ class XLSXReportBuilder:
         self.write_headers(ws, ws_info['title'], ws_info['desc'])
 
         counts = Counter()
-        import ipdb; ipdb.set_trace()
         rows = NewspaperPerson.objects\
                 .values('sex', 'age')\
                 .filter(newspaper_sheet__country__in=self.countries)\
                 .annotate(n=Count('id'))
         counts.update({(r['sex'], r['age']): r['n'] for r in rows})
 
-        self.tabulate(ws, counts, GENDER, AGES, row_perc=True)
+        self.tabulate(ws, counts, GENDER, AGES, row_perc=False)
+
+    def ws_19_subject_age_by_sex_for_broadcast(self, wb, ws_info):
+        ws = wb.add_worksheet(ws_info['name'])
+        self.write_headers(ws, ws_info['title'], ws_info['desc'])
+
+        counts = Counter()
+        broadcast = ['Television']
+        for media_type, model in person_models.iteritems():
+             if media_type in broadcast:
+                rows = model.objects\
+                        .values('sex', 'age')\
+                        .filter(**{model.sheet_name() + '__country__in':self.countries})\
+                        .annotate(n=Count('id'))
+                counts.update({(r['sex'], r['age']): r['n'] for r in rows})
+
+                self.tabulate(ws, counts, GENDER, AGES, row_perc=False)
+
+
 
     # -------------------------------------------------------------------------------
     # Helper functions
@@ -782,7 +799,9 @@ class XLSXReportBuilder:
 
             if not row_perc:
                 # column totals
-                total = sum(counts.itervalues())
+                # TODO: Perc of col total or matrix total?
+                # total = sum(counts.itervalues())
+                total = sum(counts.get((col_id, row_id), 0) for row_id, _ in rows)
 
             # row values for this column
             for i, row in enumerate(rows):
