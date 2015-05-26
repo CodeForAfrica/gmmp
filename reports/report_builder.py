@@ -736,8 +736,9 @@ class XLSXReportBuilder:
         self.write_headers(ws, ws_info['title'], ws_info['desc'])
 
         secondary_counts = OrderedDict()
-        import ipdb; ipdb.set_trace()
-        functions count = Counter()
+
+        functions_count = Counter()
+        # Get top 5 functions
         for model in person_models.itervalues():
             if 'function' and 'occupation' in model._meta.get_all_field_names():
                 rows = model.objects\
@@ -745,26 +746,22 @@ class XLSXReportBuilder:
                         .filter(**{model.sheet_name() + '__country__in':self.countries})\
                         .annotate(n=Count('id'))
                 functions_count.update({(r['function']): r['n'] for r in rows})
-                top_functions =
-        import ipdb; ipdb.set_trace()
 
-        for age_id, age in AGES:
+        top_5_function_ids = [id for id, count in sorted(functions_count.items(), key=lambda x: -x[1])[:5]]
+        top_5_functions = [(id, func) for id, func in FUNCTION if id in top_5_function_ids]
+
+        for func_id, function in top_5_functions:
             counts = Counter()
             for model in person_models.itervalues():
-                if 'function' and 'age' in model._meta.get_all_field_names():
+                if 'function' and 'occupation' in model._meta.get_all_field_names():
                     rows = model.objects\
-                            .values('sex', 'function')\
+                            .values('sex', 'occupation')\
                             .filter(**{model.sheet_name() + '__country__in':self.countries})\
-                            .filter(age=age_id)\
+                            .filter(function=func_id)\
                             .annotate(n=Count('id'))
-                    counts.update({(r['sex'], r['occupation'], r['function']): r['n'] for r in rows})
-            secondary_counts[age] = counts
-        self.tabulate_secondary_cols(ws, secondary_counts, GENDER, FUNCTION, row_perc=True, sec_cols=8)
-
-
-
-
-
+                    counts.update({(r['sex'], r['occupation']): r['n'] for r in rows})
+            secondary_counts[function] = counts
+        self.tabulate_secondary_cols(ws, secondary_counts, GENDER, OCCUPATION, row_perc=True, sec_cols=8)
 
     # -------------------------------------------------------------------------------
     # Helper functions
