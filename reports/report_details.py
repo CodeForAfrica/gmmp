@@ -109,4 +109,14 @@ WS_INFO = {
         'title': 'Breakdown of  news subjects quoted, by sex',
         'desc': 'News subjects quoted, by sex'
     },
+    'ws_27': {
+        'name': '27-Subjects photographed by sex',
+        'title': 'Breakdown of News subjects photographed, by sex',
+        'desc': 'News subjects photographed, by sex'
+    },
+    'ws_28': {
+        'name': '28-Female reporters by medium',
+        'title': 'Breakdown of total female reporters & presenters by region by medium ',
+        'desc': 'Female reporters, announcers and presenters all media, by region'
+    },
 }

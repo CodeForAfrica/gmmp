@@ -353,7 +353,8 @@ class XLSXReportBuilder:
         self.P = workbook.add_format()
         self.P.set_num_format(9)  # percentage
 
-        test_functions = ['ws_26']
+        # Use the following for specifying which reports to create
+        test_functions = ['ws_28']
         sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
         for function in test_functions:
             ws = workbook.add_worksheet(sheet_info[function]['name'])
@@ -829,7 +830,46 @@ class XLSXReportBuilder:
                         .filter(**{model.sheet_name() + '__country__in':self.countries})\
                         .annotate(n=Count('id'))
                 counts.update({(r['sex'], r['is_quoted']): r['n'] for r in rows})
-            self.tabulate(ws, counts, GENDER, YESNO, row_perc=False)
+        self.tabulate(ws, counts, GENDER, YESNO, row_perc=True)
+
+    def ws_27(self, ws):
+        """
+        Cols: Sex
+        Rows: Photographed
+        """
+        counts = Counter()
+        for model in person_models.itervalues():
+            if 'is_photograph' in model._meta.get_all_field_names():
+                rows = model.objects\
+                        .values('sex', 'is_photograph')\
+                        .filter(**{model.sheet_name() + '__country__in':self.countries})\
+                        .annotate(n=Count('id'))
+                counts.update({(r['sex'], r['is_photograph']): r['n'] for r in rows})
+        self.tabulate(ws, counts, GENDER, IS_PHOTOGRAPH, row_perc=True)
+
+    def ws_28(self, ws):
+        """
+        Cols: Medium
+        Rows: Region
+        """
+        counts = Counter()
+        import ipdb; ipdb.set_trace()
+        for media_type, model in person_models.iteritems():
+            region_field = model.sheet_name() + '__country_region__region'
+            rows = model.objects\
+                    .values(region_field)\
+                    .filter(sex=1)\
+                    .exclude(**{region_field: 'Unmapped'})\
+                    .annotate(n=Count('id'))
+            for row in rows:
+                if row[region_field] is not None:
+                    # Get media and region id's to assign to counts
+                    media_id = [media[0] for media in MEDIA_TYPES if media[1] == media_type][0]
+                    region_id = [region[0] for region in self.regions if region[1] == row[region_field]][0]
+
+                    counts.update({(media_id, region_id): row['n']})
+
+        self.tabulate(ws, counts, MEDIA_TYPES, self.regions, row_perc=True)
 
 
     # -------------------------------------------------------------------------------
