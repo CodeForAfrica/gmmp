@@ -355,7 +355,7 @@ class XLSXReportBuilder:
 
         # Add generic sheets here.
         # self.ws_19_subject_age_by_sex_for_broadcast(workbook, WS_INFO['ws_19'])
-        self.ws_20_subject_function_and_occupation_by_sex(workbook, WS_INFO['ws_20'])
+        self.ws_21(workbook, WS_INFO['ws_21'])
 
         # sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0))
         # for ws, ws_info in sheet_info.iteritems():
@@ -729,7 +729,7 @@ class XLSXReportBuilder:
                         .annotate(n=Count('id'))
                 counts.update({(r['sex'], r['age']): r['n'] for r in rows})
 
-                self.tabulate(ws, counts, GENDER, AGES, row_perc=False)
+        self.tabulate(ws, counts, GENDER, AGES, row_perc=False)
 
     def ws_20_subject_function_and_occupation_by_sex(self, wb, ws_info):
         ws = wb.add_worksheet(ws_info['name'])
@@ -762,6 +762,28 @@ class XLSXReportBuilder:
                     counts.update({(r['sex'], r['occupation']): r['n'] for r in rows})
             secondary_counts[function] = counts
         self.tabulate_secondary_cols(ws, secondary_counts, GENDER, OCCUPATION, row_perc=True, sec_cols=8)
+
+    def ws_21(self, wb, ws_info):
+        """
+        Cols: Sex
+        Rows: Victim type
+        """
+        ws = wb.add_worksheet(ws_info['name'])
+        self.write_headers(ws, ws_info['title'], ws_info['desc'])
+
+        counts = Counter()
+        for model in person_models.itervalues():
+            if 'victim_of' in model._meta.get_all_field_names():
+                rows = model.objects\
+                        .values('sex', 'victim_of')\
+                        .filter(**{model.sheet_name() + '__country__in':self.countries})\
+                        .exclude(victim_of=None)\
+                        .annotate(n=Count('id'))
+                counts.update({(r['sex'], r['victim_of']): r['n'] for r in rows})
+        self.tabulate(ws, counts, GENDER, VICTIM_OF, row_perc=True)
+
+
+
 
     # -------------------------------------------------------------------------------
     # Helper functions

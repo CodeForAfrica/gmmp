@@ -28,6 +28,12 @@ WS_INFO = {
         'title': 'Functions (top 5) and Occupations by sex of news subject',
         'desc': 'B.down of  news subjects\' functions (top 5) and occupations by sex of news subject',
         'function': 'ws_20_subject_function_and_occupation_by_sex',
-    }
+    },
+    'ws_21': {
+        'name': '21-Victim type by sex',
+        'title': 'Breakdown by victim type by sex',
+        'desc': 'News Subjects who are portrayed as victims, by sex',
+        'function': 'ws_21',
+    },
 
 }
