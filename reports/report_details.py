@@ -47,5 +47,11 @@ WS_INFO = {
         'desc': 'News subjects who are identified by family status, by sex',
         'function': 'ws_24',
     },
+    'ws_25': {
+        'name': '25-Family Status by sex',
+        'title': 'B.down by sex of subject, family status, by sex of reporter',
+        'desc': 'News subjects who are identified by family status, by sex of news subject, by sex of reporter',
+        'function': 'ws_25',
+    },
 
 }

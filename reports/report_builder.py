@@ -356,7 +356,7 @@ class XLSXReportBuilder:
         # Add generic sheets here.
         # self.ws_19_subject_age_by_sex_for_broadcast(workbook, WS_INFO['ws_19'])
         self.ws_23(workbook, WS_INFO['ws_23'])
-        self.ws_24(workbook, WS_INFO['ws_24'])
+        self.ws_25(workbook, WS_INFO['ws_25'])
 
         # sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0))
         # for ws, ws_info in sheet_info.iteritems():
@@ -819,6 +819,31 @@ class XLSXReportBuilder:
                         .annotate(n=Count('id'))
                 counts.update({(r['sex'], r['family_role']): r['n'] for r in rows})
         self.tabulate(ws, counts, GENDER, YESNO, row_perc=True)
+
+    def ws_25(self, wb, ws_info):
+        """
+        Cols: Sex of journalist, Sex of person
+        Rows: Family Role
+        """
+        ws = wb.add_worksheet(ws_info['name'])
+        self.write_headers(ws, ws_info['title'], ws_info['desc'])
+        secondary_counts = OrderedDict()
+        for sex_id, sex in GENDER:
+            counts = Counter()
+            for model in person_models.itervalues():
+                if 'family_role' in model._meta.get_all_field_names():
+                    sheet_name = model.sheet_name()
+                    journo_name = model._meta.get_field(model.sheet_name()).rel.to.journalist_field_name()
+                    rows = model.objects\
+                            .values('sex', 'family_role')\
+                            .filter(**{model.sheet_name() + '__country__in':self.countries})\
+                            .filter(**{sheet_name + '__' + journo_name + '__sex':sex_id})\
+                            .annotate(n=Count('id'))
+                    counts.update({(r['sex'], r['family_role']): r['n'] for r in rows})
+            secondary_counts[sex] = counts
+        self.tabulate_secondary_cols(ws, secondary_counts, GENDER, YESNO, row_perc=True, sec_cols=8)
+
+
 
     # -------------------------------------------------------------------------------
     # Helper functions
