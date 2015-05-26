@@ -22,6 +22,12 @@ WS_INFO = {
         'title': 'Age of news subjects by broadcast, by sex',
         'desc': 'B.down of  Age of news subjects by broadcast, by sex',
         'function': 'ws_19_subject_age_by_sex_for_broadcast',
+    },
+    'ws_20': {
+        'name': '20-Function and Occ by sex',
+        'title': 'Functions (top 5) and Occupations by sex of news subject',
+        'desc': 'B.down of  news subjects\' functions (top 5) and occupations by sex of news subject',
+        'function': 'ws_20_subject_function_and_occupation_by_sex',
     }
 
 }
