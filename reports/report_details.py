@@ -119,4 +119,9 @@ WS_INFO = {
         'title': 'Breakdown of total female reporters & presenters by region by medium ',
         'desc': 'Female reporters, announcers and presenters all media, by region'
     },
+    'ws_29': {
+        'name': '29-Female reporters by scope',
+        'title': 'Breakdown of female reporters in domestic & foreign stories, by region',
+        'desc': 'Reporters in domestic & foreign stories (scope) , by region, by sex of reporter region'
+    },
 }

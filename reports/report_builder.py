@@ -354,7 +354,7 @@ class XLSXReportBuilder:
         self.P.set_num_format(9)  # percentage
 
         # Use the following for specifying which reports to create
-        test_functions = ['ws_28']
+        test_functions = ['ws_29']
         sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
         for function in test_functions:
             ws = workbook.add_worksheet(sheet_info[function]['name'])
@@ -870,6 +870,28 @@ class XLSXReportBuilder:
                     counts.update({(media_id, region_id): row['n']})
 
         self.tabulate(ws, counts, MEDIA_TYPES, self.regions, row_perc=True)
+
+    def ws_29(self, ws):
+        """
+        Cols: Regions
+        Rows: Scope
+        """
+        counts = Counter()
+        for model in person_models.itervalues():
+            sheet_name = model.sheet_name()
+            region_field = sheet_name + '__country_region__region'
+            scope_field =  sheet_name + '__scope'
+            if 'scope' in model._meta.get_field(sheet_name).rel.to._meta.get_all_field_names():
+                rows = model.objects\
+                        .values(region_field, scope_field)\
+                        .filter(**{model.sheet_name() + '__country__in':self.countries})\
+                        .filter(sex=1)\
+                        .annotate(n=Count('id'))
+                for row in rows:
+                    if row[region_field] is not None:
+                        region_id = [region[0] for region in self.regions if region[1] == row[region_field]][0]
+                        counts.update({(region_id, row[scope_field]): row['n']})
+        self.tabulate(ws, counts, self.regions, SCOPE, row_perc=True)
 
 
     # -------------------------------------------------------------------------------
