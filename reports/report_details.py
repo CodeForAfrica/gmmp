@@ -124,4 +124,10 @@ WS_INFO = {
         'title': 'Breakdown of female reporters in domestic & foreign stories, by region',
         'desc': 'Reporters in domestic & foreign stories (scope) , by region, by sex of reporter region'
     },
+    'ws_30': {
+        'name': '30-Female reporters by topic',
+        'title': 'Breakdown of female reporters, by major topic, by region',
+        'desc': 'Reporters, by sex on major topics, by region'
+    },
+
 }
