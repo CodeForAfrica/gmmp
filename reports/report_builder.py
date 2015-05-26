@@ -355,7 +355,7 @@ class XLSXReportBuilder:
 
         # Add generic sheets here.
         # self.ws_19_subject_age_by_sex_for_broadcast(workbook, WS_INFO['ws_19'])
-        self.ws_21(workbook, WS_INFO['ws_21'])
+        self.ws_23(workbook, WS_INFO['ws_23'])
 
         # sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0))
         # for ws, ws_info in sheet_info.iteritems():
@@ -782,7 +782,24 @@ class XLSXReportBuilder:
                 counts.update({(r['sex'], r['victim_of']): r['n'] for r in rows})
         self.tabulate(ws, counts, GENDER, VICTIM_OF, row_perc=True)
 
+    def ws_23(self, wb, ws_info):
+        """
+        Cols: Sex
+        Rows: Survivor type
+        """
+        ws = wb.add_worksheet(ws_info['name'])
+        self.write_headers(ws, ws_info['title'], ws_info['desc'])
 
+        counts = Counter()
+        for model in person_models.itervalues():
+            if 'survivor_of' in model._meta.get_all_field_names():
+                rows = model.objects\
+                        .values('sex', 'survivor_of')\
+                        .filter(**{model.sheet_name() + '__country__in':self.countries})\
+                        .exclude(survivor_of=None)\
+                        .annotate(n=Count('id'))
+                counts.update({(r['sex'], r['survivor_of']): r['n'] for r in rows})
+        self.tabulate(ws, counts, GENDER, SURVIVOR_OF, row_perc=True)
 
 
     # -------------------------------------------------------------------------------
@@ -799,9 +816,13 @@ class XLSXReportBuilder:
 
     def tabulate_secondary_cols(self, ws, secondary_counts, cols, rows, row_perc=False, sec_cols=4):
         """
+        :param ws: worksheet to write to
         :param secondary_counts: dict in following format:
-            {'Secondary column heading': Count object, ...}
-        :param sec_cols: amount of cols used by each secondary heading
+            {'Primary column heading': Count object, ...}
+        :param list cols: list of `(col_id, col_title)` tuples of column ids and titles
+        :param list rows: list of `(row_id, row_title)` tuples of row ids and titles
+        :param bool row_perc: should percentages by calculated by row instead of column (default: False)
+        :param sec_cols: amount of cols needed for secondary cols
         """
         r, c = 7, 1
 
