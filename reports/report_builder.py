@@ -355,23 +355,25 @@ class XLSXReportBuilder:
 
         # Add generic sheets here.
         # self.ws_19_subject_age_by_sex_for_broadcast(workbook, WS_INFO['ws_19'])
-        self.ws_23(workbook, WS_INFO['ws_23'])
-        self.ws_25(workbook, WS_INFO['ws_25'])
+        # self.ws_23(workbook, WS_INFO['ws_23'])
+        # self.ws_25(workbook, WS_INFO['ws_25'])
 
-        # sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0))
-        # for ws, ws_info in sheet_info.iteritems():
-        #     getattr(self, ws_info['function'])(workbook, ws_info)
+        sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
+        for ws_num, ws_info in sheet_info.iteritems():
+            ws = workbook.add_worksheet(ws_info['name'])
+            self.write_headers(ws, ws_info['title'], ws_info['desc'])
+            getattr(self, ws_num)(ws)
 
         workbook.close()
         output.seek(0)
 
         return output.read()
 
-    def ws_1_media_by_region(self, wb):
-        ws = wb.add_worksheet('1 - Medium by region')
-
-        self.write_headers(ws, 'Participating Countries', 'Breakdown of all media by region')
-
+    def ws_01(self, ws):
+        """
+        Cols: Media Type
+        Rows: Region
+        """
         counts = Counter()
         for media_type, model in sheet_models.iteritems():
             region_field = 'country_region__region'
@@ -391,13 +393,11 @@ class XLSXReportBuilder:
         self.tabulate(ws, counts, MEDIA_TYPES, self.regions, row_perc=True)
 
 
-    def ws_2_media_by_country(self, wb):
-        ws = wb.add_worksheet('2 - Medium by country')
-
-        ws.write(0, 0, 'Participating Countries in each Region')
-        ws.write(1, 0, 'Breakdown of all media by country')
-        ws.write(3, 2, self.gmmp_year)
-
+    def ws_02(self, ws):
+        """
+        Cols: Media Type
+        Rows: Country
+        """
         ws.write(5, 0, 'Region name here')
 
         row, col = 6, 1
@@ -438,15 +438,11 @@ class XLSXReportBuilder:
 
             col += 2
 
-    def ws_4_topics_by_region(self, wb):
-        ws = wb.add_worksheet('4 - Topics by region')
-
-        ws.write(0, 0, 'Topics in the news by region')
-        ws.write(1, 0, 'Breakdown of major news topics by region by medium')
-        ws.write(3, 2, self.gmmp_year)
-
-        ws.write(5, 0, 'Region name here')
-
+    def ws_04(self, ws):
+        """
+        Cols: Media type
+        Rows: News Topic
+        """
         row, col = 6, 1
 
         # row titles
@@ -477,13 +473,11 @@ class XLSXReportBuilder:
 
             col += 2
 
-    def ws_7_sex_by_media(self, wb):
-        ws = wb.add_worksheet('7 - Sex by media')
-
-        ws.write(0, 0, 'Women in the news (sources) by medium')
-        ws.write(1, 0, 'Breakdown by sex of all mediums')
-        ws.write(3, 2, self.gmmp_year)
-
+    def ws_07(self, ws):
+        """
+        Cols: Media Type
+        Rows: Sex
+        """
         row, col = 6, 1
 
         # row titles
@@ -515,13 +509,11 @@ class XLSXReportBuilder:
 
             col += 2
 
-    def ws_8_scope_by_source_sex(self, wb):
-        ws = wb.add_worksheet('8 - Scope by source sex')
-        self.write_headers(
-            ws,
-            'Sex of news subjects (sources) inlocal,national,sub-regional/regional, foreign/intnl news',
-            'Breakdown by sex local,national,sub-regional/regional, intnl news')
-
+    def ws_08(self, ws):
+        """
+        Cols: Sex
+        Rows: Scope
+        """
         counts = Counter()
         for media_type, model in sheet_models.iteritems():
             if 'scope' in model._meta.get_all_field_names():
@@ -534,13 +526,11 @@ class XLSXReportBuilder:
 
         self.tabulate(ws, counts, GENDER, SCOPE, row_perc=True)
 
-    def ws_9_topic_by_source_sex(self, wb):
-        ws = wb.add_worksheet('9 - Topic by source sex')
-
-        ws.write(0, 0, 'Sex of news subjects in different story topics')
-        ws.write(1, 0, 'Breakdown of topic by sex')
-        ws.write(3, 2, self.gmmp_year)
-
+    def ws_09(self, ws):
+        """
+        Cols: Sex
+        Rows: Topic
+        """
         counts = Counter()
         for media_type, model in sheet_models.iteritems():
             sex = '%s__sex' % model.person_field_name()
@@ -552,14 +542,11 @@ class XLSXReportBuilder:
 
         self.tabulate(ws, counts, GENDER, TOPICS, row_perc=True)
 
-    def ws_10_topic_by_space(self, wb):
-
-        ws = wb.add_worksheet('10 - Topic by space')
-
-        ws.write(0, 0, 'Space allocated to major topics in Newspapers')
-        ws.write(1, 0, 'Breakdown by major topic by space (q.4) in newspapers')
-        ws.write(3, 2, self.gmmp_year)
-
+    def ws_10(self, ws):
+        """
+        Cols: Space
+        Rows: Topic
+        """
         # Calculate row values for column
         rows = NewspaperSheet.objects\
                 .values('space', 'topic')\
@@ -569,14 +556,11 @@ class XLSXReportBuilder:
 
         self.tabulate(ws, counts, SPACE, TOPICS, row_perc=True)
 
-    def ws_11_topic_by_gender_equality_reference(self, wb):
-        ws = wb.add_worksheet('11 - Topic by ref to gender eq')
-
-        self.write_headers(
-            ws,
-            'Stories making reference to issues of gender equality/inequality, legislation, policy by major topic',
-            'Breakdown by major topic by reference to gender equality/human rights/policy')
-
+    def ws_11(self, ws):
+        """
+        Cols: Equality Rights
+        Rows: Topic
+        """
         counts = Counter()
         for media_type, model in sheet_models.iteritems():
             if 'equality_rights' in model._meta.get_all_field_names():
@@ -587,14 +571,11 @@ class XLSXReportBuilder:
                 counts.update({(r['equality_rights'], r['topic']): r['n'] for r in rows})
         self.tabulate(ws, counts, YESNO, TOPICS, row_perc=True)
 
-    def ws_12_topics_referencing_gender_equality(self, wb):
-        ws = wb.add_worksheet('12 - Topic by ref to gender eq')
-
-        self.write_headers(
-            ws,
-            'Stories making reference to issues of gender equality/inequality, legislation, policy by region',
-            'Breakdown by major topic by region by reference to gender equality/human rights/policy ')
-
+    def ws_12(self, ws):
+        """
+        Cols: Region, Equality Rights
+        Rows: Topics
+        """
         secondary_counts = OrderedDict()
         for region_id, region_name in get_regions():
             counts = Counter()
@@ -610,13 +591,11 @@ class XLSXReportBuilder:
             secondary_counts[region_name] = counts
         self.tabulate_secondary_cols(ws, secondary_counts, YESNO, TOPICS, row_perc=True, sec_cols=4)
 
-    def ws_13_topic_by_journalist_sex(self, wb):
-        ws = wb.add_worksheet('13 - Topic by reporter sex')
-
-        ws.write(0, 0, 'Sex of reporter in different story topics')
-        ws.write(1, 0, 'Breakdown of topic by reporter sex')
-        ws.write(3, 2, self.gmmp_year)
-
+    def ws_13(self, ws):
+        """
+        Cols: Journalist Sex
+        Rows: Topics
+        """
         counts = Counter()
         for media_type, model in sheet_models.iteritems():
             sex = '%s__sex' % model.journalist_field_name()
@@ -628,13 +607,11 @@ class XLSXReportBuilder:
 
         self.tabulate(ws, counts, GENDER, TOPICS, row_perc=True)
 
-    def ws_14_source_occupation_by_sex(self, wb):
-        ws = wb.add_worksheet('14 - Source occupation by sex')
-
-        ws.write(0, 0, 'Position or occupation of news sources, by sex')
-        ws.write(1, 0, 'Breakdown of new sources by occupation and sex')
-        ws.write(3, 2, self.gmmp_year)
-
+    def ws_14(self, ws):
+        """
+        Cols: Sex
+        Rows: Occupation
+        """
         counts = Counter()
         for model in person_models.itervalues():
             # some Person models don't have an occupation field
@@ -647,13 +624,11 @@ class XLSXReportBuilder:
 
         self.tabulate(ws, counts, GENDER, OCCUPATION, row_perc=True)
 
-    def ws_15_subject_function_by_sex(self, wb):
-        ws = wb.add_worksheet('15 - Subject function by sex')
-
-        ws.write(0, 0, 'News subject''s Function in news story, by sex')
-        ws.write(1, 0, 'Breakdown by sex and function')
-        ws.write(3, 2, self.gmmp_year)
-
+    def ws_15(self, ws):
+        """
+        Cols: Sex
+        Rows: Function
+        """
         counts = Counter()
 
         for model in person_models.itervalues():
@@ -667,10 +642,11 @@ class XLSXReportBuilder:
 
         self.tabulate(ws, counts, GENDER, FUNCTION, row_perc=True)
 
-    def ws_16_subject_function_by_sex_by_occupation(self, wb, ws_info):
-        ws = wb.add_worksheet(ws_info['name'])
-        self.write_headers(ws, ws_info['title'], ws_info['desc'])
-
+    def ws_16(self, ws):
+        """
+        Cols: Occupation, Sex
+        Rows: Function
+        """
         secondary_counts = OrderedDict()
         for occ_id, occupation in OCCUPATION:
             counts = Counter()
@@ -685,10 +661,11 @@ class XLSXReportBuilder:
             secondary_counts[occupation] = counts
         self.tabulate_secondary_cols(ws, secondary_counts, GENDER, FUNCTION, row_perc=True, sec_cols=8)
 
-    def ws_17_subject_function_by_sex_by_age(self, wb, ws_info):
-        ws = wb.add_worksheet(ws_info['name'])
-        self.write_headers(ws, ws_info['title'], ws_info['desc'])
-
+    def ws_17(self, ws):
+        """
+        Cols: Age, Sex
+        Rows: Function
+        """
         secondary_counts = OrderedDict()
         for age_id, age in AGES:
             counts = Counter()
@@ -703,10 +680,12 @@ class XLSXReportBuilder:
             secondary_counts[age] = counts
         self.tabulate_secondary_cols(ws, secondary_counts, GENDER, FUNCTION, row_perc=True, sec_cols=8)
 
-    def ws_18_subject_age_by_sex_by_print(self, wb, ws_info):
-        ws = wb.add_worksheet(ws_info['name'])
-        self.write_headers(ws, ws_info['title'], ws_info['desc'])
-
+    def ws_18(self, ws):
+        """
+        Cols: Sex
+        Rows: Age
+        :: Only for print
+        """
         counts = Counter()
         rows = NewspaperPerson.objects\
                 .values('sex', 'age')\
@@ -716,10 +695,12 @@ class XLSXReportBuilder:
 
         self.tabulate(ws, counts, GENDER, AGES, row_perc=False)
 
-    def ws_19_subject_age_by_sex_for_broadcast(self, wb, ws_info):
-        ws = wb.add_worksheet(ws_info['name'])
-        self.write_headers(ws, ws_info['title'], ws_info['desc'])
-
+    def ws_19(self, ws):
+        """
+        Cols: Sex
+        Rows: Age
+        :: Only for broadcast
+        """
         counts = Counter()
         broadcast = ['Television']
         for media_type, model in person_models.iteritems():
@@ -732,10 +713,11 @@ class XLSXReportBuilder:
 
         self.tabulate(ws, counts, GENDER, AGES, row_perc=False)
 
-    def ws_20_subject_function_and_occupation_by_sex(self, wb, ws_info):
-        ws = wb.add_worksheet(ws_info['name'])
-        self.write_headers(ws, ws_info['title'], ws_info['desc'])
-
+    def ws_20(self, ws):
+        """
+        Cols: Function, Sex
+        Rows: Occupation
+        """
         secondary_counts = OrderedDict()
 
         functions_count = Counter()
@@ -764,14 +746,11 @@ class XLSXReportBuilder:
             secondary_counts[function] = counts
         self.tabulate_secondary_cols(ws, secondary_counts, GENDER, OCCUPATION, row_perc=True, sec_cols=8)
 
-    def ws_21(self, wb, ws_info):
+    def ws_21(self, ws):
         """
         Cols: Sex
         Rows: Victim type
         """
-        ws = wb.add_worksheet(ws_info['name'])
-        self.write_headers(ws, ws_info['title'], ws_info['desc'])
-
         counts = Counter()
         for model in person_models.itervalues():
             if 'victim_of' in model._meta.get_all_field_names():
@@ -783,14 +762,11 @@ class XLSXReportBuilder:
                 counts.update({(r['sex'], r['victim_of']): r['n'] for r in rows})
         self.tabulate(ws, counts, GENDER, VICTIM_OF, row_perc=True)
 
-    def ws_23(self, wb, ws_info):
+    def ws_23(self, ws):
         """
         Cols: Sex
         Rows: Survivor type
         """
-        ws = wb.add_worksheet(ws_info['name'])
-        self.write_headers(ws, ws_info['title'], ws_info['desc'])
-
         counts = Counter()
         for model in person_models.itervalues():
             if 'survivor_of' in model._meta.get_all_field_names():
@@ -802,14 +778,11 @@ class XLSXReportBuilder:
                 counts.update({(r['sex'], r['survivor_of']): r['n'] for r in rows})
         self.tabulate(ws, counts, GENDER, SURVIVOR_OF, row_perc=True)
 
-    def ws_24(self, wb, ws_info):
+    def ws_24(self, ws):
         """
         Cols: Sex
         Rows: Family Role
         """
-        ws = wb.add_worksheet(ws_info['name'])
-        self.write_headers(ws, ws_info['title'], ws_info['desc'])
-
         counts = Counter()
         for model in person_models.itervalues():
             if 'family_role' in model._meta.get_all_field_names():
@@ -820,13 +793,11 @@ class XLSXReportBuilder:
                 counts.update({(r['sex'], r['family_role']): r['n'] for r in rows})
         self.tabulate(ws, counts, GENDER, YESNO, row_perc=True)
 
-    def ws_25(self, wb, ws_info):
+    def ws_25(self, ws):
         """
         Cols: Sex of journalist, Sex of person
         Rows: Family Role
         """
-        ws = wb.add_worksheet(ws_info['name'])
-        self.write_headers(ws, ws_info['title'], ws_info['desc'])
         secondary_counts = OrderedDict()
         for sex_id, sex in GENDER:
             counts = Counter()
@@ -842,8 +813,6 @@ class XLSXReportBuilder:
                     counts.update({(r['sex'], r['family_role']): r['n'] for r in rows})
             secondary_counts[sex] = counts
         self.tabulate_secondary_cols(ws, secondary_counts, GENDER, YESNO, row_perc=True, sec_cols=8)
-
-
 
     # -------------------------------------------------------------------------------
     # Helper functions
