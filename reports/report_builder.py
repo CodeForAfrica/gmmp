@@ -356,6 +356,7 @@ class XLSXReportBuilder:
         # Add generic sheets here.
         # self.ws_19_subject_age_by_sex_for_broadcast(workbook, WS_INFO['ws_19'])
         self.ws_23(workbook, WS_INFO['ws_23'])
+        self.ws_24(workbook, WS_INFO['ws_24'])
 
         # sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0))
         # for ws, ws_info in sheet_info.iteritems():
@@ -801,6 +802,23 @@ class XLSXReportBuilder:
                 counts.update({(r['sex'], r['survivor_of']): r['n'] for r in rows})
         self.tabulate(ws, counts, GENDER, SURVIVOR_OF, row_perc=True)
 
+    def ws_24(self, wb, ws_info):
+        """
+        Cols: Sex
+        Rows: Family Role
+        """
+        ws = wb.add_worksheet(ws_info['name'])
+        self.write_headers(ws, ws_info['title'], ws_info['desc'])
+
+        counts = Counter()
+        for model in person_models.itervalues():
+            if 'family_role' in model._meta.get_all_field_names():
+                rows = model.objects\
+                        .values('sex', 'family_role')\
+                        .filter(**{model.sheet_name() + '__country__in':self.countries})\
+                        .annotate(n=Count('id'))
+                counts.update({(r['sex'], r['family_role']): r['n'] for r in rows})
+        self.tabulate(ws, counts, GENDER, YESNO, row_perc=True)
 
     # -------------------------------------------------------------------------------
     # Helper functions
