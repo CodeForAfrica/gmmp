@@ -104,5 +104,9 @@ WS_INFO = {
         'title': 'B.down by sex of subject, family status, by sex of reporter',
         'desc': 'News subjects who are identified by family status, by sex of news subject, by sex of reporter'
     },
-
+    'ws_26': {
+        'name': '26-Subjects quoted by sex',
+        'title': 'Breakdown of  news subjects quoted, by sex',
+        'desc': 'News subjects quoted, by sex'
+    },
 }
