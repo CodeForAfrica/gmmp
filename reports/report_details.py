@@ -35,5 +35,11 @@ WS_INFO = {
         'desc': 'News Subjects who are portrayed as victims, by sex',
         'function': 'ws_21',
     },
+    'ws_23': {
+        'name': '23-Survivor type by sex',
+        'title': 'Breakdown by survivor type by sex',
+        'desc': 'News subjects who are portrayed as survivors, by sex',
+        'function': 'ws_23',
+    },
 
 }
