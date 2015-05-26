@@ -353,16 +353,18 @@ class XLSXReportBuilder:
         self.P = workbook.add_format()
         self.P.set_num_format(9)  # percentage
 
-        # Add generic sheets here.
-        # self.ws_19_subject_age_by_sex_for_broadcast(workbook, WS_INFO['ws_19'])
-        # self.ws_23(workbook, WS_INFO['ws_23'])
-        # self.ws_25(workbook, WS_INFO['ws_25'])
-
+        test_functions = ['ws_26']
         sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
-        for ws_num, ws_info in sheet_info.iteritems():
-            ws = workbook.add_worksheet(ws_info['name'])
-            self.write_headers(ws, ws_info['title'], ws_info['desc'])
-            getattr(self, ws_num)(ws)
+        for function in test_functions:
+            ws = workbook.add_worksheet(sheet_info[function]['name'])
+            self.write_headers(ws, sheet_info[function]['title'], sheet_info[function]['desc'])
+            getattr(self, function)(ws)
+
+        # sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
+        # for ws_num, ws_info in sheet_info.iteritems():
+        #     ws = workbook.add_worksheet(ws_info['name'])
+        #     self.write_headers(ws, ws_info['title'], ws_info['desc'])
+        #     getattr(self, ws_num)(ws)
 
         workbook.close()
         output.seek(0)
@@ -813,6 +815,22 @@ class XLSXReportBuilder:
                     counts.update({(r['sex'], r['family_role']): r['n'] for r in rows})
             secondary_counts[sex] = counts
         self.tabulate_secondary_cols(ws, secondary_counts, GENDER, YESNO, row_perc=True, sec_cols=8)
+
+    def ws_26(self, ws):
+        """
+        Cols: Sex
+        Rows: Whether Quoted
+        """
+        counts = Counter()
+        for model in person_models.itervalues():
+            if 'is_quoted' in model._meta.get_all_field_names():
+                rows = model.objects\
+                        .values('sex', 'is_quoted')\
+                        .filter(**{model.sheet_name() + '__country__in':self.countries})\
+                        .annotate(n=Count('id'))
+                counts.update({(r['sex'], r['is_quoted']): r['n'] for r in rows})
+            self.tabulate(ws, counts, GENDER, YESNO, row_perc=False)
+
 
     # -------------------------------------------------------------------------------
     # Helper functions
