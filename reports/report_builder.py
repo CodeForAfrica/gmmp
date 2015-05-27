@@ -354,7 +354,7 @@ class XLSXReportBuilder:
         self.P.set_num_format(9)  # percentage
 
         # Use the following for specifying which reports to create
-        test_functions = ['ws_35', 'ws_36']
+        test_functions = ['ws_38']
         sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
         for function in test_functions:
             ws = workbook.add_worksheet(sheet_info[function]['name'])
@@ -1011,6 +1011,21 @@ class XLSXReportBuilder:
                         .annotate(n=Count('id'))
                 counts.update({(r['sex'], r[about_women_field]): r['n'] for r in rows})
         self.tabulate(ws, counts, GENDER, YESNO, row_perc=True)
+
+    def ws_38(self, ws):
+        """
+        Cols: Focus: about women
+        Rows: Topics
+        """
+        counts = Counter()
+        for model in sheet_models.itervalues():
+            if 'about_women' and 'topic' in model._meta.get_all_field_names():
+                rows = model.objects\
+                        .values('about_women', 'topic')\
+                        .filter(country__in=self.countries)\
+                        .annotate(n=Count('id'))
+                counts.update({(r['about_women'], r['topic']): r['n'] for r in rows})
+        self.tabulate(ws, counts, YESNO, TOPICS, row_perc=True)
 
     # -------------------------------------------------------------------------------
     # Helper functions
