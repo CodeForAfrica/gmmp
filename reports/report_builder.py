@@ -354,7 +354,7 @@ class XLSXReportBuilder:
         self.P.set_num_format(9)  # percentage
 
         # Use the following for specifying which reports to create
-        test_functions = ['ws_38', 'ws_40', 'ws_41']
+        test_functions = ['ws_38', 'ws_40', 'ws_41', 'ws_42']
         sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
         for function in test_functions:
             ws = workbook.add_worksheet(sheet_info[function]['name'])
@@ -1032,10 +1032,9 @@ class XLSXReportBuilder:
         Cols: Focus: about women
         Rows: Region, Topics
         """
-        secondary_counts = OrderedDict()
         r = 6
-
         self.write_col_headings(ws, YESNO)
+
         for region_id, region in self.regions:
             counts = Counter()
             for model in sheet_models.itervalues():
@@ -1063,6 +1062,31 @@ class XLSXReportBuilder:
                         .annotate(n=Count('id'))
                 counts.update({(r['equality_rights'], r['topic']): r['n'] for r in rows})
         self.tabulate(ws, counts, YESNO, TOPICS, row_perc=True)
+
+    def ws_42(self, ws):
+        """
+        Cols: Region
+        Rows: Topics, Equality rights raised
+        """
+        r = 6
+        self.write_col_headings(ws, self.regions)
+
+        for topic_id, topic in TOPICS:
+            counts = Counter()
+            for model in sheet_models.itervalues():
+                if 'topic' in model._meta.get_all_field_names() and 'equality_rights' in model._meta.get_all_field_names():
+                    rows = model.objects\
+                            .values('country_region__region', 'about_women')\
+                            .exclude(country_region__region='Unmapped')\
+                            .filter(topic=topic_id)\
+                            .annotate(n=Count('id'))
+                    for row in rows:
+                        if row['country_region__region'] is not None:
+                            region_id = [region[0] for region in self.regions if region[1] == row['country_region__region']][0]
+                            counts.update({(region_id, row['about_women']): row['n']})
+            self.write_primary_row_heading(ws, topic, r=r)
+            self.tabulate(ws, counts, self.regions, YESNO, row_perc=True, sec_row=True, c=1, r=r)
+            r += len(YESNO)
 
     # -------------------------------------------------------------------------------
     # Helper functions
@@ -1100,6 +1124,12 @@ class XLSXReportBuilder:
             c += sec_cols
 
     def write_col_headings(self, ws, cols, c=2, r=4):
+        """
+        :param ws: worksheet to write to
+        :param cols: list of `(col_id, col_title)` tuples of column ids and titles
+        :param r, c: initial position where cursor should start writing to
+
+        """
         for col_id, col_title in cols:
             ws.write(r, c, unicode(col_title))
             ws.write(r + 1, c, "N")
@@ -1107,6 +1137,12 @@ class XLSXReportBuilder:
             c += 2
 
     def write_primary_row_heading(self, ws, heading, c=0, r=6):
+        """
+        :param ws: worksheet to write to
+        :param heading: row heading to write
+        :param r, c: position where heading should be written to
+
+        """
         ws.write(r, c, unicode(heading))
 
 
