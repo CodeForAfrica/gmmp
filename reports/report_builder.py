@@ -47,6 +47,13 @@ def get_regions():
     regions = set(item['region'] for item in country_regions)
     return [(i, region) for i, region in enumerate(regions)]
 
+def get_all_countries():
+    """
+    Return a list of (id, country) tuples of countries used by the application.
+    """
+    return [(code, name) for code, name in list(countries)]
+
+
 class XLSXDataExportBuilder():
     def __init__(self, request):
         self.domain = "http://%s" % get_current_site(request).domain
@@ -341,6 +348,7 @@ class XLSXReportBuilder:
         self.countries = form.get_countries()
         self.regions = get_regions()
         self.gmmp_year = '2015'
+        self.all_countries = get_all_countries()
 
     def build(self):
         """
@@ -354,7 +362,7 @@ class XLSXReportBuilder:
         self.P.set_num_format(9)  # percentage
 
         # Use the following for specifying which reports to create
-        test_functions = ['ws_46', 'ws_47', 'ws_48']
+        test_functions = ['ws_46', 'ws_47', 'ws_48', 'ws_55']
         sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
         for function in test_functions:
             ws = workbook.add_worksheet(sheet_info[function]['name'])
@@ -1210,6 +1218,23 @@ class XLSXReportBuilder:
             self.write_primary_row_heading(ws, topic, r=r)
             self.tabulate(ws, counts, GENDER, AGREE_DISAGREE, row_perc=True, sec_row=True, c=1, r=r)
             r += len(AGREE_DISAGREE)
+
+    def ws_55(self, ws):
+        """
+        Cols: Occupation
+        Rows: Country
+        :: Always show all countries
+        """
+        counts = Counter()
+        model = sheet_models.get('Internet News')
+        occupation = '%s__occupation' % model.person_field_name()
+
+        rows = model.objects\
+                .values('country', occupation)\
+                .annotate(n=Count('id'))
+
+        counts.update({(r[occupation], r['country']): r['n'] for r in rows})
+        self.tabulate(ws, counts, OCCUPATION, self.all_countries, row_perc=True)
 
     # -------------------------------------------------------------------------------
     # Helper functions

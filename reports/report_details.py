@@ -209,6 +209,11 @@ WS_INFO = {
         'title': 'Story clearly challenges gender stereotypes by sex of rep',
         'desc': 'Stories where stereotypes are challenged/ supported by gender of rep'
     },
+    'ws_55': {
+        'name': 'Occupation of female subjects',
+        'title': 'Internet - Occupation of Female news subjects',
+        'desc': 'Internet - Occupation of Female news subjects'
+    },
     'ws_': {
         'name': '',
         'title': '',
