@@ -169,11 +169,15 @@ WS_INFO = {
         'title': 'Breakdown of Stories with Women as a central Focus by topic and region',
         'desc': 'Stories with Women as a central Focus by topic and region'
     },
+    'ws_41': {
+        'name': '41-Gender equality by topic',
+        'title': 'Breakdown of Stories where issues of gender equality/inequality are raised by topic',
+        'desc': 'Stories where issues of gender equality/inequality are raised by topic'
+    },
     'ws_': {
         'name': '',
         'title': '',
         'desc': ''
     },
-
 
 }

@@ -354,7 +354,7 @@ class XLSXReportBuilder:
         self.P.set_num_format(9)  # percentage
 
         # Use the following for specifying which reports to create
-        test_functions = ['ws_38', 'ws_40']
+        test_functions = ['ws_38', 'ws_40', 'ws_41']
         sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
         for function in test_functions:
             ws = workbook.add_worksheet(sheet_info[function]['name'])
@@ -654,7 +654,7 @@ class XLSXReportBuilder:
         for occ_id, occupation in OCCUPATION:
             counts = Counter()
             for model in person_models.itervalues():
-                if 'function' and 'occupation' in model._meta.get_all_field_names():
+                if 'function' in model._meta.get_all_field_names() and 'occupation' in model._meta.get_all_field_names():
                     rows = model.objects\
                             .values('sex', 'function')\
                             .filter(**{model.sheet_name() + '__country__in':self.countries})\
@@ -673,7 +673,7 @@ class XLSXReportBuilder:
         for age_id, age in AGES:
             counts = Counter()
             for model in person_models.itervalues():
-                if 'function' and 'age' in model._meta.get_all_field_names():
+                if 'function' in model._meta.get_all_field_names() and 'age' in model._meta.get_all_field_names():
                     rows = model.objects\
                             .values('sex', 'function')\
                             .filter(**{model.sheet_name() + '__country__in':self.countries})\
@@ -726,7 +726,7 @@ class XLSXReportBuilder:
         functions_count = Counter()
         # Get top 5 functions
         for model in person_models.itervalues():
-            if 'function' and 'occupation' in model._meta.get_all_field_names():
+            if 'function' in model._meta.get_all_field_names() and 'occupation' in model._meta.get_all_field_names():
                 rows = model.objects\
                         .values('function')\
                         .filter(**{model.sheet_name() + '__country__in':self.countries})\
@@ -739,7 +739,7 @@ class XLSXReportBuilder:
         for func_id, function in top_5_functions:
             counts = Counter()
             for model in person_models.itervalues():
-                if 'function' and 'occupation' in model._meta.get_all_field_names():
+                if 'function' in model._meta.get_all_field_names() and 'occupation' in model._meta.get_all_field_names():
                     rows = model.objects\
                             .values('sex', 'occupation')\
                             .filter(**{model.sheet_name() + '__country__in':self.countries})\
@@ -1019,7 +1019,7 @@ class XLSXReportBuilder:
         """
         counts = Counter()
         for model in sheet_models.itervalues():
-            if 'about_women' and 'topic' in model._meta.get_all_field_names():
+            if 'about_women' in model._meta.get_all_field_names() and 'topic' in model._meta.get_all_field_names():
                 rows = model.objects\
                         .values('about_women', 'topic')\
                         .filter(country__in=self.countries)\
@@ -1039,7 +1039,7 @@ class XLSXReportBuilder:
         for region_id, region in self.regions:
             counts = Counter()
             for model in sheet_models.itervalues():
-                if 'about_women' and 'topic' in model._meta.get_all_field_names():
+                if 'about_women' in model._meta.get_all_field_names() and 'topic' in model._meta.get_all_field_names():
                     rows = model.objects\
                             .values('about_women', 'topic')\
                             .filter(country_region__region=region)\
@@ -1049,6 +1049,20 @@ class XLSXReportBuilder:
             self.tabulate(ws, counts, YESNO, TOPICS, row_perc=True, sec_row=True, c=1, r=r)
             r += len(TOPICS)
 
+    def ws_41(self, ws):
+        """
+        Cols: Equality rights raised
+        Rows: Topics
+        """
+        counts = Counter()
+        for model in sheet_models.itervalues():
+            if 'equality_rights' in model._meta.get_all_field_names() and 'topic' in model._meta.get_all_field_names():
+                rows = model.objects\
+                        .values('equality_rights', 'topic')\
+                        .filter(country__in=self.countries)\
+                        .annotate(n=Count('id'))
+                counts.update({(r['equality_rights'], r['topic']): r['n'] for r in rows})
+        self.tabulate(ws, counts, YESNO, TOPICS, row_perc=True)
 
     # -------------------------------------------------------------------------------
     # Helper functions
