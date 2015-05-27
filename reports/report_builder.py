@@ -354,7 +354,7 @@ class XLSXReportBuilder:
         self.P.set_num_format(9)  # percentage
 
         # Use the following for specifying which reports to create
-        test_functions = ['ws_31', 'ws_32']
+        test_functions = ['ws_31', 'ws_32', 'ws_33']
         sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
         for function in test_functions:
             ws = workbook.add_worksheet(sheet_info[function]['name'])
@@ -939,6 +939,7 @@ class XLSXReportBuilder:
         """
         Cols: Medium
         Rows: Topics
+        Female reporters only
         """
         counts = Counter()
         for media_type, model in sheet_models.iteritems():
@@ -953,7 +954,29 @@ class XLSXReportBuilder:
                     counts.update({(media_id, row['topic']): row['n']})
         self.tabulate(ws, counts, MEDIA_TYPES, TOPICS, row_perc=False)
 
+    def ws_33(self, ws):
+        """
+        Cols: Medium
+        Rows: Region
+        Female subjects only
+        """
+        counts = Counter()
+        for media_type, model in journalist_models.iteritems():
+            region_field = model.sheet_name() + '__country_region__region'
+            rows = model.objects\
+                    .values(region_field)\
+                    .filter(sex=1)\
+                    .exclude(**{region_field: 'Unmapped'})\
+                    .annotate(n=Count('id'))
+            for row in rows:
+                if row[region_field] is not None:
+                    # Get media and region id's to assign to counts
+                    media_id = [media[0] for media in MEDIA_TYPES if media[1] == media_type][0]
+                    region_id = [region[0] for region in self.regions if region[1] == row[region_field]][0]
 
+                    counts.update({(media_id, region_id): row['n']})
+
+        self.tabulate(ws, counts, MEDIA_TYPES, self.regions, row_perc=True)
 
     # -------------------------------------------------------------------------------
     # Helper functions

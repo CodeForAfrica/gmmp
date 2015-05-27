@@ -139,5 +139,10 @@ WS_INFO = {
         'title': 'Topics in the news - Detail by medium for female reporters',
         'desc': 'Topics in the news - Detail by medium for female reporters'
     },
+    'ws_33': {
+        'name': '33-Region by medium-Female',
+        'title': 'Topics in the news - Regional comparisons by medium of female news subjects',
+        'desc': 'Topics in the news - Regional comparisons by medium of female news subjects'
+    },
 
 }
