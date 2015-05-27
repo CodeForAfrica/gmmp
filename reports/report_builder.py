@@ -354,7 +354,7 @@ class XLSXReportBuilder:
         self.P.set_num_format(9)  # percentage
 
         # Use the following for specifying which reports to create
-        test_functions = ['ws_38', 'ws_40', 'ws_41', 'ws_42', 'ws_43']
+        test_functions = ['ws_43', 'ws_44']
         sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
         for function in test_functions:
             ws = workbook.add_worksheet(sheet_info[function]['name'])
@@ -1107,6 +1107,28 @@ class XLSXReportBuilder:
                             .annotate(n=Count('id'))
                     counts.update({(r[sex_field], r['about_women']): r['n'] for r in rows})
             self.write_primary_row_heading(ws, topic, r=r)
+            self.tabulate(ws, counts, GENDER, YESNO, row_perc=True, sec_row=True, c=1, r=r)
+            r += len(YESNO)
+
+    def ws_44(self, ws):
+        """
+        Cols: Sex of reporter
+        Rows: Region, Equality rights raised
+        """
+        r = 6
+        self.write_col_headings(ws, GENDER)
+
+        for region_id, region in self.regions:
+            counts = Counter()
+            for model in sheet_models.itervalues():
+                if 'equality_rights' in model._meta.get_all_field_names():
+                    sex_field = model.journalist_field_name() + '__sex'
+                    rows = model.objects\
+                            .values(sex_field, 'about_women')\
+                            .filter(country_region__region=region)\
+                            .annotate(n=Count('id'))
+                    counts.update({(r[sex_field], r['about_women']): r['n'] for r in rows})
+            self.write_primary_row_heading(ws, region, r=r)
             self.tabulate(ws, counts, GENDER, YESNO, row_perc=True, sec_row=True, c=1, r=r)
             r += len(YESNO)
 
