@@ -194,6 +194,11 @@ WS_INFO = {
         'title': 'Stories where issues of gender equality/inequality are raised by sex of \'people in the news\' and by region',
         'desc': 'Stories where issues of gender equality/inequality are raised by sex of \'people in the news\' and by region'
     },
+    'ws_46': {
+        'name': '46-Gender stereotypes by topic',
+        'title': 'Story clearly challenges gender stereotypes by region by major news topic',
+        'desc': 'Stories where stereotypes are challenged/ supported by news topic'
+    },
     'ws_': {
         'name': '',
         'title': '',

@@ -354,7 +354,7 @@ class XLSXReportBuilder:
         self.P.set_num_format(9)  # percentage
 
         # Use the following for specifying which reports to create
-        test_functions = ['ws_43', 'ws_44', 'ws_45']
+        test_functions = ['ws_46']
         sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
         for function in test_functions:
             ws = workbook.add_worksheet(sheet_info[function]['name'])
@@ -1154,6 +1154,28 @@ class XLSXReportBuilder:
             self.write_primary_row_heading(ws, region, r=r)
             self.tabulate(ws, counts, GENDER, YESNO, row_perc=True, sec_row=True, c=1, r=r)
             r += len(YESNO)
+
+    def ws_46(self, ws):
+        """
+        Cols: Stereotypes
+        Rows: Region, Topics
+        """
+        r = 6
+        self.write_col_headings(ws, AGREE_DISAGREE)
+
+        for region_id, region in self.regions:
+            counts = Counter()
+            for model in sheet_models.itervalues():
+                rows = model.objects\
+                        .values('stereotypes', 'topic')\
+                        .filter(country_region__region=region)\
+                        .annotate(n=Count('id'))
+                counts.update({(r['stereotypes'], r['topic']): r['n'] for r in rows})
+            self.write_primary_row_heading(ws, region, r=r)
+            self.tabulate(ws, counts, AGREE_DISAGREE, TOPICS, row_perc=True, sec_row=True, c=1, r=r)
+            r += len(TOPICS)
+
+
 
     # -------------------------------------------------------------------------------
     # Helper functions
