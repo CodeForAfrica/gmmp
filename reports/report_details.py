@@ -205,14 +205,19 @@ WS_INFO = {
         'desc': 'Stories where stereotypes are challenged/ supported by topic'
     },
     'ws_48': {
-        'name': 'Stereotype by sex of reporter',
+        'name': '48-Stereotype by reporter sex',
         'title': 'Story clearly challenges gender stereotypes by sex of rep',
         'desc': 'Stories where stereotypes are challenged/ supported by gender of rep'
     },
     'ws_55': {
-        'name': 'Occupation of female subjects',
+        'name': '55-Female subjects occupations',
         'title': 'Internet - Occupation of Female news subjects',
         'desc': 'Internet - Occupation of Female news subjects'
+    },
+    'ws_56': {
+        'name': '56-Subject functions',
+        'title': 'Internet - Functions of news subjects',
+        'desc': 'Internet - Functions of news subjects'
     },
     'ws_': {
         'name': '',
