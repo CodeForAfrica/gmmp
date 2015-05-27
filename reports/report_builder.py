@@ -354,7 +354,7 @@ class XLSXReportBuilder:
         self.P.set_num_format(9)  # percentage
 
         # Use the following for specifying which reports to create
-        test_functions = ['ws_46', 'ws_47']
+        test_functions = ['ws_46', 'ws_47', 'ws_48']
         sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
         for function in test_functions:
             ws = workbook.add_worksheet(sheet_info[function]['name'])
@@ -1019,7 +1019,7 @@ class XLSXReportBuilder:
         """
         counts = Counter()
         for model in sheet_models.itervalues():
-            if 'about_women' in model._meta.get_all_field_names() and 'topic' in model._meta.get_all_field_names():
+            if 'about_women' in model._meta.get_all_field_names():
                 rows = model.objects\
                         .values('about_women', 'topic')\
                         .filter(country__in=self.countries)\
@@ -1038,7 +1038,7 @@ class XLSXReportBuilder:
         for region_id, region in self.regions:
             counts = Counter()
             for model in sheet_models.itervalues():
-                if 'about_women' in model._meta.get_all_field_names() and 'topic' in model._meta.get_all_field_names():
+                if 'about_women' in model._meta.get_all_field_names():
                     rows = model.objects\
                             .values('about_women', 'topic')\
                             .filter(country_region__region=region)\
@@ -1055,7 +1055,7 @@ class XLSXReportBuilder:
         """
         counts = Counter()
         for model in sheet_models.itervalues():
-            if 'equality_rights' in model._meta.get_all_field_names() and 'topic' in model._meta.get_all_field_names():
+            if 'equality_rights' in model._meta.get_all_field_names():
                 rows = model.objects\
                         .values('equality_rights', 'topic')\
                         .filter(country__in=self.countries)\
@@ -1074,7 +1074,7 @@ class XLSXReportBuilder:
         for topic_id, topic in TOPICS:
             counts = Counter()
             for model in sheet_models.itervalues():
-                if 'topic' in model._meta.get_all_field_names() and 'equality_rights' in model._meta.get_all_field_names():
+                if 'equality_rights' in model._meta.get_all_field_names():
                     rows = model.objects\
                             .values('country_region__region', 'about_women')\
                             .exclude(country_region__region='Unmapped')\
@@ -1099,7 +1099,7 @@ class XLSXReportBuilder:
         for topic_id, topic in TOPICS:
             counts = Counter()
             for model in sheet_models.itervalues():
-                if 'topic' in model._meta.get_all_field_names() and 'equality_rights' in model._meta.get_all_field_names():
+                if 'equality_rights' in model._meta.get_all_field_names():
                     sex_field = model.journalist_field_name() + '__sex'
                     rows = model.objects\
                             .values(sex_field, 'about_women')\
@@ -1188,6 +1188,28 @@ class XLSXReportBuilder:
                     .annotate(n=Count('id'))
             counts.update({(r['stereotypes'], r['topic']): r['n'] for r in rows})
         self.tabulate(ws, counts, AGREE_DISAGREE, TOPICS, row_perc=True)
+
+    def ws_48(self, ws):
+        """
+        Cols: Sex of reporter
+        Rows: Topics, Stereotypes
+        """
+        r = 6
+        self.write_col_headings(ws, GENDER)
+
+        for topic_id, topic in TOPICS:
+            counts = Counter()
+            for model in sheet_models.itervalues():
+                if 'stereotypes' in model._meta.get_all_field_names():
+                    sex_field = model.journalist_field_name() + '__sex'
+                    rows = model.objects\
+                            .values(sex_field, 'stereotypes')\
+                            .filter(topic=topic_id)\
+                            .annotate(n=Count('id'))
+                    counts.update({(r[sex_field], r['stereotypes']): r['n'] for r in rows})
+            self.write_primary_row_heading(ws, topic, r=r)
+            self.tabulate(ws, counts, GENDER, AGREE_DISAGREE, row_perc=True, sec_row=True, c=1, r=r)
+            r += len(AGREE_DISAGREE)
 
     # -------------------------------------------------------------------------------
     # Helper functions
