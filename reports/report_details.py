@@ -174,6 +174,11 @@ WS_INFO = {
         'title': 'Breakdown of Stories where issues of gender equality/inequality are raised by topic',
         'desc': 'Stories where issues of gender equality/inequality are raised by topic'
     },
+    'ws_42': {
+        'name': '42-Gender equality by region',
+        'title': 'Breakdown of Stories where issues of gender equality/inequality are raised by region',
+        'desc': 'Stories where issues of gender equality/inequality are raised by region'
+    },
     'ws_': {
         'name': '',
         'title': '',
