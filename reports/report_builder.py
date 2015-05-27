@@ -851,7 +851,7 @@ class XLSXReportBuilder:
         """
         Cols: Medium
         Rows: Region
-        Female reporters only
+        :: Female reporters only
         """
         counts = Counter()
         for media_type, model in person_models.iteritems():
@@ -875,7 +875,7 @@ class XLSXReportBuilder:
         """
         Cols: Regions
         Rows: Scope
-        Female reporters only
+        :: Female reporters only
         """
         counts = Counter()
         for model in person_models.itervalues():
@@ -898,7 +898,7 @@ class XLSXReportBuilder:
         """
         Cols: Region
         Rows: Topics
-        Female reporters only
+        :: Female reporters only
         """
         counts = Counter()
         for model in person_models.itervalues():
@@ -934,12 +934,11 @@ class XLSXReportBuilder:
                 counts.update({(r['sex'], r[topic_field]): r['n'] for r in rows})
         self.tabulate(ws, counts, GENDER, TOPICS, row_perc=True)
 
-
     def ws_32(self, ws):
         """
         Cols: Medium
         Rows: Topics
-        Female reporters only
+        :: Female reporters only
         """
         counts = Counter()
         for media_type, model in sheet_models.iteritems():
@@ -958,7 +957,7 @@ class XLSXReportBuilder:
         """
         Cols: Medium
         Rows: Region
-        Female subjects only
+        :: Female subjects only
         """
         counts = Counter()
         for media_type, model in journalist_models.iteritems():
@@ -977,6 +976,24 @@ class XLSXReportBuilder:
                     counts.update({(media_id, region_id): row['n']})
 
         self.tabulate(ws, counts, MEDIA_TYPES, self.regions, row_perc=True)
+
+    def ws_35(self, ws):
+        """
+        Cols: Sexof subject
+        Rows: Age of subject
+        :: Only for television
+        """
+        counts = Counter()
+        broadcast = ['Television']
+        for media_type, model in person_models.iteritems():
+             if media_type in broadcast:
+                rows = model.objects\
+                        .values('sex', 'age')\
+                        .filter(**{model.sheet_name() + '__country__in':self.countries})\
+                        .annotate(n=Count('id'))
+                counts.update({(r['sex'], r['age']): r['n'] for r in rows})
+
+        self.tabulate(ws, counts, GENDER, AGES, row_perc=False)
 
     # -------------------------------------------------------------------------------
     # Helper functions
