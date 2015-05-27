@@ -199,6 +199,11 @@ WS_INFO = {
         'title': 'Story clearly challenges gender stereotypes by region by major news topic',
         'desc': 'Stories where stereotypes are challenged/ supported by news topic'
     },
+    'ws_47': {
+        'name': 'Stereotype by region',
+        'title': 'Story clearly challenges gender stereotypes by major topic',
+        'desc': 'Stories where stereotypes are challenged/ supported by topic'
+    },
     'ws_': {
         'name': '',
         'title': '',
