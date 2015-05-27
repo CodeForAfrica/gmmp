@@ -354,7 +354,7 @@ class XLSXReportBuilder:
         self.P.set_num_format(9)  # percentage
 
         # Use the following for specifying which reports to create
-        test_functions = ['ws_29', 'ws_30', 'ws_31']
+        test_functions = ['ws_31', 'ws_32']
         sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
         for function in test_functions:
             ws = workbook.add_worksheet(sheet_info[function]['name'])
@@ -851,6 +851,7 @@ class XLSXReportBuilder:
         """
         Cols: Medium
         Rows: Region
+        Female reporters only
         """
         counts = Counter()
         for media_type, model in person_models.iteritems():
@@ -874,6 +875,7 @@ class XLSXReportBuilder:
         """
         Cols: Regions
         Rows: Scope
+        Female reporters only
         """
         counts = Counter()
         for model in person_models.itervalues():
@@ -896,6 +898,7 @@ class XLSXReportBuilder:
         """
         Cols: Region
         Rows: Topics
+        Female reporters only
         """
         counts = Counter()
         for model in person_models.itervalues():
@@ -930,6 +933,26 @@ class XLSXReportBuilder:
                         .annotate(n=Count('id'))
                 counts.update({(r['sex'], r[topic_field]): r['n'] for r in rows})
         self.tabulate(ws, counts, GENDER, TOPICS, row_perc=True)
+
+
+    def ws_32(self, ws):
+        """
+        Cols: Medium
+        Rows: Topics
+        """
+        counts = Counter()
+        for media_type, model in sheet_models.iteritems():
+            if 'topic' in model._meta.get_all_field_names():
+                rows = model.objects\
+                        .values('topic')\
+                        .filter(country__in=self.countries)\
+                        .filter(**{model.journalist_field_name() + '__sex':1})\
+                        .annotate(n=Count('id'))
+                for row in rows:
+                    media_id = [media[0] for media in MEDIA_TYPES if media[1] == media_type][0]
+                    counts.update({(media_id, row['topic']): row['n']})
+        self.tabulate(ws, counts, MEDIA_TYPES, TOPICS, row_perc=False)
+
 
 
     # -------------------------------------------------------------------------------
