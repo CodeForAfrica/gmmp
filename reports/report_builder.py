@@ -1223,7 +1223,7 @@ class XLSXReportBuilder:
         """
         Cols: Occupation
         Rows: Country
-        :: Always show all countries
+        :: Show all countries
         :: Only female subjects
         """
         counts = Counter()
