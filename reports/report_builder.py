@@ -354,7 +354,7 @@ class XLSXReportBuilder:
         self.P.set_num_format(9)  # percentage
 
         # Use the following for specifying which reports to create
-        test_functions = ['ws_38']
+        test_functions = ['ws_38', 'ws_40']
         sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
         for function in test_functions:
             ws = workbook.add_worksheet(sheet_info[function]['name'])
@@ -1027,6 +1027,29 @@ class XLSXReportBuilder:
                 counts.update({(r['about_women'], r['topic']): r['n'] for r in rows})
         self.tabulate(ws, counts, YESNO, TOPICS, row_perc=True)
 
+    def ws_40(self, ws):
+        """
+        Cols: Focus: about women
+        Rows: Region, Topics
+        """
+        secondary_counts = OrderedDict()
+        r = 6
+
+        self.write_col_headings(ws, YESNO)
+        for region_id, region in self.regions:
+            counts = Counter()
+            for model in sheet_models.itervalues():
+                if 'about_women' and 'topic' in model._meta.get_all_field_names():
+                    rows = model.objects\
+                            .values('about_women', 'topic')\
+                            .filter(country_region__region=region)\
+                            .annotate(n=Count('id'))
+                    counts.update({(r['about_women'], r['topic']): r['n'] for r in rows})
+            self.write_primary_row_heading(ws, region, r=r)
+            self.tabulate(ws, counts, YESNO, TOPICS, row_perc=True, sec_row=True, c=1, r=r)
+            r += len(TOPICS)
+
+
     # -------------------------------------------------------------------------------
     # Helper functions
     #
@@ -1062,8 +1085,18 @@ class XLSXReportBuilder:
             self.tabulate(ws, counts, cols, rows, row_perc=row_perc, sec_col=True, r=7, c=c)
             c += sec_cols
 
+    def write_col_headings(self, ws, cols, c=2, r=4):
+        for col_id, col_title in cols:
+            ws.write(r, c, unicode(col_title))
+            ws.write(r + 1, c, "N")
+            ws.write(r + 1, c + 1, "%")
+            c += 2
 
-    def tabulate(self, ws, counts, cols, rows, row_perc=False, sec_col=False, r=6, c=1):
+    def write_primary_row_heading(self, ws, heading, c=0, r=6):
+        ws.write(r, c, unicode(heading))
+
+
+    def tabulate(self, ws, counts, cols, rows, row_perc=False, sec_col=False, sec_row=False, c=1, r=6):
         """ Emit a table.
 
         :param ws: worksheet to write to
@@ -1071,7 +1104,8 @@ class XLSXReportBuilder:
         :param list cols: list of `(col_id, col_title)` tuples of column ids and titles
         :param list rows: list of `(row_id, row_title)` tuples of row ids and titles
         :param bool row_perc: should percentages by calculated by row instead of column (default: False)
-        :param sec_col: is there a secondary column title to create (default: False)
+        :param sec_col: Are wecreating a secondary column title(default: False)
+        :param sec_row: Are we creating a secondary row title(default: False)
         :param r, c: initial position where cursor should start writing to
         """
         if row_perc:
@@ -1092,9 +1126,11 @@ class XLSXReportBuilder:
         # values, written by column
         for col_id, col_title in cols:
             # column title
-            ws.write(r - 2, c, unicode(col_title))
-            ws.write(r - 1, c, "N")
-            ws.write(r - 1, c + 1, "%")
+            if not sec_row:
+                # Else already written
+                ws.write(r - 2, c, unicode(col_title))
+                ws.write(r - 1, c, "N")
+                ws.write(r - 1, c + 1, "%")
 
             if not row_perc:
                 # column totals
