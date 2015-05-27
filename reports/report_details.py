@@ -189,6 +189,11 @@ WS_INFO = {
         'title': 'Stories where issues of gender equality/inequality are raised by sex of reporter and by region',
         'desc': 'Stories where issues of gender equality/inequality are raised by sex of reporter and by region'
     },
+    'ws_45': {
+        'name': '45-Gender eq by sex of subject',
+        'title': 'Stories where issues of gender equality/inequality are raised by sex of \'people in the news\' and by region',
+        'desc': 'Stories where issues of gender equality/inequality are raised by sex of \'people in the news\' and by region'
+    },
     'ws_': {
         'name': '',
         'title': '',
