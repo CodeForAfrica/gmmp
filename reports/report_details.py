@@ -134,5 +134,10 @@ WS_INFO = {
         'title': 'Breakdown of Reporters, by sex on different topics - Detail',
         'desc': 'Reporters, by sex on different topics - Detail'
     },
+    'ws_32': {
+        'name': '32-Topic by medium-Female',
+        'title': 'Topics in the news - Detail by medium for female reporters',
+        'desc': 'Topics in the news - Detail by medium for female reporters'
+    },
 
 }
