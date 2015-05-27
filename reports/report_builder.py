@@ -354,7 +354,7 @@ class XLSXReportBuilder:
         self.P.set_num_format(9)  # percentage
 
         # Use the following for specifying which reports to create
-        test_functions = ['ws_29', 'ws_30']
+        test_functions = ['ws_29', 'ws_30', 'ws_31']
         sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
         for function in test_functions:
             ws = workbook.add_worksheet(sheet_info[function]['name'])
@@ -853,7 +853,6 @@ class XLSXReportBuilder:
         Rows: Region
         """
         counts = Counter()
-        import ipdb; ipdb.set_trace()
         for media_type, model in person_models.iteritems():
             region_field = model.sheet_name() + '__country_region__region'
             rows = model.objects\
@@ -914,6 +913,23 @@ class XLSXReportBuilder:
                         region_id = [region[0] for region in self.regions if region[1] == row[region_field]][0]
                         counts.update({(region_id, row[topic_field]): row['n']})
         self.tabulate(ws, counts, self.regions, TOPICS, row_perc=False)
+
+    def ws_31(self, ws):
+        """
+        Cols: Sex of Reporter
+        Rows: Topics
+        """
+        counts = Counter()
+        for model in journalist_models.itervalues():
+            sheet_name = model.sheet_name()
+            topic_field =  sheet_name + '__topic'
+            if 'topic' in model._meta.get_field(sheet_name).rel.to._meta.get_all_field_names():
+                rows = model.objects\
+                        .values('sex', topic_field)\
+                        .filter(**{model.sheet_name() + '__country__in':self.countries})\
+                        .annotate(n=Count('id'))
+                counts.update({(r['sex'], r[topic_field]): r['n'] for r in rows})
+        self.tabulate(ws, counts, GENDER, TOPICS, row_perc=True)
 
 
     # -------------------------------------------------------------------------------
