@@ -362,7 +362,7 @@ class XLSXReportBuilder:
         self.P.set_num_format(9)  # percentage
 
         # Use the following for specifying which reports to create
-        test_functions = ['ws_46', 'ws_47', 'ws_48', 'ws_55']
+        test_functions = ['ws_46', 'ws_47', 'ws_48', 'ws_55', 'ws_56']
         sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
         for function in test_functions:
             ws = workbook.add_worksheet(sheet_info[function]['name'])
@@ -1237,6 +1237,23 @@ class XLSXReportBuilder:
 
         counts.update({(r[occupation], r['country']): r['n'] for r in rows})
         self.tabulate(ws, counts, OCCUPATION, self.all_countries, row_perc=True)
+
+    def ws_56(self, ws):
+        """
+        Cols: Function
+        Rows: Country
+        :: Show all countries
+        """
+        counts = Counter()
+        model = sheet_models.get('Internet News')
+        function = '%s__function' % model.person_field_name()
+
+        rows = model.objects\
+                .values('country', function)\
+                .annotate(n=Count('id'))
+
+        counts.update({(r[function], r['country']): r['n'] for r in rows})
+        self.tabulate(ws, counts, FUNCTION, self.all_countries, row_perc=True)
 
     # -------------------------------------------------------------------------------
     # Helper functions
