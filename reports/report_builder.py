@@ -1224,6 +1224,7 @@ class XLSXReportBuilder:
         Cols: Occupation
         Rows: Country
         :: Always show all countries
+        :: Only female subjects
         """
         counts = Counter()
         model = sheet_models.get('Internet News')
@@ -1231,6 +1232,7 @@ class XLSXReportBuilder:
 
         rows = model.objects\
                 .values('country', occupation)\
+                .filter(**{model.person_field_name() + '__sex':1})\
                 .annotate(n=Count('id'))
 
         counts.update({(r[occupation], r['country']): r['n'] for r in rows})
