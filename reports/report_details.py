@@ -129,5 +129,10 @@ WS_INFO = {
         'title': 'Breakdown of female reporters, by major topic, by region',
         'desc': 'Reporters, by sex on major topics, by region'
     },
+    'ws_31': {
+        'name': '31-Reporters by sex on topics',
+        'title': 'Breakdown of Reporters, by sex on different topics - Detail',
+        'desc': 'Reporters, by sex on different topics - Detail'
+    },
 
 }
