@@ -366,21 +366,21 @@ class XLSXReportBuilder:
         self.P.set_num_format(9)  # percentage
 
         # Use the following for specifying which reports to create
-        test_functions = ['ws_02', 'ws_04', 'ws_07']
+        test_functions = ['ws_05']
 
-        # sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
-        # for function in test_functions:
-        #     ws = workbook.add_worksheet(sheet_info[function]['name'])
-        #     self.write_headers(ws, sheet_info[function]['title'], sheet_info[function]['desc'])
-        #     getattr(self, function)(ws)
+        sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
+        for function in test_functions:
+            ws = workbook.add_worksheet(sheet_info[function]['name'])
+            self.write_headers(ws, sheet_info[function]['title'], sheet_info[function]['desc'])
+            getattr(self, function)(ws)
 
         # To ensure ordered worksheets
-        sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
+        # sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
 
-        for ws_num, ws_info in sheet_info.iteritems():
-            ws = workbook.add_worksheet(ws_info['name'])
-            self.write_headers(ws, ws_info['title'], ws_info['desc'])
-            getattr(self, ws_num)(ws)
+        # for ws_num, ws_info in sheet_info.iteritems():
+        #     ws = workbook.add_worksheet(ws_info['name'])
+        #     self.write_headers(ws, ws_info['title'], ws_info['desc'])
+        #     getattr(self, ws_num)(ws)
 
         workbook.close()
         output.seek(0)
@@ -448,6 +448,23 @@ class XLSXReportBuilder:
                 counts.update({(media_id, row['topic']): row['n']})
 
         self.tabulate(ws, counts, MEDIA_TYPES, TOPICS, row_perc=True)
+
+    def ws_05(self, ws):
+        """
+        Cols: Topic
+        Rows: Subject sex
+        """
+        counts = Counter()
+        for model in person_models.itervalues():
+            topic_field = '%s__topic' % model.sheet_name()
+
+            rows = model.objects\
+                .values(topic_field, 'sex')\
+                .filter(**{model.sheet_name() + '__country__in': self.countries})\
+                .annotate(n=Count('id'))
+            counts.update({(r[topic_field], r['sex']): r['n'] for r in rows})
+        self.tabulate(ws, counts, TOPICS, GENDER, row_perc=False)
+
 
     def ws_07(self, ws):
         """
