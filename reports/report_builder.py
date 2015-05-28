@@ -366,23 +366,27 @@ class XLSXReportBuilder:
         self.P.set_num_format(9)  # percentage
 
         # Use the following for specifying which reports to create
-        test_functions = ['ws_63', 'ws_64', 'ws_65', 'ws_66', 'ws_67', 'ws_68', 'ws_69']
-        sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
-        for function in test_functions:
-            ws = workbook.add_worksheet(sheet_info[function]['name'])
-            self.write_headers(ws, sheet_info[function]['title'], sheet_info[function]['desc'])
-            getattr(self, function)(ws)
+        test_functions = ['ws_02', 'ws_04', 'ws_07']
 
         # sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
-        # for ws_num, ws_info in sheet_info.iteritems():
-        #     ws = workbook.add_worksheet(ws_info['name'])
-        #     self.write_headers(ws, ws_info['title'], ws_info['desc'])
-        #     getattr(self, ws_num)(ws)
+        # for function in test_functions:
+        #     ws = workbook.add_worksheet(sheet_info[function]['name'])
+        #     self.write_headers(ws, sheet_info[function]['title'], sheet_info[function]['desc'])
+        #     getattr(self, function)(ws)
+
+        # To ensure ordered worksheets
+        sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
+
+        for ws_num, ws_info in sheet_info.iteritems():
+            ws = workbook.add_worksheet(ws_info['name'])
+            self.write_headers(ws, ws_info['title'], ws_info['desc'])
+            getattr(self, ws_num)(ws)
 
         workbook.close()
         output.seek(0)
 
         return output.read()
+
 
     def ws_01(self, ws):
         """
@@ -391,7 +395,6 @@ class XLSXReportBuilder:
         """
         counts = Counter()
         for media_type, model in sheet_models.iteritems():
-            region_field = 'country_region__region'
             rows = model.objects\
                     .values('country_region__region')\
                     .exclude(country_region__region='Unmapped')\
@@ -403,8 +406,6 @@ class XLSXReportBuilder:
                     region_id = [region[0] for region in self.regions if region[1] == row['country_region__region']][0]
 
                     counts.update({(media_id, region_id): row['n']})
-                # counts.update({(media_type, r[region]): r['n'] for r in rows if r[region] is not None})
-
         self.tabulate(ws, counts, MEDIA_TYPES, self.regions, row_perc=True)
 
 
@@ -413,116 +414,61 @@ class XLSXReportBuilder:
         Cols: Media Type
         Rows: Country
         """
-        ws.write(5, 0, 'Region name here')
-
-        row, col = 6, 1
-
-        # row headings
-        for i, country in enumerate(self.countries):
-            # Is this the best way to do this?
-            ws.write(row + i, col, dict(countries)[country])
-
-        col += 1
-
         counts = Counter()
-
         for media_type, model in sheet_models.iteritems():
-            # row values
             rows = model.objects\
                     .values('country')\
                     .filter(country__in=self.countries)\
                     .annotate(n=Count('country'))
 
-            counts.update({(media_type, r['country']): r['n'] for r in rows})
+            for row in rows:
+                if row['country'] is not None:
+                    # Get media id's to assign to counts
+                    media_id = [media[0] for media in MEDIA_TYPES if media[1] == media_type][0]
+                    counts.update({(media_id, row['country']): row['n']})
 
-        row_totals = {}
-        for country in self.countries:
-            row_totals[country] = sum(counts.get((media_type, country), 0) for media_type, m in sheet_models.iteritems())
-
-        for media_type, model in sheet_models.iteritems():
-            # column title
-            ws.write(row - 2, col, media_type)
-            ws.write(row - 1, col, "N")
-            ws.write(row - 1, col + 1, "%")
-
-            # row values
-            for i, country in enumerate(self.countries):
-                c = counts.get((media_type, country), 0)
-                ws.write(row + i, col, c)
-                ws.write(row + i, col + 1, p(c, row_totals[country]), self.P)
-
-            col += 2
+        self.tabulate(ws, counts, MEDIA_TYPES, self.captured_countries, row_perc=True)
 
     def ws_04(self, ws):
         """
         Cols: Media type
         Rows: News Topic
         """
-        row, col = 6, 1
-
-        # row titles
-        for i, topic in enumerate(TOPICS):
-            id, topic = topic
-            ws.write(row + i, col, unicode(topic))
-
-        col += 1
+        counts = Counter()
 
         for media_type, model in sheet_models.iteritems():
-            # column title
-            ws.write(row - 2, col, media_type)
-            ws.write(row - 1, col, "N")
-            ws.write(row - 1, col + 1, "%")
-
-            # row values
             rows = model.objects\
                     .values('topic')\
                     .filter(country__in=self.countries)\
-                    .annotate(n=Count('topic'))
-            counts = {r['topic']: r['n'] for r in rows}
-            total = sum(counts.itervalues())
+                    .annotate(n=Count('id'))
 
-            for i, topic in enumerate(TOPICS):
-                id, topic = topic
-                ws.write(row + i, col, counts.get(id, 0))
-                ws.write(row + i, col + 1, p(counts.get(id, 0), total), self.P)
+            for row in rows:
+                # Get media id's to assign to counts
+                media_id = [media[0] for media in MEDIA_TYPES if media[1] == media_type][0]
+                counts.update({(media_id, row['topic']): row['n']})
 
-            col += 2
+        self.tabulate(ws, counts, MEDIA_TYPES, TOPICS, row_perc=True)
 
     def ws_07(self, ws):
         """
         Cols: Media Type
         Rows: Sex
         """
-        row, col = 6, 1
-
-        # row titles
-        for i, gender in enumerate(GENDER):
-            id, gender = gender
-            ws.write(row + i, col, unicode(gender))
-
-        col += 1
+        counts = Counter()
 
         for media_type, model in sheet_models.iteritems():
-            # column title
-            ws.write(row - 2, col, media_type)
-            ws.write(row - 1, col, "N")
-            ws.write(row - 1, col + 1, "%")
-
-            # row values
             sex = '%s__sex' % model.person_field_name()
             rows = model.objects\
                     .values(sex)\
                     .filter(country__in=self.countries)\
                     .annotate(n=Count('id'))
-            counts = {r[sex]: r['n'] for r in rows if r[sex] is not None}
-            total = sum(counts.itervalues())
 
-            for i, topic in enumerate(GENDER):
-                id, topic = topic
-                ws.write(row + i, col, counts.get(id, 0))
-                ws.write(row + i, col + 1, p(counts.get(id, 0), total), self.P)
+            for row in rows:
+                # Get media id's to assign to counts
+                media_id = [media[0] for media in MEDIA_TYPES if media[1] == media_type][0]
+                counts.update({(media_id, row[sex]): row['n']})
 
-            col += 2
+        self.tabulate(ws, counts, MEDIA_TYPES, GENDER, row_perc=True)
 
     def ws_08(self, ws):
         """

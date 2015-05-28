@@ -279,16 +279,4 @@ WS_INFO = {
         'title': 'Twitter - Challenging Stereotypes',
         'desc': 'Twitter - Challenging Stereotypes'
     },
-    'ws_70': {
-        'name': '70-Twitter images',
-        'title': 'Twitter- Images',
-        'desc': 'Twitter- Images'
-    },
-    'ws_': {
-        'name': '',
-        'title': '',
-        'desc': ''
-    },
-
-
 }
