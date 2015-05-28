@@ -254,10 +254,41 @@ WS_INFO = {
         'title': 'Internet -Stories with Women as a central Focus',
         'desc': 'Internet -Stories with Women as a central Focus'
     },
+    'ws_65': {
+        'name': '65-Tweet or retweet',
+        'title': 'Twitter - Original tweet or retweet',
+        'desc': 'Twitter - Original tweet or retweet'
+    },
+    'ws_66': {
+        'name': '66-Presence of women',
+        'title': 'Twitter - Overall presence of women',
+        'desc': 'Twitter - Overall presence of women'
+    },
+    'ws_67': {
+        'name': '67-Female reporters by topic',
+        'title': 'Twitter - Female reporters & journalists',
+        'desc': 'Twitter - Female reporters & journalists'
+    },
+    'ws_68': {
+        'name': '68-Women\'s centrality',
+        'title': 'Twitter - Women\'s centrality',
+        'desc': 'Twitter - Women\'s centrality'
+    },
+    'ws_69': {
+        'name': '69-Challenging stereotypes',
+        'title': 'Twitter - Challenging Stereotypes',
+        'desc': 'Twitter - Challenging Stereotypes'
+    },
+    'ws_70': {
+        'name': '70-Twitter images',
+        'title': 'Twitter- Images',
+        'desc': 'Twitter- Images'
+    },
     'ws_': {
         'name': '',
         'title': '',
         'desc': ''
     },
+
 
 }
