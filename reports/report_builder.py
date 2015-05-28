@@ -366,7 +366,7 @@ class XLSXReportBuilder:
         self.P.set_num_format(9)  # percentage
 
         # Use the following for specifying which reports to create
-        test_functions = ['ws_63', 'ws_64']
+        test_functions = ['ws_63', 'ws_64', 'ws_65', 'ws_66', 'ws_67', 'ws_68', 'ws_69']
         sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
         for function in test_functions:
             ws = workbook.add_worksheet(sheet_info[function]['name'])
@@ -1423,7 +1423,120 @@ class XLSXReportBuilder:
             self.tabulate(ws, counts, TOPICS, YESNO, row_perc=True, sec_row=True, r=r)
             r += len(YESNO)
 
+    def ws_65(self, ws):
+        """
+        Cols: Topic
+        Rows: Country, tweet or retweet
+        :: Show all countries
+        :: Twitter media type only
+        """
+        r = 6
+        self.write_col_headings(ws, TOPICS)
 
+        counts = Counter()
+        model = sheet_models.get('Twitter')
+        for code, country in self.captured_countries:
+            rows = model.objects\
+                    .values('topic', 'retweet')\
+                    .filter(country=code)\
+                    .annotate(n=Count('id'))
+
+            counts = {(row['topic'], row['retweet']): row['n'] for row in rows}
+            self.write_primary_row_heading(ws, country, r=r)
+            self.tabulate(ws, counts, TOPICS, RETWEET, row_perc=False, sec_row=True, r=r)
+            r += len(RETWEET)
+
+    def ws_66(self, ws):
+        """
+        Cols: Topic
+        Rows: Country, sex of news subject
+        :: Show all countries
+        :: Twitter media type only
+        """
+        r = 6
+        self.write_col_headings(ws, GENDER)
+
+
+        counts = Counter()
+        model = person_models.get('Twitter')
+        topic_field = '%s__topic' % model.sheet_name()
+        for code, country in self.captured_countries:
+            rows = model.objects\
+                    .values(topic_field, 'sex')\
+                    .filter(**{model.sheet_name() + '__country':code})\
+                    .annotate(n=Count('id'))
+
+            counts.update({(row[topic_field], row['sex']): row['n'] for row in rows})
+            self.write_primary_row_heading(ws, country, r=r)
+            self.tabulate(ws, counts, TOPICS, GENDER, row_perc=True, sec_row=True, r=r)
+            r += len(GENDER)
+
+    def ws_67(self, ws):
+        """
+        Cols: Topic
+        Rows: Country
+        :: Only female journalists
+        :: Show all countries
+        :: Twitter media type only
+        """
+
+        counts = Counter()
+        model = sheet_models.get('Twitter')
+        # journalist_sex = '%s__sex' % model.journalist_field_name()
+        rows = model.objects\
+                .values('topic', 'country')\
+                .filter(**{model.journalist_field_name() + '__sex':1})\
+                .annotate(n=Count('id'))
+
+        counts.update({(row['topic'], row['country']): row['n'] for row in rows})
+        self.tabulate(ws, counts, TOPICS, self.captured_countries, row_perc=True, sec_row=False)
+
+
+    def ws_68(self, ws):
+        """
+        Cols: Topic
+        Rows: Country, about women
+        :: Show all countries
+        :: Twitter media type only
+        """
+        r = 6
+        self.write_col_headings(ws, TOPICS)
+
+        counts = Counter()
+        model = sheet_models.get('Twitter')
+        for code, country in self.captured_countries:
+            rows = model.objects\
+                    .values('topic', 'about_women')\
+                    .filter(country=code)\
+                    .annotate(n=Count('id'))
+
+            counts = {(row['topic'], row['about_women']): row['n'] for row in rows}
+            self.write_primary_row_heading(ws, country, r=r)
+            self.tabulate(ws, counts, TOPICS, YESNO, row_perc=False, sec_row=True, r=r)
+            r += len(YESNO)
+
+    def ws_69(self, ws):
+        """
+        Cols: Topic
+        Rows: Country, stereotypes
+        :: Show all countries
+        :: Twitter media type only
+        """
+        r = 6
+        self.write_col_headings(ws, TOPICS)
+
+        counts = Counter()
+        model = sheet_models.get('Twitter')
+        for code, country in self.captured_countries:
+            rows = model.objects\
+                    .values('topic', 'stereotypes')\
+                    .filter(country=code)\
+                    .annotate(n=Count('id'))
+
+            counts = {(row['topic'], row['stereotypes']): row['n'] for row in rows}
+            self.write_primary_row_heading(ws, country, r=r)
+            self.tabulate(ws, counts, TOPICS, AGREE_DISAGREE, row_perc=True, sec_row=True, r=r)
+            r += len(AGREE_DISAGREE)
 
     # -------------------------------------------------------------------------------
     # Helper functions
