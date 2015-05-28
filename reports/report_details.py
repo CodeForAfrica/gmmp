@@ -200,7 +200,7 @@ WS_INFO = {
         'desc': 'Stories where stereotypes are challenged/ supported by news topic'
     },
     'ws_47': {
-        'name': 'Stereotype by region',
+        'name': '47-Stereotype by region',
         'title': 'Story clearly challenges gender stereotypes by major topic',
         'desc': 'Stories where stereotypes are challenged/ supported by topic'
     },
@@ -218,6 +218,11 @@ WS_INFO = {
         'name': '56-Subject functions',
         'title': 'Internet - Functions of news subjects',
         'desc': 'Internet - Functions of news subjects'
+    },
+    'ws_57': {
+        'name': '57-Subjects by family status',
+        'title': 'Internet - News subjects who are identified by family status',
+        'desc': 'Internet - News subjects who are identified by family status'
     },
     'ws_': {
         'name': '',

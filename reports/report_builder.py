@@ -362,7 +362,7 @@ class XLSXReportBuilder:
         self.P.set_num_format(9)  # percentage
 
         # Use the following for specifying which reports to create
-        test_functions = ['ws_46', 'ws_47', 'ws_48', 'ws_55', 'ws_56']
+        test_functions = ['ws_46', 'ws_47', 'ws_48', 'ws_55', 'ws_56', 'ws_57']
         sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
         for function in test_functions:
             ws = workbook.add_worksheet(sheet_info[function]['name'])
@@ -1216,7 +1216,7 @@ class XLSXReportBuilder:
                             .annotate(n=Count('id'))
                     counts.update({(r[sex_field], r['stereotypes']): r['n'] for r in rows})
             self.write_primary_row_heading(ws, topic, r=r)
-            self.tabulate(ws, counts, GENDER, AGREE_DISAGREE, row_perc=True, sec_row=True, c=1, r=r)
+            self.tabulate(ws, counts, GENDER, AGREE_DISAGREE, row_perc=True, sec_row=True, r=r)
             r += len(AGREE_DISAGREE)
 
     def ws_55(self, ws):
@@ -1254,6 +1254,30 @@ class XLSXReportBuilder:
 
         counts.update({(r[function], r['country']): r['n'] for r in rows})
         self.tabulate(ws, counts, FUNCTION, self.all_countries, row_perc=True)
+
+    def ws_57(self, ws):
+        """
+        Cols: Sex of subject
+        Rows: Country, Family role
+        :: Show all countries
+        """
+        r = 6
+        self.write_col_headings(ws, GENDER)
+
+        counts = Counter()
+        model = person_models.get('Internet News')
+        for code, country in self.all_countries:
+            rows = model.objects\
+                    .values('family_role', 'sex')\
+                    .filter(**{model.sheet_name() + '__country':code})\
+                    .annotate(n=Count('id'))
+
+            counts = {(row['sex'], row['family_role']): row['n'] for row in rows}
+            # If only captured countries should be displayed use
+            # if counts.keys():
+            self.write_primary_row_heading(ws, country, r=r)
+            self.tabulate(ws, counts, GENDER, YESNO, row_perc=True, sec_row=True, r=r)
+            r += len(YESNO)
 
     # -------------------------------------------------------------------------------
     # Helper functions
