@@ -1227,15 +1227,15 @@ class XLSXReportBuilder:
         :: Only female subjects
         """
         counts = Counter()
-        model = sheet_models.get('Internet News')
-        occupation = '%s__occupation' % model.person_field_name()
+        model = person_models.get('Internet News')
+        country_field = '%s__country' % model.sheet_name()
 
         rows = model.objects\
-                .values('country', occupation)\
-                .filter(**{model.person_field_name() + '__sex':1})\
+                .values(country_field, 'occupation')\
+                .filter(sex=1)\
                 .annotate(n=Count('id'))
 
-        counts.update({(r[occupation], r['country']): r['n'] for r in rows})
+        counts.update({(r['occupation'], r[country_field]): r['n'] for r in rows})
         self.tabulate(ws, counts, OCCUPATION, self.all_countries, row_perc=True)
 
     def ws_56(self, ws):
@@ -1245,14 +1245,13 @@ class XLSXReportBuilder:
         :: Show all countries
         """
         counts = Counter()
-        model = sheet_models.get('Internet News')
-        function = '%s__function' % model.person_field_name()
-
+        model = person_models.get('Internet News')
+        country_field = '%s__country' % model.sheet_name()
         rows = model.objects\
-                .values('country', function)\
+                .values(country_field, 'function')\
                 .annotate(n=Count('id'))
 
-        counts.update({(r[function], r['country']): r['n'] for r in rows})
+        counts.update({(r['function'], r[country_field]): r['n'] for r in rows})
         self.tabulate(ws, counts, FUNCTION, self.all_countries, row_perc=True)
 
     def ws_57(self, ws):
