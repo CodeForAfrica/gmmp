@@ -224,6 +224,36 @@ WS_INFO = {
         'title': 'Internet - News subjects who are identified by family status',
         'desc': 'Internet - News subjects who are identified by family status'
     },
+    'ws_58': {
+        'name': '58-Subjects photographed',
+        'title': 'Internet - News subjects in multimedia web components ',
+        'desc': 'Internet - News subjects in multimedia web components '
+    },
+    'ws_60': {
+        'name': '60-Subjects age',
+        'title': 'Internet - Age of news subjects',
+        'desc': 'Internet - Age of news subjects'
+    },
+    'ws_61': {
+        'name': '61-Subjects quoted',
+        'title': 'Internet - News subjects who are directly quoted',
+        'desc': 'Internet - News subjects who are directly quoted'
+    },
+    'ws_62': {
+        'name': '62-Gender equality by topic',
+        'title': 'Internet - Stories where issues of gender equality/inequality are raised by topic',
+        'desc': 'Internet - Stories where issues of gender equality/inequality are raised by topic'
+    },
+    'ws_63': {
+        'name': '63-Stereotypes by topic',
+        'title': 'Internet -Stories where stereotypes are clearly challenged',
+        'desc': 'Internet -Stories where stereotypes are clearly challenged'
+    },
+    'ws_64': {
+        'name': '64-Women as focus by topic',
+        'title': 'Internet -Stories with Women as a central Focus',
+        'desc': 'Internet -Stories with Women as a central Focus'
+    },
     'ws_': {
         'name': '',
         'title': '',

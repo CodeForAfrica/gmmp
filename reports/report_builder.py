@@ -47,11 +47,15 @@ def get_regions():
     regions = set(item['region'] for item in country_regions)
     return [(i, region) for i, region in enumerate(regions)]
 
-def get_all_countries():
+def get_captured_countries():
     """
-    Return a list of (id, country) tuples of countries used by the application.
+    Return a list of (id, country) tuples of countries which have been captured.
     """
-    return [(code, name) for code, name in list(countries)]
+    captured_country_codes = set()
+    for model in sheet_models.itervalues():
+        rows = model.objects.values('country')
+        captured_country_codes.update([r['country'] for r in rows])
+    return [(code, name) for code, name in list(countries) if code in captured_country_codes]
 
 
 class XLSXDataExportBuilder():
@@ -348,7 +352,7 @@ class XLSXReportBuilder:
         self.countries = form.get_countries()
         self.regions = get_regions()
         self.gmmp_year = '2015'
-        self.all_countries = get_all_countries()
+        self.captured_countries = get_captured_countries()
 
     def build(self):
         """
@@ -362,7 +366,7 @@ class XLSXReportBuilder:
         self.P.set_num_format(9)  # percentage
 
         # Use the following for specifying which reports to create
-        test_functions = ['ws_46', 'ws_47', 'ws_48', 'ws_55', 'ws_56', 'ws_57']
+        test_functions = ['ws_63', 'ws_64']
         sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
         for function in test_functions:
             ws = workbook.add_worksheet(sheet_info[function]['name'])
@@ -1225,6 +1229,7 @@ class XLSXReportBuilder:
         Rows: Country
         :: Show all countries
         :: Only female subjects
+        :: Internet media type only
         """
         counts = Counter()
         model = person_models.get('Internet News')
@@ -1236,13 +1241,14 @@ class XLSXReportBuilder:
                 .annotate(n=Count('id'))
 
         counts.update({(r['occupation'], r[country_field]): r['n'] for r in rows})
-        self.tabulate(ws, counts, OCCUPATION, self.all_countries, row_perc=True)
+        self.tabulate(ws, counts, OCCUPATION, self.captured_countries, row_perc=True)
 
     def ws_56(self, ws):
         """
         Cols: Function
         Rows: Country
         :: Show all countries
+        :: Internet media type only
         """
         counts = Counter()
         model = person_models.get('Internet News')
@@ -1252,22 +1258,23 @@ class XLSXReportBuilder:
                 .annotate(n=Count('id'))
 
         counts.update({(r['function'], r[country_field]): r['n'] for r in rows})
-        self.tabulate(ws, counts, FUNCTION, self.all_countries, row_perc=True)
+        self.tabulate(ws, counts, FUNCTION, self.captured_countries, row_perc=True)
 
     def ws_57(self, ws):
         """
         Cols: Sex of subject
         Rows: Country, Family role
         :: Show all countries
+        :: Internet media type only
         """
         r = 6
         self.write_col_headings(ws, GENDER)
 
         counts = Counter()
         model = person_models.get('Internet News')
-        for code, country in self.all_countries:
+        for code, country in self.captured_countries:
             rows = model.objects\
-                    .values('family_role', 'sex')\
+                    .values('sex', 'family_role')\
                     .filter(**{model.sheet_name() + '__country':code})\
                     .annotate(n=Count('id'))
 
@@ -1277,6 +1284,146 @@ class XLSXReportBuilder:
             self.write_primary_row_heading(ws, country, r=r)
             self.tabulate(ws, counts, GENDER, YESNO, row_perc=True, sec_row=True, r=r)
             r += len(YESNO)
+
+    def ws_58(self, ws):
+        """
+        Cols: Sex of subject
+        Rows: Country, is photographed
+        :: Show all countries
+        :: Internet media type only
+        """
+        r = 6
+        self.write_col_headings(ws, GENDER)
+
+        counts = Counter()
+        model = person_models.get('Internet News')
+        for code, country in self.captured_countries:
+            rows = model.objects\
+                    .values('sex', 'is_photograph')\
+                    .filter(**{model.sheet_name() + '__country':code})\
+                    .annotate(n=Count('id'))
+
+            counts = {(row['sex'], row['is_photograph']): row['n'] for row in rows}
+            self.write_primary_row_heading(ws, country, r=r)
+            self.tabulate(ws, counts, GENDER, IS_PHOTOGRAPH, row_perc=True, sec_row=True, r=r)
+            r += len(IS_PHOTOGRAPH)
+
+    def ws_60(self, ws):
+        """
+        Cols: Sex of subject
+        Rows: Country, age
+        :: Show all countries
+        :: Internet media type only
+        """
+        r = 6
+        self.write_col_headings(ws, GENDER)
+
+        counts = Counter()
+        model = person_models.get('Internet News')
+        for code, country in self.captured_countries:
+            rows = model.objects\
+                    .values('sex', 'age')\
+                    .filter(**{model.sheet_name() + '__country':code})\
+                    .annotate(n=Count('id'))
+
+            counts = {(row['sex'], row['age']): row['n'] for row in rows}
+            self.write_primary_row_heading(ws, country, r=r)
+            self.tabulate(ws, counts, GENDER, AGES, row_perc=True, sec_row=True, r=r)
+            r += len(AGES)
+
+    def ws_61(self, ws):
+        """
+        Cols: Sex of subject
+        Rows: Country, is_quoted
+        :: Show all countries
+        :: Internet media type only
+        """
+        r = 6
+        self.write_col_headings(ws, GENDER)
+
+        counts = Counter()
+        model = person_models.get('Internet News')
+        for code, country in self.captured_countries:
+            rows = model.objects\
+                    .values('sex', 'is_quoted')\
+                    .filter(**{model.sheet_name() + '__country':code})\
+                    .annotate(n=Count('id'))
+
+            counts = {(row['sex'], row['is_quoted']): row['n'] for row in rows}
+            self.write_primary_row_heading(ws, country, r=r)
+            self.tabulate(ws, counts, GENDER, YESNO, row_perc=True, sec_row=True, r=r)
+            r += len(YESNO)
+
+    def ws_62(self, ws):
+        """
+        Cols: Topic
+        Rows: Country, equality raised
+        :: Show all countries
+        :: Internet media type only
+        """
+        r = 6
+        self.write_col_headings(ws, TOPICS)
+
+        counts = Counter()
+        model = sheet_models.get('Internet News')
+        for code, country in self.captured_countries:
+            rows = model.objects\
+                    .values('topic', 'equality_rights')\
+                    .filter(country=code)\
+                    .annotate(n=Count('id'))
+
+            counts = {(row['topic'], row['equality_rights']): row['n'] for row in rows}
+            self.write_primary_row_heading(ws, country, r=r)
+            self.tabulate(ws, counts, TOPICS, YESNO, row_perc=True, sec_row=True, r=r)
+            r += len(YESNO)
+
+    def ws_63(self, ws):
+        """
+        Cols: Topic
+        Rows: Country, stereotypes challenged
+        :: Show all countries
+        :: Internet media type only
+        """
+        r = 6
+        self.write_col_headings(ws, TOPICS)
+
+        counts = Counter()
+        model = sheet_models.get('Internet News')
+        for code, country in self.captured_countries:
+            rows = model.objects\
+                    .values('topic', 'stereotypes')\
+                    .filter(country=code)\
+                    .annotate(n=Count('id'))
+
+            counts = {(row['topic'], row['stereotypes']): row['n'] for row in rows}
+            self.write_primary_row_heading(ws, country, r=r)
+            self.tabulate(ws, counts, TOPICS, AGREE_DISAGREE, row_perc=True, sec_row=True, r=r)
+            r += len(AGREE_DISAGREE)
+
+    def ws_64(self, ws):
+        """
+        Cols: Topic
+        Rows: Country, about women
+        :: Show all countries
+        :: Internet media type only
+        """
+        r = 6
+        self.write_col_headings(ws, TOPICS)
+
+        counts = Counter()
+        model = sheet_models.get('Internet News')
+        for code, country in self.captured_countries:
+            rows = model.objects\
+                    .values('topic', 'about_women')\
+                    .filter(country=code)\
+                    .annotate(n=Count('id'))
+
+            counts = {(row['topic'], row['about_women']): row['n'] for row in rows}
+            self.write_primary_row_heading(ws, country, r=r)
+            self.tabulate(ws, counts, TOPICS, YESNO, row_perc=True, sec_row=True, r=r)
+            r += len(YESNO)
+
+
 
     # -------------------------------------------------------------------------------
     # Helper functions
