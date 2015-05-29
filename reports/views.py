@@ -3,7 +3,8 @@ from django.views.generic import View
 from django.shortcuts import render
 from django.http import HttpResponse
 from django import forms
-from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.decorators import login_required, user_passes_test
+from django.utils.decorators import method_decorator
 
 # 3rd Party
 import xlsxwriter
@@ -30,9 +31,9 @@ class ReportFilterForm(forms.Form):
 class ReportView(View):
     template_name = 'report_filter.html'
 
-    # @method_decorator(login_required)
-    # def dispatch(self, *args, **kwargs):
-    #     return super(ReportView, self).dispatch(*args, **kwargs)
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(ReportView, self).dispatch(*args, **kwargs)
 
     def get(self, request, *args, **kwargs):
         filter_form = ReportFilterForm()
