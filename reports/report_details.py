@@ -284,4 +284,9 @@ WS_INFO = {
         'title': 'Twitter - Challenging Stereotypes',
         'desc': 'Twitter - Challenging Stereotypes'
     },
+    'ws_76': {
+        'name': '76-Challenging stereotypes',
+        'title': 'Key themes, challenging stereotypes',
+        'desc': 'Key themes, challenging stereotypes'
+    },
 }
