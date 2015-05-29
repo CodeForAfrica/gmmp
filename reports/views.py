@@ -11,11 +11,12 @@ import xlsxwriter
 from django_countries import countries
 
 # Project
-from reports.report_builder import XLSXReportBuilder, XLSXDataExportBuilder
+from reports.report_builder import XLSXReportBuilder, XLSXDataExportBuilder, get_active_countries
 
 
 class ReportFilterForm(forms.Form):
-    COUNTRIES = [('ALL', 'Global')] + [(code, name) for code, name in list(countries)]
+    # Only show countries for which data has been submitted
+    COUNTRIES = [('ALL', 'Global')] + get_active_countries()
 
     country = forms.ChoiceField(
         label='Country',
