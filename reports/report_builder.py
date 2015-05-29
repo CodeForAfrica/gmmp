@@ -366,21 +366,21 @@ class XLSXReportBuilder:
         self.P.set_num_format(9)  # percentage
 
         # Use the following for specifying which reports to create
-        # test_functions = ['ws_05']
+        test_functions = ['ws_76']
 
-        # sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
-        # for function in test_functions:
-        #     ws = workbook.add_worksheet(sheet_info[function]['name'])
-        #     self.write_headers(ws, sheet_info[function]['title'], sheet_info[function]['desc'])
-        #     getattr(self, function)(ws)
+        sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
+        for function in test_functions:
+            ws = workbook.add_worksheet(sheet_info[function]['name'])
+            self.write_headers(ws, sheet_info[function]['title'], sheet_info[function]['desc'])
+            getattr(self, function)(ws)
 
         # To ensure ordered worksheets
-        sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
+        # sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
 
-        for ws_num, ws_info in sheet_info.iteritems():
-            ws = workbook.add_worksheet(ws_info['name'])
-            self.write_headers(ws, ws_info['title'], ws_info['desc'])
-            getattr(self, ws_num)(ws)
+        # for ws_num, ws_info in sheet_info.iteritems():
+        #     ws = workbook.add_worksheet(ws_info['name'])
+        #     self.write_headers(ws, ws_info['title'], ws_info['desc'])
+        #     getattr(self, ws_num)(ws)
 
         workbook.close()
         output.seek(0)
@@ -1519,6 +1519,25 @@ class XLSXReportBuilder:
             self.write_primary_row_heading(ws, country, r=r)
             self.tabulate(ws, counts, TOPICS, AGREE_DISAGREE, row_perc=True, sec_row=True, r=r)
             r += len(AGREE_DISAGREE)
+
+    def ws_76(self, ws):
+        """
+        Cols: Topic, Stereotypes
+        Rows: Country
+        """
+        secondary_counts = OrderedDict()
+        for topic_id, topic in TOPICS:
+            counts = Counter()
+            for model in sheet_models.itervalues():
+                if 'stereotypes' in model._meta.get_all_field_names():
+                    rows = model.objects\
+                        .values('stereotypes', 'country')\
+                        .filter(topic=topic_id)\
+                        .annotate(n=Count('id'))
+                    counts.update({(r['stereotypes'], r['country']): r['n'] for r in rows})
+                secondary_counts[topic] = counts
+
+        self.tabulate_secondary_cols(ws, secondary_counts, AGREE_DISAGREE, self.active_countries, row_perc=True, sec_cols=8)
 
     # -------------------------------------------------------------------------------
     # Helper functions
