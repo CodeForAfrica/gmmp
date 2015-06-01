@@ -19,6 +19,11 @@ WS_INFO = {
         'title': 'Summary of women in the news, by GMMP year',
         'desc': 'Overall presence of women in news',
     },
+    'ws_06': {
+        'name': '6-Women by region',
+        'title': 'Breakdown of women in the news in major topics by region',
+        'desc': 'Women in the news (sources) in major news topics by region ',
+    },
     'ws_07': {
         'name': '7-Sex by media',
         'title': 'Women in the news (sources) by medium',

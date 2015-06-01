@@ -366,7 +366,7 @@ class XLSXReportBuilder:
         self.P.set_num_format(9)  # percentage
 
         # Use the following for specifying which reports to create
-        test_functions = ['ws_76', 'ws_77', 'ws_78', 'ws_79']
+        test_functions = ['ws_06']
 
         sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
         for function in test_functions:
@@ -464,6 +464,25 @@ class XLSXReportBuilder:
             counts.update({(r[topic_field], r['sex']): r['n'] for r in rows})
 
         self.tabulate(ws, counts, TOPICS, GENDER, row_perc=False)
+
+    def ws_06(self, ws):
+        """
+        Cols: Topic, victim_of
+        Rows: Country
+        """
+        secondary_counts = OrderedDict()
+        for region_id, region in self.regions:
+            counts = Counter()
+            for model in person_models.itervalues():
+                topic_field = '%s__topic' % model.sheet_name()
+                rows = model.objects\
+                    .values('sex', topic_field)\
+                    .filter(**{model.sheet_name() + '__country_region__region':region})\
+                    .annotate(n=Count('id'))
+                counts.update({(r['sex'], r[topic_field]): r['n'] for r in rows})
+            secondary_counts[region] = counts
+
+        self.tabulate_secondary_cols(ws, secondary_counts, GENDER, TOPICS, row_perc=True, sec_cols=8)
 
     def ws_07(self, ws):
         """
