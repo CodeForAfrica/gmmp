@@ -289,4 +289,19 @@ WS_INFO = {
         'title': 'Key themes, challenging stereotypes',
         'desc': 'Key themes, challenging stereotypes'
     },
+    'ws_77': {
+        'name': '77-Ref to equality rights',
+        'title': 'Key themes, reference to gender equality/HR policies',
+        'desc': 'Key themes, reference to gender equality/HR policies'
+    },
+    'ws_78': {
+        'name': '78-Portryal as victims',
+        'title': 'Key themes, portrayal as victims',
+        'desc': 'Key themes, portrayal as victims'
+    },
+    'ws_79': {
+        'name': '79-Portryal as survivors',
+        'title': 'Key themes, portrayal as survivors',
+        'desc': 'Key themes, portrayal as survivors'
+    },
 }

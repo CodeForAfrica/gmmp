@@ -366,7 +366,7 @@ class XLSXReportBuilder:
         self.P.set_num_format(9)  # percentage
 
         # Use the following for specifying which reports to create
-        test_functions = ['ws_76']
+        test_functions = ['ws_76', 'ws_77', 'ws_78', 'ws_79']
 
         sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
         for function in test_functions:
@@ -1538,6 +1538,65 @@ class XLSXReportBuilder:
                 secondary_counts[topic] = counts
 
         self.tabulate_secondary_cols(ws, secondary_counts, AGREE_DISAGREE, self.active_countries, row_perc=True, sec_cols=8)
+
+    def ws_77(self, ws):
+        """
+        Cols: Topic, Reference to gender equality
+        Rows: Country
+        """
+        secondary_counts = OrderedDict()
+        for topic_id, topic in TOPICS:
+            counts = Counter()
+            for model in sheet_models.itervalues():
+                if 'equality_rights' in model._meta.get_all_field_names():
+                    rows = model.objects\
+                        .values('equality_rights', 'country')\
+                        .filter(topic=topic_id)\
+                        .annotate(n=Count('id'))
+                    counts.update({(r['equality_rights'], r['country']): r['n'] for r in rows})
+                secondary_counts[topic] = counts
+
+        self.tabulate_secondary_cols(ws, secondary_counts, YESNO, self.active_countries, row_perc=True, sec_cols=4)
+
+    def ws_78(self, ws):
+        """
+        Cols: Topic, victim_of
+        Rows: Country
+        """
+        secondary_counts = OrderedDict()
+        for topic_id, topic in TOPICS:
+            counts = Counter()
+            for model in person_models.itervalues():
+                if 'victim_of' in model._meta.get_all_field_names():
+                    country_field = '%s__country' % model.sheet_name()
+                    rows = model.objects\
+                        .values('victim_of', country_field)\
+                        .filter(**{model.sheet_name() + '__topic':topic_id})\
+                        .annotate(n=Count('id'))
+                    counts.update({(r['victim_of'], r[country_field]): r['n'] for r in rows})
+                secondary_counts[topic] = counts
+
+        self.tabulate_secondary_cols(ws, secondary_counts, VICTIM_OF, self.active_countries, row_perc=True, sec_cols=18)
+
+    def ws_79(self, ws):
+        """
+        Cols: Topic, survivor_of
+        Rows: Country
+        """
+        secondary_counts = OrderedDict()
+        for topic_id, topic in TOPICS:
+            counts = Counter()
+            for model in person_models.itervalues():
+                if 'survivor_of' in model._meta.get_all_field_names():
+                    country_field = '%s__country' % model.sheet_name()
+                    rows = model.objects\
+                        .values('survivor_of', country_field)\
+                        .filter(**{model.sheet_name() + '__topic':topic_id})\
+                        .annotate(n=Count('id'))
+                    counts.update({(r['survivor_of'], r[country_field]): r['n'] for r in rows})
+                secondary_counts[topic] = counts
+
+        self.tabulate_secondary_cols(ws, secondary_counts, SURVIVOR_OF, self.active_countries, row_perc=True, sec_cols=18)
 
     # -------------------------------------------------------------------------------
     # Helper functions
