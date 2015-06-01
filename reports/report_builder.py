@@ -983,23 +983,23 @@ class XLSXReportBuilder:
 
         self.tabulate(ws, counts, MEDIA_TYPES, self.regions, row_perc=True)
 
-    def ws_35(self, ws):
-        """
-        Cols: Sexof subject
-        Rows: Age of subject
-        :: Only for television
-        """
-        counts = Counter()
-        broadcast = ['Television']
-        for media_type, model in person_models.iteritems():
-             if media_type in broadcast:
-                rows = model.objects\
-                        .values('sex', 'age')\
-                        .filter(**{model.sheet_name() + '__country__in':self.countries})\
-                        .annotate(n=Count('id'))
-                counts.update({(r['sex'], r['age']): r['n'] for r in rows})
+    # def ws_35(self, ws):
+    #     """
+    #     Cols: Sex of reporter
+    #     Rows: Age of subject
+    #     :: Only for television
+    #     """
+    #     counts = Counter()
+    #     broadcast = ['Television']
+    #     for media_type, model in person_models.iteritems():
+    #          if media_type in broadcast:
+    #             rows = model.objects\
+    #                     .values('sex', 'age')\
+    #                     .filter(**{model.sheet_name() + '__country__in':self.countries})\
+    #                     .annotate(n=Count('id'))
+    #             counts.update({(r['sex'], r['age']): r['n'] for r in rows})
 
-        self.tabulate(ws, counts, GENDER, AGES, row_perc=False)
+    #     self.tabulate(ws, counts, GENDER, AGES, row_perc=False)
 
     def ws_36(self, ws):
         """
