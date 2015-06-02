@@ -154,16 +154,16 @@ WS_INFO = {
         'title': 'Topics in the news - Regional comparisons by medium of female news subjects',
         'desc': 'Topics in the news - Regional comparisons by medium of female news subjects'
     },
-    # 'ws_34': {
-    #     'name': '34-',
-    #     'title': 'Breakdown of News Subject(sex of source) selection by female & male reporters',
-    #     'desc': 'Selection of News Subject(sex of source) by female & male reporters'
-    # },
-    # 'ws_35': {
-    #     'name': '35-TV Reporter by Age and sex',
-    #     'title': 'Breakdown of television Announcers & Reporters, by age, by sex',
-    #     'desc': 'Age of television Announcers & Reporters, by sex'
-    # },
+    'ws_34': {
+        'name': '34-Subject sex by reporter sex',
+        'title': 'Breakdown of News Subject(sex of source) selection by female & male reporters',
+        'desc': 'Selection of News Subject(sex of source) by female & male reporters'
+    },
+    'ws_35': {
+        'name': '35-TV Reporter by Age and sex',
+        'title': 'Breakdown of television Announcers & Reporters, by age, by sex',
+        'desc': 'Age of television Announcers & Reporters, by sex'
+    },
     'ws_36': {
         'name': '36-Focus by sex of reporter',
         'title': 'Breakdown of Stories with Women as central focus (is this story about a particular woman or women) by sex of reporter',
