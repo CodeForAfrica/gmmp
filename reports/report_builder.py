@@ -367,7 +367,7 @@ class XLSXReportBuilder:
         self.P.set_num_format(9)  # percentage
 
         # Use the following for specifying which reports to create durin dev
-        test_functions = ['ws_34', 'ws_35']
+        test_functions = ['ws_05']
 
         sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
         for function in test_functions:
@@ -453,20 +453,20 @@ class XLSXReportBuilder:
 
     def ws_05(self, ws):
         """
-        Cols: Topic
-        Rows: Subject sex
+        Cols: Subject sex
+        Rows: Topic
         """
         counts = Counter()
         for model in person_models.itervalues():
             topic_field = '%s__topic' % model.sheet_name()
 
             rows = model.objects\
-                .values(topic_field, 'sex')\
+                .values('sex', topic_field)\
                 .filter(**{model.sheet_name() + '__country__in': self.countries})\
                 .annotate(n=Count('id'))
-            counts.update({(r[topic_field], r['sex']): r['n'] for r in rows})
+            counts.update({(r['sex'], r[topic_field]): r['n'] for r in rows})
 
-        self.tabulate(ws, counts, TOPICS, GENDER, row_perc=False)
+        self.tabulate(ws, counts, GENDER, TOPICS, row_perc=True)
 
     def ws_06(self, ws):
         """
