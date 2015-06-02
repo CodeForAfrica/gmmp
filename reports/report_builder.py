@@ -964,30 +964,6 @@ class XLSXReportBuilder:
 
         self.tabulate(ws, counts, MEDIA_TYPES, TOPICS, row_perc=False)
 
-    def ws_33(self, ws):
-        """
-        Cols: Medium
-        Rows: Region
-        :: Female subjects only
-        """
-        counts = Counter()
-        for media_type, model in journalist_models.iteritems():
-            region_field = model.sheet_name() + '__country_region__region'
-            rows = model.objects\
-                    .values(region_field)\
-                    .filter(sex=1)\
-                    .exclude(**{region_field: 'Unmapped'})\
-                    .annotate(n=Count('id'))
-            for row in rows:
-                if row[region_field] is not None:
-                    # Get media and region id's to assign to counts
-                    media_id = [media[0] for media in MEDIA_TYPES if media[1] == media_type][0]
-                    region_id = [region[0] for region in self.regions if region[1] == row[region_field]][0]
-
-                    counts.update({(media_id, region_id): row['n']})
-
-        self.tabulate(ws, counts, MEDIA_TYPES, self.regions, row_perc=True)
-
     def ws_34(self, ws):
         """
         Cols: Sex of reporter
