@@ -277,8 +277,14 @@ WS_INFO = {
     },
     'ws_58': {
         'name': '58',
-        'title': 'Internet - News subjects in multimedia web components ',
-        'desc': 'Internet - News subjects in multimedia web components ',
+        'title': 'Internet - News subjects in multimedia web components',
+        'desc': 'Internet - News subjects in multimedia web components',
+        'reports': ['country'],
+
+    'ws_59': {
+        'name': '59',
+        'title': 'Internet - Selection of News Subjects',
+        'desc': 'Internet - Selection of News Subjects',
         'reports': ['country'],
     },
     'ws_60': {

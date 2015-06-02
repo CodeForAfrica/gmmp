@@ -400,7 +400,7 @@ class XLSXReportBuilder:
         self.P.set_num_format(9)  # percentage
 
         # Use the following for specifying which reports to create durin dev
-        test_functions = ['ws_40']
+        test_functions = ['ws_59']
 
         sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
         for function in test_functions:
@@ -1342,6 +1342,27 @@ class XLSXReportBuilder:
             self.write_primary_row_heading(ws, country, r=r)
             self.tabulate(ws, counts, GENDER, IS_PHOTOGRAPH, row_perc=True, sec_row=True, r=r)
             r += len(IS_PHOTOGRAPH)
+
+    def ws_59(self, ws):
+        """
+        Cols: Sex of reporter
+        Rows: Sex of subject
+        :: Internet media only
+        """
+        counts = Counter()
+        model = person_models.get('Internet News')
+        sheet_name = model.sheet_name()
+        journo_name = model._meta.get_field(model.sheet_name()).rel.to.journalist_field_name()
+        journo_sex = sheet_name + '__' + journo_name + '__sex'
+
+        rows = model.objects\
+                .values(journo_sex, 'sex')\
+                .filter(**{model.sheet_name() + '__country__in':self.countries})\
+                .annotate(n=Count('id'))
+        counts.update({(r[journo_sex], r['sex']): r['n'] for r in rows})
+
+        self.tabulate(ws, counts, GENDER, GENDER, row_perc=False)
+
 
     def ws_60(self, ws):
         """
