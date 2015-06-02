@@ -1,3 +1,6 @@
+# Python
+from datetime import date
+
 # Django
 from django.views.generic import View
 from django.shortcuts import render
@@ -49,12 +52,17 @@ class ReportView(View):
         if filter_form.is_valid():
             xlsx = XLSXReportBuilder(filter_form).build()
 
-            # TODO: The file name should be correctly determined
+            choice = [country for code, country in filter_form.COUNTRIES if code == request.POST['country']][0]
+            filename = 'GMMP Report: %s - %s' % (choice, date.today())
 
-            filename = 'Report'
             response = HttpResponse(xlsx, content_type='application/vnd.ms-excel')
             response['Content-Disposition'] = 'attachment; filename=%s.xlsx' % filename
             return response
+            # context = {'form' : filter_form}
+            # return render(
+            #     request,
+            #     self.template_name,
+            #     context)
 
         report_filter = ReportFilterForm()
         context = {'form' : filter_form}

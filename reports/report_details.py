@@ -175,7 +175,7 @@ WS_INFO = {
         'desc': 'Stories with Women as a central Focus by major topic'
     },
     'ws_40': {
-        'name': 'Focus by topic and region',
+        'name': '40-Focus by topic and region',
         'title': 'Breakdown of Stories with Women as a central Focus by topic and region',
         'desc': 'Stories with Women as a central Focus by topic and region'
     },
