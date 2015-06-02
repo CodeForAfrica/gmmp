@@ -62,7 +62,7 @@ def clean_title(text):
     """
     Return the string passed in stripped of its numbers and parentheses
     """
-    return text[text.find(' '):].lstrip()
+    return text[text.find(')')+1:].lstrip()
 
 class XLSXDataExportBuilder():
     def __init__(self, request):
@@ -372,7 +372,7 @@ class XLSXReportBuilder:
         self.P.set_num_format(9)  # percentage
 
         # Use the following for specifying which reports to create durin dev
-        test_functions = ['ws_25']
+        test_functions = ['ws_40']
 
         sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
         for function in test_functions:
