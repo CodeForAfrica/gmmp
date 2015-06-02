@@ -366,21 +366,21 @@ class XLSXReportBuilder:
         self.P.set_num_format(9)  # percentage
 
         # Use the following for specifying which reports to create
-        test_functions = ['ws_06']
+        # test_functions = ['ws_68']
 
-        sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
-        for function in test_functions:
-            ws = workbook.add_worksheet(sheet_info[function]['name'])
-            self.write_headers(ws, sheet_info[function]['title'], sheet_info[function]['desc'])
-            getattr(self, function)(ws)
+        # sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
+        # for function in test_functions:
+        #     ws = workbook.add_worksheet(sheet_info[function]['name'])
+        #     self.write_headers(ws, sheet_info[function]['title'], sheet_info[function]['desc'])
+        #     getattr(self, function)(ws)
 
         # To ensure ordered worksheets
-        # sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
+        sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
 
-        # for ws_num, ws_info in sheet_info.iteritems():
-        #     ws = workbook.add_worksheet(ws_info['name'])
-        #     self.write_headers(ws, ws_info['title'], ws_info['desc'])
-        #     getattr(self, ws_num)(ws)
+        for ws_num, ws_info in sheet_info.iteritems():
+            ws = workbook.add_worksheet(ws_info['name'])
+            self.write_headers(ws, ws_info['title'], ws_info['desc'])
+            getattr(self, ws_num)(ws)
 
         workbook.close()
         output.seek(0)
@@ -878,6 +878,7 @@ class XLSXReportBuilder:
         Cols: Regions
         Rows: Scope
         :: Female reporters only
+        :: Show all countries in regions, irrespective of user selection
         """
         counts = Counter()
         for model in person_models.itervalues():
@@ -902,6 +903,7 @@ class XLSXReportBuilder:
         Cols: Region
         Rows: Topics
         :: Female reporters only
+        :: Show all countries in regions, irrespective of user selection
         """
         counts = Counter()
         for model in person_models.itervalues():
