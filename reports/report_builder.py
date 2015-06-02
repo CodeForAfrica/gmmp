@@ -58,6 +58,11 @@ def get_active_countries():
         captured_country_codes.update([r['country'] for r in rows])
     return [(code, name) for code, name in list(countries) if code in captured_country_codes]
 
+def clean_title(text):
+    """
+    Return the string passed in stripped of its numbers and parentheses
+    """
+    return text[text.find(' '):].lstrip()
 
 class XLSXDataExportBuilder():
     def __init__(self, request):
@@ -367,7 +372,7 @@ class XLSXReportBuilder:
         self.P.set_num_format(9)  # percentage
 
         # Use the following for specifying which reports to create durin dev
-        test_functions = ['ws_05']
+        test_functions = ['ws_25']
 
         sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
         for function in test_functions:
@@ -804,7 +809,8 @@ class XLSXReportBuilder:
         Rows: Family Role
         """
         secondary_counts = OrderedDict()
-        for sex_id, sex in GENDER:
+        male_female = {(id, name) for id, name in GENDER if id in [1,2]}
+        for sex_id, sex in male_female:
             counts = Counter()
             for model in person_models.itervalues():
                 if 'family_role' in model._meta.get_all_field_names():
@@ -818,7 +824,7 @@ class XLSXReportBuilder:
                     counts.update({(r['sex'], r['family_role']): r['n'] for r in rows})
             secondary_counts[sex] = counts
 
-        self.tabulate_secondary_cols(ws, secondary_counts, GENDER, YESNO, row_perc=True, sec_cols=8)
+        self.tabulate_secondary_cols(ws, secondary_counts, male_female, YESNO, row_perc=True, sec_cols=4)
 
     def ws_26(self, ws):
         """
@@ -1640,11 +1646,11 @@ class XLSXReportBuilder:
         # row titles
         for i, row in enumerate(rows):
             row_id, row_title = row
-            ws.write(r + i, c, unicode(row_title))
+            ws.write(r + i, c, clean_title(row_title))
         c += 1
 
         for field, counts in secondary_counts.iteritems():
-            ws.write(r - 3, c, unicode(field))
+            ws.write(r - 3, c, clean_title(field))
             self.tabulate(ws, counts, cols, rows, row_perc=row_perc, sec_col=True, r=7, c=c)
             c += sec_cols
 
@@ -1656,7 +1662,7 @@ class XLSXReportBuilder:
 
         """
         for col_id, col_title in cols:
-            ws.write(r, c, unicode(col_title))
+            ws.write(r, c, clean_title(col_title))
             ws.write(r + 1, c, "N")
             ws.write(r + 1, c + 1, "%")
             c += 2
@@ -1668,7 +1674,7 @@ class XLSXReportBuilder:
         :param r, c: position where heading should be written to
 
         """
-        ws.write(r, c, unicode(heading))
+        ws.write(r, c, clean_title(heading))
 
 
     def tabulate(self, ws, counts, cols, rows, row_perc=False, sec_col=False, sec_row=False, c=1, r=6):
@@ -1694,7 +1700,7 @@ class XLSXReportBuilder:
             # Else already written
             for i, row in enumerate(rows):
                 row_id, row_title = row
-                ws.write(r + i, c, unicode(row_title))
+                ws.write(r + i, c, clean_title(row_title))
 
             c += 1
 
@@ -1703,13 +1709,13 @@ class XLSXReportBuilder:
             # column title
             if not sec_row:
                 # Else already written
-                ws.write(r - 2, c, unicode(col_title))
+                ws.write(r - 2, c, clean_title(col_title))
                 ws.write(r - 1, c, "N")
                 ws.write(r - 1, c + 1, "%")
 
             if not row_perc:
                 # column totals
-                # TODO: Perc of col total or matrix total?
+                # Confirm: Perc of col total or matrix total?
                 # total = sum(counts.itervalues())
                 total = sum(counts.get((col_id, row_id), 0) for row_id, _ in rows)
 
