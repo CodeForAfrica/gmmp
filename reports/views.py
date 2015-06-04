@@ -14,22 +14,34 @@ import xlsxwriter
 from django_countries import countries
 
 # Project
-from reports.report_builder import XLSXReportBuilder, XLSXDataExportBuilder, get_active_countries
+from reports.report_builder import (
+    XLSXReportBuilder, XLSXDataExportBuilder,
+    get_countries, get_regions)
 
 
-class ReportFilterForm(forms.Form):
+class GlobalForm(forms.Form):
+    pass
+
+class CountryForm(forms.Form):
     # Only show countries for which data has been submitted
-    COUNTRIES = [('ALL', 'Global')] + get_active_countries()
+    COUNTRIES = [('ALL', 'Global')] + get_countries()
 
     country = forms.ChoiceField(
         label='Country',
         choices=COUNTRIES)
 
-    def get_countries(self):
+    def filter_countries(self):
         if self.cleaned_data['country'] == 'ALL':
-            return [code for code, name in list(countries)]
+            return get_countries()
         else:
             return [self.cleaned_data['country']]
+
+class RegionForm(forms.Form):
+    REGIONS = [('ALL', 'Global')] + get_regions()
+
+    region = forms.ChoiceField(
+        label='Region',
+        choices=REGIONS)
 
 
 class ReportView(View):
@@ -40,19 +52,29 @@ class ReportView(View):
         return super(ReportView, self).dispatch(*args, **kwargs)
 
     def get(self, request, *args, **kwargs):
-        filter_form = ReportFilterForm()
-        context = {'form' : filter_form}
+        country_form = CountryForm()
+        region_form = RegionForm()
+        context = {
+            'country_form': country_form,
+            'region_form': region_form}
         return render(
             request,
             self.template_name,
             context)
 
     def post(self, request, *args, **kwargs):
-        filter_form = ReportFilterForm(request.POST)
-        if filter_form.is_valid():
-            xlsx = XLSXReportBuilder(filter_form).build()
+        if 'country_form' in request.POST:
+            form = CountryForm(request.POST)
+            choice = [country for code, country in form.COUNTRIES if code == request.POST['country']][0]
+        elif 'region_form' in request.POST:
+            form = RegionForm(request.POST)
+            choice = [region for id, region in form.REGIONS if id == int(request.POST['region'])][0]
+        else:
+            form = GlobalForm(request.POST)
+            choice = 'Global'
 
-            choice = [country for code, country in filter_form.COUNTRIES if code == request.POST['country']][0]
+        if form.is_valid():
+            xlsx = XLSXReportBuilder(form).build()
             filename = 'GMMP Report: %s - %s' % (choice, date.today())
 
             response = HttpResponse(xlsx, content_type='application/vnd.ms-excel')
@@ -64,7 +86,7 @@ class ReportView(View):
             #     self.template_name,
             #     context)
 
-        report_filter = ReportFilterForm()
+        report_filter = CountryForm()
         context = {'form' : filter_form}
         return render(
             request,
