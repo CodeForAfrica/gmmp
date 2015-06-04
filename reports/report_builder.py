@@ -400,23 +400,23 @@ class XLSXReportBuilder:
         self.P.set_num_format(9)  # percentage
 
         # Use the following for specifying which reports to create durin dev
-        test_functions = ['ws_59']
+        # test_functions = ['ws_54']
 
-        sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
-        for function in test_functions:
-            ws = workbook.add_worksheet(sheet_info[function]['name'])
-            self.write_headers(ws, sheet_info[function]['title'], sheet_info[function]['desc'])
-            getattr(self, function)(ws)
+        # sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
+        # for function in test_functions:
+        #     ws = workbook.add_worksheet(sheet_info[function]['name'])
+        #     self.write_headers(ws, sheet_info[function]['title'], sheet_info[function]['desc'])
+        #     getattr(self, function)(ws)
 
         # -------------------------------------------------------------------
 
         # To ensure ordered worksheets
         sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
 
-        # for ws_num, ws_info in sheet_info.iteritems():
-        #     ws = workbook.add_worksheet(ws_info['name'])
-        #     self.write_headers(ws, ws_info['title'], ws_info['desc'])
-        #     getattr(self, ws_num)(ws)
+        for ws_num, ws_info in sheet_info.iteritems():
+            ws = workbook.add_worksheet(ws_info['name'])
+            self.write_headers(ws, ws_info['title'], ws_info['desc'])
+            getattr(self, ws_num)(ws)
 
         workbook.close()
         output.seek(0)
@@ -1257,6 +1257,27 @@ class XLSXReportBuilder:
             self.write_primary_row_heading(ws, topic, r=r)
             self.tabulate(ws, counts, GENDER, AGREE_DISAGREE, row_perc=True, sec_row=True, r=r)
             r += len(AGREE_DISAGREE)
+
+    def ws_54(self, ws):
+        """
+        Cols: Topic, sex of subject
+        Rows: Country
+        :: Show all countries
+        :: Internet media type only
+        """
+        secondary_counts = OrderedDict()
+        model = person_models.get('Internet News')
+        for topic_id, topic in TOPICS:
+            counts = Counter()
+            country_field = '%s__country' % model.sheet_name()
+            rows = model.objects\
+                .values('sex', country_field)\
+                .filter(**{model.sheet_name() + '__topic':topic_id})\
+                .annotate(n=Count('id'))
+            counts.update({(r['sex'], r[country_field]): r['n'] for r in rows})
+            secondary_counts[topic] = counts
+
+        self.tabulate_secondary_cols(ws, secondary_counts, GENDER, self.active_countries, row_perc=True, sec_cols=8)
 
     def ws_55(self, ws):
         """

@@ -257,6 +257,11 @@ WS_INFO = {
         'desc': 'Stories where stereotypes are challenged/ supported by gender of rep',
         'reports': ['region',  'country'],
     },
+    'ws_54': {
+        'name': '54',
+        'title': 'Internet - Overall presence of women',
+        'desc': 'Internet - Overall presence of women'
+    },
     'ws_55': {
         'name': '55',
         'title': 'Internet - Occupation of Female news subjects',

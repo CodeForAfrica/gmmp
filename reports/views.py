@@ -79,12 +79,12 @@ class ReportView(View):
 
             response = HttpResponse(xlsx, content_type='application/vnd.ms-excel')
             response['Content-Disposition'] = 'attachment; filename=%s.xlsx' % filename
-            return response
-            # context = {'form' : filter_form}
-            # return render(
-            #     request,
-            #     self.template_name,
-            #     context)
+            # return response
+            context = {'form' : filter_form}
+            return render(
+                request,
+                self.template_name,
+                context)
 
         report_filter = CountryForm()
         context = {'form' : filter_form}
