@@ -305,3 +305,31 @@ WS_INFO = {
         'desc': 'Key themes, portrayal as survivors'
     },
 }
+
+
+REGION_COUNTRY_MAP = {
+    'Africa': [
+        'BJ', 'BW', 'BF', 'BI', 'CM', 'CV', 'CF', 'TD', 'KM', 'CD', 'CG', 'GQ',
+        'ET', 'GA', 'GM', 'GH', 'GW', 'GN', 'CI', 'KE', 'LS', 'LR', 'MG', 'MW',
+        'ML', 'MR', 'MU', 'NA', 'NE', 'NG', 'SN', 'SL', 'SO', 'ZA', 'SD', 'SS',
+        'SZ', 'TZ', 'TG', 'UG', 'ZM', 'ZW'],
+    'Asia': [
+        'AF', 'BD', 'BT', 'CN', 'IN', 'JP', 'KG', 'MY', 'MN', 'NP', 'PK', 'PH',
+        'KR', 'TW', 'VU', 'VN'],
+    'Carribean': [
+        'AG', 'BS', 'BB', 'BZ', 'CU', 'DO', 'GD', 'GY', 'HT', 'JM', 'LC', 'VC',
+        'SR', 'TT'],
+    'Europe': [
+        'AL', 'AM', 'AT', 'BY', 'BE', 'BA', 'BG', 'HR', 'DK', 'EE', 'FI', 'FR',
+        'GE', 'DE', 'GR', 'HU', 'IS', 'IE', 'IT', 'KZ', 'LU', 'MK', 'MT', 'MD',
+        'ME', 'NL', 'NO', 'PL', 'PT', 'RO', 'RS', 'SK', 'SI', 'ES', 'SE', 'CH',
+        'TR', 'GB'],
+    'Latin America': [
+        'AR', 'BO', 'BR', 'CL', 'CO', 'CR', 'EC', 'SV', 'GT', 'MX', 'NI', 'PY',
+        'PE', 'PR', 'UY', 'VE'],
+    'Middle East': [
+        'CY', 'EG', 'IL', 'LB', 'MA', 'PS', 'TN'],
+    'North America': [
+        'CA', 'US'],
+    'Pacific Islands': [
+        'AU', 'FJ', 'NZ', 'WS', 'SB', 'TO']}

@@ -19,7 +19,7 @@ from forms.modelutils import (TOPICS, GENDER, SPACE, OCCUPATION, FUNCTION, SCOPE
     YESNO, AGES, SOURCE, VICTIM_OF, SURVIVOR_OF, IS_PHOTOGRAPH, AGREE_DISAGREE,
     RETWEET, TV_ROLE, MEDIA_TYPES,
     CountryRegion)
-from report_details import WS_INFO
+from report_details import WS_INFO, REGION_COUNTRY_MAP
 
 
 def has_field(model, fld):
@@ -40,7 +40,7 @@ def p(n, d):
 
 def get_regions():
     """
-    Return a list of (id, region_name) tuples which exists in the db
+    Return a (id, region_name) list for all regions
     """
     country_regions = CountryRegion.objects\
                         .values('region')\
@@ -48,15 +48,35 @@ def get_regions():
     regions = set(item['region'] for item in country_regions)
     return [(i, region) for i, region in enumerate(regions)]
 
-def get_active_countries():
+def get_countries():
     """
-    Return a list of (code, country) tuples for which data has been submitted.
+    Return a (code, country) list for countries captured.
     """
     captured_country_codes = set()
     for model in sheet_models.itervalues():
         rows = model.objects.values('country')
         captured_country_codes.update([r['country'] for r in rows])
     return [(code, name) for code, name in list(countries) if code in captured_country_codes]
+
+def get_region_countries(region):
+    """
+    Return a (code, country) list for a region.
+    """
+    if region == 'ALL':
+        return get_countries()
+    else:
+        country_codes = REGION_COUNTRY_MAP[region]
+        return [(code, name) for code, name in list(countries) if code in country_codes]
+
+def get_country_region(country):
+    """
+    Return a (id, region_name) list to which a country belongs.
+    """
+    if country == 'ALL':
+        return get_regions()
+    else:
+        return [(0, [k for k, v in REGION_COUNTRY_MAP.items() if country in v][0])]
+
 
 def clean_title(text):
     """
@@ -354,11 +374,19 @@ class XLSXDataExportBuilder():
 
 class XLSXReportBuilder:
     def __init__(self, form):
+        from reports.views import CountryForm, RegionForm
         self.form = form
-        self.countries = form.get_countries()
-        self.regions = get_regions()
+        if isinstance(form, CountryForm):
+            self.countries = form.filter_countries()
+            self.regions = get_country_region(form.cleaned_data['country'])
+        elif isinstance(form, RegionForm):
+            region = [name for i, name in form.REGIONS if str(i) == form.cleaned_data['region']][0]
+            self.countries = get_region_countries(region)
+            self.regions = [(0, region)]
+        else:
+            self.countries = get_countries()
+            self.regions = get_regions()
         self.gmmp_year = '2015'
-        self.active_countries = get_active_countries()
 
     def build(self):
         """
@@ -435,7 +463,7 @@ class XLSXReportBuilder:
                     media_id = [media[0] for media in MEDIA_TYPES if media[1] == media_type][0]
                     counts.update({(media_id, row['country']): row['n']})
 
-        self.tabulate(ws, counts, MEDIA_TYPES, self.active_countries, row_perc=True)
+        self.tabulate(ws, counts, MEDIA_TYPES, self.countries, row_perc=True)
 
     def ws_04(self, ws):
         """
@@ -897,7 +925,7 @@ class XLSXReportBuilder:
             if 'scope' in model._meta.get_field(sheet_name).rel.to._meta.get_all_field_names():
                 rows = model.objects\
                         .values(region_field, scope_field)\
-                        .filter(**{model.sheet_name() + '__country__in':self.active_countries})\
+                        .filter(**{model.sheet_name() + '__country__in':self.countries})\
                         .filter(sex=1)\
                         .annotate(n=Count('id'))
                 for row in rows:
@@ -922,7 +950,7 @@ class XLSXReportBuilder:
             if 'topic' in model._meta.get_field(sheet_name).rel.to._meta.get_all_field_names():
                 rows = model.objects\
                         .values(region_field, topic_field)\
-                        .filter(**{model.sheet_name() + '__country__in':self.active_countries})\
+                        .filter(**{model.sheet_name() + '__country__in':self.countries})\
                         .filter(sex=1)\
                         .annotate(n=Count('id'))
                 for row in rows:
@@ -1248,7 +1276,7 @@ class XLSXReportBuilder:
                 .annotate(n=Count('id'))
 
         counts.update({(r['occupation'], r[country_field]): r['n'] for r in rows})
-        self.tabulate(ws, counts, OCCUPATION, self.active_countries, row_perc=True)
+        self.tabulate(ws, counts, OCCUPATION, self.countries, row_perc=True)
 
     def ws_56(self, ws):
         """
@@ -1265,7 +1293,7 @@ class XLSXReportBuilder:
                 .annotate(n=Count('id'))
 
         counts.update({(r['function'], r[country_field]): r['n'] for r in rows})
-        self.tabulate(ws, counts, FUNCTION, self.active_countries, row_perc=True)
+        self.tabulate(ws, counts, FUNCTION, self.countries, row_perc=True)
 
     def ws_57(self, ws):
         """
@@ -1279,7 +1307,7 @@ class XLSXReportBuilder:
 
         counts = Counter()
         model = person_models.get('Internet News')
-        for code, country in self.active_countries:
+        for code, country in self.countries:
             rows = model.objects\
                     .values('sex', 'family_role')\
                     .filter(**{model.sheet_name() + '__country':code})\
@@ -1304,7 +1332,7 @@ class XLSXReportBuilder:
 
         counts = Counter()
         model = person_models.get('Internet News')
-        for code, country in self.active_countries:
+        for code, country in self.countries:
             rows = model.objects\
                     .values('sex', 'is_photograph')\
                     .filter(**{model.sheet_name() + '__country':code})\
@@ -1327,7 +1355,7 @@ class XLSXReportBuilder:
 
         counts = Counter()
         model = person_models.get('Internet News')
-        for code, country in self.active_countries:
+        for code, country in self.countries:
             rows = model.objects\
                     .values('sex', 'age')\
                     .filter(**{model.sheet_name() + '__country':code})\
@@ -1350,7 +1378,7 @@ class XLSXReportBuilder:
 
         counts = Counter()
         model = person_models.get('Internet News')
-        for code, country in self.active_countries:
+        for code, country in self.countries:
             rows = model.objects\
                     .values('sex', 'is_quoted')\
                     .filter(**{model.sheet_name() + '__country':code})\
@@ -1373,7 +1401,7 @@ class XLSXReportBuilder:
 
         counts = Counter()
         model = sheet_models.get('Internet News')
-        for code, country in self.active_countries:
+        for code, country in self.countries:
             rows = model.objects\
                     .values('topic', 'equality_rights')\
                     .filter(country=code)\
@@ -1396,7 +1424,7 @@ class XLSXReportBuilder:
 
         counts = Counter()
         model = sheet_models.get('Internet News')
-        for code, country in self.active_countries:
+        for code, country in self.countries:
             rows = model.objects\
                     .values('topic', 'stereotypes')\
                     .filter(country=code)\
@@ -1419,7 +1447,7 @@ class XLSXReportBuilder:
 
         counts = Counter()
         model = sheet_models.get('Internet News')
-        for code, country in self.active_countries:
+        for code, country in self.countries:
             rows = model.objects\
                     .values('topic', 'about_women')\
                     .filter(country=code)\
@@ -1442,7 +1470,7 @@ class XLSXReportBuilder:
 
         counts = Counter()
         model = sheet_models.get('Twitter')
-        for code, country in self.active_countries:
+        for code, country in self.countries:
             rows = model.objects\
                     .values('topic', 'retweet')\
                     .filter(country=code)\
@@ -1466,7 +1494,7 @@ class XLSXReportBuilder:
         counts = Counter()
         model = person_models.get('Twitter')
         topic_field = '%s__topic' % model.sheet_name()
-        for code, country in self.active_countries:
+        for code, country in self.countries:
             rows = model.objects\
                     .values(topic_field, 'sex')\
                     .filter(**{model.sheet_name() + '__country':code})\
@@ -1493,7 +1521,7 @@ class XLSXReportBuilder:
                 .annotate(n=Count('id'))
         counts.update({(row['topic'], row['country']): row['n'] for row in rows})
 
-        self.tabulate(ws, counts, TOPICS, self.active_countries, row_perc=True, sec_row=False)
+        self.tabulate(ws, counts, TOPICS, self.countries, row_perc=True, sec_row=False)
 
     def ws_68(self, ws):
         """
@@ -1507,7 +1535,7 @@ class XLSXReportBuilder:
 
         counts = Counter()
         model = sheet_models.get('Twitter')
-        for code, country in self.active_countries:
+        for code, country in self.countries:
             rows = model.objects\
                     .values('topic', 'about_women')\
                     .filter(country=code)\
@@ -1530,7 +1558,7 @@ class XLSXReportBuilder:
 
         counts = Counter()
         model = sheet_models.get('Twitter')
-        for code, country in self.active_countries:
+        for code, country in self.countries:
             rows = model.objects\
                     .values('topic', 'stereotypes')\
                     .filter(country=code)\
@@ -1558,7 +1586,7 @@ class XLSXReportBuilder:
                     counts.update({(r['stereotypes'], r['country']): r['n'] for r in rows})
                 secondary_counts[topic] = counts
 
-        self.tabulate_secondary_cols(ws, secondary_counts, AGREE_DISAGREE, self.active_countries, row_perc=True, sec_cols=8)
+        self.tabulate_secondary_cols(ws, secondary_counts, AGREE_DISAGREE, self.countries, row_perc=True, sec_cols=8)
 
     def ws_77(self, ws):
         """
@@ -1577,7 +1605,7 @@ class XLSXReportBuilder:
                     counts.update({(r['equality_rights'], r['country']): r['n'] for r in rows})
                 secondary_counts[topic] = counts
 
-        self.tabulate_secondary_cols(ws, secondary_counts, YESNO, self.active_countries, row_perc=True, sec_cols=4)
+        self.tabulate_secondary_cols(ws, secondary_counts, YESNO, self.countries, row_perc=True, sec_cols=4)
 
     def ws_78(self, ws):
         """
@@ -1597,7 +1625,7 @@ class XLSXReportBuilder:
                     counts.update({(r['victim_of'], r[country_field]): r['n'] for r in rows})
                 secondary_counts[topic] = counts
 
-        self.tabulate_secondary_cols(ws, secondary_counts, VICTIM_OF, self.active_countries, row_perc=True, sec_cols=18)
+        self.tabulate_secondary_cols(ws, secondary_counts, VICTIM_OF, self.countries, row_perc=True, sec_cols=18)
 
     def ws_79(self, ws):
         """
@@ -1617,7 +1645,7 @@ class XLSXReportBuilder:
                     counts.update({(r['survivor_of'], r[country_field]): r['n'] for r in rows})
                 secondary_counts[topic] = counts
 
-        self.tabulate_secondary_cols(ws, secondary_counts, SURVIVOR_OF, self.active_countries, row_perc=True, sec_cols=18)
+        self.tabulate_secondary_cols(ws, secondary_counts, SURVIVOR_OF, self.countries, row_perc=True, sec_cols=18)
 
     # -------------------------------------------------------------------------------
     # Helper functions

@@ -13,9 +13,24 @@
     <div class="row">
         <div class="col-md-4 portfolio-item">
             <form action="/reports/" method="post">
+            <input type="submit" name="global_form" value="Generate global report" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 portfolio-item">
+            <form action="/reports/" method="post">
                 {% csrf_token %}
-                {{ form.as_p }}
-            <input type="submit" value="Generate report" />
+                {{ country_form.as_p }}
+            <input type="submit" name="country_form" value="Generate country report" />
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-4 portfolio-item">
+            <form action="/reports/" method="post">
+                {% csrf_token %}
+                {{ region_form.as_p }}
+            <input type="submit" name="region_form" value="Generate region report" />
         </div>
     </div>
 {% endblock page_content %}
