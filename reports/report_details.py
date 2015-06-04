@@ -1,308 +1,368 @@
 WS_INFO = {
     'ws_01': {
-        'name': '1-Medium by region',
+        'name': '1',
         'title': 'Participating Countries',
         'desc': 'Breakdown of all media by region',
+        'reports': [],
     },
     'ws_02': {
-        'name': '2-Medium by country',
+        'name': '2',
         'title': 'Participating Countries in each Region',
         'desc': 'Breakdown of all media by country',
+        'reports': ['region'],
     },
     'ws_04': {
-        'name': '4-Topics by region',
+        'name': '4',
         'title': 'Topics in the news by region',
         'desc': 'Breakdown of major news topics by region by medium',
+        'reports': ['region'],
     },
     'ws_05': {
-        'name': '5-Women in the news',
+        'name': '5',
         'title': 'Summary of women in the news, by GMMP year',
         'desc': 'Overall presence of women in news',
+        'reports': ['region',  'country'],
     },
     'ws_06': {
-        'name': '6-Women by region',
+        'name': '6',
         'title': 'Breakdown of women in the news in major topics by region',
         'desc': 'Women in the news (sources) in major news topics by region ',
+        'reports': ['region',  'country'],
     },
     'ws_07': {
-        'name': '7-Sex by media',
+        'name': '7',
         'title': 'Women in the news (sources) by medium',
         'desc': 'Breakdown by sex of all mediums',
+        'reports': ['region',  'country'],
     },
     'ws_08': {
-        'name': '8-Scope by source sex',
+        'name': '8',
         'title': 'Sex of news subjects (sources) inlocal,national,sub-regional/regional, foreign/intnl news',
         'desc': 'Breakdown by sex local,national,sub-regional/regional, intnl news',
+        'reports': ['region',  'country'],
     },
     'ws_09': {
-        'name': '9-Topic by source sex',
+        'name': '9',
         'title': 'Sex of news subjects in different story topics',
         'desc': 'Breakdown of topic by sex',
+        'reports': ['region'],
     },
     'ws_10': {
-        'name': '10-Topic by space',
+        'name': '10',
         'title': 'Space allocated to major topics in Newspapers',
         'desc': 'Breakdown by major topic by space (q.4) in newspapers',
+        'reports': ['region',  'country'],
     },
     'ws_11': {
-        'name': '11-Topic by ref to gender eq',
+        'name': '11',
         'title': 'Stories making reference to issues of gender equality/inequality, legislation, policy by major topic',
         'desc': 'Breakdown by major topic by reference to gender equality/human rights/policy',
+        'reports': ['region',  'country'],
     },
     'ws_12': {
-        'name': '12-Topic by ref to gender eq',
+        'name': '12',
         'title': 'Stories making reference to issues of gender equality/inequality, legislation, policy by region',
         'desc': 'Breakdown by major topic by region by reference to gender equality/human rights/policy',
+        'reports': ['region'],
     },
     'ws_13': {
-        'name': '13-Topic by reporter sex',
+        'name': '13',
         'title': 'Sex of reporter in different story topics',
         'desc': 'Breakdown of topic by reporter sex',
+        'reports': ['region',  'country'],
     },
     'ws_14': {
-        'name': '14-Source occupation by sex',
+        'name': '14',
         'title': 'Position or occupation of news sources, by sex',
         'desc': 'Breakdown of new sources by occupation and sex',
+        'reports': ['region',  'country'],
     },
     'ws_15': {
-        'name': '15-Subject function by sex',
+        'name': '15',
         'title': 'News subject''s Function in news story, by sex',
         'desc': 'Breakdown by sex and function',
+        'reports': ['region',  'country'],
     },
     'ws_16': {
-        'name': '16-Function by sex by occ',
+        'name': '16',
         'title': 'Function of news subjects by sex - by occupation',
-        'desc': 'Breakdown of  Function of news subjects by sex - by occupation'
+        'desc': 'Breakdown of  Function of news subjects by sex - by occupation',
+        'reports': ['region',  'country'],
     },
     'ws_17': {
-        'name': '17-Function by sex by age',
+        'name': '17',
         'title': 'Function of news subjects by sex - by age',
-        'desc': 'Breakdown of  Function of news subjects by sex - by age'
+        'desc': 'Breakdown of  Function of news subjects by sex - by age',
+        'reports': ['region',  'country'],
     },
     'ws_18': {
-        'name': '18-Age by sex for print',
+        'name': '18',
         'title': 'Age of news subjects by print, by sex',
-        'desc': 'B.down of  Age of news subjects by print, by sex'
+        'desc': 'B.down of  Age of news subjects by print, by sex',
+        'reports': ['region',  'country'],
     },
     'ws_19': {
-        'name': '19-Age by sex for broadcast',
+        'name': '19',
         'title': 'Age of news subjects by broadcast, by sex',
-        'desc': 'B.down of  Age of news subjects by broadcast, by sex'
+        'desc': 'B.down of  Age of news subjects by broadcast, by sex',
+        'reports': ['region',  'country'],
     },
     'ws_20': {
-        'name': '20-Function and Occ by sex',
+        'name': '20',
         'title': 'Functions (top 5) and Occupations by sex of news subject',
-        'desc': 'B.down of  news subjects\' functions (top 5) and occupations by sex of news subject'
+        'desc': 'B.down of  news subjects\' functions (top 5) and occupations by sex of news subject',
+        'reports': ['region',  'country'],
     },
     'ws_21': {
-        'name': '21-Victim type by sex',
+        'name': '21',
         'title': 'Breakdown by victim type by sex',
-        'desc': 'News Subjects who are portrayed as victims, by sex'
+        'desc': 'News Subjects who are portrayed as victims, by sex',
+        'reports': ['region',  'country'],
     },
     'ws_23': {
-        'name': '23-Survivor type by sex',
+        'name': '23',
         'title': 'Breakdown by survivor type by sex',
-        'desc': 'News subjects who are portrayed as survivors, by sex'
+        'desc': 'News subjects who are portrayed as survivors, by sex',
+        'reports': ['region',  'country'],
     },
     'ws_24': {
-        'name': '24-Family Status by sex',
+        'name': '24',
         'title': 'Breakdown by family status, by sex.',
-        'desc': 'News subjects who are identified by family status, by sex'
+        'desc': 'News subjects who are identified by family status, by sex',
+        'reports': ['region',  'country'],
     },
     'ws_25': {
-        'name': '25-Family Status by sex',
+        'name': '25',
         'title': 'B.down by sex of subject, family status, by sex of reporter',
-        'desc': 'News subjects who are identified by family status, by sex of news subject, by sex of reporter'
+        'desc': 'News subjects who are identified by family status, by sex of news subject, by sex of reporter',
+        'reports': ['region',  'country'],
     },
     'ws_26': {
-        'name': '26-Subjects quoted by sex',
+        'name': '26',
         'title': 'Breakdown of  news subjects quoted, by sex',
-        'desc': 'News subjects quoted, by sex'
+        'desc': 'News subjects quoted, by sex',
+        'reports': ['region',  'country'],
     },
     'ws_27': {
-        'name': '27-Subjects photographed by sex',
+        'name': '27',
         'title': 'Breakdown of News subjects photographed, by sex',
-        'desc': 'News subjects photographed, by sex'
+        'desc': 'News subjects photographed, by sex',
+        'reports': ['region',  'country'],
     },
     'ws_28': {
-        'name': '28-Female reporters by medium',
+        'name': '28',
         'title': 'Breakdown of total female reporters & presenters by region by medium ',
-        'desc': 'Female reporters, announcers and presenters all media, by region'
+        'desc': 'Female reporters, announcers and presenters all media, by region',
+        'reports': ['region',  'country'],
     },
     'ws_29': {
-        'name': '29-Female reporters by scope',
+        'name': '29',
         'title': 'Breakdown of female reporters in domestic & foreign stories, by region',
-        'desc': 'Reporters in domestic & foreign stories (scope) , by region, by sex of reporter region'
+        'desc': 'Reporters in domestic & foreign stories (scope) , by region, by sex of reporter region',
+        'reports': ['region',  'country'],
     },
     'ws_30': {
-        'name': '30-Female reporters by topic',
+        'name': '30',
         'title': 'Breakdown of female reporters, by major topic, by region',
-        'desc': 'Reporters, by sex on major topics, by region'
+        'desc': 'Reporters, by sex on major topics, by region',
+        'reports': ['region',  'country'],
     },
     'ws_31': {
-        'name': '31-Reporters by sex on topics',
+        'name': '31',
         'title': 'Breakdown of Reporters, by sex on different topics - Detail',
-        'desc': 'Reporters, by sex on different topics - Detail'
+        'desc': 'Rporters, by sex on different topics - Detail',
+        'reports': [],
     },
     'ws_32': {
-        'name': '32-Topic by medium-Female',
+        'name': '32',
         'title': 'Topics in the news - Detail by medium for female reporters',
-        'desc': 'Topics in the news - Detail by medium for female reporters'
+        'desc': 'Topics in the news - Detail by medium for female reporters',
+        'reports': [],
     },
     'ws_34': {
-        'name': '34-Subject sex by reporter sex',
+        'name': '34',
         'title': 'Breakdown of News Subject(sex of source) selection by female & male reporters',
-        'desc': 'Selection of News Subject(sex of source) by female & male reporters'
+        'desc': 'Selection of News Subject(sex of source) by female & male reporters',
+        'reports': ['region',  'country'],
     },
     'ws_35': {
-        'name': '35-TV Reporter by Age and sex',
+        'name': '35',
         'title': 'Breakdown of television Announcers & Reporters, by age, by sex',
-        'desc': 'Age of television Announcers & Reporters, by sex'
+        'desc': 'Age of television Announcers & Reporters, by sex',
+        'reports': ['region',  'country'],
     },
     'ws_36': {
-        'name': '36-Focus by sex of reporter',
+        'name': '36',
         'title': 'Breakdown of Stories with Women as central focus (is this story about a particular woman or women) by sex of reporter',
-        'desc': 'Stories with Women as central focus  by sex of reporter'
+        'desc': 'Stories with Women as central focus  by sex of reporter',
+        'reports': ['region',  'country'],
     },
     'ws_38': {
-        'name': '38-Topic by focus on women',
+        'name': '38',
         'title': 'Breakdown of Stories with Women as a central Focus by major topic',
-        'desc': 'Stories with Women as a central Focus by major topic'
+        'desc': 'Stories with Women as a central Focus by major topic',
+        'reports': ['region',  'country'],
     },
     'ws_40': {
-        'name': '40-Focus by topic and region',
+        'name': '40',
         'title': 'Breakdown of Stories with Women as a central Focus by topic and region',
-        'desc': 'Stories with Women as a central Focus by topic and region'
+        'desc': 'Stories with Women as a central Focus by topic and region',
+        'reports': [],
     },
     'ws_41': {
-        'name': '41-Gender equality by topic',
+        'name': '41',
         'title': 'Breakdown of Stories where issues of gender equality/inequality are raised by topic',
-        'desc': 'Stories where issues of gender equality/inequality are raised by topic'
+        'desc': 'Stories where issues of gender equality/inequality are raised by topic',
+        'reports': ['region',  'country'],
     },
     'ws_42': {
-        'name': '42-Gender equality by region',
+        'name': '42',
         'title': 'Breakdown of Stories where issues of gender equality/inequality are raised by region',
-        'desc': 'Stories where issues of gender equality/inequality are raised by region'
+        'desc': 'Stories where issues of gender equality/inequality are raised by region',
+        'reports': [],
     },
     'ws_43': {
-        'name': '43-Gender equality by reporter',
+        'name': '43',
         'title': 'Breakdown of Stories where issues of gender equality/inequality are raised by sex of reporter',
-        'desc': 'Stories where issues of gender equality/inequality are raised by sex of reporter'
+        'desc': 'Stories where issues of gender equality/inequality are raised by sex of reporter',
+        'reports': ['region',  'country'],
     },
     'ws_44': {
-        'name': '44-Gender eq by reporter+region',
+        'name': '44',
         'title': 'Stories where issues of gender equality/inequality are raised by sex of reporter and by region',
-        'desc': 'Stories where issues of gender equality/inequality are raised by sex of reporter and by region'
+        'desc': 'Stories where issues of gender equality/inequality are raised by sex of reporter and by region',
+        'reports': ['region'],
     },
     'ws_45': {
-        'name': '45-Gender eq by sex of subject',
+        'name': '45',
         'title': 'Stories where issues of gender equality/inequality are raised by sex of \'people in the news\' and by region',
         'desc': 'Stories where issues of gender equality/inequality are raised by sex of \'people in the news\' and by region'
+        'reports': ['region',],
     },
     'ws_46': {
-        'name': '46-Gender stereotypes by topic',
+        'name': '46',
         'title': 'Story clearly challenges gender stereotypes by region by major news topic',
-        'desc': 'Stories where stereotypes are challenged/ supported by news topic'
+        'desc': 'Stories where stereotypes are challenged/ supported by news topic',
+        'reports': [],
     },
     'ws_47': {
-        'name': '47-Stereotype by region',
+        'name': '47',
         'title': 'Story clearly challenges gender stereotypes by major topic',
-        'desc': 'Stories where stereotypes are challenged/ supported by topic'
+        'desc': 'Stories where stereotypes are challenged/ supported by topic',
+        'reports': ['region',  'country'],
     },
     'ws_48': {
-        'name': '48-Stereotype by reporter sex',
+        'name': '48',
         'title': 'Story clearly challenges gender stereotypes by sex of rep',
-        'desc': 'Stories where stereotypes are challenged/ supported by gender of rep'
+        'desc': 'Stories where stereotypes are challenged/ supported by gender of rep',
+        'reports': ['region',  'country'],
     },
     'ws_55': {
-        'name': '55-Female subjects occupations',
+        'name': '55',
         'title': 'Internet - Occupation of Female news subjects',
-        'desc': 'Internet - Occupation of Female news subjects'
+        'desc': 'Internet - Occupation of Female news subjects',
+        'reports': [],
     },
     'ws_56': {
-        'name': '56-Subject functions',
+        'name': '56',
         'title': 'Internet - Functions of news subjects',
-        'desc': 'Internet - Functions of news subjects'
+        'desc': 'Internet - Functions of news subjects',
+        'reports': ['region',  'country'],
     },
     'ws_57': {
-        'name': '57-Subjects by family status',
+        'name': '57',
         'title': 'Internet - News subjects who are identified by family status',
-        'desc': 'Internet - News subjects who are identified by family status'
+        'desc': 'Internet - News subjects who are identified by family status',
+        'reports': ['country'],
     },
     'ws_58': {
-        'name': '58-Subjects photographed',
+        'name': '58',
         'title': 'Internet - News subjects in multimedia web components ',
-        'desc': 'Internet - News subjects in multimedia web components '
+        'desc': 'Internet - News subjects in multimedia web components ',
+        'reports': ['country'],
     },
     'ws_60': {
-        'name': '60-Subjects age',
+        'name': '60',
         'title': 'Internet - Age of news subjects',
-        'desc': 'Internet - Age of news subjects'
+        'desc': 'Internet - Age of news subjects',
+        'reports': ['country'],
     },
     'ws_61': {
-        'name': '61-Subjects quoted',
+        'name': '61',
         'title': 'Internet - News subjects who are directly quoted',
-        'desc': 'Internet - News subjects who are directly quoted'
+        'desc': 'Internet - News subjects who are directly quoted',
+        'reports': ['country'],
     },
     'ws_62': {
-        'name': '62-Gender equality by topic',
+        'name': '62',
         'title': 'Internet - Stories where issues of gender equality/inequality are raised by topic',
-        'desc': 'Internet - Stories where issues of gender equality/inequality are raised by topic'
+        'desc': 'Internet - Stories where issues of gender equality/inequality are raised by topic',
+        'reports': ['region',  'country'],
     },
     'ws_63': {
-        'name': '63-Stereotypes by topic',
+        'name': '63',
         'title': 'Internet -Stories where stereotypes are clearly challenged',
-        'desc': 'Internet -Stories where stereotypes are clearly challenged'
+        'desc': 'Internet -Stories where stereotypes are clearly challenged',
+        'reports': ['region',  'country'],
     },
     'ws_64': {
-        'name': '64-Women as focus by topic',
+        'name': '64',
         'title': 'Internet -Stories with Women as a central Focus',
-        'desc': 'Internet -Stories with Women as a central Focus'
+        'desc': 'Internet -Stories with Women as a central Focus',
+        'reports': ['region',  'country'],
     },
     'ws_65': {
-        'name': '65-Tweet or retweet',
+        'name': '65',
         'title': 'Twitter - Original tweet or retweet',
-        'desc': 'Twitter - Original tweet or retweet'
+        'desc': 'Twitter - Original tweet or retweet',
+        'reports': ['region',  'country'],
     },
     'ws_66': {
-        'name': '66-Presence of women',
+        'name': '66',
         'title': 'Twitter - Overall presence of women',
-        'desc': 'Twitter - Overall presence of women'
+        'desc': 'Twitter - Overall presence of women',
+        'reports': ['region',  'country'],
     },
     'ws_67': {
-        'name': '67-Female reporters by topic',
+        'name': '67',
         'title': 'Twitter - Female reporters & journalists',
         'desc': 'Twitter - Female reporters & journalists'
     },
     'ws_68': {
-        'name': '68-Women\'s centrality',
+        'name': '68',
         'title': 'Twitter - Women\'s centrality',
-        'desc': 'Twitter - Women\'s centrality'
+        'desc': 'Twitter - Women\'s centrality',
+        'reports': ['region',  'country'],
     },
     'ws_69': {
-        'name': '69-Challenging stereotypes',
+        'name': '69',
         'title': 'Twitter - Challenging Stereotypes',
-        'desc': 'Twitter - Challenging Stereotypes'
+        'desc': 'Twitter - Challenging Stereotypes',
+        'reports': ['region',  'country'],
     },
     'ws_76': {
-        'name': '76-Challenging stereotypes',
+        'name': '76',
         'title': 'Key themes, challenging stereotypes',
-        'desc': 'Key themes, challenging stereotypes'
+        'desc': 'Key themes, challenging stereotypes',
+        'reports': ['region',  'country'],
     },
     'ws_77': {
-        'name': '77-Ref to equality rights',
+        'name': '77',
         'title': 'Key themes, reference to gender equality/HR policies',
-        'desc': 'Key themes, reference to gender equality/HR policies'
+        'desc': 'Key themes, reference to gender equality/HR policies',
+        'reports': ['region',  'country'],
     },
     'ws_78': {
-        'name': '78-Portryal as victims',
+        'name': '78',
         'title': 'Key themes, portrayal as victims',
-        'desc': 'Key themes, portrayal as victims'
+        'desc': 'Key themes, portrayal as victims',
+        'reports': ['region',  'country'],
     },
     'ws_79': {
-        'name': '79-Portryal as survivors',
+        'name': '79',
         'title': 'Key themes, portrayal as survivors',
-        'desc': 'Key themes, portrayal as survivors'
+        'desc': 'Key themes, portrayal as survivors',
+        'reports': ['region',  'country'],
     },
 }
 
