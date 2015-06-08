@@ -19,7 +19,7 @@ from forms.modelutils import (TOPICS, GENDER, SPACE, OCCUPATION, FUNCTION, SCOPE
     YESNO, AGES, SOURCE, VICTIM_OF, SURVIVOR_OF, IS_PHOTOGRAPH, AGREE_DISAGREE,
     RETWEET, TV_ROLE, MEDIA_TYPES,
     CountryRegion)
-from report_details import WS_INFO, REGION_COUNTRY_MAP, MAJOR_TOPICS, TOPIC_GROUPS
+from report_details import WS_INFO, REGION_COUNTRY_MAP, MAJOR_TOPICS, TOPIC_GROUPS, GROUP_TOPICS_MAP
 
 
 def has_field(model, fld):
@@ -447,7 +447,6 @@ class XLSXReportBuilder:
 
         self.tabulate(ws, counts, MEDIA_TYPES, self.regions, row_perc=True)
 
-
     def ws_02(self, ws):
         """
         Cols: Media Type
@@ -522,7 +521,7 @@ class XLSXReportBuilder:
                     .values('sex', topic_field)\
                     .filter(**{model.sheet_name() + '__country_region__region':region})\
                     .annotate(n=Count('id'))
-                counts.update({(r['sex'], [TOPIC_GROUPS[r[topic_field]]): r['n'] for r in rows})
+                counts.update({(r['sex'], TOPIC_GROUPS[r[topic_field]]): r['n'] for r in rows})
             secondary_counts[region] = counts
 
         self.tabulate_secondary_cols(ws, secondary_counts, GENDER, MAJOR_TOPICS, row_perc=True, sec_cols=2, display_cols=display_cols)
@@ -1275,7 +1274,7 @@ class XLSXReportBuilder:
         display_cols = [(id, value) for id, value in GENDER if id==1]
         secondary_counts = OrderedDict()
         model = sheet_models.get('Internet News')
-        for major_topic, topic_ids in TOPIC_GROUPS.iteritems():
+        for major_topic, topic_ids in GROUP_TOPICS_MAP.iteritems():
             counts = Counter()
             journo_sex_field = '%s__sex' % model.journalist_field_name()
             rows = model.objects\
@@ -1295,7 +1294,7 @@ class XLSXReportBuilder:
         """
         secondary_counts = OrderedDict()
         model = person_models.get('Internet News')
-        for major_topic, topic_ids in TOPIC_GROUPS.iteritems():
+        for major_topic, topic_ids in GROUP_TOPICS_MAP.iteritems():
             counts = Counter()
             country_field = '%s__country' % model.sheet_name()
             rows = model.objects\
