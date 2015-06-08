@@ -87,7 +87,7 @@ class ReportView(View):
             #     context)
 
         report_filter = CountryForm()
-        context = {'form' : filter_form}
+        context = {'form' : form}
         return render(
             request,
             self.template_name,

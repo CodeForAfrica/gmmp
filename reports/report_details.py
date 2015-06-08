@@ -1,3 +1,5 @@
+from collections import OrderedDict
+
 WS_INFO = {
     'ws_01': {
         'name': '1',
@@ -236,7 +238,7 @@ WS_INFO = {
     'ws_45': {
         'name': '45',
         'title': 'Stories where issues of gender equality/inequality are raised by sex of \'people in the news\' and by region',
-        'desc': 'Stories where issues of gender equality/inequality are raised by sex of \'people in the news\' and by region'
+        'desc': 'Stories where issues of gender equality/inequality are raised by sex of \'people in the news\' and by region',
         'reports': ['region',],
     },
     'ws_46': {
@@ -256,6 +258,18 @@ WS_INFO = {
         'title': 'Story clearly challenges gender stereotypes by sex of rep',
         'desc': 'Stories where stereotypes are challenged/ supported by gender of rep',
         'reports': ['region',  'country'],
+    },
+    'ws_53': {
+        'name': '53',
+        'title': 'Internet - Female reporters in main stories',
+        'desc': 'Internet - Female reporters in main stories',
+        'reports': ['region', 'country']
+    },
+    'ws_54': {
+        'name': '54',
+        'title': 'Internet - Overall presence of women',
+        'desc': 'Internet - Overall presence of women',
+        'reports': ['region', 'country']
     },
     'ws_55': {
         'name': '55',
@@ -277,8 +291,14 @@ WS_INFO = {
     },
     'ws_58': {
         'name': '58',
-        'title': 'Internet - News subjects in multimedia web components ',
-        'desc': 'Internet - News subjects in multimedia web components ',
+        'title': 'Internet - News subjects in multimedia web components',
+        'desc': 'Internet - News subjects in multimedia web components',
+        'reports': ['country'],
+    },
+    'ws_59': {
+        'name': '59',
+        'title': 'Internet - Selection of News Subjects',
+        'desc': 'Internet - Selection of News Subjects',
         'reports': ['country'],
     },
     'ws_60': {
@@ -448,3 +468,15 @@ TOPIC_GROUPS =  {
          '(54) Other celebrity/arts/media news (specify in comments)'],
     7: ['(55) Other (only use as a last resort & explain)']
 }
+
+
+
+MAJOR_TOPICS = OrderedDict([
+    ('1', [1, 2, 3, 4, 5, 6, 7, 8, 9]),
+    ('2', [10, 11, 12, 13, 14, 15, 16, 17, 18]),
+    ('3', [19, 20, 21, 22, 23, 24, 25, 26, 27]),
+    ('4', [28, 29, 30, 31, 32, 33, 34, 35, 37, 38, 39, 40, 41]),
+    ('5', [42, 43, 44, 46, 48]),
+    ('6', [49, 50, 51, 53, 54]),
+    ('7', [55])
+])

@@ -19,7 +19,7 @@ from forms.modelutils import (TOPICS, GENDER, SPACE, OCCUPATION, FUNCTION, SCOPE
     YESNO, AGES, SOURCE, VICTIM_OF, SURVIVOR_OF, IS_PHOTOGRAPH, AGREE_DISAGREE,
     RETWEET, TV_ROLE, MEDIA_TYPES,
     CountryRegion)
-from report_details import WS_INFO, REGION_COUNTRY_MAP
+from report_details import WS_INFO, REGION_COUNTRY_MAP, MAJOR_TOPICS
 
 
 def has_field(model, fld):
@@ -400,7 +400,7 @@ class XLSXReportBuilder:
         self.P.set_num_format(9)  # percentage
 
         # Use the following for specifying which reports to create durin dev
-        test_functions = ['ws_40']
+        test_functions = ['ws_53', 'ws_54']
 
         sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
         for function in test_functions:
@@ -411,7 +411,7 @@ class XLSXReportBuilder:
         # -------------------------------------------------------------------
 
         # To ensure ordered worksheets
-        sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
+        # sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
 
         # for ws_num, ws_info in sheet_info.iteritems():
         #     ws = workbook.add_worksheet(ws_info['name'])
@@ -1258,6 +1258,46 @@ class XLSXReportBuilder:
             self.tabulate(ws, counts, GENDER, AGREE_DISAGREE, row_perc=True, sec_row=True, r=r)
             r += len(AGREE_DISAGREE)
 
+    def ws_53(self, ws):
+        """
+        Cols: Topic, Reporter sex
+        Rows: Country
+        :: Internet media type only
+        """
+        secondary_counts = OrderedDict()
+        model = sheet_models.get('Internet News')
+        for major_topic, topic_ids in MAJOR_TOPICS.iteritems():
+            counts = Counter()
+            journo_sex_field = '%s__sex' % model.journalist_field_name()
+            rows = model.objects\
+                .values(journo_sex_field, 'country')\
+                .filter(topic__in=topic_ids)\
+                .annotate(n=Count('id'))
+            counts.update({(r[journo_sex_field], r['country']): r['n'] for r in rows})
+            secondary_counts[major_topic] = counts
+
+        self.tabulate_secondary_cols(ws, secondary_counts, GENDER, self.countries, row_perc=True, sec_cols=8)
+
+    def ws_54(self, ws):
+        """
+        Cols: Major Topic, sex of subject
+        Rows: Country
+        :: Internet media type only
+        """
+        secondary_counts = OrderedDict()
+        model = person_models.get('Internet News')
+        for major_topic, topic_ids in MAJOR_TOPICS.iteritems():
+            counts = Counter()
+            country_field = '%s__country' % model.sheet_name()
+            rows = model.objects\
+                .values('sex', country_field)\
+                .filter(**{model.sheet_name() + '__topic__in':topic_ids})\
+                .annotate(n=Count('id'))
+            counts.update({(r['sex'], r[country_field]): r['n'] for r in rows})
+            secondary_counts[major_topic] = counts
+
+        self.tabulate_secondary_cols(ws, secondary_counts, GENDER, self.countries, row_perc=True, sec_cols=8)
+
     def ws_55(self, ws):
         """
         Cols: Occupation
@@ -1342,6 +1382,27 @@ class XLSXReportBuilder:
             self.write_primary_row_heading(ws, country, r=r)
             self.tabulate(ws, counts, GENDER, IS_PHOTOGRAPH, row_perc=True, sec_row=True, r=r)
             r += len(IS_PHOTOGRAPH)
+
+    def ws_59(self, ws):
+        """
+        Cols: Sex of reporter
+        Rows: Sex of subject
+        :: Internet media only
+        """
+        counts = Counter()
+        model = person_models.get('Internet News')
+        sheet_name = model.sheet_name()
+        journo_name = model._meta.get_field(model.sheet_name()).rel.to.journalist_field_name()
+        journo_sex = sheet_name + '__' + journo_name + '__sex'
+
+        rows = model.objects\
+                .values(journo_sex, 'sex')\
+                .filter(**{model.sheet_name() + '__country__in':self.countries})\
+                .annotate(n=Count('id'))
+        counts.update({(r[journo_sex], r['sex']): r['n'] for r in rows})
+
+        self.tabulate(ws, counts, GENDER, GENDER, row_perc=False)
+
 
     def ws_60(self, ws):
         """
