@@ -1,3 +1,5 @@
+from collections import OrderedDict
+
 WS_INFO = {
     'ws_01': {
         'name': '1',
@@ -257,11 +259,17 @@ WS_INFO = {
         'desc': 'Stories where stereotypes are challenged/ supported by gender of rep',
         'reports': ['region',  'country'],
     },
+    'ws_53': {
+        'name': '53',
+        'title': 'Internet - Female reporters in main stories',
+        'desc': 'Internet - Female reporters in main stories',
+        'reports': ['region', 'country']
+    },
     'ws_54': {
         'name': '54',
         'title': 'Internet - Overall presence of women',
         'desc': 'Internet - Overall presence of women',
-        'reports': ['regio', 'country']
+        'reports': ['region', 'country']
     },
     'ws_55': {
         'name': '55',
@@ -460,3 +468,15 @@ TOPIC_GROUPS =  {
          '(54) Other celebrity/arts/media news (specify in comments)'],
     7: ['(55) Other (only use as a last resort & explain)']
 }
+
+
+
+MAJOR_TOPICS = OrderedDict([
+    ('1', [1, 2, 3, 4, 5, 6, 7, 8, 9]),
+    ('2', [10, 11, 12, 13, 14, 15, 16, 17, 18]),
+    ('3', [19, 20, 21, 22, 23, 24, 25, 26, 27]),
+    ('4', [28, 29, 30, 31, 32, 33, 34, 35, 37, 38, 39, 40, 41]),
+    ('5', [42, 43, 44, 46, 48]),
+    ('6', [49, 50, 51, 53, 54]),
+    ('7', [55])
+])
