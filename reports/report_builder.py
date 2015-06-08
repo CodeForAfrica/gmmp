@@ -19,7 +19,7 @@ from forms.modelutils import (TOPICS, GENDER, SPACE, OCCUPATION, FUNCTION, SCOPE
     YESNO, AGES, SOURCE, VICTIM_OF, SURVIVOR_OF, IS_PHOTOGRAPH, AGREE_DISAGREE,
     RETWEET, TV_ROLE, MEDIA_TYPES,
     CountryRegion)
-from report_details import WS_INFO, REGION_COUNTRY_MAP, MAJOR_TOPICS
+from report_details import WS_INFO, REGION_COUNTRY_MAP, MAJOR_TOPICS, TOPIC_GROUPS
 
 
 def has_field(model, fld):
@@ -386,6 +386,8 @@ class XLSXReportBuilder:
         else:
             self.countries = get_countries()
             self.regions = get_regions()
+
+        self.country_list = [code for code, name in self.countries]
         self.gmmp_year = '2015'
 
     def build(self):
@@ -400,7 +402,7 @@ class XLSXReportBuilder:
         self.P.set_num_format(9)  # percentage
 
         # Use the following for specifying which reports to create durin dev
-        test_functions = ['ws_53', 'ws_54']
+        test_functions = ['ws_04']
 
         sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
         for function in test_functions:
@@ -467,22 +469,26 @@ class XLSXReportBuilder:
 
     def ws_04(self, ws):
         """
-        Cols: Media type
+        Cols: Region, Media type
         Rows: News Topic
         """
-        counts = Counter()
-        for media_type, model in sheet_models.iteritems():
-            rows = model.objects\
-                    .values('topic')\
-                    .filter(country__in=self.countries)\
-                    .annotate(n=Count('id'))
+        secondary_counts = OrderedDict()
+        for region_id, region in self.regions:
+            counts = Counter()
+            for media_type, model in sheet_models.iteritems():
+                rows = model.objects\
+                        .values('topic')\
+                        .filter(country__in=self.country_list)\
+                        .annotate(n=Count('id'))
 
-            for row in rows:
-                # Get media id's to assign to counts
-                media_id = [media[0] for media in MEDIA_TYPES if media[1] == media_type][0]
-                counts.update({(media_id, row['topic']): row['n']})
+                for row in rows:
+                    # Get media id's to assign to counts
+                    media_id = [media[0] for media in MEDIA_TYPES if media[1] == media_type][0]
+                    major_topic = [k for k, v in TOPIC_GROUPS.iteritems() if row['topic'] in v][0]
+                    counts.update({(media_id, major_topic): row['n']})
+            secondary_counts[region] = counts
 
-        self.tabulate(ws, counts, MEDIA_TYPES, TOPICS, row_perc=True)
+        self.tabulate_secondary_cols(ws, secondary_counts, MEDIA_TYPES, MAJOR_TOPICS, row_perc=False, sec_cols=10)
 
     def ws_05(self, ws):
         """
@@ -1268,7 +1274,7 @@ class XLSXReportBuilder:
         filter_cols = [(id, value) for id, value in GENDER if id==1]
         secondary_counts = OrderedDict()
         model = sheet_models.get('Internet News')
-        for major_topic, topic_ids in MAJOR_TOPICS.iteritems():
+        for major_topic, topic_ids in TOPIC_GROUPS.iteritems():
             counts = Counter()
             journo_sex_field = '%s__sex' % model.journalist_field_name()
             rows = model.objects\
@@ -1288,7 +1294,7 @@ class XLSXReportBuilder:
         """
         secondary_counts = OrderedDict()
         model = person_models.get('Internet News')
-        for major_topic, topic_ids in MAJOR_TOPICS.iteritems():
+        for major_topic, topic_ids in TOPIC_GROUPS.iteritems():
             counts = Counter()
             country_field = '%s__country' % model.sheet_name()
             rows = model.objects\
