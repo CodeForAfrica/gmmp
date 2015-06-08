@@ -1260,10 +1260,12 @@ class XLSXReportBuilder:
 
     def ws_53(self, ws):
         """
-        Cols: Topic, Reporter sex
+        Cols: Topic
         Rows: Country
         :: Internet media type only
+        :: Female reporters only
         """
+        filter_cols = [(id, value) for id, value in GENDER if id==1]
         secondary_counts = OrderedDict()
         model = sheet_models.get('Internet News')
         for major_topic, topic_ids in MAJOR_TOPICS.iteritems():
@@ -1276,7 +1278,7 @@ class XLSXReportBuilder:
             counts.update({(r[journo_sex_field], r['country']): r['n'] for r in rows})
             secondary_counts[major_topic] = counts
 
-        self.tabulate_secondary_cols(ws, secondary_counts, GENDER, self.countries, row_perc=True, sec_cols=8)
+        self.tabulate_secondary_cols(ws, secondary_counts, GENDER, self.countries, row_perc=True, filter_cols=filter_cols, sec_cols=2)
 
     def ws_54(self, ws):
         """
@@ -1720,7 +1722,7 @@ class XLSXReportBuilder:
         ws.write(3, 2, self.gmmp_year)
 
 
-    def tabulate_secondary_cols(self, ws, secondary_counts, cols, rows, row_perc=False, sec_cols=4):
+    def tabulate_secondary_cols(self, ws, secondary_counts, cols, rows, row_perc=False, filter_cols=None, sec_cols=4):
         """
         :param ws: worksheet to write to
         :param secondary_counts: dict in following format:
@@ -1740,7 +1742,7 @@ class XLSXReportBuilder:
 
         for field, counts in secondary_counts.iteritems():
             ws.write(r - 3, c, clean_title(field))
-            self.tabulate(ws, counts, cols, rows, row_perc=row_perc, sec_col=True, r=7, c=c)
+            self.tabulate(ws, counts, cols, rows, row_perc=row_perc, sec_col=True, filter_cols=filter_cols, r=7, c=c)
             c += sec_cols
 
     def write_col_headings(self, ws, cols, c=2, r=4):
@@ -1766,7 +1768,7 @@ class XLSXReportBuilder:
         ws.write(r, c, clean_title(heading))
 
 
-    def tabulate(self, ws, counts, cols, rows, row_perc=False, sec_col=False, sec_row=False, c=1, r=6):
+    def tabulate(self, ws, counts, cols, rows, row_perc=False, sec_col=False, sec_row=False, filter_cols=None, c=1, r=6):
         """ Emit a table.
 
         :param ws: worksheet to write to
@@ -1792,6 +1794,11 @@ class XLSXReportBuilder:
                 ws.write(r + i, c, clean_title(row_title))
 
             c += 1
+
+        # if only filtered results should be shown
+        # e.g. only print female columns
+        if filter_cols:
+            cols = filter_cols
 
         # values, written by column
         for col_id, col_title in cols:
