@@ -1258,26 +1258,6 @@ class XLSXReportBuilder:
             self.tabulate(ws, counts, GENDER, AGREE_DISAGREE, row_perc=True, sec_row=True, r=r)
             r += len(AGREE_DISAGREE)
 
-    def ws_53_old(self, ws):
-        """
-        Cols: Topic, Reporter sex
-        Rows: Country
-        :: Internet media type only
-        """
-        secondary_counts = OrderedDict()
-        model = sheet_models.get('Internet News')
-        for major_topic, topic_ids in MAJOR_TOPICS.iteritems():
-            counts = Counter()
-            journo_sex_field = '%s__sex' % model.journalist_field_name()
-            rows = model.objects\
-                .values(journo_sex_field, 'country')\
-                .filter(topic__in=topic_ids)\
-                .annotate(n=Count('id'))
-            counts.update({(r[journo_sex_field], r['country']): r['n'] for r in rows})
-            secondary_counts[major_topic] = counts
-
-        self.tabulate_secondary_cols(ws, secondary_counts, GENDER, self.countries, row_perc=True, sec_cols=8)
-
     def ws_53(self, ws):
         """
         Cols: Topic
