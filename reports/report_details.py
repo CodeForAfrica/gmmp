@@ -236,7 +236,7 @@ WS_INFO = {
     'ws_45': {
         'name': '45',
         'title': 'Stories where issues of gender equality/inequality are raised by sex of \'people in the news\' and by region',
-        'desc': 'Stories where issues of gender equality/inequality are raised by sex of \'people in the news\' and by region'
+        'desc': 'Stories where issues of gender equality/inequality are raised by sex of \'people in the news\' and by region',
         'reports': ['region',],
     },
     'ws_46': {
@@ -260,7 +260,8 @@ WS_INFO = {
     'ws_54': {
         'name': '54',
         'title': 'Internet - Overall presence of women',
-        'desc': 'Internet - Overall presence of women'
+        'desc': 'Internet - Overall presence of women',
+        'reports': ['regio', 'country']
     },
     'ws_55': {
         'name': '55',
@@ -285,7 +286,7 @@ WS_INFO = {
         'title': 'Internet - News subjects in multimedia web components',
         'desc': 'Internet - News subjects in multimedia web components',
         'reports': ['country'],
-
+    },
     'ws_59': {
         'name': '59',
         'title': 'Internet - Selection of News Subjects',
