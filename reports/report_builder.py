@@ -379,13 +379,17 @@ class XLSXReportBuilder:
         if isinstance(form, CountryForm):
             self.countries = form.filter_countries()
             self.regions = get_country_region(form.cleaned_data['country'])
+            self.report_type = 'country'
         elif isinstance(form, RegionForm):
             region = [name for i, name in form.REGIONS if str(i) == form.cleaned_data['region']][0]
             self.countries = get_region_countries(region)
             self.regions = [(0, region)]
+            self.report_type = 'region'
         else:
             self.countries = get_countries()
             self.regions = get_regions()
+            self.report_type = 'global'
+
         self.gmmp_year = '2015'
 
     def build(self):
@@ -399,7 +403,7 @@ class XLSXReportBuilder:
         self.P = workbook.add_format()
         self.P.set_num_format(9)  # percentage
 
-        # Use the following for specifying which reports to create durin dev
+        # Use the following for specifying which reports to create during dev
         test_functions = ['ws_53', 'ws_54']
 
         sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
@@ -411,12 +415,13 @@ class XLSXReportBuilder:
         # -------------------------------------------------------------------
 
         # To ensure ordered worksheets
-        # sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
+        sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
 
-        # for ws_num, ws_info in sheet_info.iteritems():
-        #     ws = workbook.add_worksheet(ws_info['name'])
-        #     self.write_headers(ws, ws_info['title'], ws_info['desc'])
-        #     getattr(self, ws_num)(ws)
+        for ws_num, ws_info in sheet_info.iteritems():
+            if self.report_type in ws_info['reports']:
+                ws = workbook.add_worksheet(ws_info['name'])
+                self.write_headers(ws, ws_info['title'], ws_info['desc'])
+                getattr(self, ws_num)(ws)
 
         workbook.close()
         output.seek(0)
