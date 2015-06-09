@@ -409,7 +409,7 @@ class XLSXReportBuilder:
 
         # Use the following for specifying which reports to create durin dev
         # test_functions = ['ws_02', 'ws_11', 'ws_12', 'ws_13', 'ws_14', 'ws_15', 'ws_16', 'ws_17']
-        test_functions = ['ws_20']
+        test_functions = ['ws_23']
 
         sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
         for function in test_functions:
@@ -813,7 +813,7 @@ class XLSXReportBuilder:
 
     def ws_21(self, ws):
         """
-        Cols: Sex
+        Cols: Subject Sex
         Rows: Victim type
         """
         counts = Counter()
@@ -821,16 +821,16 @@ class XLSXReportBuilder:
             if 'victim_of' in model._meta.get_all_field_names():
                 rows = model.objects\
                         .values('sex', 'victim_of')\
-                        .filter(**{model.sheet_name() + '__country__in':self.countries})\
+                        .filter(**{model.sheet_name() + '__country__in':self.country_list})\
+                        .filter(sex__in=self.male_female_ids)\
                         .exclude(victim_of=None)\
                         .annotate(n=Count('id'))
                 counts.update({(r['sex'], r['victim_of']): r['n'] for r in rows})
-
-        self.tabulate(ws, counts, GENDER, VICTIM_OF, row_perc=True)
+        self.tabulate(ws, counts, self.male_female, VICTIM_OF, row_perc=True)
 
     def ws_23(self, ws):
         """
-        Cols: Sex
+        Cols: Subject Sex
         Rows: Survivor type
         """
         counts = Counter()
@@ -838,12 +838,13 @@ class XLSXReportBuilder:
             if 'survivor_of' in model._meta.get_all_field_names():
                 rows = model.objects\
                         .values('sex', 'survivor_of')\
-                        .filter(**{model.sheet_name() + '__country__in':self.countries})\
+                        .filter(**{model.sheet_name() + '__country__in':self.country_list})\
                         .exclude(survivor_of=None)\
+                        .filter(sex__in=self.male_female_ids)\
                         .annotate(n=Count('id'))
                 counts.update({(r['sex'], r['survivor_of']): r['n'] for r in rows})
 
-        self.tabulate(ws, counts, GENDER, SURVIVOR_OF, row_perc=True)
+        self.tabulate(ws, counts, self.male_female, SURVIVOR_OF, row_perc=True)
 
     def ws_24(self, ws):
         """
