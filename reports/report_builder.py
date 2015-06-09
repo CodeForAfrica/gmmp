@@ -408,7 +408,7 @@ class XLSXReportBuilder:
         self.P.set_num_format(9)  # percentage
 
         # Use the following for specifying which reports to create durin dev
-        test_functions = ['ws_11', 'ws_12']
+        test_functions = ['ws_11', 'ws_12', 'ws_13']
 
         sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
         for function in test_functions:
@@ -626,13 +626,13 @@ class XLSXReportBuilder:
         Rows: Topics
         """
         secondary_counts = OrderedDict()
-        for region_id, region_name in get_regions():
+        for region_id, region_name in self.regions:
             counts = Counter()
             for media_type, model in sheet_models.iteritems():
                 # Some models has no equality rights field
                 if 'equality_rights' in model._meta.get_all_field_names():
                     rows = model.objects\
-                        .values('equality_rights', 'topic', 'country_region__region')\
+                        .values('equality_rights', 'topic')\
                         .filter(country_region__region=region_name)\
                         .annotate(n=Count('id'))
                     counts.update({(r['equality_rights'], TOPIC_GROUPS[r['topic']]): r['n'] for r in rows})
@@ -642,19 +642,25 @@ class XLSXReportBuilder:
 
     def ws_13(self, ws):
         """
-        Cols: Journalist Sex
+        Cols: Journalist Sex, Equality Rights
         Rows: Topics
         """
-        counts = Counter()
-        for media_type, model in sheet_models.iteritems():
-            sex = '%s__sex' % model.journalist_field_name()
-            rows = model.objects\
-                    .values(sex, 'topic')\
-                    .filter(country__in=self.country_list)\
-                    .annotate(n=Count('id'))
-            counts.update({(r[sex], r['topic']): r['n'] for r in rows if r[sex] is not None})
+        secondary_counts = OrderedDict()
+        for gender_id, gender in self.male_female:
+            counts = Counter()
+            for media_type, model in journalist_models.iteritems():
+                if 'equality_rights' in model.sheet_field().rel.to._meta.get_all_field_names():
+                    topic = '%s__topic' % model.sheet_name()
+                    equality_rights = '%s__equality_rights' % model.sheet_name()
+                    rows = model.objects\
+                            .values(equality_rights, topic)\
+                            .filter(**{model.sheet_name() + '__country__in': self.country_list})\
+                            .filter(sex=gender_id)\
+                            .annotate(n=Count('id'))
+                counts.update({(r[equality_rights], TOPIC_GROUPS[r[topic]]): r['n'] for r in rows})
+            secondary_counts[gender] = counts
 
-        self.tabulate(ws, counts, GENDER, TOPICS, row_perc=True)
+        self.tabulate_secondary_cols(ws, secondary_counts, YESNO, MAJOR_TOPICS, row_perc=True, sec_cols=4)
 
     def ws_14(self, ws):
         """

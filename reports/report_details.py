@@ -69,8 +69,8 @@ WS_INFO = {
     },
     'ws_13': {
         'name': '13',
-        'title': 'Sex of reporter in different story topics',
-        'desc': 'Breakdown of topic by reporter sex',
+        'title': 'Stories making reference to issues of gender equality/inequality, legislation, policy by sex of reporter',
+        'desc': 'B.down by major topic by sex of reporter by reference to gender equality/human rights/policy',
         'reports': ['region',  'country'],
     },
     'ws_14': {
