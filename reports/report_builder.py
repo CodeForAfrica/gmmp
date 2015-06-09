@@ -408,7 +408,7 @@ class XLSXReportBuilder:
         self.P.set_num_format(9)  # percentage
 
         # Use the following for specifying which reports to create durin dev
-        test_functions = ['ws_04','ws_05','ws_06','ws_07','ws_08']
+        test_functions = ['ws_11', 'ws_12']
 
         sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
         for function in test_functions:
@@ -567,7 +567,7 @@ class XLSXReportBuilder:
                         .filter(**{model.sheet_name() + '__country__in': self.country_list})\
                         .filter(sex__in=self.male_female_ids)\
                         .annotate(n=Count('id'))
-                counts.update({(r['sex'], r[scope]): r['n'] for r in rows if r['sex'] is not None})
+                counts.update({(r['sex'], r[scope]): r['n'] for r in rows})
 
         self.tabulate(ws, counts, self.male_female, SCOPE, row_perc=True, display_cols=self.female)
 
@@ -577,20 +577,22 @@ class XLSXReportBuilder:
         Rows: Topic
         """
         counts = Counter()
-        for media_type, model in sheet_models.iteritems():
-            sex = '%s__sex' % model.person_field_name()
+        for media_type, model in person_models.iteritems():
+            topic = '%s__topic' % model.sheet_name()
             rows = model.objects\
-                    .values(sex, 'topic')\
-                    .filter(country__in=self.country_list)\
+                    .values('sex', topic)\
+                    .filter(**{model.sheet_name() + '__country__in': self.country_list})\
+                    .filter(sex__in=self.male_female_ids)\
                     .annotate(n=Count('id'))
-            counts.update({(r[sex], r['topic']): r['n'] for r in rows if r[sex] is not None})
+            counts.update({(r['sex'], r[topic]): r['n'] for r in rows})
 
-        self.tabulate(ws, counts, GENDER, TOPICS, row_perc=True)
+        self.tabulate(ws, counts, self.male_female, TOPICS, row_perc=True, display_cols=self.female)
 
     def ws_10(self, ws):
         """
         Cols: Space
-        Rows: Topic
+        Rows: Minor Topics
+        :: Newspaper Sheets only
         """
         # Calculate row values for column
         counts = Counter()
@@ -598,25 +600,25 @@ class XLSXReportBuilder:
                 .values('space', 'topic')\
                 .filter(country__in=self.country_list)\
                 .annotate(n=Count('id'))
-        counts.update({(r['space'], r['topic']): r['n'] for r in rows})
+        counts.update({(r['space'], TOPIC_GROUPS[r['topic']]): r['n'] for r in rows})
 
-        self.tabulate(ws, counts, SPACE, TOPICS, row_perc=True)
+        self.tabulate(ws, counts, SPACE, MAJOR_TOPICS, row_perc=False)
 
     def ws_11(self, ws):
         """
         Cols: Equality Rights
-        Rows: Topic
+        Rows: Major Topics
         """
         counts = Counter()
-        for media_type, model in sheet_models.iteritems():
+        for model in sheet_models.itervalues():
             if 'equality_rights' in model._meta.get_all_field_names():
                 rows = model.objects\
                     .values('equality_rights', 'topic')\
                     .filter(country__in=self.country_list)\
                     .annotate(n=Count('id'))
-                counts.update({(r['equality_rights'], r['topic']): r['n'] for r in rows})
+                counts.update({(r['equality_rights'], TOPIC_GROUPS[r['topic']]): r['n'] for r in rows})
 
-        self.tabulate(ws, counts, YESNO, TOPICS, row_perc=True)
+        self.tabulate(ws, counts, YESNO, MAJOR_TOPICS, row_perc=True)
 
     def ws_12(self, ws):
         """
@@ -633,10 +635,10 @@ class XLSXReportBuilder:
                         .values('equality_rights', 'topic', 'country_region__region')\
                         .filter(country_region__region=region_name)\
                         .annotate(n=Count('id'))
-                    counts.update({(r['equality_rights'], r['topic']): r['n'] for r in rows})
+                    counts.update({(r['equality_rights'], TOPIC_GROUPS[r['topic']]): r['n'] for r in rows})
             secondary_counts[region_name] = counts
 
-        self.tabulate_secondary_cols(ws, secondary_counts, YESNO, TOPICS, row_perc=True, sec_cols=4)
+        self.tabulate_secondary_cols(ws, secondary_counts, YESNO, MAJOR_TOPICS, row_perc=True, sec_cols=4)
 
     def ws_13(self, ws):
         """
