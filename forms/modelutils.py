@@ -262,6 +262,14 @@ class Person(models.Model):
         abstract = True
 
     @classmethod
+    def sheet_field(self):
+        """ Return the sheet-related field for this model
+        """
+        for fld in self._meta.fields:
+            if hasattr(fld, 'related') and fld.model and issubclass(fld.related.parent_model, SheetModel):
+                return fld
+
+    @classmethod
     def sheet_name(self):
         """ Return the name of the sheet relation field
         """
@@ -281,6 +289,14 @@ class Journalist(models.Model):
 
     class Meta:
         abstract = True
+
+    @classmethod
+    def sheet_field(self):
+        """ Return the name of the sheet relation field
+        """
+        for fld in self._meta.fields:
+            if hasattr(fld, 'related') and fld.related and issubclass(fld.related.parent_model, SheetModel):
+                return fld
 
     @classmethod
     def sheet_name(self):

@@ -388,6 +388,12 @@ class XLSXReportBuilder:
             self.regions = get_regions()
 
         self.country_list = [code for code, name in self.countries]
+
+        # Various gender utilities
+        self.male_female = [(id, value) for id, value in GENDER if id in [1, 2]]
+        self.male_female_ids = [id for id, value in self.male_female]
+        self.female = [(id, value) for id, value in GENDER if id==1]
+
         self.gmmp_year = '2015'
 
     def build(self):
@@ -402,7 +408,7 @@ class XLSXReportBuilder:
         self.P.set_num_format(9)  # percentage
 
         # Use the following for specifying which reports to create durin dev
-        test_functions = ['ws_07']
+        test_functions = ['ws_04','ws_05','ws_06','ws_07','ws_08']
 
         sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
         for function in test_functions:
@@ -501,17 +507,17 @@ class XLSXReportBuilder:
             rows = model.objects\
                 .values('sex', topic_field)\
                 .filter(**{model.sheet_name() + '__country__in': self.country_list})\
+                .filter(sex__in=self.male_female_ids)\
                 .annotate(n=Count('id'))
             counts.update({(r['sex'], TOPIC_GROUPS[r[topic_field]]): r['n'] for r in rows})
 
-        self.tabulate(ws, counts, GENDER, MAJOR_TOPICS, row_perc=True)
+        self.tabulate(ws, counts, self.male_female, MAJOR_TOPICS, row_perc=True, display_cols=self.female)
 
     def ws_06(self, ws):
         """
-        Cols: Topic, source sex
-        Rows: Country
+        Cols: Region, Subject sex: female only
+        Rows: Major Topics
         """
-        display_cols = [(id, value) for id, value in GENDER if id==1]
         secondary_counts = OrderedDict()
         for region_id, region in self.regions:
             counts = Counter()
@@ -520,52 +526,54 @@ class XLSXReportBuilder:
                 rows = model.objects\
                     .values('sex', topic_field)\
                     .filter(**{model.sheet_name() + '__country_region__region':region})\
+                    .filter(sex__in=self.male_female_ids)\
                     .annotate(n=Count('id'))
                 counts.update({(r['sex'], TOPIC_GROUPS[r[topic_field]]): r['n'] for r in rows})
             secondary_counts[region] = counts
 
-        self.tabulate_secondary_cols(ws, secondary_counts, GENDER, MAJOR_TOPICS, row_perc=True, sec_cols=2, display_cols=display_cols)
+        self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, MAJOR_TOPICS, row_perc=True, sec_cols=2, display_cols=self.female)
 
     def ws_07(self, ws):
         """
         Cols: Media Type
-        Rows: Sex
+        Rows: Subject Sex
         """
         counts = Counter()
-        for media_type, model in sheet_models.iteritems():
-            sex = '%s__sex' % model.person_field_name()
+        for media_type, model in person_models.iteritems():
             rows = model.objects\
-                    .values(sex)\
-                    .filter(country__in=self.country_list)\
+                    .values('sex')\
+                    .filter(**{model.sheet_name() + '__country__in': self.country_list})\
+                    .filter(sex__in=self.male_female_ids)\
                     .annotate(n=Count('id'))
 
             for row in rows:
                 # Get media id's to assign to counts
                 media_id = [media[0] for media in MEDIA_TYPES if media[1] == media_type][0]
-                counts.update({(media_id, row[sex]): row['n']})
+                counts.update({(media_id, row['sex']): row['n']})
 
-        self.tabulate(ws, counts, MEDIA_TYPES, GENDER, row_perc=False)
+        self.tabulate(ws, counts, MEDIA_TYPES, self.male_female, row_perc=False)
 
     def ws_08(self, ws):
         """
-        Cols: Sex
+        Cols: Subject Sex
         Rows: Scope
         """
         counts = Counter()
-        for media_type, model in sheet_models.iteritems():
-            if 'scope' in model._meta.get_all_field_names():
-                sex = '%s__sex' % model.person_field_name()
+        for media_type, model in person_models.iteritems():
+            if 'scope' in model.sheet_field().rel.to._meta.get_all_field_names():
+                scope = '%s__scope' % model.sheet_name()
                 rows = model.objects\
-                        .values(sex, 'scope')\
-                        .filter(country__in=self.country_list)\
+                        .values('sex', scope)\
+                        .filter(**{model.sheet_name() + '__country__in': self.country_list})\
+                        .filter(sex__in=self.male_female_ids)\
                         .annotate(n=Count('id'))
-                counts.update({(r[sex], r['scope']): r['n'] for r in rows if r[sex] is not None})
+                counts.update({(r['sex'], r[scope]): r['n'] for r in rows if r['sex'] is not None})
 
-        self.tabulate(ws, counts, GENDER, SCOPE, row_perc=True)
+        self.tabulate(ws, counts, self.male_female, SCOPE, row_perc=True, display_cols=self.female)
 
     def ws_09(self, ws):
         """
-        Cols: Sex
+        Cols: Subject Sex
         Rows: Topic
         """
         counts = Counter()
@@ -1784,6 +1792,7 @@ class XLSXReportBuilder:
         :param bool row_perc: should percentages by calculated by row instead of column (default: False)
         :param sec_col: Are wecreating a secondary column title(default: False)
         :param sec_row: Are we creating a secondary row title(default: False)
+        :param display_cols: Optional if only a subset of columns should be displayed e.g. only female
         :param r, c: initial position where cursor should start writing to
         """
         if row_perc:
