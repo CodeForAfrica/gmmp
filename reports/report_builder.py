@@ -408,7 +408,8 @@ class XLSXReportBuilder:
         self.P.set_num_format(9)  # percentage
 
         # Use the following for specifying which reports to create durin dev
-        test_functions = ['ws_11', 'ws_12', 'ws_13']
+        # test_functions = ['ws_02', 'ws_11', 'ws_12', 'ws_13', 'ws_14', 'ws_15', 'ws_16', 'ws_17']
+        test_functions = ['ws_20']
 
         sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
         for function in test_functions:
@@ -462,6 +463,7 @@ class XLSXReportBuilder:
         for media_type, model in sheet_models.iteritems():
             rows = model.objects\
                     .values('country')\
+                    .filter(country__in=self.country_list)\
                     .annotate(n=Count('country'))
 
             for row in rows:
@@ -673,11 +675,12 @@ class XLSXReportBuilder:
             if 'occupation' in model._meta.get_all_field_names():
                 rows = model.objects\
                         .values('sex', 'occupation')\
-                        .filter(**{model.sheet_name() + '__country__in': self.countries})\
+                        .filter(**{model.sheet_name() + '__country__in': self.country_list})\
+                        .filter(sex__in=self.male_female_ids)\
                         .annotate(n=Count('id'))
                 counts.update({(r['sex'], r['occupation']): r['n'] for r in rows})
 
-        self.tabulate(ws, counts, GENDER, OCCUPATION, row_perc=True)
+        self.tabulate(ws, counts, self.male_female, OCCUPATION, row_perc=True, display_cols=self.female)
 
     def ws_15(self, ws):
         """
@@ -685,41 +688,42 @@ class XLSXReportBuilder:
         Rows: Function
         """
         counts = Counter()
-
         for model in person_models.itervalues():
             # some Person models don't have a function field
             if 'function' in model._meta.get_all_field_names():
                 rows = model.objects\
                         .values('sex', 'function')\
-                        .filter(**{model.sheet_name() + '__country__in': self.countries})\
+                        .filter(**{model.sheet_name() + '__country__in': self.country_list})\
+                        .filter(sex__in=self.male_female_ids)\
                         .annotate(n=Count('id'))
                 counts.update({(r['sex'], r['function']): r['n'] for r in rows})
 
-        self.tabulate(ws, counts, GENDER, FUNCTION, row_perc=True)
+        self.tabulate(ws, counts, self.male_female, FUNCTION, row_perc=True, display_cols=self.female)
 
     def ws_16(self, ws):
         """
-        Cols: Occupation, Sex
-        Rows: Function
+        Cols: Function, Sex
+        Rows: Occupation
         """
         secondary_counts = OrderedDict()
-        for occ_id, occupation in OCCUPATION:
+        for function_id, function in FUNCTION:
             counts = Counter()
             for model in person_models.itervalues():
                 if 'function' in model._meta.get_all_field_names() and 'occupation' in model._meta.get_all_field_names():
                     rows = model.objects\
-                            .values('sex', 'function')\
-                            .filter(**{model.sheet_name() + '__country__in':self.countries})\
-                            .filter(occupation=occ_id)\
+                            .values('sex', 'occupation')\
+                            .filter(**{model.sheet_name() + '__country__in':self.country_list})\
+                            .filter(function=function_id)\
+                            .filter(sex__in=self.male_female_ids)\
                             .annotate(n=Count('id'))
-                    counts.update({(r['sex'], r['function']): r['n'] for r in rows})
-            secondary_counts[occupation] = counts
+                    counts.update({(r['sex'], r['occupation']): r['n'] for r in rows})
+            secondary_counts[function] = counts
 
-        self.tabulate_secondary_cols(ws, secondary_counts, GENDER, FUNCTION, row_perc=True, sec_cols=8)
+        self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, OCCUPATION, row_perc=False, sec_cols=4)
 
     def ws_17(self, ws):
         """
-        Cols: Age, Sex
+        Cols: Age, Sex of Subject
         Rows: Function
         """
         secondary_counts = OrderedDict()
@@ -729,13 +733,14 @@ class XLSXReportBuilder:
                 if 'function' in model._meta.get_all_field_names() and 'age' in model._meta.get_all_field_names():
                     rows = model.objects\
                             .values('sex', 'function')\
-                            .filter(**{model.sheet_name() + '__country__in':self.countries})\
+                            .filter(**{model.sheet_name() + '__country__in':self.country_list})\
                             .filter(age=age_id)\
+                            .filter(sex__in=self.male_female_ids)\
                             .annotate(n=Count('id'))
                     counts.update({(r['sex'], r['function']): r['n'] for r in rows})
             secondary_counts[age] = counts
 
-        self.tabulate_secondary_cols(ws, secondary_counts, GENDER, FUNCTION, row_perc=True, sec_cols=8)
+        self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, FUNCTION, row_perc=False, sec_cols=4)
 
     def ws_18(self, ws):
         """
@@ -746,11 +751,12 @@ class XLSXReportBuilder:
         counts = Counter()
         rows = NewspaperPerson.objects\
                 .values('sex', 'age')\
-                .filter(newspaper_sheet__country__in=self.countries)\
+                .filter(newspaper_sheet__country__in=self.country_list)\
+                .filter(sex__in=self.male_female_ids)\
                 .annotate(n=Count('id'))
         counts.update({(r['sex'], r['age']): r['n'] for r in rows})
 
-        self.tabulate(ws, counts, GENDER, AGES, row_perc=False)
+        self.tabulate(ws, counts, self.male_female, AGES, row_perc=True)
 
     def ws_19(self, ws):
         """
@@ -764,11 +770,12 @@ class XLSXReportBuilder:
              if media_type in broadcast:
                 rows = model.objects\
                         .values('sex', 'age')\
-                        .filter(**{model.sheet_name() + '__country__in':self.countries})\
+                        .filter(**{model.sheet_name() + '__country__in':self.country_list})\
+                        .filter(sex__in=self.male_female_ids)\
                         .annotate(n=Count('id'))
                 counts.update({(r['sex'], r['age']): r['n'] for r in rows})
 
-        self.tabulate(ws, counts, GENDER, AGES, row_perc=False)
+        self.tabulate(ws, counts, self.male_female, AGES, row_perc=True)
 
     def ws_20(self, ws):
         """
@@ -783,7 +790,7 @@ class XLSXReportBuilder:
             if 'function' in model._meta.get_all_field_names() and 'occupation' in model._meta.get_all_field_names():
                 rows = model.objects\
                         .values('function')\
-                        .filter(**{model.sheet_name() + '__country__in':self.countries})\
+                        .filter(**{model.sheet_name() + '__country__in':self.country_list})\
                         .annotate(n=Count('id'))
                 functions_count.update({(r['function']): r['n'] for r in rows})
 
@@ -796,12 +803,13 @@ class XLSXReportBuilder:
                 if 'function' in model._meta.get_all_field_names() and 'occupation' in model._meta.get_all_field_names():
                     rows = model.objects\
                             .values('sex', 'occupation')\
-                            .filter(**{model.sheet_name() + '__country__in':self.countries})\
+                            .filter(**{model.sheet_name() + '__country__in':self.country_list})\
                             .filter(function=func_id)\
+                            .filter(sex__in=self.male_female_ids)\
                             .annotate(n=Count('id'))
                     counts.update({(r['sex'], r['occupation']): r['n'] for r in rows})
             secondary_counts[function] = counts
-        self.tabulate_secondary_cols(ws, secondary_counts, GENDER, OCCUPATION, row_perc=True, sec_cols=8)
+        self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, OCCUPATION, row_perc=False, sec_cols=4)
 
     def ws_21(self, ws):
         """
