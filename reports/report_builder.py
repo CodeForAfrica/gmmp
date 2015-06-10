@@ -388,6 +388,7 @@ class XLSXReportBuilder:
             self.regions = get_regions()
 
         self.country_list = [code for code, name in self.countries]
+        self.region_list = [name for id, name in self.regions]
 
         # Various gender utilities
         self.male_female = [(id, value) for id, value in GENDER if id in [1, 2]]
@@ -409,7 +410,7 @@ class XLSXReportBuilder:
 
         # Use the following for specifying which reports to create durin dev
         # test_functions = ['ws_02', 'ws_11', 'ws_12', 'ws_13', 'ws_14', 'ws_15', 'ws_16', 'ws_17']
-        test_functions = ['ws_28']
+        test_functions = ['ws_28', 'ws_29', 'ws_30']
 
         sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
         for function in test_functions:
@@ -932,17 +933,17 @@ class XLSXReportBuilder:
         """
         counts = Counter()
         for media_type, model in person_models.iteritems():
-            region_field = model.sheet_name() + '__country_region__region'
+            region = model.sheet_name() + '__country_region__region'
             rows = model.objects\
-                    .values(region_field)\
+                    .values(region)\
                     .filter(sex=1)\
-                    .exclude(**{region_field: 'Unmapped'})\
+                    .filter(**{region + '__in': self.region_list})\
                     .annotate(n=Count('id'))
             for row in rows:
-                if row[region_field] is not None:
+                if row[region] is not None:
                     # Get media and region id's to assign to counts
                     media_id = [media[0] for media in MEDIA_TYPES if media[1] == media_type][0]
-                    region_id = [region[0] for region in self.regions if region[1] == row[region_field]][0]
+                    region_id = [r[0] for r in self.regions if r[1] == row[region]][0]
 
                     counts.update({(media_id, region_id): row['n']})
 
@@ -953,23 +954,22 @@ class XLSXReportBuilder:
         Cols: Regions
         Rows: Scope
         :: Female reporters only
-        :: Show all countries in regions, irrespective of user selection
         """
         counts = Counter()
         for model in person_models.itervalues():
             sheet_name = model.sheet_name()
-            region_field = sheet_name + '__country_region__region'
-            scope_field =  sheet_name + '__scope'
+            region = sheet_name + '__country_region__region'
+            scope =  sheet_name + '__scope'
             if 'scope' in model._meta.get_field(sheet_name).rel.to._meta.get_all_field_names():
                 rows = model.objects\
-                        .values(region_field, scope_field)\
-                        .filter(**{model.sheet_name() + '__country__in':self.countries})\
+                        .values(region, scope)\
+                        .filter(**{region + '__in': self.region_list})\
                         .filter(sex=1)\
                         .annotate(n=Count('id'))
                 for row in rows:
-                    if row[region_field] is not None:
-                        region_id = [region[0] for region in self.regions if region[1] == row[region_field]][0]
-                        counts.update({(region_id, row[scope_field]): row['n']})
+                    if row[region] is not None:
+                        region_id = [r[0] for r in self.regions if r[1] == row[region]][0]
+                        counts.update({(region_id, row[scope]): row['n']})
 
         self.tabulate(ws, counts, self.regions, SCOPE, row_perc=False)
 
@@ -978,25 +978,25 @@ class XLSXReportBuilder:
         Cols: Region
         Rows: Topics
         :: Female reporters only
-        :: Show all countries in regions, irrespective of user selection
         """
         counts = Counter()
         for model in person_models.itervalues():
             sheet_name = model.sheet_name()
-            region_field = sheet_name + '__country_region__region'
-            topic_field =  sheet_name + '__topic'
+            region = sheet_name + '__country_region__region'
+            topic =  sheet_name + '__topic'
             if 'topic' in model._meta.get_field(sheet_name).rel.to._meta.get_all_field_names():
                 rows = model.objects\
-                        .values(region_field, topic_field)\
-                        .filter(**{model.sheet_name() + '__country__in':self.countries})\
+                        .values(region, topic)\
+                        .filter(**{region + '__in': self.region_list})\
                         .filter(sex=1)\
                         .annotate(n=Count('id'))
                 for row in rows:
-                    if row[region_field] is not None:
-                        region_id = [region[0] for region in self.regions if region[1] == row[region_field]][0]
-                        counts.update({(region_id, row[topic_field]): row['n']})
+                    if row[region] is not None:
+                        region_id = [r[0] for r in self.regions if r[1] == row[region]][0]
+                        major_topic = TOPIC_GROUPS[row[topic]]
+                        counts.update({(region_id, major_topic): row['n']})
 
-        self.tabulate(ws, counts, self.regions, TOPICS, row_perc=False)
+        self.tabulate(ws, counts, self.regions, MAJOR_TOPICS, row_perc=False)
 
     def ws_31(self, ws):
         """
