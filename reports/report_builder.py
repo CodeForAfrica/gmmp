@@ -409,7 +409,7 @@ class XLSXReportBuilder:
 
         # Use the following for specifying which reports to create durin dev
         # test_functions = ['ws_02', 'ws_11', 'ws_12', 'ws_13', 'ws_14', 'ws_15', 'ws_16', 'ws_17']
-        test_functions = ['ws_23']
+        test_functions = ['ws_25']
 
         sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
         for function in test_functions:
@@ -848,7 +848,7 @@ class XLSXReportBuilder:
 
     def ws_24(self, ws):
         """
-        Cols: Sex
+        Cols: Subject Sex
         Rows: Family Role
         """
         counts = Counter()
@@ -856,20 +856,20 @@ class XLSXReportBuilder:
             if 'family_role' in model._meta.get_all_field_names():
                 rows = model.objects\
                         .values('sex', 'family_role')\
-                        .filter(**{model.sheet_name() + '__country__in':self.countries})\
+                        .filter(**{model.sheet_name() + '__country__in':self.country_list})\
+                        .filter(sex__in=self.male_female_ids)\
                         .annotate(n=Count('id'))
                 counts.update({(r['sex'], r['family_role']): r['n'] for r in rows})
 
-        self.tabulate(ws, counts, GENDER, YESNO, row_perc=True)
+        self.tabulate(ws, counts, self.male_female, YESNO, row_perc=False)
 
     def ws_25(self, ws):
         """
-        Cols: Sex of journalist, Sex of person
+        Cols: Journalist Sex, Subject Sex
         Rows: Family Role
         """
         secondary_counts = OrderedDict()
-        male_female = {(id, name) for id, name in GENDER if id in [1,2]}
-        for sex_id, sex in male_female:
+        for sex_id, sex in self.male_female:
             counts = Counter()
             for model in person_models.itervalues():
                 if 'family_role' in model._meta.get_all_field_names():
@@ -877,13 +877,14 @@ class XLSXReportBuilder:
                     journo_name = model._meta.get_field(model.sheet_name()).rel.to.journalist_field_name()
                     rows = model.objects\
                             .values('sex', 'family_role')\
-                            .filter(**{model.sheet_name() + '__country__in':self.countries})\
+                            .filter(**{model.sheet_name() + '__country__in':self.country_list})\
                             .filter(**{sheet_name + '__' + journo_name + '__sex':sex_id})\
+                            .filter(sex__in=self.male_female_ids)\
                             .annotate(n=Count('id'))
                     counts.update({(r['sex'], r['family_role']): r['n'] for r in rows})
             secondary_counts[sex] = counts
 
-        self.tabulate_secondary_cols(ws, secondary_counts, male_female, YESNO, row_perc=True, sec_cols=4)
+        self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, YESNO, row_perc=False, sec_cols=4)
 
     def ws_26(self, ws):
         """
