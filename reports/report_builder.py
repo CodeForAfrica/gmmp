@@ -884,6 +884,10 @@ class XLSXReportBuilder:
                     counts.update({(r['sex'], r['family_role']): r['n'] for r in rows})
             secondary_counts[sex] = counts
 
+        secondary_counts['col_title_def'] = [
+            'Sexof reporter',
+            'Sex of news subject']
+
         self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, YESNO, row_perc=False, sec_cols=4)
 
     def ws_26(self, ws):
@@ -1771,6 +1775,12 @@ class XLSXReportBuilder:
             row_id, row_title = row
             ws.write(r + i, c, clean_title(row_title))
         c += 1
+
+        if 'col_title_def' in secondary_counts:
+            # Write definitions of column heading titles
+            ws.write(r - 3, c-1, secondary_counts['col_title_def'][0])
+            ws.write(r - 2, c-1, secondary_counts['col_title_def'][1])
+            secondary_counts.pop('col_title_def')
 
         for field, counts in secondary_counts.iteritems():
             ws.write(r - 3, c, clean_title(field))
