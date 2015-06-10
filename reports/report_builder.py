@@ -396,7 +396,8 @@ class XLSXReportBuilder:
         # Various gender utilities
         self.male_female = [(id, value) for id, value in GENDER if id in [1, 2]]
         self.male_female_ids = [id for id, value in self.male_female]
-        self.female = [(id, value) for id, value in GENDER if id==1]
+        self.female = [(id, value) for id, value in GENDER if id == 1]
+        self.yes = [(id, value) for id, value in YESNO if id == 'Y']
 
         self.gmmp_year = '2015'
 
@@ -412,13 +413,13 @@ class XLSXReportBuilder:
         self.P.set_num_format(9)  # percentage
 
         # Use the following for specifying which reports to create durin dev
-        test_functions = [
-            'ws_01', 'ws_02', 'ws_04', 'ws_05', 'ws_06', 'ws_07', 'ws_08', 'ws_09', 'ws_10',
-            'ws_11', 'ws_12', 'ws_13', 'ws_14', 'ws_15', 'ws_16', 'ws_17', 'ws_18', 'ws_19', 'ws_20',
-            'ws_21', 'ws_23', 'ws_24', 'ws_25', 'ws_26', 'ws_27', 'ws_28', 'ws_29', 'ws_30',
-            'ws_31', 'ws_32']
+        # test_functions = [
+        #     'ws_01', 'ws_02', 'ws_04', 'ws_05', 'ws_06', 'ws_07', 'ws_08', 'ws_09', 'ws_10',
+        #     'ws_11', 'ws_12', 'ws_13', 'ws_14', 'ws_15', 'ws_16', 'ws_17', 'ws_18', 'ws_19', 'ws_20',
+        #     'ws_21', 'ws_23', 'ws_24', 'ws_25', 'ws_26', 'ws_27', 'ws_28', 'ws_29', 'ws_30',
+        #     'ws_31', 'ws_32']
 
-        test_functions = ['ws_38', 'ws_39']
+        test_functions = ['ws_42']
 
         sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
 
@@ -1139,25 +1140,22 @@ class XLSXReportBuilder:
 
     def ws_40(self, ws):
         """
-        Cols: Focus: about women
-        Rows: Region, Topics
+        Cols: Region, Topics
+        Rows: Focus: about women
         """
-        r = 6
-        self.write_col_headings(ws, YESNO)
-
+        secondary_counts = OrderedDict()
         for region_id, region in self.regions:
             counts = Counter()
             for model in sheet_models.itervalues():
                 if 'about_women' in model._meta.get_all_field_names():
                     rows = model.objects\
-                            .values('about_women', 'topic')\
+                            .values('topic', 'about_women')\
                             .filter(country_region__region=region)\
                             .annotate(n=Count('id'))
                     counts.update({(r['about_women'], r['topic']): r['n'] for r in rows})
+            secondary_counts[region] = counts
 
-            self.write_primary_row_heading(ws, region, r=r)
-            self.tabulate(ws, counts, YESNO, TOPICS, row_perc=True, sec_row=True, c=1, r=r)
-            r += len(TOPICS)
+        self.tabulate_secondary_cols(ws, secondary_counts, YESNO, TOPICS, row_perc=False, sec_cols=2, display_cols=self.yes)
 
     def ws_41(self, ws):
         """
@@ -1172,33 +1170,25 @@ class XLSXReportBuilder:
                         .filter(country__in=self.country_list)\
                         .annotate(n=Count('id'))
                 counts.update({(r['equality_rights'], r['topic']): r['n'] for r in rows})
-        self.tabulate(ws, counts, YESNO, TOPICS, row_perc=True)
+        self.tabulate(ws, counts, YESNO, TOPICS, row_perc=False)
 
     def ws_42(self, ws):
         """
-        Cols: Region
-        Rows: Topics, Equality rights raised
+        Cols: Region, Equality rights raised
+        Rows: Topics
         """
-        r = 6
-        self.write_col_headings(ws, self.regions)
-
-        for topic_id, topic in TOPICS:
+        secondary_counts = OrderedDict()
+        for region_id, region in self.regions:
             counts = Counter()
             for model in sheet_models.itervalues():
                 if 'equality_rights' in model._meta.get_all_field_names():
                     rows = model.objects\
-                            .values('country_region__region', 'about_women')\
-                            .exclude(country_region__region='Unmapped')\
-                            .filter(topic=topic_id)\
+                            .values('topic', 'equality_rights')\
+                            .filter(country_region__region=region)\
                             .annotate(n=Count('id'))
-                    for row in rows:
-                        if row['country_region__region'] is not None:
-                            region_id = [region[0] for region in self.regions if region[1] == row['country_region__region']][0]
-                            counts.update({(region_id, row['about_women']): row['n']})
-
-            self.write_primary_row_heading(ws, topic, r=r)
-            self.tabulate(ws, counts, self.regions, YESNO, row_perc=True, sec_row=True, c=1, r=r)
-            r += len(YESNO)
+                    counts.update({(r['equality_rights'], r['topic']): r['n'] for r in rows})
+            secondary_counts[region] = counts
+        self.tabulate_secondary_cols(ws, secondary_counts, YESNO, TOPICS, row_perc=False, sec_cols=4)
 
     def ws_43(self, ws):
         """
