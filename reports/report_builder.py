@@ -409,8 +409,13 @@ class XLSXReportBuilder:
         self.P.set_num_format(9)  # percentage
 
         # Use the following for specifying which reports to create durin dev
-        # test_functions = ['ws_02', 'ws_11', 'ws_12', 'ws_13', 'ws_14', 'ws_15', 'ws_16', 'ws_17']
-        test_functions = ['ws_28', 'ws_29', 'ws_30']
+        test_functions = [
+            'ws_01', 'ws_02', 'ws_04', 'ws_05', 'ws_06', 'ws_07', 'ws_08', 'ws_09', 'ws_10',
+            'ws_11', 'ws_12', 'ws_13', 'ws_14', 'ws_15', 'ws_16', 'ws_17', 'ws_18', 'ws_19', 'ws_20',
+            'ws_21', 'ws_23', 'ws_24', 'ws_25', 'ws_26', 'ws_27', 'ws_28', 'ws_29', 'ws_30',
+            'ws_31', 'ws_32']
+
+        # test_functions = ['ws_32']
 
         sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
         for function in test_functions:
@@ -976,7 +981,7 @@ class XLSXReportBuilder:
     def ws_30(self, ws):
         """
         Cols: Region
-        Rows: Topics
+        Rows: Major Topics
         :: Female reporters only
         """
         counts = Counter()
@@ -1001,20 +1006,21 @@ class XLSXReportBuilder:
     def ws_31(self, ws):
         """
         Cols: Sex of Reporter
-        Rows: Topics
+        Rows: Minor Topics
         """
         counts = Counter()
         for model in journalist_models.itervalues():
             sheet_name = model.sheet_name()
-            topic_field =  sheet_name + '__topic'
+            topic =  sheet_name + '__topic'
             if 'topic' in model._meta.get_field(sheet_name).rel.to._meta.get_all_field_names():
                 rows = model.objects\
-                        .values('sex', topic_field)\
-                        .filter(**{model.sheet_name() + '__country__in':self.countries})\
+                        .values('sex', topic)\
+                        .filter(**{model.sheet_name() + '__country__in':self.country_list})\
+                        .filter(sex__in=self.male_female_ids)\
                         .annotate(n=Count('id'))
-                counts.update({(r['sex'], r[topic_field]): r['n'] for r in rows})
+                counts.update({(r['sex'], r[topic]): r['n'] for r in rows})
 
-        self.tabulate(ws, counts, GENDER, TOPICS, row_perc=True)
+        self.tabulate(ws, counts, self.male_female, TOPICS, row_perc=True, display_cols=self.female)
 
     def ws_32(self, ws):
         """
@@ -1023,16 +1029,18 @@ class XLSXReportBuilder:
         :: Female reporters only
         """
         counts = Counter()
-        for media_type, model in sheet_models.iteritems():
-            if 'topic' in model._meta.get_all_field_names():
+        for media_type, model in journalist_models.iteritems():
+            sheet_name = model.sheet_name()
+            topic =  sheet_name + '__topic'
+            if 'topic' in model._meta.get_field(sheet_name).rel.to._meta.get_all_field_names():
                 rows = model.objects\
-                        .values('topic')\
-                        .filter(country__in=self.country_list)\
-                        .filter(**{model.journalist_field_name() + '__sex':1})\
+                        .values(topic)\
+                        .filter(**{model.sheet_name() + '__country__in':self.country_list})\
+                        .filter(sex=1)\
                         .annotate(n=Count('id'))
                 for row in rows:
                     media_id = [media[0] for media in MEDIA_TYPES if media[1] == media_type][0]
-                    counts.update({(media_id, row['topic']): row['n']})
+                    counts.update({(media_id, row[topic]): row['n']})
 
         self.tabulate(ws, counts, MEDIA_TYPES, TOPICS, row_perc=False)
 
