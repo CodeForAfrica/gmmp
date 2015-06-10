@@ -48,7 +48,7 @@ def get_regions():
     regions = set(item['region'] for item in country_regions)
     return [(i, region) for i, region in enumerate(regions)]
 
-def get_countries():
+def get_countries(selected=None):
     """
     Return a (code, country) list for countries captured.
     """
@@ -379,14 +379,18 @@ class XLSXReportBuilder:
         if isinstance(form, CountryForm):
             self.countries = form.filter_countries()
             self.regions = get_country_region(form.cleaned_data['country'])
+            self.report_type = 'country'
         elif isinstance(form, RegionForm):
             region = [name for i, name in form.REGIONS if str(i) == form.cleaned_data['region']][0]
             self.countries = get_region_countries(region)
             self.regions = [(0, region)]
+            self.report_type = 'region'
         else:
             self.countries = get_countries()
             self.regions = get_regions()
+            self.report_type = 'global'
 
+        import ipdb; ipdb.set_trace()
         self.country_list = [code for code, name in self.countries]
         self.region_list = [name for id, name in self.regions]
 
@@ -418,10 +422,12 @@ class XLSXReportBuilder:
         # test_functions = ['ws_32']
 
         sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
+
         for function in test_functions:
-            ws = workbook.add_worksheet(sheet_info[function]['name'])
-            self.write_headers(ws, sheet_info[function]['title'], sheet_info[function]['desc'])
-            getattr(self, function)(ws)
+            if self.report_type in sheet_info[function]['reports']:
+                ws = workbook.add_worksheet(sheet_info[function]['name'])
+                self.write_headers(ws, sheet_info[function]['title'], sheet_info[function]['desc'])
+                getattr(self, function)(ws)
 
         # -------------------------------------------------------------------
 
@@ -429,9 +435,10 @@ class XLSXReportBuilder:
         # sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
 
         # for ws_num, ws_info in sheet_info.iteritems():
-        #     ws = workbook.add_worksheet(ws_info['name'])
-        #     self.write_headers(ws, ws_info['title'], ws_info['desc'])
-        #     getattr(self, ws_num)(ws)
+        #     if self.report_type in ws_info['reports']:
+        #         ws = workbook.add_worksheet(ws_info['name'])
+        #         self.write_headers(ws, ws_info['title'], ws_info['desc'])
+        #         getattr(self, ws_num)(ws)
 
         workbook.close()
         output.seek(0)

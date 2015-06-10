@@ -34,7 +34,8 @@ class CountryForm(forms.Form):
         if self.cleaned_data['country'] == 'ALL':
             return get_countries()
         else:
-            return [self.cleaned_data['country']]
+            # return [self.cleaned_data['country']]
+            return [(code, country) for code, country in get_countries() if code == self.cleaned_data['country']]
 
 class RegionForm(forms.Form):
     REGIONS = [('ALL', 'Global')] + get_regions()
