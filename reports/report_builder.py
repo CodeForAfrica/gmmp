@@ -390,7 +390,6 @@ class XLSXReportBuilder:
             self.regions = get_regions()
             self.report_type = 'global'
 
-        import ipdb; ipdb.set_trace()
         self.country_list = [code for code, name in self.countries]
         self.region_list = [name for id, name in self.regions]
 
@@ -419,7 +418,7 @@ class XLSXReportBuilder:
             'ws_21', 'ws_23', 'ws_24', 'ws_25', 'ws_26', 'ws_27', 'ws_28', 'ws_29', 'ws_30',
             'ws_31', 'ws_32']
 
-        # test_functions = ['ws_32']
+        test_functions = ['ws_38', 'ws_39']
 
         sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
 
@@ -1063,11 +1062,13 @@ class XLSXReportBuilder:
             journo_sex = sheet_name + '__' + journo_name + '__sex'
             rows = model.objects\
                     .values(journo_sex, 'sex')\
-                    .filter(**{model.sheet_name() + '__country__in':self.countries})\
+                    .filter(**{model.sheet_name() + '__country__in':self.country_list})\
+                    .filter(sex__in=self.male_female_ids)\
                     .annotate(n=Count('id'))
             counts.update({(r[journo_sex], r['sex']): r['n'] for r in rows})
+        counts['col_title_def'] = 'Sex of subject'
 
-        self.tabulate(ws, counts, GENDER, GENDER, row_perc=False)
+        self.tabulate(ws, counts, self.male_female, GENDER, row_perc=True, display_cols=self.female)
 
     def ws_35(self, ws):
         """
@@ -1078,11 +1079,12 @@ class XLSXReportBuilder:
         counts = Counter()
         rows = TelevisionJournalist.objects\
                 .values('sex', 'age')\
-                .filter(television_sheet__country__in=self.countries)\
+                .filter(television_sheet__country__in=self.country_list)\
+                .filter(sex__in=self.male_female_ids)\
                 .annotate(n=Count('id'))
         counts.update({(r['sex'], r['age']): r['n'] for r in rows})
 
-        self.tabulate(ws, counts, GENDER, AGES, row_perc=False)
+        self.tabulate(ws, counts, self.male_female, AGES, row_perc=True, display_cols=self.female)
 
     def ws_36(self, ws):
         """
@@ -1092,17 +1094,34 @@ class XLSXReportBuilder:
         counts = Counter()
         for model in journalist_models.itervalues():
             sheet_name = model.sheet_name()
-            about_women_field =  sheet_name + '__about_women'
+            about_women =  sheet_name + '__about_women'
             if 'about_women' in model._meta.get_field(sheet_name).rel.to._meta.get_all_field_names():
                 rows = model.objects\
-                        .values('sex', about_women_field)\
-                        .filter(**{model.sheet_name() + '__country__in':self.countries})\
+                        .values('sex', about_women)\
+                        .filter(**{model.sheet_name() + '__country__in':self.country_list})\
+                        .filter(sex__in=self.male_female_ids)\
                         .annotate(n=Count('id'))
-                counts.update({(r['sex'], r[about_women_field]): r['n'] for r in rows})
+                counts.update({(r['sex'], r[about_women]): r['n'] for r in rows})
 
-        self.tabulate(ws, counts, GENDER, YESNO, row_perc=True)
+        self.tabulate(ws, counts, self.male_female, YESNO, row_perc=True)
 
     def ws_38(self, ws):
+        """
+        Cols: Focus: about women
+        Rows: Major Topics
+        """
+        counts = Counter()
+        for model in sheet_models.itervalues():
+            if 'about_women' in model._meta.get_all_field_names():
+                rows = model.objects\
+                        .values('about_women', 'topic')\
+                        .filter(country__in=self.country_list)\
+                        .annotate(n=Count('id'))
+                counts.update({(r['about_women'], TOPIC_GROUPS[r['topic']]): r['n'] for r in rows})
+
+        self.tabulate(ws, counts, YESNO, MAJOR_TOPICS, row_perc=True)
+
+    def ws_39(self, ws):
         """
         Cols: Focus: about women
         Rows: Topics
@@ -1452,7 +1471,7 @@ class XLSXReportBuilder:
 
         rows = model.objects\
                 .values(journo_sex, 'sex')\
-                .filter(**{model.sheet_name() + '__country__in':self.countries})\
+                .filter(**{model.sheet_name() + '__country__in':self.country_list})\
                 .annotate(n=Count('id'))
         counts.update({(r[journo_sex], r['sex']): r['n'] for r in rows})
 
@@ -1860,11 +1879,14 @@ class XLSXReportBuilder:
         if display_cols:
             cols = display_cols
 
+        if 'col_title_def' in counts and not sec_row:
+            ws.write(r - 2, c-1, counts['col_title_def'])
+            counts.pop('col_title_def')
+
         # values, written by column
         for col_id, col_title in cols:
             # column title
             if not sec_row:
-                # Else already written
                 ws.write(r - 2, c, clean_title(col_title))
                 ws.write(r - 1, c, "N")
                 ws.write(r - 1, c + 1, "%")

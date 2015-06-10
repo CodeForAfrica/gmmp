@@ -205,6 +205,12 @@ WS_INFO = {
         'desc': 'Stories with Women as a central Focus by major topic',
         'reports': ['global', 'region', 'country'],
     },
+    'ws_39': {
+        'name': '39',
+        'title': 'Breakdown of Stories with Women as a central Focus by minor topic',
+        'desc': 'Stories with Women as a central Focus by minor topic',
+        'reports': ['global'],
+    },
     'ws_40': {
         'name': '40',
         'title': 'Breakdown of Stories with Women as a central Focus by topic and region',
@@ -487,7 +493,7 @@ TOPIC_GROUPS = {
     19: 3, 20: 3, 21: 3, 22: 3, 23: 3, 24: 3, 25: 3, 26: 3, 27: 3,
     28: 4, 29: 4, 30: 4, 31: 4, 32: 4, 33: 4, 34: 4, 35: 4, 36: 4, 37: 4, 38: 4, 39: 4, 40: 4, 41: 4,
     42: 5, 43: 5, 44: 5, 45: 5, 46: 5, 47: 5, 48: 5,
-    49: 6,50: 6,51: 6,52: 6,53: 6,54: 6,
+    49: 6, 50: 6, 51: 6, 52: 6, 53: 6, 54: 6,
     55: 7
 }
 
