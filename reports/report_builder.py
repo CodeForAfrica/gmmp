@@ -419,7 +419,7 @@ class XLSXReportBuilder:
         #     'ws_21', 'ws_23', 'ws_24', 'ws_25', 'ws_26', 'ws_27', 'ws_28', 'ws_29', 'ws_30',
         #     'ws_31', 'ws_32']
 
-        test_functions = ['ws_45']
+        test_functions = ['ws_46']
 
         sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
 
@@ -1259,24 +1259,21 @@ class XLSXReportBuilder:
 
     def ws_46(self, ws):
         """
-        Cols: Stereotypes
-        Rows: Region, Topics
+        Cols: Region, Stereotypes
+        Rows: Major Topics
         """
-        r = 6
-        self.write_col_headings(ws, AGREE_DISAGREE)
-
+        secondary_counts = OrderedDict()
         for region_id, region in self.regions:
             counts = Counter()
             for model in sheet_models.itervalues():
-                rows = model.objects\
-                        .values('stereotypes', 'topic')\
-                        .filter(country_region__region=region)\
-                        .annotate(n=Count('id'))
-                counts.update({(r['stereotypes'], r['topic']): r['n'] for r in rows})
-
-            self.write_primary_row_heading(ws, region, r=r)
-            self.tabulate(ws, counts, AGREE_DISAGREE, TOPICS, row_perc=True, sec_row=True, c=1, r=r)
-            r += len(TOPICS)
+                if 'stereotypes' in model._meta.get_all_field_names():
+                    rows = model.objects\
+                            .values('stereotypes', 'topic')\
+                            .filter(country_region__region=region)\
+                            .annotate(n=Count('id'))
+                    counts.update({(TOPIC_GROUPS[r['topic']], r['stereotypes']): r['n'] for r in rows})
+            secondary_counts[region] = counts
+        self.tabulate_secondary_cols(ws, secondary_counts, AGREE_DISAGREE, MAJOR_TOPICS, row_perc=True, sec_cols=8)
 
     def ws_47(self, ws):
         """
