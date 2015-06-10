@@ -419,7 +419,7 @@ class XLSXReportBuilder:
         #     'ws_21', 'ws_23', 'ws_24', 'ws_25', 'ws_26', 'ws_27', 'ws_28', 'ws_29', 'ws_30',
         #     'ws_31', 'ws_32']
 
-        test_functions = ['ws_46']
+        test_functions = ['ws_48']
 
         sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
 
@@ -1278,7 +1278,7 @@ class XLSXReportBuilder:
     def ws_47(self, ws):
         """
         Cols: Stereotypes
-        Rows: Topics
+        Rows: Major Topics
         """
         counts = Counter()
         for model in sheet_models.itervalues():
@@ -1286,33 +1286,31 @@ class XLSXReportBuilder:
                     .values('stereotypes', 'topic')\
                     .filter(country__in=self.country_list)\
                     .annotate(n=Count('id'))
-            counts.update({(r['stereotypes'], r['topic']): r['n'] for r in rows})
+            counts.update({(r['stereotypes'], TOPIC_GROUPS[r['topic']]): r['n'] for r in rows})
 
-        self.tabulate(ws, counts, AGREE_DISAGREE, TOPICS, row_perc=True)
+        self.tabulate(ws, counts, AGREE_DISAGREE, MAJOR_TOPICS, row_perc=True)
 
     def ws_48(self, ws):
         """
-        Cols: Sex of reporter
-        Rows: Topics, Stereotypes
+        Cols: Sex of reporter, Stereotypes
+        Rows: Major Topics
         """
-        r = 6
-        self.write_col_headings(ws, GENDER)
-
-        for topic_id, topic in TOPICS:
+        secondary_counts = OrderedDict()
+        for gender_id, gender in self.male_female:
             counts = Counter()
-            for model in sheet_models.itervalues():
-                if 'stereotypes' in model._meta.get_all_field_names():
-                    sex_field = model.journalist_field_name() + '__sex'
+            for model in journalist_models.itervalues():
+                sheet_name = model.sheet_name()
+                topic = sheet_name + '__topic'
+                stereotypes =  sheet_name + '__stereotypes'
+                if 'stereotypes' in model._meta.get_field(sheet_name).rel.to._meta.get_all_field_names():
                     rows = model.objects\
-                            .values(sex_field, 'stereotypes')\
-                            .filter(country__in=self.country_list)\
-                            .filter(topic=topic_id)\
+                            .values(stereotypes, topic)\
+                            .filter(sex=gender_id)\
+                            .filter(**{model.sheet_name() + '__country__in':self.country_list})\
                             .annotate(n=Count('id'))
-                    counts.update({(r[sex_field], r['stereotypes']): r['n'] for r in rows})
-
-            self.write_primary_row_heading(ws, topic, r=r)
-            self.tabulate(ws, counts, GENDER, AGREE_DISAGREE, row_perc=True, sec_row=True, r=r)
-            r += len(AGREE_DISAGREE)
+                    counts.update({(r[stereotypes], TOPIC_GROUPS[r[topic]]): r['n'] for r in rows})
+            secondary_counts[gender] = counts
+        self.tabulate_secondary_cols(ws, secondary_counts, AGREE_DISAGREE, MAJOR_TOPICS, row_perc=False, sec_cols=8)
 
     def ws_53(self, ws):
         """
