@@ -419,7 +419,7 @@ class XLSXReportBuilder:
         #     'ws_21', 'ws_23', 'ws_24', 'ws_25', 'ws_26', 'ws_27', 'ws_28', 'ws_29', 'ws_30',
         #     'ws_31', 'ws_32']
 
-        test_functions = ['ws_41', 'ws_42', 'ws_43', 'ws_44']
+        test_functions = ['ws_45']
 
         sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
 
@@ -1239,25 +1239,23 @@ class XLSXReportBuilder:
     def ws_45(self, ws):
         """
         Cols: Sex of news subject
-        Rows: Region, Equality rights raised
+        Rows: Region
+        :: Equality rights raised == Yes
         """
-        r = 6
-        self.write_col_headings(ws, GENDER)
-
-        for region_id, region in self.regions:
-            counts = Counter()
-            for model in sheet_models.itervalues():
-                if 'equality_rights' in model._meta.get_all_field_names():
-                    sex_field = model.person_field_name() + '__sex'
-                    rows = model.objects\
-                            .values(sex_field, 'about_women')\
-                            .filter(country_region__region=region)\
-                            .annotate(n=Count('id'))
-                    counts.update({(r[sex_field], r['about_women']): r['n'] for r in rows})
-
-            self.write_primary_row_heading(ws, region, r=r)
-            self.tabulate(ws, counts, GENDER, YESNO, row_perc=True, sec_row=True, c=1, r=r)
-            r += len(YESNO)
+        counts = Counter()
+        for model in person_models.itervalues():
+            if 'equality_rights' in model.sheet_field().rel.to._meta.get_all_field_names():
+                region = model.sheet_name() + '__country_region__region'
+                equality_rights = model.sheet_name() + '__equality_rights'
+                rows = model.objects\
+                        .values('sex', region)\
+                        .filter(**{region + '__in':self.region_list})\
+                        .filter(**{equality_rights:'Y'})\
+                        .annotate(n=Count('id'))
+                for r in rows:
+                    region_id = [id for id, name in self.regions if name == r[region]][0]
+                    counts.update({(r['sex'], region_id): r['n']})
+        self.tabulate(ws, counts, self.male_female, self.regions, row_perc=True)
 
     def ws_46(self, ws):
         """
