@@ -24,7 +24,7 @@ class GlobalForm(forms.Form):
 
 class CountryForm(forms.Form):
     # Only show countries for which data has been submitted
-    COUNTRIES = [('ALL', 'Global')] + get_countries()
+    COUNTRIES = get_countries()
 
     country = forms.ChoiceField(
         label='Country',
@@ -34,11 +34,10 @@ class CountryForm(forms.Form):
         if self.cleaned_data['country'] == 'ALL':
             return get_countries()
         else:
-            # return [self.cleaned_data['country']]
             return [(code, country) for code, country in get_countries() if code == self.cleaned_data['country']]
 
 class RegionForm(forms.Form):
-    REGIONS = [('ALL', 'Global')] + get_regions()
+    REGIONS = get_regions()
 
     region = forms.ChoiceField(
         label='Region',
