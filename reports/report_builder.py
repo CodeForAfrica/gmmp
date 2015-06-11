@@ -1477,7 +1477,6 @@ class XLSXReportBuilder:
 
         self.tabulate(ws, counts, GENDER, GENDER, row_perc=False)
 
-
     def ws_60(self, ws):
         """
         Cols: Sex of subject
