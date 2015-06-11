@@ -423,14 +423,14 @@ class XLSXReportBuilder:
         self.P = workbook.add_format(FORMATS['P'])
 
         # Use the following for specifying which reports to create durin dev
-        # test_functions = [
-        #     'ws_01', 'ws_02', 'ws_04', 'ws_05', 'ws_06', 'ws_07', 'ws_08', 'ws_09', 'ws_10',
-        #     'ws_11', 'ws_12', 'ws_13', 'ws_14', 'ws_15', 'ws_16', 'ws_17', 'ws_18', 'ws_19', 'ws_20',
-        #     'ws_21', 'ws_23', 'ws_24', 'ws_25', 'ws_26', 'ws_27', 'ws_28', 'ws_29', 'ws_30',
-        #     'ws_31', 'ws_32', 'ws_34', 'ws_35', 'ws_36', 'ws_38', 'ws_39', 'ws_40',
-        #     'ws_41', 'ws_42', 'ws_43', 'ws_44', 'ws_45', 'ws_46', 'ws_47', 'ws_48',]
+        test_functions = [
+            'ws_01', 'ws_02', 'ws_04', 'ws_05', 'ws_06', 'ws_07', 'ws_08', 'ws_09', 'ws_10',
+            'ws_11', 'ws_12', 'ws_13', 'ws_14', 'ws_15', 'ws_16', 'ws_17', 'ws_18', 'ws_19', 'ws_20',
+            'ws_21', 'ws_23', 'ws_24', 'ws_25', 'ws_26', 'ws_27', 'ws_28', 'ws_29', 'ws_30',
+            'ws_31', 'ws_32', 'ws_34', 'ws_35', 'ws_36', 'ws_38', 'ws_39', 'ws_40',
+            'ws_41', 'ws_42', 'ws_43', 'ws_44', 'ws_45', 'ws_46', 'ws_47', 'ws_48',]
 
-        test_functions = ['ws_25']
+        # test_functions = ['ws_01', 'ws_04', 'ws_12', 'ws_46', 'ws_30']
 
         sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
 
@@ -466,7 +466,7 @@ class XLSXReportBuilder:
         for media_type, model in sheet_models.iteritems():
             rows = model.objects\
                     .values('country_region__region')\
-                    .exclude(country_region__region='Unmapped')\
+                    .filter(country_region__region__in=self.region_list)\
                     .annotate(n=Count('id'))
 
             for row in rows:
@@ -509,14 +509,14 @@ class XLSXReportBuilder:
             for media_type, model in sheet_models.iteritems():
                 rows = model.objects\
                         .values('topic')\
-                        .filter(country__in=self.country_list)\
+                        .filter(country_region__region=region)\
                         .annotate(n=Count('id'))
 
-                for row in rows:
+                for r in rows:
                     # Get media id's to assign to counts
                     media_id = [media[0] for media in MEDIA_TYPES if media[1] == media_type][0]
-                    major_topic = TOPIC_GROUPS[row['topic']]
-                    counts.update({(media_id, major_topic): row['n']})
+                    major_topic = TOPIC_GROUPS[r['topic']]
+                    counts.update({(media_id, major_topic): r['n']})
             secondary_counts[region] = counts
 
         self.tabulate_secondary_cols(ws, secondary_counts, MEDIA_TYPES, MAJOR_TOPICS, row_perc=False, sec_cols=10)
@@ -535,7 +535,8 @@ class XLSXReportBuilder:
                 .filter(**{model.sheet_name() + '__country__in': self.country_list})\
                 .filter(sex__in=self.male_female_ids)\
                 .annotate(n=Count('id'))
-            counts.update({(r['sex'], TOPIC_GROUPS[r[topic_field]]): r['n'] for r in rows})
+            for r in rows:
+                counts.update({(r['sex'], TOPIC_GROUPS[r[topic_field]]): r['n']})
 
         self.tabulate(ws, counts, self.male_female, MAJOR_TOPICS, row_perc=True, display_cols=self.female)
 
@@ -554,7 +555,8 @@ class XLSXReportBuilder:
                     .filter(**{model.sheet_name() + '__country_region__region':region})\
                     .filter(sex__in=self.male_female_ids)\
                     .annotate(n=Count('id'))
-                counts.update({(r['sex'], TOPIC_GROUPS[r[topic_field]]): r['n'] for r in rows})
+                for r in rows:
+                    counts.update({(r['sex'], TOPIC_GROUPS[r[topic_field]]): r['n']})
             secondary_counts[region] = counts
 
         self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, MAJOR_TOPICS, row_perc=True, sec_cols=2, display_cols=self.female)
@@ -572,10 +574,10 @@ class XLSXReportBuilder:
                     .filter(sex__in=self.male_female_ids)\
                     .annotate(n=Count('id'))
 
-            for row in rows:
+            for r in rows:
                 # Get media id's to assign to counts
                 media_id = [media[0] for media in MEDIA_TYPES if media[1] == media_type][0]
-                counts.update({(media_id, row['sex']): row['n']})
+                counts.update({(media_id, r['sex']): r['n']})
 
         self.tabulate(ws, counts, MEDIA_TYPES, self.male_female, row_perc=False)
 
@@ -626,7 +628,8 @@ class XLSXReportBuilder:
                 .values('space', 'topic')\
                 .filter(country__in=self.country_list)\
                 .annotate(n=Count('id'))
-        counts.update({(r['space'], TOPIC_GROUPS[r['topic']]): r['n'] for r in rows})
+        for r in rows:
+            counts.update({(r['space'], TOPIC_GROUPS[r['topic']]): r['n']})
 
         self.tabulate(ws, counts, SPACE, MAJOR_TOPICS, row_perc=False)
 
@@ -642,14 +645,15 @@ class XLSXReportBuilder:
                     .values('equality_rights', 'topic')\
                     .filter(country__in=self.country_list)\
                     .annotate(n=Count('id'))
-                counts.update({(r['equality_rights'], TOPIC_GROUPS[r['topic']]): r['n'] for r in rows})
+                for r in rows:
+                    counts.update({(r['equality_rights'], TOPIC_GROUPS[r['topic']]): r['n']})
 
         self.tabulate(ws, counts, YESNO, MAJOR_TOPICS, row_perc=True)
 
     def ws_12(self, ws):
         """
         Cols: Region, Equality Rights
-        Rows: Topics
+        Rows: Major Topics
         """
         secondary_counts = OrderedDict()
         for region_id, region_name in self.regions:
@@ -661,7 +665,8 @@ class XLSXReportBuilder:
                         .values('equality_rights', 'topic')\
                         .filter(country_region__region=region_name)\
                         .annotate(n=Count('id'))
-                    counts.update({(r['equality_rights'], TOPIC_GROUPS[r['topic']]): r['n'] for r in rows})
+                    for r in rows:
+                        counts.update({(r['equality_rights'], TOPIC_GROUPS[r['topic']]): r['n']})
             secondary_counts[region_name] = counts
 
         self.tabulate_secondary_cols(ws, secondary_counts, YESNO, MAJOR_TOPICS, row_perc=True, sec_cols=4)
@@ -683,7 +688,8 @@ class XLSXReportBuilder:
                             .filter(**{model.sheet_name() + '__country__in': self.country_list})\
                             .filter(sex=gender_id)\
                             .annotate(n=Count('id'))
-                counts.update({(r[equality_rights], TOPIC_GROUPS[r[topic]]): r['n'] for r in rows})
+                    for r in rows:
+                        counts.update({(r[equality_rights], TOPIC_GROUPS[r[topic]]): r['n']})
             secondary_counts[gender] = counts
 
         self.tabulate_secondary_cols(ws, secondary_counts, YESNO, MAJOR_TOPICS, row_perc=True, sec_cols=4)
@@ -963,12 +969,11 @@ class XLSXReportBuilder:
                     .filter(**{region + '__in': self.region_list})\
                     .annotate(n=Count('id'))
             for row in rows:
-                if row[region] is not None:
-                    # Get media and region id's to assign to counts
-                    media_id = [media[0] for media in MEDIA_TYPES if media[1] == media_type][0]
-                    region_id = [r[0] for r in self.regions if r[1] == row[region]][0]
+                # Get media and region id's to assign to counts
+                media_id = [media[0] for media in MEDIA_TYPES if media[1] == media_type][0]
+                region_id = [r[0] for r in self.regions if r[1] == row[region]][0]
 
-                    counts.update({(media_id, region_id): row['n']})
+                counts.update({(media_id, region_id): row['n']})
 
         self.tabulate(ws, counts, MEDIA_TYPES, self.regions, row_perc=True)
 
@@ -990,9 +995,8 @@ class XLSXReportBuilder:
                         .filter(sex=1)\
                         .annotate(n=Count('id'))
                 for row in rows:
-                    if row[region] is not None:
-                        region_id = [r[0] for r in self.regions if r[1] == row[region]][0]
-                        counts.update({(region_id, row[scope]): row['n']})
+                    region_id = [r[0] for r in self.regions if r[1] == row[region]][0]
+                    counts.update({(region_id, row[scope]): row['n']})
 
         self.tabulate(ws, counts, self.regions, SCOPE, row_perc=False)
 
@@ -1014,10 +1018,9 @@ class XLSXReportBuilder:
                         .filter(sex=1)\
                         .annotate(n=Count('id'))
                 for row in rows:
-                    if row[region] is not None:
-                        region_id = [r[0] for r in self.regions if r[1] == row[region]][0]
-                        major_topic = TOPIC_GROUPS[row[topic]]
-                        counts.update({(region_id, major_topic): row['n']})
+                    region_id = [r[0] for r in self.regions if r[1] == row[region]][0]
+                    major_topic = TOPIC_GROUPS[row[topic]]
+                    counts.update({(region_id, major_topic): row['n']})
 
         self.tabulate(ws, counts, self.regions, MAJOR_TOPICS, row_perc=False)
 
@@ -1129,7 +1132,8 @@ class XLSXReportBuilder:
                         .values('about_women', 'topic')\
                         .filter(country__in=self.country_list)\
                         .annotate(n=Count('id'))
-                counts.update({(r['about_women'], TOPIC_GROUPS[r['topic']]): r['n'] for r in rows})
+                for r in rows:
+                    counts.update({(r['about_women'], TOPIC_GROUPS[r['topic']]): r['n']})
 
         self.tabulate(ws, counts, YESNO, MAJOR_TOPICS, row_perc=True)
 
@@ -1282,7 +1286,8 @@ class XLSXReportBuilder:
                             .values('stereotypes', 'topic')\
                             .filter(country_region__region=region)\
                             .annotate(n=Count('id'))
-                    counts.update({(TOPIC_GROUPS[r['topic']], r['stereotypes']): r['n'] for r in rows})
+                    for r in rows:
+                        counts.update({(TOPIC_GROUPS[r['topic']], r['stereotypes']): r['n']})
             secondary_counts[region] = counts
         self.tabulate_secondary_cols(ws, secondary_counts, AGREE_DISAGREE, MAJOR_TOPICS, row_perc=True, sec_cols=8)
 
@@ -1297,7 +1302,8 @@ class XLSXReportBuilder:
                     .values('stereotypes', 'topic')\
                     .filter(country__in=self.country_list)\
                     .annotate(n=Count('id'))
-            counts.update({(r['stereotypes'], TOPIC_GROUPS[r['topic']]): r['n'] for r in rows})
+            for r in rows:
+                counts.update({(r['stereotypes'], TOPIC_GROUPS[r['topic']]): r['n']})
 
         self.tabulate(ws, counts, AGREE_DISAGREE, MAJOR_TOPICS, row_perc=True)
 
@@ -1319,7 +1325,8 @@ class XLSXReportBuilder:
                             .filter(sex=gender_id)\
                             .filter(**{model.sheet_name() + '__country__in':self.country_list})\
                             .annotate(n=Count('id'))
-                    counts.update({(r[stereotypes], TOPIC_GROUPS[r[topic]]): r['n'] for r in rows})
+                    for r in rows:
+                        counts.update({(r[stereotypes], TOPIC_GROUPS[r[topic]]): r['n']})
             secondary_counts[gender] = counts
         self.tabulate_secondary_cols(ws, secondary_counts, AGREE_DISAGREE, MAJOR_TOPICS, row_perc=False, sec_cols=8)
 
