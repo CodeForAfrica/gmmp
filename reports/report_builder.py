@@ -19,7 +19,7 @@ from forms.modelutils import (TOPICS, GENDER, SPACE, OCCUPATION, FUNCTION, SCOPE
     YESNO, AGES, SOURCE, VICTIM_OF, SURVIVOR_OF, IS_PHOTOGRAPH, AGREE_DISAGREE,
     RETWEET, TV_ROLE, MEDIA_TYPES,
     CountryRegion)
-from report_details import WS_INFO, REGION_COUNTRY_MAP, MAJOR_TOPICS, TOPIC_GROUPS, GROUP_TOPICS_MAP
+from report_details import WS_INFO, REGION_COUNTRY_MAP, MAJOR_TOPICS, TOPIC_GROUPS, GROUP_TOPICS_MAP, FORMATS
 
 
 def has_field(model, fld):
@@ -409,18 +409,28 @@ class XLSXReportBuilder:
         workbook = xlsxwriter.Workbook(output)
 
         # setup formats
-        self.P = workbook.add_format()
-        self.P.set_num_format(9)  # percentage
+        self.heading = workbook.add_format(FORMATS['heading'])
+
+        self.col_heading = workbook.add_format(FORMATS['col_heading'])
+        self.col_heading_def = workbook.add_format(FORMATS['col_heading_def'])
+
+        self.sec_col_heading = workbook.add_format(FORMATS['sec_col_heading'])
+        self.sec_col_heading_def = workbook.add_format(FORMATS['sec_col_heading_def'])
+
+        self.label = workbook.add_format(FORMATS['label'])
+
+        self.N = workbook.add_format(FORMATS['N'])
+        self.P = workbook.add_format(FORMATS['P'])
 
         # Use the following for specifying which reports to create durin dev
-        test_functions = [
-            'ws_01', 'ws_02', 'ws_04', 'ws_05', 'ws_06', 'ws_07', 'ws_08', 'ws_09', 'ws_10',
-            'ws_11', 'ws_12', 'ws_13', 'ws_14', 'ws_15', 'ws_16', 'ws_17', 'ws_18', 'ws_19', 'ws_20',
-            'ws_21', 'ws_23', 'ws_24', 'ws_25', 'ws_26', 'ws_27', 'ws_28', 'ws_29', 'ws_30',
-            'ws_31', 'ws_32', 'ws_34', 'ws_35', 'ws_36', 'ws_38', 'ws_39', 'ws_40',
-            'ws_41', 'ws_42', 'ws_43', 'ws_44', 'ws_45', 'ws_46', 'ws_47', 'ws_48',]
+        # test_functions = [
+        #     'ws_01', 'ws_02', 'ws_04', 'ws_05', 'ws_06', 'ws_07', 'ws_08', 'ws_09', 'ws_10',
+        #     'ws_11', 'ws_12', 'ws_13', 'ws_14', 'ws_15', 'ws_16', 'ws_17', 'ws_18', 'ws_19', 'ws_20',
+        #     'ws_21', 'ws_23', 'ws_24', 'ws_25', 'ws_26', 'ws_27', 'ws_28', 'ws_29', 'ws_30',
+        #     'ws_31', 'ws_32', 'ws_34', 'ws_35', 'ws_36', 'ws_38', 'ws_39', 'ws_40',
+        #     'ws_41', 'ws_42', 'ws_43', 'ws_44', 'ws_45', 'ws_46', 'ws_47', 'ws_48',]
 
-        # test_functions = ['ws_48']
+        test_functions = ['ws_25']
 
         sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
 
@@ -1772,10 +1782,31 @@ class XLSXReportBuilder:
         """
         Write the headers to the worksheet
         """
-        ws.write(0, 0, title)
-        ws.write(1, 0, description)
-        ws.write(3, 2, self.gmmp_year)
+        ws.write(0, 0, title, self.heading)
+        ws.write(1, 0, description, self.heading)
+        ws.write(3, 2, self.gmmp_year, self.heading)
 
+    def write_col_headings(self, ws, cols, c=2, r=4):
+        """
+        :param ws: worksheet to write to
+        :param cols: list of `(col_id, col_title)` tuples of column ids and titles
+        :param r, c: initial position where cursor should start writing to
+
+        """
+        for col_id, col_title in cols:
+            ws.write(r, c, clean_title(col_title), self.col_heading)
+            ws.write(r + 1, c, "N")
+            ws.write(r + 1, c + 1, "%")
+            c += 2
+
+    def write_primary_row_heading(self, ws, heading, c=0, r=6):
+        """
+        :param ws: worksheet to write to
+        :param heading: row heading to write
+        :param r, c: position where heading should be written to
+
+        """
+        ws.write(r, c, clean_title(heading), self.heading)
 
     def tabulate_secondary_cols(self, ws, secondary_counts, cols, rows, row_perc=False, display_cols=None, sec_cols=4):
         """
@@ -1792,42 +1823,19 @@ class XLSXReportBuilder:
         # row titles
         for i, row in enumerate(rows):
             row_id, row_title = row
-            ws.write(r + i, c, clean_title(row_title))
+            ws.write(r + i, c, clean_title(row_title), self.label)
         c += 1
 
         if 'col_title_def' in secondary_counts:
             # Write definitions of column heading titles
-            ws.write(r - 3, c-1, secondary_counts['col_title_def'][0])
-            ws.write(r - 2, c-1, secondary_counts['col_title_def'][1])
+            ws.write(r-3, c-1, secondary_counts['col_title_def'][0], self.sec_col_heading_def)
+            ws.write(r-2, c-1, secondary_counts['col_title_def'][1], self.col_heading_def)
             secondary_counts.pop('col_title_def')
 
         for field, counts in secondary_counts.iteritems():
-            ws.write(r - 3, c, clean_title(field))
+            ws.merge_range(r-3, c, r-3, c+sec_cols-1, clean_title(field), self.sec_col_heading)
             self.tabulate(ws, counts, cols, rows, row_perc=row_perc, sec_col=True, display_cols=display_cols, r=7, c=c)
             c += sec_cols
-
-    def write_col_headings(self, ws, cols, c=2, r=4):
-        """
-        :param ws: worksheet to write to
-        :param cols: list of `(col_id, col_title)` tuples of column ids and titles
-        :param r, c: initial position where cursor should start writing to
-
-        """
-        for col_id, col_title in cols:
-            ws.write(r, c, clean_title(col_title))
-            ws.write(r + 1, c, "N")
-            ws.write(r + 1, c + 1, "%")
-            c += 2
-
-    def write_primary_row_heading(self, ws, heading, c=0, r=6):
-        """
-        :param ws: worksheet to write to
-        :param heading: row heading to write
-        :param r, c: position where heading should be written to
-
-        """
-        ws.write(r, c, clean_title(heading))
-
 
     def tabulate(self, ws, counts, cols, rows, row_perc=False, sec_col=False, sec_row=False, display_cols=None, c=1, r=6):
         """ Emit a table.
@@ -1853,7 +1861,7 @@ class XLSXReportBuilder:
             # Else already written
             for i, row in enumerate(rows):
                 row_id, row_title = row
-                ws.write(r + i, c, clean_title(row_title))
+                ws.write(r + i, c, clean_title(row_title), self.label)
 
             c += 1
 
@@ -1863,16 +1871,16 @@ class XLSXReportBuilder:
             cols = display_cols
 
         if 'col_title_def' in counts and not sec_row:
-            ws.write(r - 2, c-1, counts['col_title_def'])
+            ws.write(r - 2, c-1, counts['col_title_def'], self.col_heading_def)
             counts.pop('col_title_def')
 
         # values, written by column
-        for col_id, col_title in cols:
+        for col_id, col_heading in cols:
             # column title
             if not sec_row:
-                ws.write(r - 2, c, clean_title(col_title))
-                ws.write(r - 1, c, "N")
-                ws.write(r - 1, c + 1, "%")
+                ws.merge_range(r-2, c, r-2, c+1, clean_title(col_heading), self.col_heading)
+                ws.write(r - 1, c, "N", self.label)
+                ws.write(r - 1, c + 1, "%", self.label)
 
             if not row_perc:
                 # column totals
@@ -1889,7 +1897,7 @@ class XLSXReportBuilder:
                     total = row_totals[row_id]
 
                 n = counts.get((col_id, row_id), 0)
-                ws.write(r + i, c, n)
+                ws.write(r + i, c, n, self.N)
                 ws.write(r + i, c + 1, p(n, total), self.P)
 
             c += 2

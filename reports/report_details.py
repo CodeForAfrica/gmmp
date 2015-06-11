@@ -506,3 +506,54 @@ MAJOR_TOPICS = (
     (6, 'Celebrity, Arts and Media, Sports'),
     (7, 'Other')
 )
+
+
+FORMATS = {
+    'heading': {
+        'font_name': 'Arial',
+        'bold': True,
+        'font_size': '10'
+    },
+
+    'col_heading': {
+        'font_name': 'Arial',
+        'font_size': '10',
+        'align': 'center',
+        'bg_color': '#99CCFF',
+        'border': 1
+    },
+    'col_heading_def': {
+        'font_name': 'Arial',
+        'font_size': '10',
+        'align': 'center',
+        'bg_color': '#99CCFF'
+    },
+    'sec_col_heading': {
+        'font_name': 'Arial',
+        'font_size': '10',
+        'align': 'center',
+        'bg_color': '#CCFFFF',
+        'border': 1
+    },
+    'sec_col_heading_def': {
+        'font_name': 'Arial',
+        'font_size': '10',
+        'align': 'center',
+        'bg_color': '#CCFFFF'
+    },
+    'label': {
+        'font_name': 'Arial',
+        'font_size': '10'
+    },
+    'N': {
+        'font_name': 'Arial',
+        'font_size': '10',
+        'font_color': '#3737FF',
+    },
+    'P': {
+        'font_name': 'Arial',
+        'font_size': '10',
+        'font_color': '#3737FF',
+        'num_format': 9
+    }
+}
