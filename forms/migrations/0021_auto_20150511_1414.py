@@ -67,6 +67,7 @@ COUNTRY_REGION = [
     ("Hungary","Europe"),
     ("Iceland","Europe"),
     ("India","Asia"),
+    ("Indonesia", "Asia"),
     ("Ireland","Europe"),
     ("Israel","Middle East"),
     ("Italy","Europe"),
