@@ -401,7 +401,7 @@ REGION_COUNTRY_MAP = {
         'ML', 'MR', 'MU', 'NA', 'NE', 'NG', 'SN', 'SL', 'SO', 'ZA', 'SD', 'SS',
         'SZ', 'TZ', 'TG', 'UG', 'ZM', 'ZW'],
     'Asia': [
-        'AF', 'BD', 'BT', 'CN', 'IN', 'JP', 'KG', 'MY', 'MN', 'NP', 'PK', 'PH',
+        'AF', 'BD', 'BT', 'CN', 'IN', 'ID', 'JP', 'KG', 'MY', 'MN', 'NP', 'PK', 'PH',
         'KR', 'TW', 'VU', 'VN'],
     'Carribean': [
         'AG', 'BS', 'BB', 'BZ', 'CU', 'DO', 'GD', 'GY', 'HT', 'JM', 'LC', 'VC',
