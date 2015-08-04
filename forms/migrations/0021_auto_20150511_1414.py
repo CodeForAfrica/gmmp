@@ -15,7 +15,8 @@ COUNTRY_REGION = [
     ("Bangladesh","Asia"),
     ("Barbados","Carribean"),
     ("Belarus","Europe"),
-    ("Belgium","Europe"),
+    ("Belgium - French","Europe"),
+    ("Belgium - Flemish","Europe"),
     ("Belize","Carribean"),
     ("Benin","Africa"),
     ("Bhutan","Asia"),
@@ -43,6 +44,7 @@ COUNTRY_REGION = [
     ("Cyprus","Middle East"),
     ("Denmark","Europe"),
     ("Dominican Republic","Carribean"),
+    ("England", "Europe"),
     ("Ecuador","Latin America"),
     ("Egypt","Middle East"),
     ("El Salvador","Latin America"),
@@ -112,6 +114,7 @@ COUNTRY_REGION = [
     ("Puerto Rico","Latin America"),
     ("Romania","Europe"),
     ("Samoa","Pacific Islands"),
+    ("Scotland", "Europe"),
     ("Senegal","Africa"),
     ("Serbia","Europe"),
     ("Sierra Leone","Africa"),
@@ -144,6 +147,7 @@ COUNTRY_REGION = [
     ("Vanuatu","Asia"),
     ("Venezuela","Latin America"),
     ("Vietnam","Asia"),
+    ("Wales", "Europe"),
     ("Zambia","Africa"),
     ("Zimbabwe","Africa")
 ]
