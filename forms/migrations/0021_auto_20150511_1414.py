@@ -176,8 +176,8 @@ def populate_country_region(apps, schema_editor):
             region="Unmapped")
 
     # Create CountryRegion objects for supplied pairs
-    for region, countries in region_map.iteritems():
-        for country in countries:
+    for region, country_list in region_map.iteritems():
+        for country in country_list:
             # Is this check necessary?
             if not country_region_objs.filter(country=country):
                 CountryRegion.objects.using(db_alias).create(
