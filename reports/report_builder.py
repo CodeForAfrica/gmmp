@@ -432,7 +432,7 @@ class XLSXReportBuilder:
         #     'ws_31', 'ws_32', 'ws_34', 'ws_35', 'ws_36', 'ws_38', 'ws_39', 'ws_40',
         #     'ws_41', 'ws_42', 'ws_43', 'ws_44', 'ws_45', 'ws_46', 'ws_47', 'ws_48',]
 
-        test_functions = ['ws_59']
+        test_functions = ['ws_43', 'ws_44']
 
         sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
 
@@ -863,7 +863,7 @@ class XLSXReportBuilder:
                         .exclude(victim_of=None)\
                         .annotate(n=Count('id'))
                 counts.update({(r['sex'], r['victim_of']): r['n'] for r in rows})
-        self.tabulate(ws, counts, self.male_female, VICTIM_OF, row_perc=True)
+        self.tabulate(ws, counts, self.male_female, VICTIM_OF, row_perc=False)
 
     def ws_23(self, ws):
         """
@@ -881,7 +881,7 @@ class XLSXReportBuilder:
                         .annotate(n=Count('id'))
                 counts.update({(r['sex'], r['survivor_of']): r['n'] for r in rows})
 
-        self.tabulate(ws, counts, self.male_female, SURVIVOR_OF, row_perc=True)
+        self.tabulate(ws, counts, self.male_female, SURVIVOR_OF, row_perc=False)
 
     def ws_24(self, ws):
         """
