@@ -7,6 +7,10 @@ class Command(BaseCommand):
         for name, model in sheet_models.iteritems():
             country_errors_sheets = model.objects.exclude(monitor__country__in=F('country'))
             for sheet in country_errors_sheets:
-                sheet.country = sheet.monitor.country
-                sheet.save()
-                self.stdout.write("%s %s" % (name, sheet.id))
+                try:
+                    sheet.country = sheet.monitor.country
+                    sheet.save()
+                    self.stdout.write("%s,%s" % (name, sheet.id))
+                except AttributeError:
+                    self.stdout.write("Sheet has no monitor: %s %s" % (name, sheet.id))
+
