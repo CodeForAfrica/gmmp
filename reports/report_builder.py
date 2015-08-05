@@ -432,7 +432,7 @@ class XLSXReportBuilder:
         #     'ws_31', 'ws_32', 'ws_34', 'ws_35', 'ws_36', 'ws_38', 'ws_39', 'ws_40',
         #     'ws_41', 'ws_42', 'ws_43', 'ws_44', 'ws_45', 'ws_46', 'ws_47', 'ws_48',]
 
-        test_functions = ['ws_02']
+        test_functions = ['ws_59']
 
         sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
 
@@ -922,7 +922,7 @@ class XLSXReportBuilder:
             secondary_counts[sex] = counts
 
         secondary_counts['col_title_def'] = [
-            'Sexof reporter',
+            'Sex of reporter',
             'Sex of news subject']
 
         self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, YESNO, row_perc=False, sec_cols=4)
@@ -968,7 +968,7 @@ class XLSXReportBuilder:
         :: Female reporters only
         """
         counts = Counter()
-        for media_type, model in person_models.iteritems():
+        for media_type, model in journalist_models.iteritems():
             region = model.sheet_name() + '__country_region__region'
             rows = model.objects\
                     .values(region)\
@@ -991,7 +991,7 @@ class XLSXReportBuilder:
         :: Female reporters only
         """
         counts = Counter()
-        for model in person_models.itervalues():
+        for model in journalist_models.itervalues():
             sheet_name = model.sheet_name()
             region = sheet_name + '__country_region__region'
             scope =  sheet_name + '__scope'
@@ -1014,7 +1014,7 @@ class XLSXReportBuilder:
         :: Female reporters only
         """
         counts = Counter()
-        for model in person_models.itervalues():
+        for model in journalist_models.itervalues():
             sheet_name = model.sheet_name()
             region = sheet_name + '__country_region__region'
             topic =  sheet_name + '__topic'
@@ -1088,7 +1088,7 @@ class XLSXReportBuilder:
                     .filter(sex__in=self.male_female_ids)\
                     .annotate(n=Count('id'))
             counts.update({(r[journo_sex], r['sex']): r['n'] for r in rows})
-        counts['col_title_def'] = 'Sex of subject'
+        counts['col_title_def'] = 'Sex of reporter'
 
         self.tabulate(ws, counts, self.male_female, GENDER, row_perc=True, display_cols=self.female)
 
@@ -1481,7 +1481,7 @@ class XLSXReportBuilder:
                 .filter(**{model.sheet_name() + '__country__in':self.country_list})\
                 .annotate(n=Count('id'))
         counts.update({(r[journo_sex], r['sex']): r['n'] for r in rows})
-
+        counts['col_title_def'] = 'Sex of reporter'
         self.tabulate(ws, counts, GENDER, GENDER, row_perc=False)
 
     def ws_60(self, ws):
