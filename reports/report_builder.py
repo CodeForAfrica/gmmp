@@ -483,22 +483,27 @@ class XLSXReportBuilder:
     def ws_02(self, ws):
         """
         Cols: Media Type
-        Rows: Country
+        Rows: Region, Country
         """
+        r = 6
+        self.write_col_headings(ws, MEDIA_TYPES)
         counts = Counter()
-        for media_type, model in sheet_models.iteritems():
-            rows = model.objects\
-                    .values('country')\
-                    .filter(country__in=self.country_list)\
-                    .annotate(n=Count('country'))
+        for region_id, region in self.regions:
+            for media_type, model in sheet_models.iteritems():
+                rows = model.objects\
+                        .values('country')\
+                        .filter(country__in=self.country_list)\
+                        .annotate(n=Count('country'))
 
-            for row in rows:
-                if row['country'] is not None:
-                    # Get media id's to assign to counts
-                    media_id = [media[0] for media in MEDIA_TYPES if media[1] == media_type][0]
-                    counts.update({(media_id, row['country']): row['n']})
-
-        self.tabulate(ws, counts, MEDIA_TYPES, self.countries, row_perc=True)
+                for row in rows:
+                    if row['country'] is not None:
+                        # Get media id's to assign to counts
+                        media_id = [media[0] for media in MEDIA_TYPES if media[1] == media_type][0]
+                        counts.update({(media_id, row['country']): row['n']})
+            self.write_primary_row_heading(ws, region, r=r)
+            region_countries = [(code, country) for code, country in self.countries if code in REGION_COUNTRY_MAP[region]]
+            self.tabulate(ws, counts, MEDIA_TYPES, region_countries, row_perc=True, sec_row=True, r=r)
+            r += len(region_countries)
 
     def ws_04(self, ws):
         """
