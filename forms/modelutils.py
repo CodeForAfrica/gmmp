@@ -201,7 +201,7 @@ TV_ROLE = [
 ]
 
 MEDIA_TYPES = [
-    (1, 'Internet News'),
+    (1, 'Internet'),
     (2, 'Print'),
     (3, 'Radio'),
     (4, 'Television'),
