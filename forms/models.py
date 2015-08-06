@@ -251,7 +251,7 @@ class RadioSheet(SheetModel):
 
 
 sheet_models = OrderedDict([
-    ('Internet News', InternetNewsSheet),
+    ('Internet', InternetNewsSheet),
     ('Print', NewspaperSheet),
     ('Radio', RadioSheet),
     ('Television', TelevisionSheet),
@@ -259,7 +259,7 @@ sheet_models = OrderedDict([
 )
 
 person_models = OrderedDict([
-    ('Internet News', InternetNewsPerson),
+    ('Internet', InternetNewsPerson),
     ('Print', NewspaperPerson),
     ('Radio', RadioPerson),
     ('Television', TelevisionPerson),
@@ -267,7 +267,7 @@ person_models = OrderedDict([
 )
 
 journalist_models = OrderedDict([
-    ('Internet News', InternetNewsJournalist),
+    ('Internet', InternetNewsJournalist),
     ('Print', NewspaperJournalist),
     ('Radio', RadioJournalist),
     ('Television', TelevisionJournalist),

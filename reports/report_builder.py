@@ -1346,7 +1346,7 @@ class XLSXReportBuilder:
         """
         display_cols = [(id, value) for id, value in GENDER if id==1]
         secondary_counts = OrderedDict()
-        model = sheet_models.get('Internet News')
+        model = sheet_models.get('Internet')
         for major_topic, topic_ids in GROUP_TOPICS_MAP.iteritems():
             counts = Counter()
             journo_sex_field = '%s__sex' % model.journalist_field_name()
@@ -1366,7 +1366,7 @@ class XLSXReportBuilder:
         :: Internet media type only
         """
         secondary_counts = OrderedDict()
-        model = person_models.get('Internet News')
+        model = person_models.get('Internet')
         for major_topic, topic_ids in GROUP_TOPICS_MAP.iteritems():
             counts = Counter()
             country_field = '%s__country' % model.sheet_name()
@@ -1388,7 +1388,7 @@ class XLSXReportBuilder:
         :: Internet media type only
         """
         counts = Counter()
-        model = person_models.get('Internet News')
+        model = person_models.get('Internet')
         country_field = '%s__country' % model.sheet_name()
 
         rows = model.objects\
@@ -1407,7 +1407,7 @@ class XLSXReportBuilder:
         :: Internet media type only
         """
         counts = Counter()
-        model = person_models.get('Internet News')
+        model = person_models.get('Internet')
         country_field = '%s__country' % model.sheet_name()
         rows = model.objects\
                 .values(country_field, 'function')\
@@ -1427,7 +1427,7 @@ class XLSXReportBuilder:
         self.write_col_headings(ws, GENDER)
 
         counts = Counter()
-        model = person_models.get('Internet News')
+        model = person_models.get('Internet')
         for code, country in self.countries:
             rows = model.objects\
                     .values('sex', 'family_role')\
@@ -1452,7 +1452,7 @@ class XLSXReportBuilder:
         self.write_col_headings(ws, GENDER)
 
         counts = Counter()
-        model = person_models.get('Internet News')
+        model = person_models.get('Internet')
         for code, country in self.countries:
             rows = model.objects\
                     .values('sex', 'is_photograph')\
@@ -1471,7 +1471,7 @@ class XLSXReportBuilder:
         :: Internet media only
         """
         counts = Counter()
-        model = person_models.get('Internet News')
+        model = person_models.get('Internet')
         sheet_name = model.sheet_name()
         journo_name = model._meta.get_field(model.sheet_name()).rel.to.journalist_field_name()
         journo_sex = sheet_name + '__' + journo_name + '__sex'
@@ -1495,7 +1495,7 @@ class XLSXReportBuilder:
         self.write_col_headings(ws, GENDER)
 
         counts = Counter()
-        model = person_models.get('Internet News')
+        model = person_models.get('Internet')
         for code, country in self.countries:
             rows = model.objects\
                     .values('sex', 'age')\
@@ -1518,7 +1518,7 @@ class XLSXReportBuilder:
         self.write_col_headings(ws, GENDER)
 
         counts = Counter()
-        model = person_models.get('Internet News')
+        model = person_models.get('Internet')
         for code, country in self.countries:
             rows = model.objects\
                     .values('sex', 'is_quoted')\
@@ -1541,7 +1541,7 @@ class XLSXReportBuilder:
         self.write_col_headings(ws, TOPICS)
 
         counts = Counter()
-        model = sheet_models.get('Internet News')
+        model = sheet_models.get('Internet')
         for code, country in self.countries:
             rows = model.objects\
                     .values('topic', 'equality_rights')\
@@ -1564,7 +1564,7 @@ class XLSXReportBuilder:
         self.write_col_headings(ws, TOPICS)
 
         counts = Counter()
-        model = sheet_models.get('Internet News')
+        model = sheet_models.get('Internet')
         for code, country in self.countries:
             rows = model.objects\
                     .values('topic', 'stereotypes')\
@@ -1587,7 +1587,7 @@ class XLSXReportBuilder:
         self.write_col_headings(ws, TOPICS)
 
         counts = Counter()
-        model = sheet_models.get('Internet News')
+        model = sheet_models.get('Internet')
         for code, country in self.countries:
             rows = model.objects\
                     .values('topic', 'about_women')\
