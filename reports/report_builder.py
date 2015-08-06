@@ -5,7 +5,8 @@ from collections import Counter, OrderedDict
 # Django
 from django.core import urlresolvers
 from django_countries import countries
-from django.db.models import Count, FieldDoesNotExist
+from django.db import connection
+from django.db.models import F, Count, Sum, FieldDoesNotExist
 from django.contrib.sites.shortcuts import get_current_site
 
 # 3rd Party
@@ -432,7 +433,7 @@ class XLSXReportBuilder:
         #     'ws_31', 'ws_32', 'ws_34', 'ws_35', 'ws_36', 'ws_38', 'ws_39', 'ws_40',
         #     'ws_41', 'ws_42', 'ws_43', 'ws_44', 'ws_45', 'ws_46', 'ws_47', 'ws_48',]
 
-        test_functions = ['ws_43', 'ws_44']
+        test_functions = ['ws_01']
 
         sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
 
@@ -458,6 +459,14 @@ class XLSXReportBuilder:
 
         return output.read()
 
+    def dictfetchall(self, cursor):
+        "Returns all rows from a cursor as a dict"
+        desc = cursor.description
+        return [
+            dict(zip([col[0] for col in desc], row))
+            for row in cursor.fetchall()
+        ]
+
 
     def ws_01(self, ws):
         """
@@ -468,8 +477,24 @@ class XLSXReportBuilder:
         for media_type, model in sheet_models.iteritems():
             rows = model.objects\
                     .values('country_region__region')\
-                    .filter(country_region__region__in=self.region_list)\
-                    .annotate(n=Count('id'))
+                    .filter(country_region__region__in=self.region_list)
+                    # .annotate(n=Count('id'))
+            import ipdb; ipdb.set_trace()
+
+            query = rows.extra(
+                tables=['reports_weights'],
+                where=[
+                    'reports_weights.country = %s.country' % (model._meta.db_table),
+                    'reports_weights.media_type = \'%s\'' % (media_type),
+                ]).annotate()
+
+            raw_query, params = query.query.sql_with_params()
+            raw_query = raw_query.replace('SELECT', 'SELECT SUM(reports_weights.weight) AS "n", ')
+
+            # rows = model.objects.raw(raw_query, params)
+            cursor = connection.cursor()
+            cursor.execute(raw_query, params)
+            rows = self.dictfetchall(cursor)
 
             for row in rows:
                 if row['country_region__region'] is not None:
@@ -905,19 +930,40 @@ class XLSXReportBuilder:
         Cols: Journalist Sex, Subject Sex
         Rows: Family Role
         """
+        # secondary_counts = OrderedDict()
+        # for sex_id, sex in self.male_female:
+        #     counts = Counter()
+        #     for model in person_models.itervalues():
+        #         if 'family_role' in model._meta.get_all_field_names():
+        #             sheet_name = model.sheet_name()
+        #             journo_name = model._meta.get_field(model.sheet_name()).rel.to.journalist_field_name()
+        #             rows = model.objects\
+        #                     .values('sex', 'family_role')\
+        #                     .filter(**{model.sheet_name() + '__country__in':self.country_list})\
+        #                     .filter(**{sheet_name + '__' + journo_name + '__sex':sex_id})\
+        #                     .filter(sex__in=self.male_female_ids)\
+        #                     .annotate(n=Count('id'))
+        #             counts.update({(r['sex'], r['family_role']): r['n'] for r in rows})
+        #     secondary_counts[sex] = counts
+        import ipdb; ipdb.set_trace()
         secondary_counts = OrderedDict()
         for sex_id, sex in self.male_female:
             counts = Counter()
-            for model in person_models.itervalues():
+            for media_type, model in person_models.iteritems():
                 if 'family_role' in model._meta.get_all_field_names():
                     sheet_name = model.sheet_name()
                     journo_name = model._meta.get_field(model.sheet_name()).rel.to.journalist_field_name()
                     rows = model.objects\
-                            .values('sex', 'family_role')\
-                            .filter(**{model.sheet_name() + '__country__in':self.country_list})\
-                            .filter(**{sheet_name + '__' + journo_name + '__sex':sex_id})\
-                            .filter(sex__in=self.male_female_ids)\
-                            .annotate(n=Count('id'))
+                        .values('sex', 'family_role')\
+                        .filter(**{model.sheet_name() + '__country__in':self.country_list})\
+                        .filter(**{sheet_name + '__' + journo_name + '__sex':sex_id})\
+                        .filter(sex__in=self.male_female_ids)\
+                        .extra(select={'weight': "select weight from reports_weights where country=%s"},
+                               # select_params=(model.sheet_name() + '__country'.code,))
+                                select_params=('ZA'))
+                        # .filter(**{'weights__media_type': media_type,
+                        #            'weights__country': F(model.sheet_name() + '__country')})\
+                        # .annotate(n=Sum('weights__weight'))
                     counts.update({(r['sex'], r['family_role']): r['n'] for r in rows})
             secondary_counts[sex] = counts
 
