@@ -154,3 +154,12 @@ LOGGING = {
     }
 }
 
+from django.utils.translation import ugettext_lazy as _
+
+COUNTRIES_OVERRIDE = {
+    'SQ': _('Scotland'),
+    'EN': _('England'),
+    'WL': _('Wales'),
+    'B1': _('Belgium - French'),
+    'B2': _('Belgium - Flemish')
+}
