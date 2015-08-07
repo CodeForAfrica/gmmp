@@ -433,7 +433,7 @@ class XLSXReportBuilder:
         #     'ws_31', 'ws_32', 'ws_34', 'ws_35', 'ws_36', 'ws_38', 'ws_39', 'ws_40',
         #     'ws_41', 'ws_42', 'ws_43', 'ws_44', 'ws_45', 'ws_46', 'ws_47', 'ws_48',]
 
-        test_functions = ['ws_01']
+        test_functions = ['ws_01', 'ws_02', 'ws_04', 'ws_05']
 
         sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
 
@@ -460,12 +460,29 @@ class XLSXReportBuilder:
         return output.read()
 
     def dictfetchall(self, cursor):
-        "Returns all rows from a cursor as a dict"
+        """
+        Returns all rows from a cursor as a dict
+        """
         desc = cursor.description
         return [
             dict(zip([col[0] for col in desc], row))
             for row in cursor.fetchall()
         ]
+
+    def apply_weights(self, rows, db_table, media_type):
+        query = rows.extra(
+                tables=['reports_weights'],
+                where=[
+                    'reports_weights.country = %s.country' % (db_table),
+                    'reports_weights.media_type = \'%s\'' % (media_type),
+                ]).annotate()
+
+        raw_query, params = query.query.sql_with_params()
+        raw_query = raw_query.replace('SELECT', 'SELECT cast(round(SUM(reports_weights.weight)) as int) AS "n", ')
+
+        cursor = connection.cursor()
+        cursor.execute(raw_query, params)
+        return self.dictfetchall(cursor)
 
 
     def ws_01(self, ws):
@@ -473,34 +490,20 @@ class XLSXReportBuilder:
         Cols: Media Type
         Rows: Region
         """
+        import ipdb; ipdb.set_trace()
         counts = Counter()
         for media_type, model in sheet_models.iteritems():
             rows = model.objects\
                     .values('country_region__region')\
                     .filter(country_region__region__in=self.region_list)
-                    # .annotate(n=Count('id'))
-            import ipdb; ipdb.set_trace()
 
-            query = rows.extra(
-                tables=['reports_weights'],
-                where=[
-                    'reports_weights.country = %s.country' % (model._meta.db_table),
-                    'reports_weights.media_type = \'%s\'' % (media_type),
-                ]).annotate()
-
-            raw_query, params = query.query.sql_with_params()
-            raw_query = raw_query.replace('SELECT', 'SELECT SUM(reports_weights.weight) AS "n", ')
-
-            # rows = model.objects.raw(raw_query, params)
-            cursor = connection.cursor()
-            cursor.execute(raw_query, params)
-            rows = self.dictfetchall(cursor)
+            rows = self.apply_weights(rows, model._meta.db_table, media_type)
 
             for row in rows:
-                if row['country_region__region'] is not None:
+                if row['region'] is not None:
                     # Get media and region id's to assign to counts
                     media_id = [media[0] for media in MEDIA_TYPES if media[1] == media_type][0]
-                    region_id = [region[0] for region in self.regions if region[1] == row['country_region__region']][0]
+                    region_id = [region[0] for region in self.regions if region[1] == row['region']][0]
                     counts.update({(media_id, region_id): row['n']})
 
         self.tabulate(ws, counts, MEDIA_TYPES, self.regions, row_perc=True)
@@ -519,6 +522,8 @@ class XLSXReportBuilder:
                         .values('country')\
                         .filter(country__in=self.country_list)\
                         .annotate(n=Count('country'))
+
+                rows = self.apply_weights(rows, model._meta.db_table, media_type)
 
                 for row in rows:
                     if row['country'] is not None:
@@ -559,16 +564,18 @@ class XLSXReportBuilder:
         Rows: Major Topic
         """
         counts = Counter()
-        for model in person_models.itervalues():
+        for media_type, model in person_models.iteritems():
             topic_field = '%s__topic' % model.sheet_name()
 
             rows = model.objects\
                 .values('sex', topic_field)\
                 .filter(**{model.sheet_name() + '__country__in': self.country_list})\
-                .filter(sex__in=self.male_female_ids)\
-                .annotate(n=Count('id'))
+                .filter(sex__in=self.male_female_ids)
+
+            rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
+
             for r in rows:
-                counts.update({(r['sex'], TOPIC_GROUPS[r[topic_field]]): r['n']})
+                counts.update({(r['sex'], TOPIC_GROUPS[r['topic']]): r['n']})
 
         self.tabulate(ws, counts, self.male_female, MAJOR_TOPICS, row_perc=True, display_cols=self.female)
 
