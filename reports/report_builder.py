@@ -436,7 +436,7 @@ class XLSXReportBuilder:
         #     'ws_61', 'ws_62', 'ws_63', 'ws_64', 'ws_65', 'ws_66', 'ws_67', 'ws_68', 'ws_69', 'ws_70',
         #     'ws_76', 'ws_77', 'ws_78', 'ws_79']
 
-        test_functions = ['ws_49', 'ws_50', 'ws_51', 'ws_52']
+        test_functions = ['ws_53', 'ws_54']
 
         sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
 
@@ -1176,9 +1176,10 @@ class XLSXReportBuilder:
             rows = model.objects\
                     .values(journo_sex, 'sex')\
                     .filter(**{model.sheet_name() + '__country__in':self.country_list})\
-                    .filter(sex__in=self.male_female_ids)
+                    .filter(sex__in=self.male_female_ids)\
+                    .annotate(n=Count('id'))
 
-            rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
+            # rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
 
             counts.update({(r[journo_sex], r['sex']): r['n'] for r in rows})
         counts['col_title_def'] = 'Sex of reporter'
@@ -1562,7 +1563,8 @@ class XLSXReportBuilder:
 
             rows = self.apply_weights(rows, model._meta.db_table, 'Internet')
             counts.update({(r['sex'], r['country']): r['n'] for r in rows})
-            secondary_counts[major_topic] = counts
+            major_topic_name = [mt[1] for mt in MAJOR_TOPICS if mt[0] == int(major_topic)][0]
+            secondary_counts[major_topic_name] = counts
 
         self.tabulate_secondary_cols(ws, secondary_counts, GENDER, self.countries, row_perc=True, display_cols=display_cols, sec_cols=2)
 
@@ -1583,7 +1585,8 @@ class XLSXReportBuilder:
 
             rows = self.apply_weights(rows, model.sheet_db_table(), 'Internet')
             counts.update({(r['sex'], r['country']): r['n'] for r in rows})
-            secondary_counts[major_topic] = counts
+            major_topic_name = [mt[1] for mt in MAJOR_TOPICS if mt[0] == int(major_topic)][0]
+            secondary_counts[major_topic_name] = counts
 
         self.tabulate_secondary_cols(ws, secondary_counts, GENDER, self.countries, row_perc=True, sec_cols=8)
 
