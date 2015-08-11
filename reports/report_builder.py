@@ -436,7 +436,7 @@ class XLSXReportBuilder:
         #     'ws_61', 'ws_62', 'ws_63', 'ws_64', 'ws_65', 'ws_66', 'ws_67', 'ws_68', 'ws_69', 'ws_70',
         #     'ws_76', 'ws_77', 'ws_78', 'ws_79']
 
-        test_functions = ['ws_65', 'ws_66', 'ws_67', 'ws_68', 'ws_69']
+        test_functions = ['ws_49', 'ws_50', 'ws_51', 'ws_52']
 
         sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
 
@@ -1454,6 +1454,93 @@ class XLSXReportBuilder:
                         counts.update({(r['stereotypes'], TOPIC_GROUPS[r['topic']]): r['n']})
             secondary_counts[gender] = counts
         self.tabulate_secondary_cols(ws, secondary_counts, AGREE_DISAGREE, MAJOR_TOPICS, row_perc=False, sec_cols=8)
+
+    def ws_49(self, ws):
+        """
+        Cols: Major Topics
+        Rows: Region
+        :: Internet media type only
+        """
+        counts = Counter()
+        model = sheet_models.get('Internet')
+        rows = model.objects\
+                .values('topic', 'country_region__region')\
+                .filter(country_region__region__in=self.region_list)
+
+        rows = self.apply_weights(rows, model._meta.db_table, 'Internet')
+
+        for row in rows:
+            region_id = [r[0] for r in self.regions if r[1] == row['region']][0]
+            major_topic = TOPIC_GROUPS[row['topic']]
+            counts.update({(major_topic, region_id): row['n']})
+
+        self.tabulate(ws, counts, MAJOR_TOPICS, self.regions, row_perc=True)
+
+    def ws_50(self, ws):
+        """
+        Cols: Major Topics
+        Rows: Country
+        :: Internet media type only
+        :: Only stories shared on Twitter
+        """
+        counts = Counter()
+        model = sheet_models.get('Internet')
+        rows = model.objects\
+                .values('topic', 'country')\
+                .filter(country__in=self.country_list)\
+                .filter(shared_via_twitter='Y')
+
+        rows = self.apply_weights(rows, model._meta.db_table, 'Internet')
+
+        for row in rows:
+            major_topic = TOPIC_GROUPS[row['topic']]
+            counts.update({(major_topic, row['country']): row['n']})
+
+        self.tabulate(ws, counts, MAJOR_TOPICS, self.countries, row_perc=True)
+
+    def ws_51(self, ws):
+        """
+        Cols: Major Topics
+        Rows: Country
+        :: Internet media type only
+        :: Only stories shared on Facebook
+        """
+        counts = Counter()
+        model = sheet_models.get('Internet')
+        rows = model.objects\
+                .values('topic', 'country')\
+                .filter(country__in=self.country_list)\
+                .filter(shared_on_facebook='Y')
+
+        rows = self.apply_weights(rows, model._meta.db_table, 'Internet')
+
+        for row in rows:
+            major_topic = TOPIC_GROUPS[row['topic']]
+            counts.update({(major_topic, row['country']): row['n']})
+
+        self.tabulate(ws, counts, MAJOR_TOPICS, self.countries, row_perc=True)
+
+    def ws_52(self, ws):
+        """
+        Cols: Major Topics
+        Rows: Country
+        :: Internet media type only
+        :: Only stories with reference to gener equality
+        """
+        counts = Counter()
+        model = sheet_models.get('Internet')
+        rows = model.objects\
+                .values('topic', 'country')\
+                .filter(country__in=self.country_list)\
+                .filter(equality_rights='Y')
+
+        rows = self.apply_weights(rows, model._meta.db_table, 'Internet')
+
+        for row in rows:
+            major_topic = TOPIC_GROUPS[row['topic']]
+            counts.update({(major_topic, row['country']): row['n']})
+
+        self.tabulate(ws, counts, MAJOR_TOPICS, self.countries, row_perc=True)
 
     def ws_53(self, ws):
         """

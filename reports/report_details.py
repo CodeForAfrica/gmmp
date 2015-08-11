@@ -265,6 +265,30 @@ WS_INFO = {
         'desc': 'Stories where stereotypes are challenged/ supported by gender of rep',
         'reports': ['global', 'region', 'country'],
     },
+    'ws_49': {
+        'name': '49',
+        'title': 'Internet - Main topics by region',
+        'desc': 'Internet - Main topics by region',
+        'reports': ['global', 'region', 'country'],
+    },
+    'ws_50': {
+        'name': '50',
+        'title': 'Internet - Story shared on Twitter',
+        'desc': 'Internet - Story shared on Twitter',
+        'reports': ['global', 'country'],
+    },
+    'ws_51': {
+        'name': '51',
+        'title': 'Internet - Story shared on Facebook',
+        'desc': 'Internet - Story shared on Facebook',
+        'reports': ['global', 'country'],
+    },
+    'ws_52': {
+        'name': '52',
+        'title': 'Internet - Reference to gender equality/HR policies',
+        'desc': 'Internet - Reference to gender equality/HR policies',
+        'reports': ['global', 'country'],
+    },
     'ws_53': {
         'name': '53',
         'title': 'Internet - Female reporters in main stories',
