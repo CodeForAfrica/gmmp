@@ -295,6 +295,10 @@ class Journalist(models.Model):
         abstract = True
 
     @classmethod
+    def sheet_db_table(cls):
+        return cls.sheet_field().foreign_related_fields[0].model._meta.db_table
+
+    @classmethod
     def sheet_field(self):
         """ Return the name of the sheet relation field
         """
