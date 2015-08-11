@@ -436,7 +436,7 @@ class XLSXReportBuilder:
         #     'ws_61', 'ws_62', 'ws_63', 'ws_64', 'ws_65', 'ws_66', 'ws_67', 'ws_68', 'ws_69', 'ws_70',
         #     'ws_76', 'ws_77', 'ws_78', 'ws_79']
 
-        test_functions = ['ws_66']
+        test_functions = ['ws_05']
 
         sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
 
@@ -576,15 +576,15 @@ class XLSXReportBuilder:
 
             rows = model.objects\
                 .values('sex', topic_field)\
-                .filter(**{model.sheet_name() + '__country__in': self.country_list})\
-                .filter(sex__in=self.male_female_ids)
+                .filter(**{model.sheet_name() + '__country__in': self.country_list})
+                # .filter(sex__in=self.male_female_ids)
 
             rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
 
             for r in rows:
                 counts.update({(r['sex'], TOPIC_GROUPS[r['topic']]): r['n']})
 
-        self.tabulate(ws, counts, self.male_female, MAJOR_TOPICS, row_perc=True, display_cols=self.female)
+        self.tabulate(ws, counts, GENDER, MAJOR_TOPICS, row_perc=True)
 
     def ws_06(self, ws):
         """
@@ -1222,7 +1222,7 @@ class XLSXReportBuilder:
 
                 counts.update({(r['sex'], r['about_women']): r['n'] for r in rows})
 
-        self.tabulate(ws, counts, self.male_female, YESNO, row_perc=True)
+        self.tabulate(ws, counts, self.male_female, YESNO, row_perc=False)
 
     def ws_38(self, ws):
         """
@@ -1317,7 +1317,7 @@ class XLSXReportBuilder:
 
                     counts.update({(r['equality_rights'], r['topic']): r['n'] for r in rows})
             secondary_counts[region] = counts
-        self.tabulate_secondary_cols(ws, secondary_counts, YESNO, TOPICS, row_perc=False, sec_cols=4)
+        self.tabulate_secondary_cols(ws, secondary_counts, YESNO, TOPICS, row_perc=True, sec_cols=4)
 
     def ws_43(self, ws):
         """
@@ -1341,7 +1341,7 @@ class XLSXReportBuilder:
 
                     counts.update({(r['equality_rights'], r['topic']): r['n'] for r in rows})
             secondary_counts[gender] = counts
-        self.tabulate_secondary_cols(ws, secondary_counts, YESNO, TOPICS, row_perc=False, sec_cols=4)
+        self.tabulate_secondary_cols(ws, secondary_counts, YESNO, TOPICS, row_perc=True, sec_cols=4)
 
     def ws_44(self, ws):
         """
@@ -1367,7 +1367,7 @@ class XLSXReportBuilder:
                         region_id = [id for id, name in self.regions if name == r['region']][0]
                         counts.update({(r['equality_rights'], region_id): r['n']})
             secondary_counts[gender] = counts
-        self.tabulate_secondary_cols(ws, secondary_counts, YESNO, self.regions, row_perc=False, sec_cols=4)
+        self.tabulate_secondary_cols(ws, secondary_counts, YESNO, self.regions, row_perc=True, sec_cols=4)
 
     def ws_45(self, ws):
         """
