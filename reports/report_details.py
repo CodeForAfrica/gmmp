@@ -269,13 +269,13 @@ WS_INFO = {
         'name': '53',
         'title': 'Internet - Female reporters in main stories',
         'desc': 'Internet - Female reporters in main stories',
-        'reports': ['region', 'country']
+        'reports': ['global', 'region', 'country']
     },
     'ws_54': {
         'name': '54',
         'title': 'Internet - Overall presence of women',
         'desc': 'Internet - Overall presence of women',
-        'reports': ['region', 'country']
+        'reports': ['global', 'region', 'country']
     },
     'ws_55': {
         'name': '55',
