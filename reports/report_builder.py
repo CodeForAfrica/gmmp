@@ -425,7 +425,7 @@ class XLSXReportBuilder:
         self.N = workbook.add_format(FORMATS['N'])
         self.P = workbook.add_format(FORMATS['P'])
 
-        # Use the following for specifying which reports to create durin dev
+        # Use the following for specifying which reports to create during dev
         # test_functions = [
         #     'ws_01', 'ws_02', 'ws_04', 'ws_05', 'ws_06', 'ws_07', 'ws_08', 'ws_09', 'ws_10',
         #     'ws_11', 'ws_12', 'ws_13', 'ws_14', 'ws_15', 'ws_16', 'ws_17', 'ws_18', 'ws_19', 'ws_20',
@@ -436,7 +436,7 @@ class XLSXReportBuilder:
         #     'ws_61', 'ws_62', 'ws_63', 'ws_64', 'ws_65', 'ws_66', 'ws_67', 'ws_68', 'ws_69', 'ws_70',
         #     'ws_76', 'ws_77', 'ws_78', 'ws_79']
 
-        test_functions = ['ws_53', 'ws_54']
+        test_functions = ['ws_66']
 
         sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
 
@@ -1852,7 +1852,7 @@ class XLSXReportBuilder:
         :: Twitter media type only
         """
         r = 6
-        self.write_col_headings(ws, GENDER)
+        self.write_col_headings(ws, TOPICS)
 
         counts = Counter()
         model = person_models.get('Twitter')
