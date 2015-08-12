@@ -577,7 +577,6 @@ class XLSXReportBuilder:
             rows = model.objects\
                 .values('sex', topic_field)\
                 .filter(**{model.sheet_name() + '__country__in': self.country_list})
-                # .filter(sex__in=self.male_female_ids)
 
             rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
 
