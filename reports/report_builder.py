@@ -250,8 +250,8 @@ class XLSXReportBuilder:
             counts_list.append(counts)
 
         self.tabulate(ws, counts_list[0], TM_MEDIA_TYPES, self.regions, row_perc=True)
-        col = ws.dim_colmax + 2
-        self.tabulate(ws, counts_list[1], DM_MEDIA_TYPES, self.regions, row_perc=True, c=col, write_row_headings=False)
+        c = ws.dim_colmax + 2
+        self.tabulate(ws, counts_list[1], DM_MEDIA_TYPES, self.regions, row_perc=True, c=c, write_row_headings=False)
 
 
     def ws_02(self, ws):
