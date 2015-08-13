@@ -437,26 +437,26 @@ class XLSXReportBuilder:
         #     'ws_61', 'ws_62', 'ws_63', 'ws_64', 'ws_65', 'ws_66', 'ws_67', 'ws_68', 'ws_69', 'ws_70',
         #     'ws_76', 'ws_77', 'ws_78', 'ws_79']
 
-        test_functions = ['ws_38']
+        # test_functions = ['ws_38']
 
-        sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
+        # sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
 
-        for function in test_functions:
-            if self.report_type in sheet_info[function]['reports']:
-                ws = workbook.add_worksheet(sheet_info[function]['name'])
-                self.write_headers(ws, sheet_info[function]['title'], sheet_info[function]['desc'])
-                getattr(self, function)(ws)
+        # for function in test_functions:
+        #     if self.report_type in sheet_info[function]['reports']:
+        #         ws = workbook.add_worksheet(sheet_info[function]['name'])
+        #         self.write_headers(ws, sheet_info[function]['title'], sheet_info[function]['desc'])
+        #         getattr(self, function)(ws)
 
         # -------------------------------------------------------------------
 
         # To ensure ordered worksheets
-        # sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
+        sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
 
-        # for ws_num, ws_info in sheet_info.iteritems():
-        #     if self.report_type in ws_info['reports']:
-        #         ws = workbook.add_worksheet(ws_info['name'])
-        #         self.write_headers(ws, ws_info['title'], ws_info['desc'])
-        #         getattr(self, ws_num)(ws)
+        for ws_num, ws_info in sheet_info.iteritems():
+            if self.report_type in ws_info['reports']:
+                ws = workbook.add_worksheet(ws_info['name'])
+                self.write_headers(ws, ws_info['title'], ws_info['desc'])
+                getattr(self, ws_num)(ws)
 
         workbook.close()
         output.seek(0)
@@ -1692,9 +1692,10 @@ class XLSXReportBuilder:
 
         rows = model.objects\
                 .values(journo_sex, 'sex')\
-                .filter(**{model.sheet_name() + '__country__in':self.country_list})
+                .filter(**{model.sheet_name() + '__country__in':self.country_list})\
+                .annotate(n=Count('id'))
 
-        rows = self.apply_weights(rows, model.sheet_db_table(), "Internet")
+        # rows = self.apply_weights(rows, model.sheet_db_table(), "Internet")
         counts.update({(r[journo_sex], r['sex']): r['n'] for r in rows})
         counts['col_title_def'] = 'Sex of reporter'
 
@@ -2084,7 +2085,7 @@ class XLSXReportBuilder:
             self.tabulate(ws, counts, cols, rows, row_perc=row_perc, sec_col=True, display_cols=display_cols, r=7, c=c)
             c += sec_cols
 
-    def tabulate(self, ws, counts, cols, rows, row_perc=False, sec_col=False, sec_row=False, display_cols=None, c=1, r=6, show_N=False):
+    def tabulate(self, ws, counts, cols, rows, row_perc=False, sec_col=False, sec_row=False, display_cols=None, c=1, r=6, show_N=True):
         """ Emit a table.
 
         :param ws: worksheet to write to
