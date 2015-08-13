@@ -200,6 +200,24 @@ TV_ROLE = [
     (3, _('(3) Other journalist: Sportscaster, weather forecaster, commentator/analyst etc.')),
 ]
 
+MEDIA_TYPES = [
+    (1, 'Print'),
+    (2, 'Radio'),
+    (3, 'Television'),
+    (4, 'Internet'),
+    (5, 'Twitter')
+]
+
+TM_MEDIA_TYPES = [
+    (1, 'Print'),
+    (2, 'Radio'),
+    (3, 'Television')
+]
+
+DM_MEDIA_TYPES = [
+    (1, 'Internet'),
+    (2, 'Twitter')
+]
 
 class CountryRegion(models.Model):
     """
@@ -254,6 +272,18 @@ class Person(models.Model):
         abstract = True
 
     @classmethod
+    def sheet_db_table(cls):
+        return cls.sheet_field().foreign_related_fields[0].model._meta.db_table
+
+    @classmethod
+    def sheet_field(self):
+        """ Return the sheet-related field for this model
+        """
+        for fld in self._meta.fields:
+            if hasattr(fld, 'related') and fld.model and issubclass(fld.related.parent_model, SheetModel):
+                return fld
+
+    @classmethod
     def sheet_name(self):
         """ Return the name of the sheet relation field
         """
@@ -273,6 +303,18 @@ class Journalist(models.Model):
 
     class Meta:
         abstract = True
+
+    @classmethod
+    def sheet_db_table(cls):
+        return cls.sheet_field().foreign_related_fields[0].model._meta.db_table
+
+    @classmethod
+    def sheet_field(self):
+        """ Return the name of the sheet relation field
+        """
+        for fld in self._meta.fields:
+            if hasattr(fld, 'related') and fld.related and issubclass(fld.related.parent_model, SheetModel):
+                return fld
 
     @classmethod
     def sheet_name(self):
