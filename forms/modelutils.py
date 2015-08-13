@@ -201,13 +201,23 @@ TV_ROLE = [
 ]
 
 MEDIA_TYPES = [
-    (1, 'Internet'),
-    (2, 'Print'),
-    (3, 'Radio'),
-    (4, 'Television'),
+    (1, 'Print'),
+    (2, 'Radio'),
+    (3, 'Television'),
+    (4, 'Internet'),
     (5, 'Twitter')
 ]
 
+TM_MEDIA_TYPES = [
+    (1, 'Print'),
+    (2, 'Radio'),
+    (3, 'Television')
+]
+
+DM_MEDIA_TYPES = [
+    (1, 'Internet'),
+    (2, 'Twitter')
+]
 
 class CountryRegion(models.Model):
     """
