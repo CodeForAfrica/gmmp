@@ -3,11 +3,9 @@ import StringIO
 from collections import Counter, OrderedDict
 
 # Django
-from django.core import urlresolvers
 from django_countries import countries
 from django.db import connection
-from django.db.models import F, Count, Sum, FieldDoesNotExist
-from django.contrib.sites.shortcuts import get_current_site
+from django.db.models import Count, FieldDoesNotExist
 
 # 3rd Party
 import xlsxwriter
@@ -24,13 +22,16 @@ from forms.modelutils import (TOPICS, GENDER, SPACE, OCCUPATION, FUNCTION, SCOPE
 from report_details import WS_INFO, REGION_COUNTRY_MAP, MAJOR_TOPICS, TOPIC_GROUPS, GROUP_TOPICS_MAP, FORMATS
 
 
+# =================
+# General utilities
+# =================
+
 def has_field(model, fld):
     try:
         model._meta.get_field(fld)
         return True
     except FieldDoesNotExist:
         return False
-
 
 def p(n, d):
     """ Helper to calculate the percentage of n / d,
@@ -78,7 +79,6 @@ def get_country_region(country):
         return get_regions()
     else:
         return [(0, [k for k, v in REGION_COUNTRY_MAP.items() if country in v][0])]
-
 
 def clean_title(text):
     """
