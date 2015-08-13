@@ -165,6 +165,7 @@ class XLSXReportBuilder:
         #     'ws_61', 'ws_62', 'ws_63', 'ws_64', 'ws_65', 'ws_66', 'ws_67', 'ws_68', 'ws_69', 'ws_70',
         #     'ws_76', 'ws_77', 'ws_78', 'ws_79']
 
+
         # test_functions = ['ws_38']
 
         # sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
@@ -291,24 +292,30 @@ class XLSXReportBuilder:
         Cols: Region, Media type
         Rows: Major Topic
         """
-        secondary_counts = OrderedDict()
-        for region_id, region in self.regions:
-            counts = Counter()
-            for media_type, model in sheet_models.iteritems():
-                rows = model.objects\
-                        .values('topic')\
-                        .filter(country_region__region=region)
+        counts_list = []
+        for media_group in SHEET_MEDIA_GROUPS:
+            secondary_counts = OrderedDict()
+            for region_id, region in self.regions:
+                counts = Counter()
+                for media_type, model in media_group[0].iteritems():
+                    rows = model.objects\
+                            .values('topic')\
+                            .filter(country_region__region=region)
 
-                rows = self.apply_weights(rows, model._meta.db_table, media_type)
+                    rows = self.apply_weights(rows, model._meta.db_table, media_type)
 
-                for r in rows:
-                    # Get media id's to assign to counts
-                    media_id = [media[0] for media in MEDIA_TYPES if media[1] == media_type][0]
-                    major_topic = TOPIC_GROUPS[r['topic']]
-                    counts.update({(media_id, major_topic): r['n']})
-            secondary_counts[region] = counts
+                    for r in rows:
+                        # Get media id's to assign to counts
+                        media_id = [media[0] for media in media_group[1] if media[1] == media_type][0]
+                        major_topic = TOPIC_GROUPS[r['topic']]
+                        counts.update({(media_id, major_topic): r['n']})
+                secondary_counts[region] = counts
+            counts_list.append(secondary_counts)
 
-        self.tabulate_secondary_cols(ws, secondary_counts, MEDIA_TYPES, MAJOR_TOPICS, row_perc=False, sec_cols=10)
+        self.tabulate_secondary_cols(ws, counts_list[0], TM_MEDIA_TYPES, MAJOR_TOPICS, row_perc=False, sec_cols=3)
+        c = ws.dim_colmax + 2
+        self.tabulate_secondary_cols(ws, counts_list[1], DM_MEDIA_TYPES, MAJOR_TOPICS, row_perc=False, sec_cols=2, c=c)
+
 
     def ws_05(self, ws):
         """
@@ -1807,7 +1814,7 @@ class XLSXReportBuilder:
         """
         ws.write(r, c, clean_title(heading), self.heading)
 
-    def tabulate_secondary_cols(self, ws, secondary_counts, cols, rows, row_perc=False, filter_cols=None, sec_cols=4):
+    def tabulate_secondary_cols(self, ws, secondary_counts, cols, rows, row_perc=False, filter_cols=None, sec_cols=4, c=1, r=7):
         """
         :param ws: worksheet to write to
         :param secondary_counts: dict in following format:
@@ -1817,7 +1824,6 @@ class XLSXReportBuilder:
         :param bool row_perc: should percentages by calculated by row instead of column (default: False)
         :param sec_cols: amount of cols needed for secondary cols
         """
-        r, c = 7, 1
 
         # row titles
         for i, row in enumerate(rows):
