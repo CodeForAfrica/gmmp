@@ -251,25 +251,58 @@ class RadioSheet(SheetModel):
 
 
 sheet_models = OrderedDict([
-    ('Internet', InternetNewsSheet),
     ('Print', NewspaperSheet),
     ('Radio', RadioSheet),
     ('Television', TelevisionSheet),
-    ('Twitter', TwitterSheet)]
-)
+    ('Internet', InternetNewsSheet),
+    ('Twitter', TwitterSheet)
+])
+
+tm_sheet_models = OrderedDict([
+    ('Print', NewspaperSheet),
+    ('Radio', RadioSheet),
+    ('Television', TelevisionSheet)
+])
+
+dm_sheet_models = OrderedDict([
+    ('Internet', InternetNewsSheet),
+    ('Twitter', TwitterSheet)
+])
 
 person_models = OrderedDict([
-    ('Internet', InternetNewsPerson),
     ('Print', NewspaperPerson),
     ('Radio', RadioPerson),
     ('Television', TelevisionPerson),
+    ('Internet', InternetNewsPerson),
     ('Twitter', TwitterPerson)]
 )
 
+tm_person_models = OrderedDict([
+    ('Print', NewspaperPerson),
+    ('Radio', RadioPerson),
+    ('Television', TelevisionPerson),
+])
+
+dm_person_models = OrderedDict([
+    ('Internet', InternetNewsPerson),
+    ('Twitter', TwitterPerson)
+])
+
 journalist_models = OrderedDict([
-    ('Internet', InternetNewsJournalist),
     ('Print', NewspaperJournalist),
     ('Radio', RadioJournalist),
     ('Television', TelevisionJournalist),
-    ('Twitter', TwitterJournalist)]
-)
+    ('Internet', InternetNewsJournalist),
+    ('Twitter', TwitterJournalist)
+])
+
+tm_journalist_models = OrderedDict([
+    ('Print', NewspaperJournalist),
+    ('Radio', RadioJournalist),
+    ('Television', TelevisionJournalist),
+])
+
+dm_journalist_models = OrderedDict([
+    ('Internet', InternetNewsJournalist),
+    ('Twitter', TwitterJournalist)
+])

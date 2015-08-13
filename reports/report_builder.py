@@ -15,11 +15,12 @@ import xlsxwriter
 # Project
 from forms.models import (
     NewspaperSheet, NewspaperPerson, TelevisionJournalist,
-    person_models, sheet_models, journalist_models)
+    person_models, sheet_models, journalist_models,
+    tm_person_models, tm_sheet_models, tm_journalist_models,
+    dm_person_models, dm_sheet_models, dm_journalist_models,)
 from forms.modelutils import (TOPICS, GENDER, SPACE, OCCUPATION, FUNCTION, SCOPE,
     YESNO, AGES, SOURCE, VICTIM_OF, SURVIVOR_OF, IS_PHOTOGRAPH, AGREE_DISAGREE,
-    RETWEET, TV_ROLE, MEDIA_TYPES,
-    CountryRegion)
+    RETWEET, TV_ROLE, MEDIA_TYPES, TM_MEDIA_TYPES, DM_MEDIA_TYPES, CountryRegion)
 from report_details import WS_INFO, REGION_COUNTRY_MAP, MAJOR_TOPICS, TOPIC_GROUPS, GROUP_TOPICS_MAP, FORMATS
 
 
@@ -436,7 +437,7 @@ class XLSXReportBuilder:
         #     'ws_61', 'ws_62', 'ws_63', 'ws_64', 'ws_65', 'ws_66', 'ws_67', 'ws_68', 'ws_69', 'ws_70',
         #     'ws_76', 'ws_77', 'ws_78', 'ws_79']
 
-        test_functions = ['ws_05']
+        test_functions = ['ws_38']
 
         sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
 
@@ -499,7 +500,7 @@ class XLSXReportBuilder:
         Rows: Region
         """
         counts = Counter()
-        for media_type, model in sheet_models.iteritems():
+        for media_type, model in tm_sheet_models.iteritems():
             rows = model.objects\
                     .values('country_region__region')\
                     .filter(country_region__region__in=self.region_list)
@@ -509,11 +510,11 @@ class XLSXReportBuilder:
             for row in rows:
                 if row['region'] is not None:
                     # Get media and region id's to assign to counts
-                    media_id = [media[0] for media in MEDIA_TYPES if media[1] == media_type][0]
+                    media_id = [media[0] for media in TM_MEDIA_TYPES if media[1] == media_type][0]
                     region_id = [region[0] for region in self.regions if region[1] == row['region']][0]
                     counts.update({(media_id, region_id): row['n']})
 
-        self.tabulate(ws, counts, MEDIA_TYPES, self.regions, row_perc=True)
+        self.tabulate(ws, counts, TM_MEDIA_TYPES, self.regions, row_perc=True)
 
     def ws_02(self, ws):
         """
@@ -2083,7 +2084,7 @@ class XLSXReportBuilder:
             self.tabulate(ws, counts, cols, rows, row_perc=row_perc, sec_col=True, display_cols=display_cols, r=7, c=c)
             c += sec_cols
 
-    def tabulate(self, ws, counts, cols, rows, row_perc=False, sec_col=False, sec_row=False, display_cols=None, c=1, r=6):
+    def tabulate(self, ws, counts, cols, rows, row_perc=False, sec_col=False, sec_row=False, display_cols=None, c=1, r=6, show_N=False):
         """ Emit a table.
 
         :param ws: worksheet to write to
@@ -2091,24 +2092,23 @@ class XLSXReportBuilder:
         :param list cols: list of `(col_id, col_title)` tuples of column ids and titles
         :param list rows: list of `(row_id, row_title)` tuples of row ids and titles
         :param bool row_perc: should percentages by calculated by row instead of column (default: False)
-        :param sec_col: Are wecreating a secondary column title(default: False)
+        :param sec_col: Are we creating a secondary column title(default: False)
         :param sec_row: Are we creating a secondary row title(default: False)
         :param display_cols: Optional if only a subset of columns should be displayed e.g. only female
         :param r, c: initial position where cursor should start writing to
         """
         if row_perc:
-            # we'll need percentage by rows
+            # Calc percentage by row
             row_totals = {}
             for row_id, row_title in rows:
                 row_totals[row_id] = sum(counts.get((col_id, row_id), 0) for col_id, _ in cols)  # noqa
 
         # row titles
         if not sec_col:
-            # Else already written
+            # else already written
             for i, row in enumerate(rows):
                 row_id, row_title = row
                 ws.write(r + i, c, clean_title(row_title), self.label)
-
             c += 1
 
         # if only filtered results should be shown
@@ -2120,30 +2120,63 @@ class XLSXReportBuilder:
             ws.write(r - 2, c-1, counts['col_title_def'], self.col_heading_def)
             counts.pop('col_title_def')
 
-        # values, written by column
-        for col_id, col_heading in cols:
-            # column title
-            if not sec_row:
-                ws.merge_range(r-2, c, r-2, c+1, clean_title(col_heading), self.col_heading)
-                ws.write(r - 1, c, "N", self.label)
-                ws.write(r - 1, c + 1, "%", self.label)
+        # values, written column by column
+        if show_N:
+            for col_id, col_heading in cols:
+                # column title
+                if not sec_row:
+                    # else already written
+                    ws.merge_range(r-2, c, r-2, c+1, clean_title(col_heading), self.col_heading)
+                    ws.write(r - 1, c, "N", self.label)
+                    ws.write(r - 1, c + 1, "%", self.label)
 
-            if not row_perc:
-                # column totals
-                # Confirm: Perc of col total or matrix total?
-                # total = sum(counts.itervalues())
-                total = sum(counts.get((col_id, row_id), 0) for row_id, _ in rows)
+                if not row_perc:
+                    # column totals
+                    # Confirm: Perc of col total or matrix total?
+                    total = sum(counts.itervalues())
+                # values for this column
 
-            # row values for this column
-            for i, row in enumerate(rows):
-                row_id, row_title = row
+                for i, row in enumerate(rows):
+                    row_id, row_title = row
 
-                if row_perc:
-                    # row totals
-                    total = row_totals[row_id]
+                    if row_perc:
+                        # row totals
+                        total = row_totals[row_id]
 
-                n = counts.get((col_id, row_id), 0)
-                ws.write(r + i, c, n, self.N)
-                ws.write(r + i, c + 1, p(n, total), self.P)
+                    n = counts.get((col_id, row_id), 0)
+                    ws.write(r + i, c, n, self.N)
+                    ws.write(r + i, c + 1, p(n, total), self.P)
 
-            c += 2
+                c += 2
+
+        else:
+            # only write %'s
+            for col_id, col_heading in cols:
+                # column title
+                if not sec_row:
+                    # else already written
+                    ws.write(r-2, c, clean_title(col_heading), self.col_heading)
+                    ws.write(r - 1, c, "%", self.label)
+
+                if not row_perc:
+                    # column totals
+                    total = sum(counts.get((col_id, row_id), 0) for row_id, _ in rows)
+
+                # values for this column
+                for i, row in enumerate(rows):
+                    row_id, row_title = row
+
+                    if row_perc:
+                        # row totals
+                        total = row_totals[row_id]
+
+                    n = counts.get((col_id, row_id), 0)
+                    ws.write(r + i, c, p(n, total), self.P)
+
+                c += 1
+
+            if row_perc:
+                # Write the row totals
+                for i, row in enumerate(rows):
+                    row_id, row_title = row
+                    ws.write(r + i, c, row_totals[row_id], self.N)
