@@ -22,6 +22,21 @@ from forms.modelutils import (TOPICS, GENDER, SPACE, OCCUPATION, FUNCTION, SCOPE
 from report_details import WS_INFO, REGION_COUNTRY_MAP, MAJOR_TOPICS, TOPIC_GROUPS, GROUP_TOPICS_MAP, FORMATS
 
 
+SHEET_MEDIA_GROUPS = [
+    (tm_sheet_models, TM_MEDIA_TYPES),
+    (dm_sheet_models, DM_MEDIA_TYPES)
+]
+
+PERSON_MEDIA_GROUPS = [
+    (tm_person_models, TM_MEDIA_TYPES),
+    (dm_person_models, DM_MEDIA_TYPES)
+]
+
+JOURNO_MEDIA_GROUPS = [
+    (tm_journalist_models, TM_MEDIA_TYPES),
+    (dm_journalist_models, DM_MEDIA_TYPES)
+]
+
 # =================
 # General utilities
 # =================
@@ -110,7 +125,7 @@ class XLSXReportBuilder:
         self.country_list = [code for code, name in self.countries]
         self.region_list = [name for id, name in self.regions]
 
-        # Various gender utilities
+        # Various utilities used for displaying details
         self.male_female = [(id, value) for id, value in GENDER if id in [1, 2]]
         self.male_female_ids = [id for id, value in self.male_female]
         self.female = [(id, value) for id, value in GENDER if id == 1]
@@ -150,7 +165,11 @@ class XLSXReportBuilder:
         #     'ws_61', 'ws_62', 'ws_63', 'ws_64', 'ws_65', 'ws_66', 'ws_67', 'ws_68', 'ws_69', 'ws_70',
         #     'ws_76', 'ws_77', 'ws_78', 'ws_79']
 
+<<<<<<< HEAD
         # test_functions = ['ws_38']
+=======
+        test_functions = ['ws_01']
+>>>>>>> Write traditional media and digital media seperately
 
         # sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
 
@@ -212,22 +231,28 @@ class XLSXReportBuilder:
         Cols: Media Type
         Rows: Region
         """
-        counts = Counter()
-        for media_type, model in tm_sheet_models.iteritems():
-            rows = model.objects\
-                    .values('country_region__region')\
-                    .filter(country_region__region__in=self.region_list)
+        counts_list = []
+        for media_group in SHEET_MEDIA_GROUPS:
+            counts = Counter()
+            for media_type, model in media_group[0].iteritems():
+                rows = model.objects\
+                        .values('country_region__region')\
+                        .filter(country_region__region__in=self.region_list)
 
-            rows = self.apply_weights(rows, model._meta.db_table, media_type)
+                rows = self.apply_weights(rows, model._meta.db_table, media_type)
 
-            for row in rows:
-                if row['region'] is not None:
-                    # Get media and region id's to assign to counts
-                    media_id = [media[0] for media in TM_MEDIA_TYPES if media[1] == media_type][0]
-                    region_id = [region[0] for region in self.regions if region[1] == row['region']][0]
-                    counts.update({(media_id, region_id): row['n']})
+                for row in rows:
+                    if row['region'] is not None:
+                        # Get media and region id's to assign to counts
+                        media_id = [media[0] for media in media_group[1] if media[1] == media_type][0]
+                        region_id = [region[0] for region in self.regions if region[1] == row['region']][0]
+                        counts.update({(media_id, region_id): row['n']})
+            counts_list.append(counts)
 
-        self.tabulate(ws, counts, TM_MEDIA_TYPES, self.regions, row_perc=True)
+        self.tabulate(ws, counts_list[0], TM_MEDIA_TYPES, self.regions, row_perc=True)
+        col = ws.dim_colmax + 2
+        self.tabulate(ws, counts_list[1], DM_MEDIA_TYPES, self.regions, row_perc=True, c=col, write_row_headings=False)
+
 
     def ws_02(self, ws):
         """
@@ -252,7 +277,7 @@ class XLSXReportBuilder:
                         counts.update({(media_id, row['country']): row['n']})
             self.write_primary_row_heading(ws, region, r=r)
             region_countries = [(code, country) for code, country in self.countries if code in REGION_COUNTRY_MAP[region]]
-            self.tabulate(ws, counts, MEDIA_TYPES, region_countries, row_perc=True, sec_row=True, r=r)
+            self.tabulate(ws, counts, MEDIA_TYPES, region_countries, row_perc=True, write_col_headings=False, r=r)
             r += len(region_countries)
 
     def ws_04(self, ws):
@@ -320,7 +345,7 @@ class XLSXReportBuilder:
                     counts.update({(r['sex'], TOPIC_GROUPS[r['topic']]): r['n']})
             secondary_counts[region] = counts
 
-        self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, MAJOR_TOPICS, row_perc=True, sec_cols=2, display_cols=self.female)
+        self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, MAJOR_TOPICS, row_perc=True, sec_cols=2, filter_cols=self.female)
 
     def ws_07(self, ws):
         """
@@ -361,7 +386,7 @@ class XLSXReportBuilder:
 
                 counts.update({(r['sex'], r['scope']): r['n'] for r in rows})
 
-        self.tabulate(ws, counts, self.male_female, SCOPE, row_perc=True, display_cols=self.female)
+        self.tabulate(ws, counts, self.male_female, SCOPE, row_perc=True, filter_cols=self.female)
 
     def ws_09(self, ws):
         """
@@ -380,7 +405,7 @@ class XLSXReportBuilder:
 
             counts.update({(r['sex'], r['topic']): r['n'] for r in rows})
 
-        self.tabulate(ws, counts, self.male_female, TOPICS, row_perc=True, display_cols=self.female)
+        self.tabulate(ws, counts, self.male_female, TOPICS, row_perc=True, filter_cols=self.female)
 
     def ws_10(self, ws):
         """
@@ -488,7 +513,7 @@ class XLSXReportBuilder:
 
                 counts.update({(r['sex'], r['occupation']): r['n'] for r in rows})
 
-        self.tabulate(ws, counts, self.male_female, OCCUPATION, row_perc=True, display_cols=self.female)
+        self.tabulate(ws, counts, self.male_female, OCCUPATION, row_perc=True, filter_cols=self.female)
 
     def ws_15(self, ws):
         """
@@ -508,7 +533,7 @@ class XLSXReportBuilder:
 
                 counts.update({(r['sex'], r['function']): r['n'] for r in rows})
 
-        self.tabulate(ws, counts, self.male_female, FUNCTION, row_perc=True, display_cols=self.female)
+        self.tabulate(ws, counts, self.male_female, FUNCTION, row_perc=True, filter_cols=self.female)
 
     def ws_16(self, ws):
         """
@@ -850,7 +875,7 @@ class XLSXReportBuilder:
 
                 counts.update({(r['sex'], r['topic']): r['n'] for r in rows})
 
-        self.tabulate(ws, counts, self.male_female, TOPICS, row_perc=True, display_cols=self.female)
+        self.tabulate(ws, counts, self.male_female, TOPICS, row_perc=True, filter_cols=self.female)
 
     def ws_32(self, ws):
         """
@@ -897,7 +922,7 @@ class XLSXReportBuilder:
             counts.update({(r[journo_sex], r['sex']): r['n'] for r in rows})
         counts['col_title_def'] = 'Sex of reporter'
 
-        self.tabulate(ws, counts, self.male_female, GENDER, row_perc=True, display_cols=self.female)
+        self.tabulate(ws, counts, self.male_female, GENDER, row_perc=True, filter_cols=self.female)
 
     def ws_35(self, ws):
         """
@@ -914,7 +939,7 @@ class XLSXReportBuilder:
         rows = self.apply_weights(rows, TelevisionJournalist.sheet_db_table(), 'Television')
         counts.update({(r['sex'], r['age']): r['n'] for r in rows})
 
-        self.tabulate(ws, counts, self.male_female, AGES, row_perc=True, display_cols=self.female)
+        self.tabulate(ws, counts, self.male_female, AGES, row_perc=True, filter_cols=self.female)
 
     def ws_36(self, ws):
         """
@@ -993,7 +1018,7 @@ class XLSXReportBuilder:
                     counts.update({(r['about_women'], r['topic']): r['n'] for r in rows})
             secondary_counts[region] = counts
 
-        self.tabulate_secondary_cols(ws, secondary_counts, YESNO, TOPICS, row_perc=False, sec_cols=2, display_cols=self.yes)
+        self.tabulate_secondary_cols(ws, secondary_counts, YESNO, TOPICS, row_perc=False, sec_cols=2, filter_cols=self.yes)
 
     def ws_41(self, ws):
         """
@@ -1263,7 +1288,7 @@ class XLSXReportBuilder:
         :: Internet media type only
         :: Female reporters only
         """
-        display_cols = [(id, value) for id, value in GENDER if id==1]
+        filter_cols = [(id, value) for id, value in GENDER if id==1]
         secondary_counts = OrderedDict()
         model = sheet_models.get('Internet')
 
@@ -1279,7 +1304,7 @@ class XLSXReportBuilder:
             major_topic_name = [mt[1] for mt in MAJOR_TOPICS if mt[0] == int(major_topic)][0]
             secondary_counts[major_topic_name] = counts
 
-        self.tabulate_secondary_cols(ws, secondary_counts, GENDER, self.countries, row_perc=True, display_cols=display_cols, sec_cols=2)
+        self.tabulate_secondary_cols(ws, secondary_counts, GENDER, self.countries, row_perc=True, filter_cols=filter_cols, sec_cols=2)
 
     def ws_54(self, ws):
         """
@@ -1364,7 +1389,7 @@ class XLSXReportBuilder:
             # If only captured countries should be displayed use
             # if counts.keys():
             self.write_primary_row_heading(ws, country, r=r)
-            self.tabulate(ws, counts, GENDER, YESNO, row_perc=True, sec_row=True, r=r)
+            self.tabulate(ws, counts, GENDER, YESNO, row_perc=True, write_col_headings=False, r=r)
             r += len(YESNO)
 
     def ws_58(self, ws):
@@ -1388,7 +1413,7 @@ class XLSXReportBuilder:
             counts = {(row['sex'], row['is_photograph']): row['n'] for row in rows}
 
             self.write_primary_row_heading(ws, country, r=r)
-            self.tabulate(ws, counts, GENDER, IS_PHOTOGRAPH, row_perc=True, sec_row=True, r=r)
+            self.tabulate(ws, counts, GENDER, IS_PHOTOGRAPH, row_perc=True, write_col_headings=False, r=r)
             r += len(IS_PHOTOGRAPH)
 
     def ws_59(self, ws):
@@ -1435,7 +1460,7 @@ class XLSXReportBuilder:
             counts = {(row['sex'], row['age']): row['n'] for row in rows}
 
             self.write_primary_row_heading(ws, country, r=r)
-            self.tabulate(ws, counts, GENDER, AGES, row_perc=True, sec_row=True, r=r)
+            self.tabulate(ws, counts, GENDER, AGES, row_perc=True, write_col_headings=False, r=r)
             r += len(AGES)
 
     def ws_61(self, ws):
@@ -1459,7 +1484,7 @@ class XLSXReportBuilder:
             counts = {(row['sex'], row['is_quoted']): row['n'] for row in rows}
 
             self.write_primary_row_heading(ws, country, r=r)
-            self.tabulate(ws, counts, GENDER, YESNO, row_perc=True, sec_row=True, r=r)
+            self.tabulate(ws, counts, GENDER, YESNO, row_perc=True, write_col_headings=False, r=r)
             r += len(YESNO)
 
     def ws_62(self, ws):
@@ -1483,7 +1508,7 @@ class XLSXReportBuilder:
             counts = {(row['topic'], row['equality_rights']): row['n'] for row in rows}
 
             self.write_primary_row_heading(ws, country, r=r)
-            self.tabulate(ws, counts, TOPICS, YESNO, row_perc=True, sec_row=True, r=r)
+            self.tabulate(ws, counts, TOPICS, YESNO, row_perc=True, write_col_headings=False, r=r)
             r += len(YESNO)
 
     def ws_63(self, ws):
@@ -1507,7 +1532,7 @@ class XLSXReportBuilder:
             counts = {(row['topic'], row['stereotypes']): row['n'] for row in rows}
 
             self.write_primary_row_heading(ws, country, r=r)
-            self.tabulate(ws, counts, TOPICS, AGREE_DISAGREE, row_perc=True, sec_row=True, r=r)
+            self.tabulate(ws, counts, TOPICS, AGREE_DISAGREE, row_perc=True, write_col_headings=False, r=r)
             r += len(AGREE_DISAGREE)
 
     def ws_64(self, ws):
@@ -1531,7 +1556,7 @@ class XLSXReportBuilder:
             counts = {(row['topic'], row['about_women']): row['n'] for row in rows}
 
             self.write_primary_row_heading(ws, country, r=r)
-            self.tabulate(ws, counts, TOPICS, YESNO, row_perc=True, sec_row=True, r=r)
+            self.tabulate(ws, counts, TOPICS, YESNO, row_perc=True, write_col_headings=False, r=r)
             r += len(YESNO)
 
     def ws_65(self, ws):
@@ -1555,7 +1580,7 @@ class XLSXReportBuilder:
             counts = {(row['topic'], row['retweet']): row['n'] for row in rows}
 
             self.write_primary_row_heading(ws, country, r=r)
-            self.tabulate(ws, counts, TOPICS, RETWEET, row_perc=False, sec_row=True, r=r)
+            self.tabulate(ws, counts, TOPICS, RETWEET, row_perc=False, write_col_headings=False, r=r)
             r += len(RETWEET)
 
     def ws_66(self, ws):
@@ -1580,7 +1605,7 @@ class XLSXReportBuilder:
             counts.update({(row['topic'], row['sex']): row['n'] for row in rows})
 
             self.write_primary_row_heading(ws, country, r=r)
-            self.tabulate(ws, counts, TOPICS, GENDER, row_perc=True, sec_row=True, r=r)
+            self.tabulate(ws, counts, TOPICS, GENDER, row_perc=True, write_col_headings=False, r=r)
             r += len(GENDER)
 
     def ws_67(self, ws):
@@ -1623,7 +1648,7 @@ class XLSXReportBuilder:
             counts = {(row['topic'], row['about_women']): row['n'] for row in rows}
 
             self.write_primary_row_heading(ws, country, r=r)
-            self.tabulate(ws, counts, TOPICS, YESNO, row_perc=False, sec_row=True, r=r)
+            self.tabulate(ws, counts, TOPICS, YESNO, row_perc=False, write_col_headings=False, r=r)
             r += len(YESNO)
 
     def ws_69(self, ws):
@@ -1647,7 +1672,7 @@ class XLSXReportBuilder:
             counts = {(row['topic'], row['stereotypes']): row['n'] for row in rows}
 
             self.write_primary_row_heading(ws, country, r=r)
-            self.tabulate(ws, counts, TOPICS, AGREE_DISAGREE, row_perc=True, sec_row=True, r=r)
+            self.tabulate(ws, counts, TOPICS, AGREE_DISAGREE, row_perc=True, write_col_headings=False, r=r)
             r += len(AGREE_DISAGREE)
 
     def ws_76(self, ws):
@@ -1769,13 +1794,13 @@ class XLSXReportBuilder:
         """
         ws.write(r, c, clean_title(heading), self.heading)
 
-    def tabulate_secondary_cols(self, ws, secondary_counts, cols, rows, row_perc=False, display_cols=None, sec_cols=4):
+    def tabulate_secondary_cols(self, ws, secondary_counts, cols, rows, row_perc=False, filter_cols=None, sec_cols=4):
         """
         :param ws: worksheet to write to
         :param secondary_counts: dict in following format:
             {'Primary column heading': Count object, ...}
         :param list cols: list of `(col_id, col_title)` tuples of column ids and titles
-        :param list rows: list of `(row_id, row_title)` tuples of row ids and titles
+        :param list rows: list of `(row_id, row_heading)` tuples of row ids and titles
         :param bool row_perc: should percentages by calculated by row instead of column (default: False)
         :param sec_cols: amount of cols needed for secondary cols
         """
@@ -1783,8 +1808,8 @@ class XLSXReportBuilder:
 
         # row titles
         for i, row in enumerate(rows):
-            row_id, row_title = row
-            ws.write(r + i, c, clean_title(row_title), self.label)
+            row_id, row_heading = row
+            ws.write(r + i, c, clean_title(row_heading), self.label)
         c += 1
 
         if 'col_title_def' in secondary_counts:
@@ -1795,42 +1820,44 @@ class XLSXReportBuilder:
 
         for field, counts in secondary_counts.iteritems():
             ws.merge_range(r-3, c, r-3, c+sec_cols-1, clean_title(field), self.sec_col_heading)
-            self.tabulate(ws, counts, cols, rows, row_perc=row_perc, sec_col=True, display_cols=display_cols, r=7, c=c)
+            self.tabulate(ws, counts, cols, rows, row_perc=row_perc, write_row_headings=False, filter_cols=filter_cols, r=7, c=c)
             c += sec_cols
 
-    def tabulate(self, ws, counts, cols, rows, row_perc=False, sec_col=False, sec_row=False, display_cols=None, c=1, r=6, show_N=True):
+    def tabulate(self, ws, counts, cols, rows, row_perc=False,
+                 write_row_headings=True, write_col_headings=True,
+                 filter_cols=None, c=1, r=6, show_N=False):
         """ Emit a table.
 
         :param ws: worksheet to write to
         :param dict counts: dict from `(col_id, row_id)` tuples to count for that combination.
         :param list cols: list of `(col_id, col_title)` tuples of column ids and titles
-        :param list rows: list of `(row_id, row_title)` tuples of row ids and titles
+        :param list rows: list of `(row_id, row_heading)` tuples of row ids and titles
         :param bool row_perc: should percentages by calculated by row instead of column (default: False)
-        :param sec_col: Are we creating a secondary column title(default: False)
-        :param sec_row: Are we creating a secondary row title(default: False)
-        :param display_cols: Optional if only a subset of columns should be displayed e.g. only female
+        :param write_row_headings: Should we write the row headings. False if already written.
+        :param write_col_headings: Should we write the col headings. False if already written.
+        :param filter_cols: If not None, display only passed subset of columns e.g. only female
         :param r, c: initial position where cursor should start writing to
         """
         if row_perc:
             # Calc percentage by row
             row_totals = {}
-            for row_id, row_title in rows:
+            for row_id, row_heading in rows:
                 row_totals[row_id] = sum(counts.get((col_id, row_id), 0) for col_id, _ in cols)  # noqa
 
         # row titles
-        if not sec_col:
+        if write_row_headings:
             # else already written
             for i, row in enumerate(rows):
-                row_id, row_title = row
-                ws.write(r + i, c, clean_title(row_title), self.label)
+                row_id, row_heading = row
+                ws.write(r + i, c, clean_title(row_heading), self.label)
             c += 1
 
         # if only filtered results should be shown
         # e.g. only print female columns
-        if display_cols:
-            cols = display_cols
+        if filter_cols:
+            cols = filter_cols
 
-        if 'col_title_def' in counts and not sec_row:
+        if 'col_title_def' in counts and write_col_headings:
             ws.write(r - 2, c-1, counts['col_title_def'], self.col_heading_def)
             counts.pop('col_title_def')
 
@@ -1838,7 +1865,7 @@ class XLSXReportBuilder:
         if show_N:
             for col_id, col_heading in cols:
                 # column title
-                if not sec_row:
+                if write_col_headings:
                     # else already written
                     ws.merge_range(r-2, c, r-2, c+1, clean_title(col_heading), self.col_heading)
                     ws.write(r - 1, c, "N", self.label)
@@ -1867,7 +1894,7 @@ class XLSXReportBuilder:
             # only write %'s
             for col_id, col_heading in cols:
                 # column title
-                if not sec_row:
+                if write_col_headings:
                     # else already written
                     ws.write(r-2, c, clean_title(col_heading), self.col_heading)
                     ws.write(r - 1, c, "%", self.label)
