@@ -165,11 +165,7 @@ class XLSXReportBuilder:
         #     'ws_61', 'ws_62', 'ws_63', 'ws_64', 'ws_65', 'ws_66', 'ws_67', 'ws_68', 'ws_69', 'ws_70',
         #     'ws_76', 'ws_77', 'ws_78', 'ws_79']
 
-<<<<<<< HEAD
         # test_functions = ['ws_38']
-=======
-        test_functions = ['ws_01']
->>>>>>> Write traditional media and digital media seperately
 
         # sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
 
@@ -260,24 +256,34 @@ class XLSXReportBuilder:
         Rows: Region, Country
         """
         r = 6
-        self.write_col_headings(ws, MEDIA_TYPES)
-        counts = Counter()
+        c = 2
+        for media_group in SHEET_MEDIA_GROUPS:
+            self.write_col_headings(ws, media_group[1], c=c)
+            c += len(media_group[1]) + 2
+
         for region_id, region in self.regions:
-            for media_type, model in sheet_models.iteritems():
-                rows = model.objects\
-                        .values('country')\
-                        .filter(country__in=self.country_list)
+            counts_list = []
+            for media_group in SHEET_MEDIA_GROUPS:
 
-                rows = self.apply_weights(rows, model._meta.db_table, media_type)
+                counts = Counter()
+                for media_type, model in media_group[0].iteritems():
+                    rows = model.objects\
+                            .values('country')\
+                            .filter(country__in=self.country_list)
 
-                for row in rows:
-                    if row['country'] is not None:
-                        # Get media id's to assign to counts
-                        media_id = [media[0] for media in MEDIA_TYPES if media[1] == media_type][0]
-                        counts.update({(media_id, row['country']): row['n']})
+                    rows = self.apply_weights(rows, model._meta.db_table, media_type)
+
+                    for row in rows:
+                        if row['country'] is not None:
+                            # Get media id's to assign to counts
+                            media_id = [media[0] for media in media_group[1] if media[1] == media_type][0]
+                            counts.update({(media_id, row['country']): row['n']})
+                counts_list.append(counts)
             self.write_primary_row_heading(ws, region, r=r)
             region_countries = [(code, country) for code, country in self.countries if code in REGION_COUNTRY_MAP[region]]
-            self.tabulate(ws, counts, MEDIA_TYPES, region_countries, row_perc=True, write_col_headings=False, r=r)
+            self.tabulate(ws, counts_list[0], TM_MEDIA_TYPES, region_countries, row_perc=True, write_col_headings=False, r=r)
+            c = 7
+            self.tabulate(ws, counts_list[1], DM_MEDIA_TYPES, region_countries, row_perc=True, write_col_headings=False, write_row_headings=False, r=r, c=c)
             r += len(region_countries)
 
     def ws_04(self, ws):
@@ -1772,18 +1778,25 @@ class XLSXReportBuilder:
         ws.write(1, 0, description, self.heading)
         ws.write(3, 2, self.gmmp_year, self.heading)
 
-    def write_col_headings(self, ws, cols, c=2, r=4):
+    def write_col_headings(self, ws, cols, c=2, r=4, show_N=False):
         """
         :param ws: worksheet to write to
         :param cols: list of `(col_id, col_title)` tuples of column ids and titles
         :param r, c: initial position where cursor should start writing to
 
         """
-        for col_id, col_title in cols:
-            ws.write(r, c, clean_title(col_title), self.col_heading)
-            ws.write(r + 1, c, "N")
-            ws.write(r + 1, c + 1, "%")
-            c += 2
+        if show_N:
+            for col_id, col_title in cols:
+                ws.write(r, c, clean_title(col_title), self.col_heading)
+                ws.write(r + 1, c, "N")
+                ws.write(r + 1, c + 1, "%")
+                c += 2
+        else:
+            for col_id, col_title in cols:
+                ws.write(r, c, clean_title(col_title), self.col_heading)
+                ws.write(r + 1, c, "%")
+                c += 1
+
 
     def write_primary_row_heading(self, ws, heading, c=0, r=6):
         """
