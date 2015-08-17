@@ -1894,7 +1894,7 @@ class XLSXReportBuilder:
             # else already written
             for i, row in enumerate(rows):
                 row_id, row_heading = row
-                ws.write(r + i, c, clean_title(row_heading), self.label)
+                ws.write(r+i, c, clean_title(row_heading), self.label)
             c += 1
 
         # if only filtered results should be shown
@@ -1904,7 +1904,7 @@ class XLSXReportBuilder:
 
         if 'col_title_def' in counts and write_col_headings:
             # write definition of column headings
-            ws.write(r - 2, c-1, counts['col_title_def'], self.col_heading_def)
+            ws.write(r-2, c-1, counts['col_title_def'], self.col_heading_def)
             counts.pop('col_title_def')
 
         # values, written column by column
@@ -1914,8 +1914,8 @@ class XLSXReportBuilder:
                 if write_col_headings:
                     # else already written
                     ws.merge_range(r-2, c, r-2, c+1, clean_title(col_heading), self.col_heading)
-                    ws.write(r - 1, c, "N", self.label)
-                    ws.write(r - 1, c + 1, "%", self.label)
+                    ws.write(r-1, c, "N", self.label)
+                    ws.write(r-1, c+1, "%", self.label)
 
                 if not row_perc:
                     # column totals
@@ -1936,8 +1936,8 @@ class XLSXReportBuilder:
                     n = counts.get((col_id, row_id), 0)
                     perc = p(n, total)
 
-                    ws.write(r + i, c, n, self.N)
-                    ws.write(r + i, c + 1, perc, self.P)
+                    ws.write(r+i, c, n, self.N)
+                    ws.write(r+i, c+1, perc, self.P)
 
                     # col_total_n += n
                     col_total_perc += perc
@@ -1947,7 +1947,7 @@ class XLSXReportBuilder:
                     col_total_perc = col_total_perc / len (rows)
 
                 # ws.write(r + i + 1, c, col_total_n, self.N)
-                ws.write(r + i + 1, c+1, col_total_perc, self.P)
+                ws.write(r+i+1, c+1, col_total_perc, self.P)
                 c += 2
 
         else:
@@ -1957,7 +1957,7 @@ class XLSXReportBuilder:
                 if write_col_headings:
                     # else already written
                     ws.write(r-2, c, clean_title(col_heading), self.col_heading)
-                    ws.write(r - 1, c, "%", self.label)
+                    ws.write(r-1, c, "%", self.label)
 
                 total = sum(counts.get((col_id, row_id), 0) for row_id, _ in rows)
 
@@ -1972,11 +1972,11 @@ class XLSXReportBuilder:
 
                     n = counts.get((col_id, row_id), 0)
                     perc = p(n, total)
-                    ws.write(r + i, c, perc, self.P)
+                    ws.write(r+i, c, perc, self.P)
                     col_total += perc
                 if row_perc:
                     col_total = col_total / len(rows)
-                ws.write(r + i + 1, c, col_total, self.P)
+                ws.write(r+i+1, c, col_total, self.P)
 
                 c += 1
 
@@ -1984,4 +1984,4 @@ class XLSXReportBuilder:
                 # Write the row totals
                 for i, row in enumerate(rows):
                     row_id, row_title = row
-                    ws.write(r + i, c, row_totals[row_id], self.N)
+                    ws.write(r+i, c, row_totals[row_id], self.N)
