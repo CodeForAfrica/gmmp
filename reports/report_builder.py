@@ -172,7 +172,7 @@ class XLSXReportBuilder:
         #     'ws_61', 'ws_62', 'ws_63', 'ws_64', 'ws_65', 'ws_66', 'ws_67', 'ws_68', 'ws_69', 'ws_70',
         #     'ws_76', 'ws_77', 'ws_78', 'ws_79']
 
-        test_functions = ['ws_04', 'ws_05']
+        test_functions = ['ws_05']
 
         sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
 
@@ -328,9 +328,10 @@ class XLSXReportBuilder:
         """
         counts_list = []
         for models, media_types in PERSON_MEDIA_GROUPS:
+            import ipdb; ipdb.set_trace()
             secondary_counts = OrderedDict()
-            counts = Counter()
             for media_type, model in models.iteritems():
+                counts = Counter()
                 topic_field = '%s__topic' % model.sheet_name()
 
                 rows = model.objects\
@@ -339,16 +340,18 @@ class XLSXReportBuilder:
                     .filter(sex__in=self.male_female_ids)
 
                 rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
-
                 for r in rows:
                     counts.update({(r['sex'], TOPIC_GROUPS[r['topic']]): r['n']})
-
                 if media_type == "Internet":
                     secondary_counts["Internet"] = counts
                 elif media_type == "Twitter":
                     secondary_counts["Twitter"] = counts
                 else:
-                    secondary_counts["Print, Radio, Television"] = counts
+                    if "Print, Radio, Television" in secondary_counts:
+                        secondary_counts["Print, Radio, Television"].update(counts)
+                    else:
+                        secondary_counts["Print, Radio, Television"] = counts
+
             counts_list.append(secondary_counts)
         self.tabulate_secondary_cols(ws, counts_list[0], self.male_female, MAJOR_TOPICS, row_perc=True, sec_cols=3)
         c = ws.dim_colmax + 2
@@ -1911,9 +1914,10 @@ class XLSXReportBuilder:
                 if not row_perc:
                     # column totals
                     # Confirm: Perc of col total or matrix total?
-                    total = sum(counts.itervalues())
-                # values for this column
+                    # total = sum(counts.itervalues())
+                    total = sum(counts.get((col_id, row_id), 0) for row_id, _ in rows)
 
+                # values for this column
                 for i, row in enumerate(rows):
                     row_id, row_title = row
 
