@@ -37,6 +37,13 @@ JOURNO_MEDIA_GROUPS = [
     (dm_journalist_models, DM_MEDIA_TYPES)
 ]
 
+media_split = [
+    "Print, Radio, Television",
+    "Internet",
+    "Twitter"
+]
+
+
 # =================
 # General utilities
 # =================
@@ -165,27 +172,26 @@ class XLSXReportBuilder:
         #     'ws_61', 'ws_62', 'ws_63', 'ws_64', 'ws_65', 'ws_66', 'ws_67', 'ws_68', 'ws_69', 'ws_70',
         #     'ws_76', 'ws_77', 'ws_78', 'ws_79']
 
+        test_functions = ['ws_04', 'ws_05']
 
-        # test_functions = ['ws_38']
+        sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
 
-        # sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
-
-        # for function in test_functions:
-        #     if self.report_type in sheet_info[function]['reports']:
-        #         ws = workbook.add_worksheet(sheet_info[function]['name'])
-        #         self.write_headers(ws, sheet_info[function]['title'], sheet_info[function]['desc'])
-        #         getattr(self, function)(ws)
+        for function in test_functions:
+            if self.report_type in sheet_info[function]['reports']:
+                ws = workbook.add_worksheet(sheet_info[function]['name'])
+                self.write_headers(ws, sheet_info[function]['title'], sheet_info[function]['desc'])
+                getattr(self, function)(ws)
 
         # -------------------------------------------------------------------
 
         # To ensure ordered worksheets
-        sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
+        # sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
 
-        for ws_num, ws_info in sheet_info.iteritems():
-            if self.report_type in ws_info['reports']:
-                ws = workbook.add_worksheet(ws_info['name'])
-                self.write_headers(ws, ws_info['title'], ws_info['desc'])
-                getattr(self, ws_num)(ws)
+        # for ws_num, ws_info in sheet_info.iteritems():
+        #     if self.report_type in ws_info['reports']:
+        #         ws = workbook.add_worksheet(ws_info['name'])
+        #         self.write_headers(ws, ws_info['title'], ws_info['desc'])
+        #         getattr(self, ws_num)(ws)
 
         workbook.close()
         output.seek(0)
@@ -250,7 +256,6 @@ class XLSXReportBuilder:
         c = ws.dim_colmax + 2
         self.tabulate(ws, counts_list[1], DM_MEDIA_TYPES, self.regions, row_perc=True, c=c, write_row_headings=False)
 
-
     def ws_02(self, ws):
         """
         Cols: Media Type
@@ -293,11 +298,11 @@ class XLSXReportBuilder:
         Rows: Major Topic
         """
         counts_list = []
-        for media_group in SHEET_MEDIA_GROUPS:
+        for models, media_types in SHEET_MEDIA_GROUPS:
             secondary_counts = OrderedDict()
             for region_id, region in self.regions:
                 counts = Counter()
-                for media_type, model in media_group[0].iteritems():
+                for media_type, model in models.iteritems():
                     rows = model.objects\
                             .values('topic')\
                             .filter(country_region__region=region)
@@ -306,7 +311,7 @@ class XLSXReportBuilder:
 
                     for r in rows:
                         # Get media id's to assign to counts
-                        media_id = [media[0] for media in media_group[1] if media[1] == media_type][0]
+                        media_id = [media[0] for media in media_types if media[1] == media_type][0]
                         major_topic = TOPIC_GROUPS[r['topic']]
                         counts.update({(media_id, major_topic): r['n']})
                 secondary_counts[region] = counts
@@ -316,26 +321,38 @@ class XLSXReportBuilder:
         c = ws.dim_colmax + 2
         self.tabulate_secondary_cols(ws, counts_list[1], DM_MEDIA_TYPES, MAJOR_TOPICS, row_perc=False, sec_cols=2, c=c)
 
-
     def ws_05(self, ws):
         """
         Cols: Subject sex
         Rows: Major Topic
         """
-        counts = Counter()
-        for media_type, model in person_models.iteritems():
-            topic_field = '%s__topic' % model.sheet_name()
+        counts_list = []
+        for models, media_types in PERSON_MEDIA_GROUPS:
+            secondary_counts = OrderedDict()
+            counts = Counter()
+            for media_type, model in models.iteritems():
+                topic_field = '%s__topic' % model.sheet_name()
 
-            rows = model.objects\
-                .values('sex', topic_field)\
-                .filter(**{model.sheet_name() + '__country__in': self.country_list})
+                rows = model.objects\
+                    .values('sex', topic_field)\
+                    .filter(**{model.sheet_name() + '__country__in': self.country_list})\
+                    .filter(sex__in=self.male_female_ids)
 
-            rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
+                rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
 
-            for r in rows:
-                counts.update({(r['sex'], TOPIC_GROUPS[r['topic']]): r['n']})
+                for r in rows:
+                    counts.update({(r['sex'], TOPIC_GROUPS[r['topic']]): r['n']})
 
-        self.tabulate(ws, counts, GENDER, MAJOR_TOPICS, row_perc=True)
+                if media_type == "Internet":
+                    secondary_counts["Internet"] = counts
+                elif media_type == "Twitter":
+                    secondary_counts["Twitter"] = counts
+                else:
+                    secondary_counts["Print, Radio, Television"] = counts
+            counts_list.append(secondary_counts)
+        self.tabulate_secondary_cols(ws, counts_list[0], self.male_female, MAJOR_TOPICS, row_perc=True, sec_cols=3)
+        c = ws.dim_colmax + 2
+        self.tabulate_secondary_cols(ws, counts_list[1], self.male_female, MAJOR_TOPICS, row_perc=True, c=c, write_row_headings=False, sec_cols=3)
 
     def ws_06(self, ws):
         """
@@ -1814,7 +1831,7 @@ class XLSXReportBuilder:
         """
         ws.write(r, c, clean_title(heading), self.heading)
 
-    def tabulate_secondary_cols(self, ws, secondary_counts, cols, rows, row_perc=False, filter_cols=None, sec_cols=4, c=1, r=7):
+    def tabulate_secondary_cols(self, ws, secondary_counts, cols, rows, row_perc=False, write_row_headings=True, filter_cols=None, sec_cols=4, c=1, r=7):
         """
         :param ws: worksheet to write to
         :param secondary_counts: dict in following format:
@@ -1826,10 +1843,11 @@ class XLSXReportBuilder:
         """
 
         # row titles
-        for i, row in enumerate(rows):
-            row_id, row_heading = row
-            ws.write(r + i, c, clean_title(row_heading), self.label)
-        c += 1
+        if write_row_headings:
+            for i, row in enumerate(rows):
+                row_id, row_heading = row
+                ws.write(r + i, c, clean_title(row_heading), self.label)
+            c += 1
 
         if 'col_title_def' in secondary_counts:
             # Write definitions of column heading titles
