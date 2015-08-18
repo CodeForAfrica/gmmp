@@ -9,14 +9,12 @@ from django import forms
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.utils.decorators import method_decorator
 
-# 3rd Party
-import xlsxwriter
-from django_countries import countries
-
 # Project
 from reports.report_builder import (
-    XLSXReportBuilder, XLSXDataExportBuilder,
+    XLSXReportBuilder,
     get_countries, get_regions)
+
+from reports.export_builder import XLSXDataExportBuilder
 
 
 class GlobalForm(forms.Form):

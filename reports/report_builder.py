@@ -3,11 +3,9 @@ import StringIO
 from collections import Counter, OrderedDict
 
 # Django
-from django.core import urlresolvers
 from django_countries import countries
 from django.db import connection
-from django.db.models import F, Count, Sum, FieldDoesNotExist
-from django.contrib.sites.shortcuts import get_current_site
+from django.db.models import Count, FieldDoesNotExist
 
 # 3rd Party
 import xlsxwriter
@@ -24,13 +22,38 @@ from forms.modelutils import (TOPICS, GENDER, SPACE, OCCUPATION, FUNCTION, SCOPE
 from report_details import WS_INFO, REGION_COUNTRY_MAP, MAJOR_TOPICS, TOPIC_GROUPS, GROUP_TOPICS_MAP, FORMATS
 
 
+SHEET_MEDIA_GROUPS = [
+    (tm_sheet_models, TM_MEDIA_TYPES),
+    (dm_sheet_models, DM_MEDIA_TYPES)
+]
+
+PERSON_MEDIA_GROUPS = [
+    (tm_person_models, TM_MEDIA_TYPES),
+    (dm_person_models, DM_MEDIA_TYPES)
+]
+
+JOURNO_MEDIA_GROUPS = [
+    (tm_journalist_models, TM_MEDIA_TYPES),
+    (dm_journalist_models, DM_MEDIA_TYPES)
+]
+
+media_split = [
+    "Print, Radio, Television",
+    "Internet",
+    "Twitter"
+]
+
+
+# =================
+# General utilities
+# =================
+
 def has_field(model, fld):
     try:
         model._meta.get_field(fld)
         return True
     except FieldDoesNotExist:
         return False
-
 
 def p(n, d):
     """ Helper to calculate the percentage of n / d,
@@ -79,7 +102,6 @@ def get_country_region(country):
     else:
         return [(0, [k for k, v in REGION_COUNTRY_MAP.items() if country in v][0])]
 
-
 def clean_title(text):
     """
     Return the string passed in stripped of its numbers and parentheses
@@ -87,293 +109,6 @@ def clean_title(text):
     if text != "Congo (the Democratic Republic of the)":
         return text[text.find(')')+1:].lstrip()
     return text
-
-class XLSXDataExportBuilder():
-    def __init__(self, request):
-        self.domain = "http://%s" % get_current_site(request).domain
-
-        self.sheet_exclude_fields = ['monitor', 'url_and_multimedia', 'time_accessed', 'country_region']
-        self.person_exclude_fields = []
-        self.journalist_exclude_fields =[]
-
-        self.sheet_fields_with_id = ['topic', 'scope', 'person_secondary', 'inequality_women', 'stereotypes']
-        self.person_fields_with_id = ['sex', 'age', 'occupation', 'function', 'survivor_of', 'victim_of']
-        self.journalist_fields_with_id = ['sex', 'age']
-
-
-    def build(self):
-        """
-        Generate an Excel spreadsheet and return it as a string.
-        """
-        output = StringIO.StringIO()
-        workbook = xlsxwriter.Workbook(output)
-
-        for model in sheet_models.itervalues():
-            self.create_sheet_export(model, workbook)
-
-        for model in person_models.itervalues():
-            self.create_person_export(model, workbook)
-
-        for model in journalist_models.itervalues():
-            self.create_journalist_export(model, workbook)
-
-        workbook.close()
-        output.seek(0)
-
-        return output.read()
-
-    def create_sheet_export(self, model, wb):
-        ws = wb.add_worksheet(model._meta.object_name)
-        obj_list = model.objects.all()
-        row, col = 0, 0
-
-        fields = [field for field in model._meta.fields if not field.name in self.sheet_exclude_fields]
-        ws, col = self.write_ws_titles(ws, row, col, fields, self.sheet_fields_with_id)
-
-        row += 1
-        col = 0
-
-        for y, obj in enumerate(obj_list):
-            col = 0
-            ws, col = self.write_sheet_row(obj, ws, row+y, col, fields, self.sheet_fields_with_id)
-
-    def create_person_export(self, model, wb):
-        ws = wb.add_worksheet(model._meta.object_name)
-        obj_list = model.objects.all().prefetch_related(model.sheet_name())
-        row, col = 0, 0
-
-        fields = [field for field in model._meta.fields if not field.name in self.person_exclude_fields]
-        ws, col = self.write_ws_titles(ws, row, col, fields, self.person_fields_with_id)
-
-        sheet_model = model._meta.get_field(model.sheet_name()).rel.to
-
-        sheet_fields = [field for field in sheet_model._meta.fields if not field.name in self.sheet_exclude_fields]
-        ws, col = self.write_ws_titles(ws, row, col, sheet_fields, self.sheet_fields_with_id, append_sheet=True)
-
-        row += 1
-
-        for y, obj in enumerate(obj_list):
-            col = 0
-            ws, col = self.write_person_row(obj, ws, row+y, col, fields, self.person_fields_with_id)
-            col += 1
-            sheet_obj = getattr(obj, model.sheet_name())
-            ws, col = self.write_sheet_row(sheet_obj, ws, row+y, col, sheet_fields, self.sheet_fields_with_id)
-
-    def create_journalist_export(self, model, wb):
-        ws = wb.add_worksheet(model._meta.object_name)
-        obj_list = model.objects.all().prefetch_related(model.sheet_name())
-        row, col = 0, 0
-        fields = [field for field in model._meta.fields if not field.name in self.journalist_exclude_fields]
-
-        ws, col = self.write_ws_titles(ws, row, col, fields, self.journalist_fields_with_id)
-
-        sheet_model = model._meta.get_field(model.sheet_name()).rel.to
-
-        sheet_fields = [field for field in sheet_model._meta.fields if not field.name in self.sheet_exclude_fields]
-        ws, col = self.write_ws_titles(ws, row, col, sheet_fields, self.sheet_fields_with_id, append_sheet=True)
-
-        row += 1
-        col = 0
-
-        for y, obj in enumerate(obj_list):
-            col = 0
-            ws, col = self.write_journalist_row(obj, ws, row+y, col, fields, self.journalist_fields_with_id)
-            col += 1
-            sheet_obj = getattr(obj, model.sheet_name())
-            ws, col = self.write_sheet_row(sheet_obj, ws, row+y, col, sheet_fields, self.sheet_fields_with_id)
-
-    def write_ws_titles(self, ws, row, col, fields, fields_with_id, append_sheet=False):
-        """
-        Writes the column titles to the worksheet
-
-        :param ws: Reference to the current worksheet
-        :param row, col: y,x postion of the cursor
-        :param fields: list of fields of the model which need to be written to the sheet
-        :param fields_with_id: fields which need to be written over two columns: id + name
-        :param append_sheet: Boolean specifying whether the related sheet object
-                             needs to be appended to the row.
-        """
-        if not append_sheet:
-            for field in fields:
-                ws.write(row, col, unicode(field.name))
-                col += 1
-                if field.name in fields_with_id:
-                    ws.write(row, col, unicode(field.name+"_id"))
-                    col += 1
-            ws.write(row, col, unicode('edit_url'))
-            col += 1
-        else:
-            for field in fields:
-                ws.write(row, col, unicode("sheet_" + field.name))
-                col += 1
-                if field.name in fields_with_id:
-                    ws.write(row, col, unicode("sheet_" + field.name + "_id"))
-                    col += 1
-            ws.write(row, col, unicode('sheet_edit_url'))
-            col += 1
-        return ws, col
-
-    def write_sheet_row(self, obj, ws, row, col, fields, fields_with_id):
-        """
-        Writes a row of data of Sheet models to the worksheet
-
-        :param obj: Reference to the model instance which is being written to the sheet
-        :param ws: Reference to the current worksheet
-        :param row, col: y,x postion of the cursor
-        :param fields: list of fields of the model which need to be written to the sheet
-        :param fields_with_id: fields which need to be written over two columns: id + name
-        """
-        for field in fields:
-            # Certain fields are 1-indexed
-            if field.name == 'country':
-                ws.write(row, col, getattr(obj, field.name).code)
-            elif field.name == 'topic':
-                ws.write(row, col, unicode(TOPICS[getattr(obj, field.name)-1][1]))
-                col += 1
-                ws.write(row, col, TOPICS[getattr(obj, field.name)-1][0])
-            elif field.name == 'scope':
-                ws.write(row, col, unicode(SCOPE[getattr(obj, field.name)-1][1]))
-                col += 1
-                ws.write(row, col, SCOPE[getattr(obj, field.name)-1][0])
-            elif field.name == 'person_secondary':
-                ws.write(row, col, unicode(SOURCE[getattr(obj, field.name)][1]))
-                col += 1
-                ws.write(row, col, SOURCE[getattr(obj, field.name)][0])
-            elif field.name == 'inequality_women':
-                ws.write(row, col, unicode(AGREE_DISAGREE[getattr(obj, field.name)-1][1]))
-                col += 1
-                ws.write(row, col, AGREE_DISAGREE[getattr(obj, field.name)-1][0])
-            elif field.name == 'stereotypes':
-                ws.write(row, col, unicode(AGREE_DISAGREE[getattr(obj, field.name)-1][1]))
-                col += 1
-                ws.write(row, col, AGREE_DISAGREE[getattr(obj, field.name)-1][0])
-            elif field.name == 'space':
-                ws.write(row, col, unicode(SPACE[getattr(obj, field.name)-1][1]))
-            elif field.name == 'retweet':
-                ws.write(row, col, unicode(RETWEET[getattr(obj, field.name)-1][1]))
-            else:
-                try:
-                    ws.write(row, col, unicode(getattr(obj, field.name)))
-                    if field.name in fields_with_id:
-                        col += 1
-                except UnicodeEncodeError:
-                    ws.write(row, col, unicode(getattr(obj, field.name).encode('ascii', 'replace')))
-            col += 1
-        change_url = urlresolvers.reverse(
-            'admin:%s_%s_change' % (
-                obj._meta.app_label,
-                obj._meta.model_name),
-            args=(obj.id,))
-        ws.write_url(row, col, "%s%s" % (self.domain, change_url))
-
-        return ws, col
-
-    def write_person_row(self, obj, ws, row, col, fields, fields_with_id):
-        """
-        Writes a row of data of Person models to the worksheet
-
-        :param obj: Reference to the model instance which is being written to the sheet
-        :param ws: Reference to the current worksheet
-        :param row, col: y,x postion of the cursor
-        :param fields: list of fields of the model which need to be written to the sheet
-        :param fields_with_id: fields which need to be written over two columns: id + name
-        """
-        for field in fields:
-            # Certain fields are 1-indexed
-            if field.name == 'sex':
-                ws.write(row, col, unicode(GENDER[getattr(obj, field.name)-1][1]))
-                col += 1
-                ws.write(row, col, GENDER[getattr(obj, field.name)-1][0])
-            elif field.name == 'age':
-                ws.write(row, col, unicode(AGES[getattr(obj, field.name)][1]))
-                col += 1
-                ws.write(row, col, AGES[getattr(obj, field.name)][0])
-            elif field.name == 'occupation':
-                ws.write(row, col, unicode(OCCUPATION[getattr(obj, field.name)][1]))
-                col += 1
-                ws.write(row, col, OCCUPATION[getattr(obj, field.name)][0])
-            elif field.name == 'function':
-                ws.write(row, col, unicode(FUNCTION[getattr(obj, field.name)][1]))
-                col += 1
-                ws.write(row, col, FUNCTION[getattr(obj, field.name)][0])
-            elif field.name == 'victim_of' and not getattr(obj, field.name) == None:
-                ws.write(row, col, unicode(VICTIM_OF[getattr(obj, field.name)][1]))
-                col += 1
-                ws.write(row, col, VICTIM_OF[getattr(obj, field.name)][0])
-            elif field.name == 'survivor_of' and not getattr(obj, field.name) == None:
-                ws.write(row, col, unicode(SURVIVOR_OF[getattr(obj, field.name)][1]))
-                col += 1
-                ws.write(row, col, SURVIVOR_OF[getattr(obj, field.name)][0])
-            elif field.name == 'is_photograph':
-                ws.write(row, col, unicode(IS_PHOTOGRAPH[getattr(obj, field.name)-1][1]))
-            elif field.name == 'space':
-                ws.write(row, col, unicode(SPACE[getattr(obj, field.name)-1][1]))
-            elif field.name == 'retweet':
-                ws.write(row, col, unicode(RETWEET[getattr(obj, field.name)-1][1]))
-            elif field.name == obj.sheet_name():
-                ws.write(row, col, getattr(obj, field.name).id)
-                # Get the parent model and id for building the edit link
-                parent_model = field.related.parent_model
-                parent_id = getattr(obj, field.name).id
-            else:
-                try:
-                    ws.write(row,col, unicode(getattr(obj, field.name)))
-                    if field.name in self.person_fields_with_id:
-                        col += 1
-                except UnicodeEncodeError:
-                    ws.write(row,col, unicode(getattr(obj, field.name).encode('ascii', 'replace')))
-            col += 1
-        # Write link to end of row
-        change_url = urlresolvers.reverse(
-            'admin:%s_%s_change' % (
-                parent_model._meta.app_label,
-                parent_model._meta.model_name),
-            args=(parent_id,))
-        ws.write_url(row, col, "%s%s" % (self.domain, change_url))
-
-        return ws, col
-
-    def write_journalist_row(self, obj, ws, row, col, fields, fields_with_id):
-        """
-        Writes a row of data of Journalist models to the worksheet
-
-        :param obj: Reference to the model instance which is being written to the sheet_fields_with_id
-        :param ws: Reference to the current worksheet
-        :param row, col: y,x postion of the cursor
-        :param fields: list of fields of the model which need to be written to the sheet_fields_with_id
-        :param fields_with_id: fields which need to be written over two columns: id + name
-        """
-        for field in fields:
-            if field.name == 'sex':
-                ws.write(row, col, unicode(GENDER[getattr(obj, field.name)-1][1]))
-                col += 1
-                ws.write(row, col, GENDER[getattr(obj, field.name)-1][0])
-            elif field.name == 'age' and not getattr(obj, field.name) == None:
-                ws.write(row, col, unicode(AGES[getattr(obj, field.name)][1]))
-                col += 1
-                ws.write(row, col, AGES[getattr(obj, field.name)][0])
-            elif field.name == obj.sheet_name():
-                ws.write(row, col, getattr(obj, field.name).id)
-                # Get the parent model and id for building the edit link
-                parent_model = field.related.parent_model
-                parent_id = getattr(obj, field.name).id
-            else:
-                try:
-                    ws.write(row,col, unicode(getattr(obj, field.name)))
-                    if field.name in fields_with_id:
-                        col += 1
-                except UnicodeEncodeError:
-                    ws.write(row,col, unicode(getattr(obj, field.name).encode('ascii', 'replace')))
-            col += 1
-        # Write link to end of row
-        change_url = urlresolvers.reverse(
-            'admin:%s_%s_change' % (
-                parent_model._meta.app_label,
-                parent_model._meta.model_name),
-            args=(parent_id,))
-        ws.write_url(row, col, "%s%s" % (self.domain, change_url))
-
-        return ws, col
 
 
 class XLSXReportBuilder:
@@ -397,7 +132,7 @@ class XLSXReportBuilder:
         self.country_list = [code for code, name in self.countries]
         self.region_list = [name for id, name in self.regions]
 
-        # Various gender utilities
+        # Various utilities used for displaying details
         self.male_female = [(id, value) for id, value in GENDER if id in [1, 2]]
         self.male_female_ids = [id for id, value in self.male_female]
         self.female = [(id, value) for id, value in GENDER if id == 1]
@@ -437,26 +172,26 @@ class XLSXReportBuilder:
         #     'ws_61', 'ws_62', 'ws_63', 'ws_64', 'ws_65', 'ws_66', 'ws_67', 'ws_68', 'ws_69', 'ws_70',
         #     'ws_76', 'ws_77', 'ws_78', 'ws_79']
 
-        # test_functions = ['ws_38']
+        test_functions = ['ws_01', 'ws_02', 'ws_04', 'ws_05', 'ws_06']
 
-        # sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
+        sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
 
-        # for function in test_functions:
-        #     if self.report_type in sheet_info[function]['reports']:
-        #         ws = workbook.add_worksheet(sheet_info[function]['name'])
-        #         self.write_headers(ws, sheet_info[function]['title'], sheet_info[function]['desc'])
-        #         getattr(self, function)(ws)
+        for function in test_functions:
+            if self.report_type in sheet_info[function]['reports']:
+                ws = workbook.add_worksheet(sheet_info[function]['name'])
+                self.write_headers(ws, sheet_info[function]['title'], sheet_info[function]['desc'])
+                getattr(self, function)(ws)
 
         # -------------------------------------------------------------------
 
         # To ensure ordered worksheets
-        sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
+        # sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
 
-        for ws_num, ws_info in sheet_info.iteritems():
-            if self.report_type in ws_info['reports']:
-                ws = workbook.add_worksheet(ws_info['name'])
-                self.write_headers(ws, ws_info['title'], ws_info['desc'])
-                getattr(self, ws_num)(ws)
+        # for ws_num, ws_info in sheet_info.iteritems():
+        #     if self.report_type in ws_info['reports']:
+        #         ws = workbook.add_worksheet(ws_info['name'])
+        #         self.write_headers(ws, ws_info['title'], ws_info['desc'])
+        #         getattr(self, ws_num)(ws)
 
         workbook.close()
         output.seek(0)
@@ -499,22 +234,27 @@ class XLSXReportBuilder:
         Cols: Media Type
         Rows: Region
         """
-        counts = Counter()
-        for media_type, model in tm_sheet_models.iteritems():
-            rows = model.objects\
-                    .values('country_region__region')\
-                    .filter(country_region__region__in=self.region_list)
+        counts_list = []
+        for media_group in SHEET_MEDIA_GROUPS:
+            counts = Counter()
+            for media_type, model in media_group[0].iteritems():
+                rows = model.objects\
+                        .values('country_region__region')\
+                        .filter(country_region__region__in=self.region_list)
 
-            rows = self.apply_weights(rows, model._meta.db_table, media_type)
+                rows = self.apply_weights(rows, model._meta.db_table, media_type)
 
-            for row in rows:
-                if row['region'] is not None:
-                    # Get media and region id's to assign to counts
-                    media_id = [media[0] for media in TM_MEDIA_TYPES if media[1] == media_type][0]
-                    region_id = [region[0] for region in self.regions if region[1] == row['region']][0]
-                    counts.update({(media_id, region_id): row['n']})
+                for row in rows:
+                    if row['region'] is not None:
+                        # Get media and region id's to assign to counts
+                        media_id = [media[0] for media in media_group[1] if media[1] == media_type][0]
+                        region_id = [region[0] for region in self.regions if region[1] == row['region']][0]
+                        counts.update({(media_id, region_id): row['n']})
+            counts_list.append(counts)
 
-        self.tabulate(ws, counts, TM_MEDIA_TYPES, self.regions, row_perc=True)
+        self.tabulate(ws, counts_list[0], TM_MEDIA_TYPES, self.regions, row_perc=True)
+        c = ws.dim_colmax + 2
+        self.tabulate(ws, counts_list[1], DM_MEDIA_TYPES, self.regions, row_perc=True, c=c, write_row_headings=False)
 
     def ws_02(self, ws):
         """
@@ -522,24 +262,34 @@ class XLSXReportBuilder:
         Rows: Region, Country
         """
         r = 6
-        self.write_col_headings(ws, MEDIA_TYPES)
-        counts = Counter()
+        c = 2
+        for media_group in SHEET_MEDIA_GROUPS:
+            self.write_col_headings(ws, media_group[1], c=c)
+            c += len(media_group[1]) + 2
+
         for region_id, region in self.regions:
-            for media_type, model in sheet_models.iteritems():
-                rows = model.objects\
-                        .values('country')\
-                        .filter(country__in=self.country_list)
+            counts_list = []
+            for media_group in SHEET_MEDIA_GROUPS:
 
-                rows = self.apply_weights(rows, model._meta.db_table, media_type)
+                counts = Counter()
+                for media_type, model in media_group[0].iteritems():
+                    rows = model.objects\
+                            .values('country')\
+                            .filter(country__in=self.country_list)
 
-                for row in rows:
-                    if row['country'] is not None:
-                        # Get media id's to assign to counts
-                        media_id = [media[0] for media in MEDIA_TYPES if media[1] == media_type][0]
-                        counts.update({(media_id, row['country']): row['n']})
+                    rows = self.apply_weights(rows, model._meta.db_table, media_type)
+
+                    for row in rows:
+                        if row['country'] is not None:
+                            # Get media id's to assign to counts
+                            media_id = [media[0] for media in media_group[1] if media[1] == media_type][0]
+                            counts.update({(media_id, row['country']): row['n']})
+                counts_list.append(counts)
             self.write_primary_row_heading(ws, region, r=r)
             region_countries = [(code, country) for code, country in self.countries if code in REGION_COUNTRY_MAP[region]]
-            self.tabulate(ws, counts, MEDIA_TYPES, region_countries, row_perc=True, sec_row=True, r=r)
+            self.tabulate(ws, counts_list[0], TM_MEDIA_TYPES, region_countries, row_perc=True, write_col_headings=False, r=r)
+            c = 7
+            self.tabulate(ws, counts_list[1], DM_MEDIA_TYPES, region_countries, row_perc=True, write_col_headings=False, write_row_headings=False, r=r, c=c)
             r += len(region_countries)
 
     def ws_04(self, ws):
@@ -547,67 +297,93 @@ class XLSXReportBuilder:
         Cols: Region, Media type
         Rows: Major Topic
         """
-        secondary_counts = OrderedDict()
-        for region_id, region in self.regions:
-            counts = Counter()
-            for media_type, model in sheet_models.iteritems():
-                rows = model.objects\
-                        .values('topic')\
-                        .filter(country_region__region=region)
+        counts_list = []
+        for models, media_types in SHEET_MEDIA_GROUPS:
+            secondary_counts = OrderedDict()
+            for region_id, region in self.regions:
+                counts = Counter()
+                for media_type, model in models.iteritems():
+                    rows = model.objects\
+                            .values('topic')\
+                            .filter(country_region__region=region)
 
-                rows = self.apply_weights(rows, model._meta.db_table, media_type)
+                    rows = self.apply_weights(rows, model._meta.db_table, media_type)
 
-                for r in rows:
-                    # Get media id's to assign to counts
-                    media_id = [media[0] for media in MEDIA_TYPES if media[1] == media_type][0]
-                    major_topic = TOPIC_GROUPS[r['topic']]
-                    counts.update({(media_id, major_topic): r['n']})
-            secondary_counts[region] = counts
+                    for r in rows:
+                        # Get media id's to assign to counts
+                        media_id = [media[0] for media in media_types if media[1] == media_type][0]
+                        major_topic = TOPIC_GROUPS[r['topic']]
+                        counts.update({(media_id, major_topic): r['n']})
+                secondary_counts[region] = counts
+            counts_list.append(secondary_counts)
 
-        self.tabulate_secondary_cols(ws, secondary_counts, MEDIA_TYPES, MAJOR_TOPICS, row_perc=False, sec_cols=10)
+        self.tabulate_secondary_cols(ws, counts_list[0], TM_MEDIA_TYPES, MAJOR_TOPICS, row_perc=False, sec_cols=3)
+        c = ws.dim_colmax + 2
+        self.tabulate_secondary_cols(ws, counts_list[1], DM_MEDIA_TYPES, MAJOR_TOPICS, row_perc=False, sec_cols=2, c=c)
 
     def ws_05(self, ws):
         """
         Cols: Subject sex
         Rows: Major Topic
         """
-        counts = Counter()
-        for media_type, model in person_models.iteritems():
-            topic_field = '%s__topic' % model.sheet_name()
+        counts_list = []
+        for models, media_types in PERSON_MEDIA_GROUPS:
+            secondary_counts = OrderedDict()
+            for media_type, model in models.iteritems():
+                counts = Counter()
+                topic_field = '%s__topic' % model.sheet_name()
 
-            rows = model.objects\
-                .values('sex', topic_field)\
-                .filter(**{model.sheet_name() + '__country__in': self.country_list})
+                rows = model.objects\
+                    .values('sex', topic_field)\
+                    .filter(**{model.sheet_name() + '__country__in': self.country_list})\
+                    .filter(sex__in=self.male_female_ids)
 
-            rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
+                rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
+                for r in rows:
+                    counts.update({(r['sex'], TOPIC_GROUPS[r['topic']]): r['n']})
 
-            for r in rows:
-                counts.update({(r['sex'], TOPIC_GROUPS[r['topic']]): r['n']})
+                if media_type == "Internet":
+                    secondary_counts["Internet"] = counts
+                elif media_type == "Twitter":
+                    secondary_counts["Twitter"] = counts
+                else:
+                    if "Print, Radio, Television" in secondary_counts:
+                        secondary_counts["Print, Radio, Television"].update(counts)
+                    else:
+                        secondary_counts["Print, Radio, Television"] = counts
 
-        self.tabulate(ws, counts, GENDER, MAJOR_TOPICS, row_perc=True)
+            counts_list.append(secondary_counts)
+        self.tabulate_secondary_cols(ws, counts_list[0], self.male_female, MAJOR_TOPICS, row_perc=True, sec_cols=3)
+        c = ws.dim_colmax + 2
+        self.tabulate_secondary_cols(ws, counts_list[1], self.male_female, MAJOR_TOPICS, row_perc=True, c=c, write_row_headings=False, sec_cols=3)
 
     def ws_06(self, ws):
         """
         Cols: Region, Subject sex: female only
         Rows: Major Topics
         """
-        secondary_counts = OrderedDict()
-        for region_id, region in self.regions:
-            counts = Counter()
-            for media_type, model in person_models.iteritems():
-                topic_field = '%s__topic' % model.sheet_name()
-                rows = model.objects\
-                    .values('sex', topic_field)\
-                    .filter(**{model.sheet_name() + '__country_region__region':region})\
-                    .filter(sex__in=self.male_female_ids)
+        counts_list = []
+        for models, media_types in PERSON_MEDIA_GROUPS:
+            secondary_counts = OrderedDict()
+            for region_id, region in self.regions:
+                counts = Counter()
+                for media_type, model in models.iteritems():
+                    topic_field = '%s__topic' % model.sheet_name()
+                    rows = model.objects\
+                        .values('sex', topic_field)\
+                        .filter(**{model.sheet_name() + '__country_region__region':region})\
+                        .filter(sex__in=self.male_female_ids)
 
-                rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
+                    rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
 
-                for r in rows:
-                    counts.update({(r['sex'], TOPIC_GROUPS[r['topic']]): r['n']})
-            secondary_counts[region] = counts
+                    for r in rows:
+                        counts.update({(r['sex'], TOPIC_GROUPS[r['topic']]): r['n']})
+                secondary_counts[region] = counts
+            counts_list.append(secondary_counts)
 
-        self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, MAJOR_TOPICS, row_perc=True, sec_cols=2, display_cols=self.female)
+        self.tabulate_secondary_cols(ws, counts_list[0], self.male_female, MAJOR_TOPICS, row_perc=True, sec_cols=2, filter_cols=self.female, show_N=True)
+        c = ws.dim_colmax + 2
+        self.tabulate_secondary_cols(ws, counts_list[1], self.male_female, MAJOR_TOPICS, row_perc=True, c=c, sec_cols=2, filter_cols=self.female, show_N=True)
 
     def ws_07(self, ws):
         """
@@ -648,7 +424,7 @@ class XLSXReportBuilder:
 
                 counts.update({(r['sex'], r['scope']): r['n'] for r in rows})
 
-        self.tabulate(ws, counts, self.male_female, SCOPE, row_perc=True, display_cols=self.female)
+        self.tabulate(ws, counts, self.male_female, SCOPE, row_perc=True, filter_cols=self.female)
 
     def ws_09(self, ws):
         """
@@ -667,7 +443,7 @@ class XLSXReportBuilder:
 
             counts.update({(r['sex'], r['topic']): r['n'] for r in rows})
 
-        self.tabulate(ws, counts, self.male_female, TOPICS, row_perc=True, display_cols=self.female)
+        self.tabulate(ws, counts, self.male_female, TOPICS, row_perc=True, filter_cols=self.female)
 
     def ws_10(self, ws):
         """
@@ -775,7 +551,7 @@ class XLSXReportBuilder:
 
                 counts.update({(r['sex'], r['occupation']): r['n'] for r in rows})
 
-        self.tabulate(ws, counts, self.male_female, OCCUPATION, row_perc=True, display_cols=self.female)
+        self.tabulate(ws, counts, self.male_female, OCCUPATION, row_perc=True, filter_cols=self.female)
 
     def ws_15(self, ws):
         """
@@ -795,7 +571,7 @@ class XLSXReportBuilder:
 
                 counts.update({(r['sex'], r['function']): r['n'] for r in rows})
 
-        self.tabulate(ws, counts, self.male_female, FUNCTION, row_perc=True, display_cols=self.female)
+        self.tabulate(ws, counts, self.male_female, FUNCTION, row_perc=True, filter_cols=self.female)
 
     def ws_16(self, ws):
         """
@@ -1137,7 +913,7 @@ class XLSXReportBuilder:
 
                 counts.update({(r['sex'], r['topic']): r['n'] for r in rows})
 
-        self.tabulate(ws, counts, self.male_female, TOPICS, row_perc=True, display_cols=self.female)
+        self.tabulate(ws, counts, self.male_female, TOPICS, row_perc=True, filter_cols=self.female)
 
     def ws_32(self, ws):
         """
@@ -1184,7 +960,7 @@ class XLSXReportBuilder:
             counts.update({(r[journo_sex], r['sex']): r['n'] for r in rows})
         counts['col_title_def'] = 'Sex of reporter'
 
-        self.tabulate(ws, counts, self.male_female, GENDER, row_perc=True, display_cols=self.female)
+        self.tabulate(ws, counts, self.male_female, GENDER, row_perc=True, filter_cols=self.female)
 
     def ws_35(self, ws):
         """
@@ -1201,7 +977,7 @@ class XLSXReportBuilder:
         rows = self.apply_weights(rows, TelevisionJournalist.sheet_db_table(), 'Television')
         counts.update({(r['sex'], r['age']): r['n'] for r in rows})
 
-        self.tabulate(ws, counts, self.male_female, AGES, row_perc=True, display_cols=self.female)
+        self.tabulate(ws, counts, self.male_female, AGES, row_perc=True, filter_cols=self.female)
 
     def ws_36(self, ws):
         """
@@ -1280,7 +1056,7 @@ class XLSXReportBuilder:
                     counts.update({(r['about_women'], r['topic']): r['n'] for r in rows})
             secondary_counts[region] = counts
 
-        self.tabulate_secondary_cols(ws, secondary_counts, YESNO, TOPICS, row_perc=False, sec_cols=2, display_cols=self.yes)
+        self.tabulate_secondary_cols(ws, secondary_counts, YESNO, TOPICS, row_perc=False, sec_cols=2, filter_cols=self.yes)
 
     def ws_41(self, ws):
         """
@@ -1550,7 +1326,7 @@ class XLSXReportBuilder:
         :: Internet media type only
         :: Female reporters only
         """
-        display_cols = [(id, value) for id, value in GENDER if id==1]
+        filter_cols = [(id, value) for id, value in GENDER if id==1]
         secondary_counts = OrderedDict()
         model = sheet_models.get('Internet')
 
@@ -1566,7 +1342,7 @@ class XLSXReportBuilder:
             major_topic_name = [mt[1] for mt in MAJOR_TOPICS if mt[0] == int(major_topic)][0]
             secondary_counts[major_topic_name] = counts
 
-        self.tabulate_secondary_cols(ws, secondary_counts, GENDER, self.countries, row_perc=True, display_cols=display_cols, sec_cols=2)
+        self.tabulate_secondary_cols(ws, secondary_counts, GENDER, self.countries, row_perc=True, filter_cols=filter_cols, sec_cols=2)
 
     def ws_54(self, ws):
         """
@@ -1651,7 +1427,7 @@ class XLSXReportBuilder:
             # If only captured countries should be displayed use
             # if counts.keys():
             self.write_primary_row_heading(ws, country, r=r)
-            self.tabulate(ws, counts, GENDER, YESNO, row_perc=True, sec_row=True, r=r)
+            self.tabulate(ws, counts, GENDER, YESNO, row_perc=True, write_col_headings=False, r=r)
             r += len(YESNO)
 
     def ws_58(self, ws):
@@ -1675,7 +1451,7 @@ class XLSXReportBuilder:
             counts = {(row['sex'], row['is_photograph']): row['n'] for row in rows}
 
             self.write_primary_row_heading(ws, country, r=r)
-            self.tabulate(ws, counts, GENDER, IS_PHOTOGRAPH, row_perc=True, sec_row=True, r=r)
+            self.tabulate(ws, counts, GENDER, IS_PHOTOGRAPH, row_perc=True, write_col_headings=False, r=r)
             r += len(IS_PHOTOGRAPH)
 
     def ws_59(self, ws):
@@ -1722,7 +1498,7 @@ class XLSXReportBuilder:
             counts = {(row['sex'], row['age']): row['n'] for row in rows}
 
             self.write_primary_row_heading(ws, country, r=r)
-            self.tabulate(ws, counts, GENDER, AGES, row_perc=True, sec_row=True, r=r)
+            self.tabulate(ws, counts, GENDER, AGES, row_perc=True, write_col_headings=False, r=r)
             r += len(AGES)
 
     def ws_61(self, ws):
@@ -1746,7 +1522,7 @@ class XLSXReportBuilder:
             counts = {(row['sex'], row['is_quoted']): row['n'] for row in rows}
 
             self.write_primary_row_heading(ws, country, r=r)
-            self.tabulate(ws, counts, GENDER, YESNO, row_perc=True, sec_row=True, r=r)
+            self.tabulate(ws, counts, GENDER, YESNO, row_perc=True, write_col_headings=False, r=r)
             r += len(YESNO)
 
     def ws_62(self, ws):
@@ -1770,7 +1546,7 @@ class XLSXReportBuilder:
             counts = {(row['topic'], row['equality_rights']): row['n'] for row in rows}
 
             self.write_primary_row_heading(ws, country, r=r)
-            self.tabulate(ws, counts, TOPICS, YESNO, row_perc=True, sec_row=True, r=r)
+            self.tabulate(ws, counts, TOPICS, YESNO, row_perc=True, write_col_headings=False, r=r)
             r += len(YESNO)
 
     def ws_63(self, ws):
@@ -1794,7 +1570,7 @@ class XLSXReportBuilder:
             counts = {(row['topic'], row['stereotypes']): row['n'] for row in rows}
 
             self.write_primary_row_heading(ws, country, r=r)
-            self.tabulate(ws, counts, TOPICS, AGREE_DISAGREE, row_perc=True, sec_row=True, r=r)
+            self.tabulate(ws, counts, TOPICS, AGREE_DISAGREE, row_perc=True, write_col_headings=False, r=r)
             r += len(AGREE_DISAGREE)
 
     def ws_64(self, ws):
@@ -1818,7 +1594,7 @@ class XLSXReportBuilder:
             counts = {(row['topic'], row['about_women']): row['n'] for row in rows}
 
             self.write_primary_row_heading(ws, country, r=r)
-            self.tabulate(ws, counts, TOPICS, YESNO, row_perc=True, sec_row=True, r=r)
+            self.tabulate(ws, counts, TOPICS, YESNO, row_perc=True, write_col_headings=False, r=r)
             r += len(YESNO)
 
     def ws_65(self, ws):
@@ -1842,7 +1618,7 @@ class XLSXReportBuilder:
             counts = {(row['topic'], row['retweet']): row['n'] for row in rows}
 
             self.write_primary_row_heading(ws, country, r=r)
-            self.tabulate(ws, counts, TOPICS, RETWEET, row_perc=False, sec_row=True, r=r)
+            self.tabulate(ws, counts, TOPICS, RETWEET, row_perc=False, write_col_headings=False, r=r)
             r += len(RETWEET)
 
     def ws_66(self, ws):
@@ -1867,7 +1643,7 @@ class XLSXReportBuilder:
             counts.update({(row['topic'], row['sex']): row['n'] for row in rows})
 
             self.write_primary_row_heading(ws, country, r=r)
-            self.tabulate(ws, counts, TOPICS, GENDER, row_perc=True, sec_row=True, r=r)
+            self.tabulate(ws, counts, TOPICS, GENDER, row_perc=True, write_col_headings=False, r=r)
             r += len(GENDER)
 
     def ws_67(self, ws):
@@ -1910,7 +1686,7 @@ class XLSXReportBuilder:
             counts = {(row['topic'], row['about_women']): row['n'] for row in rows}
 
             self.write_primary_row_heading(ws, country, r=r)
-            self.tabulate(ws, counts, TOPICS, YESNO, row_perc=False, sec_row=True, r=r)
+            self.tabulate(ws, counts, TOPICS, YESNO, row_perc=False, write_col_headings=False, r=r)
             r += len(YESNO)
 
     def ws_69(self, ws):
@@ -1934,7 +1710,7 @@ class XLSXReportBuilder:
             counts = {(row['topic'], row['stereotypes']): row['n'] for row in rows}
 
             self.write_primary_row_heading(ws, country, r=r)
-            self.tabulate(ws, counts, TOPICS, AGREE_DISAGREE, row_perc=True, sec_row=True, r=r)
+            self.tabulate(ws, counts, TOPICS, AGREE_DISAGREE, row_perc=True, write_col_headings=False, r=r)
             r += len(AGREE_DISAGREE)
 
     def ws_76(self, ws):
@@ -2034,18 +1810,25 @@ class XLSXReportBuilder:
         ws.write(1, 0, description, self.heading)
         ws.write(3, 2, self.gmmp_year, self.heading)
 
-    def write_col_headings(self, ws, cols, c=2, r=4):
+    def write_col_headings(self, ws, cols, c=2, r=4, show_N=False):
         """
         :param ws: worksheet to write to
         :param cols: list of `(col_id, col_title)` tuples of column ids and titles
         :param r, c: initial position where cursor should start writing to
 
         """
-        for col_id, col_title in cols:
-            ws.write(r, c, clean_title(col_title), self.col_heading)
-            ws.write(r + 1, c, "N")
-            ws.write(r + 1, c + 1, "%")
-            c += 2
+        if show_N:
+            for col_id, col_title in cols:
+                ws.write(r, c, clean_title(col_title), self.col_heading)
+                ws.write(r + 1, c, "N")
+                ws.write(r + 1, c + 1, "%")
+                c += 2
+        else:
+            for col_id, col_title in cols:
+                ws.write(r, c, clean_title(col_title), self.col_heading)
+                ws.write(r + 1, c, "%")
+                c += 1
+
 
     def write_primary_row_heading(self, ws, heading, c=0, r=6):
         """
@@ -2056,23 +1839,23 @@ class XLSXReportBuilder:
         """
         ws.write(r, c, clean_title(heading), self.heading)
 
-    def tabulate_secondary_cols(self, ws, secondary_counts, cols, rows, row_perc=False, display_cols=None, sec_cols=4):
+    def tabulate_secondary_cols(self, ws, secondary_counts, cols, rows, row_perc=False, write_row_headings=True, filter_cols=None, sec_cols=4, c=1, r=7, show_N=False):
         """
         :param ws: worksheet to write to
         :param secondary_counts: dict in following format:
             {'Primary column heading': Count object, ...}
         :param list cols: list of `(col_id, col_title)` tuples of column ids and titles
-        :param list rows: list of `(row_id, row_title)` tuples of row ids and titles
+        :param list rows: list of `(row_id, row_heading)` tuples of row ids and titles
         :param bool row_perc: should percentages by calculated by row instead of column (default: False)
         :param sec_cols: amount of cols needed for secondary cols
         """
-        r, c = 7, 1
 
         # row titles
-        for i, row in enumerate(rows):
-            row_id, row_title = row
-            ws.write(r + i, c, clean_title(row_title), self.label)
-        c += 1
+        if write_row_headings:
+            for i, row in enumerate(rows):
+                row_id, row_heading = row
+                ws.write(r + i, c, clean_title(row_heading), self.label)
+            c += 1
 
         if 'col_title_def' in secondary_counts:
             # Write definitions of column heading titles
@@ -2082,61 +1865,67 @@ class XLSXReportBuilder:
 
         for field, counts in secondary_counts.iteritems():
             ws.merge_range(r-3, c, r-3, c+sec_cols-1, clean_title(field), self.sec_col_heading)
-            self.tabulate(ws, counts, cols, rows, row_perc=row_perc, sec_col=True, display_cols=display_cols, r=7, c=c)
+            self.tabulate(ws, counts, cols, rows, row_perc=row_perc, write_row_headings=False, filter_cols=filter_cols, r=7, c=c, show_N=show_N)
             c += sec_cols
 
-    def tabulate(self, ws, counts, cols, rows, row_perc=False, sec_col=False, sec_row=False, display_cols=None, c=1, r=6, show_N=True):
+    def tabulate(self, ws, counts, cols, rows, row_perc=False,
+                 write_row_headings=True, write_col_headings=True,
+                 filter_cols=None, c=1, r=6, show_N=False):
         """ Emit a table.
 
         :param ws: worksheet to write to
         :param dict counts: dict from `(col_id, row_id)` tuples to count for that combination.
         :param list cols: list of `(col_id, col_title)` tuples of column ids and titles
-        :param list rows: list of `(row_id, row_title)` tuples of row ids and titles
+        :param list rows: list of `(row_id, row_heading)` tuples of row ids and titles
         :param bool row_perc: should percentages by calculated by row instead of column (default: False)
-        :param sec_col: Are we creating a secondary column title(default: False)
-        :param sec_row: Are we creating a secondary row title(default: False)
-        :param display_cols: Optional if only a subset of columns should be displayed e.g. only female
+        :param write_row_headings: Should we write the row headings. False if already written.
+        :param write_col_headings: Should we write the col headings. False if already written.
+        :param filter_cols: If not None, display only passed subset of columns e.g. only female
         :param r, c: initial position where cursor should start writing to
         """
         if row_perc:
             # Calc percentage by row
             row_totals = {}
-            for row_id, row_title in rows:
+            for row_id, row_heading in rows:
                 row_totals[row_id] = sum(counts.get((col_id, row_id), 0) for col_id, _ in cols)  # noqa
 
         # row titles
-        if not sec_col:
+        if write_row_headings:
             # else already written
             for i, row in enumerate(rows):
-                row_id, row_title = row
-                ws.write(r + i, c, clean_title(row_title), self.label)
+                row_id, row_heading = row
+                ws.write(r+i, c, clean_title(row_heading), self.label)
             c += 1
 
         # if only filtered results should be shown
         # e.g. only print female columns
-        if display_cols:
-            cols = display_cols
+        if filter_cols:
+            cols = filter_cols
 
-        if 'col_title_def' in counts and not sec_row:
-            ws.write(r - 2, c-1, counts['col_title_def'], self.col_heading_def)
+        if 'col_title_def' in counts and write_col_headings:
+            # write definition of column headings
+            ws.write(r-2, c-1, counts['col_title_def'], self.col_heading_def)
             counts.pop('col_title_def')
 
         # values, written column by column
         if show_N:
             for col_id, col_heading in cols:
                 # column title
-                if not sec_row:
+                if write_col_headings:
                     # else already written
                     ws.merge_range(r-2, c, r-2, c+1, clean_title(col_heading), self.col_heading)
-                    ws.write(r - 1, c, "N", self.label)
-                    ws.write(r - 1, c + 1, "%", self.label)
+                    ws.write(r-1, c, "N", self.label)
+                    ws.write(r-1, c+1, "%", self.label)
 
                 if not row_perc:
                     # column totals
                     # Confirm: Perc of col total or matrix total?
-                    total = sum(counts.itervalues())
-                # values for this column
+                    # total = sum(counts.itervalues())
+                    total = sum(counts.get((col_id, row_id), 0) for row_id, _ in rows)
 
+                # values for this column
+                # col_total_n = 0
+                col_total_perc = 0
                 for i, row in enumerate(rows):
                     row_id, row_title = row
 
@@ -2145,25 +1934,35 @@ class XLSXReportBuilder:
                         total = row_totals[row_id]
 
                     n = counts.get((col_id, row_id), 0)
-                    ws.write(r + i, c, n, self.N)
-                    ws.write(r + i, c + 1, p(n, total), self.P)
+                    perc = p(n, total)
 
+                    ws.write(r+i, c, n, self.N)
+                    ws.write(r+i, c+1, perc, self.P)
+
+                    # col_total_n += n
+                    col_total_perc += perc
+
+                if row_perc:
+                    # col_total_n = col_total_n / len(rows)
+                    col_total_perc = col_total_perc / len (rows)
+
+                # ws.write(r + i + 1, c, col_total_n, self.N)
+                ws.write(r+i+1, c+1, col_total_perc, self.P)
                 c += 2
 
         else:
             # only write %'s
             for col_id, col_heading in cols:
                 # column title
-                if not sec_row:
+                if write_col_headings:
                     # else already written
                     ws.write(r-2, c, clean_title(col_heading), self.col_heading)
-                    ws.write(r - 1, c, "%", self.label)
+                    ws.write(r-1, c, "%", self.label)
 
-                if not row_perc:
-                    # column totals
-                    total = sum(counts.get((col_id, row_id), 0) for row_id, _ in rows)
+                total = sum(counts.get((col_id, row_id), 0) for row_id, _ in rows)
 
                 # values for this column
+                col_total = 0
                 for i, row in enumerate(rows):
                     row_id, row_title = row
 
@@ -2172,7 +1971,12 @@ class XLSXReportBuilder:
                         total = row_totals[row_id]
 
                     n = counts.get((col_id, row_id), 0)
-                    ws.write(r + i, c, p(n, total), self.P)
+                    perc = p(n, total)
+                    ws.write(r+i, c, perc, self.P)
+                    col_total += perc
+                if row_perc:
+                    col_total = col_total / len(rows)
+                ws.write(r+i+1, c, col_total, self.P)
 
                 c += 1
 
@@ -2180,4 +1984,4 @@ class XLSXReportBuilder:
                 # Write the row totals
                 for i, row in enumerate(rows):
                     row_id, row_title = row
-                    ws.write(r + i, c, row_totals[row_id], self.N)
+                    ws.write(r+i, c, row_totals[row_id], self.N)
