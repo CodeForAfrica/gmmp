@@ -20,21 +20,21 @@ from forms.modelutils import (TOPICS, GENDER, SPACE, OCCUPATION, FUNCTION, SCOPE
     YESNO, AGES, SOURCE, VICTIM_OF, SURVIVOR_OF, IS_PHOTOGRAPH, AGREE_DISAGREE,
     RETWEET, TV_ROLE, MEDIA_TYPES, TM_MEDIA_TYPES, DM_MEDIA_TYPES, CountryRegion)
 from report_details import WS_INFO, REGION_COUNTRY_MAP, MAJOR_TOPICS, TOPIC_GROUPS, GROUP_TOPICS_MAP, FORMATS
-
+from reports.models import Weights
 
 SHEET_MEDIA_GROUPS = [
-    (tm_sheet_models, TM_MEDIA_TYPES),
-    (dm_sheet_models, DM_MEDIA_TYPES)
+    (TM_MEDIA_TYPES, tm_sheet_models),
+    (DM_MEDIA_TYPES, dm_sheet_models)
 ]
 
 PERSON_MEDIA_GROUPS = [
-    (tm_person_models, TM_MEDIA_TYPES),
-    (dm_person_models, DM_MEDIA_TYPES)
+    (TM_MEDIA_TYPES, tm_person_models),
+    (DM_MEDIA_TYPES, dm_person_models)
 ]
 
 JOURNO_MEDIA_GROUPS = [
-    (tm_journalist_models, TM_MEDIA_TYPES),
-    (dm_journalist_models, DM_MEDIA_TYPES)
+    (TM_MEDIA_TYPES, tm_journalist_models),
+    (DM_MEDIA_TYPES, dm_journalist_models)
 ]
 
 media_split = [
@@ -110,6 +110,18 @@ def clean_title(text):
         return text[text.find(')')+1:].lstrip()
     return text
 
+def get_sheet_model_name_field(media_type):
+    if media_type == "Internet":
+        return "website_name"
+    elif media_type == "Twitter":
+        return "media_name"
+    elif media_type == "Print":
+        return "newspaper_name"
+    elif media_type == "Television":
+        return "station_name"
+    elif media_type == "Radio":
+        return "station_name"
+
 
 class XLSXReportBuilder:
     def __init__(self, form):
@@ -172,7 +184,7 @@ class XLSXReportBuilder:
         #     'ws_61', 'ws_62', 'ws_63', 'ws_64', 'ws_65', 'ws_66', 'ws_67', 'ws_68', 'ws_69', 'ws_70',
         #     'ws_76', 'ws_77', 'ws_78', 'ws_79']
 
-        test_functions = ['ws_01', 'ws_02', 'ws_04', 'ws_05', 'ws_06']
+        test_functions = ['ws_02']
 
         sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
 
@@ -208,6 +220,7 @@ class XLSXReportBuilder:
             for row in cursor.fetchall()
         ]
 
+
     def apply_weights(self, rows, db_table, media_type):
         """
         param rows: Queryset to apply the weights to
@@ -222,7 +235,7 @@ class XLSXReportBuilder:
                 ]).annotate()
 
         raw_query, params = query.query.sql_with_params()
-        raw_query = raw_query.replace('SELECT', 'SELECT cast(round(SUM(reports_weights.weight)) as int) AS "n", ')
+        raw_query = raw_query.replace('SELECT', 'SELECT cast(round(SUM(reports_weights.weight)) as int) AS "n",')
 
         cursor = connection.cursor()
         cursor.execute(raw_query, params)
@@ -235,9 +248,9 @@ class XLSXReportBuilder:
         Rows: Region
         """
         counts_list = []
-        for media_group in SHEET_MEDIA_GROUPS:
+        for media_types, models in SHEET_MEDIA_GROUPS:
             counts = Counter()
-            for media_type, model in media_group[0].iteritems():
+            for media_type, model in models.iteritems():
                 rows = model.objects\
                         .values('country_region__region')\
                         .filter(country_region__region__in=self.region_list)
@@ -247,7 +260,7 @@ class XLSXReportBuilder:
                 for row in rows:
                     if row['region'] is not None:
                         # Get media and region id's to assign to counts
-                        media_id = [media[0] for media in media_group[1] if media[1] == media_type][0]
+                        media_id = [media[0] for media in media_types if media[1] == media_type][0]
                         region_id = [region[0] for region in self.regions if region[1] == row['region']][0]
                         counts.update({(media_id, region_id): row['n']})
             counts_list.append(counts)
@@ -263,34 +276,40 @@ class XLSXReportBuilder:
         """
         r = 6
         c = 2
-        for media_group in SHEET_MEDIA_GROUPS:
-            self.write_col_headings(ws, media_group[1], c=c)
-            c += len(media_group[1]) + 2
+        for media_types, models in SHEET_MEDIA_GROUPS:
+            self.write_col_headings(ws, media_types, c=c)
+            c += len(media_types) + 2
 
+        import ipdb; ipdb.set_trace()
         for region_id, region in self.regions:
             counts_list = []
-            for media_group in SHEET_MEDIA_GROUPS:
+            for media_types, models in SHEET_MEDIA_GROUPS:
 
                 counts = Counter()
-                for media_type, model in media_group[0].iteritems():
+                for media_type, model in models.iteritems():
+                    name_field = get_sheet_model_name_field(media_type)
                     rows = model.objects\
-                            .values('country')\
-                            .filter(country__in=self.country_list)
+                            .values(name_field, 'country')\
+                            .filter(country__in=self.country_list)\
+                            .distinct()
 
-                    rows = self.apply_weights(rows, model._meta.db_table, media_type)
-
+                    # rows = self.apply_distinct_weights(rows, model._meta.db_table, media_type)
                     for row in rows:
                         if row['country'] is not None:
+                            weight = Weights.objects.get(country=row['country'], media_type=media_type).weight
                             # Get media id's to assign to counts
-                            media_id = [media[0] for media in media_group[1] if media[1] == media_type][0]
-                            counts.update({(media_id, row['country']): row['n']})
+                            media_id = [media[0] for media in media_types if media[1] == media_type][0]
+                            counts.update({(media_id, row['country']): weight})
+                    for key, value in counts.iteritems():
+                        counts[key] = int(round(value))
                 counts_list.append(counts)
+
             self.write_primary_row_heading(ws, region, r=r)
             region_countries = [(code, country) for code, country in self.countries if code in REGION_COUNTRY_MAP[region]]
             self.tabulate(ws, counts_list[0], TM_MEDIA_TYPES, region_countries, row_perc=True, write_col_headings=False, r=r)
             c = 7
             self.tabulate(ws, counts_list[1], DM_MEDIA_TYPES, region_countries, row_perc=True, write_col_headings=False, write_row_headings=False, r=r, c=c)
-            r += len(region_countries)
+            r += (len(region_countries) + 2)
 
     def ws_04(self, ws):
         """
@@ -298,7 +317,7 @@ class XLSXReportBuilder:
         Rows: Major Topic
         """
         counts_list = []
-        for models, media_types in SHEET_MEDIA_GROUPS:
+        for media_types, models in SHEET_MEDIA_GROUPS:
             secondary_counts = OrderedDict()
             for region_id, region in self.regions:
                 counts = Counter()
@@ -327,7 +346,7 @@ class XLSXReportBuilder:
         Rows: Major Topic
         """
         counts_list = []
-        for models, media_types in PERSON_MEDIA_GROUPS:
+        for media_types, models in PERSON_MEDIA_GROUPS:
             secondary_counts = OrderedDict()
             for media_type, model in models.iteritems():
                 counts = Counter()
@@ -363,7 +382,7 @@ class XLSXReportBuilder:
         Rows: Major Topics
         """
         counts_list = []
-        for models, media_types in PERSON_MEDIA_GROUPS:
+        for media_types, models in PERSON_MEDIA_GROUPS:
             secondary_counts = OrderedDict()
             for region_id, region in self.regions:
                 counts = Counter()
