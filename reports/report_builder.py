@@ -184,7 +184,7 @@ class XLSXReportBuilder:
         #     'ws_61', 'ws_62', 'ws_63', 'ws_64', 'ws_65', 'ws_66', 'ws_67', 'ws_68', 'ws_69', 'ws_70',
         #     'ws_75', 'ws_76', 'ws_77', 'ws_78']
 
-        test_functions = ['ws_01', 'ws_04', 'ws_05', 'ws_06', 'ws_07', 'ws_08', 'ws_09', 'ws_10']
+        test_functions = ['ws_02']
 
         sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
 
@@ -277,6 +277,9 @@ class XLSXReportBuilder:
         for media_types, models in SHEET_MEDIA_GROUPS:
             self.write_col_headings(ws, media_types, c=c)
             c += len(media_types) + 2
+
+        weights = {(w.country, w.media_type): w.weight for w in Weights.objects.all()}
+
         for region_id, region in self.regions:
             counts_list = []
             for media_types, models in SHEET_MEDIA_GROUPS:
@@ -292,7 +295,7 @@ class XLSXReportBuilder:
                     # rows = self.apply_distinct_weights(rows, model._meta.db_table, media_type)
                     for row in rows:
                         if row['country'] is not None:
-                            weight = Weights.objects.get(country=row['country'], media_type=media_type).weight
+                            weight = weights[(row['country'], media_type)]
                             # Get media id's to assign to counts
                             media_id = [media[0] for media in media_types if media[1] == media_type][0]
                             counts.update({(media_id, row['country']): weight})
