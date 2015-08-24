@@ -385,7 +385,7 @@ WS_INFO = {
         'desc': 'Twitter - Women\'s centrality',
         'reports': ['global', 'region', 'country'],
     },
-    'ws_68_b': {
+    'ws_68b': {
         'name': '68b',
         'title': 'Twitter - Challenging Stereotypes',
         'desc': 'Twitter - Challenging Stereotypes',

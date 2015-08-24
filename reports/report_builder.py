@@ -180,8 +180,8 @@ class XLSXReportBuilder:
         #     'ws_21', 'ws_23', 'ws_24', 'ws_25', 'ws_26', 'ws_27', 'ws_28', 'ws_29', 'ws_30',
         #     'ws_31', 'ws_32', 'ws_34', 'ws_35', 'ws_36', 'ws_38', 'ws_39', 'ws_40',
         #     'ws_41', 'ws_42', 'ws_43', 'ws_44', 'ws_45', 'ws_46', 'ws_47', 'ws_48',
-        #     'ws_49', 'ws_50', 'ws_51', 'ws_52', 'ws_53', 'ws_54', 'ws_55', 'ws_56',, 'ws_57', 'ws_58', 'ws_59', 'ws_60',
-        #     'ws_61', 'ws_62', 'ws_63', 'ws_64', 'ws_65', 'ws_66', 'ws_67', 'ws_68', 'ws_69', 'ws_70',
+        #     'ws_49', 'ws_50', 'ws_51', 'ws_52', 'ws_53', 'ws_54', 'ws_55', 'ws_56', 'ws_57', 'ws_58', 'ws_59', 'ws_60',
+        #     'ws_61', 'ws_62', 'ws_63', 'ws_64', 'ws_65', 'ws_66', 'ws_67', 'ws_68', 'ws_68b',
         #     'ws_75', 'ws_76', 'ws_77', 'ws_78']
 
         test_functions = ['ws_01', 'ws_04', 'ws_05', 'ws_06', 'ws_07', 'ws_08', 'ws_09', 'ws_10']
@@ -1678,7 +1678,7 @@ class XLSXReportBuilder:
         rows = self.apply_weights(rows, model._meta.db_table, "Twitter")
         counts.update({(row['topic'], row['country']): row['n'] for row in rows})
 
-        self.tabulate(ws, counts, TOPICS, self.countries, row_perc=True, sec_row=False)
+        self.tabulate(ws, counts, TOPICS, self.countries, row_perc=True)
 
     def ws_68(self, ws):
         """
@@ -1704,7 +1704,7 @@ class XLSXReportBuilder:
             self.tabulate(ws, counts, TOPICS, YESNO, row_perc=False, write_col_headings=False, r=r)
             r += len(YESNO)
 
-    def ws_69(self, ws):
+    def ws_68b(self, ws):
         """
         Cols: Topic
         Rows: Country, stereotypes
