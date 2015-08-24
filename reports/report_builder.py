@@ -220,7 +220,6 @@ class XLSXReportBuilder:
             for row in cursor.fetchall()
         ]
 
-
     def apply_weights(self, rows, db_table, media_type):
         """
         param rows: Queryset to apply the weights to
@@ -236,7 +235,6 @@ class XLSXReportBuilder:
 
         raw_query, params = query.query.sql_with_params()
         raw_query = raw_query.replace('SELECT', 'SELECT cast(round(SUM(reports_weights.weight)) as int) AS "n",')
-
         cursor = connection.cursor()
         cursor.execute(raw_query, params)
         return self.dictfetchall(cursor)
@@ -279,8 +277,6 @@ class XLSXReportBuilder:
         for media_types, models in SHEET_MEDIA_GROUPS:
             self.write_col_headings(ws, media_types, c=c)
             c += len(media_types) + 2
-
-        import ipdb; ipdb.set_trace()
         for region_id, region in self.regions:
             counts_list = []
             for media_types, models in SHEET_MEDIA_GROUPS:
@@ -291,7 +287,7 @@ class XLSXReportBuilder:
                     rows = model.objects\
                             .values(name_field, 'country')\
                             .filter(country__in=self.country_list)\
-                            .distinct()
+                            .annotate()
 
                     # rows = self.apply_distinct_weights(rows, model._meta.db_table, media_type)
                     for row in rows:
