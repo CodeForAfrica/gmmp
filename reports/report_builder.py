@@ -184,7 +184,7 @@ class XLSXReportBuilder:
         #     'ws_61', 'ws_62', 'ws_63', 'ws_64', 'ws_65', 'ws_66', 'ws_67', 'ws_68', 'ws_69', 'ws_70',
         #     'ws_75', 'ws_76', 'ws_77', 'ws_78']
 
-        test_functions = ['ws_04', 'ws_05', 'ws_76']
+        test_functions = ['ws_77']
 
         sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
 
@@ -1787,22 +1787,27 @@ class XLSXReportBuilder:
         Cols: Topic, victim_of
         Rows: Country
         """
-        secondary_counts = OrderedDict()
-        for topic_id, topic in TOPICS:
-            counts = Counter()
-            for media_type, model in person_models.iteritems():
-                if 'victim_of' in model._meta.get_all_field_names():
-                    country_field = '%s__country' % model.sheet_name()
-                    rows = model.objects\
-                        .values('victim_of', country_field)\
-                        .filter(**{model.sheet_name() + '__topic':topic_id})
+        c = 1
+        for media_types, models in PERSON_MEDIA_GROUPS:
+            self.write_primary_row_heading(ws, ', '.join([m[1] for m in media_types]), c=c+1, r=4)
 
-                    rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
-                    counts.update({(r['victim_of'], r['country']): r['n'] for r in rows})
+            secondary_counts = OrderedDict()
+            for topic_id, topic in TOPICS:
+                counts = Counter()
+                for media_type, model in models.iteritems():
+                    if 'victim_of' in model._meta.get_all_field_names():
+                        country_field = '%s__country' % model.sheet_name()
+                        rows = model.objects\
+                            .values('victim_of', country_field)\
+                            .filter(**{model.sheet_name() + '__topic':topic_id})
 
-                secondary_counts[topic] = counts
+                        rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
+                        counts.update({(r['victim_of'], r['country']): r['n'] for r in rows})
 
-        self.tabulate_secondary_cols(ws, secondary_counts, VICTIM_OF, self.countries, row_perc=True)
+                    secondary_counts[topic] = counts
+
+            self.tabulate_secondary_cols(ws, secondary_counts, VICTIM_OF, self.countries, row_perc=True, c=c, r=8)
+            c = ws.dim_colmax + 2
 
     def ws_78(self, ws):
         """
