@@ -385,32 +385,32 @@ WS_INFO = {
         'desc': 'Twitter - Women\'s centrality',
         'reports': ['global', 'region', 'country'],
     },
-    'ws_69': {
-        'name': '69',
+    'ws_68_b': {
+        'name': '68b',
         'title': 'Twitter - Challenging Stereotypes',
         'desc': 'Twitter - Challenging Stereotypes',
         'reports': ['global', 'region', 'country'],
     },
-    'ws_76': {
-        'name': '76',
+    'ws_75': {
+        'name': '75',
         'title': 'Key themes, challenging stereotypes',
         'desc': 'Key themes, challenging stereotypes',
         'reports': ['global', 'region', 'country'],
     },
-    'ws_77': {
-        'name': '77',
+    'ws_76': {
+        'name': '76',
         'title': 'Key themes, reference to gender equality/HR policies',
         'desc': 'Key themes, reference to gender equality/HR policies',
         'reports': ['global', 'region', 'country'],
     },
-    'ws_78': {
-        'name': '78',
+    'ws_77': {
+        'name': '77',
         'title': 'Key themes, portrayal as victims',
         'desc': 'Key themes, portrayal as victims',
         'reports': ['global', 'region', 'country'],
     },
-    'ws_79': {
-        'name': '79',
+    'ws_78': {
+        'name': '78',
         'title': 'Key themes, portrayal as survivors',
         'desc': 'Key themes, portrayal as survivors',
         'reports': ['global', 'region', 'country'],
