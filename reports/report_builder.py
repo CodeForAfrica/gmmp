@@ -182,7 +182,7 @@ class XLSXReportBuilder:
         #     'ws_41', 'ws_42', 'ws_43', 'ws_44', 'ws_45', 'ws_46', 'ws_47', 'ws_48',
         #     'ws_49', 'ws_50', 'ws_51', 'ws_52', 'ws_53', 'ws_54', 'ws_55', 'ws_56',, 'ws_57', 'ws_58', 'ws_59', 'ws_60',
         #     'ws_61', 'ws_62', 'ws_63', 'ws_64', 'ws_65', 'ws_66', 'ws_67', 'ws_68', 'ws_69', 'ws_70',
-        #     'ws_76', 'ws_77', 'ws_78', 'ws_79']
+        #     'ws_75', 'ws_76', 'ws_77', 'ws_78']
 
         test_functions = ['ws_01', 'ws_04', 'ws_05', 'ws_06', 'ws_07', 'ws_08', 'ws_09', 'ws_10']
 
@@ -1728,7 +1728,7 @@ class XLSXReportBuilder:
             self.tabulate(ws, counts, TOPICS, AGREE_DISAGREE, row_perc=True, write_col_headings=False, r=r)
             r += len(AGREE_DISAGREE)
 
-    def ws_76(self, ws):
+    def ws_75(self, ws):
         """
         Cols: Topic, Stereotypes
         Rows: Country
@@ -1749,7 +1749,7 @@ class XLSXReportBuilder:
 
         self.tabulate_secondary_cols(ws, secondary_counts, AGREE_DISAGREE, self.countries, row_perc=True, sec_cols=8)
 
-    def ws_77(self, ws):
+    def ws_76(self, ws):
         """
         Cols: Topic, Reference to gender equality
         Rows: Country
@@ -1770,7 +1770,7 @@ class XLSXReportBuilder:
 
         self.tabulate_secondary_cols(ws, secondary_counts, YESNO, self.countries, row_perc=True, sec_cols=4)
 
-    def ws_78(self, ws):
+    def ws_77(self, ws):
         """
         Cols: Topic, victim_of
         Rows: Country
@@ -1792,7 +1792,7 @@ class XLSXReportBuilder:
 
         self.tabulate_secondary_cols(ws, secondary_counts, VICTIM_OF, self.countries, row_perc=True, sec_cols=18)
 
-    def ws_79(self, ws):
+    def ws_78(self, ws):
         """
         Cols: Topic, survivor_of
         Rows: Country
