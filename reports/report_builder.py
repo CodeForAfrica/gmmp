@@ -43,6 +43,15 @@ media_split = [
     "Twitter"
 ]
 
+COUNTRY_RECODES = {
+    u'B1': u'BE',  # Belgium - French -> Belgium
+    u'B2': u'BE',  # Belgium - English -> Belgium
+    u'EN': u'UK',  # England -> United Kingdom
+    u'IE': u'UK',  # Ireland -> United Kingdom
+    u'SQ': u'UK',  # Scotland -> United Kingdom
+    u'WL': u'UK',  # Wales -> United Kingdom
+}
+
 
 # =================
 # General utilities
@@ -73,7 +82,7 @@ def get_regions():
     regions = set(item['region'] for item in country_regions)
     return [(i, region) for i, region in enumerate(regions)]
 
-def get_countries(selected=None):
+def get_countries():
     """
     Return a (code, country) list for countries captured.
     """
@@ -144,6 +153,9 @@ class XLSXReportBuilder:
         self.country_list = [code for code, name in self.countries]
         self.region_list = [name for id, name in self.regions]
 
+        if self.report_type == 'global':
+            self.recode_countries()
+
         # Various utilities used for displaying details
         self.male_female = [(id, value) for id, value in GENDER if id in [1, 2]]
         self.male_female_ids = [id for id, value in self.male_female]
@@ -151,6 +163,14 @@ class XLSXReportBuilder:
         self.yes = [(id, value) for id, value in YESNO if id == 'Y']
 
         self.gmmp_year = '2015'
+
+    def recode_countries(self):
+        # squash recoded countries
+        self.countries = [(c, n) for c, n in self.countries if c not in COUNTRY_RECODES]
+        # add UK and Belgium
+        self.countries.append((u'BE', u'Belgium - French and Flemish'))
+        self.countries.append((u'UK', u'United Kingdom - England, Ireland, Scotland and Wales'))
+        self.countries.sort(key=lambda p: p[1])
 
     def build(self):
         """
@@ -184,7 +204,7 @@ class XLSXReportBuilder:
         #     'ws_61', 'ws_62', 'ws_63', 'ws_64', 'ws_65', 'ws_66', 'ws_67', 'ws_68', 'ws_68b',
         #     'ws_75', 'ws_76', 'ws_77', 'ws_78']
 
-        test_functions = ['ws_01', 'ws_04', 'ws_05', 'ws_06', 'ws_07', 'ws_08', 'ws_09', 'ws_10']
+        test_functions = ['ws_50']
 
         sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
 
@@ -209,6 +229,12 @@ class XLSXReportBuilder:
         output.seek(0)
 
         return output.read()
+
+    def recode_country(self, country):
+        # some split countries must be "joined" at the global report level
+        if self.report_type == 'global':
+            return COUNTRY_RECODES.get(country, country)
+        return country
 
     def dictfetchall(self, cursor):
         """
@@ -1286,7 +1312,7 @@ class XLSXReportBuilder:
 
         for row in rows:
             major_topic = TOPIC_GROUPS[row['topic']]
-            counts.update({(major_topic, row['country']): row['n']})
+            counts.update({(major_topic, self.recode_country(row['country'])): row['n']})
 
         self.tabulate(ws, counts, MAJOR_TOPICS, self.countries, row_perc=True)
 
