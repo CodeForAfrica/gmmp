@@ -965,14 +965,15 @@ class XLSXReportBuilder:
             journo_name = model._meta.get_field(model.sheet_name()).rel.to.journalist_field_name()
             journo_sex = sheet_name + '__' + journo_name + '__sex'
             rows = model.objects\
-                    .values(journo_sex, 'sex')\
-                    .filter(**{model.sheet_name() + '__country__in':self.country_list})\
+                    .extra(select={"subject_sex": model._meta.db_table + ".sex"})\
+                    .values(journo_sex, 'subject_sex')\
+                    .filter(**{model.sheet_name() + '__country__in': self.country_list})\
                     .filter(sex__in=self.male_female_ids)\
                     .annotate(n=Count('id'))
 
-            # rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
+            rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
 
-            counts.update({(r[journo_sex], r['sex']): r['n'] for r in rows})
+            counts.update({(r['sex'], r['subject_sex']): r['n'] for r in rows})
         counts['col_title_def'] = 'Sex of reporter'
 
         self.tabulate(ws, counts, self.male_female, GENDER, row_perc=True, filter_cols=self.female)
