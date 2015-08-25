@@ -436,7 +436,7 @@ class XLSXReportBuilder:
         Rows: Subject Sex
         """
         counts = Counter()
-        for media_type, model in person_models.iteritems():
+        for media_type, model in tm_person_models.iteritems():
             rows = model.objects\
                     .values('sex')\
                     .filter(**{model.sheet_name() + '__country__in': self.country_list})\
@@ -449,7 +449,7 @@ class XLSXReportBuilder:
                 media_id = [media[0] for media in MEDIA_TYPES if media[1] == media_type][0]
                 counts.update({(media_id, r['sex']): r['n']})
 
-        self.tabulate(ws, counts, MEDIA_TYPES, self.male_female, row_perc=False)
+        self.tabulate(ws, counts, TM_MEDIA_TYPES, self.male_female, row_perc=False)
 
     def ws_08(self, ws):
         """
@@ -457,7 +457,7 @@ class XLSXReportBuilder:
         Rows: Scope
         """
         counts = Counter()
-        for media_type, model in person_models.iteritems():
+        for media_type, model in tm_person_models.iteritems():
             if 'scope' in model.sheet_field().rel.to._meta.get_all_field_names():
                 scope = '%s__scope' % model.sheet_name()
                 rows = model.objects\
@@ -477,7 +477,7 @@ class XLSXReportBuilder:
         Rows: Topic
         """
         counts = Counter()
-        for media_type, model in person_models.iteritems():
+        for media_type, model in tm_person_models.iteritems():
             topic = '%s__topic' % model.sheet_name()
             rows = model.objects\
                     .values('sex', topic)\
@@ -517,7 +517,7 @@ class XLSXReportBuilder:
         Rows: Major Topics
         """
         counts = Counter()
-        for media_type, model in sheet_models.iteritems():
+        for media_type, model in tm_sheet_models.iteritems():
             if 'equality_rights' in model._meta.get_all_field_names():
                 rows = model.objects\
                     .values('equality_rights', 'topic')\
@@ -538,7 +538,7 @@ class XLSXReportBuilder:
         secondary_counts = OrderedDict()
         for region_id, region_name in self.regions:
             counts = Counter()
-            for media_type, model in sheet_models.iteritems():
+            for media_type, model in tm_sheet_models.iteritems():
                 # Some models has no equality rights field
                 if 'equality_rights' in model._meta.get_all_field_names():
                     rows = model.objects\
@@ -561,7 +561,7 @@ class XLSXReportBuilder:
         secondary_counts = OrderedDict()
         for gender_id, gender in self.male_female:
             counts = Counter()
-            for media_type, model in journalist_models.iteritems():
+            for media_type, model in tm_journalist_models.iteritems():
                 if 'equality_rights' in model.sheet_field().rel.to._meta.get_all_field_names():
                     topic = '%s__topic' % model.sheet_name()
                     equality_rights = '%s__equality_rights' % model.sheet_name()
@@ -584,7 +584,7 @@ class XLSXReportBuilder:
         Rows: Occupation
         """
         counts = Counter()
-        for media_type, model in person_models.iteritems():
+        for media_type, model in tm_person_models.iteritems():
             # some Person models don't have an occupation field
             if 'occupation' in model._meta.get_all_field_names():
                 rows = model.objects\
@@ -604,7 +604,7 @@ class XLSXReportBuilder:
         Rows: Function
         """
         counts = Counter()
-        for media_type, model in person_models.iteritems():
+        for media_type, model in tm_person_models.iteritems():
             # some Person models don't have a function field
             if 'function' in model._meta.get_all_field_names():
                 rows = model.objects\
@@ -626,7 +626,7 @@ class XLSXReportBuilder:
         secondary_counts = OrderedDict()
         for function_id, function in FUNCTION:
             counts = Counter()
-            for media_type, model in person_models.iteritems():
+            for media_type, model in tm_person_models.iteritems():
                 if 'function' in model._meta.get_all_field_names() and 'occupation' in model._meta.get_all_field_names():
                     rows = model.objects\
                             .values('sex', 'occupation')\
@@ -649,7 +649,7 @@ class XLSXReportBuilder:
         secondary_counts = OrderedDict()
         for age_id, age in AGES:
             counts = Counter()
-            for media_type, model in person_models.iteritems():
+            for media_type, model in tm_person_models.iteritems():
                 if 'function' in model._meta.get_all_field_names() and 'age' in model._meta.get_all_field_names():
                     rows = model.objects\
                             .values('sex', 'function')\
@@ -709,7 +709,7 @@ class XLSXReportBuilder:
         secondary_counts = OrderedDict()
         functions_count = Counter()
         # Get top 5 functions
-        for media_type, model in person_models.iteritems():
+        for media_type, model in tm_person_models.iteritems():
             if 'function' in model._meta.get_all_field_names() and 'occupation' in model._meta.get_all_field_names():
                 rows = model.objects\
                         .values('function')\
@@ -724,7 +724,7 @@ class XLSXReportBuilder:
 
         for func_id, function in top_5_functions:
             counts = Counter()
-            for media_type, model in person_models.iteritems():
+            for media_type, model in tm_person_models.iteritems():
                 if 'function' in model._meta.get_all_field_names() and 'occupation' in model._meta.get_all_field_names():
                     rows = model.objects\
                             .values('sex', 'occupation')\
@@ -744,7 +744,7 @@ class XLSXReportBuilder:
         Rows: Victim type
         """
         counts = Counter()
-        for media_type, model in person_models.iteritems():
+        for media_type, model in tm_person_models.iteritems():
             if 'victim_of' in model._meta.get_all_field_names():
                 rows = model.objects\
                         .values('sex', 'victim_of')\
@@ -763,7 +763,7 @@ class XLSXReportBuilder:
         Rows: Survivor type
         """
         counts = Counter()
-        for media_type, model in person_models.iteritems():
+        for media_type, model in tm_person_models.iteritems():
             if 'survivor_of' in model._meta.get_all_field_names():
                 rows = model.objects\
                         .values('sex', 'survivor_of')\
@@ -783,7 +783,7 @@ class XLSXReportBuilder:
         Rows: Family Role
         """
         counts = Counter()
-        for media_type, model in person_models.iteritems():
+        for media_type, model in tm_person_models.iteritems():
             if 'family_role' in model._meta.get_all_field_names():
                 rows = model.objects\
                         .values('sex', 'family_role')\
@@ -804,7 +804,7 @@ class XLSXReportBuilder:
         secondary_counts = OrderedDict()
         for sex_id, sex in self.male_female:
             counts = Counter()
-            for media_type, model in person_models.iteritems():
+            for media_type, model in tm_person_models.iteritems():
                 if 'family_role' in model._meta.get_all_field_names():
                     sheet_name = model.sheet_name()
                     journo_name = model._meta.get_field(model.sheet_name()).rel.to.journalist_field_name()
@@ -831,7 +831,7 @@ class XLSXReportBuilder:
         Rows: Whether Quoted
         """
         counts = Counter()
-        for media_type, model in person_models.iteritems():
+        for media_type, model in tm_person_models.iteritems():
             if 'is_quoted' in model._meta.get_all_field_names():
                 rows = model.objects\
                         .values('sex', 'is_quoted')\
@@ -850,7 +850,7 @@ class XLSXReportBuilder:
         Rows: Photographed
         """
         counts = Counter()
-        for media_type, model in person_models.iteritems():
+        for media_type, model in tm_person_models.iteritems():
             if 'is_photograph' in model._meta.get_all_field_names():
                 rows = model.objects\
                         .values('sex', 'is_photograph')\
@@ -870,7 +870,7 @@ class XLSXReportBuilder:
         :: Female reporters only
         """
         counts = Counter()
-        for media_type, model in journalist_models.iteritems():
+        for media_type, model in tm_journalist_models.iteritems():
             region = model.sheet_name() + '__country_region__region'
             rows = model.objects\
                     .values(region)\
@@ -886,7 +886,7 @@ class XLSXReportBuilder:
 
                 counts.update({(media_id, region_id): row['n']})
 
-        self.tabulate(ws, counts, MEDIA_TYPES, self.regions, row_perc=True)
+        self.tabulate(ws, counts, TM_MEDIA_TYPES, self.regions, row_perc=True)
 
     def ws_29(self, ws):
         """
@@ -895,7 +895,7 @@ class XLSXReportBuilder:
         :: Female reporters only
         """
         counts = Counter()
-        for media_type, model in journalist_models.iteritems():
+        for media_type, model in tm_journalist_models.iteritems():
             sheet_name = model.sheet_name()
             region = sheet_name + '__country_region__region'
             scope =  sheet_name + '__scope'
@@ -920,7 +920,7 @@ class XLSXReportBuilder:
         :: Female reporters only
         """
         counts = Counter()
-        for media_type, model in journalist_models.iteritems():
+        for media_type, model in tm_journalist_models.iteritems():
             sheet_name = model.sheet_name()
             region = sheet_name + '__country_region__region'
             topic =  sheet_name + '__topic'
@@ -945,7 +945,7 @@ class XLSXReportBuilder:
         Rows: Minor Topics
         """
         counts = Counter()
-        for media_type, model in journalist_models.iteritems():
+        for media_type, model in tm_journalist_models.iteritems():
             sheet_name = model.sheet_name()
             topic =  sheet_name + '__topic'
             if 'topic' in model._meta.get_field(sheet_name).rel.to._meta.get_all_field_names():
@@ -967,7 +967,7 @@ class XLSXReportBuilder:
         :: Female reporters only
         """
         counts = Counter()
-        for media_type, model in journalist_models.iteritems():
+        for media_type, model in tm_journalist_models.iteritems():
             sheet_name = model.sheet_name()
             topic =  sheet_name + '__topic'
             if 'topic' in model._meta.get_field(sheet_name).rel.to._meta.get_all_field_names():
@@ -982,7 +982,7 @@ class XLSXReportBuilder:
                     media_id = [media[0] for media in MEDIA_TYPES if media[1] == media_type][0]
                     counts.update({(media_id, row['topic']): row['n']})
 
-        self.tabulate(ws, counts, MEDIA_TYPES, TOPICS, row_perc=False)
+        self.tabulate(ws, counts, TM_MEDIA_TYPES, TOPICS, row_perc=False)
 
     def ws_34(self, ws):
         """
@@ -990,19 +990,20 @@ class XLSXReportBuilder:
         Rows: Sex of subject
         """
         counts = Counter()
-        for media_type, model in person_models.iteritems():
+        for media_type, model in tm_person_models.iteritems():
             sheet_name = model.sheet_name()
             journo_name = model._meta.get_field(model.sheet_name()).rel.to.journalist_field_name()
             journo_sex = sheet_name + '__' + journo_name + '__sex'
             rows = model.objects\
-                    .values(journo_sex, 'sex')\
-                    .filter(**{model.sheet_name() + '__country__in':self.country_list})\
+                    .extra(select={"subject_sex": model._meta.db_table + ".sex"})\
+                    .values(journo_sex, 'subject_sex')\
+                    .filter(**{model.sheet_name() + '__country__in': self.country_list})\
                     .filter(sex__in=self.male_female_ids)\
                     .annotate(n=Count('id'))
 
-            # rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
+            rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
 
-            counts.update({(r[journo_sex], r['sex']): r['n'] for r in rows})
+            counts.update({(r['sex'], r['subject_sex']): r['n'] for r in rows})
         counts['col_title_def'] = 'Sex of reporter'
 
         self.tabulate(ws, counts, self.male_female, GENDER, row_perc=True, filter_cols=self.female)
@@ -1030,7 +1031,7 @@ class XLSXReportBuilder:
         Rows: Focus: about women
         """
         counts = Counter()
-        for media_type, model in journalist_models.iteritems():
+        for media_type, model in tm_journalist_models.iteritems():
             sheet_name = model.sheet_name()
             about_women =  sheet_name + '__about_women'
             if 'about_women' in model._meta.get_field(sheet_name).rel.to._meta.get_all_field_names():
@@ -1051,7 +1052,7 @@ class XLSXReportBuilder:
         Rows: Major Topics
         """
         counts = Counter()
-        for media_type, model in sheet_models.iteritems():
+        for media_type, model in tm_sheet_models.iteritems():
             if 'about_women' in model._meta.get_all_field_names():
                 rows = model.objects\
                         .values('about_women', 'topic')\
@@ -1070,7 +1071,7 @@ class XLSXReportBuilder:
         Rows: Topics
         """
         counts = Counter()
-        for media_type, model in sheet_models.iteritems():
+        for media_type, model in tm_sheet_models.iteritems():
             if 'about_women' in model._meta.get_all_field_names():
                 rows = model.objects\
                         .values('about_women', 'topic')\
@@ -1090,7 +1091,7 @@ class XLSXReportBuilder:
         secondary_counts = OrderedDict()
         for region_id, region in self.regions:
             counts = Counter()
-            for media_type, model in sheet_models.iteritems():
+            for media_type, model in tm_sheet_models.iteritems():
                 if 'about_women' in model._meta.get_all_field_names():
                     rows = model.objects\
                             .values('topic', 'about_women')\
@@ -1109,7 +1110,7 @@ class XLSXReportBuilder:
         Rows: Topics
         """
         counts = Counter()
-        for media_type, model in sheet_models.iteritems():
+        for media_type, model in tm_sheet_models.iteritems():
             if 'equality_rights' in model._meta.get_all_field_names():
                 rows = model.objects\
                         .values('equality_rights', 'topic')\
@@ -1128,7 +1129,7 @@ class XLSXReportBuilder:
         secondary_counts = OrderedDict()
         for region_id, region in self.regions:
             counts = Counter()
-            for media_type, model in sheet_models.iteritems():
+            for media_type, model in tm_sheet_models.iteritems():
                 if 'equality_rights' in model._meta.get_all_field_names():
                     rows = model.objects\
                             .values('topic', 'equality_rights')\
@@ -1148,7 +1149,7 @@ class XLSXReportBuilder:
         secondary_counts = OrderedDict()
         for gender_id, gender in self.male_female:
             counts = Counter()
-            for media_type, model in journalist_models.iteritems():
+            for media_type, model in tm_journalist_models.iteritems():
                 sheet_name = model.sheet_name()
                 topic = sheet_name + '__topic'
                 equality_rights =  sheet_name + '__equality_rights'
@@ -1172,7 +1173,7 @@ class XLSXReportBuilder:
         secondary_counts = OrderedDict()
         for gender_id, gender in self.male_female:
             counts = Counter()
-            for media_type, model in journalist_models.iteritems():
+            for media_type, model in tm_journalist_models.iteritems():
                 sheet_name = model.sheet_name()
                 region = sheet_name + '__country_region__region'
                 equality_rights =  sheet_name + '__equality_rights'
@@ -1197,7 +1198,7 @@ class XLSXReportBuilder:
         :: Equality rights raised == Yes
         """
         counts = Counter()
-        for media_type, model in person_models.iteritems():
+        for media_type, model in tm_person_models.iteritems():
             if 'equality_rights' in model.sheet_field().rel.to._meta.get_all_field_names():
                 region = model.sheet_name() + '__country_region__region'
                 equality_rights = model.sheet_name() + '__equality_rights'
@@ -1221,7 +1222,7 @@ class XLSXReportBuilder:
         secondary_counts = OrderedDict()
         for region_id, region in self.regions:
             counts = Counter()
-            for media_type, model in sheet_models.iteritems():
+            for media_type, model in tm_sheet_models.iteritems():
                 if 'stereotypes' in model._meta.get_all_field_names():
                     rows = model.objects\
                             .values('stereotypes', 'topic')\
@@ -1240,7 +1241,7 @@ class XLSXReportBuilder:
         Rows: Major Topics
         """
         counts = Counter()
-        for media_type, model in sheet_models.iteritems():
+        for media_type, model in tm_sheet_models.iteritems():
             rows = model.objects\
                     .values('stereotypes', 'topic')\
                     .filter(country__in=self.country_list)
@@ -1260,7 +1261,7 @@ class XLSXReportBuilder:
         secondary_counts = OrderedDict()
         for gender_id, gender in self.male_female:
             counts = Counter()
-            for media_type, model in journalist_models.iteritems():
+            for media_type, model in tm_journalist_models.iteritems():
                 sheet_name = model.sheet_name()
                 topic = sheet_name + '__topic'
                 stereotypes =  sheet_name + '__stereotypes'
@@ -1512,12 +1513,13 @@ class XLSXReportBuilder:
         journo_sex = sheet_name + '__' + journo_name + '__sex'
 
         rows = model.objects\
-                .values(journo_sex, 'sex')\
+                .extra(select={"subject_sex": model._meta.db_table + ".sex"})\
+                .values(journo_sex, 'subject_sex')\
                 .filter(**{model.sheet_name() + '__country__in':self.country_list})\
                 .annotate(n=Count('id'))
 
-        # rows = self.apply_weights(rows, model.sheet_db_table(), "Internet")
-        counts.update({(r[journo_sex], r['sex']): r['n'] for r in rows})
+        rows = self.apply_weights(rows, model.sheet_db_table(), "Internet")
+        counts.update({(r['sex'], r['subject_sex']): r['n'] for r in rows})
         counts['col_title_def'] = 'Sex of reporter'
 
         self.tabulate(ws, counts, GENDER, GENDER, row_perc=False)
