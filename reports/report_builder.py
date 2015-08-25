@@ -1,11 +1,13 @@
 # Python
 import StringIO
 from collections import Counter, OrderedDict
+import logging
 
 # Django
 from django_countries import countries
 from django.db import connection
 from django.db.models import Count, FieldDoesNotExist
+from django.conf import settings
 
 # 3rd Party
 import xlsxwriter
@@ -135,7 +137,10 @@ def get_sheet_model_name_field(media_type):
 class XLSXReportBuilder:
     def __init__(self, form):
         from reports.views import CountryForm, RegionForm
+
         self.form = form
+        self.log = logging.getLogger(__name__)
+
         if isinstance(form, CountryForm):
             self.countries = form.filter_countries()
             self.regions = get_country_region(form.cleaned_data['country'])
@@ -194,7 +199,7 @@ class XLSXReportBuilder:
         self.P = workbook.add_format(FORMATS['P'])
 
         # Use the following for specifying which reports to create during dev
-        # test_functions = [
+        # sheets = [
         #     'ws_01', 'ws_02', 'ws_04', 'ws_05', 'ws_06', 'ws_07', 'ws_08', 'ws_09', 'ws_10',
         #     'ws_11', 'ws_12', 'ws_13', 'ws_14', 'ws_15', 'ws_16', 'ws_17', 'ws_18', 'ws_19', 'ws_20',
         #     'ws_21', 'ws_23', 'ws_24', 'ws_25', 'ws_26', 'ws_27', 'ws_28', 'ws_29', 'ws_30',
@@ -203,27 +208,19 @@ class XLSXReportBuilder:
         #     'ws_49', 'ws_50', 'ws_51', 'ws_52', 'ws_53', 'ws_54', 'ws_55', 'ws_56', 'ws_57', 'ws_58', 'ws_59', 'ws_60',
         #     'ws_61', 'ws_62', 'ws_63', 'ws_64', 'ws_65', 'ws_66', 'ws_67', 'ws_68', 'ws_68b',
         #     'ws_75', 'ws_76', 'ws_77', 'ws_78']
+        if settings.DEBUG:
+            sheets = ['ws_74', 'ws_75', 'ws_76', 'ws_77', 'ws_78']
+        else:
+            sheets = WS_INFO.keys()
 
-        test_functions = ['ws_78']
-
-        sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
-
-        for function in test_functions:
-            if self.report_type in sheet_info[function]['reports']:
-                ws = workbook.add_worksheet(sheet_info[function]['name'])
-                self.write_headers(ws, sheet_info[function]['title'], sheet_info[function]['desc'])
-                getattr(self, function)(ws)
-
-        # -------------------------------------------------------------------
-
-        # To ensure ordered worksheets
-        # sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
-
-        # for ws_num, ws_info in sheet_info.iteritems():
-        #     if self.report_type in ws_info['reports']:
-        #         ws = workbook.add_worksheet(ws_info['name'])
-        #         self.write_headers(ws, ws_info['title'], ws_info['desc'])
-        #         getattr(self, ws_num)(ws)
+        sheets.sort()
+        for sheet in sheets:
+            if self.report_type in WS_INFO[sheet]['reports']:
+                ws = workbook.add_worksheet(WS_INFO[sheet]['name'])
+                self.write_headers(ws, WS_INFO[sheet]['title'], WS_INFO[sheet]['desc'])
+                self.log.info("Building sheet %s" % sheet)
+                getattr(self, sheet)(ws)
+                self.log.info("Completed sheet %s" % sheet)
 
         workbook.close()
         output.seek(0)

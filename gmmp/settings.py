@@ -148,6 +148,7 @@ LOGGING = {
             'handlers': ['console'],
             'level': 'ERROR'
         },
+        'reports': {'level': 'INFO'},
         'django': {
             'level': 'DEBUG' if DEBUG else 'INFO',
         }
