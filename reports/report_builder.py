@@ -1825,14 +1825,16 @@ class XLSXReportBuilder:
             self.write_primary_row_heading(ws, ', '.join([m[1] for m in media_types]), c=c+1, r=4)
 
             secondary_counts = OrderedDict()
-            for topic_id, topic in TOPICS:
+            for topic_id, topic in FOCUS_TOPICS.iteritems():
                 counts = Counter()
                 secondary_counts[topic] = counts
+                actual_topic_ids = [k for k, v in FOCUS_TOPIC_MAP.iteritems() if v == topic_id]
+
                 for media_type, model in models.iteritems():
                     if 'stereotypes' in model._meta.get_all_field_names():
                         rows = model.objects\
                             .values('stereotypes', 'country')\
-                            .filter(topic=topic_id)
+                            .filter(topic__in=actual_topic_ids)
 
                         rows = self.apply_weights(rows, model._meta.db_table, media_type)
                         counts.update({(r['stereotypes'], self.recode_country(r['country'])): r['n'] for r in rows})
@@ -1850,13 +1852,15 @@ class XLSXReportBuilder:
             self.write_primary_row_heading(ws, ', '.join([m[1] for m in media_types]), c=c+1, r=4)
 
             secondary_counts = OrderedDict()
-            for topic_id, topic in TOPICS:
+            for topic_id, topic in FOCUS_TOPICS.iteritems():
                 counts = Counter()
+                actual_topic_ids = [k for k, v in FOCUS_TOPIC_MAP.iteritems() if v == topic_id]
+
                 for media_type, model in models.iteritems():
                     if 'equality_rights' in model._meta.get_all_field_names():
                         rows = model.objects\
                             .values('equality_rights', 'country')\
-                            .filter(topic=topic_id)
+                            .filter(topic__in=actual_topic_ids)
 
                         rows = self.apply_weights(rows, model._meta.db_table, media_type)
                         counts.update({(r['equality_rights'], self.recode_country(r['country'])): r['n'] for r in rows})
@@ -1876,14 +1880,16 @@ class XLSXReportBuilder:
             self.write_primary_row_heading(ws, ', '.join([m[1] for m in media_types]), c=c+1, r=4)
 
             secondary_counts = OrderedDict()
-            for topic_id, topic in TOPICS:
+            for topic_id, topic in FOCUS_TOPICS.iteritems():
                 counts = Counter()
+                actual_topic_ids = [k for k, v in FOCUS_TOPIC_MAP.iteritems() if v == topic_id]
+
                 for media_type, model in models.iteritems():
                     if 'victim_of' in model._meta.get_all_field_names():
                         country_field = '%s__country' % model.sheet_name()
                         rows = model.objects\
                             .values('victim_of', country_field)\
-                            .filter(**{model.sheet_name() + '__topic':topic_id})
+                            .filter(**{model.sheet_name() + '__topic__in':actual_topic_ids})
 
                         rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
                         counts.update({(r['victim_of'], self.recode_country(r['country'])): r['n'] for r in rows})
@@ -1903,14 +1909,16 @@ class XLSXReportBuilder:
             self.write_primary_row_heading(ws, ', '.join([m[1] for m in media_types]), c=c+1, r=4)
 
             secondary_counts = OrderedDict()
-            for topic_id, topic in TOPICS:
+            for topic_id, topic in FOCUS_TOPICS.iteritems():
                 counts = Counter()
+                actual_topic_ids = [k for k, v in FOCUS_TOPIC_MAP.iteritems() if v == topic_id]
+
                 for media_type, model in models.iteritems():
                     if 'survivor_of' in model._meta.get_all_field_names():
                         country_field = '%s__country' % model.sheet_name()
                         rows = model.objects\
                             .values('survivor_of', country_field)\
-                            .filter(**{model.sheet_name() + '__topic':topic_id})
+                            .filter(**{model.sheet_name() + '__topic__in':actual_topic_ids})
 
                         rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
                         counts.update({(r['survivor_of'], self.recode_country(r['country'])): r['n'] for r in rows})
