@@ -397,6 +397,12 @@ WS_INFO = {
         'desc': 'Key themes, female reporters',
         'reports': ['global', 'region', 'country'],
     },
+    'ws_74': {
+        'name': '74',
+        'title': 'Key themes, women\'s centrality',
+        'desc': 'Stories with Women as a central focus, by women centrality topic',
+        'reports': ['global', 'region', 'country'],
+    },
     'ws_75': {
         'name': '75',
         'title': 'Key themes, challenging stereotypes',
