@@ -19,7 +19,7 @@ from forms.models import (
 from forms.modelutils import (TOPICS, GENDER, SPACE, OCCUPATION, FUNCTION, SCOPE,
     YESNO, AGES, SOURCE, VICTIM_OF, SURVIVOR_OF, IS_PHOTOGRAPH, AGREE_DISAGREE,
     RETWEET, TV_ROLE, MEDIA_TYPES, TM_MEDIA_TYPES, DM_MEDIA_TYPES, CountryRegion)
-from report_details import WS_INFO, REGION_COUNTRY_MAP, MAJOR_TOPICS, TOPIC_GROUPS, GROUP_TOPICS_MAP, FORMATS
+from report_details import WS_INFO, REGION_COUNTRY_MAP, MAJOR_TOPICS, TOPIC_GROUPS, GROUP_TOPICS_MAP, FORMATS, FOCUS_TOPICS, FOCUS_TOPIC_MAP
 from reports.models import Weights
 
 SHEET_MEDIA_GROUPS = [
@@ -204,7 +204,7 @@ class XLSXReportBuilder:
         #     'ws_61', 'ws_62', 'ws_63', 'ws_64', 'ws_65', 'ws_66', 'ws_67', 'ws_68', 'ws_68b',
         #     'ws_75', 'ws_76', 'ws_77', 'ws_78']
 
-        test_functions = ['ws_78']
+        test_functions = ['ws_72']
 
         sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
 
@@ -1759,6 +1759,34 @@ class XLSXReportBuilder:
             self.tabulate(ws, counts, TOPICS, AGREE_DISAGREE, row_perc=True, write_col_headings=False, r=r)
             r += len(AGREE_DISAGREE)
 
+    def ws_72(self, ws):
+        """
+        Cols: Focus Topic, Media
+        Rows: Country
+        Focus: female reporters
+        """
+        # TODO: these values should be %age total of media in country/region
+
+        secondary_counts = OrderedDict()
+        for topic_id, topic in FOCUS_TOPICS.iteritems():
+            actual_topic_ids = [k for k, v in FOCUS_TOPIC_MAP.iteritems() if v == topic_id]
+            counts = Counter()
+            secondary_counts[topic] = counts
+
+            for media_type, model in sheet_models.iteritems():
+                journo_name = model.journalist_field_name()
+                media_id = [m[0] for m in MEDIA_TYPES if m[1] == media_type][0]
+
+                rows = model.objects\
+                    .values('country')\
+                    .filter(**{journo_name + '__sex': self.female[0][0]})\
+                    .filter(topic__in=actual_topic_ids)
+
+                rows = self.apply_weights(rows, model._meta.db_table, media_type)
+                counts.update({(media_id, self.recode_country(r['country'])): r['n'] for r in rows})
+
+        self.tabulate_secondary_cols(ws, secondary_counts, MEDIA_TYPES, self.countries, show_N=True)
+
     def ws_75(self, ws):
         """
         Cols: Topic, Stereotypes
@@ -1929,6 +1957,8 @@ class XLSXReportBuilder:
 
         # number of columns per secondary column
         sec_cols = len(cols)
+        if show_N:
+            sec_cols *= 2
         if row_perc:
             sec_cols += 1
 

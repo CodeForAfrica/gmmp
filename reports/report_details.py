@@ -391,6 +391,12 @@ WS_INFO = {
         'desc': 'Twitter - Challenging Stereotypes',
         'reports': ['global', 'region', 'country'],
     },
+    'ws_72': {
+        'name': '72',
+        'title': 'Key themes, female reporters',
+        'desc': 'Key themes, female reporters',
+        'reports': ['global', 'region', 'country'],
+    },
     'ws_75': {
         'name': '75',
         'title': 'Key themes, challenging stereotypes',
@@ -476,6 +482,18 @@ MAJOR_TOPICS = (
     (7, 'Other')
 )
 
+# Topic recodes for women focus areas
+FOCUS_TOPICS = {
+    1: 'Political participation',
+    2: 'Peace and security',
+    3: 'Economic participation',
+}
+
+FOCUS_TOPIC_MAP = {
+    1: 1,
+    2: 2, 5: 2, 6: 2, 44: 2, 45: 2, 47: 2,
+    11: 3, 13: 3,
+}
 
 FORMATS = {
     'heading': {
