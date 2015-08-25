@@ -43,6 +43,15 @@ media_split = [
     "Twitter"
 ]
 
+COUNTRY_RECODES = {
+    u'B1': u'BE',  # Belgium - French -> Belgium
+    u'B2': u'BE',  # Belgium - English -> Belgium
+    u'EN': u'UK',  # England -> United Kingdom
+    u'IE': u'UK',  # Ireland -> United Kingdom
+    u'SQ': u'UK',  # Scotland -> United Kingdom
+    u'WL': u'UK',  # Wales -> United Kingdom
+}
+
 
 # =================
 # General utilities
@@ -73,7 +82,7 @@ def get_regions():
     regions = set(item['region'] for item in country_regions)
     return [(i, region) for i, region in enumerate(regions)]
 
-def get_countries(selected=None):
+def get_countries():
     """
     Return a (code, country) list for countries captured.
     """
@@ -144,6 +153,9 @@ class XLSXReportBuilder:
         self.country_list = [code for code, name in self.countries]
         self.region_list = [name for id, name in self.regions]
 
+        if self.report_type == 'global':
+            self.recode_countries()
+
         # Various utilities used for displaying details
         self.male_female = [(id, value) for id, value in GENDER if id in [1, 2]]
         self.male_female_ids = [id for id, value in self.male_female]
@@ -151,6 +163,14 @@ class XLSXReportBuilder:
         self.yes = [(id, value) for id, value in YESNO if id == 'Y']
 
         self.gmmp_year = '2015'
+
+    def recode_countries(self):
+        # squash recoded countries
+        self.countries = [(c, n) for c, n in self.countries if c not in COUNTRY_RECODES]
+        # add UK and Belgium
+        self.countries.append((u'BE', u'Belgium - French and Flemish'))
+        self.countries.append((u'UK', u'United Kingdom - England, Ireland, Scotland and Wales'))
+        self.countries.sort(key=lambda p: p[1])
 
     def build(self):
         """
@@ -184,7 +204,11 @@ class XLSXReportBuilder:
         #     'ws_61', 'ws_62', 'ws_63', 'ws_64', 'ws_65', 'ws_66', 'ws_67', 'ws_68', 'ws_68b',
         #     'ws_75', 'ws_76', 'ws_77', 'ws_78']
 
-        test_functions = ['ws_01', 'ws_04', 'ws_05', 'ws_06', 'ws_07', 'ws_08', 'ws_09', 'ws_10']
+        test_functions = [
+             'ws_01', 'ws_04', 'ws_05', 'ws_06', 'ws_07', 'ws_08', 'ws_09', 'ws_10',
+             'ws_49', 'ws_50', 'ws_51', 'ws_52', 'ws_53', 'ws_54', 'ws_55', 'ws_56', 'ws_57', 'ws_58', 'ws_59', 'ws_60',
+             'ws_61', 'ws_62', 'ws_63', 'ws_64', 'ws_65', 'ws_66', 'ws_67', 'ws_68', 'ws_68b',
+             'ws_75', 'ws_76', 'ws_77', 'ws_78']
 
         sheet_info = OrderedDict(sorted(WS_INFO.items(), key=lambda t: t[0]))
 
@@ -209,6 +233,12 @@ class XLSXReportBuilder:
         output.seek(0)
 
         return output.read()
+
+    def recode_country(self, country):
+        # some split countries must be "joined" at the global report level
+        if self.report_type == 'global':
+            return COUNTRY_RECODES.get(country, country)
+        return country
 
     def dictfetchall(self, cursor):
         """
@@ -295,7 +325,7 @@ class XLSXReportBuilder:
                             weight = Weights.objects.get(country=row['country'], media_type=media_type).weight
                             # Get media id's to assign to counts
                             media_id = [media[0] for media in media_types if media[1] == media_type][0]
-                            counts.update({(media_id, row['country']): weight})
+                            counts.update({(media_id, self.recode_country(row['country'])): weight})
                     for key, value in counts.iteritems():
                         counts[key] = int(round(value))
                 counts_list.append(counts)
@@ -1286,7 +1316,7 @@ class XLSXReportBuilder:
 
         for row in rows:
             major_topic = TOPIC_GROUPS[row['topic']]
-            counts.update({(major_topic, row['country']): row['n']})
+            counts.update({(major_topic, self.recode_country(row['country'])): row['n']})
 
         self.tabulate(ws, counts, MAJOR_TOPICS, self.countries, row_perc=True)
 
@@ -1308,7 +1338,7 @@ class XLSXReportBuilder:
 
         for row in rows:
             major_topic = TOPIC_GROUPS[row['topic']]
-            counts.update({(major_topic, row['country']): row['n']})
+            counts.update({(major_topic, self.recode_country(row['country'])): row['n']})
 
         self.tabulate(ws, counts, MAJOR_TOPICS, self.countries, row_perc=True)
 
@@ -1330,7 +1360,7 @@ class XLSXReportBuilder:
 
         for row in rows:
             major_topic = TOPIC_GROUPS[row['topic']]
-            counts.update({(major_topic, row['country']): row['n']})
+            counts.update({(major_topic, self.recode_country(row['country'])): row['n']})
 
         self.tabulate(ws, counts, MAJOR_TOPICS, self.countries, row_perc=True)
 
@@ -1353,7 +1383,7 @@ class XLSXReportBuilder:
                 .filter(topic__in=topic_ids)
 
             rows = self.apply_weights(rows, model._meta.db_table, 'Internet')
-            counts.update({(r['sex'], r['country']): r['n'] for r in rows})
+            counts.update({(r['sex'], self.recode_country(r['country'])): r['n'] for r in rows})
             major_topic_name = [mt[1] for mt in MAJOR_TOPICS if mt[0] == int(major_topic)][0]
             secondary_counts[major_topic_name] = counts
 
@@ -1375,7 +1405,7 @@ class XLSXReportBuilder:
                 .filter(**{model.sheet_name() + '__topic__in':topic_ids})
 
             rows = self.apply_weights(rows, model.sheet_db_table(), 'Internet')
-            counts.update({(r['sex'], r['country']): r['n'] for r in rows})
+            counts.update({(r['sex'], self.recode_country(r['country'])): r['n'] for r in rows})
             major_topic_name = [mt[1] for mt in MAJOR_TOPICS if mt[0] == int(major_topic)][0]
             secondary_counts[major_topic_name] = counts
 
@@ -1398,7 +1428,7 @@ class XLSXReportBuilder:
                 .filter(sex=1)
 
         rows = self.apply_weights(rows, model.sheet_db_table(), "Internet")
-        counts.update({(r['occupation'], r['country']): r['n'] for r in rows})
+        counts.update({(r['occupation'], self.recode_country(r['country'])): r['n'] for r in rows})
         self.tabulate(ws, counts, OCCUPATION, self.countries, row_perc=True)
 
     def ws_56(self, ws):
@@ -1416,7 +1446,7 @@ class XLSXReportBuilder:
                 .annotate(n=Count('id'))
 
         rows = self.apply_weights(rows, model.sheet_db_table(), "Internet")
-        counts.update({(r['function'], r['country']): r['n'] for r in rows})
+        counts.update({(r['function'], self.recode_country(r['country'])): r['n'] for r in rows})
         self.tabulate(ws, counts, FUNCTION, self.countries, row_perc=True)
 
     def ws_57(self, ws):
@@ -1676,7 +1706,7 @@ class XLSXReportBuilder:
                 .filter(**{model.journalist_field_name() + '__sex':1})
 
         rows = self.apply_weights(rows, model._meta.db_table, "Twitter")
-        counts.update({(row['topic'], row['country']): row['n'] for row in rows})
+        counts.update({(row['topic'], self.recode_country(row['country'])): row['n'] for row in rows})
 
         self.tabulate(ws, counts, TOPICS, self.countries, row_perc=True)
 
@@ -1743,7 +1773,7 @@ class XLSXReportBuilder:
                         .filter(topic=topic_id)
 
                     rows = self.apply_weights(rows, model._meta.db_table, media_type)
-                    counts.update({(r['stereotypes'], r['country']): r['n'] for r in rows})
+                    counts.update({(r['stereotypes'], self.recode_country(r['country'])): r['n'] for r in rows})
 
                 secondary_counts[topic] = counts
 
@@ -1764,7 +1794,7 @@ class XLSXReportBuilder:
                         .filter(topic=topic_id)
 
                     rows = self.apply_weights(rows, model._meta.db_table, media_type)
-                    counts.update({(r['equality_rights'], r['country']): r['n'] for r in rows})
+                    counts.update({(r['equality_rights'], self.recode_country(r['country'])): r['n'] for r in rows})
 
                 secondary_counts[topic] = counts
 
@@ -1786,7 +1816,7 @@ class XLSXReportBuilder:
                         .filter(**{model.sheet_name() + '__topic':topic_id})
 
                     rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
-                    counts.update({(r['victim_of'], r['country']): r['n'] for r in rows})
+                    counts.update({(r['victim_of'], self.recode_country(r['country'])): r['n'] for r in rows})
 
                 secondary_counts[topic] = counts
 
@@ -1808,7 +1838,7 @@ class XLSXReportBuilder:
                         .filter(**{model.sheet_name() + '__topic':topic_id})
 
                     rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
-                    counts.update({(r['survivor_of'], r['country']): r['n'] for r in rows})
+                    counts.update({(r['survivor_of'], self.recode_country(r['country'])): r['n'] for r in rows})
 
                 secondary_counts[topic] = counts
 
