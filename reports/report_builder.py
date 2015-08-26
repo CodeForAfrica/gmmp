@@ -19,7 +19,7 @@ from forms.models import (
 from forms.modelutils import (TOPICS, GENDER, SPACE, OCCUPATION, FUNCTION, SCOPE,
     YESNO, AGES, SOURCE, VICTIM_OF, SURVIVOR_OF, IS_PHOTOGRAPH, AGREE_DISAGREE,
     RETWEET, TV_ROLE, MEDIA_TYPES, TM_MEDIA_TYPES, DM_MEDIA_TYPES, CountryRegion)
-from report_details import WS_INFO, REGION_COUNTRY_MAP, MAJOR_TOPICS, TOPIC_GROUPS, GROUP_TOPICS_MAP, FORMATS, FOCUS_TOPICS, FOCUS_TOPIC_MAP
+from report_details import WS_INFO, REGION_COUNTRY_MAP, MAJOR_TOPICS, TOPIC_GROUPS, GROUP_TOPICS_MAP, FORMATS, FOCUS_TOPICS, FOCUS_TOPIC_IDS
 from reports.models import Weights
 
 SHEET_MEDIA_GROUPS = [
@@ -1769,7 +1769,7 @@ class XLSXReportBuilder:
 
         secondary_counts = OrderedDict()
         for topic_id, topic in FOCUS_TOPICS.iteritems():
-            actual_topic_ids = [k for k, v in FOCUS_TOPIC_MAP.iteritems() if v == topic_id]
+            actual_topic_ids = FOCUS_TOPIC_IDS[topic_id]
             counts = Counter()
             secondary_counts[topic] = counts
 
@@ -1801,7 +1801,7 @@ class XLSXReportBuilder:
             for topic_id, topic in FOCUS_TOPICS.iteritems():
                 counts = Counter()
                 secondary_counts[topic] = counts
-                actual_topic_ids = [k for k, v in FOCUS_TOPIC_MAP.iteritems() if v == topic_id]
+                actual_topic_ids = FOCUS_TOPIC_IDS[topic_id]
 
                 for media_type, model in models.iteritems():
                     rows = model.objects\
@@ -1828,7 +1828,7 @@ class XLSXReportBuilder:
             for topic_id, topic in FOCUS_TOPICS.iteritems():
                 counts = Counter()
                 secondary_counts[topic] = counts
-                actual_topic_ids = [k for k, v in FOCUS_TOPIC_MAP.iteritems() if v == topic_id]
+                actual_topic_ids = FOCUS_TOPIC_IDS[topic_id]
 
                 for media_type, model in models.iteritems():
                     if 'stereotypes' in model._meta.get_all_field_names():
@@ -1854,7 +1854,7 @@ class XLSXReportBuilder:
             secondary_counts = OrderedDict()
             for topic_id, topic in FOCUS_TOPICS.iteritems():
                 counts = Counter()
-                actual_topic_ids = [k for k, v in FOCUS_TOPIC_MAP.iteritems() if v == topic_id]
+                actual_topic_ids = FOCUS_TOPIC_IDS[topic_id]
 
                 for media_type, model in models.iteritems():
                     if 'equality_rights' in model._meta.get_all_field_names():
@@ -1882,7 +1882,7 @@ class XLSXReportBuilder:
             secondary_counts = OrderedDict()
             for topic_id, topic in FOCUS_TOPICS.iteritems():
                 counts = Counter()
-                actual_topic_ids = [k for k, v in FOCUS_TOPIC_MAP.iteritems() if v == topic_id]
+                actual_topic_ids = FOCUS_TOPIC_IDS[topic_id]
 
                 for media_type, model in models.iteritems():
                     if 'victim_of' in model._meta.get_all_field_names():
@@ -1911,7 +1911,7 @@ class XLSXReportBuilder:
             secondary_counts = OrderedDict()
             for topic_id, topic in FOCUS_TOPICS.iteritems():
                 counts = Counter()
-                actual_topic_ids = [k for k, v in FOCUS_TOPIC_MAP.iteritems() if v == topic_id]
+                actual_topic_ids = FOCUS_TOPIC_IDS[topic_id]
 
                 for media_type, model in models.iteritems():
                     if 'survivor_of' in model._meta.get_all_field_names():

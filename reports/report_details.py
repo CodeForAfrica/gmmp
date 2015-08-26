@@ -495,10 +495,10 @@ FOCUS_TOPICS = {
     3: 'Economic participation',
 }
 
-FOCUS_TOPIC_MAP = {
-    1: 1,
-    2: 2, 5: 2, 6: 2, 44: 2, 45: 2, 47: 2,
-    11: 3, 13: 3,
+FOCUS_TOPIC_IDS = {
+    1: [1],
+    2: [2, 5, 6, 44, 45, 47],
+    3: [11, 13],
 }
 
 FORMATS = {
