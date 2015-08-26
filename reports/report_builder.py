@@ -213,19 +213,36 @@ class XLSXReportBuilder:
         else:
             sheets = WS_INFO.keys()
 
+        # choose only those suitable for this report type
+        sheets = [s for s in sheets if self.report_type in WS_INFO[s]['reports']]
         sheets.sort()
+
+        self.write_summary_sheet(workbook, sheets)
+
         for sheet in sheets:
-            if self.report_type in WS_INFO[sheet]['reports']:
-                ws = workbook.add_worksheet(WS_INFO[sheet]['name'])
-                self.write_headers(ws, WS_INFO[sheet]['title'], WS_INFO[sheet]['desc'])
-                self.log.info("Building sheet %s" % sheet)
-                getattr(self, sheet)(ws)
-                self.log.info("Completed sheet %s" % sheet)
+            ws = workbook.add_worksheet(WS_INFO[sheet]['name'])
+            self.write_headers(ws, WS_INFO[sheet]['title'], WS_INFO[sheet]['desc'])
+            self.log.info("Building sheet %s" % sheet)
+            getattr(self, sheet)(ws)
+            self.log.info("Completed sheet %s" % sheet)
 
         workbook.close()
         output.seek(0)
 
         return output.read()
+
+    def write_summary_sheet(self, workbook, sheets):
+        ws = workbook.add_worksheet('Summary')
+
+        ws.write(0, 0, 'Query sheets')
+        ws.write(2, 0, 'Number')
+        ws.write(2, 1, 'Title')
+        ws.write(2, 2, 'Description')
+
+        for i, sheet in enumerate(sheets):
+            ws.write(3 + i, 0, WS_INFO[sheet]['name'])
+            ws.write(3 + i, 1, WS_INFO[sheet]['title'])
+            ws.write(3 + i, 2, WS_INFO[sheet]['desc'])
 
     def recode_country(self, country):
         # some split countries must be "joined" at the global report level
