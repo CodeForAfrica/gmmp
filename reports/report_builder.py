@@ -209,7 +209,7 @@ class XLSXReportBuilder:
         #     'ws_61', 'ws_62', 'ws_63', 'ws_64', 'ws_65', 'ws_66', 'ws_67', 'ws_68', 'ws_68b',
         #     'ws_75', 'ws_76', 'ws_77', 'ws_78']
         if settings.DEBUG:
-            sheets = ['ws_05', 'ws_06', 'ws_74']
+            sheets = ['ws_01']
         else:
             sheets = WS_INFO.keys()
 
@@ -306,6 +306,11 @@ class XLSXReportBuilder:
         self.tabulate(ws, counts_list[0], TM_MEDIA_TYPES, self.regions, row_perc=True)
         c = ws.dim_colmax + 2
         self.tabulate(ws, counts_list[1], DM_MEDIA_TYPES, self.regions, row_perc=True, c=c, write_row_headings=False)
+        c = ws.dim_colmax + 2
+
+        self.tabulate_historical(ws, '01', TM_MEDIA_TYPES, self.regions, c=c)
+
+
 
     def ws_02(self, ws):
         """
@@ -2128,3 +2133,73 @@ class XLSXReportBuilder:
                 for i, row in enumerate(rows):
                     row_id, row_title = row
                     ws.write(r+i, c, row_totals[row_id], self.N)
+
+    def tabulate_historical(self, ws, current_ws, cols, rows, c, r=6, write_row_headings=True, write_col_headings=True):
+        # TODO: get historical worksheet
+        # TODO: get historical data
+        # TODO: write historical data
+
+        historical_data = {
+            2010: {
+                'Print': {
+                    'Africa': ['44%'],
+                    'Asia': ['49%'],
+                    'Caribean': ['34%'],
+                },
+                'Radio': {
+                    'Africa': ['44%'],
+                    'Asia': ['49%'],
+                    'Caribean': ['34%'],
+                },
+                'Television': {
+                    'Africa': ['44%', 217],
+                    'Asia': ['49%', 698],
+                    'Caribean': ['34%', 123],
+                }
+            }
+        }
+        years = sorted(historical_data.keys(), reverse=True)
+
+        for year in years:
+            data = historical_data[year]
+            ws.write(r - 3, c + 1, year, self.heading)
+
+            if write_row_headings:
+                # row titles
+                for i, (row_id, row_heading) in enumerate(rows):
+                    ws.write(r + i, c, row_heading)
+                c += 1
+
+            skip_col = False
+            for col_id, col_heading in cols:
+                # column title
+                if write_col_headings:
+                    ws.write(r - 2, c, col_heading, self.col_heading)
+                    ws.write(r - 1, c, '%', self.label)
+
+                    # check if this col has two values, finding the first
+                    # row that is actually in the historical dataset
+                    for row in (r for r in rows if r[1] in data[col_heading]):
+                        if len(data[col_heading][row[1]]) > 1:
+                            ws.write(r - 1, c + 1, 'N', self.label)
+                            skip_col = True
+
+                # row values
+                for i, (row_id, row_heading) in enumerate(rows):
+                    values = data[col_heading].get(row_heading)
+                    if values:
+                        ws.write(r + i, c, values[0], self.N)
+                        # if there is a second value, put it in the column alongside
+                        if len(values) > 1:
+                            ws.write(r + i, c + 1, values[1], self.N)
+
+                    else:
+                        ws.write(r + i, c, 'n/a')
+
+                # for next column
+                c += 1
+                if skip_col:
+                    c += 1
+
+            # for next year
+            c += 2
