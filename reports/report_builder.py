@@ -209,7 +209,7 @@ class XLSXReportBuilder:
         #     'ws_61', 'ws_62', 'ws_63', 'ws_64', 'ws_65', 'ws_66', 'ws_67', 'ws_68', 'ws_68b',
         #     'ws_75', 'ws_76', 'ws_77', 'ws_78']
         if settings.DEBUG:
-            sheets = ['ws_16']
+            sheets = ['ws_01', 'ws_05']
         else:
             sheets = WS_INFO.keys()
 
@@ -2148,42 +2148,52 @@ class XLSXReportBuilder:
             '01': {
                 2010: {
                     'Print': {
-                        'Africa': ['44%'],
-                        'Asia': ['49%'],
-                        'Caribean': ['34%'],
+                        'Africa': '44%',
+                        'Asia': '49%',
+                        'Caribean': '34%',
                     },
                     'Radio': {
-                        'Africa': ['44%'],
-                        'Asia': ['49%'],
-                        'Caribean': ['34%'],
+                        'Africa': '44%',
+                        'Asia': '49%',
+                        'Caribean': '34%',
                     },
                     'Television': {
-                        'Africa': ['44%', 217],
-                        'Asia': ['49%', 698],
-                        'Caribean': ['34%', 123],
+                        'Africa': '44%',
+                        'Asia': '49%',
+                        'Caribean': '34%',
+                    },
+                    'N': {
+                        'Africa': 217,
+                        'Asia': 698,
+                        'Caribean': 123,
                     }
                 },
             },
             '05': {
                 2010: {
                     'Female': {
-                        'Politics and Government': ['19%', 1794],
-                        'Economy': ['20%', 971],
-                        'Science and Health': ['20%', 971]
+                        'Politics and Government': '19%',
+                        'Economy': '20%',
+                        'Science and Health': '20%',
+                    },
+                    'N': {
+                        'Politics and Government': 1794,
+                        'Economy': 971,
+                        'Science and Health': 971
                     },
                 },
                 2005: {
                     'Female': {
-                        'Politics and Government': ['19%'],
-                        'Economy': ['20%'],
-                        'Science and Health': ['20%'],
+                        'Politics and Government': '19%',
+                        'Economy': '20%',
+                        'Science and Health': '20%',
                     },
                 },
                 2000: {
                     'Female': {
-                        'Politics and Government': ['39%'],
-                        'Economy': ['25%'],
-                        'Science and Health': ['55%'],
+                        'Politics and Government': '39%',
+                        'Economy': '25%',
+                        'Science and Health': '55%',
                     },
                 },
             },
@@ -2202,9 +2212,11 @@ class XLSXReportBuilder:
                         },
                     },
                     'N': {
-                        'Royalty, monarch, deposed monarch, etc.': 344,
-                        'Government official, politician, president, government minister, political leader, political party staff, spokesperson ...': 11710,
-                    },
+                        'N': {
+                            'row1': 5,
+                            'row2': 5,
+                        }
+                    }
                 },
                 2005: {
                     'Do not know': {
@@ -2275,16 +2287,23 @@ class XLSXReportBuilder:
                     data = year_data
 
                 skip_col = False
+
+                # do we need to keep N aside as a special column?
+                columns = cols
+                if 'N' in data:
+                    columns = columns + [('N', 'N')]
+
                 # for each minor column heading
-                for col_id, col_heading in cols:
+                for col_id, col_heading in columns:
                     col_heading = clean_title(col_heading)
 
                     if col_heading not in data:
                         continue
 
                     # column title
-                    ws.write(r - 2, c, col_heading, self.col_heading)
-                    ws.write(r - 1, c, '%', self.label)
+                    if col_heading != 'N':
+                        ws.write(r - 2, c, col_heading, self.col_heading)
+                    ws.write(r - 1, c, 'N' if col_heading == 'N' else '%', self.label)
 
                     # check if this col has two values, finding the first
                     # row that is actually in the historical dataset
