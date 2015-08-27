@@ -2032,6 +2032,7 @@ class XLSXReportBuilder:
         :param list rows: list of `(row_id, row_heading)` tuples of row ids and titles
         :param bool row_perc: should percentages by calculated by row instead of column (default: False)
         :param write_row_headings: Should we write the row headings. False if already written.
+        :param write_row_totals: Should we write the row totals. False if tabultae_secondary_cols was run.
         :param write_col_headings: Should we write the col headings. False if already written.
         :param filter_cols: If not None, display only passed subset of columns e.g. only female
         :param r, c: initial position where cursor should start writing to
