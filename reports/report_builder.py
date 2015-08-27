@@ -209,7 +209,7 @@ class XLSXReportBuilder:
         #     'ws_61', 'ws_62', 'ws_63', 'ws_64', 'ws_65', 'ws_66', 'ws_67', 'ws_68', 'ws_68b',
         #     'ws_75', 'ws_76', 'ws_77', 'ws_78']
         if settings.DEBUG:
-            sheets = ['ws_02', 'ws_06']
+            sheets = ['ws_01', 'ws_06', 'ws_16']
         else:
             sheets = WS_INFO.keys()
 
@@ -442,6 +442,8 @@ class XLSXReportBuilder:
                 secondary_counts[region] = counts
             self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, MAJOR_TOPICS, row_perc=True, filter_cols=self.female, show_N=True, c=c, r=8)
             c = ws.dim_colmax + 2
+
+        self.tabulate_historical(ws, '06', self.female, MAJOR_TOPICS, major_cols=self.regions, show_N_and_P=True, r=7)
 
     def ws_07(self, ws):
         """
@@ -2138,7 +2140,7 @@ class XLSXReportBuilder:
                     ws.write(r+i, c, row_totals[row_id], self.N)
 
     def tabulate_historical(self, ws, current_ws, cols, rows, c=None, r=6, write_row_headings=True,
-                            major_cols=None, skip_major_col_heading=False):
+                            show_N_and_P=False, major_cols=None, skip_major_col_heading=False):
         # TODO: get historical worksheet
         # TODO: get historical data
         # TODO: write historical data
@@ -2194,6 +2196,24 @@ class XLSXReportBuilder:
                         'Politics and Government': '39%',
                         'Economy': '25%',
                         'Science and Health': '55%',
+                    },
+                },
+            },
+            '06': {
+                2010: {
+                    'Africa': {
+                        'Female': {
+                            'Politics and Government': [30, '19%'],
+                            'Economy': [2, '20%'],
+                            'Science and Health': [5, '20%'],
+                        },
+                    },
+                    'Asia': {
+                        'Female': {
+                            'Politics and Government': [30, '19%'],
+                            'Economy': [2, '20%'],
+                            'Science and Health': [5, '20%'],
+                        },
                     },
                 },
             },
@@ -2256,6 +2276,8 @@ class XLSXReportBuilder:
         if major_cols:
             r += 1
 
+        values_per_col = 2 if show_N_and_P else 1
+
         if write_row_headings:
             # row titles
             for i, (row_id, row_heading) in enumerate(rows):
@@ -2267,7 +2289,7 @@ class XLSXReportBuilder:
             year_data = historical_data[current_ws][year]
 
             offset = 3
-            if skip_major_col_heading:
+            if skip_major_col_heading or major_cols:
                 offset = 4
             ws.write(r - offset, c, year, self.heading)
 
@@ -2279,14 +2301,16 @@ class XLSXReportBuilder:
                         continue
 
                     # major column title
-                    ws.merge_range(r - 3, c, r - 3, c + len(cols) - 1, mcol_heading, self.sec_col_heading)
+                    width = len(cols) * values_per_col
+                    if width > 1:
+                        ws.merge_range(r - 3, c, r - 3, c + width - 1, mcol_heading, self.sec_col_heading)
+                    else:
+                        ws.write(r - 3, c, mcol_heading, self.sec_col_heading)
 
                     # get data
                     data = year_data[mcol_heading]
                 else:
                     data = year_data
-
-                skip_col = False
 
                 # do we need to keep N aside as a special column?
                 columns = cols
@@ -2302,31 +2326,31 @@ class XLSXReportBuilder:
 
                     # column title
                     if col_heading != 'N':
-                        ws.write(r - 2, c, col_heading, self.col_heading)
-                    ws.write(r - 1, c, 'N' if col_heading == 'N' else '%', self.label)
+                        if values_per_col > 1:
+                            ws.merge_range(r - 2, c, r - 2, c + values_per_col - 1, col_heading, self.col_heading)
+                        else:
+                            ws.write(r - 2, c, col_heading, self.col_heading)
 
-                    # check if this col has two values, finding the first
-                    # row that is actually in the historical dataset
-                    # for row in (r for r in rows if r[1] in data[col_heading]):
-                    #     if len(data[col_heading][row[1]]) > 1:
-                    #         ws.write(r - 1, c + 1, 'N', self.label)
-                    #         skip_col = True
+                        ws.write(r - 1, c, '%', self.label)
+                        # if multiple values for this column, we're writing both a
+                        # percentage and an N
+                        if show_N_and_P:
+                            ws.write(r - 1, c + 1, 'N', self.label)
+                    else:
+                        ws.write(r - 1, c, 'N', self.label)
 
                     # row values
                     for i, (row_id, row_heading) in enumerate(rows):
                         row_heading = clean_title(row_heading)
                         value = data[col_heading].get(row_heading)
 
-                        if value:
-                            ws.write(r + i, c, value, self.N)
-                            # if there is a second value, put it in the column alongside
-                            # if len(values) > 1:
-                            #    ws.write(r + i, c + 1, value[1], self.N)
+                        if value is None:
+                            value = ['n/a'] * values_per_col
+                        elif not isinstance(value, list):
+                            value = [value]
 
-                        else:
-                            ws.write(r + i, c, 'n/a')
+                        for v in xrange(values_per_col):
+                            ws.write(r + i, c + v, value[v], self.N)
 
                     # for next column
-                    c += 1
-                    if skip_col:
-                        c += 1
+                    c += values_per_col
