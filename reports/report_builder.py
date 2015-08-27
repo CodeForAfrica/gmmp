@@ -209,7 +209,7 @@ class XLSXReportBuilder:
         #     'ws_61', 'ws_62', 'ws_63', 'ws_64', 'ws_65', 'ws_66', 'ws_67', 'ws_68', 'ws_68b',
         #     'ws_75', 'ws_76', 'ws_77', 'ws_78']
         if settings.DEBUG:
-            sheets = ['ws_01', 'ws_05']
+            sheets = ['ws_02', 'ws_06']
         else:
             sheets = WS_INFO.keys()
 
@@ -2008,10 +2008,10 @@ class XLSXReportBuilder:
             secondary_counts.pop('col_title_def')
 
         # number of columns per secondary column
-        sec_cols = len(cols)
+        sec_cols = len(filter_cols or cols)
         if show_N:
             sec_cols *= 2
-        if row_perc:
+        if not show_N and row_perc:
             sec_cols += 1
 
         for field, counts in secondary_counts.iteritems():
