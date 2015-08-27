@@ -209,7 +209,7 @@ class XLSXReportBuilder:
         #     'ws_61', 'ws_62', 'ws_63', 'ws_64', 'ws_65', 'ws_66', 'ws_67', 'ws_68', 'ws_68b',
         #     'ws_75', 'ws_76', 'ws_77', 'ws_78']
         if settings.DEBUG:
-            sheets = ['ws_05']
+            sheets = ['ws_16']
         else:
             sheets = WS_INFO.keys()
 
@@ -653,6 +653,8 @@ class XLSXReportBuilder:
             secondary_counts[function] = counts
 
         self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, OCCUPATION, row_perc=False)
+
+        self.tabulate_historical(ws, '16', self.male_female, OCCUPATION, major_cols=FUNCTION)
 
     def ws_17(self, ws):
         """
@@ -2135,8 +2137,8 @@ class XLSXReportBuilder:
                     row_id, row_title = row
                     ws.write(r+i, c, row_totals[row_id], self.N)
 
-    def tabulate_historical(self, ws, current_ws, cols, rows, c, r=6, write_row_headings=True, write_col_headings=True,
-                            skip_major_col_heading=False):
+    def tabulate_historical(self, ws, current_ws, cols, rows, c=None, r=6, write_row_headings=True,
+                            major_cols=None, skip_major_col_heading=False):
         # TODO: get historical worksheet
         # TODO: get historical data
         # TODO: write historical data
@@ -2185,55 +2187,127 @@ class XLSXReportBuilder:
                     },
                 },
             },
+            '16': {
+                2010: {
+                    'Do not know': {
+                        'Female': {
+                            'Not stated': '19%',
+                            'Royalty, monarch, deposed monarch, etc.': '20%',
+                            'Government, politician, minister, spokesperson...': '20%',
+                        },
+                        'Male': {
+                            'Not stated': '29%',
+                            'Royalty, monarch, deposed monarch, etc.': '26%',
+                            'Government, politician, minister, spokesperson...': '33%',
+                        },
+                    },
+                    'N': {
+                        'Royalty, monarch, deposed monarch, etc.': 344,
+                        'Government official, politician, president, government minister, political leader, political party staff, spokesperson ...': 11710,
+                    },
+                },
+                2005: {
+                    'Do not know': {
+                        'Female': {
+                            'Not stated': '19%',
+                            'Royalty, monarch, deposed monarch, etc.': '20%',
+                            'Government, politician, minister, spokesperson...': '20%',
+                        },
+                        'Male': {
+                            'Not stated': '29%',
+                            'Royalty, monarch, deposed monarch, etc.': '26%',
+                            'Government, politician, minister, spokesperson...': '33%',
+                        },
+                    },
+                },
+                2000: {
+                    'Do not know': {
+                        'Female': {
+                            'Not stated': '19%',
+                            'Royalty, monarch, deposed monarch, etc.': '20%',
+                            'Government, politician, minister, spokesperson...': '20%',
+                        },
+                        'Male': {
+                            'Not stated': '29%',
+                            'Royalty, monarch, deposed monarch, etc.': '26%',
+                            'Government, politician, minister, spokesperson...': '33%',
+                        },
+                    },
+                },
+            },
         }
         years = sorted(historical_data[current_ws].keys())
+
+        if c is None:
+            c = ws.dim_colmax + 2
+
+        if major_cols:
+            r += 1
 
         if write_row_headings:
             # row titles
             for i, (row_id, row_heading) in enumerate(rows):
+                row_heading = clean_title(row_heading)
                 ws.write(r + i, c, row_heading)
             c += 1
 
         for year_i, year in enumerate(years):
-            data = historical_data[current_ws][year]
+            year_data = historical_data[current_ws][year]
 
             offset = 3
             if skip_major_col_heading:
                 offset = 4
             ws.write(r - offset, c, year, self.heading)
 
-            skip_col = False
-            for col_id, col_heading in cols:
-                col_heading = clean_title(col_heading)
+            # for each major column heading
+            for mcol_id, mcol_heading in (major_cols or [(None, None)]):
+                if mcol_id is not None:
+                    mcol_heading = clean_title(mcol_heading)
+                    if mcol_heading not in year_data:
+                        continue
 
-                if col_heading not in data:
-                    continue
+                    # major column title
+                    ws.merge_range(r - 3, c, r - 3, c + len(cols) - 1, mcol_heading, self.sec_col_heading)
 
-                # column title
-                if write_col_headings:
+                    # get data
+                    data = year_data[mcol_heading]
+                else:
+                    data = year_data
+
+                skip_col = False
+                # for each minor column heading
+                for col_id, col_heading in cols:
+                    col_heading = clean_title(col_heading)
+
+                    if col_heading not in data:
+                        continue
+
+                    # column title
                     ws.write(r - 2, c, col_heading, self.col_heading)
                     ws.write(r - 1, c, '%', self.label)
 
                     # check if this col has two values, finding the first
                     # row that is actually in the historical dataset
-                    for row in (r for r in rows if r[1] in data[col_heading]):
-                        if len(data[col_heading][row[1]]) > 1:
-                            ws.write(r - 1, c + 1, 'N', self.label)
-                            skip_col = True
+                    # for row in (r for r in rows if r[1] in data[col_heading]):
+                    #     if len(data[col_heading][row[1]]) > 1:
+                    #         ws.write(r - 1, c + 1, 'N', self.label)
+                    #         skip_col = True
 
-                # row values
-                for i, (row_id, row_heading) in enumerate(rows):
-                    values = data[col_heading].get(row_heading)
-                    if values:
-                        ws.write(r + i, c, values[0], self.N)
-                        # if there is a second value, put it in the column alongside
-                        if len(values) > 1:
-                            ws.write(r + i, c + 1, values[1], self.N)
+                    # row values
+                    for i, (row_id, row_heading) in enumerate(rows):
+                        row_heading = clean_title(row_heading)
+                        value = data[col_heading].get(row_heading)
 
-                    else:
-                        ws.write(r + i, c, 'n/a')
+                        if value:
+                            ws.write(r + i, c, value, self.N)
+                            # if there is a second value, put it in the column alongside
+                            # if len(values) > 1:
+                            #    ws.write(r + i, c + 1, value[1], self.N)
 
-                # for next column
-                c += 1
-                if skip_col:
+                        else:
+                            ws.write(r + i, c, 'n/a')
+
+                    # for next column
                     c += 1
+                    if skip_col:
+                        c += 1
