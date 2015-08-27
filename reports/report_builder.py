@@ -82,7 +82,7 @@ def get_regions():
                         .values('region')\
                         .exclude(region='Unmapped')
     regions = set(item['region'] for item in country_regions)
-    return [(i, region) for i, region in enumerate(regions)]
+    return [(i, region) for i, region in enumerate(sorted(list(regions)))]
 
 def get_countries():
     """
