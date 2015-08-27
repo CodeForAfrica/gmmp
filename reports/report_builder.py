@@ -2018,11 +2018,11 @@ class XLSXReportBuilder:
 
         for field, counts in secondary_counts.iteritems():
             ws.merge_range(r-3, c, r-3, c+sec_cols-1, clean_title(field), self.sec_col_heading)
-            self.tabulate(ws, counts, cols, rows, row_perc=row_perc, write_row_headings=False, filter_cols=filter_cols, r=r, c=c, show_N=show_N)
+            self.tabulate(ws, counts, cols, rows, row_perc=row_perc, write_row_headings=False, write_row_totals=False, filter_cols=filter_cols, r=r, c=c, show_N=show_N)
             c += sec_cols
 
     def tabulate(self, ws, counts, cols, rows, row_perc=False,
-                 write_row_headings=True, write_col_headings=True,
+                 write_row_headings=True, write_col_headings=True, write_row_totals=True,
                  filter_cols=None, c=1, r=6, show_N=False):
         """ Emit a table.
 
@@ -2032,6 +2032,7 @@ class XLSXReportBuilder:
         :param list rows: list of `(row_id, row_heading)` tuples of row ids and titles
         :param bool row_perc: should percentages by calculated by row instead of column (default: False)
         :param write_row_headings: Should we write the row headings. False if already written.
+        :param write_row_totals: Should we write the row totals. False if tabultae_secondary_cols was run.
         :param write_col_headings: Should we write the col headings. False if already written.
         :param filter_cols: If not None, display only passed subset of columns e.g. only female
         :param r, c: initial position where cursor should start writing to
@@ -2061,78 +2062,53 @@ class XLSXReportBuilder:
             counts.pop('col_title_def')
 
         # values, written column by column
-        if show_N:
-            for col_id, col_heading in cols:
-                # column title
-                if write_col_headings:
-                    # else already written
+        for col_id, col_heading in cols:
+            # column title
+            if write_col_headings:
+                # else already written
+                if show_N:
                     ws.merge_range(r-2, c, r-2, c+1, clean_title(col_heading), self.col_heading)
                     ws.write(r-1, c, "%", self.label)
                     ws.write(r-1, c+1, "N", self.label)
-
-                if not row_perc:
-                    # column totals
-                    # Confirm: Perc of col total or matrix total?
-                    # total = sum(counts.itervalues())
-                    total = sum(counts.get((col_id, row_id), 0) for row_id, _ in rows)
-
-                # values for this column
-                col_total_perc = 0
-                for i, row in enumerate(rows):
-                    row_id, row_title = row
-
-                    if row_perc:
-                        # row totals
-                        total = row_totals[row_id]
-
-                    n = counts.get((col_id, row_id), 0)
-                    perc = p(n, total)
-
-                    ws.write(r+i, c, perc, self.P)
-                    ws.write(r+i, c+1, n, self.N)
-
-                    col_total_perc += perc
-
-                if row_perc:
-                    col_total_perc = col_total_perc / len (rows)
-
-                ws.write(r+i+1, c, col_total_perc, self.P)
-                c += 2
-        else:
-            # only write %'s
-            for col_id, col_heading in cols:
-                # column title
-                if write_col_headings:
-                    # else already written
+                else:
                     ws.write(r-2, c, clean_title(col_heading), self.col_heading)
                     ws.write(r-1, c, "%", self.label)
 
+            if not row_perc:
+                # column totals
+                # Confirm: Perc of col total or matrix total?
+                # total = sum(counts.itervalues())
                 total = sum(counts.get((col_id, row_id), 0) for row_id, _ in rows)
 
-                # values for this column
-                col_total = 0
-                for i, row in enumerate(rows):
-                    row_id, row_title = row
+            # values for this column
+            col_total = 0
+            for i, row in enumerate(rows):
+                row_id, row_title = row
 
-                    if row_perc:
-                        # row totals
-                        total = row_totals[row_id]
-
-                    n = counts.get((col_id, row_id), 0)
-                    perc = p(n, total)
-                    ws.write(r+i, c, perc, self.P)
-                    col_total += perc
                 if row_perc:
-                    col_total = col_total / len(rows)
-                ws.write(r+i+1, c, col_total, self.P)
+                    # row totals
+                    total = row_totals[row_id]
 
-                c += 1
+                n = counts.get((col_id, row_id), 0)
+                perc = p(n, total)
+
+                ws.write(r+i, c, perc, self.P)
+                if show_N:
+                    ws.write(r+i, c+1, n, self.N)
+
+                col_total += perc
 
             if row_perc:
-                # Write the row totals
-                for i, row in enumerate(rows):
-                    row_id, row_title = row
-                    ws.write(r+i, c, row_totals[row_id], self.N)
+                col_total = col_total / len (rows)
+
+            ws.write(r+i+1, c, col_total, self.P)
+            c += 2 if show_N else 1
+
+        if row_perc and write_row_totals:
+            # Write the row totals
+            for i, row in enumerate(rows):
+                row_id, row_title = row
+                ws.write(r+i, c, row_totals[row_id], self.N)
 
     def tabulate_historical(self, ws, current_ws, cols, rows, c=None, r=6, write_row_headings=True,
                             show_N_and_P=False, major_cols=None, skip_major_col_heading=False):
