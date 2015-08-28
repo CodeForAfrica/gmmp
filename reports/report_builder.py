@@ -212,7 +212,7 @@ class XLSXReportBuilder:
         #     'ws_61', 'ws_62', 'ws_63', 'ws_64', 'ws_65', 'ws_66', 'ws_67', 'ws_68', 'ws_68b',
         #     'ws_75', 'ws_76', 'ws_77', 'ws_78']
         if settings.DEBUG:
-            sheets = ['ws_02']
+            sheets = ['ws_04']
         else:
             sheets = WS_INFO.keys()
 
@@ -393,6 +393,9 @@ class XLSXReportBuilder:
         self.tabulate_secondary_cols(ws, counts_list[0], TM_MEDIA_TYPES, MAJOR_TOPICS, row_perc=False)
         c = ws.dim_colmax + 2
         self.tabulate_secondary_cols(ws, counts_list[1], DM_MEDIA_TYPES, MAJOR_TOPICS, row_perc=False, c=c)
+        c = ws.dim_colmax + 2
+
+        self.tabulate_historical(ws, '04', self.regions, MAJOR_TOPICS, c=c, r=7, skip_major_col_heading=True)
 
     def ws_05(self, ws):
         """
@@ -2141,8 +2144,7 @@ class XLSXReportBuilder:
         :param skip_major_col_heading: allow space for, but skip, major column headings?
         :param write_year: should we write the year?
         """
-
-        historical_data = self.historical.get(current_ws)
+        historical_data = self.historical.get(current_ws, self.report_type)
         years = sorted(historical_data.keys())
 
         if c is None:

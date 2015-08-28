@@ -20,6 +20,7 @@ WS_INFO = {
         'title': 'Topics in the news by region',
         'desc': 'Breakdown of major news topics by region by medium',
         'reports': ['global', 'region'],
+        'historical': '3aF'
     },
     'ws_05': {
         'name': '5',

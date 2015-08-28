@@ -483,6 +483,66 @@
           "zimbabwe": "24%"
         }
       }
+    }, 
+    "3aF": {
+      "2010": {
+        "africa": {
+          "crime and violence": "17%", 
+          "economy": "18%", 
+          "politics and government": "29%", 
+          "science and health": "9%", 
+          "social and legal": "18%"
+        }, 
+        "asia": {
+          "crime and violence": "18%", 
+          "economy": "20%", 
+          "politics and government": "30%", 
+          "science and health": "9%", 
+          "social and legal": "14%"
+        }, 
+        "caribbean": {
+          "crime and violence": "27%", 
+          "economy": "15%", 
+          "politics and government": "22%", 
+          "science and health": "9%", 
+          "social and legal": "17%"
+        }, 
+        "europe": {
+          "crime and violence": "18%", 
+          "economy": "15%", 
+          "politics and government": "31%", 
+          "science and health": "10%", 
+          "social and legal": "11%"
+        }, 
+        "latin america": {
+          "crime and violence": "22%", 
+          "economy": "17%", 
+          "politics and government": "25%", 
+          "science and health": "11%", 
+          "social and legal": "15%"
+        }, 
+        "middle east": {
+          "crime and violence": "12%", 
+          "economy": "11%", 
+          "politics and government": "48%", 
+          "science and health": "9%", 
+          "social and legal": "11%"
+        }, 
+        "north america": {
+          "crime and violence": "30%", 
+          "economy": "11%", 
+          "politics and government": "24%", 
+          "science and health": "15%", 
+          "social and legal": "9%"
+        }, 
+        "pacific islands": {
+          "crime and violence": "22%", 
+          "economy": "15%", 
+          "politics and government": "16%", 
+          "science and health": "6%", 
+          "social and legal": "18%"
+        }
+      }
     }
   }
 }
