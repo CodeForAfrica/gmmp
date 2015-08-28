@@ -7,8 +7,13 @@ from reports.report_details import WS_INFO
 
 
 RECODES = {
-    'Caribbean': 'Caribbean',
     'Pacific': 'Pacific Islands',
+    'Congo, Rep (Brazzaville)': 'Congo',
+    'Congo, Dem Rep': 'Congo (the Democratic Republic of the)',
+    'Bosnia & Herzegovina': 'Bosnia and Herzegovina',
+    'St Lucia': 'Saint Lucia',
+    'St. Vincent and The Grenadines': 'Saint Vincent and the Grenadines',
+    'Trinidad & Tobago': 'Trinidad and Tobago',
 }
 
 
@@ -36,7 +41,7 @@ class Historical(object):
 
     def save(self):
         with open(self.fname, 'w') as f:
-            json.dump(self.all_data, f)
+            json.dump(self.all_data, f, indent=2, sort_keys=True)
 
     def get(self, new_ws):
         sheet = WS_INFO['ws_' + new_ws]
@@ -51,7 +56,7 @@ class Historical(object):
 
         return self.all_data[sheet['historical']]
 
-    def import_from_file(self, fname):
+    def import_from_file(self, fname, coverage):
         # TODO: regional? country? global?
         wb = openpyxl.load_workbook(fname, read_only=True, data_only=True)
 
@@ -62,7 +67,10 @@ class Historical(object):
             data = getattr(self, 'import_%s' % old_sheet)(ws, new_sheet)
             self.log.info("Imported sheet %s" % old_sheet)
 
-            self.all_data[old_sheet] = data
+            if coverage not in self.all_data:
+                self.all_data[coverage] = {}
+
+            self.all_data[coverage][old_sheet] = data
 
     def historical_sheets(self):
         return [(sheet['historical'], sheet) for sheet in WS_INFO.itervalues() if 'historical' in sheet]
@@ -71,16 +79,26 @@ class Historical(object):
         year = 2010
         data = {}
         all_data = {year: data}
-        row_heading_col = 5
 
-        for icol in xrange(15, 19):
-            col_heading = canon(ws.cell(column=icol, row=4).value)
+        self.slurp_table(ws, data, col_start=15, col_end=18, row_end=12)
+
+        return all_data
+
+    def import_2F(self, ws, sheet_info):
+        year = 2010
+        data = {}
+        all_data = {year: data}
+
+        self.slurp_table(ws, data, col_start=15, col_end=18, row_start=6, row_end=114)
+
+        return all_data
+
+    def slurp_table(self, ws, data, col_start, col_end, row_end, row_start=5, col_heading_row=4, row_heading_col=5):
+        for icol in xrange(col_start, col_end + 1):
+            col_heading = canon(ws.cell(column=icol, row=col_heading_row).value)
             col_data = {}
             data[col_heading] = col_data
 
-            for irow in xrange(5, 12):
+            for irow in xrange(row_start, row_end):
                 row_heading = canon(ws.cell(column=row_heading_col, row=irow).value)
-                # TODO: normalise this?
                 col_data[row_heading] = ws.cell(column=icol, row=irow).value
-
-        return all_data

@@ -212,7 +212,7 @@ class XLSXReportBuilder:
         #     'ws_61', 'ws_62', 'ws_63', 'ws_64', 'ws_65', 'ws_66', 'ws_67', 'ws_68', 'ws_68b',
         #     'ws_75', 'ws_76', 'ws_77', 'ws_78']
         if settings.DEBUG:
-            sheets = ['ws_01']
+            sheets = ['ws_02']
         else:
             sheets = WS_INFO.keys()
 
@@ -325,6 +325,8 @@ class XLSXReportBuilder:
             c += len(media_types) + 2
 
         weights = {(w.country, w.media_type): w.weight for w in Weights.objects.all()}
+        first = True
+        historical_c = None
 
         for region_id, region in self.regions:
             counts_list = []
@@ -354,6 +356,13 @@ class XLSXReportBuilder:
             self.tabulate(ws, counts_list[0], TM_MEDIA_TYPES, region_countries, row_perc=True, write_col_headings=False, r=r)
             c = 7
             self.tabulate(ws, counts_list[1], DM_MEDIA_TYPES, region_countries, row_perc=True, write_col_headings=False, write_row_headings=False, r=r, c=c)
+
+            if historical_c is None:
+                historical_c = ws.dim_colmax + 2
+
+            self.tabulate_historical(ws, '02', TM_MEDIA_TYPES, region_countries, r=r, c=historical_c, write_year=first, write_col_headings=first)
+            first = False
+
             r += (len(region_countries) + 2)
 
     def ws_04(self, ws):
@@ -2114,136 +2123,26 @@ class XLSXReportBuilder:
                 ws.write(r+i, c, row_totals[row_id], self.N)
 
     def tabulate_historical(self, ws, current_ws, cols, rows, c=None, r=6, write_row_headings=True,
-                            show_N_and_P=False, major_cols=None, skip_major_col_heading=False):
-        # TODO: get historical worksheet
-        # TODO: get historical data
-        # TODO: write historical data
-        # TODO: handle major/minor col headings
+                            write_col_headings=True, show_N_and_P=False, major_cols=None,
+                            skip_major_col_heading=False, write_year=True):
+        """
+        Write historical data table.
 
-        historical_data = {
-            '01': {
-                2010: {
-                    'Print': {
-                        'Africa': '44%',
-                        'Asia': '49%',
-                        'Caribean': '34%',
-                    },
-                    'Radio': {
-                        'Africa': '44%',
-                        'Asia': '49%',
-                        'Caribean': '34%',
-                    },
-                    'Television': {
-                        'Africa': '44%',
-                        'Asia': '49%',
-                        'Caribean': '34%',
-                    },
-                    'N': {
-                        'Africa': 217,
-                        'Asia': 698,
-                        'Caribean': 123,
-                    }
-                },
-            },
-            '05': {
-                2010: {
-                    'Female': {
-                        'Politics and Government': '19%',
-                        'Economy': '20%',
-                        'Science and Health': '20%',
-                    },
-                    'N': {
-                        'Politics and Government': 1794,
-                        'Economy': 971,
-                        'Science and Health': 971
-                    },
-                },
-                2005: {
-                    'Female': {
-                        'Politics and Government': '19%',
-                        'Economy': '20%',
-                        'Science and Health': '20%',
-                    },
-                },
-                2000: {
-                    'Female': {
-                        'Politics and Government': '39%',
-                        'Economy': '25%',
-                        'Science and Health': '55%',
-                    },
-                },
-            },
-            '06': {
-                2010: {
-                    'Africa': {
-                        'Female': {
-                            'Politics and Government': [30, '19%'],
-                            'Economy': [2, '20%'],
-                            'Science and Health': [5, '20%'],
-                        },
-                    },
-                    'Asia': {
-                        'Female': {
-                            'Politics and Government': [30, '19%'],
-                            'Economy': [2, '20%'],
-                            'Science and Health': [5, '20%'],
-                        },
-                    },
-                },
-            },
-            '16': {
-                2010: {
-                    'Do not know': {
-                        'Female': {
-                            'Not stated': '19%',
-                            'Royalty, monarch, deposed monarch, etc.': '20%',
-                            'Government, politician, minister, spokesperson...': '20%',
-                        },
-                        'Male': {
-                            'Not stated': '29%',
-                            'Royalty, monarch, deposed monarch, etc.': '26%',
-                            'Government, politician, minister, spokesperson...': '33%',
-                        },
-                    },
-                    'N': {
-                        'N': {
-                            'row1': 5,
-                            'row2': 5,
-                        }
-                    }
-                },
-                2005: {
-                    'Do not know': {
-                        'Female': {
-                            'Not stated': '19%',
-                            'Royalty, monarch, deposed monarch, etc.': '20%',
-                            'Government, politician, minister, spokesperson...': '20%',
-                        },
-                        'Male': {
-                            'Not stated': '29%',
-                            'Royalty, monarch, deposed monarch, etc.': '26%',
-                            'Government, politician, minister, spokesperson...': '33%',
-                        },
-                    },
-                },
-                2000: {
-                    'Do not know': {
-                        'Female': {
-                            'Not stated': '19%',
-                            'Royalty, monarch, deposed monarch, etc.': '20%',
-                            'Government, politician, minister, spokesperson...': '20%',
-                        },
-                        'Male': {
-                            'Not stated': '29%',
-                            'Royalty, monarch, deposed monarch, etc.': '26%',
-                            'Government, politician, minister, spokesperson...': '33%',
-                        },
-                    },
-                },
-            },
-        }
+        :param ws: worksheet to write to
+        :param current_ws: name of the current period's worksheet
+        :param cols: list of (id, key) column pairs
+        :param rows: list of (id, key) row pairs
+        :param c: column to start at; default: furtherst column to the right
+        :param r: row to start at
+        :param write_row_headings: should row headings be written?
+        :param write_col_headings: should col headings be written?
+        :param show_N_and_P: show both N and P for a row/col value, or just show P?
+        :param major_cols: the major (top) columns as a list of (id, key) pairs
+        :param skip_major_col_heading: allow space for, but skip, major column headings?
+        :param write_year: should we write the year?
+        """
+
         historical_data = self.historical.get(current_ws)
-
         years = sorted(historical_data.keys())
 
         if c is None:
@@ -2264,10 +2163,11 @@ class XLSXReportBuilder:
         for year_i, year in enumerate(years):
             year_data = historical_data[year]
 
-            offset = 3
-            if skip_major_col_heading or major_cols:
-                offset = 4
-            ws.write(r - offset, c, year, self.heading)
+            if write_year:
+                offset = 3
+                if skip_major_col_heading or major_cols:
+                    offset = 4
+                ws.write(r - offset, c, year, self.heading)
 
             # for each major column heading
             for mcol_id, mcol_heading in (major_cols or [(None, None)]):
@@ -2276,12 +2176,13 @@ class XLSXReportBuilder:
                     if canon(mcol_heading) not in year_data:
                         continue
 
-                    # major column title
-                    width = len(cols) * values_per_col
-                    if width > 1:
-                        ws.merge_range(r - 3, c, r - 3, c + width - 1, mcol_heading, self.sec_col_heading)
-                    else:
-                        ws.write(r - 3, c, mcol_heading, self.sec_col_heading)
+                    if write_col_headings:
+                        # major column title
+                        width = len(cols) * values_per_col
+                        if width > 1:
+                            ws.merge_range(r - 3, c, r - 3, c + width - 1, mcol_heading, self.sec_col_heading)
+                        else:
+                            ws.write(r - 3, c, mcol_heading, self.sec_col_heading)
 
                     # get data
                     data = year_data[canon(mcol_heading)]
@@ -2301,19 +2202,20 @@ class XLSXReportBuilder:
                         continue
 
                     # column title
-                    if col_heading != 'N':
-                        if values_per_col > 1:
-                            ws.merge_range(r - 2, c, r - 2, c + values_per_col - 1, col_heading, self.col_heading)
-                        else:
-                            ws.write(r - 2, c, col_heading, self.col_heading)
+                    if write_col_headings:
+                        if col_heading != 'N':
+                            if values_per_col > 1:
+                                ws.merge_range(r - 2, c, r - 2, c + values_per_col - 1, col_heading, self.col_heading)
+                            else:
+                                ws.write(r - 2, c, col_heading, self.col_heading)
 
-                        ws.write(r - 1, c, '%', self.label)
-                        # if multiple values for this column, we're writing both a
-                        # percentage and an N
-                        if show_N_and_P:
-                            ws.write(r - 1, c + 1, 'N', self.label)
-                    else:
-                        ws.write(r - 1, c, 'N', self.label)
+                            ws.write(r - 1, c, '%', self.label)
+                            # if multiple values for this column, we're writing both a
+                            # percentage and an N
+                            if show_N_and_P:
+                                ws.write(r - 1, c + 1, 'N', self.label)
+                        else:
+                            ws.write(r - 1, c, 'N', self.label)
 
                     # row values
                     for i, (row_id, row_heading) in enumerate(rows):
