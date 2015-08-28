@@ -43,18 +43,17 @@ class Historical(object):
         with open(self.fname, 'w') as f:
             json.dump(self.all_data, f, indent=2, sort_keys=True)
 
-    def get(self, new_ws):
+    def get(self, new_ws, coverage):
         sheet = WS_INFO['ws_' + new_ws]
 
         if 'historical' not in sheet:
             raise KeyError('New worksheet %s is not linked to an historical worksheet' % new_ws)
-
         old_ws = sheet['historical']
 
-        if old_ws not in self.all_data:
+        if old_ws not in self.all_data[coverage]:
             raise KeyError('Old worksheet %s does not have any historical data' % new_ws)
 
-        return self.all_data[sheet['historical']]
+        return self.all_data[coverage][sheet['historical']]
 
     def import_from_file(self, fname, coverage):
         # TODO: regional? country? global?
@@ -90,6 +89,15 @@ class Historical(object):
         all_data = {year: data}
 
         self.slurp_table(ws, data, col_start=15, col_end=18, row_start=6, row_end=114)
+
+        return all_data
+
+    def import_3aF(self, ws, sheet_info):
+        year = 2010
+        data = {}
+        all_data = {year:data}
+
+        self.slurp_table(ws, data, col_start=6, col_end=13, row_end=10, col_heading_row=3)
 
         return all_data
 
