@@ -23,6 +23,7 @@ from forms.modelutils import (TOPICS, GENDER, SPACE, OCCUPATION, FUNCTION, SCOPE
     RETWEET, TV_ROLE, MEDIA_TYPES, TM_MEDIA_TYPES, DM_MEDIA_TYPES, CountryRegion)
 from report_details import WS_INFO, REGION_COUNTRY_MAP, MAJOR_TOPICS, TOPIC_GROUPS, GROUP_TOPICS_MAP, FORMATS, FOCUS_TOPICS, FOCUS_TOPIC_IDS
 from reports.models import Weights
+from reports.historical import Historical, canon
 
 SHEET_MEDIA_GROUPS = [
     (TM_MEDIA_TYPES, tm_sheet_models),
@@ -169,6 +170,8 @@ class XLSXReportBuilder:
 
         self.gmmp_year = '2015'
 
+        self.historical = Historical()
+
     def recode_countries(self):
         # squash recoded countries
         self.countries = [(c, n) for c, n in self.countries if c not in COUNTRY_RECODES]
@@ -209,7 +212,7 @@ class XLSXReportBuilder:
         #     'ws_61', 'ws_62', 'ws_63', 'ws_64', 'ws_65', 'ws_66', 'ws_67', 'ws_68', 'ws_68b',
         #     'ws_75', 'ws_76', 'ws_77', 'ws_78']
         if settings.DEBUG:
-            sheets = ['ws_01', 'ws_06', 'ws_16']
+            sheets = ['ws_01']
         else:
             sheets = WS_INFO.keys()
 
@@ -2239,7 +2242,9 @@ class XLSXReportBuilder:
                 },
             },
         }
-        years = sorted(historical_data[current_ws].keys())
+        historical_data = self.historical.get(current_ws)
+
+        years = sorted(historical_data.keys())
 
         if c is None:
             c = ws.dim_colmax + 2
@@ -2257,7 +2262,7 @@ class XLSXReportBuilder:
             c += 1
 
         for year_i, year in enumerate(years):
-            year_data = historical_data[current_ws][year]
+            year_data = historical_data[year]
 
             offset = 3
             if skip_major_col_heading or major_cols:
@@ -2268,7 +2273,7 @@ class XLSXReportBuilder:
             for mcol_id, mcol_heading in (major_cols or [(None, None)]):
                 if mcol_id is not None:
                     mcol_heading = clean_title(mcol_heading)
-                    if mcol_heading not in year_data:
+                    if canon(mcol_heading) not in year_data:
                         continue
 
                     # major column title
@@ -2279,20 +2284,20 @@ class XLSXReportBuilder:
                         ws.write(r - 3, c, mcol_heading, self.sec_col_heading)
 
                     # get data
-                    data = year_data[mcol_heading]
+                    data = year_data[canon(mcol_heading)]
                 else:
                     data = year_data
 
                 # do we need to keep N aside as a special column?
                 columns = cols
-                if 'N' in data:
+                if canon('N') in data:
                     columns = columns + [('N', 'N')]
 
                 # for each minor column heading
                 for col_id, col_heading in columns:
                     col_heading = clean_title(col_heading)
 
-                    if col_heading not in data:
+                    if canon(col_heading) not in data:
                         continue
 
                     # column title
@@ -2313,7 +2318,7 @@ class XLSXReportBuilder:
                     # row values
                     for i, (row_id, row_heading) in enumerate(rows):
                         row_heading = clean_title(row_heading)
-                        value = data[col_heading].get(row_heading)
+                        value = data[canon(col_heading)].get(canon(row_heading))
 
                         if value is None:
                             value = ['n/a'] * values_per_col

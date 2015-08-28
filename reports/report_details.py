@@ -6,6 +6,7 @@ WS_INFO = {
         'title': 'Participating Countries',
         'desc': 'Breakdown of all media by region',
         'reports': ['global'],
+        'historical': '1F',
     },
     'ws_02': {
         'name': '2',
