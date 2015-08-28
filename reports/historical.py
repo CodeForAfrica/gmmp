@@ -57,7 +57,7 @@ class Historical(object):
 
         return self.all_data[sheet['historical']]
 
-    def import_from_file(self, fname):
+    def import_from_file(self, fname, coverage):
         # TODO: regional? country? global?
         wb = openpyxl.load_workbook(fname, read_only=True, data_only=True)
 
@@ -68,7 +68,10 @@ class Historical(object):
             data = getattr(self, 'import_%s' % old_sheet)(ws, new_sheet)
             self.log.info("Imported sheet %s" % old_sheet)
 
-            self.all_data[old_sheet] = data
+            if coverage not in self.all_data:
+                self.all_data[coverage] = {}
+
+            self.all_data[coverage][old_sheet] = data
 
     def historical_sheets(self):
         return [(sheet['historical'], sheet) for sheet in WS_INFO.itervalues() if 'historical' in sheet]
