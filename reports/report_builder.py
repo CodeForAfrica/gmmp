@@ -417,7 +417,7 @@ class XLSXReportBuilder:
         self.tabulate_secondary_cols(ws, counts_list[1], self.male_female, MAJOR_TOPICS, row_perc=True, c=c, write_row_headings=False)
         c = ws.dim_colmax + 2
 
-        self.tabulate_historical(ws, '05', self.male_female, MAJOR_TOPICS, c=c, r=7, skip_major_col_heading=True)
+        # self.tabulate_historical(ws, '05', self.male_female, MAJOR_TOPICS, c=c, r=7, skip_major_col_heading=True)
 
     def ws_06(self, ws):
         """
@@ -446,7 +446,7 @@ class XLSXReportBuilder:
             self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, MAJOR_TOPICS, row_perc=True, filter_cols=self.female, show_N=True, c=c, r=8)
             c = ws.dim_colmax + 2
 
-        self.tabulate_historical(ws, '06', self.female, MAJOR_TOPICS, major_cols=self.regions, show_N_and_P=True, r=7)
+        # self.tabulate_historical(ws, '06', self.female, MAJOR_TOPICS, major_cols=self.regions, show_N_and_P=True, r=7)
 
     def ws_07(self, ws):
         """
@@ -659,7 +659,7 @@ class XLSXReportBuilder:
 
         self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, OCCUPATION, row_perc=False)
 
-        self.tabulate_historical(ws, '16', self.male_female, OCCUPATION, major_cols=FUNCTION)
+        # self.tabulate_historical(ws, '16', self.male_female, OCCUPATION, major_cols=FUNCTION)
 
     def ws_17(self, ws):
         """
