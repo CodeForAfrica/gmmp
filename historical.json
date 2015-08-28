@@ -487,6 +487,7 @@
     "3aF": {
       "2010": {
         "africa": {
+          "celebrity, arts and media, sports": "7%", 
           "crime and violence": "17%", 
           "economy": "18%", 
           "politics and government": "29%", 
@@ -494,6 +495,7 @@
           "social and legal": "18%"
         }, 
         "asia": {
+          "celebrity, arts and media, sports": "8%", 
           "crime and violence": "18%", 
           "economy": "20%", 
           "politics and government": "30%", 
@@ -501,6 +503,7 @@
           "social and legal": "14%"
         }, 
         "caribbean": {
+          "celebrity, arts and media, sports": "9%", 
           "crime and violence": "27%", 
           "economy": "15%", 
           "politics and government": "22%", 
@@ -508,6 +511,7 @@
           "social and legal": "17%"
         }, 
         "europe": {
+          "celebrity, arts and media, sports": "13%", 
           "crime and violence": "18%", 
           "economy": "15%", 
           "politics and government": "31%", 
@@ -515,6 +519,7 @@
           "social and legal": "11%"
         }, 
         "latin america": {
+          "celebrity, arts and media, sports": "9%", 
           "crime and violence": "22%", 
           "economy": "17%", 
           "politics and government": "25%", 
@@ -522,6 +527,7 @@
           "social and legal": "15%"
         }, 
         "middle east": {
+          "celebrity, arts and media, sports": "7%", 
           "crime and violence": "12%", 
           "economy": "11%", 
           "politics and government": "48%", 
@@ -529,6 +535,7 @@
           "social and legal": "11%"
         }, 
         "north america": {
+          "celebrity, arts and media, sports": "7%", 
           "crime and violence": "30%", 
           "economy": "11%", 
           "politics and government": "24%", 
@@ -536,6 +543,7 @@
           "social and legal": "9%"
         }, 
         "pacific islands": {
+          "celebrity, arts and media, sports": "19%", 
           "crime and violence": "22%", 
           "economy": "15%", 
           "politics and government": "16%", 

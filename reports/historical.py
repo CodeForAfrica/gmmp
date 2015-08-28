@@ -97,7 +97,7 @@ class Historical(object):
         data = {}
         all_data = {year:data}
 
-        self.slurp_table(ws, data, col_start=6, col_end=13, row_end=10, col_heading_row=3)
+        self.slurp_table(ws, data, col_start=6, col_end=13, row_end=11, col_heading_row=3)
 
         return all_data
 
