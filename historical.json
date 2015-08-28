@@ -551,6 +551,56 @@
           "social and legal": "18%"
         }
       }
+    }, 
+    "9aF": {
+      "2000": {
+        "female": {
+          "celebrity, arts and media, sports": 0.23, 
+          "crime and violence": 0.18, 
+          "economy": 0.18, 
+          "other": "n/a", 
+          "politics and government": 0.12, 
+          "science and health": 0.21, 
+          "social and legal": 0.21, 
+          "the girl-child": "new code"
+        }
+      }, 
+      "2005": {
+        "female": {
+          "celebrity, arts and media, sports": 0.28, 
+          "crime and violence": 0.22, 
+          "economy": 0.2, 
+          "other": "n/a", 
+          "politics and government": 0.14, 
+          "science and health": 0.22, 
+          "social and legal": 0.28, 
+          "the girl-child": "new topic"
+        }
+      }, 
+      "2010": {
+        "female": {
+          "celebrity, arts and media, sports": "26%", 
+          "crime and violence": "24%", 
+          "economy": "20%", 
+          "other": "38%", 
+          "politics and government": "19%", 
+          "science and health": "32%", 
+          "social and legal": "30%", 
+          "the girl-child": "69%"
+        }
+      }, 
+      "n": {
+        "female": {
+          "celebrity, arts and media, sports": "836", 
+          "crime and violence": "1740", 
+          "economy": "971", 
+          "other": "142", 
+          "politics and government": "1794", 
+          "science and health": "972", 
+          "social and legal": "1216", 
+          "the girl-child": "46"
+        }
+      }
     }
   }
 }

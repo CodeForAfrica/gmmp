@@ -212,7 +212,7 @@ class XLSXReportBuilder:
         #     'ws_61', 'ws_62', 'ws_63', 'ws_64', 'ws_65', 'ws_66', 'ws_67', 'ws_68', 'ws_68b',
         #     'ws_75', 'ws_76', 'ws_77', 'ws_78']
         if settings.DEBUG:
-            sheets = ['ws_04']
+            sheets = ['ws_05']
         else:
             sheets = WS_INFO.keys()
 
@@ -429,7 +429,7 @@ class XLSXReportBuilder:
         self.tabulate_secondary_cols(ws, counts_list[1], self.male_female, MAJOR_TOPICS, row_perc=True, c=c, write_row_headings=False)
         c = ws.dim_colmax + 2
 
-        # self.tabulate_historical(ws, '05', self.male_female, MAJOR_TOPICS, c=c, r=7, skip_major_col_heading=True)
+        self.tabulate_historical(ws, '05', self.male_female, MAJOR_TOPICS, c=c, r=7, skip_major_col_heading=True)
 
     def ws_06(self, ws):
         """

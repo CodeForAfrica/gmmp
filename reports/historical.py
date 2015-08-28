@@ -51,7 +51,7 @@ class Historical(object):
         old_ws = sheet['historical']
 
         if old_ws not in self.all_data[coverage]:
-            raise KeyError('Old worksheet %s does not have any historical data' % new_ws)
+            raise KeyError('Old worksheet %s does not have any historical data' % old_ws)
 
         return self.all_data[coverage][sheet['historical']]
 
@@ -95,9 +95,31 @@ class Historical(object):
     def import_3aF(self, ws, sheet_info):
         year = 2010
         data = {}
-        all_data = {year:data}
+        all_data = {year: data}
 
         self.slurp_table(ws, data, col_start=6, col_end=13, row_end=11, col_heading_row=3)
+
+        return all_data
+
+    def import_9aF(self, ws, sheet_info):
+        all_data = {}
+        col_heading = canon('Female')
+
+        for icol in xrange(7, 11):
+            year = ws.cell(column=icol, row=4).value
+            if year == 'N-F':
+                year = canon('N')
+            else:
+                year = int(year)
+
+            data = {}
+            all_data[year] = data
+            col_data = {}
+            data[col_heading] = col_data
+
+            for irow in xrange(5, 13):
+                row_heading = canon(ws.cell(column=5, row=irow).value)
+                col_data[row_heading] = ws.cell(column=icol, row=irow).value
 
         return all_data
 
