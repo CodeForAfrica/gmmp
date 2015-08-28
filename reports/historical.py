@@ -7,7 +7,7 @@ from reports.report_details import WS_INFO
 
 
 RECODES = {
-    'Caribbean': 'Carribean',
+    'Caribbean': 'Caribbean',
     'Pacific': 'Pacific Islands',
 }
 

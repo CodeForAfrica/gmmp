@@ -440,7 +440,7 @@ REGION_COUNTRY_MAP = {
     'Asia': [
         'AF', 'BD', 'BT', 'CN', 'IN', 'ID', 'JP', 'KG', 'MY', 'MN', 'NP', 'PK', 'PH',
         'KR', 'TW', 'VU', 'VN'],
-    'Carribean': [
+    'Caribbean': [
         'AG', 'BS', 'BB', 'BZ', 'CU', 'DO', 'GD', 'GY', 'HT', 'JM', 'LC', 'VC',
         'SR', 'TT'],
     'Europe': [
