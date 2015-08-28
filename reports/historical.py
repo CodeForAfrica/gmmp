@@ -108,12 +108,15 @@ class Historical(object):
         for icol in xrange(7, 11):
             year = ws.cell(column=icol, row=4).value
             if year == 'N-F':
-                year = canon('N')
+                year = 2010
+                col_heading = canon('N')
             else:
                 year = int(year)
 
-            data = {}
-            all_data[year] = data
+            if year not in all_data:
+                all_data[year] = {}
+
+            data = all_data[year]
             col_data = {}
             data[col_heading] = col_data
 

@@ -587,10 +587,8 @@
           "science and health": "32%", 
           "social and legal": "30%", 
           "the girl-child": "69%"
-        }
-      }, 
-      "n": {
-        "female": {
+        }, 
+        "n": {
           "celebrity, arts and media, sports": "836", 
           "crime and violence": "1740", 
           "economy": "971", 
