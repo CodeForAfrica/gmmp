@@ -87,6 +87,7 @@ RECODES = {
     "Other. Use only as a last resort (specify the occupation/position in 'Comments' section of coding sheet)": "Other only as last resort & explain",
     "Retired person, pensioner. Code this only if no other occupation is given, e.g. a retired police officer is coded 4; a retired politician is coded 2.": "Retired person, pensioner no other occupation given",
     "Activist or worker in civil society organisation, non-governmental organisation, trade union, human rights, consumer issues, environment, aid agency, peasant leader, United Nations": "Activist or worker in civil society org., NGO, trade union",
+    # function
     "Subject: the story is about this person, or about something the person has done, said etc.": "Subject",
     "Spokesperson: the person represents, or speaks on behalf of another person, a group or an organisation": "Spokesperson",
     "Expert or commentator: the person provides additional information, opinion or comment, based on specialist knowledge or expertise": "Expert or commentator",
@@ -95,6 +96,7 @@ RECODES = {
     "Popular opinion: the person's opinion is assumed to reflect that of the 'ordinary citizen' (e.g., in a street interview, vox populi etc); it is implied that the person's point of view is shared by a wider group of people.": "Popular Opinion",
     "Other. Use only as a last resort (describe the function in 'Comments' section of coding sheet).": "Other",
     "12 years or under": "12 and under",
+    # sexes
     "%F": "Female",
     "%M": "Male"
 }
@@ -270,6 +272,14 @@ class Historical(object):
         all_data = {year: data}
 
         self.slurp_secondary_col_table(ws, data, col_start=42, cols=6, cols_per_group=2, major_col_heading_row=3, row_start=6, row_end=11)
+        return all_data
+
+    def import_20fF(self, ws, sheet_info):
+        year = 2010
+        data = {}
+        all_data = {year: data}
+
+        self.slurp_secondary_col_table(ws, data, col_start=48, cols=7, cols_per_group=2, major_col_heading_row=3, row_start=7, row_end=31)
         return all_data
 
     def slurp_secondary_col_table(self, ws, data, col_start, cols_per_group, cols, row_end, row_start=5, major_col_heading_row=4, row_heading_col=5):
