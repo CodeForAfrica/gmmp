@@ -127,6 +127,7 @@ WS_INFO = {
         'title': 'Functions (top 5) and Occupations by sex of news subject',
         'desc': 'B.down of  news subjects\' functions (top 5) and occupations by sex of news subject',
         'reports': ['global', 'region', 'country'],
+        'historical': '20fF'
     },
     'ws_21': {
         'name': '21',
