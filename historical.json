@@ -1,5 +1,51 @@
 {
   "global": {
+    "18cF": {
+      "2005": {
+        "female": {
+          "12 and under": 0.41, 
+          "13-18": 0.38, 
+          "19-34": 0.36, 
+          "35-49": 0.33, 
+          "50-64": 0.22, 
+          "65 years or more": 0.43
+        }, 
+        "male": {
+          "12 and under": 0.59, 
+          "13-18": 0.62, 
+          "19-34": 0.64, 
+          "35-49": 0.67, 
+          "50-64": 0.78, 
+          "65 years or more": 0.57
+        }
+      }, 
+      "2010": {
+        "female": {
+          "12 and under": 0.21, 
+          "13-18": 0.58, 
+          "19-34": 0.44, 
+          "35-49": 0.42, 
+          "50-64": 0.37, 
+          "65 years or more": 0.24
+        }, 
+        "male": {
+          "12 and under": 0.79, 
+          "13-18": 0.42, 
+          "19-34": 0.56, 
+          "35-49": 0.58, 
+          "50-64": 0.63, 
+          "65 years or more": 0.76
+        }, 
+        "n": {
+          "12 and under": 170, 
+          "13-18": 211, 
+          "19-34": 691, 
+          "35-49": 549, 
+          "50-64": 421, 
+          "65 years or more": 280
+        }
+      }
+    }, 
     "1F": {
       "2010": {
         "n": {
@@ -9,7 +55,8 @@
           "europe": 684, 
           "latin america": 243, 
           "middle east": 81, 
-          "north america": 33
+          "north america": 33, 
+          "pacific islands": 55
         }, 
         "print": {
           "africa": 0.44, 
@@ -18,7 +65,8 @@
           "europe": 0.64, 
           "latin america": 0.44, 
           "middle east": 0.34, 
-          "north america": 0.83
+          "north america": 0.83, 
+          "pacific islands": 0.43
         }, 
         "radio": {
           "africa": 0.32, 
@@ -27,7 +75,8 @@
           "europe": 0.19, 
           "latin america": 0.26, 
           "middle east": 0.35, 
-          "north america": 0.05
+          "north america": 0.05, 
+          "pacific islands": 0.3
         }, 
         "television": {
           "africa": 0.24, 
@@ -36,7 +85,8 @@
           "europe": 0.17, 
           "latin america": 0.3, 
           "middle east": 0.31, 
-          "north america": 0.12
+          "north america": 0.12, 
+          "pacific islands": 0.27
         }
       }
     }, 
@@ -567,6 +617,7 @@
           "burkina faso": 5, 
           "burundi": 8, 
           "cameroon": 4, 
+          "canada": 17, 
           "chile": 5, 
           "china": 24, 
           "congo": 7, 
@@ -677,6 +728,7 @@
           "burkina faso": 0.21, 
           "burundi": 0.07, 
           "cameroon": 0.0, 
+          "canada": 0.5, 
           "chile": 1.0, 
           "china": 0.33, 
           "congo": 0.14, 
@@ -787,6 +839,7 @@
           "burkina faso": 0.39, 
           "burundi": 0.61, 
           "cameroon": 0.5, 
+          "canada": 0.25, 
           "chile": 0.0, 
           "china": 0.33, 
           "congo": 0.35, 
@@ -897,6 +950,7 @@
           "burkina faso": 0.4, 
           "burundi": 0.31, 
           "cameroon": 0.5, 
+          "canada": 0.25, 
           "chile": 0.0, 
           "china": 0.34, 
           "congo": 0.52, 
@@ -1000,7 +1054,8 @@
           "economy": 0.18, 
           "politics and government": 0.29, 
           "science and health": 0.09, 
-          "social and legal": 0.18
+          "social and legal": 0.18, 
+          "the girl-child": 0.0
         }, 
         "asia": {
           "celebrity, arts and media, sports": 0.08, 
@@ -1008,7 +1063,8 @@
           "economy": 0.2, 
           "politics and government": 0.3, 
           "science and health": 0.09, 
-          "social and legal": 0.14
+          "social and legal": 0.14, 
+          "the girl-child": 0.0
         }, 
         "caribbean": {
           "celebrity, arts and media, sports": 0.09, 
@@ -1016,7 +1072,8 @@
           "economy": 0.15, 
           "politics and government": 0.22, 
           "science and health": 0.09, 
-          "social and legal": 0.17
+          "social and legal": 0.17, 
+          "the girl-child": 0.0
         }, 
         "europe": {
           "celebrity, arts and media, sports": 0.13, 
@@ -1024,7 +1081,8 @@
           "economy": 0.15, 
           "politics and government": 0.31, 
           "science and health": 0.1, 
-          "social and legal": 0.11
+          "social and legal": 0.11, 
+          "the girl-child": 0.0
         }, 
         "latin america": {
           "celebrity, arts and media, sports": 0.09, 
@@ -1032,7 +1090,8 @@
           "economy": 0.17, 
           "politics and government": 0.25, 
           "science and health": 0.11, 
-          "social and legal": 0.15
+          "social and legal": 0.15, 
+          "the girl-child": 0.0
         }, 
         "middle east": {
           "celebrity, arts and media, sports": 0.07, 
@@ -1040,7 +1099,8 @@
           "economy": 0.11, 
           "politics and government": 0.48, 
           "science and health": 0.09, 
-          "social and legal": 0.11
+          "social and legal": 0.11, 
+          "the girl-child": 0.0
         }, 
         "north america": {
           "celebrity, arts and media, sports": 0.07, 
@@ -1048,7 +1108,8 @@
           "economy": 0.11, 
           "politics and government": 0.24, 
           "science and health": 0.15, 
-          "social and legal": 0.09
+          "social and legal": 0.09, 
+          "the girl-child": 0.02
         }, 
         "pacific islands": {
           "celebrity, arts and media, sports": 0.19, 
@@ -1056,7 +1117,8 @@
           "economy": 0.15, 
           "politics and government": 0.16, 
           "science and health": 0.06, 
-          "social and legal": 0.18
+          "social and legal": 0.18, 
+          "the girl-child": 0.0
         }
       }
     }, 

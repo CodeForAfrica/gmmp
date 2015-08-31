@@ -113,6 +113,7 @@ WS_INFO = {
         'title': 'Age of news subjects by print, by sex',
         'desc': 'B.down of  Age of news subjects by print, by sex',
         'reports': ['global', 'region', 'country'],
+        'historical': '18cF'
     },
     'ws_19': {
         'name': '19',
