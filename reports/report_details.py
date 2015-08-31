@@ -99,6 +99,7 @@ WS_INFO = {
         'title': 'Function of news subjects by sex - by occupation',
         'desc': 'Breakdown of  Function of news subjects by sex - by occupation',
         'reports': ['global', 'region', 'country'],
+        'historical': '20aF'
     },
     'ws_17': {
         'name': '17',

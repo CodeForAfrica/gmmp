@@ -675,8 +675,7 @@ class XLSXReportBuilder:
             secondary_counts[function] = counts
 
         self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, OCCUPATION, row_perc=False)
-
-        # self.tabulate_historical(ws, '16', self.male_female, OCCUPATION, major_cols=FUNCTION)
+        self.tabulate_historical(ws, '16', self.male_female, OCCUPATION, major_cols=FUNCTION)
 
     def ws_17(self, ws):
         """

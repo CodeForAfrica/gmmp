@@ -246,6 +246,11 @@ class Historical(object):
         self.slurp_year_grouped_table(ws, data, col_start=6, cols=1, cols_per_group=5, year_heading_row=3, col_heading_row=2, row_start=5, row_end=12)
         return data
 
+    def import_20aF(self, ws, sheet_info):
+        data = {}
+        self.slurp_year_grouped_table(ws, data, col_start=6, cols=1, cols_per_group=5, year_heading_row=3, col_heading_row=2, row_start=5, row_end=30)
+        return data
+
     def import_20bF(self, ws, sheet_info):
         year = 2010
         data = {}
@@ -264,7 +269,7 @@ class Historical(object):
             data[major_col_heading] = major_col_data
 
             for isec_col in xrange(icol, icol + cols_per_group):
-                col_heading = canon(ws.cell(column=isec_col, row=major_col_heading_row+1).value)
+                col_heading = canon(ws.cell(column=isec_col, row=major_col_heading_row + 1).value)
                 col_data = {}
                 major_col_data[col_heading] = col_data
 
