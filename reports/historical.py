@@ -247,9 +247,12 @@ class Historical(object):
         return data
 
     def import_20aF(self, ws, sheet_info):
+        year = 2010
         data = {}
-        self.slurp_year_grouped_table(ws, data, col_start=6, cols=1, cols_per_group=5, year_heading_row=3, col_heading_row=2, row_start=5, row_end=30)
-        return data
+        all_data = {year: data}
+
+        self.slurp_secondary_col_table(ws, data, col_start=48, cols=7, cols_per_group=2, major_col_heading_row=3, row_start=7, row_end=31)
+        return all_data
 
     def import_20bF(self, ws, sheet_info):
         year = 2010
