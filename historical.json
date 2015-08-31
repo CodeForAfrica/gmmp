@@ -553,6 +553,18 @@
       }
     }, 
     "9aF": {
+      "1995": {
+        "female": {
+          "celebrity, arts and media, sports": 0.0, 
+          "crime and violence": 0.0, 
+          "economy": 0.0, 
+          "other": 0.0, 
+          "politics and government": 0.0, 
+          "science and health": 0.0, 
+          "social and legal": 0.0, 
+          "the girl-child": 0.0
+        }
+      }, 
       "2000": {
         "female": {
           "celebrity, arts and media, sports": 0.23, 
@@ -601,6 +613,34 @@
       }
     }, 
     "9bF": {
+      "1995": {
+        "print": {
+          "female": 0.0, 
+          "male": 0.0
+        }, 
+        "radio": {
+          "female": 0.0, 
+          "male": 0.0
+        }, 
+        "television": {
+          "female": 0.0, 
+          "male": 0.0
+        }
+      }, 
+      "2000": {
+        "print": {
+          "female": "n/a", 
+          "male": "n/a"
+        }, 
+        "radio": {
+          "female": "n/a", 
+          "male": "n/a"
+        }, 
+        "television": {
+          "female": "n/a", 
+          "male": "n/a"
+        }
+      }, 
       "2005": {
         "print": {
           "female": 0.21, 
@@ -616,35 +656,61 @@
         }
       }, 
       "2010": {
+        "n": {
+          "female": "2566", 
+          "male": "7682"
+        }, 
         "print": {
-          "female": [
-            "24%", 
-            4000
-          ], 
-          "male": [
-            "76%", 
-            12808
-          ]
+          "female": "24%", 
+          "male": "76%"
         }, 
         "radio": {
-          "female": [
-            "22%", 
-            1151
-          ], 
-          "male": [
-            "78%", 
-            4490
-          ]
+          "female": "22%", 
+          "male": "78%"
         }, 
         "television": {
-          "female": [
-            "24%", 
-            2566
-          ], 
-          "male": [
-            "76%", 
-            7682
-          ]
+          "female": "24%", 
+          "male": "76%"
+        }
+      }
+    }, 
+    "9cF": {
+      "1995": {
+        "female": {
+          "international": 0.17, 
+          "local": 0.22, 
+          "national": 0.14, 
+          "national and other": "new code"
+        }
+      }, 
+      "2000": {
+        "female": {
+          "international": 0.15, 
+          "local": 0.23, 
+          "national": 0.17, 
+          "national and other": "new code"
+        }
+      }, 
+      "2005": {
+        "female": {
+          "international": 0.18, 
+          "local": 0.27, 
+          "national": 0.19, 
+          "national and other": "new code"
+        }
+      }, 
+      "2010": {
+        "female": {
+          "international": "26%", 
+          "local": "26%", 
+          "national": "23%", 
+          "national and other": "20%"
+        }, 
+        "n": {
+          "international": "1055", 
+          "local": "38", 
+          "national": "1874", 
+          "national and other": "3637"
         }
       }
     }

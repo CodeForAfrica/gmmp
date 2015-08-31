@@ -47,6 +47,7 @@ WS_INFO = {
         'title': 'Sex of news subjects (sources) inlocal,national,sub-regional/regional, foreign/intnl news',
         'desc': 'Breakdown by sex local,national,sub-regional/regional, intnl news',
         'reports': ['global', 'region', 'country'],
+        'historical': '9cF'
     },
     'ws_09': {
         'name': '9',

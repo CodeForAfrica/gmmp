@@ -14,6 +14,7 @@ RECODES = {
     'St Lucia': 'Saint Lucia',
     'St. Vincent and The Grenadines': 'Saint Vincent and the Grenadines',
     'Trinidad & Tobago': 'Trinidad and Tobago',
+    'Female  %F': 'Female',
 }
 
 
@@ -103,53 +104,23 @@ class Historical(object):
 
     def import_9aF(self, ws, sheet_info):
         all_data = {}
-        col_heading = canon('Female')
-
-        for icol in xrange(7, 11):
-            year = ws.cell(column=icol, row=4).value
-            if year == 'N-F':
-                year = 2010
-                col_heading = canon('N')
-            else:
-                year = int(year)
-
-            if year not in all_data:
-                all_data[year] = {}
-
-            data = all_data[year]
-            col_data = {}
-            data[col_heading] = col_data
-
-            for irow in xrange(5, 13):
-                row_heading = canon(ws.cell(column=5, row=irow).value)
-                col_data[row_heading] = ws.cell(column=icol, row=irow).value
-
+        self.slurp_year_grouped_table(ws, all_data, col_start=6, cols=1, cols_per_group=5, year_heading_row=4, col_heading_row=3, row_start=5, row_end=12)
         return all_data
 
     def import_9bF(self, ws, sheet_info):
-        all_data = {}
-        for col_heading, col_start in [('Print', 8), ('Radio', 13), ('Television', 18)]:
-            col_heading = canon(col_heading)
+        data = {}
+        self.slurp_year_grouped_table(ws, data, col_start=6, cols=3, cols_per_group=5, year_heading_row=3, col_heading_row=2, row_start=4, row_end=5)
+        return data
 
-            for icol in xrange(col_start, col_start + 2):
-                year = int(ws.cell(column=icol, row=3).value)
-
-                if year not in all_data:
-                    all_data[year] = {}
-
-                data = all_data[year]
-                col_data = {}
-                data[col_heading] = col_data
-
-                for irow in xrange(4, 6):
-                    row_heading = canon(ws.cell(column=5, row=irow).value)
-                    col_data[row_heading] = ws.cell(column=icol, row=irow).value
-                    if year == 2010:
-                        col_data[row_heading] = [col_data[row_heading], int(ws.cell(column=icol+1, row=irow).value)]
-
-        return all_data
+    def import_9cF(self, ws, sheet_info):
+        data = {}
+        self.slurp_year_grouped_table(ws, data, col_start=6, cols=1, cols_per_group=5, year_heading_row=3, col_heading_row=2, row_start=5, row_end=8)
+        return data
 
     def slurp_table(self, ws, data, col_start, col_end, row_end, row_start=5, col_heading_row=4, row_heading_col=5):
+        """
+        Grab values from a simple table with column and row titles.
+        """
         for icol in xrange(col_start, col_end + 1):
             col_heading = canon(ws.cell(column=icol, row=col_heading_row).value)
             col_data = {}
@@ -158,3 +129,37 @@ class Historical(object):
             for irow in xrange(row_start, row_end):
                 row_heading = canon(ws.cell(column=row_heading_col, row=irow).value)
                 col_data[row_heading] = ws.cell(column=icol, row=irow).value
+
+    def slurp_year_grouped_table(self, ws, all_data, col_start, cols_per_group, cols, row_end, row_start=5, year_heading_row=4, col_heading_row=3, row_heading_col=5):
+        """
+        Slurp a table where each category contains a range of years.
+
+        eg.
+             Category 1      | Category 2      |
+             2005 | 2010 | N | 2005 | 2010 | N |
+        row1
+        row2
+        row3
+        """
+        for icol in xrange(col_start, col_start + cols * cols_per_group, cols_per_group):
+            col_heading = canon(ws.cell(column=icol, row=col_heading_row).value)
+
+            for iyear in xrange(icol, icol + cols_per_group):
+                year = ws.cell(column=iyear, row=year_heading_row).value
+                if year in ['N', 'N-F']:
+                    year = 2010
+                    effective_col_heading = canon('N')
+                else:
+                    year = int(year)
+                    effective_col_heading = col_heading
+
+                if year not in all_data:
+                    all_data[year] = {}
+
+                data = all_data[year]
+                col_data = {}
+                data[effective_col_heading] = col_data
+
+                for irow in xrange(row_start, row_end + 1):
+                    row_heading = canon(ws.cell(column=row_heading_col, row=irow).value)
+                    col_data[row_heading] = ws.cell(column=iyear, row=irow).value
