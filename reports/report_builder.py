@@ -2208,6 +2208,8 @@ class XLSXReportBuilder:
                     # column title
                     if write_col_headings:
                         if col_heading != 'N':
+                            formats = [self.P, self.N]
+
                             if values_per_col > 1:
                                 ws.merge_range(r - 2, c, r - 2, c + values_per_col - 1, col_heading, self.col_heading)
                             else:
@@ -2218,8 +2220,10 @@ class XLSXReportBuilder:
                             # percentage and an N
                             if show_N_and_P:
                                 ws.write(r - 1, c + 1, 'N', self.label)
+
                         else:
                             ws.write(r - 1, c, 'N', self.label)
+                            formats = [self.N, self.N]
 
                     # row values
                     for i, (row_id, row_heading) in enumerate(rows):
@@ -2232,7 +2236,7 @@ class XLSXReportBuilder:
                             value = [value]
 
                         for v in xrange(values_per_col):
-                            ws.write(r + i, c + v, value[v], self.N)
+                            ws.write(r + i, c + v, value[v], formats[v])
 
                     # for next column
                     c += values_per_col

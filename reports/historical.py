@@ -2,6 +2,7 @@ import openpyxl
 import json
 import os
 import logging
+import re
 
 from reports.report_details import WS_INFO
 
@@ -24,6 +25,27 @@ def canon(key):
 
 def recode(v):
     return RECODES.get(v, v)
+
+
+def v(v):
+    """
+    Try to interpret a value as an percentage
+    """
+    if not isinstance(v, basestring):
+        return v
+
+    m = re.match(r'^(\d+(\.\d+)?)(%)?$', v)
+    if m:
+        if not m.group(2):
+            # int
+            v = int(m.group(1))
+        else:
+            # float
+            v = float(m.group(1))
+
+        if m.group(3):
+            v = v / 100.0
+    return v
 
 
 class Historical(object):
@@ -128,7 +150,7 @@ class Historical(object):
 
             for irow in xrange(row_start, row_end):
                 row_heading = canon(ws.cell(column=row_heading_col, row=irow).value)
-                col_data[row_heading] = ws.cell(column=icol, row=irow).value
+                col_data[row_heading] = v(ws.cell(column=icol, row=irow).value)
 
     def slurp_year_grouped_table(self, ws, all_data, col_start, cols_per_group, cols, row_end, row_start=5, year_heading_row=4, col_heading_row=3, row_heading_col=5):
         """
@@ -162,4 +184,4 @@ class Historical(object):
 
                 for irow in xrange(row_start, row_end + 1):
                     row_heading = canon(ws.cell(column=row_heading_col, row=irow).value)
-                    col_data[row_heading] = ws.cell(column=iyear, row=irow).value
+                    col_data[row_heading] = v(ws.cell(column=iyear, row=irow).value)
