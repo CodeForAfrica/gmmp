@@ -94,6 +94,9 @@ RECODES = {
     "Eye witness: the person gives testimony or comment, based on direct observation (e.g. being present at an event)": "Eye Witness",
     "Popular opinion: the person's opinion is assumed to reflect that of the 'ordinary citizen' (e.g., in a street interview, vox populi etc); it is implied that the person's point of view is shared by a wider group of people.": "Popular Opinion",
     "Other. Use only as a last resort (describe the function in 'Comments' section of coding sheet).": "Other",
+    "12 years or under": "12 and under",
+    "%F": "Female",
+    "%M": "Male"
 }
 
 
@@ -242,6 +245,32 @@ class Historical(object):
         data = {}
         self.slurp_year_grouped_table(ws, data, col_start=6, cols=1, cols_per_group=5, year_heading_row=3, col_heading_row=2, row_start=5, row_end=12)
         return data
+
+    def import_20bF(self, ws, sheet_info):
+        year = 2010
+        data = {}
+        all_data = {year: data}
+
+        self.slurp_secondary_col_table(ws, data, col_start=42, cols=6, cols_per_group=2, major_col_heading_row=3, row_start=6, row_end=11)
+        return all_data
+
+    def slurp_secondary_col_table(self, ws, data, col_start, cols_per_group, cols, row_end, row_start=5, major_col_heading_row=4, row_heading_col=5):
+        """
+        Get values from a table with two levels of column headings.
+        """
+        for icol in xrange(col_start, col_start + cols * cols_per_group, cols_per_group):
+            major_col_heading = canon(ws.cell(column=icol, row=major_col_heading_row).value)
+            major_col_data = {}
+            data[major_col_heading] = major_col_data
+
+            for isec_col in xrange(icol, icol + cols_per_group):
+                col_heading = canon(ws.cell(column=isec_col, row=major_col_heading_row+1).value)
+                col_data = {}
+                major_col_data[col_heading] = col_data
+
+                for irow in xrange(row_start, row_end + 1):
+                    row_heading = canon(ws.cell(column=row_heading_col, row=irow).value)
+                    col_data[row_heading] = v(ws.cell(column=isec_col, row=irow).value)
 
     def slurp_table(self, ws, data, col_start, col_end, row_end, row_start=5, col_heading_row=4, row_heading_col=5):
         """
