@@ -918,6 +918,66 @@
           "villager or resident no other occupation given": 254
         }
       }
+    }, 
+    "9fF": {
+      "1995": {
+        "female": {
+          "expert or commentator": 0.0, 
+          "eye witness": 0.0, 
+          "na \u2013 use this where you are coding a secondary source only": 0.0, 
+          "other": 0.0, 
+          "personal experience": 0.0, 
+          "popular opinion": 0.0, 
+          "spokesperson": 0.0, 
+          "subject": 0.0
+        }
+      }, 
+      "2000": {
+        "female": {
+          "expert or commentator": 0.0, 
+          "eye witness": 0.0, 
+          "na \u2013 use this where you are coding a secondary source only": 0.0, 
+          "other": 0.0, 
+          "personal experience": 0.0, 
+          "popular opinion": 0.0, 
+          "spokesperson": 0.0, 
+          "subject": 0.0
+        }
+      }, 
+      "2005": {
+        "female": {
+          "expert or commentator": 0.17, 
+          "eye witness": 0.3, 
+          "na \u2013 use this where you are coding a secondary source only": "n/a", 
+          "other": "n/a", 
+          "personal experience": 0.31, 
+          "popular opinion": 0.34, 
+          "spokesperson": 0.14, 
+          "subject": 0.23
+        }
+      }, 
+      "2010": {
+        "female": {
+          "expert or commentator": 0.2, 
+          "eye witness": 0.29, 
+          "na \u2013 use this where you are coding a secondary source only": null, 
+          "other": 0.21, 
+          "personal experience": 0.36, 
+          "popular opinion": 0.44, 
+          "spokesperson": 0.19, 
+          "subject": 0.23
+        }, 
+        "n": {
+          "expert or commentator": 1017, 
+          "eye witness": 311, 
+          "na \u2013 use this where you are coding a secondary source only": 12, 
+          "other": 132, 
+          "personal experience": 964, 
+          "popular opinion": 365, 
+          "spokesperson": 1552, 
+          "subject": 3176
+        }
+      }
     }
   }
 }

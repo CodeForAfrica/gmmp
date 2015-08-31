@@ -87,6 +87,13 @@ RECODES = {
     "Other. Use only as a last resort (specify the occupation/position in 'Comments' section of coding sheet)": "Other only as last resort & explain",
     "Retired person, pensioner. Code this only if no other occupation is given, e.g. a retired police officer is coded 4; a retired politician is coded 2.": "Retired person, pensioner no other occupation given",
     "Activist or worker in civil society organisation, non-governmental organisation, trade union, human rights, consumer issues, environment, aid agency, peasant leader, United Nations": "Activist or worker in civil society org., NGO, trade union",
+    "Subject: the story is about this person, or about something the person has done, said etc.": "Subject",
+    "Spokesperson: the person represents, or speaks on behalf of another person, a group or an organisation": "Spokesperson",
+    "Expert or commentator: the person provides additional information, opinion or comment, based on specialist knowledge or expertise": "Expert or commentator",
+    "Personal experience: the person provides opinion or comment, based on individual personal experience; the opinion is not necessarily meant to reflect the views of a wider group": "Personal Experience",
+    "Eye witness: the person gives testimony or comment, based on direct observation (e.g. being present at an event)": "Eye Witness",
+    "Popular opinion: the person's opinion is assumed to reflect that of the 'ordinary citizen' (e.g., in a street interview, vox populi etc); it is implied that the person's point of view is shared by a wider group of people.": "Popular Opinion",
+    "Other. Use only as a last resort (describe the function in 'Comments' section of coding sheet).": "Other",
 }
 
 
@@ -229,6 +236,11 @@ class Historical(object):
     def import_9eF(self, ws, sheet_info):
         data = {}
         self.slurp_year_grouped_table(ws, data, col_start=6, cols=1, cols_per_group=5, year_heading_row=3, col_heading_row=2, row_start=5, row_end=30)
+        return data
+
+    def import_9fF(self, ws, sheet_info):
+        data = {}
+        self.slurp_year_grouped_table(ws, data, col_start=6, cols=1, cols_per_group=5, year_heading_row=3, col_heading_row=2, row_start=5, row_end=12)
         return data
 
     def slurp_table(self, ws, data, col_start, col_end, row_end, row_start=5, col_heading_row=4, row_heading_col=5):

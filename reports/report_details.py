@@ -92,6 +92,7 @@ WS_INFO = {
         'title': 'News subject''s Function in news story, by sex',
         'desc': 'Breakdown by sex and function',
         'reports': ['global', 'region', 'country'],
+        'historical': '9fF'
     },
     'ws_16': {
         'name': '16',
