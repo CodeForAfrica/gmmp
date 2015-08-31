@@ -256,6 +256,27 @@ class Historical(object):
 
         return all_data
 
+    def import_18dF(self, ws, sheet_info):
+        all_data = {}
+
+        col_heading = canon('radio')
+        col_data = {}
+        all_data[2010] = {col_heading: col_data}
+        self.slurp_table(ws, col_data, col_start=12, col_end=13, col_heading_row=4, row_start=6, row_end=11)
+
+        col_heading = canon('television')
+        for year, col_start, col_end in [(2005, 18, 19), (2010, 20, 22)]:
+            col_data = {}
+
+            if year in all_data:
+                all_data[year][col_heading] = col_data
+            else:
+                all_data[year] = {col_heading: col_data}
+
+            self.slurp_table(ws, col_data, col_start=col_start, col_end=col_end, col_heading_row=4, row_start=6, row_end=11)
+
+        return all_data
+
     def import_20aF(self, ws, sheet_info):
         year = 2010
         data = {}

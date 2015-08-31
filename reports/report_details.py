@@ -120,6 +120,7 @@ WS_INFO = {
         'title': 'Age of news subjects by broadcast, by sex',
         'desc': 'B.down of  Age of news subjects by broadcast, by sex',
         'reports': ['global', 'region', 'country'],
+        'historical': '18dF'
     },
     'ws_20': {
         'name': '20',
