@@ -699,6 +699,7 @@ class XLSXReportBuilder:
             secondary_counts[age] = counts
 
         self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, FUNCTION, row_perc=False)
+        self.tabulate_historical(ws, '17', self.male_female, FUNCTION, major_cols=AGES)
 
     def ws_18(self, ws):
         """

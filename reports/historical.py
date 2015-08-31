@@ -281,14 +281,8 @@ class Historical(object):
             major_col_data = {}
             data[major_col_heading] = major_col_data
 
-            for isec_col in xrange(icol, icol + cols_per_group):
-                col_heading = canon(ws.cell(column=isec_col, row=major_col_heading_row + 1).value)
-                col_data = {}
-                major_col_data[col_heading] = col_data
+            self.slurp_table(ws, major_col_data, icol, icol + cols_per_group - 1, row_end, row_start=row_start, col_heading_row=major_col_heading_row + 1, row_heading_col=row_heading_col)
 
-                for irow in xrange(row_start, row_end + 1):
-                    row_heading = canon(ws.cell(column=row_heading_col, row=irow).value)
-                    col_data[row_heading] = v(ws.cell(column=isec_col, row=irow).value)
 
     def slurp_table(self, ws, data, col_start, col_end, row_end, row_start=5, col_heading_row=4, row_heading_col=5):
         """
