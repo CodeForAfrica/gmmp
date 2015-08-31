@@ -126,6 +126,29 @@ class Historical(object):
 
         return all_data
 
+    def import_9bF(self, ws, sheet_info):
+        all_data = {}
+        for col_heading, col_start in [('Print', 8), ('Radio', 13), ('Television', 18)]:
+            col_heading = canon(col_heading)
+
+            for icol in xrange(col_start, col_start + 2):
+                year = int(ws.cell(column=icol, row=3).value)
+
+                if year not in all_data:
+                    all_data[year] = {}
+
+                data = all_data[year]
+                col_data = {}
+                data[col_heading] = col_data
+
+                for irow in xrange(4, 6):
+                    row_heading = canon(ws.cell(column=5, row=irow).value)
+                    col_data[row_heading] = ws.cell(column=icol, row=irow).value
+                    if year == 2010:
+                        col_data[row_heading] = [col_data[row_heading], int(ws.cell(column=icol+1, row=irow).value)]
+
+        return all_data
+
     def slurp_table(self, ws, data, col_start, col_end, row_end, row_start=5, col_heading_row=4, row_heading_col=5):
         for icol in xrange(col_start, col_end + 1):
             col_heading = canon(ws.cell(column=icol, row=col_heading_row).value)

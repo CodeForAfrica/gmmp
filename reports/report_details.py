@@ -40,6 +40,7 @@ WS_INFO = {
         'title': 'Women in the news (sources) by medium',
         'desc': 'Breakdown by sex of all mediums',
         'reports': ['global', 'region', 'country'],
+        'historical': '9bF'
     },
     'ws_08': {
         'name': '8',
