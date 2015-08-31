@@ -105,6 +105,7 @@ WS_INFO = {
         'title': 'Function of news subjects by sex - by age',
         'desc': 'Breakdown of  Function of news subjects by sex - by age',
         'reports': ['global', 'region', 'country'],
+        'historical': '20bF'
     },
     'ws_18': {
         'name': '18',

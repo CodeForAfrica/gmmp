@@ -40,6 +40,118 @@
         }
       }
     }, 
+    "20bF": {
+      "2010": {
+        "12 and under": {
+          "female": {
+            "expert or commentator": 0.01, 
+            "eye witness": 0.07, 
+            "personal experience": 0.11, 
+            "popular opinion": 0.04, 
+            "spokesperson": 0.08, 
+            "subject": 0.7
+          }, 
+          "male": {
+            "expert or commentator": 0.0, 
+            "eye witness": 0.01, 
+            "personal experience": 0.11, 
+            "popular opinion": 0.03, 
+            "spokesperson": 0.02, 
+            "subject": 0.83
+          }
+        }, 
+        "13-18": {
+          "female": {
+            "expert or commentator": 0.01, 
+            "eye witness": 0.05, 
+            "personal experience": 0.19, 
+            "popular opinion": 0.13, 
+            "spokesperson": 0.04, 
+            "subject": 0.58
+          }, 
+          "male": {
+            "expert or commentator": 0.02, 
+            "eye witness": 0.1, 
+            "personal experience": 0.15, 
+            "popular opinion": 0.02, 
+            "spokesperson": 0.02, 
+            "subject": 0.7
+          }
+        }, 
+        "19-34": {
+          "female": {
+            "expert or commentator": 0.05, 
+            "eye witness": 0.04, 
+            "personal experience": 0.2, 
+            "popular opinion": 0.07, 
+            "spokesperson": 0.06, 
+            "subject": 0.58
+          }, 
+          "male": {
+            "expert or commentator": 0.06, 
+            "eye witness": 0.03, 
+            "personal experience": 0.16, 
+            "popular opinion": 0.04, 
+            "spokesperson": 0.06, 
+            "subject": 0.65
+          }
+        }, 
+        "35-49": {
+          "female": {
+            "expert or commentator": 0.13, 
+            "eye witness": 0.05, 
+            "personal experience": 0.14, 
+            "popular opinion": 0.06, 
+            "spokesperson": 0.17, 
+            "subject": 0.45
+          }, 
+          "male": {
+            "expert or commentator": 0.16, 
+            "eye witness": 0.04, 
+            "personal experience": 0.08, 
+            "popular opinion": 0.04, 
+            "spokesperson": 0.24, 
+            "subject": 0.44
+          }
+        }, 
+        "50-64": {
+          "female": {
+            "expert or commentator": 0.12, 
+            "eye witness": 0.03, 
+            "personal experience": 0.12, 
+            "popular opinion": 0.08, 
+            "spokesperson": 0.21, 
+            "subject": 0.45
+          }, 
+          "male": {
+            "expert or commentator": 0.13, 
+            "eye witness": 0.02, 
+            "personal experience": 0.08, 
+            "popular opinion": 0.02, 
+            "spokesperson": 0.28, 
+            "subject": 0.47
+          }
+        }, 
+        "65 years or more": {
+          "female": {
+            "expert or commentator": 0.05, 
+            "eye witness": 0.07, 
+            "personal experience": 0.19, 
+            "popular opinion": 0.11, 
+            "spokesperson": 0.02, 
+            "subject": 0.57
+          }, 
+          "male": {
+            "expert or commentator": 0.06, 
+            "eye witness": 0.06, 
+            "personal experience": 0.13, 
+            "popular opinion": 0.03, 
+            "spokesperson": 0.16, 
+            "subject": 0.57
+          }
+        }
+      }
+    }, 
     "2F": {
       "2010": {
         "n": {
