@@ -85,6 +85,7 @@ WS_INFO = {
         'title': 'Position or occupation of news sources, by sex',
         'desc': 'Breakdown of new sources by occupation and sex',
         'reports': ['global', 'region', 'country'],
+        'historical': '9eF'
     },
     'ws_15': {
         'name': '15',

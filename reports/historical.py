@@ -62,6 +62,31 @@ RECODES = {
     "Women's movement, activism, events, demonstrations, gender equality advocacy": "Womens movement, activism, demonstrations, etc",
     "Other domestic politics/government (local, regional, national), elections, speeches, the political process": "Other domestic politics, government, etc.",
     "Global partnerships (international trade and finance systems, e.g. WTO, IMF, World Bank, debt)": "Global partnerships",
+    # occupations
+    "Agriculture, mining, fishing, forestry worker": "Agriculture, mining, fishing, forestry",
+    "Celebrity, artist, actor, writer, singer, radio or television personality": "Celebrity, artist, actor, writer, singer, TV personality",
+    "Government employee, public servant, bureaucrat, diplomat, intelligence officer": "Government employee, public servant, etc.",
+    "Homemaker, parent, either female or male. Code this only if no other occupation is given, e.g. a doctor who is also described as a mother is coded 6.": "Homemaker, parent (male or female)) only if no other occupation is given e.g. doctor/mother=code 6",
+    "Lawyer, judge, magistrate, legal advocate, legal expert, legal clerk": "Lawyer, judge, magistrate, legal advocate, etc.",
+    "Media professional, journalist, video or film-maker, theatre director ...": "Media professional, journalist, film-maker, etc.",
+    "Office or service worker, non-management worker in office, store, restaurant, catering": "Office or service worker, non-management worker",
+    "Police, military, para-military group, militia, prison officer, security officer, fire officer": "Police, military, para-military, militia, fire officer",
+    "Religious figure, priest, monk, rabbi, mullah, nun": "Religious figure, priest, monk, rabbi, mullah, nun",
+    "Royalty, ruling monarch, deposed monarch, any member of royal family": "Royalty, monarch, deposed monarch, etc.",
+    "Science or technology professional, engineer, technician, computer specialist": "Science/ technology professional, engineer, etc.",
+    "Sportsperson, athlete, player, coach, referee": "Sportsperson, athlete, player, coach, referee",
+    "Student, pupil, schoolchild": "Student, pupil, schoolchild",
+    "Tradesperson, artisan, labourer, truck driver, construction, factory, domestic worker": "Tradesperson, artisan, labourer, truck driver, etc.",
+    "Government official, politician, president, government minister, political leader, political party staff, spokesperson": "Government, politician, minister, spokesperson...",
+    "Business person, executive, manager, entrepreneur, economist, financial expert, stock broker": "Business person, exec, manager, stock broker...",
+    "Child, young person (up to 18 years). Code this only if no other occupation/position is given, e.g. a schoolchild is coded 19; a child labourer is coded 12.": "Child, young person no other occupation given",
+    "Villager or resident engaged in unspecified occupation. Code this only if no other occupation is given, e.g. a teacher who is also described as a villager is coded 5.": "Villager or resident no other occupation given",
+    "Criminal, suspect. Code this only if no other occupation is given, e.g, a lawyer suspected of committing a crime is coded 9; a former politician who has committed a crime is coded 2.": "Criminal, suspect no other occupation given",
+    "Unemployed. Code this only if no other occupation is given, e.g. an unemployed actor is coded 17; an unemployed person who commits a crime is coded 24.": "Unemployed no other occupation given",
+    "Sex worker, prostitute": "Sex worker",
+    "Other. Use only as a last resort (specify the occupation/position in 'Comments' section of coding sheet)": "Other only as last resort & explain",
+    "Retired person, pensioner. Code this only if no other occupation is given, e.g. a retired police officer is coded 4; a retired politician is coded 2.": "Retired person, pensioner no other occupation given",
+    "Activist or worker in civil society organisation, non-governmental organisation, trade union, human rights, consumer issues, environment, aid agency, peasant leader, United Nations": "Activist or worker in civil society org., NGO, trade union",
 }
 
 
@@ -197,10 +222,14 @@ class Historical(object):
 
         for irow in xrange(4, 55):
             row_heading = canon(ws.cell(column=5, row=irow).value)
-            print row_heading
             col_data[row_heading] = v(ws.cell(column=8, row=irow).value)
 
         return all_data
+
+    def import_9eF(self, ws, sheet_info):
+        data = {}
+        self.slurp_year_grouped_table(ws, data, col_start=6, cols=1, cols_per_group=5, year_heading_row=3, col_heading_row=2, row_start=5, row_end=30)
+        return data
 
     def slurp_table(self, ws, data, col_start, col_end, row_end, row_start=5, col_heading_row=4, row_heading_col=5):
         """
@@ -247,5 +276,4 @@ class Historical(object):
 
                 for irow in xrange(row_start, row_end + 1):
                     row_heading = canon(ws.cell(column=row_heading_col, row=irow).value)
-                    print row_heading
                     col_data[row_heading] = v(ws.cell(column=iyear, row=irow).value)
