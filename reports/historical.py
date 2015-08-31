@@ -16,11 +16,59 @@ RECODES = {
     'St. Vincent and The Grenadines': 'Saint Vincent and the Grenadines',
     'Trinidad & Tobago': 'Trinidad and Tobago',
     'Female  %F': 'Female',
+    # women topics
+    "Arts, entertainment, leisure, cinema, theatre, books, dance": "Arts, entertainment, leisure, cinema, books, dance",
+    "Beauty contests, models, fashion, beauty aids, cosmetic surgery": "Beauty contests, models, fashion, cosmetic surgery",
+    "Birth control, fertility, sterilisation, amniocentesis, termination of pregnancy": "Birth control, fertility, sterilization, termination...",
+    "Celebrity news, births, marriages, deaths, obituaries, famous people, royalty": "Celebrity news, births, marriages, royalty, etc.",
+    "Changing gender relations, roles and relationships of women and men inside and outside the home": "Changing gender relations (outside the home)",
+    "Child abuse, sexual violence against children, trafficking, neglect.": "Child abuse, sexual violence against children, neglect",
+    "Consumer issues, consumer protection, regulation, prices, consumer fraud": "Consumer issues, consumer protection, fraud...",
+    "Development issues, sustainability, community development": "Other development issues, sustainability, etc.",
+    "Disaster, accident, famine, earthquake, flood, hurricane, plane crash, car crash": "Disaster, accident, famine, flood, plane crash, etc.",
+    "Economic crisis, state bailouts of companies, company takeovers and mergers": "Economic crisis, state bailouts of companies, company takeovers and mergers, etc.",
+    "Education, child care, nurseries, pre-school to university, adult education, literacy": "Education, childcare, nursery, university, literacy",
+    "Environment, nature,   pollution, global warming, ecology, tourism": "Environment, pollution, tourism",
+    "Family law, family codes, property law, inheritance law and rights": "Family law, family codes, property law, inheritance...",
+    "Family relations, inter-generational conflict, single parents": "Family relations, inter-generational conflict, parents",
+    "Foreign/international politics, relations with other countries, negotiations, treaties, UN peacekeeping": "Foreign/international politics, UN, peacekeeping",
+    "Gender-based violence, feminicide, harassment, domestic violence, rape, trafficking, genital mutilation": "Gender violence based on culture, family, inter-personal relations, feminicide, harassment, rape, sexual assault, trafficking, FGM...",
+    "HIV and AIDS, incidence, policy, treatment, people affected": "HIV and AIDS, policy, treatment, etc",
+    "Human rights, women's rights, children's rights, gay & lesbian rights, rights of minorities ..": "Human rights, womens rights, rights of sexual minorities, rights of religious minorities, etc.",
+    "Legal system, judicial system, legislation (apart from family, property & inheritance law)": "Legal system, judiciary, legislation apart from family",
+    "Media, including new media (computers, internet), portrayal of women and/or men, pornography": "Media, (including internet), portrayal of women/men",
+    "Medicine, health, hygiene, safety, disability, medical research, funding (apart from HIV-AIDS)": "Medicine, health, hygiene, safety, (not EBOLA or HIV/AIDS)",
+    "Migration, refugees, asylum seekers, ethnic conflict, integration, racism, xenophobia": "Migration, refugees, xenophobia, ethnic conflict...",
+    "National defence, military spending, military training, military parades, internal security": "National defence, military spending, internal security, etc.",
+    "Non-violent crime, bribery, theft, drug-dealing, corruption, (including political corruption/malpractice)": "Non-violent crime, bribery, theft, drugs, corruption",
+    "Other epidemics, viruses, contagions, Influenza, BSE, SARS": "Other epidemics, viruses, contagions, Influenza, BSE, SARS",
+    "Other labour issues, strikes, trade unions, negotiations, other employment and unemployment": "Other labour issues (strikes, trade unions, etc.)",
+    "Other stories on celebrities, arts, media (specify the subject in 'Comments' section of coding sheet)": "Other stories on politics (specify in comments)",
+    "Other stories on crime and violence (specify the subject in 'Comments' section of coding sheet)": "Other stories on science (specify in comments)",
+    "Other stories on politics and government (specify the subject in 'Comments' section of coding sheet)": "Other stories on politics (specify in comments)",
+    "Other stories on science or health (specify the subject in 'Comments' section of coding sheet)": "Other stories on science (specify in comments)",
+    "Other stories on social or legal issues (specify the subject in 'Comments' section of coding sheet)": "Other stories on social/legal (specify in comments)",
+    "Other stories on the economy (specify the subject in 'Comments' section of coding sheet)": "Other stories on economy (specify in comments)",
+    "Peace, negotiations, treaties(local, regional, national),": "Peace, negotiations, treaties",
+    "Poverty, housing, social welfare, aid to those in need": "Poverty, housing, social welfare, aid, etc.",
+    "Religion, culture, tradition, controversies, teachings, celebrations, practices": "Religion, culture, tradition, controversies...",
+    "Riots, demonstrations, public disorder": "Riots, demonstrations, public disorder, etc.",
+    "Rural economy, agriculture, farming practices, agricultural policy, land rights": "Rural economy, agriculture, farming, land rights",
+    "Science, technology, research, funding, discoveries, developments": "Science, technology, research, discoveries...",
+    "Sports, events, players, facilities, training, policies, funding": "Sports, events, players, facilities, training, funding",
+    "Transport, traffic, roads": "Transport, traffic, roads...",
+    "Violent crime, murder, abduction, kidnapping, assault, drug-related violence": "Violent crime, murder, abduction, assault, etc.",
+    "War, civil war, terrorism, state-based violence": "War, civil war, terrorism, other state-based violence",
+    "Women's movement, activism, events, demonstrations, gender equality advocacy": "Womens movement, activism, demonstrations, etc",
+    "Other domestic politics/government (local, regional, national), elections, speeches, the political process": "Other domestic politics, government, etc.",
+    "Global partnerships (international trade and finance systems, e.g. WTO, IMF, World Bank, debt)": "Global partnerships",
 }
 
 
 def canon(key):
-    return recode(key.strip()).lower()
+    key = key.replace(u'\u2026', '')
+    key = recode(key.strip())
+    return key.strip().lower()
 
 
 def recode(v):
@@ -139,6 +187,21 @@ class Historical(object):
         self.slurp_year_grouped_table(ws, data, col_start=6, cols=1, cols_per_group=5, year_heading_row=3, col_heading_row=2, row_start=5, row_end=8)
         return data
 
+    def import_9dF(self, ws, sheet_info):
+        data = {}
+        all_data = {2010: data}
+
+        col_heading = canon('Female')
+        col_data = {}
+        data[col_heading] = col_data
+
+        for irow in xrange(4, 55):
+            row_heading = canon(ws.cell(column=5, row=irow).value)
+            print row_heading
+            col_data[row_heading] = v(ws.cell(column=8, row=irow).value)
+
+        return all_data
+
     def slurp_table(self, ws, data, col_start, col_end, row_end, row_start=5, col_heading_row=4, row_heading_col=5):
         """
         Grab values from a simple table with column and row titles.
@@ -184,4 +247,5 @@ class Historical(object):
 
                 for irow in xrange(row_start, row_end + 1):
                     row_heading = canon(ws.cell(column=row_heading_col, row=irow).value)
+                    print row_heading
                     col_data[row_heading] = v(ws.cell(column=iyear, row=irow).value)

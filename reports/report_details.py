@@ -54,6 +54,7 @@ WS_INFO = {
         'title': 'Sex of news subjects in different story topics',
         'desc': 'Breakdown of topic by sex',
         'reports': ['global', 'region'],
+        'historical': '9dF'
     },
     'ws_10': {
         'name': '10',

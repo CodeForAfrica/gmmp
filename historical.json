@@ -713,6 +713,61 @@
           "national and other": 3637
         }
       }
+    }, 
+    "9dF": {
+      "2010": {
+        "female": {
+          "arts, entertainment, leisure, cinema, books, dance": 0.28, 
+          "beauty contests, models, fashion, cosmetic surgery": 0.43, 
+          "birth control, fertility, sterilization, termination...": 0.47, 
+          "celebrity news, births, marriages, royalty, etc.": 0.39, 
+          "changing gender relations (outside the home)": 0.51, 
+          "child abuse, sexual violence against children, neglect": 0.34, 
+          "consumer issues, consumer protection, fraud...": 0.27, 
+          "disaster, accident, famine, flood, plane crash, etc.": 0.28, 
+          "economic crisis, state bailouts of companies, company takeovers and mergers, etc.": 0.18, 
+          "economic indicators, statistics, business, trade, stock markets": 0.14, 
+          "economic policies, strategies, models (national, international)": 0.17, 
+          "education, childcare, nursery, university, literacy": 0.34, 
+          "environment, pollution, tourism": 0.22, 
+          "family law, family codes, property law, inheritance...": 0.43, 
+          "family relations, inter-generational conflict, parents": 0.58, 
+          "foreign/international politics, un, peacekeeping": 0.17, 
+          "gender violence based on culture, family, inter-personal relations, feminicide, harassment, rape, sexual assault, trafficking, fgm...": 0.4, 
+          "global partnerships": 0.13, 
+          "hiv and aids, policy, treatment, etc": 0.42, 
+          "human rights, womens rights, rights of sexual minorities, rights of religious minorities, etc.": 0.34, 
+          "legal system, judiciary, legislation apart from family": 0.21, 
+          "media, (including internet), portrayal of women/men": 0.34, 
+          "medicine, health, hygiene, safety, (not ebola or hiv/aids)": 0.33, 
+          "migration, refugees, xenophobia, ethnic conflict...": 0.21, 
+          "national defence, military spending, internal security, etc.": 0.13, 
+          "news about the girl child, including, cultural attitudes and practices impinging on girls, education, health, economic exploitation, violence (only where emphasis is on the girl child)": 0.69, 
+          "non-violent crime, bribery, theft, drugs, corruption": 0.17, 
+          "other development issues, sustainability, etc.": 0.25, 
+          "other domestic politics, government, etc.": 0.16, 
+          "other epidemics, viruses, contagions, influenza, bse, sars": 0.36, 
+          "other labour issues (strikes, trade unions, etc.)": 0.24, 
+          "other stories on economy (specify in comments)": 0.19, 
+          "other stories on politics (specify in comments)": 0.33, 
+          "other stories on science (specify in comments)": 0.3, 
+          "other stories on social/legal (specify in comments)": 0.33, 
+          "peace, negotiations, treaties": 0.21, 
+          "poverty, housing, social welfare, aid, etc.": 0.29, 
+          "religion, culture, tradition, controversies...": 0.23, 
+          "riots, demonstrations, public disorder, etc.": 0.19, 
+          "rural economy, agriculture, farming, land rights": 0.12, 
+          "science, technology, research, discoveries...": 0.25, 
+          "sports, events, players, facilities, training, funding": 0.13, 
+          "transport, traffic, roads...": 0.17, 
+          "violent crime, murder, abduction, assault, etc.": 0.24, 
+          "war, civil war, terrorism, other state-based violence": 0.18, 
+          "women electoral candidates (local, regional, national),": 0.3, 
+          "women in political power and decision-making (local, regional, national),": 0.37, 
+          "women's participation in economic processes (informal work, paid employment, unemployment, unpaid labour)": 0.58, 
+          "womens movement, activism, demonstrations, etc": 0.37
+        }
+      }
     }
   }
 }
