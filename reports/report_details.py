@@ -195,6 +195,7 @@ WS_INFO = {
         'title': 'Breakdown of Reporters, by sex on different topics - Detail',
         'desc': 'Rporters, by sex on different topics - Detail',
         'reports': ['global'],
+        'historical': '12dF'
     },
     'ws_32': {
         'name': '32',
