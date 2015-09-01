@@ -221,6 +221,7 @@ WS_INFO = {
         'title': 'Breakdown of Stories with Women as central focus (is this story about a particular woman or women) by sex of reporter',
         'desc': 'Stories with Women as central focus  by sex of reporter',
         'reports': ['global', 'region', 'country'],
+        'historical': '15aF'
     },
     'ws_38': {
         'name': '38',
