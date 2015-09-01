@@ -113,7 +113,7 @@ RECODES = {
     "Survivor of war, terrorism, vigilantism, state-based violence": "Survivor of war, terrorism, vigilantism, state violence...",
     "Survivor of discrimination based on gender, race, ethnicity, age, religion": "Survivor of discrimination based on gender, race, ethnicity, age, religion, ability, etc.",
     "Other survivor: describe in 'Comments' section of coding sheet": "Other survivor (specify in comments)",
-    # victim_of
+    #victim_of
     "Victim of an accident, natural disaster, poverty, disease, illness": "Victim of an accident, natural disaster, poverty",
     "Victim of domestic violence (by husband/wife/partner/other family member), psychological violence, physical assault, marital rape, murder": "Victim of domestic violence, rape, murder, etc.",
     "Victim of non-domestic sexual violence or abuse, sexual harassment, rape, trafficking": "Victim of non-domestic sexual violence, rape, assault, etc (sexual violence only)",
@@ -347,6 +347,11 @@ class Historical(object):
 
         self.slurp_secondary_col_table(ws, data, col_start=48, cols=7, cols_per_group=2, major_col_heading_row=3, row_start=7, row_end=31)
         return all_data
+
+    def import_9gF(self, ws, sheet_info):
+        data = {}
+        self.slurp_year_grouped_table(ws, data, col_start=6, cols=2, cols_per_group=5, year_heading_row=3, col_heading_row=2, row_start=5, row_end=12)
+        return data
 
     def import_19bF(self, ws, sheet_info):
         all_data = {}
