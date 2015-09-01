@@ -144,6 +144,74 @@
         }
       }
     }, 
+    "14F": {
+      "announcers": {
+        "2005": {
+          "female": {
+            "12 and under": "new code for 2010", 
+            "13-18": "new code for 2010", 
+            "19-34": 0.79, 
+            "35-49": 0.5, 
+            "50-64": 0.07, 
+            "65 years or more": "new code for 2010", 
+            "do not know: (e.g., the person may not be seen clearly)": "new code for 2010"
+          }
+        }, 
+        "2010": {
+          "female": {
+            "12 and under": 0.51, 
+            "13-18": 0.59, 
+            "19-34": 0.52, 
+            "35-49": 0.58, 
+            "50-64": 0.51, 
+            "65 years or more": 0.57, 
+            "do not know: (e.g., the person may not be seen clearly)": 0.4
+          }, 
+          "n": {
+            "12 and under": 62, 
+            "13-18": 79, 
+            "19-34": 595, 
+            "35-49": 1251, 
+            "50-64": 1360, 
+            "65 years or more": 310, 
+            "do not know: (e.g., the person may not be seen clearly)": 1124
+          }
+        }
+      }, 
+      "journalists": {
+        "2005": {
+          "female": {
+            "12 and under": "new code for 2010", 
+            "13-18": "new code for 2010", 
+            "19-34": 0.52, 
+            "35-49": 0.34, 
+            "50-64": 0.17, 
+            "65 years or more": "new code for 2010", 
+            "do not know: (e.g., the person may not be seen clearly)": "new code for 2010"
+          }
+        }, 
+        "2010": {
+          "female": {
+            "12 and under": 0.36, 
+            "13-18": 0.42, 
+            "19-34": 0.39, 
+            "35-49": 0.42, 
+            "50-64": 0.4, 
+            "65 years or more": 0.45, 
+            "do not know: (e.g., the person may not be seen clearly)": 0.34
+          }, 
+          "n": {
+            "12 and under": 113, 
+            "13-18": 138, 
+            "19-34": 756, 
+            "35-49": 1365, 
+            "50-64": 1271, 
+            "65 years or more": 367, 
+            "do not know: (e.g., the person may not be seen clearly)": 4717
+          }
+        }
+      }
+    }, 
     "15aF": {
       "2005": {
         "female": {

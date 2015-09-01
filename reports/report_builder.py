@@ -20,7 +20,8 @@ from forms.models import (
     dm_person_models, dm_sheet_models, dm_journalist_models,)
 from forms.modelutils import (TOPICS, GENDER, SPACE, OCCUPATION, FUNCTION, SCOPE,
     YESNO, AGES, SOURCE, VICTIM_OF, SURVIVOR_OF, IS_PHOTOGRAPH, AGREE_DISAGREE,
-    RETWEET, TV_ROLE, MEDIA_TYPES, TM_MEDIA_TYPES, DM_MEDIA_TYPES, CountryRegion)
+    RETWEET, TV_ROLE, MEDIA_TYPES, TM_MEDIA_TYPES, DM_MEDIA_TYPES, CountryRegion,
+    TV_ROLE_ANNOUNCER, TV_ROLE_REPORTER)
 from report_details import WS_INFO, REGION_COUNTRY_MAP, MAJOR_TOPICS, TOPIC_GROUPS, GROUP_TOPICS_MAP, FORMATS, FOCUS_TOPICS, FOCUS_TOPIC_IDS
 from reports.models import Weights
 from reports.historical import Historical, canon
@@ -212,7 +213,7 @@ class XLSXReportBuilder:
         #     'ws_61', 'ws_62', 'ws_63', 'ws_64', 'ws_65', 'ws_66', 'ws_67', 'ws_68', 'ws_68b',
         #     'ws_75', 'ws_76', 'ws_77', 'ws_78']
         if settings.DEBUG:
-            sheets = ['ws_06']
+            sheets = ['ws_35']
         else:
             sheets = WS_INFO.keys()
 
@@ -1064,16 +1065,34 @@ class XLSXReportBuilder:
         Rows: Age of reporter
         :: Only for television
         """
+        secondary_counts = OrderedDict()
+
         counts = Counter()
+        secondary_counts['Announcers'] = counts
         rows = TelevisionJournalist.objects\
                 .values('sex', 'age')\
                 .filter(television_sheet__country__in=self.country_list)\
-                .filter(sex__in=self.male_female_ids)
+                .filter(sex__in=self.male_female_ids)\
+                .filter(role=TV_ROLE_ANNOUNCER[0])
 
         rows = self.apply_weights(rows, TelevisionJournalist.sheet_db_table(), 'Television')
         counts.update({(r['sex'], r['age']): r['n'] for r in rows})
 
-        self.tabulate(ws, counts, self.male_female, AGES, row_perc=True, filter_cols=self.female)
+        counts = Counter()
+        secondary_counts['Journalists'] = counts
+        rows = TelevisionJournalist.objects\
+                .values('sex', 'age')\
+                .filter(television_sheet__country__in=self.country_list)\
+                .filter(sex__in=self.male_female_ids)\
+                .filter(role=TV_ROLE_REPORTER[0])
+
+        rows = self.apply_weights(rows, TelevisionJournalist.sheet_db_table(), 'Television')
+        counts.update({(r['sex'], r['age']): r['n'] for r in rows})
+
+        self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, AGES, row_perc=False, filter_cols=self.female, show_N=True)
+
+        major_cols = [TV_ROLE_ANNOUNCER, TV_ROLE_PRESENTER]
+        self.tabulate_historical(ws, '35', self.female, AGES, major_cols=major_cols, write_row_headings=False)
 
     def ws_36(self, ws):
         """

@@ -216,6 +216,7 @@ WS_INFO = {
         'title': 'Breakdown of television Announcers & Reporters, by age, by sex',
         'desc': 'Age of television Announcers & Reporters, by sex',
         'reports': ['global', 'region', 'country'],
+        'historical': '14F'
     },
     'ws_36': {
         'name': '36',
