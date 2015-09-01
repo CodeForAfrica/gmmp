@@ -1068,7 +1068,7 @@ class XLSXReportBuilder:
         secondary_counts = OrderedDict()
 
         counts = Counter()
-        secondary_counts['Announcers'] = counts
+        secondary_counts[TV_ROLE_ANNOUNCER[1]] = counts
         rows = TelevisionJournalist.objects\
                 .values('sex', 'age')\
                 .filter(television_sheet__country__in=self.country_list)\
@@ -1079,7 +1079,7 @@ class XLSXReportBuilder:
         counts.update({(r['sex'], r['age']): r['n'] for r in rows})
 
         counts = Counter()
-        secondary_counts['Journalists'] = counts
+        secondary_counts[TV_ROLE_REPORTER[1]] = counts
         rows = TelevisionJournalist.objects\
                 .values('sex', 'age')\
                 .filter(television_sheet__country__in=self.country_list)\
@@ -1091,7 +1091,7 @@ class XLSXReportBuilder:
 
         self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, AGES, row_perc=False, filter_cols=self.female, show_N=True)
 
-        major_cols = [TV_ROLE_ANNOUNCER, TV_ROLE_PRESENTER]
+        major_cols = [TV_ROLE_ANNOUNCER, TV_ROLE_REPORTER]
         self.tabulate_historical(ws, '35', self.female, AGES, major_cols=major_cols, write_row_headings=False)
 
     def ws_36(self, ws):

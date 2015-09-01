@@ -139,6 +139,7 @@ RECODES = {
     'Middle East Female  %F': 'Middle East',
     'North America Female  %F': 'North America',
     'Pacific Female  %F': 'Pacific Islands',
+    "Do not know: (e.g., the person may not be seen clearly)": "Do not know",
 }
 
 
@@ -358,16 +359,19 @@ class Historical(object):
         return data
 
     def import_14F(self, ws, sheet_info):
-        all_data = {
-            'announcers': {},
-            'journalists': {},
-        }
+        all_data = {}
 
-        self.slurp_year_grouped_table(ws, all_data['announcers'], col_start=6, cols=1, cols_per_group=5, year_heading_row=3, col_heading_row=2, row_start=5, row_end=11,
+        data = {}
+        self.slurp_year_grouped_table(ws, data, col_start=6, cols=1, cols_per_group=5, year_heading_row=3, col_heading_row=2, row_start=5, row_end=11,
                                       skip_years=[1995, 2000])
+        for k, v in data.iteritems():
+            all_data.setdefault(k, {})[canon('Anchor, announcer or presenter: Usually in the television studio')] = v
 
-        self.slurp_year_grouped_table(ws, all_data['journalists'], col_start=6, cols=1, cols_per_group=5, year_heading_row=23, col_heading_row=22, row_start=25, row_end=31,
+        data = {}
+        self.slurp_year_grouped_table(ws, data, col_start=6, cols=1, cols_per_group=5, year_heading_row=23, col_heading_row=22, row_start=25, row_end=31,
                                       skip_years=[1995, 2000])
+        for k, v in data.iteritems():
+            all_data.setdefault(k, {})[canon('Reporter: Usually outside the studio. Include reporters who do not appear on screen, but whose voice is heard (e.g. as voice-over).')] = v
 
         return all_data
 
