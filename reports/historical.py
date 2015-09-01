@@ -96,9 +96,19 @@ RECODES = {
     "Popular opinion: the person's opinion is assumed to reflect that of the 'ordinary citizen' (e.g., in a street interview, vox populi etc); it is implied that the person's point of view is shared by a wider group of people.": "Popular Opinion",
     "Other. Use only as a last resort (describe the function in 'Comments' section of coding sheet).": "Other",
     "12 years or under": "12 and under",
-    # sexes
+    # sex
     "%F": "Female",
-    "%M": "Male"
+    "%M": "Male",
+    #survivor_of
+    "Survivor of an accident, natural disaster, poverty, disease, illness": "Survivor of an accident, natural disaster, poverty",
+    "Survivor of domestic violence (by husband/wife/partner/other family member), psychological violence, physical assault, marital rape, murder":"Survivor of domestic violence, rape, murder, etc.",
+    "Survivor of domestic violence (by husband/wife/partner/other family member), psychological violence, physical assault, marital rape, murder": "Survivor of domestic violence, rape, murder, etc.",
+    "Survivor of non-domestic sexual violence or abuse, sexual harassment, rape, trafficking": "Survivor of non-domestic sexual violence, rape, assault, etc. (sexual violence only)",
+    "Survivor of other crime, robbery, assault, murder": "Survivor of other non-domestic crime, robbery, etc.",
+    "Survivor of violation based on religion, tradition, cultural belief, genital mutilation, bride-burning": "Survivor of violation based on religion, tradition...",
+    "Survivor of war, terrorism, vigilantism, state-based violence": "Survivor of war, terrorism, vigilantism, state violence...",
+    "Survivor of discrimination based on gender, race, ethnicity, age, religion": "Survivor of discrimination based on gender, race, ethnicity, age, religion, ability, etc.",
+    "Other survivor: describe in 'Comments' section of coding sheet": "Other survivor (specify in comments)",
 }
 
 
@@ -301,6 +311,16 @@ class Historical(object):
         all_data = {year: data}
 
         self.slurp_secondary_col_table(ws, data, col_start=48, cols=7, cols_per_group=2, major_col_heading_row=3, row_start=7, row_end=31)
+        return all_data
+
+    def import_19bF(self, ws, sheet_info):
+        all_data = {}
+
+        for year, col_start, col_end in [(2005, 10, 11), (2010, 12, 14)]:
+            data = {}
+            all_data[year] = data
+            self.slurp_table(ws, data, col_start=col_start, col_end=col_end, row_start=6, row_end=13, col_heading_row=4)
+
         return all_data
 
     def slurp_secondary_col_table(self, ws, data, col_start, cols_per_group, cols, row_end, row_start=5, major_col_heading_row=4, row_heading_col=5):

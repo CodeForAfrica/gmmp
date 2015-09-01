@@ -114,6 +114,62 @@
         }
       }
     }, 
+    "19bF": {
+      "2005": {
+        "female": {
+          "other survivor (specify in comments)": 0.5, 
+          "survivor of an accident, natural disaster, poverty": 0.32, 
+          "survivor of discrimination based on gender, race, ethnicity, age, religion, ability, etc.": 0.0, 
+          "survivor of domestic violence, rape, murder, etc.": 0.48, 
+          "survivor of non-domestic sexual violence, rape, assault, etc. (sexual violence only)": 0.68, 
+          "survivor of other non-domestic crime, robbery, etc.": 0.4, 
+          "survivor of violation based on religion, tradition...": "n/a", 
+          "survivor of war, terrorism, vigilantism, state violence...": 0.27
+        }, 
+        "male": {
+          "other survivor (specify in comments)": 0.5, 
+          "survivor of an accident, natural disaster, poverty": 0.68, 
+          "survivor of discrimination based on gender, race, ethnicity, age, religion, ability, etc.": 0.0, 
+          "survivor of domestic violence, rape, murder, etc.": 0.52, 
+          "survivor of non-domestic sexual violence, rape, assault, etc. (sexual violence only)": 0.42, 
+          "survivor of other non-domestic crime, robbery, etc.": 0.6, 
+          "survivor of violation based on religion, tradition...": "n/a", 
+          "survivor of war, terrorism, vigilantism, state violence...": 0.73
+        }
+      }, 
+      "2010": {
+        "female": {
+          "other survivor (specify in comments)": 0.37, 
+          "survivor of an accident, natural disaster, poverty": 0.34, 
+          "survivor of discrimination based on gender, race, ethnicity, age, religion, ability, etc.": 0.3, 
+          "survivor of domestic violence, rape, murder, etc.": 0.66, 
+          "survivor of non-domestic sexual violence, rape, assault, etc. (sexual violence only)": 0.86, 
+          "survivor of other non-domestic crime, robbery, etc.": 0.31, 
+          "survivor of violation based on religion, tradition...": 0.11, 
+          "survivor of war, terrorism, vigilantism, state violence...": 0.24
+        }, 
+        "male": {
+          "other survivor (specify in comments)": 0.63, 
+          "survivor of an accident, natural disaster, poverty": 0.66, 
+          "survivor of discrimination based on gender, race, ethnicity, age, religion, ability, etc.": 0.7, 
+          "survivor of domestic violence, rape, murder, etc.": 0.34, 
+          "survivor of non-domestic sexual violence, rape, assault, etc. (sexual violence only)": 0.14, 
+          "survivor of other non-domestic crime, robbery, etc.": 0.69, 
+          "survivor of violation based on religion, tradition...": 0.89, 
+          "survivor of war, terrorism, vigilantism, state violence...": 0.76
+        }, 
+        "n": {
+          "other survivor (specify in comments)": 142, 
+          "survivor of an accident, natural disaster, poverty": 521, 
+          "survivor of discrimination based on gender, race, ethnicity, age, religion, ability, etc.": 66, 
+          "survivor of domestic violence, rape, murder, etc.": 104, 
+          "survivor of non-domestic sexual violence, rape, assault, etc. (sexual violence only)": 60, 
+          "survivor of other non-domestic crime, robbery, etc.": 203, 
+          "survivor of violation based on religion, tradition...": 22, 
+          "survivor of war, terrorism, vigilantism, state violence...": 182
+        }
+      }
+    }, 
     "1F": {
       "2010": {
         "n": {

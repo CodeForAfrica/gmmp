@@ -212,7 +212,7 @@ class XLSXReportBuilder:
         #     'ws_61', 'ws_62', 'ws_63', 'ws_64', 'ws_65', 'ws_66', 'ws_67', 'ws_68', 'ws_68b',
         #     'ws_75', 'ws_76', 'ws_77', 'ws_78']
         if settings.DEBUG:
-            sheets = ['ws_20']
+            sheets = ['ws_23']
         else:
             sheets = WS_INFO.keys()
 
@@ -817,6 +817,7 @@ class XLSXReportBuilder:
                 counts.update({(r['sex'], r['survivor_of']): r['n'] for r in rows})
 
         self.tabulate(ws, counts, self.male_female, SURVIVOR_OF, row_perc=False)
+        self.tabulate_historical(ws, '23', self.male_female, SURVIVOR_OF)
 
     def ws_24(self, ws):
         """
