@@ -403,6 +403,12 @@ class Historical(object):
 
         return all_data
 
+    def import_15bF(self, ws, sheet_info):
+        data = {}
+        self.slurp_year_grouped_table(ws, data, col_start=6, cols=1, cols_per_group=5, year_heading_row=4, col_heading_row=3, row_start=5, row_end=56, skip_years=[1995, 2000, 2005])
+        return data
+
+
     def slurp_secondary_col_table(self, ws, data, col_start, cols_per_group, cols, row_end, row_start=5, major_col_heading_row=4, row_heading_col=5):
         """
         Get values from a table with two levels of column headings.
