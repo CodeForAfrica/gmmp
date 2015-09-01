@@ -2052,7 +2052,10 @@ class XLSXReportBuilder:
             sec_cols += 1
 
         for field, counts in secondary_counts.iteritems():
-            ws.merge_range(r-3, c, r-3, c+sec_cols-1, clean_title(field), self.sec_col_heading)
+            if sec_cols > 1:
+                ws.merge_range(r-3, c, r-3, c+sec_cols-1, clean_title(field), self.sec_col_heading)
+            else:
+                ws.write(r-3, c, clean_title(field), self.sec_col_heading)
             self.tabulate(ws, counts, cols, rows, row_perc=row_perc, write_row_headings=False, write_row_totals=False, filter_cols=filter_cols, r=r, c=c, show_N=show_N)
             c += sec_cols
 
