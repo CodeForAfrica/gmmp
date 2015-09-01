@@ -2230,10 +2230,9 @@ class XLSXReportBuilder:
                         continue
 
                     # column title
+                    formats = [self.P, self.N]
                     if write_col_headings:
                         if col_heading != 'N':
-                            formats = [self.P, self.N]
-
                             if values_per_col > 1:
                                 ws.merge_range(r - 2, c, r - 2, c + values_per_col - 1, col_heading, self.col_heading)
                             else:
