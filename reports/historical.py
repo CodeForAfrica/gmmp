@@ -8,6 +8,7 @@ from reports.report_details import WS_INFO
 
 
 RECODES = {
+    # country + region
     'Pacific': 'Pacific Islands',
     'Congo, Rep (Brazzaville)': 'Congo',
     'Congo, Dem Rep': 'Congo (the Democratic Republic of the)',
@@ -15,7 +16,6 @@ RECODES = {
     'St Lucia': 'Saint Lucia',
     'St. Vincent and The Grenadines': 'Saint Vincent and the Grenadines',
     'Trinidad & Tobago': 'Trinidad and Tobago',
-    'Female  %F': 'Female',
     # women topics
     "Arts, entertainment, leisure, cinema, theatre, books, dance": "Arts, entertainment, leisure, cinema, books, dance",
     "Beauty contests, models, fashion, beauty aids, cosmetic surgery": "Beauty contests, models, fashion, cosmetic surgery",
@@ -99,6 +99,8 @@ RECODES = {
     # sex
     "%F": "Female",
     "%M": "Male",
+    'Female  %F': 'Female',
+    "Male %F": "Male",
     #survivor_of
     "Survivor of an accident, natural disaster, poverty, disease, illness": "Survivor of an accident, natural disaster, poverty",
     "Survivor of domestic violence (by husband/wife/partner/other family member), psychological violence, physical assault, marital rape, murder":"Survivor of domestic violence, rape, murder, etc.",
@@ -322,6 +324,12 @@ class Historical(object):
             self.slurp_table(ws, data, col_start=col_start, col_end=col_end, row_start=6, row_end=13, col_heading_row=4)
 
         return all_data
+
+    def import_9hF(self, ws, sheet_info):
+        data = {}
+        for col_start, cols_per_group in [(6, 5), (11, 3)]:
+            self.slurp_year_grouped_table(ws, data, col_start=col_start, cols=1, cols_per_group=cols_per_group, year_heading_row=3, col_heading_row=2, row_start=4, row_end=5, row_heading_col=5)
+        return data
 
     def slurp_secondary_col_table(self, ws, data, col_start, cols_per_group, cols, row_end, row_start=5, major_col_heading_row=4, row_heading_col=5):
         """
