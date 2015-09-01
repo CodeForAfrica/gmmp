@@ -96,10 +96,10 @@ RECODES = {
     "Popular opinion: the person's opinion is assumed to reflect that of the 'ordinary citizen' (e.g., in a street interview, vox populi etc); it is implied that the person's point of view is shared by a wider group of people.": "Popular Opinion",
     "Other. Use only as a last resort (describe the function in 'Comments' section of coding sheet).": "Other",
     "12 years or under": "12 and under",
-    # sexes
+    # sex
     "%F": "Female",
     "%M": "Male",
-    #survivor
+    #survivor_of
     "Survivor of an accident, natural disaster, poverty, disease, illness": "Survivor of an accident, natural disaster, poverty",
     "Survivor of domestic violence (by husband/wife/partner/other family member), psychological violence, physical assault, marital rape, murder":"Survivor of domestic violence, rape, murder, etc.",
     "Survivor of domestic violence (by husband/wife/partner/other family member), psychological violence, physical assault, marital rape, murder": "Survivor of domestic violence, rape, murder, etc.",
@@ -319,7 +319,7 @@ class Historical(object):
         for year, col_start, col_end in [(2005, 10, 11), (2010, 12, 14)]:
             data = {}
             all_data[year] = data
-            self.slurp_table(ws, data, col_start=col_start, col_end=col_end, row_start=6, row_end=11, col_heading_row=4)
+            self.slurp_table(ws, data, col_start=col_start, col_end=col_end, row_start=6, row_end=13, col_heading_row=4)
 
         return all_data
 
