@@ -329,6 +329,16 @@ class Historical(object):
 
         return all_data
 
+    def import_20gF(self, ws, sheet_info):
+        all_data = {}
+
+        for year, col_start, col_end in [(2000, 8, 9), (2005, 10, 11), (2010, 12, 13)]:
+            data = {}
+            all_data[year] = data
+            self.slurp_table(ws, data, col_start=col_start, col_end=col_end, row_start=7, row_end=7, col_heading_row=4)
+
+        return all_data
+
     def slurp_secondary_col_table(self, ws, data, col_start, cols_per_group, cols, row_end, row_start=5, major_col_heading_row=4, row_heading_col=5):
         """
         Get values from a table with two levels of column headings.
