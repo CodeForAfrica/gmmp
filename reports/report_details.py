@@ -34,6 +34,7 @@ WS_INFO = {
         'title': 'Breakdown of women in the news in major topics by region',
         'desc': 'Women in the news (sources) in major news topics by region ',
         'reports': ['global', 'region', 'country'],
+        'historical': '3bF',
     },
     'ws_07': {
         'name': '7',

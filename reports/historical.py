@@ -129,6 +129,15 @@ RECODES = {
     # yes/no,
     "No, women are not central": "No",
     "Yes, women are central": "Yes",
+    # region weirdness
+    'Africa Female  %F': 'Africa',
+    'Asia Female  %F': 'Asia',
+    'Caribbean Female  %F': 'Caribbean',
+    'Europe Female  %F': 'Europe',
+    'Latin America Female  %F': 'Latin America',
+    'Middle East Female  %F': 'Middle East',
+    'North America Female  %F': 'North America',
+    'Pacific Female  %F': 'Pacific Islands',
 }
 
 
@@ -236,6 +245,33 @@ class Historical(object):
         all_data = {year: data}
 
         self.slurp_table(ws, data, col_start=6, col_end=13, row_end=11, col_heading_row=3)
+
+        return all_data
+
+    def import_3bF(self, ws, sheet_info):
+        all_data = {}
+
+        for icol in [6, 11, 16, 21, 26, 31, 36, 41]:
+            data = {}
+            self.slurp_year_grouped_table(ws, data, col_start=icol, cols=1, cols_per_group=5, year_heading_row=3, col_heading_row=2, row_start=4, row_end=11,
+                                          skip_years=[1995, 2000, 2005])
+
+            year = data.keys()[0]
+            all_data.setdefault(year, {})
+
+            for items in data.itervalues():
+                keys = items.keys()
+                keys.remove('n')
+                key = keys[0]
+
+                n_values = items['n']
+                p_values = items[key]
+
+                for k, p in p_values.items():
+                    p_values[k] = [p_values[k], n_values[k]]
+
+                del items['n']
+                all_data[year][key] = {'female': items[key]}
 
         return all_data
 
