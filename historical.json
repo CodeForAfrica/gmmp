@@ -750,6 +750,40 @@
         }
       }
     }, 
+    "16cF": {
+      "2010": {
+        "female": {
+          "africa": 0.04, 
+          "asia": 0.17, 
+          "caribbean": 0.03, 
+          "europe": 0.49, 
+          "latin america": 0.18, 
+          "middle east": 0.01, 
+          "north america": 0.08, 
+          "pacific islands": 0.01
+        }, 
+        "male": {
+          "africa": 0.05, 
+          "asia": 0.31, 
+          "caribbean": 0.04, 
+          "europe": 0.3, 
+          "latin america": 0.18, 
+          "middle east": 0.01, 
+          "north america": 0.1, 
+          "pacific islands": 0.0
+        }, 
+        "n": {
+          "africa": 57, 
+          "asia": 71, 
+          "caribbean": 67, 
+          "europe": 128, 
+          "latin america": 40, 
+          "middle east": 5, 
+          "north america": 19, 
+          "pacific islands": 6
+        }
+      }
+    }, 
     "16dF": {
       "2010": {
         "female": {
