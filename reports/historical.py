@@ -102,7 +102,8 @@ RECODES = {
     'Female  %F': 'Female',
     "Male %F": "Male",
     "Male %f": "Male",
-    #survivor_of
+    "Other: transgender, transsexual": "Other (transgender, etc.)",
+    # survivor_of
     "Survivor of an accident, natural disaster, poverty, disease, illness": "Survivor of an accident, natural disaster, poverty",
     "Survivor of domestic violence (by husband/wife/partner/other family member), psychological violence, physical assault, marital rape, murder": "Survivor of domestic violence, rape, murder, etc.",
     "Survivor of domestic violence (by husband/wife/partner/other family member), psychological violence, physical assault, marital rape, murder": "Survivor of domestic violence, rape, murder, etc.",
@@ -112,7 +113,7 @@ RECODES = {
     "Survivor of war, terrorism, vigilantism, state-based violence": "Survivor of war, terrorism, vigilantism, state violence...",
     "Survivor of discrimination based on gender, race, ethnicity, age, religion": "Survivor of discrimination based on gender, race, ethnicity, age, religion, ability, etc.",
     "Other survivor: describe in 'Comments' section of coding sheet": "Other survivor (specify in comments)",
-    #victim_of
+    # victim_of
     "Victim of an accident, natural disaster, poverty, disease, illness": "Victim of an accident, natural disaster, poverty",
     "Victim of domestic violence (by husband/wife/partner/other family member), psychological violence, physical assault, marital rape, murder": "Victim of domestic violence, rape, murder, etc.",
     "Victim of non-domestic sexual violence or abuse, sexual harassment, rape, trafficking": "Victim of non-domestic sexual violence, rape, assault, etc (sexual violence only)",
@@ -270,6 +271,11 @@ class Historical(object):
         self.slurp_year_grouped_table(ws, data, col_start=6, cols=1, cols_per_group=5, year_heading_row=3, col_heading_row=2, row_start=5, row_end=12)
         return data
 
+    def import_9gF(self, ws, sheet_info):
+        data = {}
+        self.slurp_year_grouped_table(ws, data, col_start=6, cols=2, cols_per_group=5, year_heading_row=3, col_heading_row=2, row_start=5, row_end=12)
+        return data
+
     def import_9kF(self, ws, sheet_info):
         data = {}
         all_data = {2010: data}
@@ -280,6 +286,12 @@ class Historical(object):
         all_data = {}
         self.slurp_year_grouped_table(ws, all_data, col_start=6, cols=1, cols_per_group=5, year_heading_row=3, col_heading_row=2, row_start=4, row_end=11)
         return all_data
+
+    def import_13bF(self, ws, sheet_info):
+        data = {}
+        self.slurp_year_grouped_table(ws, data, col_start=6, cols=1, cols_per_group=4, year_heading_row=3, col_heading_row=2, row_start=5, row_end=9,
+                                      skip_years=[1995])
+        return data
 
     def import_18cF(self, ws, sheet_info):
         all_data = {}
@@ -335,11 +347,6 @@ class Historical(object):
 
         self.slurp_secondary_col_table(ws, data, col_start=48, cols=7, cols_per_group=2, major_col_heading_row=3, row_start=7, row_end=31)
         return all_data
-
-    def import_9gF(self, ws, sheet_info):
-        data = {}
-        self.slurp_year_grouped_table(ws, data, col_start=6, cols=2, cols_per_group=5, year_heading_row=3, col_heading_row=2, row_start=5, row_end=12)
-        return data
 
     def import_19bF(self, ws, sheet_info):
         all_data = {}
@@ -414,7 +421,8 @@ class Historical(object):
                 row_heading = canon(ws.cell(column=row_heading_col, row=irow).value)
                 col_data[row_heading] = v(ws.cell(column=icol, row=irow).value)
 
-    def slurp_year_grouped_table(self, ws, all_data, col_start, cols_per_group, cols, row_end, row_start=5, year_heading_row=4, col_heading_row=3, row_heading_col=5):
+    def slurp_year_grouped_table(self, ws, all_data, col_start, cols_per_group, cols, row_end, row_start=5, year_heading_row=4, col_heading_row=3, row_heading_col=5,
+                                 skip_years=[]):
         """
         Slurp a table where each category contains a range of years.
 
@@ -437,13 +445,14 @@ class Historical(object):
                     year = int(year)
                     effective_col_heading = col_heading
 
-                if year not in all_data:
-                    all_data[year] = {}
+                if year not in skip_years:
+                    if year not in all_data:
+                        all_data[year] = {}
 
-                data = all_data[year]
-                col_data = {}
-                data[effective_col_heading] = col_data
+                    data = all_data[year]
+                    col_data = {}
+                    data[effective_col_heading] = col_data
 
-                for irow in xrange(row_start, row_end + 1):
-                    row_heading = canon(ws.cell(column=row_heading_col, row=irow).value)
-                    col_data[row_heading] = v(ws.cell(column=iyear, row=irow).value)
+                    for irow in xrange(row_start, row_end + 1):
+                        row_heading = canon(ws.cell(column=row_heading_col, row=irow).value)
+                        col_data[row_heading] = v(ws.cell(column=iyear, row=irow).value)

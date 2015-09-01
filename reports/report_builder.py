@@ -212,7 +212,7 @@ class XLSXReportBuilder:
         #     'ws_61', 'ws_62', 'ws_63', 'ws_64', 'ws_65', 'ws_66', 'ws_67', 'ws_68', 'ws_68b',
         #     'ws_75', 'ws_76', 'ws_77', 'ws_78']
         if settings.DEBUG:
-            sheets = ['ws_28']
+            sheets = ['ws_34']
         else:
             sheets = WS_INFO.keys()
 
@@ -1055,6 +1055,7 @@ class XLSXReportBuilder:
         counts['col_title_def'] = 'Sex of reporter'
 
         self.tabulate(ws, counts, self.male_female, GENDER, row_perc=True, filter_cols=self.female)
+        self.tabulate_historical(ws, '34', self.female, GENDER, write_row_headings=False)
 
     def ws_35(self, ws):
         """

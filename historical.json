@@ -60,6 +60,35 @@
         }
       }
     }, 
+    "13bF": {
+      "2000": {
+        "female": {
+          "do not know": "n/a", 
+          "female": 0.24, 
+          "male": 0.18, 
+          "na \u2013 use this where you are coding a secondary source only": "n/a", 
+          "other (transgender, etc.)": "n/a"
+        }
+      }, 
+      "2005": {
+        "female": {
+          "do not know": "n/a", 
+          "female": 0.25, 
+          "male": 0.2, 
+          "na \u2013 use this where you are coding a secondary source only": "n/a", 
+          "other (transgender, etc.)": "n/a"
+        }
+      }, 
+      "2010": {
+        "female": {
+          "do not know": 0.34, 
+          "female": 0.42, 
+          "male": 0.35, 
+          "na \u2013 use this where you are coding a secondary source only": 0.36, 
+          "other (transgender, etc.)": 0.47
+        }
+      }
+    }, 
     "18cF": {
       "2005": {
         "female": {

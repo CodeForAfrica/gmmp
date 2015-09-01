@@ -207,6 +207,7 @@ WS_INFO = {
         'title': 'Breakdown of News Subject (sex of source) selection by female & male reporters',
         'desc': 'Selection of News Subject (sex of source, in rows) by female & male reporters (in columns)',
         'reports': ['global', 'region', 'country'],
+        'historical': '13bF'
     },
     'ws_35': {
         'name': '35',
