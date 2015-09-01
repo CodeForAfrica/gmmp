@@ -168,6 +168,7 @@ WS_INFO = {
         'title': 'Breakdown of News subjects photographed, by sex',
         'desc': 'News subjects photographed, by sex',
         'reports': ['global', 'region', 'country'],
+        'historical': '20hF'
     },
     'ws_28': {
         'name': '28',

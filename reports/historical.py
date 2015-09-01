@@ -101,7 +101,7 @@ RECODES = {
     "%M": "Male",
     'Female  %F': 'Female',
     "Male %F": "Male",
-    #survivor_of
+    # survivor_of
     "Survivor of an accident, natural disaster, poverty, disease, illness": "Survivor of an accident, natural disaster, poverty",
     "Survivor of domestic violence (by husband/wife/partner/other family member), psychological violence, physical assault, marital rape, murder": "Survivor of domestic violence, rape, murder, etc.",
     "Survivor of domestic violence (by husband/wife/partner/other family member), psychological violence, physical assault, marital rape, murder": "Survivor of domestic violence, rape, murder, etc.",
@@ -346,6 +346,16 @@ class Historical(object):
         for col_start, cols_per_group in [(6, 4), (11, 2)]:
             self.slurp_year_grouped_table(ws, data, col_start=col_start, cols=1, cols_per_group=cols_per_group, year_heading_row=3, col_heading_row=2, row_start=4, row_end=5, row_heading_col=5)
         return data
+
+    def import_20hF(self, ws, sheet_info):
+        all_data = {}
+
+        for year, col_start, col_end in [(2000, 8, 9), (2005, 10, 11), (2010, 12, 14)]:
+            data = {}
+            all_data[year] = data
+            self.slurp_table(ws, data, col_start=col_start, col_end=col_end, row_start=6, row_end=7, col_heading_row=4)
+
+        return all_data
 
     def slurp_secondary_col_table(self, ws, data, col_start, cols_per_group, cols, row_end, row_start=5, major_col_heading_row=4, row_heading_col=5):
         """
