@@ -147,6 +147,7 @@ WS_INFO = {
         'title': 'Breakdown by family status, by sex.',
         'desc': 'News subjects who are identified by family status, by sex',
         'reports': ['global', 'region', 'country'],
+        'historical': '9hF'
     },
     'ws_25': {
         'name': '25',
