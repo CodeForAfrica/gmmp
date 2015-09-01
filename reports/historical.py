@@ -300,6 +300,20 @@ class Historical(object):
         self.slurp_year_grouped_table(ws, all_data, col_start=6, cols=1, cols_per_group=5, year_heading_row=3, col_heading_row=2, row_start=4, row_end=11)
         return all_data
 
+    def import_12dF(self, ws, sheet_info):
+        data = {}
+        all_data = {2010: data}
+
+        col_heading = canon('Female')
+        col_data = {}
+        data[col_heading] = col_data
+
+        for irow in xrange(4, 55):
+            row_heading = canon(ws.cell(column=5, row=irow).value)
+            col_data[row_heading] = v(ws.cell(column=9, row=irow).value)
+
+        return all_data
+
     def import_13bF(self, ws, sheet_info):
         data = {}
         self.slurp_year_grouped_table(ws, data, col_start=6, cols=1, cols_per_group=4, year_heading_row=3, col_heading_row=2, row_start=5, row_end=9,
@@ -314,16 +328,32 @@ class Historical(object):
 
         return data
 
+    def import_15bF(self, ws, sheet_info):
+        data = {}
+        self.slurp_year_grouped_table(ws, data, col_start=6, cols=1, cols_per_group=5, year_heading_row=4, col_heading_row=3, row_start=5, row_end=56, skip_years=[1995, 2000, 2005])
+        return data
+
     def import_15cF(self, ws, sheet_info):
         data = {}
         self.slurp_year_grouped_table(ws, data, col_start=6, cols=8, cols_per_group=5, year_heading_row=3, col_heading_row=2, row_start=4, row_end=55,
                                       skip_years=[1995, 2000, 2005])
         return data
 
+    def import_16cF(self, ws, sheet_info):
+        data = {}
+        self.slurp_year_grouped_table(ws, data, col_start=6, cols=2, cols_per_group=5, year_heading_row=3, col_heading_row=2, row_start=4, row_end=11, skip_years=[1995, 2000, 2005])
+        return data
+
     def import_16dF(self, ws, sheet_info):
         data = {}
         self.slurp_year_grouped_table(ws, data, col_start=6, cols=2, cols_per_group=5, year_heading_row=3, col_heading_row=2, row_start=4, row_end=11,
                                       skip_years=[1995, 2000, 2005])
+        return data
+
+    def import_16eF(self, ws, sheet_info):
+        data = {}
+        for col_start, cols_per_group, skip_years in [(6, 5, [1995, 2000, 2005]), (11, 2, [])]:
+            self.slurp_year_grouped_table(ws, data, col_start=col_start, cols=1, cols_per_group=cols_per_group, year_heading_row=3, col_heading_row=2, row_start=4, row_end=55, row_heading_col=5, skip_years=skip_years)
         return data
 
     def import_18cF(self, ws, sheet_info):
@@ -410,36 +440,6 @@ class Historical(object):
             self.slurp_table(ws, data, col_start=col_start, col_end=col_end, row_start=6, row_end=7, col_heading_row=4)
 
         return all_data
-
-    def import_12dF(self, ws, sheet_info):
-        data = {}
-        all_data = {2010: data}
-
-        col_heading = canon('Female')
-        col_data = {}
-        data[col_heading] = col_data
-
-        for irow in xrange(4, 55):
-            row_heading = canon(ws.cell(column=5, row=irow).value)
-            col_data[row_heading] = v(ws.cell(column=9, row=irow).value)
-
-        return all_data
-
-    def import_15bF(self, ws, sheet_info):
-        data = {}
-        self.slurp_year_grouped_table(ws, data, col_start=6, cols=1, cols_per_group=5, year_heading_row=4, col_heading_row=3, row_start=5, row_end=56, skip_years=[1995, 2000, 2005])
-        return data
-
-    def import_16eF(self, ws, sheet_info):
-        data = {}
-        for col_start, cols_per_group, skip_years in [(6, 5, [1995, 2000, 2005]), (11, 2, [])]:
-            self.slurp_year_grouped_table(ws, data, col_start=col_start, cols=1, cols_per_group=cols_per_group, year_heading_row=3, col_heading_row=2, row_start=4, row_end=55, row_heading_col=5, skip_years=skip_years)
-        return data
-
-    def import_16cF(self, ws, sheet_info):
-        data = {}
-        self.slurp_year_grouped_table(ws, data, col_start=6, cols=2, cols_per_group=5, year_heading_row=3, col_heading_row=2, row_start=4, row_end=11, skip_years=[1995, 2000, 2005])
-        return data
 
     def slurp_secondary_col_table(self, ws, data, col_start, cols_per_group, cols, row_end, row_start=5, major_col_heading_row=4, row_heading_col=5):
         """
