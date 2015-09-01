@@ -169,12 +169,14 @@ WS_INFO = {
         'title': 'Breakdown of News subjects photographed, by sex',
         'desc': 'News subjects photographed, by sex',
         'reports': ['global', 'region', 'country'],
+        'historical': '20hF'
     },
     'ws_28': {
         'name': '28',
         'title': 'Breakdown of total female reporters & presenters by region by medium ',
         'desc': 'Female reporters, announcers and presenters all media, by region',
         'reports': ['global', 'region', 'country'],
+        'historical': '10bF'
     },
     'ws_29': {
         'name': '29',
@@ -193,6 +195,7 @@ WS_INFO = {
         'title': 'Breakdown of Reporters, by sex on different topics - Detail',
         'desc': 'Rporters, by sex on different topics - Detail',
         'reports': ['global'],
+        'historical': '12dF'
     },
     'ws_32': {
         'name': '32',
@@ -205,6 +208,7 @@ WS_INFO = {
         'title': 'Breakdown of News Subject (sex of source) selection by female & male reporters',
         'desc': 'Selection of News Subject (sex of source, in rows) by female & male reporters (in columns)',
         'reports': ['global', 'region', 'country'],
+        'historical': '13bF'
     },
     'ws_35': {
         'name': '35',

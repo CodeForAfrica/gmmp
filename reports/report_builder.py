@@ -212,7 +212,7 @@ class XLSXReportBuilder:
         #     'ws_61', 'ws_62', 'ws_63', 'ws_64', 'ws_65', 'ws_66', 'ws_67', 'ws_68', 'ws_68b',
         #     'ws_75', 'ws_76', 'ws_77', 'ws_78']
         if settings.DEBUG:
-            sheets = ['ws_07', 'ws_21']
+            sheets = ['ws_34']
         else:
             sheets = WS_INFO.keys()
 
@@ -908,6 +908,7 @@ class XLSXReportBuilder:
                 counts.update({(r['sex'], r['is_photograph']): r['n'] for r in rows})
 
         self.tabulate(ws, counts, self.male_female, IS_PHOTOGRAPH, row_perc=False)
+        self.tabulate_historical(ws, '27', self.male_female, IS_PHOTOGRAPH, write_row_headings=False)
 
     def ws_28(self, ws):
         """
@@ -933,6 +934,7 @@ class XLSXReportBuilder:
                 counts.update({(media_id, region_id): row['n']})
 
         self.tabulate(ws, counts, TM_MEDIA_TYPES, self.regions, row_perc=True)
+        self.tabulate_historical(ws, '28', self.male_female, self.regions)
 
     def ws_29(self, ws):
         """
@@ -1005,6 +1007,7 @@ class XLSXReportBuilder:
                 counts.update({(r['sex'], r['topic']): r['n'] for r in rows})
 
         self.tabulate(ws, counts, self.male_female, TOPICS, row_perc=True, filter_cols=self.female)
+        self.tabulate_historical(ws, '31', self.female, TOPICS, write_row_headings=False)
 
     def ws_32(self, ws):
         """
@@ -1053,6 +1056,7 @@ class XLSXReportBuilder:
         counts['col_title_def'] = 'Sex of reporter'
 
         self.tabulate(ws, counts, self.male_female, GENDER, row_perc=True, filter_cols=self.female)
+        self.tabulate_historical(ws, '34', self.female, GENDER, write_row_headings=False)
 
     def ws_35(self, ws):
         """
