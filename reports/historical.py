@@ -377,6 +377,20 @@ class Historical(object):
 
         return all_data
 
+    def import_12dF(self, ws, sheet_info):
+        data = {}
+        all_data = {2010: data}
+
+        col_heading = canon('Female')
+        col_data = {}
+        data[col_heading] = col_data
+
+        for irow in xrange(4, 55):
+            row_heading = canon(ws.cell(column=5, row=irow).value)
+            col_data[row_heading] = v(ws.cell(column=9, row=irow).value)
+
+        return all_data
+
     def slurp_secondary_col_table(self, ws, data, col_start, cols_per_group, cols, row_end, row_start=5, major_col_heading_row=4, row_heading_col=5):
         """
         Get values from a table with two levels of column headings.
