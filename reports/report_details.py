@@ -241,6 +241,7 @@ WS_INFO = {
         'title': 'Breakdown of Stories with Women as a central Focus by topic and region',
         'desc': 'Stories with Women as a central Focus by topic and region',
         'reports': ['global'],
+        'historical': '15cF'
     },
     'ws_41': {
         'name': '41',

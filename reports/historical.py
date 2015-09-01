@@ -311,6 +311,12 @@ class Historical(object):
 
         return data
 
+    def import_15cF(self, ws, sheet_info):
+        data = {}
+        self.slurp_year_grouped_table(ws, data, col_start=6, cols=8, cols_per_group=5, year_heading_row=3, col_heading_row=2, row_start=4, row_end=55,
+                                      skip_years=[1995, 2000, 2005])
+        return data
+
     def import_18cF(self, ws, sheet_info):
         all_data = {}
 
