@@ -273,6 +273,7 @@ WS_INFO = {
         'title': 'Stories where issues of gender equality/inequality are raised by sex of \'people in the news\' and by region',
         'desc': 'Stories where issues of gender equality/inequality are raised by sex of \'people in the news\' and by region',
         'reports': ['global', 'region'],
+        'historical': '16dF'
     },
     'ws_46': {
         'name': '46',

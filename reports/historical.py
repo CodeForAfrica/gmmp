@@ -100,9 +100,11 @@ RECODES = {
     "%F": "Female",
     "%M": "Male",
     'Female  %F': 'Female',
+    "Female %": 'Female',
     "Male %F": "Male",
     "Male %f": "Male",
     "Male %M": "Male",
+    "Male %": "Male",
     "Other: transgender, transsexual": "Other (transgender, etc.)",
     # survivor_of
     "Survivor of an accident, natural disaster, poverty, disease, illness": "Survivor of an accident, natural disaster, poverty",
@@ -314,6 +316,12 @@ class Historical(object):
     def import_15cF(self, ws, sheet_info):
         data = {}
         self.slurp_year_grouped_table(ws, data, col_start=6, cols=8, cols_per_group=5, year_heading_row=3, col_heading_row=2, row_start=4, row_end=55,
+                                      skip_years=[1995, 2000, 2005])
+        return data
+
+    def import_16dF(self, ws, sheet_info):
+        data = {}
+        self.slurp_year_grouped_table(ws, data, col_start=6, cols=2, cols_per_group=5, year_heading_row=3, col_heading_row=2, row_start=4, row_end=11,
                                       skip_years=[1995, 2000, 2005])
         return data
 
