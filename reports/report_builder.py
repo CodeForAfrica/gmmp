@@ -212,7 +212,7 @@ class XLSXReportBuilder:
         #     'ws_61', 'ws_62', 'ws_63', 'ws_64', 'ws_65', 'ws_66', 'ws_67', 'ws_68', 'ws_68b',
         #     'ws_75', 'ws_76', 'ws_77', 'ws_78']
         if settings.DEBUG:
-            sheets = ['ws_27']
+            sheets = ['ws_28']
         else:
             sheets = WS_INFO.keys()
 
@@ -934,6 +934,7 @@ class XLSXReportBuilder:
                 counts.update({(media_id, region_id): row['n']})
 
         self.tabulate(ws, counts, TM_MEDIA_TYPES, self.regions, row_perc=True)
+        self.tabulate_historical(ws, '28', self.male_female, self.regions)
 
     def ws_29(self, ws):
         """

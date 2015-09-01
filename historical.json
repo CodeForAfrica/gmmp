@@ -1,5 +1,65 @@
 {
   "global": {
+    "10bF": {
+      "1995": {
+        "female": {
+          "africa": 0.33, 
+          "asia": 0.36, 
+          "caribbean": 0.0, 
+          "europe": 0.0, 
+          "latin america": 0.0, 
+          "middle east": 0.0, 
+          "north america": 0.0, 
+          "pacific islands": 0.0
+        }
+      }, 
+      "2000": {
+        "female": {
+          "africa": 0.36, 
+          "asia": 0.42, 
+          "caribbean": 0.41, 
+          "europe": 0.4, 
+          "latin america": 0.28, 
+          "middle east": 0.47, 
+          "north america": 0.46, 
+          "pacific islands": 0.49
+        }
+      }, 
+      "2005": {
+        "female": {
+          "africa": 0.41, 
+          "asia": 0.49, 
+          "caribbean": 0.41, 
+          "europe": 0.42, 
+          "latin america": 0.38, 
+          "middle east": 0.41, 
+          "north america": 0.48, 
+          "pacific islands": 0.5
+        }
+      }, 
+      "2010": {
+        "female": {
+          "africa": 0.34, 
+          "asia": 0.44, 
+          "caribbean": 0.34, 
+          "europe": 0.41, 
+          "latin america": 0.38, 
+          "middle east": 0.46, 
+          "north america": 0.35, 
+          "pacific islands": 0.35
+        }, 
+        "n": {
+          "africa": 544, 
+          "asia": 1741, 
+          "caribbean": 340, 
+          "europe": 3066, 
+          "latin america": 880, 
+          "middle east": 455, 
+          "north america": 154, 
+          "pacific islands": 292
+        }
+      }
+    }, 
     "18cF": {
       "2005": {
         "female": {

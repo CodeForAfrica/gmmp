@@ -176,6 +176,7 @@ WS_INFO = {
         'title': 'Breakdown of total female reporters & presenters by region by medium ',
         'desc': 'Female reporters, announcers and presenters all media, by region',
         'reports': ['global', 'region', 'country'],
+        'historical': '10bF'
     },
     'ws_29': {
         'name': '29',

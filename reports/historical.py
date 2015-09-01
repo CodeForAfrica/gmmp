@@ -276,6 +276,11 @@ class Historical(object):
         self.slurp_secondary_col_table(ws, data, col_start=17, cols_per_group=3, cols=2, row_start=6, row_end=7, major_col_heading_row=4, row_heading_col=4)
         return all_data
 
+    def import_10bF(self, ws, sheet_info):
+        all_data = {}
+        self.slurp_year_grouped_table(ws, all_data, col_start=6, cols=1, cols_per_group=5, year_heading_row=3, col_heading_row=2, row_start=4, row_end=11)
+        return all_data
+
     def import_18cF(self, ws, sheet_info):
         all_data = {}
 
