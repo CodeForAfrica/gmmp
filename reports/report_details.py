@@ -140,6 +140,7 @@ WS_INFO = {
         'title': 'Breakdown by survivor type by sex',
         'desc': 'News subjects who are portrayed as survivors, by sex',
         'reports': ['global', 'region', 'country'],
+        'historical': '19bF'
     },
     'ws_24': {
         'name': '24',
