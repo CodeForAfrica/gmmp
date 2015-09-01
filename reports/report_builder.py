@@ -212,7 +212,7 @@ class XLSXReportBuilder:
         #     'ws_61', 'ws_62', 'ws_63', 'ws_64', 'ws_65', 'ws_66', 'ws_67', 'ws_68', 'ws_68b',
         #     'ws_75', 'ws_76', 'ws_77', 'ws_78']
         if settings.DEBUG:
-            sheets = ['ws_40']
+            sheets = ['ws_44']
         else:
             sheets = WS_INFO.keys()
 
@@ -1243,6 +1243,7 @@ class XLSXReportBuilder:
                         counts.update({(r['equality_rights'], region_id): r['n']})
             secondary_counts[gender] = counts
         self.tabulate_secondary_cols(ws, secondary_counts, YESNO, self.regions, row_perc=True)
+        self.tabulate_historical(ws, '44', self.male_female, self.regions, write_row_headings=False, r=7, skip_major_col_heading=True)
 
     def ws_45(self, ws):
         """
