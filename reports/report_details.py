@@ -153,6 +153,7 @@ WS_INFO = {
         'title': 'B.down by sex of subject, family status, by sex of reporter',
         'desc': 'News subjects who are identified by family status, by sex of news subject, by sex of reporter',
         'reports': ['global', 'region', 'country'],
+        'historical': '9kF'
     },
     'ws_26': {
         'name': '26',

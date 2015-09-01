@@ -212,7 +212,7 @@ class XLSXReportBuilder:
         #     'ws_61', 'ws_62', 'ws_63', 'ws_64', 'ws_65', 'ws_66', 'ws_67', 'ws_68', 'ws_68b',
         #     'ws_75', 'ws_76', 'ws_77', 'ws_78']
         if settings.DEBUG:
-            sheets = ['ws_23']
+            sheets = ['ws_25']
         else:
             sheets = WS_INFO.keys()
 
@@ -866,6 +866,7 @@ class XLSXReportBuilder:
             'Sex of news subject']
 
         self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, YESNO, row_perc=False)
+        self.tabulate_historical(ws, '25', self.male_female, YESNO, major_cols=self.male_female, write_row_headings=False)
 
     def ws_26(self, ws):
         """

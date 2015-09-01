@@ -99,9 +99,9 @@ RECODES = {
     # sex
     "%F": "Female",
     "%M": "Male",
-    #survivor_of
+    # survivor_of
     "Survivor of an accident, natural disaster, poverty, disease, illness": "Survivor of an accident, natural disaster, poverty",
-    "Survivor of domestic violence (by husband/wife/partner/other family member), psychological violence, physical assault, marital rape, murder":"Survivor of domestic violence, rape, murder, etc.",
+    "Survivor of domestic violence (by husband/wife/partner/other family member), psychological violence, physical assault, marital rape, murder": "Survivor of domestic violence, rape, murder, etc.",
     "Survivor of domestic violence (by husband/wife/partner/other family member), psychological violence, physical assault, marital rape, murder": "Survivor of domestic violence, rape, murder, etc.",
     "Survivor of non-domestic sexual violence or abuse, sexual harassment, rape, trafficking": "Survivor of non-domestic sexual violence, rape, assault, etc. (sexual violence only)",
     "Survivor of other crime, robbery, assault, murder": "Survivor of other non-domestic crime, robbery, etc.",
@@ -258,6 +258,12 @@ class Historical(object):
         self.slurp_year_grouped_table(ws, data, col_start=6, cols=1, cols_per_group=5, year_heading_row=3, col_heading_row=2, row_start=5, row_end=12)
         return data
 
+    def import_9kF(self, ws, sheet_info):
+        data = {}
+        all_data = {2010: data}
+        self.slurp_secondary_col_table(ws, data, col_start=17, cols_per_group=3, cols=2, row_start=6, row_end=7, major_col_heading_row=4, row_heading_col=4)
+        return all_data
+
     def import_18cF(self, ws, sheet_info):
         all_data = {}
 
@@ -326,6 +332,13 @@ class Historical(object):
     def slurp_secondary_col_table(self, ws, data, col_start, cols_per_group, cols, row_end, row_start=5, major_col_heading_row=4, row_heading_col=5):
         """
         Get values from a table with two levels of column headings.
+
+        eg.
+             Major 1       | Major 2
+             Col 1 | Col 2 | Col 1 | Col 2
+        row1
+        row2
+        row3
         """
         for icol in xrange(col_start, col_start + cols * cols_per_group, cols_per_group):
             major_col_heading = canon(ws.cell(column=icol, row=major_col_heading_row).value)
@@ -334,10 +347,15 @@ class Historical(object):
 
             self.slurp_table(ws, major_col_data, icol, icol + cols_per_group - 1, row_end, row_start=row_start, col_heading_row=major_col_heading_row + 1, row_heading_col=row_heading_col)
 
-
     def slurp_table(self, ws, data, col_start, col_end, row_end, row_start=5, col_heading_row=4, row_heading_col=5):
         """
         Grab values from a simple table with column and row titles.
+
+        eg.
+             Cat 1 | Cat 2 | N
+        row1
+        row2
+        row3
         """
         for icol in xrange(col_start, col_end + 1):
             col_heading = canon(ws.cell(column=icol, row=col_heading_row).value)
