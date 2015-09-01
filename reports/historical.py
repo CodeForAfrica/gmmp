@@ -415,6 +415,11 @@ class Historical(object):
         self.slurp_year_grouped_table(ws, data, col_start=6, cols=1, cols_per_group=5, year_heading_row=4, col_heading_row=3, row_start=5, row_end=56, skip_years=[1995, 2000, 2005])
         return data
 
+    def import_16eF(self, ws, sheet_info):
+        data = {}
+        for col_start, cols_per_group, skip_years in [(6, 5, [1995, 2000, 2005]), (11, 2, [])]:
+            self.slurp_year_grouped_table(ws, data, col_start=col_start, cols=1, cols_per_group=cols_per_group, year_heading_row=3, col_heading_row=2, row_start=4, row_end=55, row_heading_col=5, skip_years=skip_years)
+        return data
 
     def slurp_secondary_col_table(self, ws, data, col_start, cols_per_group, cols, row_end, row_start=5, major_col_heading_row=4, row_heading_col=5):
         """
