@@ -2131,6 +2131,106 @@
         }
       }
     }, 
+    "9gF": {
+      "1995": {
+        "female": {
+          "other victim (specify in comments)": 0.07, 
+          "victim of an accident, natural disaster, poverty": 0.16, 
+          "victim of discrimination based on gender, race, ethnicity, age, religion, ability, etc": "n/a", 
+          "victim of domestic violence, rape, murder, etc.": "n/a", 
+          "victim of non-domestic sexual violence, rape, assault, etc (sexual violence only)": "n/a", 
+          "victim of other non-domestic crime, robbery, etc.": 0.06, 
+          "victim of violation based on religion, tradition...": "n/a", 
+          "victim of war, terrorism, vigilantism, state violence...": "n/a"
+        }, 
+        "male": {
+          "other victim (specify in comments)": 0.93, 
+          "victim of an accident, natural disaster, poverty": 0.84, 
+          "victim of discrimination based on gender, race, ethnicity, age, religion, ability, etc": "n/a", 
+          "victim of domestic violence, rape, murder, etc.": "n/a", 
+          "victim of non-domestic sexual violence, rape, assault, etc (sexual violence only)": "n/a", 
+          "victim of other non-domestic crime, robbery, etc.": 0.94, 
+          "victim of violation based on religion, tradition...": "n/a", 
+          "victim of war, terrorism, vigilantism, state violence...": "n/a"
+        }
+      }, 
+      "2000": {
+        "female": {
+          "other victim (specify in comments)": 0.29, 
+          "victim of an accident, natural disaster, poverty": 0.29, 
+          "victim of discrimination based on gender, race, ethnicity, age, religion, ability, etc": "n/a", 
+          "victim of domestic violence, rape, murder, etc.": 0.88, 
+          "victim of non-domestic sexual violence, rape, assault, etc (sexual violence only)": "n/a", 
+          "victim of other non-domestic crime, robbery, etc.": 0.4, 
+          "victim of violation based on religion, tradition...": "n/a", 
+          "victim of war, terrorism, vigilantism, state violence...": 0.17
+        }, 
+        "male": {
+          "other victim (specify in comments)": 0.71, 
+          "victim of an accident, natural disaster, poverty": 0.71, 
+          "victim of discrimination based on gender, race, ethnicity, age, religion, ability, etc": "n/a", 
+          "victim of domestic violence, rape, murder, etc.": 0.12, 
+          "victim of non-domestic sexual violence, rape, assault, etc (sexual violence only)": "n/a", 
+          "victim of other non-domestic crime, robbery, etc.": 0.6, 
+          "victim of violation based on religion, tradition...": "n/a", 
+          "victim of war, terrorism, vigilantism, state violence...": 0.83
+        }
+      }, 
+      "2005": {
+        "female": {
+          "other victim (specify in comments)": 0.46, 
+          "victim of an accident, natural disaster, poverty": 0.35, 
+          "victim of discrimination based on gender, race, ethnicity, age, religion, ability, etc": 0.42, 
+          "victim of domestic violence, rape, murder, etc.": 0.47, 
+          "victim of non-domestic sexual violence, rape, assault, etc (sexual violence only)": 0.7, 
+          "victim of other non-domestic crime, robbery, etc.": 0.35, 
+          "victim of violation based on religion, tradition...": 0.52, 
+          "victim of war, terrorism, vigilantism, state violence...": 0.25
+        }, 
+        "male": {
+          "other victim (specify in comments)": 0.54, 
+          "victim of an accident, natural disaster, poverty": 0.65, 
+          "victim of discrimination based on gender, race, ethnicity, age, religion, ability, etc": 0.58, 
+          "victim of domestic violence, rape, murder, etc.": 0.53, 
+          "victim of non-domestic sexual violence, rape, assault, etc (sexual violence only)": 0.3, 
+          "victim of other non-domestic crime, robbery, etc.": 0.65, 
+          "victim of violation based on religion, tradition...": 0.48, 
+          "victim of war, terrorism, vigilantism, state violence...": 0.75
+        }
+      }, 
+      "2010": {
+        "female": {
+          "other victim (specify in comments)": null, 
+          "victim of an accident, natural disaster, poverty": 0.4, 
+          "victim of discrimination based on gender, race, ethnicity, age, religion, ability, etc": 0.42, 
+          "victim of domestic violence, rape, murder, etc.": 0.61, 
+          "victim of non-domestic sexual violence, rape, assault, etc (sexual violence only)": 0.76, 
+          "victim of other non-domestic crime, robbery, etc.": 0.32, 
+          "victim of violation based on religion, tradition...": 0.19, 
+          "victim of war, terrorism, vigilantism, state violence...": 0.23
+        }, 
+        "male": {
+          "other victim (specify in comments)": 1.0, 
+          "victim of an accident, natural disaster, poverty": 0.6, 
+          "victim of discrimination based on gender, race, ethnicity, age, religion, ability, etc": 0.58, 
+          "victim of domestic violence, rape, murder, etc.": 0.39, 
+          "victim of non-domestic sexual violence, rape, assault, etc (sexual violence only)": 0.24, 
+          "victim of other non-domestic crime, robbery, etc.": 0.68, 
+          "victim of violation based on religion, tradition...": 0.81, 
+          "victim of war, terrorism, vigilantism, state violence...": 0.77
+        }, 
+        "n": {
+          "other victim (specify in comments)": 268, 
+          "victim of an accident, natural disaster, poverty": 515, 
+          "victim of discrimination based on gender, race, ethnicity, age, religion, ability, etc": 105, 
+          "victim of domestic violence, rape, murder, etc.": 128, 
+          "victim of non-domestic sexual violence, rape, assault, etc (sexual violence only)": 42, 
+          "victim of other non-domestic crime, robbery, etc.": 429, 
+          "victim of violation based on religion, tradition...": 35, 
+          "victim of war, terrorism, vigilantism, state violence...": 266
+        }
+      }
+    }, 
     "9hF": {
       "1995": {
         "female": {

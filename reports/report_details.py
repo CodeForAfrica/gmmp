@@ -134,6 +134,7 @@ WS_INFO = {
         'title': 'Breakdown by victim type by sex',
         'desc': 'News Subjects who are portrayed as victims, by sex',
         'reports': ['global', 'region', 'country'],
+        'historical': '9gF'
     },
     'ws_23': {
         'name': '23',

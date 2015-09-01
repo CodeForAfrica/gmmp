@@ -797,6 +797,7 @@ class XLSXReportBuilder:
 
                 counts.update({(r['sex'], r['victim_of']): r['n'] for r in rows})
         self.tabulate(ws, counts, self.male_female, VICTIM_OF, row_perc=False)
+        self.tabulate_historical(ws, '21', self.male_female, VICTIM_OF)
 
     def ws_23(self, ws):
         """
