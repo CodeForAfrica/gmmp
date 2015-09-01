@@ -327,7 +327,7 @@ class Historical(object):
 
     def import_9hF(self, ws, sheet_info):
         data = {}
-        for col_start, cols_per_group in [(6, 5), (11, 3)]:
+        for col_start, cols_per_group in [(6, 4), (11, 2)]:
             self.slurp_year_grouped_table(ws, data, col_start=col_start, cols=1, cols_per_group=cols_per_group, year_heading_row=3, col_heading_row=2, row_start=4, row_end=5, row_heading_col=5)
         return data
 
