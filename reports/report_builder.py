@@ -216,7 +216,7 @@ class XLSXReportBuilder:
         #     'ws_61', 'ws_62', 'ws_63', 'ws_64', 'ws_65', 'ws_66', 'ws_67', 'ws_68', 'ws_68b',
         #     'ws_75', 'ws_76', 'ws_77', 'ws_78']
         if settings.DEBUG:
-            sheets = ['ws_25']
+            sheets = ['ws_28']
         else:
             sheets = WS_INFO.keys()
 
@@ -1076,6 +1076,9 @@ class XLSXReportBuilder:
                         .filter(**{region + '__in': self.region_list})\
                         .filter(sex=1)
 
+                if media_type in REPORTER_MEDIA:
+                    rows.filter(role=REPORTERS)
+
                 rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
 
                 for row in rows:
@@ -1101,6 +1104,9 @@ class XLSXReportBuilder:
                         .filter(**{region + '__in': self.region_list})\
                         .filter(sex=1)
 
+                if media_type in REPORTER_MEDIA:
+                    rows.filter(role=REPORTERS)
+
                 rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
 
                 for row in rows:
@@ -1125,6 +1131,9 @@ class XLSXReportBuilder:
                         .filter(**{model.sheet_name() + '__country__in':self.country_list})\
                         .filter(sex__in=self.male_female_ids)
 
+                if media_type in REPORTER_MEDIA:
+                    rows.filter(role=REPORTERS)
+
                 rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
 
                 counts.update({(r['sex'], r['topic']): r['n'] for r in rows})
@@ -1147,6 +1156,9 @@ class XLSXReportBuilder:
                         .values(topic)\
                         .filter(**{model.sheet_name() + '__country__in':self.country_list})\
                         .filter(sex=1)
+
+                if media_type in REPORTER_MEDIA:
+                    rows.filter(role=REPORTERS)
 
                 rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
 
@@ -1172,6 +1184,9 @@ class XLSXReportBuilder:
                     .filter(**{model.sheet_name() + '__country__in': self.country_list})\
                     .filter(sex__in=self.male_female_ids)\
                     .annotate(n=Count('id'))
+
+            if media_type in REPORTER_MEDIA:
+                rows.filter(**{sheet_name + '__' + journo_name + '__role':REPORTERS})
 
             rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
 
@@ -1230,6 +1245,9 @@ class XLSXReportBuilder:
                         .values('sex', about_women)\
                         .filter(**{model.sheet_name() + '__country__in':self.country_list})\
                         .filter(sex__in=self.male_female_ids)
+
+                if media_type in REPORTER_MEDIA:
+                    rows.filter(role=REPORTERS)
 
                 rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
 
@@ -1354,6 +1372,9 @@ class XLSXReportBuilder:
                             .filter(**{model.sheet_name() + '__country__in':self.country_list})\
                             .filter(sex=gender_id)
 
+                    if media_type in REPORTER_MEDIA:
+                        rows.filter(role=REPORTERS)
+
                     rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
 
                     counts.update({(r['equality_rights'], r['topic']): r['n'] for r in rows})
@@ -1377,6 +1398,9 @@ class XLSXReportBuilder:
                             .values(equality_rights, region)\
                             .filter(sex=gender_id)\
                             .filter(**{region + '__in':self.region_list})
+
+                    if media_type in REPORTER_MEDIA:
+                        rows.filter(role=REPORTERS)
 
                     rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
 
@@ -1467,6 +1491,9 @@ class XLSXReportBuilder:
                             .values(stereotypes, topic)\
                             .filter(sex=gender_id)\
                             .filter(**{model.sheet_name() + '__country__in':self.country_list})
+
+                    if media_type in REPORTER_MEDIA:
+                        rows.filter(role=REPORTERS)
 
                     rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
 
