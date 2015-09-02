@@ -140,6 +140,9 @@ RECODES = {
     'North America Female  %F': 'North America',
     'Pacific Female  %F': 'Pacific Islands',
     "Do not know: (e.g., the person may not be seen clearly)": "Do not know",
+    # countries
+    "United Kingdom (incl Northern Ireland, Scotland, Wales)": "United Kingdom - England, Ireland, Scotland and Wales",
+    "Belgium": "Belgium - French and Flemish",
 }
 
 

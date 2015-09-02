@@ -173,7 +173,7 @@ class XLSXReportBuilder:
         #     'ws_49', 'ws_50', 'ws_51', 'ws_52', 'ws_53', 'ws_54', 'ws_55', 'ws_56', 'ws_57', 'ws_58', 'ws_59', 'ws_60',
         #     'ws_61', 'ws_62', 'ws_63', 'ws_64', 'ws_65', 'ws_66', 'ws_67', 'ws_68', 'ws_68b',
         #     'ws_75', 'ws_76', 'ws_77', 'ws_78']
-        if settings.DEBUG:
+        if False and settings.DEBUG:
             sheets = ['ws_28']
         else:
             sheets = WS_INFO.keys()
