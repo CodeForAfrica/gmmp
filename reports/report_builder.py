@@ -2033,6 +2033,9 @@ class XLSXReportBuilder:
                     .filter(**{journo_name + '__sex': self.female[0][0]})\
                     .filter(topic__in=actual_topic_ids)
 
+                if media_type in REPORTER_MEDIA:
+                    rows.filter(**{journo_name + '__role':REPORTERS})
+
                 rows = self.apply_weights(rows, model._meta.db_table, media_type)
                 counts.update({(media_id, self.recode_country(r['country'])): r['n'] for r in rows})
 
@@ -2058,6 +2061,9 @@ class XLSXReportBuilder:
                         .filter(**{sheet_name + '__'+ person_name + '__sex':self.female[0][0]})\
                         .filter(**{sheet_name + '__topic__in':focus_topic_ids})\
                         .filter(sex__in=self.male_female_ids)
+
+            if media_type in REPORTER_MEDIA:
+                rows.filter(role=REPORTERS)
 
             rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
 
