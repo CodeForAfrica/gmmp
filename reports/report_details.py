@@ -429,6 +429,12 @@ WS_INFO = {
         'desc': 'Twitter - Challenging Stereotypes',
         'reports': ['global', 'region', 'country'],
     },
+    'ws_71': {
+        'name': '71',
+        'title': 'Key themes, women\'s overall presence',
+        'desc': 'Key themes, women\'s overall presence',
+        'reports': ['global', 'region', 'country'],
+    },
     'ws_72': {
         'name': '72',
         'title': 'Key themes, female reporters',
