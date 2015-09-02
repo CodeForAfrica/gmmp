@@ -2674,6 +2674,40 @@
         }
       }
     }, 
+    "2aF": {
+      "2010": {
+        "print": {
+          "africa": 77, 
+          "asia": 96, 
+          "caribbean": 28, 
+          "europe": 186, 
+          "latin america": 65, 
+          "middle east": 26, 
+          "north america": 21, 
+          "pacific islands": 20
+        }, 
+        "radio": {
+          "africa": 57, 
+          "asia": 64, 
+          "caribbean": 35, 
+          "europe": 157, 
+          "latin america": 40, 
+          "middle east": 34, 
+          "north america": 5, 
+          "pacific islands": 21
+        }, 
+        "television": {
+          "africa": 41, 
+          "asia": 69, 
+          "caribbean": 24, 
+          "europe": 132, 
+          "latin america": 41, 
+          "middle east": 21, 
+          "north america": 7, 
+          "pacific islands": 14
+        }
+      }
+    }, 
     "3aF": {
       "2010": {
         "africa": {

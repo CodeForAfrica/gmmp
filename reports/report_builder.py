@@ -213,7 +213,7 @@ class XLSXReportBuilder:
         #     'ws_61', 'ws_62', 'ws_63', 'ws_64', 'ws_65', 'ws_66', 'ws_67', 'ws_68', 'ws_68b',
         #     'ws_75', 'ws_76', 'ws_77', 'ws_78']
         if settings.DEBUG:
-            sheets = ['ws_41', 'ws_44']
+            sheets = ['ws_03']
         else:
             sheets = WS_INFO.keys()
 
@@ -365,6 +365,40 @@ class XLSXReportBuilder:
             first = False
 
             r += (len(region_countries) + 2)
+
+    def ws_03(self, ws):
+        """
+        Cols: Media type
+        Rows: Region
+        """
+        # calculate total N for each media type for 2015,
+        # then we'll compare it to 2010 and get a %age change
+
+        # get the historical data for 2010
+        historical = self.historical.all_data['global']['2aF']['2010']
+        counts = {}
+
+        for media_type, model in tm_sheet_models.iteritems():
+            rows = model.objects\
+                    .values('country_region__region')\
+                    .filter(country_region__region__in=self.region_list)
+
+            rows = self.apply_weights(rows, model._meta.db_table, media_type)
+
+            for row in rows:
+                if row['region'] is not None:
+                    # Get media and region id's to assign to counts
+                    media_id, media = [m for m in TM_MEDIA_TYPES if m[1] == media_type][0]
+                    region_id, region = [r for r in self.regions if r[1] == row['region']][0]
+
+                    # %age change
+                    now = row['n']
+                    was = historical[canon(media_type)][canon(region)]
+                    print now, was
+
+                    counts.update({(media_id, region_id): (now - was) / was})
+
+        self.tabulate(ws, counts, TM_MEDIA_TYPES, self.regions, raw_values=True, write_col_totals=False)
 
     def ws_04(self, ws):
         """
@@ -2083,8 +2117,8 @@ class XLSXReportBuilder:
             c += sec_cols
 
     def tabulate(self, ws, counts, cols, rows, row_perc=False,
-                 write_row_headings=True, write_col_headings=True, write_row_totals=True,
-                 filter_cols=None, c=1, r=6, show_N=False):
+                 write_row_headings=True, write_col_headings=True, write_row_totals=True, write_col_totals=True,
+                 filter_cols=None, c=1, r=6, show_N=False, raw_values=False):
         """ Emit a table.
 
         :param ws: worksheet to write to
@@ -2094,8 +2128,10 @@ class XLSXReportBuilder:
         :param bool row_perc: should percentages by calculated by row instead of column (default: False)
         :param write_row_headings: Should we write the row headings. False if already written.
         :param write_row_totals: Should we write the row totals. False if tabultae_secondary_cols was run.
+        :param write_col_total: write column totals?
         :param write_col_headings: Should we write the col headings. False if already written.
         :param filter_cols: If not None, display only passed subset of columns e.g. only female
+        :param raw_values: calculate percentage based on values, or just use values?
         :param r, c: initial position where cursor should start writing to
         """
         if row_perc:
@@ -2153,16 +2189,21 @@ class XLSXReportBuilder:
                 n = counts.get((col_id, row_id), 0)
                 perc = p(n, total)
 
-                ws.write(r+i, c, perc, self.P)
-                if show_N:
-                    ws.write(r+i, c+1, n, self.N)
+                if raw_values:
+                    ws.write(r+i, c, n, self.P)
+                else:
+                    ws.write(r+i, c, perc, self.P)
+                    if show_N:
+                        ws.write(r+i, c+1, n, self.N)
 
                 col_total += perc
 
             if row_perc:
                 col_total = col_total / len (rows)
 
-            ws.write(r+i+1, c, col_total, self.P)
+            if write_col_totals:
+                ws.write(r+i+1, c, col_total, self.P)
+
             c += 2 if show_N else 1
 
         if row_perc and write_row_totals:

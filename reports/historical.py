@@ -232,6 +232,15 @@ class Historical(object):
 
         return all_data
 
+    def import_2aF(self, ws, sheet_info):
+        year = 2010
+        data = {}
+        all_data = {year: data}
+
+        self.slurp_table(ws, data, col_start=15, col_end=17, row_start=5, row_end=12)
+
+        return all_data
+
     def import_2F(self, ws, sheet_info):
         year = 2010
         data = {}

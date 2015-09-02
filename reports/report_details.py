@@ -15,6 +15,13 @@ WS_INFO = {
         'reports': ['global', 'region'],
         'historical': '2F',
     },
+    'ws_03': {
+        'name': '3',
+        'title': 'Increase in media monitored 1995 - 2015',
+        'desc': 'Percentage change in media monitored since the 1st GMMP',
+        'reports': ['global'],
+        'historical': '2aF'
+    },
     'ws_04': {
         'name': '4',
         'title': 'Topics in the news by region',
