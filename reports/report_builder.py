@@ -2375,7 +2375,15 @@ class XLSXReportBuilder:
         :param skip_major_col_heading: allow space for, but skip, major column headings?
         :param write_year: should we write the year?
         """
-        historical_data = self.historical.get(current_ws, self.report_type)
+        try:
+            historical_data = self.historical.get(current_ws, self.report_type, region=self.regions[0][1])
+        except KeyError as e:
+            if self.report_type == 'global':
+                raise e
+            ws.write(r, c, "Historical data not available.")
+            self.log.warn(e.message)
+            return
+
         years = sorted(historical_data.keys())
 
         if c is None:
