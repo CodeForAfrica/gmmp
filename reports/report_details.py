@@ -600,3 +600,8 @@ FORMATS = {
         'num_format': 9
     }
 }
+
+REPORTER_MEDIA = [
+    'Radio',
+    'Television'
+]

@@ -22,8 +22,10 @@ from forms.models import (
 from forms.modelutils import (TOPICS, GENDER, SPACE, OCCUPATION, FUNCTION, SCOPE,
     YESNO, AGES, SOURCE, VICTIM_OF, SURVIVOR_OF, IS_PHOTOGRAPH, AGREE_DISAGREE,
     RETWEET, TV_ROLE, MEDIA_TYPES, TM_MEDIA_TYPES, DM_MEDIA_TYPES, CountryRegion,
-    TV_ROLE_ANNOUNCER, TV_ROLE_REPORTER)
-from report_details import WS_INFO, REGION_COUNTRY_MAP, MAJOR_TOPICS, TOPIC_GROUPS, GROUP_TOPICS_MAP, FORMATS, FOCUS_TOPICS, FOCUS_TOPIC_IDS
+    TV_ROLE_ANNOUNCER, TV_ROLE_REPORTER, REPORTERS)
+from report_details import (
+    WS_INFO, REGION_COUNTRY_MAP, MAJOR_TOPICS, TOPIC_GROUPS, GROUP_TOPICS_MAP, FORMATS, FOCUS_TOPICS, FOCUS_TOPIC_IDS,
+    REPORTER_MEDIA)
 from reports.models import Weights
 from reports.historical import Historical, canon
 
@@ -214,7 +216,7 @@ class XLSXReportBuilder:
         #     'ws_61', 'ws_62', 'ws_63', 'ws_64', 'ws_65', 'ws_66', 'ws_67', 'ws_68', 'ws_68b',
         #     'ws_75', 'ws_76', 'ws_77', 'ws_78']
         if settings.DEBUG:
-            sheets = ['ws_71', 'ws_72', 'ws_73', 'ws_74', 'ws_75', 'ws_76', 'ws_77', 'ws_78']
+            sheets = ['ws_25']
         else:
             sheets = WS_INFO.keys()
 
@@ -977,8 +979,10 @@ class XLSXReportBuilder:
                             .filter(**{sheet_name + '__' + journo_name + '__sex':sex_id})\
                             .filter(sex__in=self.male_female_ids)
 
-                    rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
+                    if media_type in REPORTER_MEDIA:
+                        rows.filter(**{sheet_name + '__' + journo_name + '__role':REPORTERS})
 
+                    rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
                     counts.update({(r['sex'], r['family_role']): r['n'] for r in rows})
             secondary_counts[sex] = counts
 
