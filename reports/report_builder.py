@@ -213,7 +213,7 @@ class XLSXReportBuilder:
         #     'ws_61', 'ws_62', 'ws_63', 'ws_64', 'ws_65', 'ws_66', 'ws_67', 'ws_68', 'ws_68b',
         #     'ws_75', 'ws_76', 'ws_77', 'ws_78']
         if settings.DEBUG:
-            sheets = ['ws_03']
+            sheets = ['ws_71']
         else:
             sheets = WS_INFO.keys()
 
@@ -1869,6 +1869,32 @@ class XLSXReportBuilder:
             self.tabulate(ws, counts, TOPICS, AGREE_DISAGREE, row_perc=True, write_col_headings=False, r=r)
             r += len(AGREE_DISAGREE)
 
+    def ws_71(self, ws):
+        """
+        Cols: Topic, Media type
+        Rows: Country, Female news subjects
+        Focus: women's overall presence
+        """
+        secondary_counts = OrderedDict()
+        for topic_id, topic in FOCUS_TOPICS.iteritems():
+            actual_topic_ids = FOCUS_TOPIC_IDS[topic_id]
+            counts = Counter()
+            secondary_counts[topic] = counts
+
+            for media_type, model in sheet_models.iteritems():
+                media_id = [m[0] for m in MEDIA_TYPES if m[1] ==media_type][0]
+                person_name = model.person_field_name()
+
+                rows = model.objects\
+                    .values('country')\
+                    .filter(**{person_name + '__sex': self.female[0][0]})\
+                    .filter(topic__in=actual_topic_ids)
+
+                rows = self.apply_weights(rows, model._meta.db_table, media_type)
+                counts.update({(media_id, self.recode_country(r['country'])): r['n'] for r in rows})
+
+        self.tabulate_secondary_cols(ws, secondary_counts, MEDIA_TYPES, self.countries, raw_values=True)
+
     def ws_72(self, ws):
         """
         Cols: Focus Topic, Media
@@ -2078,7 +2104,7 @@ class XLSXReportBuilder:
         """
         ws.write(r, c, clean_title(heading), self.heading)
 
-    def tabulate_secondary_cols(self, ws, secondary_counts, cols, rows, row_perc=False, write_row_headings=True, filter_cols=None, c=1, r=7, show_N=False):
+    def tabulate_secondary_cols(self, ws, secondary_counts, cols, rows, row_perc=False, write_row_headings=True, write_col_totals=True, filter_cols=None, c=1, r=7, show_N=False, raw_values=False):
         """
         :param ws: worksheet to write to
         :param secondary_counts: dict in following format:
@@ -2113,7 +2139,7 @@ class XLSXReportBuilder:
                 ws.merge_range(r-3, c, r-3, c+sec_cols-1, clean_title(field), self.sec_col_heading)
             else:
                 ws.write(r-3, c, clean_title(field), self.sec_col_heading)
-            self.tabulate(ws, counts, cols, rows, row_perc=row_perc, write_row_headings=False, write_row_totals=False, filter_cols=filter_cols, r=r, c=c, show_N=show_N)
+            self.tabulate(ws, counts, cols, rows, row_perc=row_perc, write_row_headings=False, write_row_totals=False, write_col_totals=write_col_totals, filter_cols=filter_cols, r=r, c=c, show_N=show_N, raw_values=raw_values)
             c += sec_cols
 
     def tabulate(self, ws, counts, cols, rows, row_perc=False,
@@ -2169,10 +2195,13 @@ class XLSXReportBuilder:
                     ws.write(r-1, c+1, "N", self.label)
                 else:
                     ws.write(r-2, c, clean_title(col_heading), self.col_heading)
-                    ws.write(r-1, c, "%", self.label)
+                    if raw_values:
+                        ws.write(r-1, c, "N", self.label)
+                    else:
+                        ws.write(r-1, c, "%", self.label)
 
             if not row_perc:
-                # column totals
+                # calculate column totals
                 # Confirm: Perc of col total or matrix total?
                 # total = sum(counts.itervalues())
                 total = sum(counts.get((col_id, row_id), 0) for row_id, _ in rows)
@@ -2190,7 +2219,7 @@ class XLSXReportBuilder:
                 perc = p(n, total)
 
                 if raw_values:
-                    ws.write(r+i, c, n, self.P)
+                    ws.write(r+i, c, n, self.N)
                 else:
                     ws.write(r+i, c, perc, self.P)
                     if show_N:
@@ -2199,6 +2228,7 @@ class XLSXReportBuilder:
                 col_total += perc
 
             if row_perc:
+                # Calculate ave, not total
                 col_total = col_total / len (rows)
 
             if write_col_totals:
