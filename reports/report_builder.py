@@ -5,7 +5,6 @@ import logging
 import datetime
 
 # Django
-from django_countries import countries
 from django.db import connection
 from django.db.models import Count, FieldDoesNotExist
 from django.conf import settings
@@ -15,7 +14,7 @@ import xlsxwriter
 
 # Project
 from forms.models import (
-    NewspaperSheet, NewspaperPerson, TelevisionJournalist,
+    NewspaperPerson, TelevisionJournalist,
     person_models, sheet_models, journalist_models,
     tm_person_models, tm_sheet_models, tm_journalist_models,
     dm_person_models, dm_sheet_models, dm_journalist_models,)
@@ -23,7 +22,7 @@ from forms.modelutils import (TOPICS, GENDER, SPACE, OCCUPATION, FUNCTION, SCOPE
     YESNO, AGES, SOURCE, VICTIM_OF, SURVIVOR_OF, IS_PHOTOGRAPH, AGREE_DISAGREE,
     RETWEET, TV_ROLE, MEDIA_TYPES, TM_MEDIA_TYPES, DM_MEDIA_TYPES, CountryRegion,
     TV_ROLE_ANNOUNCER, TV_ROLE_REPORTER)
-from report_details import WS_INFO, REGION_COUNTRY_MAP, MAJOR_TOPICS, TOPIC_GROUPS, GROUP_TOPICS_MAP, FORMATS, FOCUS_TOPICS, FOCUS_TOPIC_IDS
+from report_details import *  # noqa
 from reports.models import Weights
 from reports.historical import Historical, canon
 
@@ -76,45 +75,6 @@ def p(n, d):
     if d == 0:
         return 0.0
     return float(n) / d
-
-def get_regions():
-    """
-    Return a (id, region_name) list for all regions
-    """
-    country_regions = CountryRegion.objects\
-                        .values('region')\
-                        .exclude(region='Unmapped')
-    regions = set(item['region'] for item in country_regions)
-    return [(i, region) for i, region in enumerate(sorted(list(regions)))]
-
-def get_countries():
-    """
-    Return a (code, country) list for countries captured.
-    """
-    captured_country_codes = set()
-    for model in sheet_models.itervalues():
-        rows = model.objects.values('country')
-        captured_country_codes.update([r['country'] for r in rows])
-    return [(code, name) for code, name in list(countries) if code in captured_country_codes]
-
-def get_region_countries(region):
-    """
-    Return a (code, country) list for a region.
-    """
-    if region == 'ALL':
-        return get_countries()
-    else:
-        country_codes = REGION_COUNTRY_MAP[region]
-        return [(code, name) for code, name in list(countries) if code in country_codes]
-
-def get_country_region(country):
-    """
-    Return a (id, region_name) list to which a country belongs.
-    """
-    if country == 'ALL':
-        return get_regions()
-    else:
-        return [(0, [k for k, v in REGION_COUNTRY_MAP.items() if country in v][0])]
 
 def clean_title(text):
     """
@@ -2375,11 +2335,23 @@ class XLSXReportBuilder:
         :param skip_major_col_heading: allow space for, but skip, major column headings?
         :param write_year: should we write the year?
         """
-        historical_data = self.historical.get(current_ws, self.report_type)
-        years = sorted(historical_data.keys())
-
         if c is None:
             c = ws.dim_colmax + 2
+
+        try:
+            country = self.country_list[0]
+            region = self.region_list[0]
+
+            historical_data = self.historical.get(current_ws, self.report_type,
+                                                  region=region, country=country)
+        except KeyError as e:
+            if self.report_type == 'global':
+                raise e
+            ws.write(r, c, "Historical data not available at the %s level." % self.report_type)
+            self.log.warn(e.message)
+            return
+
+        years = sorted(historical_data.keys())
 
         if major_cols:
             r += 1

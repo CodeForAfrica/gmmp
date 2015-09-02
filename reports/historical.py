@@ -192,36 +192,58 @@ class Historical(object):
         with open(self.fname, 'w') as f:
             json.dump(self.all_data, f, indent=2, sort_keys=True)
 
-    def get(self, new_ws, coverage):
+    def get(self, new_ws, coverage, region=None, country=None):
+        if coverage == 'region':
+            key = canon(region)
+        elif coverage == 'country':
+            key = canon(country)
+        elif coverage == 'global':
+            key = 'global'
+        else:
+            raise ValueError("Unknown coverage %s" % coverage)
+
         sheet = WS_INFO['ws_' + new_ws]
 
         if 'historical' not in sheet:
             raise KeyError('New worksheet %s is not linked to an historical worksheet' % new_ws)
         old_ws = sheet['historical']
 
-        if old_ws not in self.all_data[coverage]:
+        if old_ws not in self.all_data[key]:
             raise KeyError('Old worksheet %s does not have any historical data' % old_ws)
 
-        return self.all_data[coverage][sheet['historical']]
+        return self.all_data[key][sheet['historical']]
 
-    def import_from_file(self, fname, coverage):
-        # TODO: regional? country? global?
+    def import_from_file(self, fname, coverage, region=None, country=None):
         wb = openpyxl.load_workbook(fname, read_only=True, data_only=True)
 
-        for old_sheet, new_sheet in self.historical_sheets():
-            ws = wb[old_sheet]
+        key = coverage
+        if region:
+            self.log.info("Importing for region %s" % region)
+            key = canon(region)
+        elif country:
+            self.log.info("Importing for country %s" % country)
+            key = canon(country)
+
+        for old_sheet, new_sheet in self.historical_sheets(coverage):
+            # find matching sheet name
+            ws = None
+            for name in wb.sheetnames:
+                if name == old_sheet or name.startswith(old_sheet + ' '):
+                    ws = wb[name]
+
+            if not ws:
+                self.log.warn("Couldn't find historical sheet %s; only have these sheets available: %s" % (old_sheet,
+                              ', '.join(sorted(wb.sheetnames))))
+                continue
 
             self.log.info("Importing sheet %s" % old_sheet)
             data = getattr(self, 'import_%s' % old_sheet)(ws, new_sheet)
+            self.all_data.setdefault(key, {})[old_sheet] = data
             self.log.info("Imported sheet %s" % old_sheet)
 
-            if coverage not in self.all_data:
-                self.all_data[coverage] = {}
-
-            self.all_data[coverage][old_sheet] = data
-
-    def historical_sheets(self):
-        return [(sheet['historical'], sheet) for sheet in WS_INFO.itervalues() if 'historical' in sheet]
+    def historical_sheets(self, coverage):
+        return [(sheet['historical'], sheet) for sheet in WS_INFO.itervalues()
+                if 'historical' in sheet and coverage in sheet['reports']]
 
     def import_1F(self, ws, sheet_info):
         year = 2010

@@ -1,5 +1,54 @@
 from collections import OrderedDict
 
+from django_countries import countries
+
+from forms.models import sheet_models
+from forms.modelutils import CountryRegion
+
+
+def get_regions():
+    """
+    Return a (id, region_name) list for all regions
+    """
+    country_regions = CountryRegion.objects\
+                        .values('region')\
+                        .exclude(region='Unmapped')
+    regions = set(item['region'] for item in country_regions)
+    return [(i, region) for i, region in enumerate(sorted(list(regions)))]
+
+
+def get_countries():
+    """
+    Return a (code, country) list for countries captured.
+    """
+    captured_country_codes = set()
+    for model in sheet_models.itervalues():
+        rows = model.objects.values('country')
+        captured_country_codes.update([r['country'] for r in rows])
+    return [(code, name) for code, name in list(countries) if code in captured_country_codes]
+
+
+def get_region_countries(region):
+    """
+    Return a (code, country) list for a region.
+    """
+    if region == 'ALL':
+        return get_countries()
+    else:
+        country_codes = REGION_COUNTRY_MAP[region]
+        return [(code, name) for code, name in list(countries) if code in country_codes]
+
+
+def get_country_region(country):
+    """
+    Return a (id, region_name) list to which a country belongs.
+    """
+    if country == 'ALL':
+        return get_regions()
+    else:
+        return [(0, [k for k, v in REGION_COUNTRY_MAP.items() if country in v][0])]
+
+
 WS_INFO = {
     'ws_01': {
         'name': '1',
