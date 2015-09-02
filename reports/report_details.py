@@ -441,6 +441,12 @@ WS_INFO = {
         'desc': 'Key themes, female reporters',
         'reports': ['global', 'region', 'country'],
     },
+    'ws_73': {
+        'name': '73',
+        'title': 'Key themes, selection of sources by sex of reporter',
+        'desc': 'Key themes, selection of sources by sex of reporter',
+        'reports': ['global', 'region', 'country'],
+    },
     'ws_74': {
         'name': '74',
         'title': 'Key themes, women\'s centrality',
@@ -533,11 +539,11 @@ MAJOR_TOPICS = (
 )
 
 # Topic recodes for women focus areas
-FOCUS_TOPICS = {
-    1: 'Political participation',
-    2: 'Peace and security',
-    3: 'Economic participation',
-}
+FOCUS_TOPICS = (
+    (1, 'Political participation'),
+    (2, 'Peace and security'),
+    (3, 'Economic participation'),
+)
 
 FOCUS_TOPIC_IDS = {
     1: [1],
