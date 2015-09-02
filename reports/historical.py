@@ -192,11 +192,15 @@ class Historical(object):
         with open(self.fname, 'w') as f:
             json.dump(self.all_data, f, indent=2, sort_keys=True)
 
-    def get(self, new_ws, coverage, region=None):
+    def get(self, new_ws, coverage, region=None, country=None):
         if coverage == 'region':
             key = canon(region)
-        else:
+        elif coverage == 'country':
+            key = canon(country)
+        elif coverage == 'global':
             key = 'global'
+        else:
+            raise ValueError("Unknown coverage %s" % coverage)
 
         sheet = WS_INFO['ws_' + new_ws]
 
@@ -209,12 +213,16 @@ class Historical(object):
 
         return self.all_data[key][sheet['historical']]
 
-    def import_from_file(self, fname, coverage, region=None):
+    def import_from_file(self, fname, coverage, region=None, country=None):
         wb = openpyxl.load_workbook(fname, read_only=True, data_only=True)
 
         key = coverage
         if region:
+            self.log.info("Importing for region %s" % region)
             key = canon(region)
+        elif country:
+            self.log.info("Importing for country %s" % country)
+            key = canon(country)
 
         for old_sheet, new_sheet in self.historical_sheets(coverage):
             # find matching sheet name
