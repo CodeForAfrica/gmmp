@@ -213,7 +213,7 @@ class XLSXReportBuilder:
         #     'ws_61', 'ws_62', 'ws_63', 'ws_64', 'ws_65', 'ws_66', 'ws_67', 'ws_68', 'ws_68b',
         #     'ws_75', 'ws_76', 'ws_77', 'ws_78']
         if settings.DEBUG:
-            sheets = ['ws_73']
+            sheets = ['ws_71', 'ws_72', 'ws_73', 'ws_74', 'ws_75', 'ws_76', 'ws_77', 'ws_78']
         else:
             sheets = WS_INFO.keys()
 
@@ -1876,7 +1876,7 @@ class XLSXReportBuilder:
         Focus: women's overall presence
         """
         secondary_counts = OrderedDict()
-        for topic_id, topic in FOCUS_TOPICS.iteritems():
+        for topic_id, topic in FOCUS_TOPICS:
             actual_topic_ids = FOCUS_TOPIC_IDS[topic_id]
             counts = Counter()
             secondary_counts[topic] = counts
@@ -1904,7 +1904,7 @@ class XLSXReportBuilder:
         # TODO: these values should be %age total of media in country/region
 
         secondary_counts = OrderedDict()
-        for topic_id, topic in FOCUS_TOPICS.iteritems():
+        for topic_id, topic in FOCUS_TOPICS:
             actual_topic_ids = FOCUS_TOPIC_IDS[topic_id]
             counts = Counter()
             secondary_counts[topic] = counts
@@ -1929,11 +1929,6 @@ class XLSXReportBuilder:
         Rows: Focus Topic
         Focus: Female news subject
         """
-        focus_topics = (
-            (1, 'Political participation'),
-            (2, 'Peace and security'),
-            (3, 'Economic participation'),
-        )
         focus_topic_ids = []
         for k, v in FOCUS_TOPIC_IDS.iteritems():
             focus_topic_ids.extend(v)
@@ -1955,7 +1950,7 @@ class XLSXReportBuilder:
                 focus_topic_id = [k for k, v in FOCUS_TOPIC_IDS.iteritems() if r['topic'] in v][0]
                 counts.update({(r['sex'], focus_topic_id): r['n']})
 
-        self.tabulate(ws, counts, self.male_female, focus_topics, raw_values=True, write_col_totals=False)
+        self.tabulate(ws, counts, self.male_female, FOCUS_TOPICS, raw_values=True, write_col_totals=False)
 
 
     def ws_74(self, ws):
@@ -1969,7 +1964,7 @@ class XLSXReportBuilder:
             self.write_primary_row_heading(ws, ', '.join([m[1] for m in media_types]), c=c+1, r=4)
 
             secondary_counts = OrderedDict()
-            for topic_id, topic in FOCUS_TOPICS.iteritems():
+            for topic_id, topic in FOCUS_TOPICS:
                 counts = Counter()
                 secondary_counts[topic] = counts
                 actual_topic_ids = FOCUS_TOPIC_IDS[topic_id]
@@ -1996,7 +1991,7 @@ class XLSXReportBuilder:
             self.write_primary_row_heading(ws, ', '.join([m[1] for m in media_types]), c=c+1, r=4)
 
             secondary_counts = OrderedDict()
-            for topic_id, topic in FOCUS_TOPICS.iteritems():
+            for topic_id, topic in FOCUS_TOPICS:
                 counts = Counter()
                 secondary_counts[topic] = counts
                 actual_topic_ids = FOCUS_TOPIC_IDS[topic_id]
@@ -2023,7 +2018,7 @@ class XLSXReportBuilder:
             self.write_primary_row_heading(ws, ', '.join([m[1] for m in media_types]), c=c+1, r=4)
 
             secondary_counts = OrderedDict()
-            for topic_id, topic in FOCUS_TOPICS.iteritems():
+            for topic_id, topic in FOCUS_TOPICS:
                 counts = Counter()
                 actual_topic_ids = FOCUS_TOPIC_IDS[topic_id]
 
@@ -2051,7 +2046,7 @@ class XLSXReportBuilder:
             self.write_primary_row_heading(ws, ', '.join([m[1] for m in media_types]), c=c+1, r=4)
 
             secondary_counts = OrderedDict()
-            for topic_id, topic in FOCUS_TOPICS.iteritems():
+            for topic_id, topic in FOCUS_TOPICS:
                 counts = Counter()
                 actual_topic_ids = FOCUS_TOPIC_IDS[topic_id]
 
@@ -2080,7 +2075,7 @@ class XLSXReportBuilder:
             self.write_primary_row_heading(ws, ', '.join([m[1] for m in media_types]), c=c+1, r=4)
 
             secondary_counts = OrderedDict()
-            for topic_id, topic in FOCUS_TOPICS.iteritems():
+            for topic_id, topic in FOCUS_TOPICS:
                 counts = Counter()
                 actual_topic_ids = FOCUS_TOPIC_IDS[topic_id]
 

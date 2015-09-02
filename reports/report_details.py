@@ -539,11 +539,11 @@ MAJOR_TOPICS = (
 )
 
 # Topic recodes for women focus areas
-FOCUS_TOPICS = {
-    1: 'Political participation',
-    2: 'Peace and security',
-    3: 'Economic participation',
-}
+FOCUS_TOPICS = (
+    (1, 'Political participation'),
+    (2, 'Peace and security'),
+    (3, 'Economic participation'),
+)
 
 FOCUS_TOPIC_IDS = {
     1: [1],
