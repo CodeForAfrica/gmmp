@@ -2,6 +2,7 @@
 import StringIO
 from collections import Counter, OrderedDict
 import logging
+import datetime
 
 # Django
 from django_countries import countries
@@ -230,6 +231,9 @@ class XLSXReportBuilder:
             getattr(self, sheet)(ws)
             self.log.info("Completed sheet %s" % sheet)
 
+        if not settings.DEBUG:
+            self.write_raw_data_sheets(workbook)
+
         workbook.close()
         output.seek(0)
 
@@ -248,6 +252,86 @@ class XLSXReportBuilder:
             ws.write(3 + i, 1, WS_INFO[sheet]['title'])
             ws.write(3 + i, 2, WS_INFO[sheet]['desc'])
 
+    def write_raw_data_sheets(self, workbook):
+        for name, model in sheet_models.iteritems():
+            ws = workbook.add_worksheet('Raw - %s sheets' % name)
+
+            query = model.objects
+            if self.country_list:
+                query = query.filter(country__in=self.country_list)
+
+            self.write_raw_data(ws, name, model, query)
+
+        for name, model in person_models.iteritems():
+            ws = workbook.add_worksheet('Raw - %s sources' % name)
+
+            query = model.objects
+            if self.country_list:
+                query = query.filter(**{model.sheet_name() + '__country__in': self.country_list})\
+
+            self.write_raw_data(ws, name, model, query)
+
+        for name, model in journalist_models.iteritems():
+            ws = workbook.add_worksheet('Raw - %s journalists' % name)
+
+            query = model.objects
+            if self.country_list:
+                query = query.filter(**{model.sheet_name() + '__country__in': self.country_list})\
+
+            query = model.objects
+            self.write_raw_data(ws, name, model, query)
+
+    def write_raw_data(self, ws, name, model, query):
+            self.log.info("Writing raw data for %s" % model)
+
+            # precompute the columns that are lookups
+            lookups = {}
+            for fld in model._meta.fields:
+                if fld.choices:
+                    lookups[fld.attname] = dict(fld.choices)
+                # TODO: handle foreign key, too
+
+            # headers
+            c = 0
+            for fld in model._meta.fields:
+                if fld.attname in lookups:
+                    ws.write(0, c, fld.name + '_code')
+                    c += 1
+
+                ws.write(0, c, fld.name)
+                c += 1
+
+            # values
+            for r, obj in enumerate(query.all()):
+                c = 0
+                for fld in obj._meta.fields:
+                    attr = fld.attname
+                    if attr == 'country':
+                        v = obj.country.code
+                    else:
+                        v = getattr(obj, attr)
+
+                    if isinstance(v, datetime.datetime):
+                        v = v.replace(tzinfo=None)
+
+                    # raw value
+                    if isinstance(v, basestring):
+                        # if v is a URL and it contains unicode and it is
+                        # very long, we get an encoding error from the warning
+                        # message, so just force strings as strings
+                        ws.write_string(r + 1, c, unicode(v))
+                    else:
+                        ws.write(r + 1, c, v)
+                    c += 1
+
+                    # write the looked-up value
+                    if attr in lookups:
+                        v = lookups[attr].get(v, v)
+                        if v is not None:
+                            v = unicode(v)
+                        ws.write(r + 1, c, v)
+                        c += 1
+
     def recode_country(self, country):
         # some split countries must be "joined" at the global report level
         if self.report_type == 'global':
@@ -260,7 +344,7 @@ class XLSXReportBuilder:
         """
         desc = cursor.description
         return [
-            dict(zip([col[0] for col in desc], row))
+            OrderedDict(zip([col[0] for col in desc], row))
             for row in cursor.fetchall()
         ]
 
