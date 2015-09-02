@@ -1921,7 +1921,7 @@ class XLSXReportBuilder:
                 rows = self.apply_weights(rows, model._meta.db_table, media_type)
                 counts.update({(media_id, self.recode_country(r['country'])): r['n'] for r in rows})
 
-        self.tabulate_secondary_cols(ws, secondary_counts, MEDIA_TYPES, self.countries, show_N=True)
+        self.tabulate_secondary_cols(ws, secondary_counts, MEDIA_TYPES, self.countries, raw_values=True)
 
     def ws_74(self, ws):
         """
