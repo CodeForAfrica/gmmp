@@ -213,7 +213,7 @@ class XLSXReportBuilder:
         #     'ws_61', 'ws_62', 'ws_63', 'ws_64', 'ws_65', 'ws_66', 'ws_67', 'ws_68', 'ws_68b',
         #     'ws_75', 'ws_76', 'ws_77', 'ws_78']
         if settings.DEBUG:
-            sheets = ['ws_71']
+            sheets = ['ws_73']
         else:
             sheets = WS_INFO.keys()
 
@@ -1922,6 +1922,41 @@ class XLSXReportBuilder:
                 counts.update({(media_id, self.recode_country(r['country'])): r['n'] for r in rows})
 
         self.tabulate_secondary_cols(ws, secondary_counts, MEDIA_TYPES, self.countries, raw_values=True)
+
+    def ws_73(self, ws):
+        """
+        Cols: Sex of reporter
+        Rows: Focus Topic
+        Focus: Female news subject
+        """
+        focus_topics = (
+            (1, 'Political participation'),
+            (2, 'Peace and security'),
+            (3, 'Economic participation'),
+        )
+        focus_topic_ids = []
+        for k, v in FOCUS_TOPIC_IDS.iteritems():
+            focus_topic_ids.extend(v)
+        counts = Counter()
+        for media_type, model in journalist_models.iteritems():
+            sheet_name = model.sheet_name()
+            person_name = model.sheet_field().rel.to.person_field_name()
+            topic_field = sheet_name + '__topic'
+            rows = model.objects\
+                        .values('sex', topic_field)\
+                        .filter(**{sheet_name + '__country__in':self.country_list})\
+                        .filter(**{sheet_name + '__'+ person_name + '__sex':self.female[0][0]})\
+                        .filter(**{sheet_name + '__topic__in':focus_topic_ids})\
+                        .filter(sex__in=self.male_female_ids)
+
+            rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
+
+            for r in rows:
+                focus_topic_id = [k for k, v in FOCUS_TOPIC_IDS.iteritems() if r['topic'] in v][0]
+                counts.update({(r['sex'], focus_topic_id): r['n']})
+
+        self.tabulate(ws, counts, self.male_female, focus_topics, raw_values=True, write_col_totals=False)
+
 
     def ws_74(self, ws):
         """

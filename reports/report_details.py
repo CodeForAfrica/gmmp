@@ -441,6 +441,12 @@ WS_INFO = {
         'desc': 'Key themes, female reporters',
         'reports': ['global', 'region', 'country'],
     },
+    'ws_73': {
+        'name': '73',
+        'title': 'Key themes, selection of sources by sex of reporter',
+        'desc': 'Key themes, selection of sources by sex of reporter',
+        'reports': ['global', 'region', 'country'],
+    },
     'ws_74': {
         'name': '74',
         'title': 'Key themes, women\'s centrality',
