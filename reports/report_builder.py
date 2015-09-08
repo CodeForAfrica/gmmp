@@ -184,7 +184,7 @@ class XLSXReportBuilder:
 
         self.write_key_sheet(workbook, sheets)
 
-        self.write_aggregate_sheets(workbook)
+        self.write_aggregate_sheet(workbook)
 
         for sheet in sheets:
             ws = workbook.add_worksheet(WS_INFO[sheet]['name'])
@@ -223,7 +223,7 @@ class XLSXReportBuilder:
             ws.write(6 + i, 2, WS_INFO[sheet]['desc'])
 
 
-    def write_aggregate_sheets(self, workbook):
+    def write_aggregate_sheet(self, workbook):
         ws = workbook.add_worksheet('Aggregates')
         c = 1
 
@@ -232,7 +232,7 @@ class XLSXReportBuilder:
             ws.write(r-1, c+1, data_type)
             for i, col in enumerate(MEDIA_TYPES):
                 ws.write(r, c+1+i, clean_title(col[1]), self.col_heading)
-                ws.write(r + 1, c+1+i, "N")
+                ws.write(r + 1, c+1+i, "N (raw)")
 
             r = 6
             for region_id, region in self.regions:
