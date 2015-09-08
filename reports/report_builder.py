@@ -226,18 +226,16 @@ class XLSXReportBuilder:
     def write_aggregate_sheets(self, workbook):
         ws = workbook.add_worksheet('Aggregates')
         c = 1
+
         for data_type, models in all_models.iteritems():
             r = 3
             ws.write(r-1, c+1, data_type)
             for i, col in enumerate(MEDIA_TYPES):
-
                 ws.write(r, c+1+i, clean_title(col[1]), self.col_heading)
                 ws.write(r + 1, c+1+i, "N")
 
             r = 6
-
             for region_id, region in self.regions:
-
                 counts = Counter()
                 for media_type, model in models.iteritems():
                     if data_type == 'Sheets':
@@ -271,6 +269,7 @@ class XLSXReportBuilder:
                         ws.write(r+i, c, n, self.N)
 
                     c += 1
+                # Position for next region
                 c -= (len(MEDIA_TYPES) + 1)
                 r += (len(region_countries) + 2)
 
