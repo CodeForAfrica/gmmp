@@ -426,20 +426,8 @@ class XLSXReportBuilder:
         for media_type, model in sheet_models.iteritems():
             rows = model.objects\
                     .values('country_region__region')\
+                    .annotate(n=Count(get_sheet_model_name_field(media_type), distinct=True))\
                     .filter(country_region__region__in=self.region_list)
-
-            if media_type == 'Internet':
-                rows = rows.annotate(n=Count('website_name', distinct=True))
-            elif media_type == 'Twitter':
-                rows = rows.annotate(n=Count('media_name', distinct=True))
-            elif media_type == 'Print':
-                rows = rows.annotate(n=Count('newspaper_name', distinct=True))
-            elif media_type == 'Television':
-                rows = rows.annotate(n=Count('station_name', distinct=True))
-            elif media_type == 'Radio':
-                rows = rows.annotate(n=Count('station_name', distinct=True))
-            elif media_type == 'Print':
-                rows = rows.annotate(n=Count('station_name', distinct=True))
 
             for row in rows:
                 region = row['country_region__region']
