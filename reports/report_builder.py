@@ -17,7 +17,7 @@ from forms.models import (
     NewspaperPerson, TelevisionJournalist,
     person_models, sheet_models, journalist_models,
     tm_person_models, tm_sheet_models, tm_journalist_models,
-    dm_person_models, dm_sheet_models, dm_journalist_models,)
+    dm_person_models, dm_sheet_models, dm_journalist_models, all_models)
 from forms.modelutils import (TOPICS, GENDER, SPACE, OCCUPATION, FUNCTION, SCOPE,
     YESNO, AGES, SOURCE, VICTIM_OF, SURVIVOR_OF, IS_PHOTOGRAPH, AGREE_DISAGREE,
     RETWEET, TV_ROLE, MEDIA_TYPES, TM_MEDIA_TYPES, DM_MEDIA_TYPES, CountryRegion,
@@ -174,7 +174,7 @@ class XLSXReportBuilder:
         #     'ws_61', 'ws_62', 'ws_63', 'ws_64', 'ws_65', 'ws_66', 'ws_67', 'ws_68', 'ws_68b',
         #     'ws_75', 'ws_76', 'ws_77', 'ws_78']
         if settings.DEBUG:
-            sheets = ['ws_19']
+            sheets = ['ws_01', 'ws_02']
         else:
             sheets = WS_INFO.keys()
 
@@ -183,6 +183,8 @@ class XLSXReportBuilder:
         sheets.sort()
 
         self.write_key_sheet(workbook, sheets)
+
+        self.write_aggregate_sheets(workbook)
 
         for sheet in sheets:
             ws = workbook.add_worksheet(WS_INFO[sheet]['name'])
@@ -219,6 +221,60 @@ class XLSXReportBuilder:
             ws.write(6 + i, 1, WS_INFO[sheet]['title'])
             ws.write(6 + i, 1, WS_INFO[sheet].get('historical', ''))
             ws.write(6 + i, 2, WS_INFO[sheet]['desc'])
+
+
+    def write_aggregate_sheets(self, workbook):
+        ws = workbook.add_worksheet('Aggregates')
+        c = 1
+
+        for data_type, models in all_models.iteritems():
+            r = 3
+            ws.write(r-1, c+1, data_type)
+            for i, col in enumerate(MEDIA_TYPES):
+                ws.write(r, c+1+i, clean_title(col[1]), self.col_heading)
+                ws.write(r + 1, c+1+i, "N")
+
+            r = 6
+            for region_id, region in self.regions:
+                counts = Counter()
+                for media_type, model in models.iteritems():
+                    if data_type == 'Sheets':
+                        country_field = 'country'
+                    else:
+                        country_field = model.sheet_name() + '__country'
+                    rows = model.objects\
+                            .values(country_field)\
+                            .filter(**{country_field + '__in': self.country_list})\
+                            .annotate(n=Count('id'))
+
+                    for row in rows:
+                        if row[country_field] is not None:
+                            # Get media id's to assign to counts
+                            media_id = [media[0] for media in MEDIA_TYPES if media[1] == media_type][0]
+                            counts.update({(media_id, self.recode_country(row[country_field])): row['n']})
+                self.write_primary_row_heading(ws, region, r=r)
+                region_countries = [(code, country) for code, country in self.countries if code in REGION_COUNTRY_MAP[region]]
+
+                for i, row in enumerate(region_countries):
+                    row_id, row_heading = row
+                    ws.write(r+i, c, clean_title(row_heading), self.label)
+
+                c += 1
+                for col_id, col_heading in MEDIA_TYPES:
+                    # values for this column
+                    for i, row in enumerate(region_countries):
+                        row_id, row_title = row
+
+                        n = counts.get((col_id, row_id), 0)
+                        ws.write(r+i, c, n, self.N)
+
+                    c += 1
+                # Position for next region
+                c -= (len(MEDIA_TYPES) + 1)
+                r += (len(region_countries) + 2)
+
+            c += (len(MEDIA_TYPES) + 3)
+
 
     def write_raw_data_sheets(self, workbook):
         for name, model in sheet_models.iteritems():
