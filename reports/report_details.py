@@ -66,8 +66,8 @@ WS_INFO = {
     },
     'ws_03': {
         'name': '3',
-        'title': 'Increase in media monitored 1995 - 2015',
-        'desc': 'Percentage change in media monitored since the 1st GMMP',
+        'title': 'Counts of media monitored',
+        'desc': 'Total number of distinct media monitored',
         'reports': ['global'],
         'historical': '2aF'
     },

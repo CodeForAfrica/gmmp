@@ -174,7 +174,7 @@ class XLSXReportBuilder:
         #     'ws_61', 'ws_62', 'ws_63', 'ws_64', 'ws_65', 'ws_66', 'ws_67', 'ws_68', 'ws_68b',
         #     'ws_75', 'ws_76', 'ws_77', 'ws_78']
         if settings.DEBUG:
-            sheets = ['ws_28']
+            sheets = ['ws_03']
         else:
             sheets = WS_INFO.keys()
 
@@ -421,30 +421,37 @@ class XLSXReportBuilder:
         # then we'll compare it to 2010 and get a %age change
 
         # get the historical data for 2010
-        historical = self.historical.all_data['global']['2aF']['2010']
         counts = {}
 
-        for media_type, model in tm_sheet_models.iteritems():
+        for media_type, model in sheet_models.iteritems():
             rows = model.objects\
                     .values('country_region__region')\
                     .filter(country_region__region__in=self.region_list)
 
-            rows = self.apply_weights(rows, model._meta.db_table, media_type)
+            if media_type == 'Internet':
+                rows = rows.annotate(n=Count('website_name', distinct=True))
+            elif media_type == 'Twitter':
+                rows = rows.annotate(n=Count('media_name', distinct=True))
+            elif media_type == 'Print':
+                rows = rows.annotate(n=Count('newspaper_name', distinct=True))
+            elif media_type == 'Television':
+                rows = rows.annotate(n=Count('station_name', distinct=True))
+            elif media_type == 'Radio':
+                rows = rows.annotate(n=Count('station_name', distinct=True))
+            elif media_type == 'Print':
+                rows = rows.annotate(n=Count('station_name', distinct=True))
 
             for row in rows:
-                if row['region'] is not None:
+                region = row['country_region__region']
+                if region is not None:
                     # Get media and region id's to assign to counts
-                    media_id, media = [m for m in TM_MEDIA_TYPES if m[1] == media_type][0]
-                    region_id, region = [r for r in self.regions if r[1] == row['region']][0]
+                    media_id, media = [m for m in MEDIA_TYPES if m[1] == media_type][0]
+                    region_id, region = [r for r in self.regions if r[1] == region][0]
 
-                    # %age change
-                    now = row['n']
-                    was = historical[canon(media_type)][canon(region)]
-                    print now, was
+                    counts.update({(media_id, region_id): row['n']})
 
-                    counts.update({(media_id, region_id): (now - was) / was})
-
-        self.tabulate(ws, counts, TM_MEDIA_TYPES, self.regions, raw_values=True, write_col_totals=False)
+        self.tabulate(ws, counts, MEDIA_TYPES, self.regions, raw_values=True, write_col_totals=False)
+        self.tabulate_historical(ws, '03', TM_MEDIA_TYPES, self.regions, values_N=True)
 
     def ws_04(self, ws):
         """
@@ -2355,7 +2362,7 @@ class XLSXReportBuilder:
 
     def tabulate_historical(self, ws, current_ws, cols, rows, c=None, r=6, write_row_headings=True,
                             write_col_headings=True, show_N_and_P=False, major_cols=None,
-                            skip_major_col_heading=False, write_year=True):
+                            skip_major_col_heading=False, write_year=True, values_N=False):
         """
         Write historical data table.
 
@@ -2371,9 +2378,15 @@ class XLSXReportBuilder:
         :param major_cols: the major (top) columns as a list of (id, key) pairs
         :param skip_major_col_heading: allow space for, but skip, major column headings?
         :param write_year: should we write the year?
+        :param values_N: are the values we're printing N or P values? (default: False)
         """
         if c is None:
             c = ws.dim_colmax + 2
+
+        if values_N:
+            formats = [self.N, self.N]
+        else:
+            formats = [self.P, self.N]
 
         try:
             country = self.country_list[0]
@@ -2444,7 +2457,7 @@ class XLSXReportBuilder:
                         continue
 
                     # column title
-                    formats = [self.P, self.N]
+                    value_formats = formats
                     if write_col_headings:
                         if col_heading != 'N':
                             if values_per_col > 1:
@@ -2460,7 +2473,7 @@ class XLSXReportBuilder:
 
                         else:
                             ws.write(r - 1, c, 'N', self.label)
-                            formats = [self.N, self.N]
+                            value_formats = [self.N, self.N]
 
                     # row values
                     for i, (row_id, row_heading) in enumerate(rows):
@@ -2473,7 +2486,7 @@ class XLSXReportBuilder:
                             value = [value]
 
                         for v in xrange(values_per_col):
-                            ws.write(r + i, c + v, value[v], formats[v])
+                            ws.write(r + i, c + v, value[v], value_formats[v])
 
                     # for next column
                     c += values_per_col
