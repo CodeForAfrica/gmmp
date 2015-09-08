@@ -184,7 +184,7 @@ class XLSXReportBuilder:
 
         self.write_key_sheet(workbook, sheets)
 
-        self.write_aggregate_sheets(workbook)
+        self.write_aggregate_sheet(workbook)
 
         for sheet in sheets:
             ws = workbook.add_worksheet(WS_INFO[sheet]['name'])
@@ -223,7 +223,7 @@ class XLSXReportBuilder:
             ws.write(6 + i, 2, WS_INFO[sheet]['desc'])
 
 
-    def write_aggregate_sheets(self, workbook):
+    def write_aggregate_sheet(self, workbook):
         ws = workbook.add_worksheet('Aggregates')
         c = 1
 
@@ -232,7 +232,7 @@ class XLSXReportBuilder:
             ws.write(r-1, c+1, data_type)
             for i, col in enumerate(MEDIA_TYPES):
                 ws.write(r, c+1+i, clean_title(col[1]), self.col_heading)
-                ws.write(r + 1, c+1+i, "N")
+                ws.write(r + 1, c+1+i, "N (raw)")
 
             r = 6
             for region_id, region in self.regions:
@@ -443,11 +443,10 @@ class XLSXReportBuilder:
 
                 counts = Counter()
                 for media_type, model in models.iteritems():
-                    name_field = get_sheet_model_name_field(media_type)
                     rows = model.objects\
-                            .values(name_field, 'country')\
+                            .values('country')\
                             .filter(country__in=self.country_list)\
-                            .annotate()
+                            .annotate(n=Count('id'))
 
                     # rows = self.apply_distinct_weights(rows, model._meta.db_table, media_type)
                     for row in rows:
@@ -455,7 +454,7 @@ class XLSXReportBuilder:
                             weight = weights[(row['country'], media_type)]
                             # Get media id's to assign to counts
                             media_id = [media[0] for media in media_types if media[1] == media_type][0]
-                            counts.update({(media_id, self.recode_country(row['country'])): weight})
+                            counts.update({(media_id, self.recode_country(row['country'])): row['n'] * weight})
                     for key, value in counts.iteritems():
                         counts[key] = int(round(value))
                 counts_list.append(counts)
