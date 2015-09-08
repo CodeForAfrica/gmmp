@@ -1945,6 +1945,9 @@ class XLSXReportBuilder:
             self.tabulate(ws, counts, TOPICS, AGREE_DISAGREE, row_perc=True, write_col_headings=False, r=r)
             r += len(AGREE_DISAGREE)
 
+    def ws_70(self, ws):
+        ws.write(4, 0, 'See raw data sheets')
+
     def ws_71(self, ws):
         """
         Cols: Topic, Media type
