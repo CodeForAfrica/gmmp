@@ -1143,7 +1143,6 @@ class XLSXReportBuilder:
                     .extra(select={"subject_sex": model._meta.db_table + ".sex"})\
                     .values(journo_sex, 'subject_sex')\
                     .filter(**{model.sheet_name() + '__country__in': self.country_list})\
-                    .filter(sex__in=self.male_female_ids)\
                     .annotate(n=Count('id'))
 
             if media_type in REPORTER_MEDIA:
