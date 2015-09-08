@@ -174,8 +174,8 @@ WS_INFO = {
     },
     'ws_19': {
         'name': '19',
-        'title': 'Age of news subjects by broadcast, by sex',
-        'desc': 'B.down of  Age of news subjects by broadcast, by sex',
+        'title': 'Age of Television news subjects, by sex',
+        'desc': 'B.down of  Age of Television news subjects, by sex (age captured for Television only)',
         'reports': ['global', 'region', 'country'],
         'historical': '18dF'
     },
