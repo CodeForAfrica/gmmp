@@ -226,7 +226,7 @@ class XLSXReportBuilder:
     def write_aggregate_sheet(self, workbook):
         ws = workbook.add_worksheet('Aggregates')
         c = 1
-
+        ws.write(0, 0, 'Total amount of sheets, sources and reporters by country and media type.')
         for data_type, models in all_models.iteritems():
             r = 3
             ws.write(r-1, c+1, data_type)
