@@ -2283,6 +2283,7 @@ class XLSXReportBuilder:
             row_totals = {}
             for row_id, row_heading in rows:
                 row_totals[row_id] = sum(counts.get((col_id, row_id), 0) for col_id, _ in cols)  # noqa
+            write_col_totals = False
 
         # row titles
         if write_row_headings:
