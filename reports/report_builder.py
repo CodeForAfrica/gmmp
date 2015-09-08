@@ -443,11 +443,10 @@ class XLSXReportBuilder:
 
                 counts = Counter()
                 for media_type, model in models.iteritems():
-                    name_field = get_sheet_model_name_field(media_type)
                     rows = model.objects\
-                            .values(name_field, 'country')\
+                            .values('country')\
                             .filter(country__in=self.country_list)\
-                            .annotate()
+                            .annotate(n=Count('id'))
 
                     # rows = self.apply_distinct_weights(rows, model._meta.db_table, media_type)
                     for row in rows:
@@ -455,7 +454,7 @@ class XLSXReportBuilder:
                             weight = weights[(row['country'], media_type)]
                             # Get media id's to assign to counts
                             media_id = [media[0] for media in media_types if media[1] == media_type][0]
-                            counts.update({(media_id, self.recode_country(row['country'])): weight})
+                            counts.update({(media_id, self.recode_country(row['country'])): row['n'] * weight})
                     for key, value in counts.iteritems():
                         counts[key] = int(round(value))
                 counts_list.append(counts)
