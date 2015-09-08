@@ -202,17 +202,23 @@ class XLSXReportBuilder:
     def write_key_sheet(self, workbook, sheets):
         ws = workbook.add_worksheet('Key')
 
-        ws.write(0, 0, 'Key to Query Sheets')
-        ws.write(2, 0, 'Number')
-        ws.write(2, 1, 'Number in 2010 Report')
-        ws.write(2, 2, 'Title')
-        ws.write(2, 3, 'Description')
+        ws.write(0, 0, 'Key to Query Sheets', self.heading)
+
+        ws.write(2, 0, 'N')
+        ws.write(2, 1, 'number of items (weighted)')
+        ws.write(3, 0, 'N (raw)')
+        ws.write(3, 1, 'number of items (NOT weighted)')
+
+        ws.write(5, 0, 'Number', self.col_heading)
+        ws.write(5, 1, 'Number in 2010 Report', self.col_heading)
+        ws.write(5, 2, 'Title', self.col_heading)
+        ws.write(5, 3, 'Description', self.col_heading)
 
         for i, sheet in enumerate(sheets):
-            ws.write(3 + i, 0, WS_INFO[sheet]['name'])
-            ws.write(3 + i, 1, WS_INFO[sheet]['title'])
-            ws.write(3 + i, 1, WS_INFO[sheet].get('historical', ''))
-            ws.write(3 + i, 2, WS_INFO[sheet]['desc'])
+            ws.write(6 + i, 0, WS_INFO[sheet]['name'])
+            ws.write(6 + i, 1, WS_INFO[sheet]['title'])
+            ws.write(6 + i, 1, WS_INFO[sheet].get('historical', ''))
+            ws.write(6 + i, 2, WS_INFO[sheet]['desc'])
 
     def write_raw_data_sheets(self, workbook):
         for name, model in sheet_models.iteritems():
@@ -438,7 +444,7 @@ class XLSXReportBuilder:
 
                     counts.update({(media_id, region_id): row['n']})
 
-        self.tabulate(ws, counts, MEDIA_TYPES, self.regions, raw_values=True, write_col_totals=False)
+        self.tabulate(ws, counts, MEDIA_TYPES, self.regions, raw_values=True, write_col_totals=False, unweighted=True)
         self.tabulate_historical(ws, '03', TM_MEDIA_TYPES, self.regions, values_N=True)
 
     def ws_04(self, ws):
@@ -2250,7 +2256,7 @@ class XLSXReportBuilder:
 
     def tabulate(self, ws, counts, cols, rows, row_perc=False,
                  write_row_headings=True, write_col_headings=True, write_row_totals=True, write_col_totals=True,
-                 filter_cols=None, c=1, r=6, show_N=False, raw_values=False):
+                 filter_cols=None, c=1, r=6, show_N=False, raw_values=False, unweighted=False):
         """ Emit a table.
 
         :param ws: worksheet to write to
@@ -2265,6 +2271,7 @@ class XLSXReportBuilder:
         :param filter_cols: If not None, display only passed subset of columns e.g. only female
         :param raw_values: calculate percentage based on values, or just use values?
         :param r, c: initial position where cursor should start writing to
+        :param unweighted: values are unweighted? default: False
         """
         if row_perc:
             # Calc percentage by row
@@ -2286,6 +2293,10 @@ class XLSXReportBuilder:
         if filter_cols:
             cols = filter_cols
 
+        title_N = "N"
+        if unweighted:
+            title_N = "N (raw)"
+
         if 'col_title_def' in counts and write_col_headings:
             # write definition of column headings
             ws.write(r-2, c-1, counts['col_title_def'], self.col_heading_def)
@@ -2299,11 +2310,11 @@ class XLSXReportBuilder:
                 if show_N:
                     ws.merge_range(r-2, c, r-2, c+1, clean_title(col_heading), self.col_heading)
                     ws.write(r-1, c, "%", self.label)
-                    ws.write(r-1, c+1, "N", self.label)
+                    ws.write(r-1, c+1, title_N, self.label)
                 else:
                     ws.write(r-2, c, clean_title(col_heading), self.col_heading)
                     if raw_values:
-                        ws.write(r-1, c, "N", self.label)
+                        ws.write(r-1, c, title_N, self.label)
                     else:
                         ws.write(r-1, c, "%", self.label)
 
