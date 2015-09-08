@@ -306,3 +306,9 @@ dm_journalist_models = OrderedDict([
     ('Internet', InternetNewsJournalist),
     ('Twitter', TwitterJournalist)
 ])
+
+all_models = OrderedDict([
+    ('Sheets', sheet_models),
+    ('Sources', person_models),
+    ('Reporters', journalist_models)
+])
