@@ -1879,7 +1879,7 @@ class XLSXReportBuilder:
 
     def ws_67(self, ws):
         """
-        Cols: Topic
+        Cols: Major Topic
         Rows: Country
         :: Only female journalists
         :: Show all countries
@@ -1892,9 +1892,9 @@ class XLSXReportBuilder:
                 .filter(**{model.journalist_field_name() + '__sex':1})
 
         rows = self.apply_weights(rows, model._meta.db_table, "Twitter")
-        counts.update({(row['topic'], self.recode_country(row['country'])): row['n'] for row in rows})
+        counts.update({(TOPIC_GROUPS[row['topic']], self.recode_country(row['country'])): row['n'] for row in rows})
 
-        self.tabulate(ws, counts, TOPICS, self.countries, row_perc=True)
+        self.tabulate(ws, counts, MAJOR_TOPICS, self.countries, row_perc=True)
 
     def ws_68(self, ws):
         """
