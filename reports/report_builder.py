@@ -2278,7 +2278,6 @@ class XLSXReportBuilder:
             row_totals = {}
             for row_id, row_heading in rows:
                 row_totals[row_id] = sum(counts.get((col_id, row_id), 0) for col_id, _ in cols)  # noqa
-            write_col_totals = False
 
         # row titles
         if write_row_headings:
@@ -2345,16 +2344,15 @@ class XLSXReportBuilder:
 
                 col_total += perc
 
-            if row_perc:
-                # Calculate ave, not total
-                col_total = col_total / len (rows)
-
-            if write_col_totals:
+            if write_col_totals and not row_perc:
                 ws.write(r+i+1, c, col_total, self.P)
 
             c += 2 if show_N else 1
 
         if row_perc and write_row_totals:
+            if write_col_headings:
+                ws.write(r-1, c, title_N)
+
             # Write the row totals
             for i, row in enumerate(rows):
                 row_id, row_title = row
