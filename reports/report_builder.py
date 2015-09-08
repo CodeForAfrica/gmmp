@@ -182,7 +182,7 @@ class XLSXReportBuilder:
         sheets = [s for s in sheets if self.report_type in WS_INFO[s]['reports']]
         sheets.sort()
 
-        self.write_summary_sheet(workbook, sheets)
+        self.write_key_sheet(workbook, sheets)
 
         for sheet in sheets:
             ws = workbook.add_worksheet(WS_INFO[sheet]['name'])
@@ -199,17 +199,19 @@ class XLSXReportBuilder:
 
         return output.read()
 
-    def write_summary_sheet(self, workbook, sheets):
-        ws = workbook.add_worksheet('Summary')
+    def write_key_sheet(self, workbook, sheets):
+        ws = workbook.add_worksheet('Key')
 
-        ws.write(0, 0, 'Query sheets')
+        ws.write(0, 0, 'Key to Query Sheets')
         ws.write(2, 0, 'Number')
-        ws.write(2, 1, 'Title')
-        ws.write(2, 2, 'Description')
+        ws.write(2, 1, 'Number in 2010 Report')
+        ws.write(2, 2, 'Title')
+        ws.write(2, 3, 'Description')
 
         for i, sheet in enumerate(sheets):
             ws.write(3 + i, 0, WS_INFO[sheet]['name'])
             ws.write(3 + i, 1, WS_INFO[sheet]['title'])
+            ws.write(3 + i, 1, WS_INFO[sheet].get('historical', ''))
             ws.write(3 + i, 2, WS_INFO[sheet]['desc'])
 
     def write_raw_data_sheets(self, workbook):
