@@ -174,7 +174,7 @@ class XLSXReportBuilder:
         #     'ws_61', 'ws_62', 'ws_63', 'ws_64', 'ws_65', 'ws_66', 'ws_67', 'ws_68', 'ws_68b',
         #     'ws_75', 'ws_76', 'ws_77', 'ws_78']
         if settings.DEBUG:
-            sheets = ['ws_01', 'ws_02']
+            sheets = ['ws_05', 'ws_34']
         else:
             sheets = WS_INFO.keys()
 
@@ -2283,6 +2283,8 @@ class XLSXReportBuilder:
         :param bool row_perc: should percentages by calculated by row instead of column (default: False)
         """
 
+        write_row_totals = row_perc and not show_N
+
         # row titles
         if write_row_headings:
             for i, row in enumerate(rows):
@@ -2308,7 +2310,10 @@ class XLSXReportBuilder:
                 ws.merge_range(r-3, c, r-3, c+sec_cols-1, clean_title(field), self.sec_col_heading)
             else:
                 ws.write(r-3, c, clean_title(field), self.sec_col_heading)
-            self.tabulate(ws, counts, cols, rows, row_perc=row_perc, write_row_headings=False, write_row_totals=False, write_col_totals=write_col_totals, filter_cols=filter_cols, r=r, c=c, show_N=show_N, raw_values=raw_values)
+
+            self.tabulate(ws, counts, cols, rows, row_perc=row_perc, write_row_headings=False,
+                          write_row_totals=write_row_totals, write_col_totals=write_col_totals,
+                          filter_cols=filter_cols, r=r, c=c, show_N=show_N, raw_values=raw_values)
             c += sec_cols
 
     def tabulate(self, ws, counts, cols, rows, row_perc=False,
