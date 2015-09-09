@@ -200,8 +200,11 @@ TV_ROLE = [
     (3, _('(3) Other journalist: Sportscaster, weather forecaster, commentator/analyst etc.')),
 ]
 
+# The position of announcers and reporters in TV_ROLE
 TV_ROLE_ANNOUNCER = TV_ROLE[0]
 TV_ROLE_REPORTER = TV_ROLE[1]
+
+# The id of reporters in TV_ROLE's
 REPORTERS = 2
 
 MEDIA_TYPES = [
