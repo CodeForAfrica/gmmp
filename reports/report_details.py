@@ -551,12 +551,12 @@ REGION_COUNTRY_MAP = {
         'AL', 'AM', 'AT', 'BY', 'BE', 'BA', 'BG', 'HR', 'DK', 'EE', 'FI', 'FR',
         'GE', 'DE', 'GR', 'HU', 'IS', 'IE', 'IT', 'KZ', 'LU', 'MK', 'MT', 'MD',
         'ME', 'NL', 'NO', 'PL', 'PT', 'RO', 'RS', 'SK', 'SI', 'ES', 'SE', 'CH',
-        'TR', 'GB', 'B1', 'B2', 'WL', 'SQ', 'EN', 'UK'],
+        'TR', 'GB', 'B1', 'B2', 'WL', 'SQ', 'EN', 'UK', 'CY'],
     'Latin America': [
         'AR', 'BO', 'BR', 'CL', 'CO', 'CR', 'EC', 'SV', 'GT', 'MX', 'NI', 'PY',
         'PE', 'PR', 'UY', 'VE'],
     'Middle East': [
-        'CY', 'EG', 'IL', 'LB', 'MA', 'PS', 'TN'],
+        'EG', 'IL', 'LB', 'MA', 'PS', 'TN'],
     'North America': [
         'CA', 'US'],
     'Pacific Islands': [
