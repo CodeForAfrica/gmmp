@@ -174,7 +174,7 @@ class XLSXReportBuilder:
         #     'ws_61', 'ws_62', 'ws_63', 'ws_64', 'ws_65', 'ws_66', 'ws_67', 'ws_68', 'ws_68b',
         #     'ws_75', 'ws_76', 'ws_77', 'ws_78']
         if settings.DEBUG:
-            sheets = ['ws_21', 'ws_29', 'ws_30']
+            sheets = ['ws_28', 'ws_29', 'ws_30', 'ws_49']
         else:
             sheets = WS_INFO.keys()
 
@@ -1058,25 +1058,43 @@ class XLSXReportBuilder:
         Rows: Region
         :: Female reporters only
         """
-        counts = Counter()
-        for media_type, model in tm_journalist_models.iteritems():
-            region = model.sheet_name() + '__country_region__region'
-            rows = model.objects\
-                    .values(region)\
-                    .filter(sex=1)\
-                    .filter(**{region + '__in': self.region_list})
+        if self.report_type == 'country':
+            counts = Counter()
+            for media_type, model in tm_journalist_models.iteritems():
+                country = model.sheet_name() + '__country'
+                rows = model.objects\
+                        .values(country)\
+                        .filter(sex=1)\
+                        .filter(**{country + '__in': self.country_list})
 
-            rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
+                rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
 
-            for row in rows:
-                # Get media and region id's to assign to counts
-                media_id = [media[0] for media in MEDIA_TYPES if media[1] == media_type][0]
-                region_id = [r[0] for r in self.regions if r[1] == row['region']][0]
+                for row in rows:
+                    # Get media and region id's to assign to counts
+                    media_id = [media[0] for media in MEDIA_TYPES if media[1] == media_type][0]
+                    counts.update({(media_id, row['country']): row['n']})
 
-                counts.update({(media_id, region_id): row['n']})
+            self.tabulate(ws, counts, TM_MEDIA_TYPES, self.countries, row_perc=True)
+        else:
+            counts = Counter()
+            for media_type, model in tm_journalist_models.iteritems():
+                region = model.sheet_name() + '__country_region__region'
+                rows = model.objects\
+                        .values(region)\
+                        .filter(sex=1)\
+                        .filter(**{region + '__in': self.region_list})
 
-        self.tabulate(ws, counts, TM_MEDIA_TYPES, self.regions, row_perc=True)
-        self.tabulate_historical(ws, '28', self.male_female, self.regions)
+                rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
+
+                for row in rows:
+                    # Get media and region id's to assign to counts
+                    media_id = [media[0] for media in MEDIA_TYPES if media[1] == media_type][0]
+                    region_id = [r[0] for r in self.regions if r[1] == row['region']][0]
+
+                    counts.update({(media_id, region_id): row['n']})
+
+            self.tabulate(ws, counts, TM_MEDIA_TYPES, self.regions, row_perc=True)
+            self.tabulate_historical(ws, '28', self.male_female, self.regions)
 
     def ws_29(self, ws):
         """
@@ -1084,27 +1102,49 @@ class XLSXReportBuilder:
         Rows: Scope
         :: Female reporters only
         """
-        counts = Counter()
-        for media_type, model in tm_journalist_models.iteritems():
-            sheet_name = model.sheet_name()
-            region = sheet_name + '__country_region__region'
-            scope =  sheet_name + '__scope'
-            if 'scope' in model._meta.get_field(sheet_name).rel.to._meta.get_all_field_names():
-                rows = model.objects\
-                        .values(region, scope)\
-                        .filter(**{region + '__in': self.region_list})\
-                        .filter(sex=1)
+        if self.report_type == 'country':
+            counts = Counter()
+            for media_type, model in tm_journalist_models.iteritems():
+                sheet_name = model.sheet_name()
+                country = sheet_name + '__country'
+                scope =  sheet_name + '__scope'
+                if 'scope' in model._meta.get_field(sheet_name).rel.to._meta.get_all_field_names():
+                    rows = model.objects\
+                            .values(country, scope)\
+                            .filter(**{country + '__in': self.country_list})\
+                            .filter(sex=1)
 
-                if media_type in REPORTER_MEDIA:
-                    rows.filter(role=REPORTERS)
+                    if media_type in REPORTER_MEDIA:
+                        rows.filter(role=REPORTERS)
 
-                rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
+                    rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
 
-                for row in rows:
-                    region_id = [r[0] for r in self.regions if r[1] == row['region']][0]
-                    counts.update({(region_id, row['scope']): row['n']})
+                    for row in rows:
+                        counts.update({(row['country'], row['scope']): row['n']})
 
-        self.tabulate(ws, counts, self.regions, SCOPE, row_perc=False, show_N=True)
+            self.tabulate(ws, counts, self.countries, SCOPE, row_perc=False, show_N=True)
+        else:
+            counts = Counter()
+            for media_type, model in tm_journalist_models.iteritems():
+                sheet_name = model.sheet_name()
+                region = sheet_name + '__country_region__region'
+                scope =  sheet_name + '__scope'
+                if 'scope' in model._meta.get_field(sheet_name).rel.to._meta.get_all_field_names():
+                    rows = model.objects\
+                            .values(region, scope)\
+                            .filter(**{region + '__in': self.region_list})\
+                            .filter(sex=1)
+
+                    if media_type in REPORTER_MEDIA:
+                        rows.filter(role=REPORTERS)
+
+                    rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
+
+                    for row in rows:
+                        region_id = [r[0] for r in self.regions if r[1] == row['region']][0]
+                        counts.update({(region_id, row['scope']): row['n']})
+
+            self.tabulate(ws, counts, self.regions, SCOPE, row_perc=False, show_N=True)
 
     def ws_30(self, ws):
         """
@@ -1112,28 +1152,51 @@ class XLSXReportBuilder:
         Rows: Major Topics
         :: Female reporters only
         """
-        counts = Counter()
-        for media_type, model in tm_journalist_models.iteritems():
-            sheet_name = model.sheet_name()
-            region = sheet_name + '__country_region__region'
-            topic =  sheet_name + '__topic'
-            if 'topic' in model._meta.get_field(sheet_name).rel.to._meta.get_all_field_names():
-                rows = model.objects\
-                        .values(region, topic)\
-                        .filter(**{region + '__in': self.region_list})\
-                        .filter(sex=1)
+        if self.report_type == 'country':
+            counts = Counter()
+            for media_type, model in tm_journalist_models.iteritems():
+                sheet_name = model.sheet_name()
+                country = sheet_name + '__country'
+                topic =  sheet_name + '__topic'
+                if 'topic' in model._meta.get_field(sheet_name).rel.to._meta.get_all_field_names():
+                    rows = model.objects\
+                            .values(country, topic)\
+                            .filter(**{country + '__in': self.country_list})\
+                            .filter(sex=1)
 
-                if media_type in REPORTER_MEDIA:
-                    rows.filter(role=REPORTERS)
+                    if media_type in REPORTER_MEDIA:
+                        rows.filter(role=REPORTERS)
 
-                rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
+                    rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
 
-                for row in rows:
-                    region_id = [r[0] for r in self.regions if r[1] == row['region']][0]
-                    major_topic = TOPIC_GROUPS[row['topic']]
-                    counts.update({(region_id, major_topic): row['n']})
+                    for row in rows:
+                        major_topic = TOPIC_GROUPS[row['topic']]
+                        counts.update({(row['country'], major_topic): row['n']})
 
-        self.tabulate(ws, counts, self.regions, MAJOR_TOPICS, row_perc=False, show_N=True)
+            self.tabulate(ws, counts, self.countries, MAJOR_TOPICS, row_perc=False, show_N=True)
+        else:
+            counts = Counter()
+            for media_type, model in tm_journalist_models.iteritems():
+                sheet_name = model.sheet_name()
+                region = sheet_name + '__country_region__region'
+                topic =  sheet_name + '__topic'
+                if 'topic' in model._meta.get_field(sheet_name).rel.to._meta.get_all_field_names():
+                    rows = model.objects\
+                            .values(region, topic)\
+                            .filter(**{region + '__in': self.region_list})\
+                            .filter(sex=1)
+
+                    if media_type in REPORTER_MEDIA:
+                        rows.filter(role=REPORTERS)
+
+                    rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
+
+                    for row in rows:
+                        region_id = [r[0] for r in self.regions if r[1] == row['region']][0]
+                        major_topic = TOPIC_GROUPS[row['topic']]
+                        counts.update({(region_id, major_topic): row['n']})
+
+            self.tabulate(ws, counts, self.regions, MAJOR_TOPICS, row_perc=False, show_N=True)
 
     def ws_31(self, ws):
         """
@@ -1526,20 +1589,35 @@ class XLSXReportBuilder:
         Rows: Region
         :: Internet media type only
         """
-        counts = Counter()
-        model = sheet_models.get('Internet')
-        rows = model.objects\
-                .values('topic', 'country_region__region')\
-                .filter(country_region__region__in=self.region_list)
+        if self.report_type == 'country':
+            counts = Counter()
+            model = sheet_models.get('Internet')
+            rows = model.objects\
+                    .values('topic', 'country')\
+                    .filter(country__in=self.country_list)
 
-        rows = self.apply_weights(rows, model._meta.db_table, 'Internet')
+            rows = self.apply_weights(rows, model._meta.db_table, 'Internet')
 
-        for row in rows:
-            region_id = [r[0] for r in self.regions if r[1] == row['region']][0]
-            major_topic = TOPIC_GROUPS[row['topic']]
-            counts.update({(major_topic, region_id): row['n']})
+            for row in rows:
+                major_topic = TOPIC_GROUPS[row['topic']]
+                counts.update({(major_topic, row['country']): row['n']})
 
-        self.tabulate(ws, counts, MAJOR_TOPICS, self.regions, row_perc=True)
+            self.tabulate(ws, counts, MAJOR_TOPICS, self.countries, row_perc=True)
+        else:
+            counts = Counter()
+            model = sheet_models.get('Internet')
+            rows = model.objects\
+                    .values('topic', 'country_region__region')\
+                    .filter(country_region__region__in=self.region_list)
+
+            rows = self.apply_weights(rows, model._meta.db_table, 'Internet')
+
+            for row in rows:
+                region_id = [r[0] for r in self.regions if r[1] == row['region']][0]
+                major_topic = TOPIC_GROUPS[row['topic']]
+                counts.update({(major_topic, region_id): row['n']})
+
+            self.tabulate(ws, counts, MAJOR_TOPICS, self.regions, row_perc=True)
 
     def ws_50(self, ws):
         """
