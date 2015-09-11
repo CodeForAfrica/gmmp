@@ -89,7 +89,7 @@ WS_INFO = {
         'name': '6',
         'title': 'Breakdown of women in the news in major topics by region',
         'desc': 'Women in the news (sources) in major news topics by region ',
-        'reports': ['global', 'region', 'country'],
+        'reports': ['global', 'region'],
         'historical': '3bF',
     },
     'ws_07': {
