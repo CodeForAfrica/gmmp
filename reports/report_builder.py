@@ -386,7 +386,13 @@ class XLSXReportBuilder:
                 ]).annotate()
 
         raw_query, params = query.query.sql_with_params()
-        raw_query = raw_query.replace('SELECT', 'SELECT cast(round(SUM(reports_weights.weight)) as int) AS "n",')
+
+        if self.report_type == 'country':
+            weights = 'SELECT count(1) AS "n",'
+        else:
+            weights = 'SELECT cast(round(SUM(reports_weights.weight)) as int) AS "n",'
+
+        raw_query = raw_query.replace('SELECT', weights)
         cursor = connection.cursor()
         cursor.execute(raw_query, params)
         return self.dictfetchall(cursor)
