@@ -174,7 +174,7 @@ class XLSXReportBuilder:
         #     'ws_61', 'ws_62', 'ws_63', 'ws_64', 'ws_65', 'ws_66', 'ws_67', 'ws_68', 'ws_68b',
         #     'ws_75', 'ws_76', 'ws_77', 'ws_78']
         if settings.DEBUG:
-            sheets = ['ws_05', 'ws_34']
+            sheets = ['ws_21', 'ws_29', 'ws_30']
         else:
             sheets = WS_INFO.keys()
 
@@ -933,7 +933,7 @@ class XLSXReportBuilder:
                 rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
 
                 counts.update({(r['sex'], r['victim_of']): r['n'] for r in rows})
-        self.tabulate(ws, counts, self.male_female, VICTIM_OF, row_perc=False)
+        self.tabulate(ws, counts, self.male_female, VICTIM_OF, row_perc=False, show_N=True)
         self.tabulate_historical(ws, '21', self.male_female, VICTIM_OF)
 
     def ws_23(self, ws):
@@ -1101,7 +1101,7 @@ class XLSXReportBuilder:
                     region_id = [r[0] for r in self.regions if r[1] == row['region']][0]
                     counts.update({(region_id, row['scope']): row['n']})
 
-        self.tabulate(ws, counts, self.regions, SCOPE, row_perc=False)
+        self.tabulate(ws, counts, self.regions, SCOPE, row_perc=False, show_N=True)
 
     def ws_30(self, ws):
         """
@@ -1130,7 +1130,7 @@ class XLSXReportBuilder:
                     major_topic = TOPIC_GROUPS[row['topic']]
                     counts.update({(region_id, major_topic): row['n']})
 
-        self.tabulate(ws, counts, self.regions, MAJOR_TOPICS, row_perc=False)
+        self.tabulate(ws, counts, self.regions, MAJOR_TOPICS, row_perc=False, show_N=True)
 
     def ws_31(self, ws):
         """
