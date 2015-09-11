@@ -390,7 +390,7 @@ class XLSXReportBuilder:
         if self.report_type == 'country':
             weights = 'SELECT count(1) AS "n",'
         else:
-            weights = 'SELECT cast(round(SUM(reports_weights.weight)) as int) AS "n",'
+            weights = 'SELECT cast(SUM(reports_weights.weight) as float) AS "n",'
 
         raw_query = raw_query.replace('SELECT', weights)
         cursor = connection.cursor()
@@ -2420,7 +2420,7 @@ class XLSXReportBuilder:
             # Calc percentage by row
             row_totals = {}
             for row_id, row_heading in rows:
-                row_totals[row_id] = sum(counts.get((col_id, row_id), 0) for col_id, _ in cols)  # noqa
+                row_totals[row_id] = sum(int(round(counts.get((col_id, row_id), 0))) for col_id, _ in cols)  # noqa
 
         # row titles
         if write_row_headings:
@@ -2462,9 +2462,7 @@ class XLSXReportBuilder:
 
             if not row_perc:
                 # calculate column totals
-                # Confirm: Perc of col total or matrix total?
-                # total = sum(counts.itervalues())
-                total = sum(counts.get((col_id, row_id), 0) for row_id, _ in rows)
+                total = sum(int(round(counts.get((col_id, row_id), 0))) for row_id, _ in rows)
 
             # values for this column
             col_total = 0
@@ -2475,8 +2473,9 @@ class XLSXReportBuilder:
                     # row totals
                     total = row_totals[row_id]
 
-                n = counts.get((col_id, row_id), 0)
+                n = int(round(counts.get((col_id, row_id), 0)))
                 perc = p(n, total)
+                col_total += perc
 
                 if raw_values:
                     ws.write(r+i, c, n, self.N)
@@ -2484,8 +2483,6 @@ class XLSXReportBuilder:
                     ws.write(r+i, c, perc, self.P)
                     if show_N:
                         ws.write(r+i, c+1, n, self.N)
-
-                col_total += perc
 
             if write_col_totals and not row_perc:
                 ws.write(r+i+1, c, col_total, self.P)
