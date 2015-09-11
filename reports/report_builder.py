@@ -435,9 +435,6 @@ class XLSXReportBuilder:
         """
         r = 6
         c = 2
-        for media_types, models in SHEET_MEDIA_GROUPS:
-            self.write_col_headings(ws, media_types, c=c)
-            c += len(media_types) + 2
 
         weights = {(w.country, w.media_type): w.weight for w in Weights.objects.all()}
         first = True
@@ -467,9 +464,9 @@ class XLSXReportBuilder:
 
             self.write_primary_row_heading(ws, region, r=r)
             region_countries = [(code, country) for code, country in self.countries if code in REGION_COUNTRY_MAP[region]]
-            self.tabulate(ws, counts_list[0], TM_MEDIA_TYPES, region_countries, row_perc=True, write_col_headings=False, r=r)
+            self.tabulate(ws, counts_list[0], TM_MEDIA_TYPES, region_countries, row_perc=True, write_col_headings=True, r=r)
             c = 7
-            self.tabulate(ws, counts_list[1], DM_MEDIA_TYPES, region_countries, row_perc=True, write_col_headings=False, write_row_headings=False, r=r, c=c)
+            self.tabulate(ws, counts_list[1], DM_MEDIA_TYPES, region_countries, row_perc=True, write_col_headings=True, write_row_headings=False, r=r, c=c)
 
             if historical_c is None:
                 historical_c = ws.dim_colmax + 2
