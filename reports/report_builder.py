@@ -174,7 +174,7 @@ class XLSXReportBuilder:
         #     'ws_61', 'ws_62', 'ws_63', 'ws_64', 'ws_65', 'ws_66', 'ws_67', 'ws_68', 'ws_68b',
         #     'ws_75', 'ws_76', 'ws_77', 'ws_78']
         if settings.DEBUG:
-            sheets = ['ws_30']
+            sheets = ['ws_31', 'ws_32', 'ws_35']
         else:
             sheets = WS_INFO.keys()
 
@@ -1076,7 +1076,6 @@ class XLSXReportBuilder:
             self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, self.countries, row_perc=True, show_N=True)
         else:
             secondary_counts = OrderedDict()
-            counts = Counter()
             for media_type, model in tm_journalist_models.iteritems():
                 counts = Counter()
                 region = model.sheet_name() + '__country_region__region'
@@ -1150,7 +1149,7 @@ class XLSXReportBuilder:
 
     def ws_30(self, ws):
         """
-        Cols: Region
+        Cols: Region, Sex of reporter
         Rows: Major Topics
         :: Reporters only
         """
@@ -1226,24 +1225,26 @@ class XLSXReportBuilder:
 
                 counts.update({(r['sex'], r['topic']): r['n'] for r in rows})
 
-        self.tabulate(ws, counts, self.male_female, TOPICS, row_perc=True, filter_cols=self.female)
-        self.tabulate_historical(ws, '31', self.female, TOPICS, write_row_headings=False)
+        self.tabulate(ws, counts, self.male_female, TOPICS, row_perc=True)
+        self.tabulate_historical(ws, '31', self.male_female, TOPICS, write_row_headings=False)
 
     def ws_32(self, ws):
         """
         Cols: Medium
         Rows: Topics
-        :: Female reporters only
+        :: Reporters only
         """
-        counts = Counter()
+        secondary_counts = OrderedDict()
+
         for media_type, model in tm_journalist_models.iteritems():
+            counts = Counter()
             sheet_name = model.sheet_name()
             topic =  sheet_name + '__topic'
             if 'topic' in model._meta.get_field(sheet_name).rel.to._meta.get_all_field_names():
                 rows = model.objects\
-                        .values(topic)\
+                        .values('sex', topic)\
                         .filter(**{model.sheet_name() + '__country__in':self.country_list})\
-                        .filter(sex=1)
+                        .filter(sex__in=self.male_female_ids)
 
                 if media_type in REPORTER_MEDIA:
                     rows.filter(role=REPORTERS)
@@ -1251,10 +1252,10 @@ class XLSXReportBuilder:
                 rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
 
                 for row in rows:
-                    media_id = [media[0] for media in MEDIA_TYPES if media[1] == media_type][0]
-                    counts.update({(media_id, row['topic']): row['n']})
+                    counts.update({(row['sex'], row['topic']): row['n']})
+            secondary_counts[media_type] = counts
 
-        self.tabulate(ws, counts, TM_MEDIA_TYPES, TOPICS, row_perc=False)
+        self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, TOPICS, row_perc=False, show_N=True)
 
     def ws_34(self, ws):
         """
