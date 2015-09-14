@@ -1225,8 +1225,8 @@ class XLSXReportBuilder:
 
                 counts.update({(r['sex'], r['topic']): r['n'] for r in rows})
 
-        self.tabulate(ws, counts, self.male_female, TOPICS, row_perc=True)
-        self.tabulate_historical(ws, '31', self.male_female, TOPICS, write_row_headings=False)
+        self.tabulate(ws, counts, self.male_female, TOPICS, row_perc=True, filter_cols=self.female)
+        self.tabulate_historical(ws, '31', self.female, TOPICS, write_row_headings=False)
 
     def ws_32(self, ws):
         """
@@ -1314,7 +1314,7 @@ class XLSXReportBuilder:
         rows = self.apply_weights(rows, TelevisionJournalist.sheet_db_table(), 'Television')
         counts.update({(r['sex'], r['age']): r['n'] for r in rows})
 
-        self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, AGES, row_perc=False, filter_cols=self.female, show_N=True)
+        self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, AGES, row_perc=False, show_N=True)
 
         major_cols = [TV_ROLE_ANNOUNCER, TV_ROLE_REPORTER]
         self.tabulate_historical(ws, '35', self.female, AGES, major_cols=major_cols, write_row_headings=False)
