@@ -546,7 +546,7 @@ REGION_COUNTRY_MAP = {
         'KR', 'TW', 'VU', 'VN'],
     'Caribbean': [
         'AG', 'BS', 'BB', 'BZ', 'CU', 'DO', 'GD', 'GY', 'HT', 'JM', 'LC', 'VC',
-        'SR', 'TT'],
+        'SR', 'TT', 'PR'],
     'Europe': [
         'AL', 'AM', 'AT', 'BY', 'BE', 'BA', 'BG', 'HR', 'DK', 'EE', 'FI', 'FR',
         'GE', 'DE', 'GR', 'HU', 'IS', 'IE', 'IT', 'KZ', 'LU', 'MK', 'MT', 'MD',
@@ -554,7 +554,7 @@ REGION_COUNTRY_MAP = {
         'TR', 'GB', 'B1', 'B2', 'WL', 'SQ', 'EN', 'UK', 'CY'],
     'Latin America': [
         'AR', 'BO', 'BR', 'CL', 'CO', 'CR', 'EC', 'SV', 'GT', 'MX', 'NI', 'PY',
-        'PE', 'PR', 'UY', 'VE'],
+        'PE', 'UY', 'VE'],
     'Middle East': [
         'EG', 'IL', 'LB', 'MA', 'PS', 'TN'],
     'North America': [
