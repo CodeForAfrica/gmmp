@@ -204,7 +204,7 @@ TV_ROLE = [
 TV_ROLE_ANNOUNCER = TV_ROLE[0]
 TV_ROLE_REPORTER = TV_ROLE[1]
 
-# The id of reporters in TV_ROLE's
+# The id of reporters in TV_ROLE
 REPORTERS = 2
 
 MEDIA_TYPES = [
