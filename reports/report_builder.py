@@ -174,7 +174,7 @@ class XLSXReportBuilder:
         #     'ws_61', 'ws_62', 'ws_63', 'ws_64', 'ws_65', 'ws_66', 'ws_67', 'ws_68', 'ws_68b',
         #     'ws_75', 'ws_76', 'ws_77', 'ws_78']
         if settings.DEBUG:
-            sheets = ['ws_28', 'ws_29', 'ws_30', 'ws_49']
+            sheets = ['ws_41']
         else:
             sheets = WS_INFO.keys()
 
@@ -1412,7 +1412,7 @@ class XLSXReportBuilder:
                 rows = self.apply_weights(rows, model._meta.db_table, media_type)
 
                 counts.update({(r['equality_rights'], r['topic']): r['n'] for r in rows})
-        self.tabulate(ws, counts, YESNO, TOPICS, row_perc=False)
+        self.tabulate(ws, counts, YESNO, TOPICS, row_perc=False, show_N=True)
         self.tabulate_historical(ws, '41', self.female, TOPICS, write_row_headings=False, r=6)
 
     def ws_42(self, ws):
