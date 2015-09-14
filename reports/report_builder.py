@@ -174,7 +174,7 @@ class XLSXReportBuilder:
         #     'ws_61', 'ws_62', 'ws_63', 'ws_64', 'ws_65', 'ws_66', 'ws_67', 'ws_68', 'ws_68b',
         #     'ws_75', 'ws_76', 'ws_77', 'ws_78']
         if settings.DEBUG:
-            sheets = ['ws_41']
+            sheets = ['ws_28']
         else:
             sheets = WS_INFO.keys()
 
@@ -1054,47 +1054,44 @@ class XLSXReportBuilder:
 
     def ws_28(self, ws):
         """
-        Cols: Medium
+        Cols: Medium, Journalist Sex
         Rows: Region
-        :: Female reporters only
+        Journalists: Reporters + Presenters
         """
         if self.report_type == 'country':
-            counts = Counter()
+            secondary_counts = OrderedDict()
             for media_type, model in tm_journalist_models.iteritems():
+                counts = Counter()
                 country = model.sheet_name() + '__country'
                 rows = model.objects\
-                        .values(country)\
-                        .filter(sex=1)\
+                        .values('sex', country)\
                         .filter(**{country + '__in': self.country_list})
 
                 rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
 
                 for row in rows:
-                    # Get media and region id's to assign to counts
-                    media_id = [media[0] for media in MEDIA_TYPES if media[1] == media_type][0]
-                    counts.update({(media_id, row['country']): row['n']})
-
-            self.tabulate(ws, counts, TM_MEDIA_TYPES, self.countries, row_perc=True)
+                    counts.update({(row['sex'], row['country']): row['n']})
+                secondary_counts[media_type] = counts
+            self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, self.countries, row_perc=True, show_N=True)
         else:
+            secondary_counts = OrderedDict()
             counts = Counter()
             for media_type, model in tm_journalist_models.iteritems():
+                counts = Counter()
                 region = model.sheet_name() + '__country_region__region'
                 rows = model.objects\
-                        .values(region)\
-                        .filter(sex=1)\
+                        .values('sex', region)\
                         .filter(**{region + '__in': self.region_list})
 
                 rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
 
                 for row in rows:
-                    # Get media and region id's to assign to counts
-                    media_id = [media[0] for media in MEDIA_TYPES if media[1] == media_type][0]
                     region_id = [r[0] for r in self.regions if r[1] == row['region']][0]
 
-                    counts.update({(media_id, region_id): row['n']})
-
-            self.tabulate(ws, counts, TM_MEDIA_TYPES, self.regions, row_perc=True)
-            self.tabulate_historical(ws, '28', self.male_female, self.regions)
+                    counts.update({(row['sex'], region_id): row['n']})
+                secondary_counts[media_type] = counts
+            self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, self.regions, row_perc=True, show_N=True)
+            self.tabulate_historical(ws, '28', self.male_female, self.regions, r=7)
 
     def ws_29(self, ws):
         """
