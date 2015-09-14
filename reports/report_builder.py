@@ -174,7 +174,7 @@ class XLSXReportBuilder:
         #     'ws_61', 'ws_62', 'ws_63', 'ws_64', 'ws_65', 'ws_66', 'ws_67', 'ws_68', 'ws_68b',
         #     'ws_75', 'ws_76', 'ws_77', 'ws_78']
         if settings.DEBUG:
-            sheets = ['ws_29']
+            sheets = ['ws_30']
         else:
             sheets = WS_INFO.keys()
 
@@ -1152,53 +1152,57 @@ class XLSXReportBuilder:
         """
         Cols: Region
         Rows: Major Topics
-        :: Female reporters only
+        :: Reporters only
         """
         if self.report_type == 'country':
-            counts = Counter()
-            for media_type, model in tm_journalist_models.iteritems():
-                sheet_name = model.sheet_name()
-                country = sheet_name + '__country'
-                topic =  sheet_name + '__topic'
-                if 'topic' in model._meta.get_field(sheet_name).rel.to._meta.get_all_field_names():
-                    rows = model.objects\
-                            .values(country, topic)\
-                            .filter(**{country + '__in': self.country_list})\
-                            .filter(sex=1)
+            secondary_counts = OrderedDict()
+            for country_code, country_name in self.countries:
+                counts = Counter()
+                for media_type, model in tm_journalist_models.iteritems():
+                    sheet_name = model.sheet_name()
+                    country = sheet_name + '__country'
+                    topic =  sheet_name + '__topic'
+                    if 'topic' in model._meta.get_field(sheet_name).rel.to._meta.get_all_field_names():
+                        rows = model.objects\
+                                .values('sex', topic)\
+                                .filter(**{country + '__in': self.country_list})\
+                                .filter(sex__in=self.male_female_ids)
 
-                    if media_type in REPORTER_MEDIA:
-                        rows.filter(role=REPORTERS)
+                        if media_type in REPORTER_MEDIA:
+                            rows.filter(role=REPORTERS)
 
-                    rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
+                        rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
 
-                    for row in rows:
-                        major_topic = TOPIC_GROUPS[row['topic']]
-                        counts.update({(row['country'], major_topic): row['n']})
-
-            self.tabulate(ws, counts, self.countries, MAJOR_TOPICS, row_perc=False, show_N=True)
+                        for row in rows:
+                            major_topic = TOPIC_GROUPS[row['topic']]
+                            counts.update({(row['sex'], major_topic): row['n']})
+                secondary_counts[country_name] = counts
+            self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, MAJOR_TOPICS, row_perc=False, show_N=True)
         else:
-            counts = Counter()
-            for media_type, model in tm_journalist_models.iteritems():
-                sheet_name = model.sheet_name()
-                region = sheet_name + '__country_region__region'
-                topic =  sheet_name + '__topic'
-                if 'topic' in model._meta.get_field(sheet_name).rel.to._meta.get_all_field_names():
-                    rows = model.objects\
-                            .values(region, topic)\
-                            .filter(**{region + '__in': self.region_list})\
-                            .filter(sex=1)
+            secondary_counts = OrderedDict()
+            for region_id, region_name in self.regions:
+                counts = Counter()
+                for media_type, model in tm_journalist_models.iteritems():
+                    sheet_name = model.sheet_name()
+                    region = sheet_name + '__country_region__region'
+                    topic =  sheet_name + '__topic'
+                    if 'topic' in model._meta.get_field(sheet_name).rel.to._meta.get_all_field_names():
+                        rows = model.objects\
+                                .values('sex', topic)\
+                                .filter(**{region: region_name})\
+                                .filter(sex__in=self.male_female_ids)
 
-                    if media_type in REPORTER_MEDIA:
-                        rows.filter(role=REPORTERS)
+                        if media_type in REPORTER_MEDIA:
+                            rows.filter(role=REPORTERS)
 
-                    rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
+                        rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
 
-                    for row in rows:
-                        region_id = [r[0] for r in self.regions if r[1] == row['region']][0]
-                        major_topic = TOPIC_GROUPS[row['topic']]
-                        counts.update({(region_id, major_topic): row['n']})
+                        for row in rows:
+                            major_topic = TOPIC_GROUPS[row['topic']]
+                            counts.update({(row['sex'], major_topic): row['n']})
+                secondary_counts[region_name] = counts
 
-            self.tabulate(ws, counts, self.regions, MAJOR_TOPICS, row_perc=False, show_N=True)
+            self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, MAJOR_TOPICS, row_perc=False, show_N=True)
 
     def ws_31(self, ws):
         """
