@@ -10,11 +10,10 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.utils.decorators import method_decorator
 
 # Project
-from reports.report_builder import (
-    XLSXReportBuilder,
-    get_countries, get_regions)
+from reports.report_builder import XLSXReportBuilder
 
 from reports.export_builder import XLSXDataExportBuilder
+from reports.report_details import get_countries, get_regions
 
 
 class GlobalForm(forms.Form):
