@@ -302,7 +302,6 @@ class XLSXReportBuilder:
             if self.country_list:
                 query = query.filter(**{model.sheet_name() + '__country__in': self.country_list})\
 
-            query = model.objects
             self.write_raw_data(ws, name, model, query)
 
     def write_raw_data(self, ws, name, model, query):
@@ -530,9 +529,9 @@ class XLSXReportBuilder:
                 secondary_counts[region] = counts
             counts_list.append(secondary_counts)
 
-        self.tabulate_secondary_cols(ws, counts_list[0], TM_MEDIA_TYPES, MAJOR_TOPICS, row_perc=False)
+        self.tabulate_secondary_cols(ws, counts_list[0], TM_MEDIA_TYPES, MAJOR_TOPICS, row_perc=False, show_N=True)
         c = ws.dim_colmax + 2
-        self.tabulate_secondary_cols(ws, counts_list[1], DM_MEDIA_TYPES, MAJOR_TOPICS, row_perc=False, c=c)
+        self.tabulate_secondary_cols(ws, counts_list[1], DM_MEDIA_TYPES, MAJOR_TOPICS, row_perc=False, c=c, show_N=True)
         c = ws.dim_colmax + 2
 
         self.tabulate_historical(ws, '04', self.regions, MAJOR_TOPICS, c=c, r=7, skip_major_col_heading=True)
@@ -957,7 +956,7 @@ class XLSXReportBuilder:
 
                 counts.update({(r['sex'], r['survivor_of']): r['n'] for r in rows})
 
-        self.tabulate(ws, counts, self.male_female, SURVIVOR_OF, row_perc=False)
+        self.tabulate(ws, counts, self.male_female, SURVIVOR_OF, row_perc=False, show_N=True)
         self.tabulate_historical(ws, '23', self.male_female, SURVIVOR_OF)
 
     def ws_24(self, ws):
