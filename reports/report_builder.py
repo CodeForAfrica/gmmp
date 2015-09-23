@@ -302,7 +302,6 @@ class XLSXReportBuilder:
             if self.country_list:
                 query = query.filter(**{model.sheet_name() + '__country__in': self.country_list})\
 
-            query = model.objects
             self.write_raw_data(ws, name, model, query)
 
     def write_raw_data(self, ws, name, model, query):
