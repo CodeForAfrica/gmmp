@@ -1975,7 +1975,7 @@ class XLSXReportBuilder:
 
             rows = self.apply_weights(rows, model._meta.db_table, "Twitter")
 
-            counts.update({(TOPIC_GROUPS[row['topic']], row['retweet']): row['n'] for row in rows})
+            counts = {(TOPIC_GROUPS[row['topic']], row['retweet']): row['n'] for row in rows}
 
             self.write_primary_row_heading(ws, country, r=r)
             self.tabulate(ws, counts, MAJOR_TOPICS, RETWEET, row_perc=False, write_col_headings=False, r=r)
@@ -2045,7 +2045,7 @@ class XLSXReportBuilder:
 
             rows = self.apply_weights(rows, model._meta.db_table, "Twitter")
 
-            counts.update({(TOPIC_GROUPS[row['topic']], row['about_women']): row['n'] for row in rows})
+            counts = {(TOPIC_GROUPS[row['topic']], row['about_women']): row['n'] for row in rows}
 
             self.write_primary_row_heading(ws, country, r=r)
             self.tabulate(ws, counts, MAJOR_TOPICS, YESNO, row_perc=False, write_col_headings=False, r=r)
@@ -2069,7 +2069,7 @@ class XLSXReportBuilder:
                     .filter(country=code)
 
             rows = self.apply_weights(rows, model._meta.db_table, "Twitter")
-            counts.update({(TOPIC_GROUPS[row['topic']], row['stereotypes']): row['n'] for row in rows})
+            counts = {(TOPIC_GROUPS[row['topic']], row['stereotypes']): row['n'] for row in rows}
 
             self.write_primary_row_heading(ws, country, r=r)
             self.tabulate(ws, counts, MAJOR_TOPICS, AGREE_DISAGREE, row_perc=True, write_col_headings=False, r=r)
