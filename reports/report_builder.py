@@ -886,22 +886,8 @@ class XLSXReportBuilder:
         Rows: Occupation
         """
         secondary_counts = OrderedDict()
-        functions_count = Counter()
-        # Get top 5 functions
-        for media_type, model in tm_person_models.iteritems():
-            if 'function' in model._meta.get_all_field_names() and 'occupation' in model._meta.get_all_field_names():
-                rows = model.objects\
-                        .values('function')\
-                        .filter(**{model.sheet_name() + '__country__in':self.country_list})
 
-                rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
-
-                functions_count.update({(r['function']): r['n'] for r in rows})
-
-        top_5_function_ids = [id for id, count in sorted(functions_count.items(), key=lambda x: -x[1])[:5]]
-        top_5_functions = [(id, func) for id, func in FUNCTION if id in top_5_function_ids]
-
-        for func_id, function in top_5_functions:
+        for func_id, function in FUNCTION:
             counts = Counter()
             for media_type, model in tm_person_models.iteritems():
                 if 'function' in model._meta.get_all_field_names() and 'occupation' in model._meta.get_all_field_names():
@@ -916,7 +902,7 @@ class XLSXReportBuilder:
                     counts.update({(r['sex'], r['occupation']): r['n'] for r in rows})
             secondary_counts[function] = counts
         self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, OCCUPATION, row_perc=False)
-        self.tabulate_historical(ws, '20', self.male_female, OCCUPATION, major_cols=top_5_functions)
+        self.tabulate_historical(ws, '20', self.male_female, OCCUPATION, major_cols=FUNCTION)
 
     def ws_21(self, ws):
         """

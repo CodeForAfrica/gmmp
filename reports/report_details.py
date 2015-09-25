@@ -181,8 +181,8 @@ WS_INFO = {
     },
     'ws_20': {
         'name': '20',
-        'title': 'Functions (top 5) and Occupations by sex of news subject',
-        'desc': 'B.down of  news subjects\' functions (top 5) and occupations by sex of news subject',
+        'title': 'Functions and Occupations by sex of news subject',
+        'desc': 'B.down of  news subjects\' functions and occupations by sex of news subject',
         'reports': ['global', 'region', 'country'],
         'historical': '20fF'
     },
