@@ -2001,7 +2001,7 @@ class XLSXReportBuilder:
 
             rows = self.apply_weights(rows, model.sheet_db_table(), "Twitter")
 
-            counts.update({(TOPIC_GROUPS[row['topic']], row['sex']): row['n'] for row in rows})
+            counts = {(TOPIC_GROUPS[row['topic']], row['sex']): row['n'] for row in rows}
 
             self.write_primary_row_heading(ws, country, r=r)
             self.tabulate(ws, counts, MAJOR_TOPICS, GENDER, row_perc=True, write_col_headings=False, r=r)
