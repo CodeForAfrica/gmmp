@@ -174,7 +174,7 @@ class XLSXReportBuilder:
         #     'ws_61', 'ws_62', 'ws_63', 'ws_64', 'ws_65', 'ws_66', 'ws_67', 'ws_68', 'ws_68b',
         #     'ws_75', 'ws_76', 'ws_77', 'ws_78']
         if settings.DEBUG:
-            sheets = ['ws_48']
+            sheets = ['ws_65', 'ws_66', 'ws_67', 'ws_68', 'ws_68b']
         else:
             sheets = WS_INFO.keys()
 
@@ -1958,13 +1958,13 @@ class XLSXReportBuilder:
 
     def ws_65(self, ws):
         """
-        Cols: Topic
+        Cols: Major Topic
         Rows: Country, tweet or retweet
         :: Show all countries
         :: Twitter media type only
         """
         r = 6
-        self.write_col_headings(ws, TOPICS)
+        self.write_col_headings(ws, MAJOR_TOPICS)
 
         counts = Counter()
         model = sheet_models.get('Twitter')
@@ -1974,21 +1974,22 @@ class XLSXReportBuilder:
                     .filter(country=code)
 
             rows = self.apply_weights(rows, model._meta.db_table, "Twitter")
-            counts = {(row['topic'], row['retweet']): row['n'] for row in rows}
+
+            counts = {(TOPIC_GROUPS[row['topic']], row['retweet']): row['n'] for row in rows}
 
             self.write_primary_row_heading(ws, country, r=r)
-            self.tabulate(ws, counts, TOPICS, RETWEET, row_perc=False, write_col_headings=False, r=r)
+            self.tabulate(ws, counts, MAJOR_TOPICS, RETWEET, row_perc=False, write_col_headings=False, r=r)
             r += len(RETWEET)
 
     def ws_66(self, ws):
         """
-        Cols: Topic
+        Cols: Major Topic
         Rows: Country, sex of news subject
         :: Show all countries
         :: Twitter media type only
         """
         r = 6
-        self.write_col_headings(ws, TOPICS)
+        self.write_col_headings(ws, MAJOR_TOPICS)
 
         counts = Counter()
         model = person_models.get('Twitter')
@@ -1999,10 +2000,11 @@ class XLSXReportBuilder:
                     .filter(**{model.sheet_name() + '__country':code})
 
             rows = self.apply_weights(rows, model.sheet_db_table(), "Twitter")
-            counts.update({(row['topic'], row['sex']): row['n'] for row in rows})
+
+            counts = {(TOPIC_GROUPS[row['topic']], row['sex']): row['n'] for row in rows}
 
             self.write_primary_row_heading(ws, country, r=r)
-            self.tabulate(ws, counts, TOPICS, GENDER, row_perc=True, write_col_headings=False, r=r)
+            self.tabulate(ws, counts, MAJOR_TOPICS, GENDER, row_perc=True, write_col_headings=False, r=r)
             r += len(GENDER)
 
     def ws_67(self, ws):
@@ -2026,13 +2028,13 @@ class XLSXReportBuilder:
 
     def ws_68(self, ws):
         """
-        Cols: Topic
+        Cols: Major Topic
         Rows: Country, about women
         :: Show all countries
         :: Twitter media type only
         """
         r = 6
-        self.write_col_headings(ws, TOPICS)
+        self.write_col_headings(ws, MAJOR_TOPICS)
 
         counts = Counter()
         model = sheet_models.get('Twitter')
@@ -2042,10 +2044,11 @@ class XLSXReportBuilder:
                     .filter(country=code)
 
             rows = self.apply_weights(rows, model._meta.db_table, "Twitter")
-            counts = {(row['topic'], row['about_women']): row['n'] for row in rows}
+
+            counts = {(TOPIC_GROUPS[row['topic']], row['about_women']): row['n'] for row in rows}
 
             self.write_primary_row_heading(ws, country, r=r)
-            self.tabulate(ws, counts, TOPICS, YESNO, row_perc=False, write_col_headings=False, r=r)
+            self.tabulate(ws, counts, MAJOR_TOPICS, YESNO, row_perc=False, write_col_headings=False, r=r)
             r += len(YESNO)
 
     def ws_68b(self, ws):
@@ -2056,7 +2059,7 @@ class XLSXReportBuilder:
         :: Twitter media type only
         """
         r = 6
-        self.write_col_headings(ws, TOPICS)
+        self.write_col_headings(ws, MAJOR_TOPICS)
 
         counts = Counter()
         model = sheet_models.get('Twitter')
@@ -2066,10 +2069,10 @@ class XLSXReportBuilder:
                     .filter(country=code)
 
             rows = self.apply_weights(rows, model._meta.db_table, "Twitter")
-            counts = {(row['topic'], row['stereotypes']): row['n'] for row in rows}
+            counts = {(TOPIC_GROUPS[row['topic']], row['stereotypes']): row['n'] for row in rows}
 
             self.write_primary_row_heading(ws, country, r=r)
-            self.tabulate(ws, counts, TOPICS, AGREE_DISAGREE, row_perc=True, write_col_headings=False, r=r)
+            self.tabulate(ws, counts, MAJOR_TOPICS, AGREE_DISAGREE, row_perc=True, write_col_headings=False, r=r)
             r += len(AGREE_DISAGREE)
 
     def ws_70(self, ws):
