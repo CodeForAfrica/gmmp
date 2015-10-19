@@ -565,6 +565,12 @@ WS_INFO = {
         'desc': 'Internet - Occupation of Female news subjects',
         'reports': ['global'],
     },
+    'ws_85': {
+        'name': '85',
+        'title': 'Internet - Functions of news subjects',
+        'desc': 'Internet - Functions of news subjects',
+        'reports': ['global'],
+    },
 }
 
 
