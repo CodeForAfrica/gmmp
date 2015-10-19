@@ -52,11 +52,10 @@ def get_country_region(country):
 
 def add_transnational_to_regions(regions):
     """
-    Append Transnational to region list for use in sheets 79-98
+    Append Transnational to region list for use in sheets 79-98 if not included
     """
-    trans_region = CountryRegion.objects.get(region='Transnational')
-    regions.append((len(regions), trans_region.region))
-    return regions
+    all_regions = regions + [(len(regions), u'Transnational')]
+    return all_regions
 
 
 WS_INFO = {
@@ -552,6 +551,12 @@ WS_INFO = {
         'name': '80',
         'title': 'Internet - Story shared on Twitter',
         'desc': 'Internet - Story shared on Twitter',
+        'reports': ['global'],
+    },
+    'ws_83': {
+        'name': '83',
+        'title': 'Internet - reporters in main stories',
+        'desc': 'Internet - reporters in main stories',
         'reports': ['global'],
     },
 }
