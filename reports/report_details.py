@@ -12,7 +12,8 @@ def get_regions():
     """
     country_regions = CountryRegion.objects\
                         .values('region')\
-                        .exclude(region='Unmapped')
+                        .exclude(region='Unmapped')\
+                        .exclude(region='Transnational')
     regions = set(item['region'] for item in country_regions)
     return [(i, region) for i, region in enumerate(sorted(list(regions)))]
 
