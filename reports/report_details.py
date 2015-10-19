@@ -583,6 +583,12 @@ WS_INFO = {
         'desc': 'Internet - News subjects in multimedia web components',
         'reports': ['global'],
     },
+    'ws_88': {
+        'name': '88',
+        'title': 'Internet - Selection of News Subjects ',
+        'desc': 'Internet - Selection of News Subjects ',
+        'reports': ['global'],
+    },
 }
 
 

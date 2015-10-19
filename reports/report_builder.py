@@ -175,7 +175,7 @@ class XLSXReportBuilder:
         #     'ws_61', 'ws_62', 'ws_63', 'ws_64', 'ws_65', 'ws_66', 'ws_67', 'ws_68', 'ws_68b',
         #     'ws_75', 'ws_76', 'ws_77', 'ws_78']
         if settings.DEBUG:
-            sheets = ['ws_84', 'ws_85', 'ws_86', 'ws_87']
+            sheets = ['ws_84', 'ws_85', 'ws_86', 'ws_87', 'ws_88']
         else:
             sheets = WS_INFO.keys()
 
@@ -2485,6 +2485,38 @@ class XLSXReportBuilder:
             secondary_counts[gender] = counts
 
         self.tabulate_secondary_cols(ws, secondary_counts, IS_PHOTOGRAPH, all_regions, row_perc=True, show_N=True)
+
+    def ws_88(self, ws):
+        """
+        Cols: Sex of reporter, Sex of subject
+        Rows: Region
+        :: Internet media type only
+        """
+        all_regions = add_transnational_to_regions(self.regions)
+        model = journalist_models.get('Internet')
+        secondary_counts = OrderedDict()
+
+        for gender_id, gender in self.male_female:
+            counts = Counter()
+            region_field = '%s__country_region__region' % model.sheet_name()
+            # subject_sex = model.sheet_name() + '__' + person_name + '__sex'
+
+            # sheet_name = model.sheet_name()
+            # subject_name = model._meta.get_field(model.sheet_name()).rel.to.journalist_field_name()
+            # journo_sex = sheet_name + '__' + journo_name + '__sex'
+
+            rows = model.objects\
+                .values('internetnews_sheet__internetnewsperson__sex', region_field)\
+                .filter(sex=gender_id)
+
+            rows = self.apply_weights(rows, model.sheet_db_table(), 'Internet')
+
+            for row in rows:
+                region_id = [r[0] for r in all_regions if r[1] == row['region']][0]
+                counts.update({(row['sex'], region_id): row['n']})
+            secondary_counts[gender] = counts
+
+        self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, all_regions, row_perc=True, show_N=True)
 
     # -------------------------------------------------------------------------------
     # Helper functions
