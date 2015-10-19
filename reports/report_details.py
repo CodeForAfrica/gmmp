@@ -571,6 +571,12 @@ WS_INFO = {
         'desc': 'Internet - Functions of news subjects',
         'reports': ['global'],
     },
+    'ws_86': {
+        'name': '86',
+        'title': 'Internet - News subjects who are identified by family status',
+        'desc': 'Internet - News subjects who are identified by family status',
+        'reports': ['global'],
+    },
 }
 
 
