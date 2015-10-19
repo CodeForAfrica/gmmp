@@ -175,7 +175,7 @@ class XLSXReportBuilder:
         #     'ws_61', 'ws_62', 'ws_63', 'ws_64', 'ws_65', 'ws_66', 'ws_67', 'ws_68', 'ws_68b',
         #     'ws_75', 'ws_76', 'ws_77', 'ws_78']
         if settings.DEBUG:
-            sheets = ['ws_79', 'ws_80', 'ws_83', 'ws_84', 'ws_85']
+            sheets = ['ws_84', 'ws_85', 'ws_86']
         else:
             sheets = WS_INFO.keys()
 
@@ -2436,6 +2436,30 @@ class XLSXReportBuilder:
             counts.update({(row['function'], region_id): row['n']})
 
         self.tabulate(ws, counts, FUNCTION, all_regions, row_perc=True, show_N=True)
+
+    def ws_86(self, ws):
+        """
+        Cols: Sex of subject, Identified by family status
+        Rows: Region
+        :: Internet media type only
+        """
+        all_regions = add_transnational_to_regions(self.regions)
+        model = person_models.get('Internet')
+        secondary_counts = OrderedDict()
+        for gender_id, gender in self.male_female:
+            counts = Counter()
+            region_field = '%s__country_region__region' % model.sheet_name()
+            rows = model.objects\
+                .values('family_role', region_field)
+
+            rows = self.apply_weights(rows, model.sheet_db_table(), 'Internet')
+
+            for row in rows:
+                region_id = [r[0] for r in all_regions if r[1] == row['region']][0]
+                counts.update({(row['family_role'], region_id): row['n']})
+            secondary_counts[gender] = counts
+
+        self.tabulate_secondary_cols(ws, secondary_counts, YESNO, all_regions, row_perc=True, show_N=True)
 
     # -------------------------------------------------------------------------------
     # Helper functions
