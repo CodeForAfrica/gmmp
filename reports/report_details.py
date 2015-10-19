@@ -559,6 +559,12 @@ WS_INFO = {
         'desc': 'Internet - reporters in main stories',
         'reports': ['global'],
     },
+    'ws_84': {
+        'name': '84',
+        'title': 'Internet - Occupation of Female news subjects',
+        'desc': 'Internet - Occupation of Female news subjects',
+        'reports': ['global'],
+    },
 }
 
 
