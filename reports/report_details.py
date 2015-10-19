@@ -548,6 +548,12 @@ WS_INFO = {
         'desc': 'Internet - Main topics by region',
         'reports': ['global'],
     },
+    'ws_80': {
+        'name': '80',
+        'title': 'Internet - Story shared on Twitter',
+        'desc': 'Internet - Story shared on Twitter',
+        'reports': ['global'],
+    },
 }
 
 

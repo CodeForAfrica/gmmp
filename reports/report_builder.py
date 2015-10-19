@@ -174,7 +174,7 @@ class XLSXReportBuilder:
         #     'ws_61', 'ws_62', 'ws_63', 'ws_64', 'ws_65', 'ws_66', 'ws_67', 'ws_68', 'ws_68b',
         #     'ws_75', 'ws_76', 'ws_77', 'ws_78']
         if settings.DEBUG:
-            sheets = ['ws_54', 'ws_79']
+            sheets = ['ws_79', 'ws_80']
         else:
             sheets = WS_INFO.keys()
 
@@ -2334,6 +2334,33 @@ class XLSXReportBuilder:
             secondary_counts[major_topic_name] = counts
 
         self.tabulate_secondary_cols(ws, secondary_counts, GENDER, all_regions, row_perc=True)
+
+    def ws_80(self, ws):
+        """
+        Cols: Major Topics, Minor Topics
+        Rows: Region
+        :: Internet media type only
+        """
+        all_regions = add_transnational_to_regions(self.regions)
+        secondary_counts = OrderedDict()
+        model = sheet_models.get('Internet')
+
+        for major_topic, topic_ids in GROUP_TOPICS_MAP.iteritems():
+            counts = Counter()
+            rows = model.objects\
+                .values('topic', 'country_region__region')\
+                .filter(topic__in=topic_ids)
+
+            rows = self.apply_weights(rows, model._meta.db_table, 'Internet')
+
+            for row in rows:
+                region_id = [r[0] for r in all_regions if r[1] == row['region']][0]
+                counts.update({(row['topic'], region_id): row['n']})
+
+            major_topic_name = [mt[1] for mt in MAJOR_TOPICS if mt[0] == int(major_topic)][0]
+            secondary_counts[major_topic_name] = counts
+
+        self.tabulate_secondary_cols(ws, secondary_counts, TOPICS, all_regions, row_perc=True)
 
     # -------------------------------------------------------------------------------
     # Helper functions
