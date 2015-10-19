@@ -50,6 +50,15 @@ def get_country_region(country):
         return [(0, [k for k, v in REGION_COUNTRY_MAP.items() if country in v][0])]
 
 
+def add_transnational_to_regions(regions):
+    """
+    Append Transnational to region list for use in sheets 79-98
+    """
+    trans_region = CountryRegion.objects.get(region='Transnational')
+    regions.append((len(regions), trans_region.region))
+    return regions
+
+
 WS_INFO = {
     'ws_01': {
         'name': '1',
@@ -532,6 +541,12 @@ WS_INFO = {
         'title': 'Key themes, portrayal as survivors',
         'desc': 'Key themes, portrayal as survivors',
         'reports': ['global', 'region', 'country'],
+    },
+    'ws_79': {
+        'name': '79',
+        'title': 'Internet - Main topics by region',
+        'desc': 'Internet - Main topics by region',
+        'reports': ['global'],
     },
 }
 
