@@ -577,6 +577,12 @@ WS_INFO = {
         'desc': 'Internet - News subjects who are identified by family status',
         'reports': ['global'],
     },
+    'ws_87': {
+        'name': '87',
+        'title': 'Internet - News subjects in multimedia web components',
+        'desc': 'Internet - News subjects in multimedia web components',
+        'reports': ['global'],
+    },
 }
 
 
