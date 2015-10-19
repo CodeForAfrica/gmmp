@@ -175,7 +175,7 @@ class XLSXReportBuilder:
         #     'ws_61', 'ws_62', 'ws_63', 'ws_64', 'ws_65', 'ws_66', 'ws_67', 'ws_68', 'ws_68b',
         #     'ws_75', 'ws_76', 'ws_77', 'ws_78']
         if settings.DEBUG:
-            sheets = ['ws_79', 'ws_80', 'ws_83', 'ws_84']
+            sheets = ['ws_79', 'ws_80', 'ws_83', 'ws_84', 'ws_85']
         else:
             sheets = WS_INFO.keys()
 
@@ -2399,7 +2399,6 @@ class XLSXReportBuilder:
         :: Female news subjects only
         """
         all_regions = add_transnational_to_regions(self.regions)
-        secondary_counts = OrderedDict()
         model = person_models.get('Internet')
 
         counts = Counter()
@@ -2415,6 +2414,28 @@ class XLSXReportBuilder:
             counts.update({(row['occupation'], region_id): row['n']})
 
         self.tabulate(ws, counts, OCCUPATION, all_regions, row_perc=True, show_N=True)
+
+    def ws_85(self, ws):
+        """
+        Cols: Function
+        Rows: Region
+        :: Internet media type only
+        """
+        all_regions = add_transnational_to_regions(self.regions)
+        model = person_models.get('Internet')
+
+        counts = Counter()
+        region_field = '%s__country_region__region' % model.sheet_name()
+        rows = model.objects\
+            .values('function', region_field)
+
+        rows = self.apply_weights(rows, model.sheet_db_table(), 'Internet')
+
+        for row in rows:
+            region_id = [r[0] for r in all_regions if r[1] == row['region']][0]
+            counts.update({(row['function'], region_id): row['n']})
+
+        self.tabulate(ws, counts, FUNCTION, all_regions, row_perc=True, show_N=True)
 
     # -------------------------------------------------------------------------------
     # Helper functions
