@@ -2499,11 +2499,6 @@ class XLSXReportBuilder:
         for gender_id, gender in self.male_female:
             counts = Counter()
             region_field = '%s__country_region__region' % model.sheet_name()
-            # subject_sex = model.sheet_name() + '__' + person_name + '__sex'
-
-            # sheet_name = model.sheet_name()
-            # subject_name = model._meta.get_field(model.sheet_name()).rel.to.journalist_field_name()
-            # journo_sex = sheet_name + '__' + journo_name + '__sex'
 
             rows = model.objects\
                 .values('internetnews_sheet__internetnewsperson__sex', region_field)\
@@ -2514,7 +2509,13 @@ class XLSXReportBuilder:
             for row in rows:
                 region_id = [r[0] for r in all_regions if r[1] == row['region']][0]
                 counts.update({(row['sex'], region_id): row['n']})
+
+            counts['col_title_def'] = 'Sex of news subject'
             secondary_counts[gender] = counts
+
+        secondary_counts['col_title_def'] = [
+            'Sex of reporter',
+            'Sex of news subject']
 
         self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, all_regions, row_perc=True, show_N=True)
 
