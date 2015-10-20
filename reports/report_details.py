@@ -553,6 +553,18 @@ WS_INFO = {
         'desc': 'Internet - Story shared on Twitter',
         'reports': ['global'],
     },
+    'ws_81': {
+        'name': '81',
+        'title': 'Internet - Story shared on Facebook',
+        'desc': 'Internet - Story shared on Facebook',
+        'reports': ['global'],
+    },
+    'ws_82': {
+        'name': '82',
+        'title': 'Internet - Reference to gender equality/HR policies',
+        'desc': 'Internet - Reference to gender equality/HR policies',
+        'reports': ['global'],
+    },
     'ws_83': {
         'name': '83',
         'title': 'Internet - reporters in main stories',
