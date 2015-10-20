@@ -175,7 +175,7 @@ class XLSXReportBuilder:
         #     'ws_61', 'ws_62', 'ws_63', 'ws_64', 'ws_65', 'ws_66', 'ws_67', 'ws_68', 'ws_68b',
         #     'ws_75', 'ws_76', 'ws_77', 'ws_78']
         if settings.DEBUG:
-            sheets = ['ws_94']
+            sheets = ['ws_95']
         else:
             sheets = WS_INFO.keys()
 
@@ -2367,7 +2367,7 @@ class XLSXReportBuilder:
 
             secondary_counts[major_topic_name] = counts
 
-            self.tabulate_secondary_cols(ws, secondary_counts, minor_topics, all_regions, c=c, write_row_headings=write_row_headings, show_N=True, write_row_totals=True, row_perc=True,)
+            self.tabulate_secondary_cols(ws, secondary_counts, minor_topics, all_regions, c=c, write_row_headings=write_row_headings, show_N=True, write_row_totals=True, row_perc=True)
 
             # To compensate for writing row headings in first iteration
             c += (len(minor_topics) * 2) + (3 if write_row_headings else 2)
@@ -2405,7 +2405,7 @@ class XLSXReportBuilder:
 
             secondary_counts[major_topic_name] = counts
 
-            self.tabulate_secondary_cols(ws, secondary_counts, minor_topics, all_regions, c=c, write_row_headings=write_row_headings, show_N=True, write_row_totals=True, row_perc=True,)
+            self.tabulate_secondary_cols(ws, secondary_counts, minor_topics, all_regions, c=c, write_row_headings=write_row_headings, show_N=True, write_row_totals=True, row_perc=True)
 
             c += (len(minor_topics) * 2) + (3 if write_row_headings else 2)
             write_row_headings = False
@@ -2443,7 +2443,7 @@ class XLSXReportBuilder:
 
             secondary_counts[major_topic_name] = counts
 
-            self.tabulate_secondary_cols(ws, secondary_counts, minor_topics, all_regions, c=c, write_row_headings=write_row_headings, show_N=True, write_row_totals=True, row_perc=True,)
+            self.tabulate_secondary_cols(ws, secondary_counts, minor_topics, all_regions, c=c, write_row_headings=write_row_headings, show_N=True, write_row_totals=True, row_perc=True)
 
             c += (len(minor_topics) * 2) + (3 if write_row_headings else 2)
             write_row_headings = False
@@ -2742,7 +2742,7 @@ class XLSXReportBuilder:
         """
         Cols: Major Topics, Original tweet or retweet
         Rows: Region
-        :: Internet media type only
+        :: Twitter media type only
         """
         all_regions = add_transnational_to_regions(self.regions)
         secondary_counts = OrderedDict()
@@ -2764,6 +2764,52 @@ class XLSXReportBuilder:
             secondary_counts[major_topic_name] = counts
 
         self.tabulate_secondary_cols(ws, secondary_counts, RETWEET, all_regions, row_perc=True)
+
+
+    def ws_95(self, ws):
+        """
+        Cols: Major Topics, Female reporters
+        Rows: Region
+        :: Twitter media type only
+        """
+        all_regions = add_transnational_to_regions(self.regions)
+        model = journalist_models.get('Twitter')
+        c = 2
+        r = 8
+        write_row_headings = True
+
+        for major_topic, topic_ids in GROUP_TOPICS_MAP.iteritems():
+            major_topic_name = [mt[1] for mt in MAJOR_TOPICS if mt[0] == int(major_topic)][0]
+
+            # Write primary column heading
+            col = c + (1 if write_row_headings else 0)
+            merge_range = len(topic_ids) * len(self.male_female) * 2
+            ws.merge_range(r-4, col, r-4, col + merge_range, clean_title(major_topic_name), self.col_heading)
+
+            secondary_counts = OrderedDict()
+            for minor_topic in topic_ids:
+                counts = Counter()
+                region_field = '%s__country_region__region' % model.sheet_name()
+
+                rows = model.objects\
+                    .values('sex', region_field)\
+                    .filter(**{model.sheet_name() + '__topic__in':topic_ids})\
+                    .filter(sex__in=self.male_female_ids)
+
+                rows = self.apply_weights(rows, model.sheet_db_table(), 'Twitter')
+
+                for row in rows:
+                    region_id = [region[0] for region in all_regions if region[1] == row['region']][0]
+                    counts.update({(row['sex'], region_id): row['n']})
+
+                minor_topic_name = [mt[1] for mt in TOPICS if mt[0] == int(minor_topic)][0]
+                secondary_counts[minor_topic_name] = counts
+
+            self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, all_regions, c=c, r=r, write_row_headings=write_row_headings, show_N=True, write_row_totals=True, row_perc=True)
+
+            c += (len(topic_ids) * len(GENDER)) + (3 if write_row_headings else 2)
+            write_row_headings = False
+
 
     # -------------------------------------------------------------------------------
     # Helper functions

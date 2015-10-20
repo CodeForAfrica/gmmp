@@ -637,6 +637,12 @@ WS_INFO = {
         'desc': 'Twitter - Original tweet or retweet',
         'reports': ['global'],
     },
+    'ws_95': {
+        'name': '95',
+        'title': 'Twitter - Female reporters ',
+        'desc': 'Twitter - Female reporters ',
+        'reports': ['global'],
+    },
 
 }
 
