@@ -2374,7 +2374,7 @@ class XLSXReportBuilder:
 
             self.tabulate_secondary_cols(ws, secondary_counts, YESNO, all_regions, c=c, r=r, write_row_headings=write_row_headings, show_N=True, row_perc=True)
 
-            c += (len(topic_ids) * len(YESNO) * 2) + (2 if write_row_headings else 1)
+            c += (len(topic_ids) * len(YESNO) * 2) + (1 if write_row_headings else 0)
             write_row_headings = False
 
 
@@ -2416,7 +2416,7 @@ class XLSXReportBuilder:
 
             self.tabulate_secondary_cols(ws, secondary_counts, YESNO, all_regions, c=c, r=r, write_row_headings=write_row_headings, show_N=True, row_perc=True)
 
-            c += (len(topic_ids) * len(YESNO) * 2) + (2 if write_row_headings else 1)
+            c += (len(topic_ids) * len(YESNO) * 2) + (1 if write_row_headings else 0)
             write_row_headings = False
 
 
@@ -2458,7 +2458,7 @@ class XLSXReportBuilder:
 
             self.tabulate_secondary_cols(ws, secondary_counts, YESNO, all_regions, c=c, r=r, write_row_headings=write_row_headings, show_N=True, row_perc=True)
 
-            c += (len(topic_ids) * len(YESNO) * 2) + (2 if write_row_headings else 1)
+            c += (len(topic_ids) * len(YESNO) * 2) + (1 if write_row_headings else 0)
             write_row_headings = False
 
 
@@ -2820,7 +2820,7 @@ class XLSXReportBuilder:
 
             self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, all_regions, c=c, r=r, write_row_headings=write_row_headings, show_N=True, row_perc=True)
 
-            c += (len(topic_ids) * len(GENDER)) + (2 if write_row_headings else 1)
+            c += (len(topic_ids) * len(GENDER)) + (1 if write_row_headings else 0)
             write_row_headings = False
 
 
