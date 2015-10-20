@@ -639,11 +639,22 @@ WS_INFO = {
     },
     'ws_95': {
         'name': '95',
-        'title': 'Twitter - Female reporters ',
-        'desc': 'Twitter - Female reporters ',
+        'title': 'Twitter - Female reporters',
+        'desc': 'Twitter - Female reporters',
         'reports': ['global'],
     },
-
+    'ws_96': {
+        'name': '96',
+        'title': 'Twitter - Women\'s centrality',
+        'desc': 'Twitter - Women\'s centrality',
+        'reports': ['global'],
+    },
+        'ws_97': {
+        'name': '97',
+        'title': 'Twitter - Challenging Stereotypes',
+        'desc': 'Twitter - Challenging Stereotypes',
+        'reports': ['global'],
+    }
 }
 
 
