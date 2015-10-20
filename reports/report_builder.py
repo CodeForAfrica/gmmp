@@ -2344,7 +2344,7 @@ class XLSXReportBuilder:
         """
         all_regions = add_transnational_to_regions(self.regions)
         model = sheet_models.get('Internet')
-        c = 2
+        c = 1
         r = 8
         write_row_headings = True
 
@@ -2386,7 +2386,7 @@ class XLSXReportBuilder:
         """
         all_regions = add_transnational_to_regions(self.regions)
         model = sheet_models.get('Internet')
-        c = 2
+        c = 1
         r = 8
         write_row_headings = True
 
@@ -2428,7 +2428,7 @@ class XLSXReportBuilder:
         """
         all_regions = add_transnational_to_regions(self.regions)
         model = sheet_models.get('Internet')
-        c = 2
+        c = 1
         r = 8
         write_row_headings = True
 
@@ -2787,7 +2787,7 @@ class XLSXReportBuilder:
         """
         all_regions = add_transnational_to_regions(self.regions)
         model = journalist_models.get('Twitter')
-        c = 2
+        c = 1
         r = 8
         write_row_headings = True
 
