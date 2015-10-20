@@ -618,7 +618,20 @@ WS_INFO = {
         'title': 'Internet - Stories where issues of gender equality/inequality are raised by topic',
         'desc': 'Internet - Stories where issues of gender equality/inequality are raised by topic',
         'reports': ['global'],
-    }
+    },
+    'ws_92': {
+        'name': '92',
+        'title': 'Internet -Stories where stereotypes are clearly challenged',
+        'desc': 'Internet -Stories where stereotypes are clearly challenged',
+        'reports': ['global'],
+    },
+    'ws_93': {
+        'name': '93',
+        'title': 'Internet -Stories with Women as a central Focus',
+        'desc': 'Internet -Stories with Women as a central Focus',
+        'reports': ['global'],
+    },
+
 }
 
 
