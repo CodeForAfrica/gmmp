@@ -595,6 +595,12 @@ WS_INFO = {
         'desc': 'Internet - Age of news subjects',
         'reports': ['global'],
     },
+    'ws_90': {
+        'name': '90',
+        'title': 'Internet - News subjects who are directly quoted',
+        'desc': 'Internet - News subjects who are directly quoted',
+        'reports': ['global'],
+    }
 }
 
 
