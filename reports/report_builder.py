@@ -128,6 +128,7 @@ class XLSXReportBuilder:
         self.male_female = [(id, value) for id, value in GENDER if id in [1, 2]]
         self.male_female_ids = [id for id, value in self.male_female]
         self.female = [(id, value) for id, value in GENDER if id == 1]
+        self.female_ids = [id for id, value in self.female]
         self.yes = [(id, value) for id, value in YESNO if id == 'Y']
 
         self.gmmp_year = '2015'
@@ -174,7 +175,7 @@ class XLSXReportBuilder:
         #     'ws_61', 'ws_62', 'ws_63', 'ws_64', 'ws_65', 'ws_66', 'ws_67', 'ws_68', 'ws_68b',
         #     'ws_75', 'ws_76', 'ws_77', 'ws_78']
         if settings.DEBUG:
-            sheets = ['ws_65', 'ws_66', 'ws_67', 'ws_68', 'ws_68b']
+            sheets = ['ws_80', 'ws_81', 'ws_82', 'ws_95']
         else:
             sheets = WS_INFO.keys()
 
@@ -1721,7 +1722,6 @@ class XLSXReportBuilder:
             counts.update({(r['sex'], self.recode_country(r['country'])): r['n'] for r in rows})
             major_topic_name = [mt[1] for mt in MAJOR_TOPICS if mt[0] == int(major_topic)][0]
             secondary_counts[major_topic_name] = counts
-
         self.tabulate_secondary_cols(ws, secondary_counts, GENDER, self.countries, row_perc=True)
 
     def ws_55(self, ws):
@@ -2308,6 +2308,577 @@ class XLSXReportBuilder:
 
             self.tabulate_secondary_cols(ws, secondary_counts, SURVIVOR_OF, self.countries, row_perc=True, c=c, r=8)
             c = ws.dim_colmax + 2
+
+    def ws_79(self, ws):
+        """
+        Cols: Major Topics, Sex of news subject
+        Rows: Region
+        :: Internet media type only
+        """
+        all_regions = add_transnational_to_regions(self.regions)
+        secondary_counts = OrderedDict()
+        model = person_models.get('Internet')
+        for major_topic, topic_ids in GROUP_TOPICS_MAP.iteritems():
+            counts = Counter()
+            region_field = '%s__country_region__region' % model.sheet_name()
+            rows = model.objects\
+                .values('sex', region_field)\
+                .filter(**{model.sheet_name() + '__topic__in':topic_ids})
+
+            rows = self.apply_weights(rows, model.sheet_db_table(), 'Internet')
+
+            for row in rows:
+                region_id = [r[0] for r in all_regions if r[1] == row['region']][0]
+                counts.update({(row['sex'], region_id): row['n']})
+
+            major_topic_name = [mt[1] for mt in MAJOR_TOPICS if mt[0] == int(major_topic)][0]
+            secondary_counts[major_topic_name] = counts
+
+        self.tabulate_secondary_cols(ws, secondary_counts, GENDER, all_regions, row_perc=True)
+
+    def ws_80(self, ws):
+        """
+        Cols: Major Topics, Minor Topics, Shared on Twitter
+        Rows: Region
+        :: Internet media type only
+        """
+        all_regions = add_transnational_to_regions(self.regions)
+        model = sheet_models.get('Internet')
+        c = 2
+        r = 8
+        write_row_headings = True
+
+        for major_topic, topic_ids in GROUP_TOPICS_MAP.iteritems():
+            # Write primary column heading
+            major_topic_name = [mt[1] for mt in MAJOR_TOPICS if mt[0] == int(major_topic)][0]
+            col = c + (1 if write_row_headings else 0)
+            merge_range = (len(topic_ids) * len(self.male_female) * 2) - 1
+            ws.merge_range(r-4, col, r-4, col + merge_range, clean_title(major_topic_name), self.col_heading)
+
+            secondary_counts = OrderedDict()
+
+            for minor_topic in topic_ids:
+                counts = Counter()
+                rows = model.objects\
+                    .values('shared_via_twitter', 'country_region__region')\
+                    .filter(topic__in=topic_ids)
+
+                rows = self.apply_weights(rows, model._meta.db_table, 'Internet')
+
+                for row in rows:
+                    region_id = [region[0] for region in all_regions if region[1] == row['region']][0]
+                    counts.update({(row['shared_via_twitter'], region_id): row['n']})
+
+                minor_topic_name = [mt[1] for mt in TOPICS if mt[0] == int(minor_topic)][0]
+                secondary_counts[minor_topic_name] = counts
+
+            self.tabulate_secondary_cols(ws, secondary_counts, YESNO, all_regions, c=c, r=r, write_row_headings=write_row_headings, show_N=True, row_perc=True)
+
+            c += (len(topic_ids) * len(YESNO) * 2) + (2 if write_row_headings else 1)
+            write_row_headings = False
+
+
+    def ws_81(self, ws):
+        """
+        Cols: Major Topics, Minor Topics, Shared on Facebook
+        Rows: Region
+        :: Internet media type only
+        """
+        all_regions = add_transnational_to_regions(self.regions)
+        model = sheet_models.get('Internet')
+        c = 2
+        r = 8
+        write_row_headings = True
+
+        for major_topic, topic_ids in GROUP_TOPICS_MAP.iteritems():
+            # Write primary column heading
+            major_topic_name = [mt[1] for mt in MAJOR_TOPICS if mt[0] == int(major_topic)][0]
+            col = c + (1 if write_row_headings else 0)
+            merge_range = (len(topic_ids) * len(self.male_female) * 2) - 1
+            ws.merge_range(r-4, col, r-4, col + merge_range, clean_title(major_topic_name), self.col_heading)
+
+            secondary_counts = OrderedDict()
+
+            for minor_topic in topic_ids:
+                counts = Counter()
+                rows = model.objects\
+                    .values('shared_on_facebook', 'country_region__region')\
+                    .filter(topic__in=topic_ids)
+
+                rows = self.apply_weights(rows, model._meta.db_table, 'Internet')
+
+                for row in rows:
+                    region_id = [region[0] for region in all_regions if region[1] == row['region']][0]
+                    counts.update({(row['shared_on_facebook'], region_id): row['n']})
+
+                minor_topic_name = [mt[1] for mt in TOPICS if mt[0] == int(minor_topic)][0]
+                secondary_counts[minor_topic_name] = counts
+
+            self.tabulate_secondary_cols(ws, secondary_counts, YESNO, all_regions, c=c, r=r, write_row_headings=write_row_headings, show_N=True, row_perc=True)
+
+            c += (len(topic_ids) * len(YESNO) * 2) + (2 if write_row_headings else 1)
+            write_row_headings = False
+
+
+    def ws_82(self, ws):
+        """
+        Cols: Major Topics, Minor Topics, Equality Rights
+        Rows: Region
+        :: Internet media type only
+        """
+        all_regions = add_transnational_to_regions(self.regions)
+        model = sheet_models.get('Internet')
+        c = 2
+        r = 8
+        write_row_headings = True
+
+        for major_topic, topic_ids in GROUP_TOPICS_MAP.iteritems():
+            # Write primary column heading
+            major_topic_name = [mt[1] for mt in MAJOR_TOPICS if mt[0] == int(major_topic)][0]
+            col = c + (1 if write_row_headings else 0)
+            merge_range = (len(topic_ids) * len(self.male_female) * 2) - 1
+            ws.merge_range(r-4, col, r-4, col + merge_range, clean_title(major_topic_name), self.col_heading)
+
+            secondary_counts = OrderedDict()
+
+            for minor_topic in topic_ids:
+                counts = Counter()
+                rows = model.objects\
+                    .values('equality_rights', 'country_region__region')\
+                    .filter(topic__in=topic_ids)
+
+                rows = self.apply_weights(rows, model._meta.db_table, 'Internet')
+
+                for row in rows:
+                    region_id = [region[0] for region in all_regions if region[1] == row['region']][0]
+                    counts.update({(row['equality_rights'], region_id): row['n']})
+
+                minor_topic_name = [mt[1] for mt in TOPICS if mt[0] == int(minor_topic)][0]
+                secondary_counts[minor_topic_name] = counts
+
+            self.tabulate_secondary_cols(ws, secondary_counts, YESNO, all_regions, c=c, r=r, write_row_headings=write_row_headings, show_N=True, row_perc=True)
+
+            c += (len(topic_ids) * len(YESNO) * 2) + (2 if write_row_headings else 1)
+            write_row_headings = False
+
+
+    def ws_83(self, ws):
+        """
+        Cols: Major Topics, Reporters by sex
+        Rows: Region
+        :: Internet media type only
+        """
+        all_regions = add_transnational_to_regions(self.regions)
+        secondary_counts = OrderedDict()
+        model = journalist_models.get('Internet')
+
+        for major_topic, topic_ids in GROUP_TOPICS_MAP.iteritems():
+            counts = Counter()
+            region_field = '%s__country_region__region' % model.sheet_name()
+            rows = model.objects\
+                .values('sex', region_field)\
+                .filter(**{model.sheet_name() + '__topic__in':topic_ids})
+
+            rows = self.apply_weights(rows, model.sheet_db_table(), 'Internet')
+
+            for row in rows:
+                region_id = [r[0] for r in all_regions if r[1] == row['region']][0]
+                counts.update({(row['sex'], region_id): row['n']})
+
+            major_topic_name = [mt[1] for mt in MAJOR_TOPICS if mt[0] == int(major_topic)][0]
+            secondary_counts[major_topic_name] = counts
+
+        self.tabulate_secondary_cols(ws, secondary_counts, GENDER, all_regions, row_perc=True)
+
+    def ws_84(self, ws):
+        """
+        Cols: Occupation
+        Rows: Region
+        :: Internet media type only
+        :: Female news subjects only
+        """
+        all_regions = add_transnational_to_regions(self.regions)
+        model = person_models.get('Internet')
+
+        counts = Counter()
+        region_field = '%s__country_region__region' % model.sheet_name()
+        rows = model.objects\
+            .values('occupation', region_field)\
+            .filter(sex__in=self.female_ids)
+
+        rows = self.apply_weights(rows, model.sheet_db_table(), 'Internet')
+
+        for row in rows:
+            region_id = [r[0] for r in all_regions if r[1] == row['region']][0]
+            counts.update({(row['occupation'], region_id): row['n']})
+
+        self.tabulate(ws, counts, OCCUPATION, all_regions, row_perc=True, show_N=True)
+
+    def ws_85(self, ws):
+        """
+        Cols: Function
+        Rows: Region
+        :: Internet media type only
+        """
+        all_regions = add_transnational_to_regions(self.regions)
+        model = person_models.get('Internet')
+
+        counts = Counter()
+        region_field = '%s__country_region__region' % model.sheet_name()
+        rows = model.objects\
+            .values('function', region_field)
+
+        rows = self.apply_weights(rows, model.sheet_db_table(), 'Internet')
+
+        for row in rows:
+            region_id = [r[0] for r in all_regions if r[1] == row['region']][0]
+            counts.update({(row['function'], region_id): row['n']})
+
+        self.tabulate(ws, counts, FUNCTION, all_regions, row_perc=True, show_N=True)
+
+    def ws_86(self, ws):
+        """
+        Cols: Sex of subject, Identified by family status
+        Rows: Region
+        :: Internet media type only
+        """
+        all_regions = add_transnational_to_regions(self.regions)
+        model = person_models.get('Internet')
+        secondary_counts = OrderedDict()
+        for gender_id, gender in self.male_female:
+            counts = Counter()
+            region_field = '%s__country_region__region' % model.sheet_name()
+            rows = model.objects\
+                .values('family_role', region_field)
+
+            rows = self.apply_weights(rows, model.sheet_db_table(), 'Internet')
+
+            for row in rows:
+                region_id = [r[0] for r in all_regions if r[1] == row['region']][0]
+                counts.update({(row['family_role'], region_id): row['n']})
+            secondary_counts[gender] = counts
+
+        self.tabulate_secondary_cols(ws, secondary_counts, YESNO, all_regions, row_perc=True, show_N=True)
+
+    def ws_87(self, ws):
+        """
+        Cols: Sex of subject, Photo or image present
+        Rows: Region
+        :: Internet media type only
+        """
+        all_regions = add_transnational_to_regions(self.regions)
+        model = person_models.get('Internet')
+        secondary_counts = OrderedDict()
+
+        for gender_id, gender in self.male_female:
+            counts = Counter()
+            region_field = '%s__country_region__region' % model.sheet_name()
+            rows = model.objects\
+                .values('is_photograph', region_field)
+
+            rows = self.apply_weights(rows, model.sheet_db_table(), 'Internet')
+
+            for row in rows:
+                region_id = [r[0] for r in all_regions if r[1] == row['region']][0]
+                counts.update({(row['is_photograph'], region_id): row['n']})
+            secondary_counts[gender] = counts
+
+        self.tabulate_secondary_cols(ws, secondary_counts, IS_PHOTOGRAPH, all_regions, row_perc=True, show_N=True)
+
+    def ws_88(self, ws):
+        """
+        Cols: Sex of reporter, Sex of subject
+        Rows: Region
+        :: Internet media type only
+        """
+        all_regions = add_transnational_to_regions(self.regions)
+        model = journalist_models.get('Internet')
+        secondary_counts = OrderedDict()
+
+        for gender_id, gender in self.male_female:
+            counts = Counter()
+            region_field = '%s__country_region__region' % model.sheet_name()
+
+            rows = model.objects\
+                .values('internetnews_sheet__internetnewsperson__sex', region_field)\
+                .filter(sex=gender_id)
+
+            rows = self.apply_weights(rows, model.sheet_db_table(), 'Internet')
+
+            for row in rows:
+                region_id = [r[0] for r in all_regions if r[1] == row['region']][0]
+                counts.update({(row['sex'], region_id): row['n']})
+
+            counts['col_title_def'] = 'Sex of news subject'
+            secondary_counts[gender] = counts
+
+        secondary_counts['col_title_def'] = [
+            'Sex of reporter',
+            'Sex of news subject']
+
+        self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, all_regions, row_perc=True, show_N=True)
+
+    def ws_89(self, ws):
+        """
+        Cols: Sex of subject, Age of news subject
+        Rows: Region
+        :: Internet media type only
+        """
+        all_regions = add_transnational_to_regions(self.regions)
+        model = person_models.get('Internet')
+        secondary_counts = OrderedDict()
+
+        for gender_id, gender in self.male_female:
+            counts = Counter()
+            region_field = '%s__country_region__region' % model.sheet_name()
+            rows = model.objects\
+                .values('age', region_field)
+
+            rows = self.apply_weights(rows, model.sheet_db_table(), 'Internet')
+
+            for row in rows:
+                region_id = [r[0] for r in all_regions if r[1] == row['region']][0]
+                counts.update({(row['age'], region_id): row['n']})
+            secondary_counts[gender] = counts
+
+        self.tabulate_secondary_cols(ws, secondary_counts, AGES, all_regions, row_perc=True, show_N=True)
+
+    def ws_90(self, ws):
+        """
+        Cols: Sex of subject, Whether quoted
+        Rows: Region
+        :: Internet media type only
+        """
+        all_regions = add_transnational_to_regions(self.regions)
+        model = person_models.get('Internet')
+        secondary_counts = OrderedDict()
+
+        for gender_id, gender in self.male_female:
+            counts = Counter()
+            region_field = '%s__country_region__region' % model.sheet_name()
+            rows = model.objects\
+                .values('is_quoted', region_field)
+
+            rows = self.apply_weights(rows, model.sheet_db_table(), 'Internet')
+
+            for row in rows:
+                region_id = [r[0] for r in all_regions if r[1] == row['region']][0]
+                counts.update({(row['is_quoted'], region_id): row['n']})
+            secondary_counts[gender] = counts
+
+        self.tabulate_secondary_cols(ws, secondary_counts, YESNO, all_regions, row_perc=True, show_N=True)
+
+    def ws_91(self, ws):
+        """
+        Cols: Major Topic
+        Rows: Region, equality raised
+        :: Internet media type only
+        """
+        r = 6
+        self.write_col_headings(ws, MAJOR_TOPICS)
+
+        all_regions = add_transnational_to_regions(self.regions)
+        counts = Counter()
+        model = sheet_models.get('Internet')
+
+        for region_id, region in all_regions:
+            rows = model.objects\
+                    .values('topic', 'equality_rights')\
+                    .filter(country_region__region=region)
+
+            rows = self.apply_weights(rows, model._meta.db_table, "Internet")
+            for row in rows:
+                major_topic = TOPIC_GROUPS[row['topic']]
+                counts.update({(major_topic, row['equality_rights']): row['n']})
+
+            self.write_primary_row_heading(ws, region, r=r)
+            self.tabulate(ws, counts, MAJOR_TOPICS, YESNO, row_perc=True, write_col_headings=False, r=r)
+            r += len(YESNO)
+
+    def ws_92(self, ws):
+        """
+        Cols: Major Topic
+        Rows: Region, stereotypes
+        :: Internet media type only
+        """
+        r = 6
+        self.write_col_headings(ws, MAJOR_TOPICS)
+
+        all_regions = add_transnational_to_regions(self.regions)
+        counts = Counter()
+        model = sheet_models.get('Internet')
+
+        for region_id, region in all_regions:
+            rows = model.objects\
+                    .values('topic', 'stereotypes')\
+                    .filter(country_region__region=region)
+
+            rows = self.apply_weights(rows, model._meta.db_table, "Internet")
+            for row in rows:
+                major_topic = TOPIC_GROUPS[row['topic']]
+                counts.update({(major_topic, row['stereotypes']): row['n']})
+
+            self.write_primary_row_heading(ws, region, r=r)
+            self.tabulate(ws, counts, MAJOR_TOPICS, AGREE_DISAGREE, row_perc=True, write_col_headings=False, r=r)
+            r += len(AGREE_DISAGREE)
+
+
+    def ws_93(self, ws):
+        """
+        Cols: Major Topic
+        Rows: Region, about women
+        :: Internet media type only
+        """
+        r = 6
+        self.write_col_headings(ws, MAJOR_TOPICS)
+
+        all_regions = add_transnational_to_regions(self.regions)
+        counts = Counter()
+        model = sheet_models.get('Internet')
+
+        for region_id, region in all_regions:
+            rows = model.objects\
+                    .values('topic', 'about_women')\
+                    .filter(country_region__region=region)
+
+            rows = self.apply_weights(rows, model._meta.db_table, "Internet")
+            for row in rows:
+                major_topic = TOPIC_GROUPS[row['topic']]
+                counts.update({(major_topic, row['about_women']): row['n']})
+
+            self.write_primary_row_heading(ws, region, r=r)
+            self.tabulate(ws, counts, MAJOR_TOPICS, YESNO, row_perc=True, write_col_headings=False, r=r)
+            r += len(YESNO)
+
+
+    def ws_94(self, ws):
+        """
+        Cols: Major Topics, Original tweet or retweet
+        Rows: Region
+        :: Twitter media type only
+        """
+        all_regions = add_transnational_to_regions(self.regions)
+        secondary_counts = OrderedDict()
+        model = sheet_models.get('Twitter')
+
+        for major_topic, topic_ids in GROUP_TOPICS_MAP.iteritems():
+            counts = Counter()
+            rows = model.objects\
+                .values('retweet', 'country_region__region')\
+                .filter(topic__in=topic_ids)
+
+            rows = self.apply_weights(rows, model._meta.db_table, 'Twitter')
+
+            for row in rows:
+                region_id = [r[0] for r in all_regions if r[1] == row['region']][0]
+                counts.update({(row['retweet'], region_id): row['n']})
+
+            major_topic_name = [mt[1] for mt in MAJOR_TOPICS if mt[0] == int(major_topic)][0]
+            secondary_counts[major_topic_name] = counts
+
+        self.tabulate_secondary_cols(ws, secondary_counts, RETWEET, all_regions, row_perc=True)
+
+
+    def ws_95(self, ws):
+        """
+        Cols: Major Topics, Female reporters
+        Rows: Region
+        :: Twitter media type only
+        """
+        all_regions = add_transnational_to_regions(self.regions)
+        model = journalist_models.get('Twitter')
+        c = 2
+        r = 8
+        write_row_headings = True
+
+        for major_topic, topic_ids in GROUP_TOPICS_MAP.iteritems():
+            major_topic_name = [mt[1] for mt in MAJOR_TOPICS if mt[0] == int(major_topic)][0]
+
+            # Write primary column heading
+            col = c + (1 if write_row_headings else 0)
+            merge_range = (len(topic_ids) * len(self.male_female) * 2) - 1
+            ws.merge_range(r-4, col, r-4, col + merge_range, clean_title(major_topic_name), self.col_heading)
+
+            secondary_counts = OrderedDict()
+            for minor_topic in topic_ids:
+                counts = Counter()
+                region_field = '%s__country_region__region' % model.sheet_name()
+
+                rows = model.objects\
+                    .values('sex', region_field)\
+                    .filter(**{model.sheet_name() + '__topic__in':topic_ids})\
+                    .filter(sex__in=self.male_female_ids)
+
+                rows = self.apply_weights(rows, model.sheet_db_table(), 'Twitter')
+
+                for row in rows:
+                    region_id = [region[0] for region in all_regions if region[1] == row['region']][0]
+                    counts.update({(row['sex'], region_id): row['n']})
+
+                minor_topic_name = [mt[1] for mt in TOPICS if mt[0] == int(minor_topic)][0]
+                secondary_counts[minor_topic_name] = counts
+
+            self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, all_regions, c=c, r=r, write_row_headings=write_row_headings, show_N=True, row_perc=True)
+
+            c += (len(topic_ids) * len(GENDER)) + (2 if write_row_headings else 1)
+            write_row_headings = False
+
+
+    def ws_96(self, ws):
+        """
+        Cols: Major Topics, Women's centrality
+        Rows: Region
+        :: Twitter media type only
+        """
+        all_regions = add_transnational_to_regions(self.regions)
+        secondary_counts = OrderedDict()
+        model = sheet_models.get('Twitter')
+
+        for major_topic, topic_ids in GROUP_TOPICS_MAP.iteritems():
+            counts = Counter()
+            rows = model.objects\
+                .values('about_women', 'country_region__region')\
+                .filter(topic__in=topic_ids)
+
+            rows = self.apply_weights(rows, model._meta.db_table, 'Twitter')
+
+            for row in rows:
+                region_id = [r[0] for r in all_regions if r[1] == row['region']][0]
+                counts.update({(row['about_women'], region_id): row['n']})
+
+            major_topic_name = [mt[1] for mt in MAJOR_TOPICS if mt[0] == int(major_topic)][0]
+            secondary_counts[major_topic_name] = counts
+
+        self.tabulate_secondary_cols(ws, secondary_counts, YESNO, all_regions, row_perc=True)
+
+
+    def ws_97(self, ws):
+        """
+        Cols: Major Topics, Stereotypes
+        Rows: Region
+        :: Twitter media type only
+        """
+        all_regions = add_transnational_to_regions(self.regions)
+        secondary_counts = OrderedDict()
+        model = sheet_models.get('Twitter')
+
+        for major_topic, topic_ids in GROUP_TOPICS_MAP.iteritems():
+            counts = Counter()
+            rows = model.objects\
+                .values('stereotypes', 'country_region__region')\
+                .filter(topic__in=topic_ids)
+
+            rows = self.apply_weights(rows, model._meta.db_table, 'Twitter')
+
+            for row in rows:
+                region_id = [r[0] for r in all_regions if r[1] == row['region']][0]
+                counts.update({(row['stereotypes'], region_id): row['n']})
+
+            major_topic_name = [mt[1] for mt in MAJOR_TOPICS if mt[0] == int(major_topic)][0]
+            secondary_counts[major_topic_name] = counts
+
+        self.tabulate_secondary_cols(ws, secondary_counts, AGREE_DISAGREE, all_regions, row_perc=True)
+
 
     # -------------------------------------------------------------------------------
     # Helper functions

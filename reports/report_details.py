@@ -50,6 +50,14 @@ def get_country_region(country):
         return [(0, [k for k, v in REGION_COUNTRY_MAP.items() if country in v][0])]
 
 
+def add_transnational_to_regions(regions):
+    """
+    Append Transnational to region list for use in sheets 79-98 if not included
+    """
+    all_regions = regions + [(len(regions), u'Transnational')]
+    return all_regions
+
+
 WS_INFO = {
     'ws_01': {
         'name': '1',
@@ -533,6 +541,120 @@ WS_INFO = {
         'desc': 'Key themes, portrayal as survivors',
         'reports': ['global', 'region', 'country'],
     },
+    'ws_79': {
+        'name': '79',
+        'title': 'Internet - Main topics by region',
+        'desc': 'Internet - Main topics by region',
+        'reports': ['global'],
+    },
+    'ws_80': {
+        'name': '80',
+        'title': 'Internet - Story shared on Twitter',
+        'desc': 'Internet - Story shared on Twitter',
+        'reports': ['global'],
+    },
+    'ws_81': {
+        'name': '81',
+        'title': 'Internet - Story shared on Facebook',
+        'desc': 'Internet - Story shared on Facebook',
+        'reports': ['global'],
+    },
+    'ws_82': {
+        'name': '82',
+        'title': 'Internet - Reference to gender equality/HR policies',
+        'desc': 'Internet - Reference to gender equality/HR policies',
+        'reports': ['global'],
+    },
+    'ws_83': {
+        'name': '83',
+        'title': 'Internet - reporters in main stories',
+        'desc': 'Internet - reporters in main stories',
+        'reports': ['global'],
+    },
+    'ws_84': {
+        'name': '84',
+        'title': 'Internet - Occupation of Female news subjects',
+        'desc': 'Internet - Occupation of Female news subjects',
+        'reports': ['global'],
+    },
+    'ws_85': {
+        'name': '85',
+        'title': 'Internet - Functions of news subjects',
+        'desc': 'Internet - Functions of news subjects',
+        'reports': ['global'],
+    },
+    'ws_86': {
+        'name': '86',
+        'title': 'Internet - News subjects who are identified by family status',
+        'desc': 'Internet - News subjects who are identified by family status',
+        'reports': ['global'],
+    },
+    'ws_87': {
+        'name': '87',
+        'title': 'Internet - News subjects in multimedia web components',
+        'desc': 'Internet - News subjects in multimedia web components',
+        'reports': ['global'],
+    },
+    'ws_88': {
+        'name': '88',
+        'title': 'Internet - Selection of News Subjects',
+        'desc': 'Internet - Selection of News Subjects',
+        'reports': ['global'],
+    },
+    'ws_89': {
+        'name': '89',
+        'title': 'Internet - Age of news subjects',
+        'desc': 'Internet - Age of news subjects',
+        'reports': ['global'],
+    },
+    'ws_90': {
+        'name': '90',
+        'title': 'Internet - News subjects who are directly quoted',
+        'desc': 'Internet - News subjects who are directly quoted',
+        'reports': ['global'],
+    },
+    'ws_91': {
+        'name': '91',
+        'title': 'Internet - Stories where issues of gender equality/inequality are raised by topic',
+        'desc': 'Internet - Stories where issues of gender equality/inequality are raised by topic',
+        'reports': ['global'],
+    },
+    'ws_92': {
+        'name': '92',
+        'title': 'Internet -Stories where stereotypes are clearly challenged',
+        'desc': 'Internet -Stories where stereotypes are clearly challenged',
+        'reports': ['global'],
+    },
+    'ws_93': {
+        'name': '93',
+        'title': 'Internet -Stories with Women as a central Focus',
+        'desc': 'Internet -Stories with Women as a central Focus',
+        'reports': ['global'],
+    },
+    'ws_94': {
+        'name': '94',
+        'title': 'Twitter - Original tweet or retweet',
+        'desc': 'Twitter - Original tweet or retweet',
+        'reports': ['global'],
+    },
+    'ws_95': {
+        'name': '95',
+        'title': 'Twitter - Female reporters',
+        'desc': 'Twitter - Female reporters',
+        'reports': ['global'],
+    },
+    'ws_96': {
+        'name': '96',
+        'title': 'Twitter - Women\'s centrality',
+        'desc': 'Twitter - Women\'s centrality',
+        'reports': ['global'],
+    },
+        'ws_97': {
+        'name': '97',
+        'title': 'Twitter - Challenging Stereotypes',
+        'desc': 'Twitter - Challenging Stereotypes',
+        'reports': ['global'],
+    }
 }
 
 
@@ -565,7 +687,7 @@ REGION_COUNTRY_MAP = {
 
 
 GROUP_TOPICS_MAP = OrderedDict([
-    ('1', [1, 2, 3, 4, 5, 6, 7,]),
+    ('1', [1, 2, 3, 4, 5, 6, 7]),
     ('2', [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]),
     ('3', [19, 20, 21, 22, 23, 24, 25, 26, 27]),
     ('4', [28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41]),
