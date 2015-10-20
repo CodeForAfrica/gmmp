@@ -175,7 +175,7 @@ class XLSXReportBuilder:
         #     'ws_61', 'ws_62', 'ws_63', 'ws_64', 'ws_65', 'ws_66', 'ws_67', 'ws_68', 'ws_68b',
         #     'ws_75', 'ws_76', 'ws_77', 'ws_78']
         if settings.DEBUG:
-            sheets = ['ws_80', 'ws_81', 'ws_82']
+            sheets = ['ws_91']
         else:
             sheets = WS_INFO.keys()
 
@@ -2655,7 +2655,32 @@ class XLSXReportBuilder:
 
         self.tabulate_secondary_cols(ws, secondary_counts, YESNO, all_regions, row_perc=True, show_N=True)
 
+    def ws_91(self, ws):
+        """
+        Cols: Major Topic
+        Rows: Region, equality raised
+        :: Internet media type only
+        """
+        r = 6
+        self.write_col_headings(ws, MAJOR_TOPICS)
 
+        all_regions = add_transnational_to_regions(self.regions)
+        counts = Counter()
+        model = sheet_models.get('Internet')
+
+        for region_id, region in all_regions:
+            rows = model.objects\
+                    .values('topic', 'equality_rights')\
+                    .filter(country_region__region=region)
+
+            rows = self.apply_weights(rows, model._meta.db_table, "Internet")
+            for row in rows:
+                major_topic = TOPIC_GROUPS[row['topic']]
+                counts.update({(major_topic, row['equality_rights']): row['n']})
+
+            self.write_primary_row_heading(ws, region, r=r)
+            self.tabulate(ws, counts, MAJOR_TOPICS, YESNO, row_perc=True, write_col_headings=False, r=r)
+            r += len(YESNO)
 
     # -------------------------------------------------------------------------------
     # Helper functions

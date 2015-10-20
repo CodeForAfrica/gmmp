@@ -612,6 +612,12 @@ WS_INFO = {
         'title': 'Internet - News subjects who are directly quoted',
         'desc': 'Internet - News subjects who are directly quoted',
         'reports': ['global'],
+    },
+    'ws_91': {
+        'name': '91',
+        'title': 'Internet - Stories where issues of gender equality/inequality are raised by topic',
+        'desc': 'Internet - Stories where issues of gender equality/inequality are raised by topic',
+        'reports': ['global'],
     }
 }
 
