@@ -585,8 +585,14 @@ WS_INFO = {
     },
     'ws_88': {
         'name': '88',
-        'title': 'Internet - Selection of News Subjects ',
-        'desc': 'Internet - Selection of News Subjects ',
+        'title': 'Internet - Selection of News Subjects',
+        'desc': 'Internet - Selection of News Subjects',
+        'reports': ['global'],
+    },
+    'ws_89': {
+        'name': '89',
+        'title': 'Internet - Age of news subjects',
+        'desc': 'Internet - Age of news subjects',
         'reports': ['global'],
     },
 }
