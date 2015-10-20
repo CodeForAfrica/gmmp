@@ -631,6 +631,12 @@ WS_INFO = {
         'desc': 'Internet -Stories with Women as a central Focus',
         'reports': ['global'],
     },
+    'ws_94': {
+        'name': '94',
+        'title': 'Twitter - Original tweet or retweet',
+        'desc': 'Twitter - Original tweet or retweet',
+        'reports': ['global'],
+    },
 
 }
 
