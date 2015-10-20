@@ -2839,33 +2839,6 @@ class XLSXReportBuilder:
         self.tabulate_secondary_cols(ws, secondary_counts, YESNO, all_regions, row_perc=True)
 
 
-    def ws_96(self, ws):
-        """
-        Cols: Major Topics, Women's centrality
-        Rows: Region
-        :: Twitter media type only
-        """
-        all_regions = add_transnational_to_regions(self.regions)
-        secondary_counts = OrderedDict()
-        model = sheet_models.get('Twitter')
-
-        for major_topic, topic_ids in GROUP_TOPICS_MAP.iteritems():
-            counts = Counter()
-            rows = model.objects\
-                .values('about_women', 'country_region__region')\
-                .filter(topic__in=topic_ids)
-
-            rows = self.apply_weights(rows, model._meta.db_table, 'Twitter')
-
-            for row in rows:
-                region_id = [r[0] for r in all_regions if r[1] == row['region']][0]
-                counts.update({(row['about_women'], region_id): row['n']})
-
-            major_topic_name = [mt[1] for mt in MAJOR_TOPICS if mt[0] == int(major_topic)][0]
-            secondary_counts[major_topic_name] = counts
-
-        self.tabulate_secondary_cols(ws, secondary_counts, YESNO, all_regions, row_perc=True)
-
     def ws_97(self, ws):
         """
         Cols: Major Topics, Stereotypes
