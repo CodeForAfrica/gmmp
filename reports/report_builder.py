@@ -175,7 +175,7 @@ class XLSXReportBuilder:
         #     'ws_61', 'ws_62', 'ws_63', 'ws_64', 'ws_65', 'ws_66', 'ws_67', 'ws_68', 'ws_68b',
         #     'ws_75', 'ws_76', 'ws_77', 'ws_78']
         if settings.DEBUG:
-            sheets = ['ws_84', 'ws_85', 'ws_86', 'ws_87', 'ws_88', 'ws_89']
+            sheets = ['ws_84', 'ws_85', 'ws_86', 'ws_87', 'ws_88', 'ws_89', 'ws_90']
         else:
             sheets = WS_INFO.keys()
 
@@ -2543,6 +2543,33 @@ class XLSXReportBuilder:
             secondary_counts[gender] = counts
 
         self.tabulate_secondary_cols(ws, secondary_counts, AGES, all_regions, row_perc=True, show_N=True)
+
+    def ws_90(self, ws):
+        """
+        Cols: Sex of subject, Whether quoted
+        Rows: Region
+        :: Internet media type only
+        """
+        all_regions = add_transnational_to_regions(self.regions)
+        model = person_models.get('Internet')
+        secondary_counts = OrderedDict()
+
+        for gender_id, gender in self.male_female:
+            counts = Counter()
+            region_field = '%s__country_region__region' % model.sheet_name()
+            rows = model.objects\
+                .values('is_quoted', region_field)
+
+            rows = self.apply_weights(rows, model.sheet_db_table(), 'Internet')
+
+            for row in rows:
+                region_id = [r[0] for r in all_regions if r[1] == row['region']][0]
+                counts.update({(row['is_quoted'], region_id): row['n']})
+            secondary_counts[gender] = counts
+
+        self.tabulate_secondary_cols(ws, secondary_counts, YESNO, all_regions, row_perc=True, show_N=True)
+
+
 
     # -------------------------------------------------------------------------------
     # Helper functions
