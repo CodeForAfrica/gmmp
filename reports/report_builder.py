@@ -175,7 +175,7 @@ class XLSXReportBuilder:
         #     'ws_61', 'ws_62', 'ws_63', 'ws_64', 'ws_65', 'ws_66', 'ws_67', 'ws_68', 'ws_68b',
         #     'ws_75', 'ws_76', 'ws_77', 'ws_78']
         if settings.DEBUG:
-            sheets = ['ws_80']
+            sheets = ['ws_80', 'ws_81', 'ws_82']
         else:
             sheets = WS_INFO.keys()
 
@@ -2341,6 +2341,7 @@ class XLSXReportBuilder:
         Cols: Major Topics, Minor Topics
         Rows: Region
         :: Internet media type only
+        :: SHared on Twitter
         """
         all_regions = add_transnational_to_regions(self.regions)
         model = sheet_models.get('Internet')
@@ -2352,7 +2353,46 @@ class XLSXReportBuilder:
             counts = Counter()
             rows = model.objects\
                 .values('topic', 'country_region__region')\
-                .filter(topic__in=topic_ids)
+                .filter(topic__in=topic_ids)\
+                .filter(shared_via_twitter='Y')
+
+            rows = self.apply_weights(rows, model._meta.db_table, 'Internet')
+
+            for row in rows:
+                region_id = [r[0] for r in all_regions if r[1] == row['region']][0]
+                counts.update({(row['topic'], region_id): row['n']})
+
+            major_topic_name = [mt[1] for mt in MAJOR_TOPICS if mt[0] == int(major_topic)][0]
+            minor_topics = [t for t in TOPICS if t[0] in topic_ids]
+
+            secondary_counts[major_topic_name] = counts
+
+            self.tabulate_secondary_cols(ws, secondary_counts, minor_topics, all_regions, c=c, write_row_headings=write_row_headings, show_N=True, write_row_totals=True, row_perc=True,)
+
+            # To compensate for writing row headings in first iteration
+            c += (len(minor_topics) * 2) + (3 if write_row_headings else 2)
+            write_row_headings = False
+
+
+    def ws_81(self, ws):
+        """
+        Cols: Major Topics, Minor Topics
+        Rows: Region
+        :: Internet media type only
+        :: Shared on Facebook
+        """
+        all_regions = add_transnational_to_regions(self.regions)
+        model = sheet_models.get('Internet')
+        c = 2
+        write_row_headings = True
+
+        for major_topic, topic_ids in GROUP_TOPICS_MAP.iteritems():
+            secondary_counts = OrderedDict()
+            counts = Counter()
+            rows = model.objects\
+                .values('topic', 'country_region__region')\
+                .filter(topic__in=topic_ids)\
+                .filter(shared_on_facebook='Y')
 
             rows = self.apply_weights(rows, model._meta.db_table, 'Internet')
 
@@ -2369,6 +2409,45 @@ class XLSXReportBuilder:
 
             c += (len(minor_topics) * 2) + (3 if write_row_headings else 2)
             write_row_headings = False
+
+
+    def ws_82(self, ws):
+        """
+        Cols: Major Topics, Minor Topics
+        Rows: Region
+        :: Internet media type only
+        :: Reference to gender equality
+        """
+
+        all_regions = add_transnational_to_regions(self.regions)
+        model = sheet_models.get('Internet')
+        c = 2
+        write_row_headings = True
+
+        for major_topic, topic_ids in GROUP_TOPICS_MAP.iteritems():
+            secondary_counts = OrderedDict()
+            counts = Counter()
+            rows = model.objects\
+                .values('topic', 'country_region__region')\
+                .filter(topic__in=topic_ids)\
+                .filter(equality_rights='Y')
+
+            rows = self.apply_weights(rows, model._meta.db_table, 'Internet')
+
+            for row in rows:
+                region_id = [r[0] for r in all_regions if r[1] == row['region']][0]
+                counts.update({(row['topic'], region_id): row['n']})
+
+            major_topic_name = [mt[1] for mt in MAJOR_TOPICS if mt[0] == int(major_topic)][0]
+            minor_topics = [t for t in TOPICS if t[0] in topic_ids]
+
+            secondary_counts[major_topic_name] = counts
+
+            self.tabulate_secondary_cols(ws, secondary_counts, minor_topics, all_regions, c=c, write_row_headings=write_row_headings, show_N=True, write_row_totals=True, row_perc=True,)
+
+            c += (len(minor_topics) * 2) + (3 if write_row_headings else 2)
+            write_row_headings = False
+
 
     def ws_83(self, ws):
         """
