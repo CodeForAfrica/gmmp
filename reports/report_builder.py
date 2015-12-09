@@ -184,8 +184,8 @@ class XLSXReportBuilder:
             getattr(self, sheet)(ws)
             self.log.info("Completed sheet %s" % sheet)
 
-        if not settings.DEBUG:
-            self.write_raw_data_sheets(workbook)
+        # if not settings.DEBUG:
+        self.write_raw_data_sheets(workbook)
 
         workbook.close()
         output.seek(0)
@@ -319,6 +319,10 @@ class XLSXReportBuilder:
         if write_weights:
             ws.write(0, c, "Weight")
             weights = Weights.objects.all()
+            weights = {(w.country, w.media_type): w.weight for w in weights}
+
+        country_regions = CountryRegion.objects.all()
+        country_regions = {cr.id: cr.region for cr in country_regions}
 
         # values
         for r, obj in enumerate(query.all()):
@@ -329,7 +333,7 @@ class XLSXReportBuilder:
                     v = obj.country.code
 
                 elif attr == 'country_region_id':
-                    v = obj.country_region.region
+                    v = country_regions[obj.country_region_id]
 
                 else:
                     v = getattr(obj, attr)
@@ -357,9 +361,10 @@ class XLSXReportBuilder:
 
             if write_weights:
                 # Write weight
-                weight = [w.weight for w in weights if
-                            w.country == obj.country and
-                            w.media_type == name][0]
+                weight = weights[(obj.country, name)]
+                # weight = [w.weight for w in weights if
+                #             w.country == obj.country and
+                #             w.media_type == name][0]
 
                 ws.write(r + 1, c, weight)
 
