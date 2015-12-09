@@ -319,6 +319,8 @@ class XLSXReportBuilder:
             if attr == 'topic':
                 ws.write(0, c, 'major topic')
                 c += 1
+                ws.write(0, c, 'women focus topic')
+                c += 1
 
         # Add column for weights
         if write_weights:
@@ -365,9 +367,16 @@ class XLSXReportBuilder:
                     ws.write(r + 1, c, v)
                     c += 1
 
-                # major topics
                 if attr == 'topic':
+                    # major topics
                     t = MAJOR_TOPICS[TOPIC_GROUPS[actual_v] - 1][1]
+                    ws.write(r + 1, c, t)
+                    c += 1
+
+                    # women focus topic
+                    t = FOCUS_TOPIC_ID_MAP.get(actual_v)
+                    if t:
+                        t = FOCUS_TOPICS[t - 1][1]
                     ws.write(r + 1, c, t)
                     c += 1
 

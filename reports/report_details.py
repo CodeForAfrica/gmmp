@@ -729,6 +729,8 @@ FOCUS_TOPIC_IDS = {
     3: [11, 13],
 }
 
+FOCUS_TOPIC_ID_MAP = {x: ft for ft, topics in FOCUS_TOPIC_IDS.iteritems() for x in topics}
+
 FORMATS = {
     'heading': {
         'font_name': 'Arial',
