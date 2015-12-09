@@ -308,12 +308,17 @@ class XLSXReportBuilder:
         # headers
         c = 0
         for fld in model._meta.fields:
-            if fld.attname in lookups:
+            attr = fld.attname
+            if attr in lookups:
                 ws.write(0, c, fld.name + '_code')
                 c += 1
 
             ws.write(0, c, fld.name)
             c += 1
+
+            if attr == 'topic':
+                ws.write(0, c, 'major topic')
+                c += 1
 
         # Add column for weights
         if write_weights:
@@ -352,11 +357,18 @@ class XLSXReportBuilder:
                 c += 1
 
                 # write the looked-up value
+                actual_v = v
                 if attr in lookups:
                     v = lookups[attr].get(v, v)
                     if v is not None:
                         v = unicode(v)
                     ws.write(r + 1, c, v)
+                    c += 1
+
+                # major topics
+                if attr == 'topic':
+                    t = MAJOR_TOPICS[TOPIC_GROUPS[actual_v] - 1][1]
+                    ws.write(r + 1, c, t)
                     c += 1
 
             if write_weights:
