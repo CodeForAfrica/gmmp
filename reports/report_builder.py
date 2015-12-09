@@ -164,16 +164,6 @@ class XLSXReportBuilder:
         self.N = workbook.add_format(FORMATS['N'])
         self.P = workbook.add_format(FORMATS['P'])
 
-        # Use the following for specifying which reports to create during dev
-        # sheets = [
-        #     'ws_01', 'ws_02', 'ws_04', 'ws_05', 'ws_06', 'ws_07', 'ws_08', 'ws_09', 'ws_10',
-        #     'ws_11', 'ws_12', 'ws_13', 'ws_14', 'ws_15', 'ws_16', 'ws_17', 'ws_18', 'ws_19', 'ws_20',
-        #     'ws_21', 'ws_23', 'ws_24', 'ws_25', 'ws_26', 'ws_27', 'ws_28', 'ws_29', 'ws_30',
-        #     'ws_31', 'ws_32', 'ws_34', 'ws_35', 'ws_36', 'ws_38', 'ws_39', 'ws_40',
-        #     'ws_41', 'ws_42', 'ws_43', 'ws_44', 'ws_45', 'ws_46', 'ws_47', 'ws_48',
-        #     'ws_49', 'ws_50', 'ws_51', 'ws_52', 'ws_53', 'ws_54', 'ws_55', 'ws_56', 'ws_57', 'ws_58', 'ws_59', 'ws_60',
-        #     'ws_61', 'ws_62', 'ws_63', 'ws_64', 'ws_65', 'ws_66', 'ws_67', 'ws_68', 'ws_68b',
-        #     'ws_75', 'ws_76', 'ws_77', 'ws_78']
         if settings.DEBUG:
             sheets = ['ws_03']
         else:
@@ -306,72 +296,72 @@ class XLSXReportBuilder:
             self.write_raw_data(ws, name, model, query)
 
     def write_raw_data(self, ws, name, model, query, write_weights=False):
-            self.log.info("Writing raw data for %s" % model)
+        self.log.info("Writing raw data for %s" % model)
 
-            # precompute the columns that are lookups
-            lookups = {}
-            for fld in model._meta.fields:
-                if fld.choices:
-                    lookups[fld.attname] = dict(fld.choices)
-                # TODO: handle foreign key, too
+        # precompute the columns that are lookups
+        lookups = {}
+        for fld in model._meta.fields:
+            if fld.choices:
+                lookups[fld.attname] = dict(fld.choices)
+            # TODO: handle foreign key, too
 
-            # headers
-            c = 0
-            for fld in model._meta.fields:
-                if fld.attname in lookups:
-                    ws.write(0, c, fld.name + '_code')
-                    c += 1
-
-                ws.write(0, c, fld.name)
+        # headers
+        c = 0
+        for fld in model._meta.fields:
+            if fld.attname in lookups:
+                ws.write(0, c, fld.name + '_code')
                 c += 1
 
-            # Add column for weights
-            if write_weights:
-                ws.write(0, c, "Weight")
-                weights = Weights.objects.all()
+            ws.write(0, c, fld.name)
+            c += 1
 
-            # values
-            for r, obj in enumerate(query.all()):
-                c = 0
-                for fld in obj._meta.fields:
-                    attr = fld.attname
-                    if attr == 'country':
-                        v = obj.country.code
+        # Add column for weights
+        if write_weights:
+            ws.write(0, c, "Weight")
+            weights = Weights.objects.all()
 
-                    elif attr == 'country_region':
-                        v = obj.country_region.region
+        # values
+        for r, obj in enumerate(query.all()):
+            c = 0
+            for fld in obj._meta.fields:
+                attr = fld.attname
+                if attr == 'country':
+                    v = obj.country.code
 
-                    else:
-                        v = getattr(obj, attr)
+                elif attr == 'country_region_id':
+                    v = obj.country_region.region
 
-                    if isinstance(v, datetime.datetime):
-                        v = v.replace(tzinfo=None)
+                else:
+                    v = getattr(obj, attr)
 
-                    # raw value
-                    if isinstance(v, basestring):
-                        # if v is a URL and it contains unicode and it is
-                        # very long, we get an encoding error from the warning
-                        # message, so just force strings as strings
-                        ws.write_string(r + 1, c, unicode(v))
-                    else:
-                        ws.write(r + 1, c, v)
+                if isinstance(v, datetime.datetime):
+                    v = v.replace(tzinfo=None)
+
+                # raw value
+                if isinstance(v, basestring):
+                    # if v is a URL and it contains unicode and it is
+                    # very long, we get an encoding error from the warning
+                    # message, so just force strings as strings
+                    ws.write_string(r + 1, c, unicode(v))
+                else:
+                    ws.write(r + 1, c, v)
+                c += 1
+
+                # write the looked-up value
+                if attr in lookups:
+                    v = lookups[attr].get(v, v)
+                    if v is not None:
+                        v = unicode(v)
+                    ws.write(r + 1, c, v)
                     c += 1
 
-                    # write the looked-up value
-                    if attr in lookups:
-                        v = lookups[attr].get(v, v)
-                        if v is not None:
-                            v = unicode(v)
-                        ws.write(r + 1, c, v)
-                        c += 1
+            if write_weights:
+                # Write weight
+                weight = [w.weight for w in weights if
+                            w.country == obj.country and
+                            w.media_type == name][0]
 
-                if write_weights:
-                    # Write weight
-                    weight = [w.weight for w in weights if
-                                w.country == obj.country and
-                                w.media_type == name][0]
-
-                    ws.write(r + 1, c, weight)
+                ws.write(r + 1, c, weight)
 
     def recode_country(self, country):
         # some split countries must be "joined" at the global report level
