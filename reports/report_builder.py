@@ -184,8 +184,8 @@ class XLSXReportBuilder:
             getattr(self, sheet)(ws)
             self.log.info("Completed sheet %s" % sheet)
 
-        # if not settings.DEBUG:
-        self.write_raw_data_sheets(workbook)
+        if not settings.DEBUG:
+            self.write_raw_data_sheets(workbook)
 
         workbook.close()
         output.seek(0)
