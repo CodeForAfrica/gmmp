@@ -175,7 +175,7 @@ class XLSXReportBuilder:
         #     'ws_61', 'ws_62', 'ws_63', 'ws_64', 'ws_65', 'ws_66', 'ws_67', 'ws_68', 'ws_68b',
         #     'ws_75', 'ws_76', 'ws_77', 'ws_78']
         if settings.DEBUG:
-            sheets = ['ws_80', 'ws_81', 'ws_82', 'ws_95']
+            sheets = ['ws_03']
         else:
             sheets = WS_INFO.keys()
 
@@ -285,7 +285,7 @@ class XLSXReportBuilder:
             if self.country_list:
                 query = query.filter(country__in=self.country_list)
 
-            self.write_raw_data(ws, name, model, query)
+            self.write_raw_data(ws, name, model, query, write_weights=True)
 
         for name, model in person_models.iteritems():
             ws = workbook.add_worksheet('Raw - %s sources' % name)
@@ -305,7 +305,7 @@ class XLSXReportBuilder:
 
             self.write_raw_data(ws, name, model, query)
 
-    def write_raw_data(self, ws, name, model, query):
+    def write_raw_data(self, ws, name, model, query, write_weights=False):
             self.log.info("Writing raw data for %s" % model)
 
             # precompute the columns that are lookups
@@ -325,6 +325,11 @@ class XLSXReportBuilder:
                 ws.write(0, c, fld.name)
                 c += 1
 
+            # Add column for weights
+            if write_weights:
+                ws.write(0, c, "Weight")
+                weights = Weights.objects.all()
+
             # values
             for r, obj in enumerate(query.all()):
                 c = 0
@@ -332,6 +337,10 @@ class XLSXReportBuilder:
                     attr = fld.attname
                     if attr == 'country':
                         v = obj.country.code
+
+                    elif attr == 'country_region':
+                        v = obj.country_region.region
+
                     else:
                         v = getattr(obj, attr)
 
@@ -355,6 +364,14 @@ class XLSXReportBuilder:
                             v = unicode(v)
                         ws.write(r + 1, c, v)
                         c += 1
+
+                if write_weights:
+                    # Write weight
+                    weight = [w.weight for w in weights if
+                                w.country == obj.country and
+                                w.media_type == name][0]
+
+                    ws.write(r + 1, c, weight)
 
     def recode_country(self, country):
         # some split countries must be "joined" at the global report level
