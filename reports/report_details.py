@@ -715,6 +715,12 @@ WS_INFO = {
         'desc': 'Presenters and reporters in television, radio and newspapers',
         'reports': ['global'],
     },
+    'ws_s11': {
+        'name': 's11',
+        'title': 'Reporters in major topic areas',
+        'desc': 'Reporters in major topic areas',
+        'reports': ['global'],
+    },
 }
 
 
