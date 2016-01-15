@@ -167,7 +167,7 @@ class XLSXReportBuilder:
         self.P = workbook.add_format(FORMATS['P'])
 
         if settings.DEBUG:
-            sheets = ['ws_s5']
+            sheets = ['ws_s6']
         else:
             sheets = WS_INFO.keys()
 
@@ -3070,6 +3070,59 @@ class XLSXReportBuilder:
                     counts.update({(row['sex'], self.recode_country(row[country])): row['n']})
 
             secondary_counts[clean_title(function)] = counts
+
+        self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, self.countries, row_perc=True, show_N=True)
+
+
+    def ws_s6(self, ws):
+        """
+        Cols: Victims; Sex
+        Rows: Country
+        :: Newspaper, television, radio
+        """
+        secondary_counts = OrderedDict()
+        victim_classification = ['Victim', 'Not a victim']
+
+        counts = Counter()
+        for media_type, model in tm_person_models.iteritems():
+            country = model.sheet_name() + '__country'
+            rows = model.objects\
+                    .values('sex', country)\
+                    .filter(**{country + '__in': self.country_list})\
+                    .filter(sex__in=self.male_female_ids)\
+                    .filter(victim_or_survivor='Y')\
+                    .exclude(victim_of=0)\
+                    .annotate(n=Count('id'))
+
+            for row in rows:
+                counts.update({(row['sex'], self.recode_country(row[country])): row['n']})
+        secondary_counts['Victim'] = counts
+
+        counts = Counter()
+        for media_type, model in tm_person_models.iteritems():
+            country = model.sheet_name() + '__country'
+            rows = model.objects\
+                    .values('sex', country)\
+                    .filter(**{country + '__in': self.country_list})\
+                    .filter(sex__in=self.male_female_ids)\
+                    .filter(victim_or_survivor='N')\
+                    .annotate(n=Count('id'))
+            for row in rows:
+                counts.update({(row['sex'], self.recode_country(row[country])): row['n']})
+
+        for media_type, model in tm_person_models.iteritems():
+            country = model.sheet_name() + '__country'
+            rows = model.objects\
+                    .values('sex', country)\
+                    .filter(**{country + '__in': self.country_list})\
+                    .filter(sex__in=self.male_female_ids)\
+                    .filter(victim_or_survivor='Y')\
+                    .exclude(survivor_of=0)\
+                    .annotate(n=Count('id'))
+            for row in rows:
+                counts.update({(row['sex'], self.recode_country(row[country])): row['n']})
+
+        secondary_counts['Not a victim'] = counts
 
         self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, self.countries, row_perc=True, show_N=True)
 
