@@ -167,7 +167,7 @@ class XLSXReportBuilder:
         self.P = workbook.add_format(FORMATS['P'])
 
         if settings.DEBUG:
-            sheets = ['ws_s7', 'ws_s8']
+            sheets = ['ws_s9']
         else:
             sheets = WS_INFO.keys()
 
@@ -3168,6 +3168,30 @@ class XLSXReportBuilder:
                     .filter(**{country + '__in': self.country_list})\
                     .filter(sex__in=self.male_female_ids)\
                     .filter(is_quoted=code)\
+                    .annotate(n=Count('id'))
+
+            for row in rows:
+                counts.update({(row['sex'], self.recode_country(row[country])): row['n']})
+            secondary_counts[answer] = counts
+
+        self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, self.countries, row_perc=True, show_N=True)
+
+    def ws_s9(self, ws):
+        """
+        Cols: Photographed; Sex
+        Rows: Country
+        :: Newspaper only
+        """
+        secondary_counts = OrderedDict()
+        model = person_models.get('Print')
+        for code, answer in IS_PHOTOGRAPH:
+            counts = Counter()
+            country = model.sheet_name() + '__country'
+            rows = model.objects\
+                    .values('sex', country)\
+                    .filter(**{country + '__in': self.country_list})\
+                    .filter(sex__in=self.male_female_ids)\
+                    .filter(is_photograph=code)\
                     .annotate(n=Count('id'))
 
             for row in rows:
