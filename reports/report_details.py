@@ -691,6 +691,12 @@ WS_INFO = {
         'desc': 'News subjects who are victims',
         'reports': ['global'],
     },
+    'ws_s7': {
+        'name': 's7',
+        'title': 'News subjects mentioned by family status',
+        'desc': 'News subjects mentioned by family status',
+        'reports': ['global'],
+    },
 }
 
 
