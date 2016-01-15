@@ -2915,7 +2915,7 @@ class XLSXReportBuilder:
         self.tabulate_secondary_cols(ws, secondary_counts, AGREE_DISAGREE, all_regions, row_perc=True)
 
 
-    def ws_s1(self, ws):
+    def ws_s01(self, ws):
         """
         Cols: Sex of presenters, reporters and subjects
         Rows: Country
@@ -2969,7 +2969,7 @@ class XLSXReportBuilder:
         self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, self.countries, row_perc=True, show_N=True)
 
 
-    def ws_s2(self, ws):
+    def ws_s02(self, ws):
         """
         Cols: Medium; Sex of presenters, reporters and subjects
         Rows: Country
@@ -2994,7 +2994,7 @@ class XLSXReportBuilder:
         self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, self.countries, row_perc=True, show_N=True)
 
 
-    def ws_s3(self, ws):
+    def ws_s03(self, ws):
         """
         Cols: Major topics; Sex
         Rows: Country
@@ -3022,7 +3022,7 @@ class XLSXReportBuilder:
         self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, self.countries, row_perc=True, show_N=True)
 
 
-    def ws_s4(self, ws):
+    def ws_s04(self, ws):
         """
         Cols: Occupation; Sex
         Rows: Country
@@ -3049,7 +3049,7 @@ class XLSXReportBuilder:
         self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, self.countries, row_perc=True, show_N=True)
 
 
-    def ws_s5(self, ws):
+    def ws_s05(self, ws):
         """
         Cols: Function; Sex
         Rows: Country
@@ -3076,7 +3076,7 @@ class XLSXReportBuilder:
         self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, self.countries, row_perc=True, show_N=True)
 
 
-    def ws_s6(self, ws):
+    def ws_s06(self, ws):
         """
         Cols: Victims; Sex
         Rows: Country
@@ -3128,7 +3128,7 @@ class XLSXReportBuilder:
         self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, self.countries, row_perc=True, show_N=True)
 
 
-    def ws_s7(self, ws):
+    def ws_s07(self, ws):
         """
         Cols: Family status; Sex
         Rows: Country
@@ -3155,7 +3155,7 @@ class XLSXReportBuilder:
         self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, self.countries, row_perc=True, show_N=True)
 
 
-    def ws_s8(self, ws):
+    def ws_s08(self, ws):
         """
         Cols: Quoted; Sex
         Rows: Country
@@ -3180,7 +3180,7 @@ class XLSXReportBuilder:
         self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, self.countries, row_perc=True, show_N=True)
 
 
-    def ws_s9(self, ws):
+    def ws_s09(self, ws):
         """
         Cols: Photographed; Sex
         Rows: Country

@@ -655,56 +655,56 @@ WS_INFO = {
         'desc': 'Twitter - Challenging Stereotypes',
         'reports': ['global'],
     },
-    'ws_s1': {
-        'name': 's1',
+    'ws_s01': {
+        'name': 's01',
         'title': 'Sex of presenters, reporters and news subjects',
         'desc': 'Sex of presenters, reporters and news subjects',
         'reports': ['global'],
     },
-    'ws_s2': {
-        'name': 's2',
+    'ws_s02': {
+        'name': 's02',
         'title': 'News subjects in television, radio and newspapers',
         'desc': 'News subjects in television, radio and newspapers',
         'reports': ['global'],
     },
-    'ws_s3': {
-        'name': 's3',
+    'ws_s03': {
+        'name': 's03',
         'title': 'News subjects in major topic areas',
         'desc': 'News subjects in major topic areas',
         'reports': ['global'],
     },
-    'ws_s4': {
-        'name': 's4',
+    'ws_s04': {
+        'name': 's04',
         'title': 'News subjects in major occupational groups',
         'desc': 'News subjects in major occupational groups',
         'reports': ['global'],
     },
-    'ws_s5': {
-        'name': 's5',
+    'ws_s05': {
+        'name': 's05',
         'title': 'Function of news subjects',
         'desc': 'Function of news subjects',
         'reports': ['global'],
     },
-    'ws_s6': {
-        'name': 's6',
+    'ws_s06': {
+        'name': 's06',
         'title': 'News subjects who are victims',
         'desc': 'News subjects who are victims',
         'reports': ['global'],
     },
-    'ws_s7': {
-        'name': 's7',
+    'ws_s07': {
+        'name': 's07',
         'title': 'News subjects mentioned by family status',
         'desc': 'News subjects mentioned by family status',
         'reports': ['global'],
     },
-    'ws_s8': {
-        'name': 's8',
+    'ws_s08': {
+        'name': 's08',
         'title': 'News subjects quoted in newspapers',
         'desc': 'News subjects quoted in newspapers',
         'reports': ['global'],
     },
-    'ws_s9': {
-        'name': 's9',
+    'ws_s09': {
+        'name': 's09',
         'title': 'News subjects appearing in newspaper photographs',
         'desc': 'News subjects appearing in newspaper photographs',
         'reports': ['global'],
