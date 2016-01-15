@@ -302,6 +302,11 @@ tm_journalist_models = OrderedDict([
     ('Television', TelevisionJournalist),
 ])
 
+broadcast_journalist_models = OrderedDict([
+    ('Radio', RadioJournalist),
+    ('Television', TelevisionJournalist),
+])
+
 dm_journalist_models = OrderedDict([
     ('Internet', InternetNewsJournalist),
     ('Twitter', TwitterJournalist)

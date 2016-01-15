@@ -649,10 +649,16 @@ WS_INFO = {
         'desc': 'Twitter - Women\'s centrality',
         'reports': ['global'],
     },
-        'ws_97': {
+    'ws_97': {
         'name': '97',
         'title': 'Twitter - Challenging Stereotypes',
         'desc': 'Twitter - Challenging Stereotypes',
+        'reports': ['global'],
+    },
+    'ws_98': {
+        'name': '98',
+        'title': 'Sex of presenters, reporters and news subjects',
+        'desc': 'Sex of presenters, reporters and news subjects',
         'reports': ['global'],
     }
 }

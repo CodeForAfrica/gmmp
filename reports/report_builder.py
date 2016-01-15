@@ -17,7 +17,8 @@ from forms.models import (
     NewspaperPerson, TelevisionJournalist,
     person_models, sheet_models, journalist_models,
     tm_person_models, tm_sheet_models, tm_journalist_models,
-    dm_person_models, dm_sheet_models, dm_journalist_models, all_models)
+    dm_person_models, dm_sheet_models, dm_journalist_models, all_models,
+    broadcast_journalist_models)
 from forms.modelutils import (TOPICS, GENDER, SPACE, OCCUPATION, FUNCTION, SCOPE,
     YESNO, AGES, SOURCE, VICTIM_OF, SURVIVOR_OF, IS_PHOTOGRAPH, AGREE_DISAGREE,
     RETWEET, TV_ROLE, MEDIA_TYPES, TM_MEDIA_TYPES, DM_MEDIA_TYPES, CountryRegion,
@@ -165,7 +166,7 @@ class XLSXReportBuilder:
         self.P = workbook.add_format(FORMATS['P'])
 
         if settings.DEBUG:
-            sheets = ['ws_03']
+            sheets = ['ws_98']
         else:
             sheets = WS_INFO.keys()
 
@@ -2911,6 +2912,47 @@ class XLSXReportBuilder:
             secondary_counts[major_topic_name] = counts
 
         self.tabulate_secondary_cols(ws, secondary_counts, AGREE_DISAGREE, all_regions, row_perc=True)
+
+
+    def ws_98(self, ws):
+        """
+        Cols: Sex of presenters, reporters and subjects
+        Rows: Country
+        :: Newspaper, television, radio
+        """
+        secondary_counts = OrderedDict()
+        presenter_reporter = [('Presenter',[1, 3]), ('Reporter', [2])]
+
+        for journo_type, role_ids in presenter_reporter:
+            counts = Counter()
+
+            if journo_type == 'Presenter':
+                journo_models = broadcast_journalist_models
+            elif journo_type == 'Reporter':
+                journo_models = tm_journalist_models
+
+            for media_type, model in journo_models.iteritems():
+                country = model.sheet_name() + '__country'
+                if media_type == 'Print':
+                    # Newspaper journos don't have roles
+                    rows = model.objects\
+                        .values('sex', country)\
+                        .filter(**{country + '__in': self.country_list})\
+                        .filter(sex__in=self.male_female_ids)\
+                        .annotate(n=Count('id'))
+                else:
+                    rows = model.objects\
+                            .values('sex', country)\
+                            .filter(**{country + '__in': self.country_list})\
+                            .filter(sex__in=self.male_female_ids)\
+                            .filter(role__in=role_ids)\
+                            .annotate(n=Count('id'))
+                for row in rows:
+                    counts.update({(row['sex'], self.recode_country(row[country])): row['n']})
+
+            secondary_counts[journo_type] = counts
+
+            self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, self.countries, row_perc=True, show_N=True)
 
 
     # -------------------------------------------------------------------------------
