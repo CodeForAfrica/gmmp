@@ -167,7 +167,7 @@ class XLSXReportBuilder:
         self.P = workbook.add_format(FORMATS['P'])
 
         if settings.DEBUG:
-            sheets = ['ws_s3', 'ws_s11']
+            sheets = ['ws_s12']
         else:
             sheets = WS_INFO.keys()
 
@@ -2993,6 +2993,7 @@ class XLSXReportBuilder:
             secondary_counts[media_type] = counts
         self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, self.countries, row_perc=True, show_N=True)
 
+
     def ws_s3(self, ws):
         """
         Cols: Major topics; Sex
@@ -3020,6 +3021,7 @@ class XLSXReportBuilder:
 
         self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, self.countries, row_perc=True, show_N=True)
 
+
     def ws_s4(self, ws):
         """
         Cols: Occupation; Sex
@@ -3045,6 +3047,7 @@ class XLSXReportBuilder:
             secondary_counts[clean_title(occupation)] = counts
 
         self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, self.countries, row_perc=True, show_N=True)
+
 
     def ws_s5(self, ws):
         """
@@ -3124,6 +3127,7 @@ class XLSXReportBuilder:
 
         self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, self.countries, row_perc=True, show_N=True)
 
+
     def ws_s7(self, ws):
         """
         Cols: Family status; Sex
@@ -3150,6 +3154,7 @@ class XLSXReportBuilder:
 
         self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, self.countries, row_perc=True, show_N=True)
 
+
     def ws_s8(self, ws):
         """
         Cols: Quoted; Sex
@@ -3174,6 +3179,7 @@ class XLSXReportBuilder:
 
         self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, self.countries, row_perc=True, show_N=True)
 
+
     def ws_s9(self, ws):
         """
         Cols: Photographed; Sex
@@ -3197,6 +3203,7 @@ class XLSXReportBuilder:
             secondary_counts[answer] = counts
 
         self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, self.countries, row_perc=True, show_N=True)
+
 
     def ws_s10(self, ws):
         """
@@ -3248,6 +3255,7 @@ class XLSXReportBuilder:
             c += (len(presenter_reporter) * len(self.male_female) * 2) + (1 if write_row_headings else 0)
             write_row_headings = False
 
+
     def ws_s11(self, ws):
         """
         Cols: Major topics; Sex
@@ -3284,6 +3292,26 @@ class XLSXReportBuilder:
             secondary_counts[major_topic_name] = counts
 
         self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, self.countries, row_perc=True, show_N=True)
+
+    def ws_s12(self, ws):
+        """
+        Cols: Major topics; Women Central
+        Rows: Country
+        :: Newspaper, television, radio
+        """
+        counts = Counter()
+        for media_type, model in tm_sheet_models.iteritems():
+            rows = model.objects\
+                .values('topic', 'country')\
+                .filter(country__in=self.country_list)\
+                .filter(about_women='Y')\
+                .annotate(n=Count('id'))
+
+            for row in rows:
+                major_topic = TOPIC_GROUPS[row['topic']]
+                counts.update({(major_topic, self.recode_country(row['country'])): row['n']})
+
+        self.tabulate(ws, counts, MAJOR_TOPICS, self.countries, raw_values=True)
 
     # -------------------------------------------------------------------------------
     # Helper functions

@@ -721,6 +721,12 @@ WS_INFO = {
         'desc': 'Reporters in major topic areas',
         'reports': ['global'],
     },
+    'ws_s12': {
+        'name': 's12',
+        'title': 'Topics in stories where women are central to the news',
+        'desc': 'Topics in stories where women are central to the news',
+        'reports': ['global'],
+    },
 }
 
 
