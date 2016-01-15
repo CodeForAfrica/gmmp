@@ -167,7 +167,7 @@ class XLSXReportBuilder:
         self.P = workbook.add_format(FORMATS['P'])
 
         if settings.DEBUG:
-            sheets = ['ws_s7']
+            sheets = ['ws_s7', 'ws_s8']
         else:
             sheets = WS_INFO.keys()
 
@@ -3132,21 +3132,49 @@ class XLSXReportBuilder:
         Rows: Country
         :: Newspaper, television, radio
         """
-        counts = Counter()
+        secondary_counts = OrderedDict()
 
-        for media_type, model in tm_person_models.iteritems():
+        for code, answer in YESNO:
+            counts = Counter()
+            for media_type, model in tm_person_models.iteritems():
+                country = model.sheet_name() + '__country'
+                rows = model.objects\
+                        .values('sex', country)\
+                        .filter(**{country + '__in': self.country_list})\
+                        .filter(sex__in=self.male_female_ids)\
+                        .filter(family_role=code)\
+                        .annotate(n=Count('id'))
+
+                for row in rows:
+                    counts.update({(row['sex'], self.recode_country(row[country])): row['n']})
+
+            secondary_counts[answer] = counts
+
+        self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, self.countries, row_perc=True, show_N=True)
+
+    def ws_s8(self, ws):
+        """
+        Cols: Quoted; Sex
+        Rows: Country
+        :: Newspaper only
+        """
+        secondary_counts = OrderedDict()
+        model = person_models.get('Print')
+        for code, answer in YESNO:
+            counts = Counter()
             country = model.sheet_name() + '__country'
             rows = model.objects\
                     .values('sex', country)\
                     .filter(**{country + '__in': self.country_list})\
                     .filter(sex__in=self.male_female_ids)\
-                    .filter(family_role='Y')\
+                    .filter(is_quoted=code)\
                     .annotate(n=Count('id'))
 
             for row in rows:
                 counts.update({(row['sex'], self.recode_country(row[country])): row['n']})
+            secondary_counts[answer] = counts
 
-        self.tabulate(ws, counts, self.male_female, self.countries, row_perc=True, show_N=True)
+        self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, self.countries, row_perc=True, show_N=True)
 
     # -------------------------------------------------------------------------------
     # Helper functions

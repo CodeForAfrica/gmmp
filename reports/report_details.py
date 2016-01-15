@@ -697,6 +697,12 @@ WS_INFO = {
         'desc': 'News subjects mentioned by family status',
         'reports': ['global'],
     },
+    'ws_s8': {
+        'name': 's8',
+        'title': 'News subjects quoted in newspapers',
+        'desc': 'News subjects quoted in newspapers',
+        'reports': ['global'],
+    },
 }
 
 
