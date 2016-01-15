@@ -672,6 +672,12 @@ WS_INFO = {
         'title': 'News subjects in major topic areas',
         'desc': 'News subjects in major topic areas',
         'reports': ['global'],
+    },
+    'ws_s4': {
+        'name': 's4',
+        'title': 'News subjects in major occupational groups',
+        'desc': 'News subjects in major occupational groups',
+        'reports': ['global'],
     }
 }
 
