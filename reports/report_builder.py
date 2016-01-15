@@ -166,7 +166,7 @@ class XLSXReportBuilder:
         self.P = workbook.add_format(FORMATS['P'])
 
         if settings.DEBUG:
-            sheets = ['ws_98', 'ws_99']
+            sheets = ['ws_s3']
         else:
             sheets = WS_INFO.keys()
 
@@ -2914,7 +2914,7 @@ class XLSXReportBuilder:
         self.tabulate_secondary_cols(ws, secondary_counts, AGREE_DISAGREE, all_regions, row_perc=True)
 
 
-    def ws_98(self, ws):
+    def ws_s1(self, ws):
         """
         Cols: Sex of presenters, reporters and subjects
         Rows: Country
@@ -2968,7 +2968,7 @@ class XLSXReportBuilder:
         self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, self.countries, row_perc=True, show_N=True)
 
 
-    def ws_99(self, ws):
+    def ws_s2(self, ws):
         """
         Cols: Medium; Sex of presenters, reporters and subjects
         Rows: Country
@@ -2990,6 +2990,34 @@ class XLSXReportBuilder:
                 counts.update({(row['sex'], self.recode_country(row[country])): row['n']})
 
             secondary_counts[media_type] = counts
+        self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, self.countries, row_perc=True, show_N=True)
+
+    def ws_s3(self, ws):
+        """
+        Cols: Major topics; Sex
+        Rows: Country
+        :: Newspaper, television, radio
+        """
+        secondary_counts = OrderedDict()
+        for major_topic, topic_ids in GROUP_TOPICS_MAP.iteritems():
+            counts = Counter()
+
+            for media_type, model in tm_sheet_models.iteritems():
+                counts = Counter()
+                journo_sex_field = '%s__sex' % model.journalist_field_name()
+                # country = model.sheet_name() + '__country'
+                rows = model.objects\
+                        .values(journo_sex_field, 'country')\
+                        .filter(country__in= self.country_list)\
+                        .filter(**{journo_sex_field + '__in': self.male_female_ids})\
+                        .filter(topic__in=topic_ids)\
+                        .annotate(n=Count('id'))
+
+                counts.update({(r[journo_sex_field], self.recode_country(r['country'])): r['n'] for r in rows})
+
+            major_topic_name = [mt[1] for mt in MAJOR_TOPICS if mt[0] == int(major_topic)][0]
+            secondary_counts[major_topic_name] = counts
+
         self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, self.countries, row_perc=True, show_N=True)
 
 
