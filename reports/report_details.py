@@ -684,7 +684,13 @@ WS_INFO = {
         'title': 'Function of news subjects',
         'desc': 'Function of news subjects',
         'reports': ['global'],
-    }
+    },
+    'ws_s6': {
+        'name': 's6',
+        'title': 'News subjects who are victims',
+        'desc': 'News subjects who are victims',
+        'reports': ['global'],
+    },
 }
 
 
