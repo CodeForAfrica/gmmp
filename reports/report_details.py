@@ -703,6 +703,12 @@ WS_INFO = {
         'desc': 'News subjects quoted in newspapers',
         'reports': ['global'],
     },
+    'ws_s9': {
+        'name': 's9',
+        'title': 'News subjects appearing in newspaper photographs',
+        'desc': 'News subjects appearing in newspaper photographs',
+        'reports': ['global'],
+    },
 }
 
 
