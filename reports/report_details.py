@@ -655,16 +655,22 @@ WS_INFO = {
         'desc': 'Twitter - Challenging Stereotypes',
         'reports': ['global'],
     },
-    'ws_98': {
-        'name': '98',
+    'ws_s1': {
+        'name': 's1',
         'title': 'Sex of presenters, reporters and news subjects',
         'desc': 'Sex of presenters, reporters and news subjects',
         'reports': ['global'],
     },
-    'ws_99': {
-        'name': '99',
+    'ws_s2': {
+        'name': 's2',
         'title': 'News subjects in television, radio and newspapers',
         'desc': 'News subjects in television, radio and newspapers',
+        'reports': ['global'],
+    },
+    'ws_s3': {
+        'name': 's3',
+        'title': 'News subjects in major topic areas',
+        'desc': 'News subjects in major topic areas',
         'reports': ['global'],
     }
 }
