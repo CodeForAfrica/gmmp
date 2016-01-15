@@ -80,6 +80,7 @@ def p(n, d):
 def clean_title(text):
     """
     Return the string passed in stripped of its numbers and parentheses
+    Except for the DRC. Of course.
     """
     if text != "Congo (the Democratic Republic of the)":
         return text[text.find(')')+1:].lstrip()
@@ -166,7 +167,7 @@ class XLSXReportBuilder:
         self.P = workbook.add_format(FORMATS['P'])
 
         if settings.DEBUG:
-            sheets = ['ws_s4']
+            sheets = ['ws_s5']
         else:
             sheets = WS_INFO.keys()
 
@@ -3046,6 +3047,31 @@ class XLSXReportBuilder:
 
         self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, self.countries, row_perc=True, show_N=True)
 
+    def ws_s5(self, ws):
+        """
+        Cols: Function; Sex
+        Rows: Country
+        :: Newspaper, television, radio
+        """
+        secondary_counts = OrderedDict()
+        for function_id, function in FUNCTION:
+            counts = Counter()
+
+            for media_type, model in tm_person_models.iteritems():
+                country = model.sheet_name() + '__country'
+                rows = model.objects\
+                        .values('sex', country)\
+                        .filter(**{country + '__in': self.country_list})\
+                        .filter(sex__in=self.male_female_ids)\
+                        .filter(function=function_id)\
+                        .annotate(n=Count('id'))
+
+                for row in rows:
+                    counts.update({(row['sex'], self.recode_country(row[country])): row['n']})
+
+            secondary_counts[clean_title(function)] = counts
+
+        self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, self.countries, row_perc=True, show_N=True)
 
     # -------------------------------------------------------------------------------
     # Helper functions
