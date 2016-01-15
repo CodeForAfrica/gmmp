@@ -709,6 +709,12 @@ WS_INFO = {
         'desc': 'News subjects appearing in newspaper photographs',
         'reports': ['global'],
     },
+    'ws_s10': {
+        'name': 's10',
+        'title': 'Presenters and reporters in television, radio and newspapers',
+        'desc': 'Presenters and reporters in television, radio and newspapers',
+        'reports': ['global'],
+    },
 }
 
 

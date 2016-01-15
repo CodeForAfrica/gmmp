@@ -167,7 +167,7 @@ class XLSXReportBuilder:
         self.P = workbook.add_format(FORMATS['P'])
 
         if settings.DEBUG:
-            sheets = ['ws_s9']
+            sheets = ['ws_s10']
         else:
             sheets = WS_INFO.keys()
 
@@ -3006,7 +3006,6 @@ class XLSXReportBuilder:
             for media_type, model in tm_sheet_models.iteritems():
                 counts = Counter()
                 journo_sex_field = '%s__sex' % model.journalist_field_name()
-                # country = model.sheet_name() + '__country'
                 rows = model.objects\
                         .values(journo_sex_field, 'country')\
                         .filter(country__in= self.country_list)\
@@ -3081,7 +3080,6 @@ class XLSXReportBuilder:
         :: Newspaper, television, radio
         """
         secondary_counts = OrderedDict()
-        victim_classification = ['Victim', 'Not a victim']
 
         counts = Counter()
         for media_type, model in tm_person_models.iteritems():
@@ -3199,6 +3197,56 @@ class XLSXReportBuilder:
             secondary_counts[answer] = counts
 
         self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, self.countries, row_perc=True, show_N=True)
+
+    def ws_s10(self, ws):
+        """
+        Cols: Media; Journo Type; Sex
+        Rows: Country
+        :: Newspaper only
+        """
+        c = 1
+        r = 8
+        write_row_headings = True
+
+        for media_type, model in tm_journalist_models.iteritems():
+            if media_type in broadcast_journalist_models:
+                presenter_reporter = [('Presenter',[1, 3]), ('Reporter', [2])]
+            else:
+                # Newspaper journos don't have roles
+                presenter_reporter = [('Reporter', [])]
+
+            col = c + (1 if write_row_headings else 0)
+            merge_range = (len(presenter_reporter) * len(self.male_female) * 2) - 1
+
+            ws.merge_range(r-4, col, r-4, col + merge_range, clean_title(media_type), self.col_heading)
+
+            secondary_counts = OrderedDict()
+
+            for journo_type, role_ids in presenter_reporter:
+                counts = Counter()
+                country = model.sheet_name() + '__country'
+                if media_type in broadcast_journalist_models:
+                    rows = model.objects\
+                        .values('sex', country)\
+                        .filter(**{country + '__in': self.country_list})\
+                        .filter(sex__in=self.male_female_ids)\
+                        .filter(role__in=role_ids)\
+                        .annotate(n=Count('id'))
+                else:
+                    rows = model.objects\
+                        .values('sex', country)\
+                        .filter(**{country + '__in': self.country_list})\
+                        .filter(sex__in=self.male_female_ids)\
+                        .annotate(n=Count('id'))
+
+                for row in rows:
+                    counts.update({(row['sex'], row[country]): row['n']})
+                secondary_counts[journo_type] = counts
+
+            self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, self.countries, c=c, r=r, write_row_headings=write_row_headings, row_perc=True, show_N=True)
+
+            c += (len(presenter_reporter) * len(self.male_female) * 2) + (1 if write_row_headings else 0)
+            write_row_headings = False
 
     # -------------------------------------------------------------------------------
     # Helper functions
