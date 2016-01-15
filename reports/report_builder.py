@@ -166,7 +166,7 @@ class XLSXReportBuilder:
         self.P = workbook.add_format(FORMATS['P'])
 
         if settings.DEBUG:
-            sheets = ['ws_98']
+            sheets = ['ws_98', 'ws_99']
         else:
             sheets = WS_INFO.keys()
 
@@ -2952,7 +2952,45 @@ class XLSXReportBuilder:
 
             secondary_counts[journo_type] = counts
 
-            self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, self.countries, row_perc=True, show_N=True)
+        counts = Counter()
+        for media_type, model in tm_person_models.iteritems():
+            country = model.sheet_name() + '__country'
+            rows = model.objects\
+                    .values('sex', country)\
+                    .filter(**{country + '__in': self.country_list})\
+                    .filter(sex__in=self.male_female_ids)\
+                    .annotate(n=Count('id'))
+
+            for row in rows:
+                counts.update({(row['sex'], self.recode_country(row[country])): row['n']})
+
+        secondary_counts['Subjects'] = counts
+        self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, self.countries, row_perc=True, show_N=True)
+
+
+    def ws_99(self, ws):
+        """
+        Cols: Medium; Sex of presenters, reporters and subjects
+        Rows: Country
+        :: Newspaper, television, radio
+        """
+        secondary_counts = OrderedDict()
+
+        for media_type, model in tm_person_models.iteritems():
+            counts = Counter()
+
+            country = model.sheet_name() + '__country'
+            rows = model.objects\
+                    .values('sex', country)\
+                    .filter(**{country + '__in': self.country_list})\
+                    .filter(sex__in=self.male_female_ids)\
+                    .annotate(n=Count('id'))
+
+            for row in rows:
+                counts.update({(row['sex'], self.recode_country(row[country])): row['n']})
+
+            secondary_counts[media_type] = counts
+        self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, self.countries, row_perc=True, show_N=True)
 
 
     # -------------------------------------------------------------------------------

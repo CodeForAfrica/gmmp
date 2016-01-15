@@ -660,6 +660,12 @@ WS_INFO = {
         'title': 'Sex of presenters, reporters and news subjects',
         'desc': 'Sex of presenters, reporters and news subjects',
         'reports': ['global'],
+    },
+    'ws_99': {
+        'name': '99',
+        'title': 'News subjects in television, radio and newspapers',
+        'desc': 'News subjects in television, radio and newspapers',
+        'reports': ['global'],
     }
 }
 
