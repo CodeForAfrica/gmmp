@@ -167,7 +167,7 @@ class XLSXReportBuilder:
         self.P = workbook.add_format(FORMATS['P'])
 
         if settings.DEBUG:
-            sheets = ['ws_s28']
+            sheets = ['ws_s28', 'ws_s29']
         else:
             sheets = WS_INFO.keys()
 
@@ -3825,7 +3825,7 @@ class XLSXReportBuilder:
             region = model.sheet_name() + '__country_region__region'
             rows = model.objects\
                     .values('sex', region)\
-                    .filter(**{region + '__in': self.country_list})\
+                    .filter(**{region + '__in': self.region_list})\
                     .filter(sex__in=self.male_female_ids)\
                     .annotate(n=Count('id'))
 
@@ -3834,6 +3834,38 @@ class XLSXReportBuilder:
                 counts.update({(row['sex'], region_id): row['n']})
 
         secondary_counts['Subjects'] = counts
+        self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, all_regions, row_perc=True, show_N=True)
+
+
+    def ws_s29(self, ws):
+        """
+        Cols: Major topics; Sex
+        Rows: Country
+        :: Newspaper, television, radio by region
+        """
+        all_regions = add_transnational_to_regions(self.regions)
+        secondary_counts = OrderedDict()
+        for major_topic, topic_ids in GROUP_TOPICS_MAP.iteritems():
+            counts = Counter()
+
+            for media_type, model in tm_sheet_models.iteritems():
+                counts = Counter()
+                region = 'country_region__region'
+                person_sex_field = '%s__sex' % model.person_field_name()
+                rows = model.objects\
+                        .values(person_sex_field, region)\
+                        .filter(**{region + '__in': self.region_list})\
+                        .filter(**{person_sex_field + '__in': self.male_female_ids})\
+                        .filter(topic__in=topic_ids)\
+                        .annotate(n=Count('id'))
+
+                for row in rows:
+                    region_id = [r[0] for r in all_regions if r[1] == row[region]][0]
+                    counts.update({(row[person_sex_field], region_id): row['n']})
+
+            major_topic_name = [mt[1] for mt in MAJOR_TOPICS if mt[0] == int(major_topic)][0]
+            secondary_counts[major_topic_name] = counts
+
         self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, all_regions, row_perc=True, show_N=True)
 
 

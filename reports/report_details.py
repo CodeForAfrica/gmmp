@@ -823,6 +823,12 @@ WS_INFO = {
         'desc': 'Sex of presenters, reporters and news subjects by region',
         'reports': ['global'],
     },
+    'ws_s29': {
+        'name': 's29',
+        'title': 'News subjects in main topic areas by region',
+        'desc': 'News subjects in main topic areas by region',
+        'reports': ['global'],
+    },
 }
 
 
