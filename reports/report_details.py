@@ -765,8 +765,26 @@ WS_INFO = {
     },
     'ws_s19': {
         'name': 's19',
-        'title': 'Internet, Twitter - News subjects in major topic areas.',
-        'desc': 'Internet, Twitter - News subjects in major topic areas.',
+        'title': 'Internet, Twitter - News subjects in major topic areas',
+        'desc': 'Internet, Twitter - News subjects in major topic areas',
+        'reports': ['global'],
+    },
+    'ws_s20': {
+        'name': 's20',
+        'title': 'Internet - News subjects in major occupational groups',
+        'desc': 'Internet - News subjects in major occupational groups',
+        'reports': ['global'],
+    },
+    'ws_s21': {
+        'name': 's21',
+        'title': 'Internet - Function of news subjects',
+        'desc': 'Internet - Function of news subjects',
+        'reports': ['global'],
+    },
+    'ws_s22': {
+        'name': 's22',
+        'title': 'Internet - News subjects who are victims',
+        'desc': 'Internet - News subjects who are victims',
         'reports': ['global'],
     },
 }
