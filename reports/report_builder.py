@@ -167,7 +167,7 @@ class XLSXReportBuilder:
         self.P = workbook.add_format(FORMATS['P'])
 
         if settings.DEBUG:
-            sheets = ['ws_s03r']
+            sheets = ['ws_sr04']
         else:
             sheets = WS_INFO.keys()
 
@@ -3780,7 +3780,7 @@ class XLSXReportBuilder:
 
             c = ws.dim_colmax + 2
 
-    def ws_s01r(self, ws):
+    def ws_sr01(self, ws):
         """
         Cols: Sex of presenters, reporters and subjects
         Rows: Country
@@ -3837,7 +3837,7 @@ class XLSXReportBuilder:
         self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, all_regions, row_perc=True, show_N=True)
 
 
-    def ws_s02r(self, ws):
+    def ws_sr02(self, ws):
         """
         Cols: Major topics; Sex
         Rows: Country
@@ -3869,7 +3869,7 @@ class XLSXReportBuilder:
         self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, all_regions, row_perc=True, show_N=True)
 
 
-    def ws_s03r(self, ws):
+    def ws_sr03(self, ws):
         """
         Cols: Function; Sex
         Rows: Country
@@ -3896,6 +3896,36 @@ class XLSXReportBuilder:
 
 
             secondary_counts[clean_title(function)] = counts
+
+        self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, all_regions, row_perc=True, show_N=True)
+
+
+    def ws_sr04(self, ws):
+        """
+        Cols: Photographed; Sex
+        Rows: Country
+        :: Newspaper only region
+        """
+        all_regions = add_transnational_to_regions(self.regions)
+        secondary_counts = OrderedDict()
+        model = person_models.get('Print')
+
+        for code, answer in IS_PHOTOGRAPH:
+            counts = Counter()
+            region = model.sheet_name() + '__country_region__region'
+            rows = model.objects\
+                    .values('sex', region)\
+                    .filter(**{region + '__in': self.region_list})\
+                    .filter(sex__in=self.male_female_ids)\
+                    .filter(is_photograph=code)\
+                    .annotate(n=Count('id'))
+
+            for row in rows:
+                region_id = [r[0] for r in all_regions if r[1] == row[region]][0]
+                counts.update({(row['sex'], region_id): row['n']})
+
+
+            secondary_counts[answer] = counts
 
         self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, all_regions, row_perc=True, show_N=True)
 

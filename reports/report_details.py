@@ -705,8 +705,8 @@ WS_INFO = {
     },
     'ws_s09': {
         'name': 's09',
-        'title': 'News subjects appearing in newspaper photographs',
-        'desc': 'News subjects appearing in newspaper photographs',
+        'title': 'Print only - News subjects appearing in newspaper photographs',
+        'desc': 'Print only - News subjects appearing in newspaper photographs',
         'reports': ['global'],
     },
     'ws_s10': {
@@ -817,22 +817,28 @@ WS_INFO = {
         'desc': 'Internet, Twitter - Stories that clearly challenge stereotypes',
         'reports': ['global'],
     },
-    'ws_s01r': {
-        'name': 's01r',
+    'ws_sr01': {
+        'name': 'rs01',
         'title': 'Sex of presenters, reporters and news subjects by region',
         'desc': 'Sex of presenters, reporters and news subjects by region',
         'reports': ['global'],
     },
-    'ws_s02r': {
-        'name': 's02r',
+    'ws_sr02': {
+        'name': 'sr02',
         'title': 'News subjects in main topic areas by region',
         'desc': 'News subjects in main topic areas by region',
         'reports': ['global'],
     },
-    'ws_s03r': {
-        'name': 's03r',
+    'ws_sr03': {
+        'name': 'sr03',
         'title': 'Function of news subjects by region',
         'desc': 'Function of news subjects by region',
+        'reports': ['global'],
+    },
+    'ws_sr04': {
+        'name': 'sr04',
+        'title': 'Print only - News subjects in photographs by region',
+        'desc': 'Print only - News subjects in photographs by region',
         'reports': ['global'],
     },
 }
