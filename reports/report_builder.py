@@ -167,7 +167,7 @@ class XLSXReportBuilder:
         self.P = workbook.add_format(FORMATS['P'])
 
         if settings.DEBUG:
-            sheets = ['ws_sr06', 'ws_sr07']
+            sheets = ['ws_s13', 'ws_sr06', 'ws_sr07']
         else:
             sheets = WS_INFO.keys()
 
@@ -3323,21 +3323,20 @@ class XLSXReportBuilder:
         for sex_id, sex in self.male_female:
             counts = Counter()
             for media_type, model in tm_person_models.iteritems():
-                if 'family_role' in model._meta.get_all_field_names():
-                    sheet_name = model.sheet_name()
-                    journo_name = model._meta.get_field(model.sheet_name()).rel.to.journalist_field_name()
-                    country = model.sheet_name() + '__country'
-                    rows = model.objects\
-                            .values('sex', country)\
-                            .filter(**{model.sheet_name() + '__country__in':self.country_list})\
-                            .filter(**{sheet_name + '__' + journo_name + '__sex':sex_id})\
-                            .filter(sex__in=self.male_female_ids)\
-                            .annotate(n=Count('id'))
+                sheet_name = model.sheet_name()
+                journo_name = model._meta.get_field(model.sheet_name()).rel.to.journalist_field_name()
+                country = model.sheet_name() + '__country'
+                rows = model.objects\
+                        .values('sex', country)\
+                        .filter(**{model.sheet_name() + '__country__in':self.country_list})\
+                        .filter(**{sheet_name + '__' + journo_name + '__sex':sex_id})\
+                        .filter(sex__in=self.male_female_ids)\
+                        .annotate(n=Count('id'))
 
-                    if media_type in REPORTER_MEDIA:
-                        rows = rows.filter(**{sheet_name + '__' + journo_name + '__role':REPORTERS})
+                if media_type in REPORTER_MEDIA:
+                    rows = rows.filter(**{sheet_name + '__' + journo_name + '__role':REPORTERS})
 
-                    counts.update({(r['sex'], r[country]): r['n'] for r in rows})
+                counts.update({(r['sex'], r[country]): r['n'] for r in rows})
 
             secondary_counts[sex] = counts
 
