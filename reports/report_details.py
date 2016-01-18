@@ -763,6 +763,12 @@ WS_INFO = {
         'desc': 'Internet, Twitter - News subjects on Internet and Twitter news',
         'reports': ['global'],
     },
+    'ws_s19': {
+        'name': 's19',
+        'title': 'Internet, Twitter - News subjects in major topic areas.',
+        'desc': 'Internet, Twitter - News subjects in major topic areas.',
+        'reports': ['global'],
+    },
 }
 
 

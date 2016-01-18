@@ -167,7 +167,7 @@ class XLSXReportBuilder:
         self.P = workbook.add_format(FORMATS['P'])
 
         if settings.DEBUG:
-            sheets = ['ws_s17', 'ws_s18']
+            sheets = ['ws_s17', 'ws_s18', 'ws_s19']
         else:
             sheets = WS_INFO.keys()
 
@@ -3449,6 +3449,7 @@ class XLSXReportBuilder:
 
             c = ws.dim_colmax + 2
 
+
     def ws_s18(self, ws):
         """
         Cols: Sex of subjects
@@ -3456,7 +3457,6 @@ class XLSXReportBuilder:
         :: Internet, Twitter
         """
         c = 1
-        secondary_counts = OrderedDict()
         for media_type, model in dm_person_models.iteritems():
             self.write_primary_row_heading(ws, media_type, c=c+1, r=4)
 
@@ -3473,6 +3473,38 @@ class XLSXReportBuilder:
                 counts.update({(row['sex'], self.recode_country(row[country])): row['n']})
 
             self.tabulate(ws, counts, self.male_female, self.countries, row_perc=True, show_N=True, c=c, r=7)
+
+            c = ws.dim_colmax + 2
+
+
+    def ws_s19(self, ws):
+        """
+        Cols: Major topics; Sex
+        Rows: Country
+        :: Internet, Twitter
+        """
+        c = 1
+
+        for media_type, model in dm_sheet_models.iteritems():
+            self.write_primary_row_heading(ws, media_type, c=c+1, r=4)
+            secondary_counts = OrderedDict()
+
+            for major_topic, topic_ids in GROUP_TOPICS_MAP.iteritems():
+                counts = Counter()
+                person_sex_field = '%s__sex' % model.person_field_name()
+                rows = model.objects\
+                        .values(person_sex_field, 'country')\
+                        .filter(country__in= self.country_list)\
+                        .filter(**{person_sex_field + '__in': self.male_female_ids})\
+                        .filter(topic__in=topic_ids)\
+                        .annotate(n=Count('id'))
+
+                counts.update({(r[person_sex_field], self.recode_country(r['country'])): r['n'] for r in rows})
+
+                major_topic_name = [mt[1] for mt in MAJOR_TOPICS if mt[0] == int(major_topic)][0]
+                secondary_counts[major_topic_name] = counts
+
+                self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, self.countries, row_perc=True, show_N=True, c=c, r=8)
 
             c = ws.dim_colmax + 2
 
