@@ -167,7 +167,7 @@ class XLSXReportBuilder:
         self.P = workbook.add_format(FORMATS['P'])
 
         if settings.DEBUG:
-            sheets = ['ws_s14']
+            sheets = ['ws_s15']
         else:
             sheets = WS_INFO.keys()
 
@@ -3369,6 +3369,24 @@ class XLSXReportBuilder:
 
         self.tabulate(ws, counts, AGREE_DISAGREE, self.countries, row_perc=True, show_N=True)
 
+
+    def ws_s15(self, ws):
+        """
+        Cols: Stereotypes
+        Rows: Country
+        :: Newspaper, television, radio
+        """
+        counts = Counter()
+        for media_type, model in tm_sheet_models.iteritems():
+            rows = model.objects\
+                .values('inequality_women', 'country')\
+                .filter(country__in=self.country_list)\
+                .annotate(n=Count('id'))
+
+            for row in rows:
+                counts.update({(row['inequality_women'], self.recode_country(row['country'])): row['n']})
+
+        self.tabulate(ws, counts, AGREE_DISAGREE, self.countries, row_perc=True, show_N=True)
 
     # -------------------------------------------------------------------------------
     # Helper functions
