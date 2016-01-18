@@ -794,9 +794,15 @@ WS_INFO = {
         'reports': ['global'],
     },
     'ws_s24': {
-        'name': 's23',
+        'name': 's24',
         'title': 'Internet, Twitter - News subjects appearing in images and video plug-ins',
         'desc': 'Internet, Twitter - News subjects appearing in images and video plug-ins',
+        'reports': ['global'],
+    },
+    'ws_s25': {
+        'name': 's25',
+        'title': 'Internet, Twitter - Reporters in major topic areas',
+        'desc': 'Internet, Twitter - Reporters in major topic areas',
         'reports': ['global'],
     },
 }

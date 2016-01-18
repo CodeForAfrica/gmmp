@@ -167,7 +167,7 @@ class XLSXReportBuilder:
         self.P = workbook.add_format(FORMATS['P'])
 
         if settings.DEBUG:
-            sheets = ['ws_s24']
+            sheets = ['ws_s25']
         else:
             sheets = WS_INFO.keys()
 
@@ -3687,6 +3687,40 @@ class XLSXReportBuilder:
                     counts.update({(row['sex'], self.recode_country(row[country])): row['n']})
 
                 secondary_counts[answer] = counts
+
+                self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, self.countries, row_perc=True, show_N=True, c=c, r=8)
+
+            c = ws.dim_colmax + 2
+
+
+    def ws_s25(self, ws):
+        """
+        Cols: Major topics; Sex
+        Rows: Country
+        :: Internet, Twitter
+        """
+        c = 1
+
+        for media_type, model in dm_sheet_models.iteritems():
+            self.write_primary_row_heading(ws, media_type, c=c+1, r=4)
+
+            secondary_counts = OrderedDict()
+            journo_sex_field = '%s__sex' % model.journalist_field_name()
+
+            for major_topic, topic_ids in GROUP_TOPICS_MAP.iteritems():
+                counts = Counter()
+                rows = model.objects\
+                        .values(journo_sex_field, 'country')\
+                        .filter(country__in= self.country_list)\
+                        .filter(**{journo_sex_field + '__in': self.male_female_ids})\
+                        .filter(topic__in=topic_ids) \
+                        .annotate(n=Count('id'))
+
+                for row in rows:
+                    counts.update({(row[journo_sex_field], self.recode_country(row['country'])): row['n']})
+
+                major_topic_name = [mt[1] for mt in MAJOR_TOPICS if mt[0] == int(major_topic)][0]
+                secondary_counts[major_topic_name] = counts
 
                 self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, self.countries, row_perc=True, show_N=True, c=c, r=8)
 
