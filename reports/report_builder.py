@@ -167,7 +167,7 @@ class XLSXReportBuilder:
         self.P = workbook.add_format(FORMATS['P'])
 
         if settings.DEBUG:
-            sheets = ['ws_s25']
+            sheets = ['ws_s26']
         else:
             sheets = WS_INFO.keys()
 
@@ -3727,6 +3727,34 @@ class XLSXReportBuilder:
                 self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, self.countries, row_perc=True, show_N=True, c=c, r=8)
 
             c = ws.dim_colmax + 2
+
+
+    def ws_s26(self, ws):
+        """
+        Cols: Major topics; Women Central
+        Rows: Country
+        :: Internet, Twitter
+        """
+        c = 1
+        for media_type, model in dm_sheet_models.iteritems():
+            self.write_primary_row_heading(ws, media_type, c=c+1, r=4)
+
+            counts = Counter()
+            rows = model.objects\
+                .values('topic', 'country')\
+                .filter(country__in=self.country_list)\
+                .filter(about_women='Y')\
+                .annotate(n=Count('id'))
+
+            for row in rows:
+                major_topic = TOPIC_GROUPS[row['topic']]
+                counts.update({(major_topic, self.recode_country(row['country'])): row['n']})
+
+
+            self.tabulate(ws, counts, MAJOR_TOPICS, self.countries, raw_values=True, c=c, r=7)
+
+            c = ws.dim_colmax + 2
+
 
     # -------------------------------------------------------------------------------
     # Helper functions

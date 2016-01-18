@@ -805,6 +805,12 @@ WS_INFO = {
         'desc': 'Internet, Twitter - Reporters in major topic areas',
         'reports': ['global'],
     },
+    'ws_s26': {
+        'name': 's26',
+        'title': 'Internet, Twitter - Topics in stories where women are central to the news',
+        'desc': 'Internet, Twitter - Topics in stories where women are central to the news',
+        'reports': ['global'],
+    },
 }
 
 
