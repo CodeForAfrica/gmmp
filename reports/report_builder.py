@@ -167,7 +167,7 @@ class XLSXReportBuilder:
         self.P = workbook.add_format(FORMATS['P'])
 
         if settings.DEBUG:
-            sheets = ['ws_s12']
+            sheets = ['ws_s13']
         else:
             sheets = WS_INFO.keys()
 
@@ -3293,6 +3293,7 @@ class XLSXReportBuilder:
 
         self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, self.countries, row_perc=True, show_N=True)
 
+
     def ws_s12(self, ws):
         """
         Cols: Major topics; Women Central
@@ -3312,6 +3313,43 @@ class XLSXReportBuilder:
                 counts.update({(major_topic, self.recode_country(row['country'])): row['n']})
 
         self.tabulate(ws, counts, MAJOR_TOPICS, self.countries, raw_values=True)
+
+
+    def ws_s13(self, ws):
+        """
+        Cols: Journalist Sex, Subject Sex
+        Rows: Country
+        :: Newspaper, television, radio
+        """
+
+        secondary_counts = OrderedDict()
+        for sex_id, sex in self.male_female:
+            counts = Counter()
+            for media_type, model in tm_person_models.iteritems():
+                if 'family_role' in model._meta.get_all_field_names():
+                    sheet_name = model.sheet_name()
+                    journo_name = model._meta.get_field(model.sheet_name()).rel.to.journalist_field_name()
+                    country = model.sheet_name() + '__country'
+                    rows = model.objects\
+                            .values('sex', country)\
+                            .filter(**{model.sheet_name() + '__country__in':self.country_list})\
+                            .filter(**{sheet_name + '__' + journo_name + '__sex':sex_id})\
+                            .filter(sex__in=self.male_female_ids)\
+                            .annotate(n=Count('id'))
+
+                    if media_type in REPORTER_MEDIA:
+                        rows = rows.filter(**{sheet_name + '__' + journo_name + '__role':REPORTERS})
+
+                    counts.update({(r['sex'], r[country]): r['n'] for r in rows})
+
+            secondary_counts[sex] = counts
+
+        secondary_counts['col_title_def'] = [
+            'Sex of reporter',
+            'Sex of news subject']
+
+        self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, self.countries, row_perc=True, show_N=True)
+
 
     # -------------------------------------------------------------------------------
     # Helper functions
