@@ -871,6 +871,12 @@ WS_INFO = {
         'desc': 'Stories where issues of gender (in)equality are raised, by region',
         'reports': ['global'],
     },
+    'ws_sr10': {
+        'name': 'sr10',
+        'title': 'Stories that clearly challenge gender stereotypes, by region',
+        'desc': 'Stories that clearly challenge gender stereotypes, by region',
+        'reports': ['global'],
+    },
 }
 
 

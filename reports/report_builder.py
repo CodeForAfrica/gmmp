@@ -166,10 +166,10 @@ class XLSXReportBuilder:
         self.N = workbook.add_format(FORMATS['N'])
         self.P = workbook.add_format(FORMATS['P'])
 
-        if settings.DEBUG:
-            sheets = ['ws_sr09']
-        else:
-            sheets = WS_INFO.keys()
+        # if settings.DEBUG:
+        #     sheets = ['ws_sr10']
+        # else:
+        sheets = WS_INFO.keys()
 
         # choose only those suitable for this report type
         sheets = [s for s in sheets if self.report_type in WS_INFO[s]['reports']]
@@ -4098,6 +4098,27 @@ class XLSXReportBuilder:
 
         self.tabulate(ws, counts, AGREE_DISAGREE, all_regions, row_perc=True, show_N=True)
 
+
+    def ws_sr10(self, ws):
+        """
+        Cols: Stereotypes
+        Rows: Country
+        :: Newspaper, television, radio by region
+        """
+        all_regions = add_transnational_to_regions(self.regions)
+        counts = Counter()
+        region = 'country_region__region'
+        for media_type, model in tm_sheet_models.iteritems():
+            rows = model.objects\
+                .values('stereotypes', region)\
+                .filter(**{region + '__in': self.region_list})\
+                .annotate(n=Count('id'))
+
+            for row in rows:
+                region_id = [r[0] for r in all_regions if r[1] == row[region]][0]
+                counts.update({(row['stereotypes'], region_id): row['n']})
+
+        self.tabulate(ws, counts, AGREE_DISAGREE, all_regions, row_perc=True, show_N=True)
 
     # -------------------------------------------------------------------------------
     # Helper functions
