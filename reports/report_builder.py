@@ -166,10 +166,10 @@ class XLSXReportBuilder:
         self.N = workbook.add_format(FORMATS['N'])
         self.P = workbook.add_format(FORMATS['P'])
 
-        if settings.DEBUG:
-            sheets = ['ws_sr05']
-        else:
-            sheets = WS_INFO.keys()
+        # if settings.DEBUG:
+        #     sheets = ['ws_sr05']
+        # else:
+        sheets = WS_INFO.keys()
 
         # choose only those suitable for this report type
         sheets = [s for s in sheets if self.report_type in WS_INFO[s]['reports']]
@@ -3237,7 +3237,7 @@ class XLSXReportBuilder:
 
                 if media_type in REPORTER_MEDIA:
                     # Newspaper journos don't have roles
-                    qs = qs.filter(role__in=role_ids)
+                    rows = rows.filter(role__in=role_ids)
 
                 for row in rows:
                     counts.update({(row['sex'], row[country]): row['n']})
@@ -3263,17 +3263,16 @@ class XLSXReportBuilder:
                 journo_sex_field = '%s__sex' % model.journalist_field_name()
                 journo_role_field = '%s__role' % model.journalist_field_name()
 
-                qs = model.objects\
+                rows = model.objects\
                     .values(journo_sex_field, 'country')\
                     .filter(country__in= self.country_list)\
                     .filter(**{journo_sex_field + '__in': self.male_female_ids})\
-                    .filter(topic__in=topic_ids)
+                    .filter(topic__in=topic_ids)\
+                    .annotate(n=Count('id'))
 
                 if media_type in REPORTER_MEDIA:
                     # Newspaper journos don't have roles
-                    qs = qs.filter(**{journo_role_field: REPORTERS})
-
-                rows = qs.annotate(n=Count('id'))
+                    rows = rows.filter(**{journo_role_field: REPORTERS})
 
                 counts.update({(r[journo_sex_field], self.recode_country(r['country'])): r['n'] for r in rows})
 
