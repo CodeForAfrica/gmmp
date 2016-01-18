@@ -167,7 +167,7 @@ class XLSXReportBuilder:
         self.P = workbook.add_format(FORMATS['P'])
 
         if settings.DEBUG:
-            sheets = ['ws_sr10']
+            sheets = ['ws_sr05']
         else:
             sheets = WS_INFO.keys()
 
@@ -3228,19 +3228,16 @@ class XLSXReportBuilder:
             for journo_type, role_ids in presenter_reporter:
                 counts = Counter()
                 country = model.sheet_name() + '__country'
-                if media_type in broadcast_journalist_models:
-                    rows = model.objects\
-                        .values('sex', country)\
-                        .filter(**{country + '__in': self.country_list})\
-                        .filter(sex__in=self.male_female_ids)\
-                        .filter(role__in=role_ids)\
-                        .annotate(n=Count('id'))
-                else:
-                    rows = model.objects\
-                        .values('sex', country)\
-                        .filter(**{country + '__in': self.country_list})\
-                        .filter(sex__in=self.male_female_ids)\
-                        .annotate(n=Count('id'))
+
+                rows = model.objects\
+                    .values('sex', country)\
+                    .filter(**{country + '__in': self.country_list})\
+                    .filter(sex__in=self.male_female_ids)\
+                    .annotate(n=Count('id'))
+
+                if media_type in REPORTER_MEDIA:
+                    # Newspaper journos don't have roles
+                    qs = qs.filter(role__in=role_ids)
 
                 for row in rows:
                     counts.update({(row['sex'], row[country]): row['n']})
@@ -3272,7 +3269,7 @@ class XLSXReportBuilder:
                     .filter(**{journo_sex_field + '__in': self.male_female_ids})\
                     .filter(topic__in=topic_ids)
 
-                if media_type != 'Print':
+                if media_type in REPORTER_MEDIA:
                     # Newspaper journos don't have roles
                     qs = qs.filter(**{journo_role_field: REPORTERS})
 
@@ -3789,20 +3786,17 @@ class XLSXReportBuilder:
 
             for media_type, model in journo_models.iteritems():
                 region = model.sheet_name() + '__country_region__region'
-                if media_type == 'Print':
+
+                rows = model.objects\
+                    .values('sex', region)\
+                    .filter(**{region + '__in': self.region_list})\
+                    .filter(sex__in=self.male_female_ids)\
+                    .annotate(n=Count('id'))
+
+                if media_type in REPORTER_MEDIA:
                     # Newspaper journos don't have roles
-                    rows = model.objects\
-                        .values('sex', region)\
-                        .filter(**{region + '__in': self.region_list})\
-                        .filter(sex__in=self.male_female_ids)\
-                        .annotate(n=Count('id'))
-                else:
-                    rows = model.objects\
-                            .values('sex', region)\
-                            .filter(**{region + '__in': self.region_list})\
-                            .filter(sex__in=self.male_female_ids)\
-                            .filter(role__in=role_ids)\
-                            .annotate(n=Count('id'))
+                    rows = rows.filter(role__in=role_ids)
+
                 for row in rows:
                     region_id = [r[0] for r in all_regions if r[1] == row[region]][0]
                     counts.update({(row['sex'], region_id): row['n']})
@@ -3944,19 +3938,15 @@ class XLSXReportBuilder:
                 counts = Counter()
                 region = model.sheet_name() + '__country_region__region'
 
-                if media_type in broadcast_journalist_models:
-                    rows = model.objects\
-                            .values('sex', region)\
-                            .filter(**{region + '__in': self.region_list})\
-                            .filter(sex__in=self.male_female_ids)\
-                            .filter(role__in=role_ids)\
-                            .annotate(n=Count('id'))
-                else:
-                    rows = model.objects\
+                rows = model.objects\
                         .values('sex', region)\
                         .filter(**{region + '__in': self.region_list})\
                         .filter(sex__in=self.male_female_ids)\
                         .annotate(n=Count('id'))
+
+                if media_type in REPORTER_MEDIA:
+                    # Newspaper journos don't have roles
+                    rows = rows.filter(role__in=role_ids)
 
                 for row in rows:
                     region_id = [reg[0] for reg in all_regions if reg[1] == row[region]][0]
