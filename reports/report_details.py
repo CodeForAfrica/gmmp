@@ -841,6 +841,12 @@ WS_INFO = {
         'desc': 'Print only - News subjects in photographs by region',
         'reports': ['global'],
     },
+    'ws_sr05': {
+        'name': 'sr05',
+        'title': 'Presenters and reporters, by region, by medium',
+        'desc': 'Presenters and reporters, by region, by medium',
+        'reports': ['global'],
+    },
 }
 
 
