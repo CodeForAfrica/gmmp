@@ -745,6 +745,12 @@ WS_INFO = {
         'desc': 'Stories that highlight gender equality or inequality',
         'reports': ['global'],
     },
+    'ws_s16': {
+        'name': 's16',
+        'title': 'Stories that mention human rights or equality legislation and policies',
+        'desc': 'Stories that mention human rights or equality legislation and policies',
+        'reports': ['global'],
+    },
 }
 
 
