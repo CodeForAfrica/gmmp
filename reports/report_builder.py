@@ -167,7 +167,7 @@ class XLSXReportBuilder:
         self.P = workbook.add_format(FORMATS['P'])
 
         if settings.DEBUG:
-            sheets = ['ws_s26']
+            sheets = ['ws_s26', 'ws_s27']
         else:
             sheets = WS_INFO.keys()
 
@@ -3752,6 +3752,31 @@ class XLSXReportBuilder:
 
 
             self.tabulate(ws, counts, MAJOR_TOPICS, self.countries, raw_values=True, c=c, r=7)
+
+            c = ws.dim_colmax + 2
+
+
+    def ws_s27(self, ws):
+        """
+        Cols: Stereotypes
+        Rows: Country
+        :: Internet, Twitter
+        """
+        c = 1
+        for media_type, model in dm_sheet_models.iteritems():
+            self.write_primary_row_heading(ws, media_type, c=c+1, r=4)
+
+            counts = Counter()
+            rows = model.objects\
+                .values('stereotypes', 'country')\
+                .filter(country__in=self.country_list)\
+                .annotate(n=Count('id'))
+
+            for row in rows:
+                counts.update({(row['stereotypes'], self.recode_country(row['country'])): row['n']})
+
+
+            self.tabulate(ws, counts, AGREE_DISAGREE, self.countries, raw_values=True, c=c, r=7)
 
             c = ws.dim_colmax + 2
 

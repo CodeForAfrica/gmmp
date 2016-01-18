@@ -811,6 +811,12 @@ WS_INFO = {
         'desc': 'Internet, Twitter - Topics in stories where women are central to the news',
         'reports': ['global'],
     },
+    'ws_s27': {
+        'name': 's27',
+        'title': 'Internet, Twitter - Stories that clearly challenge stereotypes',
+        'desc': 'Internet, Twitter - Stories that clearly challenge stereotypes',
+        'reports': ['global'],
+    },
 }
 
 
