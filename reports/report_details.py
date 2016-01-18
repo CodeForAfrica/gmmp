@@ -733,6 +733,12 @@ WS_INFO = {
         'desc': 'Sex of reporter in stories with female and male news subjects',
         'reports': ['global'],
     },
+    'ws_s14': {
+        'name': 's14',
+        'title': 'Stories that clearly challenge stereotypes',
+        'desc': 'Stories that clearly challenge stereotypes',
+        'reports': ['global'],
+    },
 }
 
 
