@@ -705,8 +705,8 @@ WS_INFO = {
     },
     'ws_s09': {
         'name': 's09',
-        'title': 'News subjects appearing in newspaper photographs',
-        'desc': 'News subjects appearing in newspaper photographs',
+        'title': 'Print only - News subjects appearing in newspaper photographs',
+        'desc': 'Print only - News subjects appearing in newspaper photographs',
         'reports': ['global'],
     },
     'ws_s10': {
@@ -815,6 +815,66 @@ WS_INFO = {
         'name': 's27',
         'title': 'Internet, Twitter - Stories that clearly challenge stereotypes',
         'desc': 'Internet, Twitter - Stories that clearly challenge stereotypes',
+        'reports': ['global'],
+    },
+    'ws_sr01': {
+        'name': 'rs01',
+        'title': 'Sex of presenters, reporters and news subjects by region',
+        'desc': 'Sex of presenters, reporters and news subjects by region',
+        'reports': ['global'],
+    },
+    'ws_sr02': {
+        'name': 'sr02',
+        'title': 'News subjects in main topic areas by region',
+        'desc': 'News subjects in main topic areas by region',
+        'reports': ['global'],
+    },
+    'ws_sr03': {
+        'name': 'sr03',
+        'title': 'Function of news subjects by region',
+        'desc': 'Function of news subjects by region',
+        'reports': ['global'],
+    },
+    'ws_sr04': {
+        'name': 'sr04',
+        'title': 'Print only - News subjects in photographs by region',
+        'desc': 'Print only - News subjects in photographs by region',
+        'reports': ['global'],
+    },
+    'ws_sr05': {
+        'name': 'sr05',
+        'title': 'Presenters and reporters, by region, by medium',
+        'desc': 'Presenters and reporters, by region, by medium',
+        'reports': ['global'],
+    },
+    'ws_sr06': {
+        'name': 'sr06',
+        'title': 'Reporters in major topic areas, by region',
+        'desc': 'Reporters in major topic areas, by region',
+        'reports': ['global'],
+    },
+    'ws_sr07': {
+        'name': 'sr07',
+        'title': 'Reporters and sex of news subject, by region',
+        'desc': 'Reporters and sex of news subject, by region',
+        'reports': ['global'],
+    },
+    'ws_sr08': {
+        'name': 'sr08',
+        'title': 'Stories where women are central to the news, by region',
+        'desc': 'Stories where women are central to the news, by region',
+        'reports': ['global'],
+    },
+    'ws_sr09': {
+        'name': 'sr09',
+        'title': 'Stories where issues of gender (in)equality are raised, by region',
+        'desc': 'Stories where issues of gender (in)equality are raised, by region',
+        'reports': ['global'],
+    },
+    'ws_sr10': {
+        'name': 'sr10',
+        'title': 'Stories that clearly challenge gender stereotypes, by region',
+        'desc': 'Stories that clearly challenge gender stereotypes, by region',
         'reports': ['global'],
     },
 }
