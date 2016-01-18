@@ -865,6 +865,12 @@ WS_INFO = {
         'desc': 'Stories where women are central to the news, by region',
         'reports': ['global'],
     },
+    'ws_sr09': {
+        'name': 'sr09',
+        'title': 'Stories where issues of gender (in)equality are raised, by region',
+        'desc': 'Stories where issues of gender (in)equality are raised, by region',
+        'reports': ['global'],
+    },
 }
 
 

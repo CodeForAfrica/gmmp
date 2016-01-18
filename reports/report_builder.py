@@ -167,7 +167,7 @@ class XLSXReportBuilder:
         self.P = workbook.add_format(FORMATS['P'])
 
         if settings.DEBUG:
-            sheets = ['ws_sr08', 'ws_s12']
+            sheets = ['ws_sr09']
         else:
             sheets = WS_INFO.keys()
 
@@ -3368,7 +3368,7 @@ class XLSXReportBuilder:
 
     def ws_s15(self, ws):
         """
-        Cols: Stereotypes
+        Cols: Gender inequality
         Rows: Country
         :: Newspaper, television, radio
         """
@@ -3386,7 +3386,7 @@ class XLSXReportBuilder:
 
     def ws_s16(self, ws):
         """
-        Cols: Stereotypes
+        Cols: Equality rights
         Rows: Country
         :: Newspaper, television, radio
         """
@@ -4075,6 +4075,29 @@ class XLSXReportBuilder:
                 counts.update({(major_topic, region_id): row['n']})
 
         self.tabulate(ws, counts, MAJOR_TOPICS, all_regions, raw_values=True, write_col_totals=False)
+
+
+    def ws_sr09(self, ws):
+        """
+        Cols: Gender inequality
+        Rows: Country
+        :: Newspaper, television, radio by region
+        """
+        all_regions = add_transnational_to_regions(self.regions)
+        counts = Counter()
+        region = 'country_region__region'
+        for media_type, model in tm_sheet_models.iteritems():
+            rows = model.objects\
+                .values('inequality_women', region)\
+                .filter(**{region + '__in': self.region_list})\
+                .annotate(n=Count('id'))
+
+            for row in rows:
+                region_id = [r[0] for r in all_regions if r[1] == row[region]][0]
+                counts.update({(row['inequality_women'], region_id): row['n']})
+
+        self.tabulate(ws, counts, AGREE_DISAGREE, all_regions, row_perc=True, show_N=True)
+
 
     # -------------------------------------------------------------------------------
     # Helper functions
