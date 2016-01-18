@@ -757,6 +757,12 @@ WS_INFO = {
         'desc': 'Internet, Twitter - Sex of reporters and news subjects',
         'reports': ['global'],
     },
+    'ws_s18': {
+        'name': 's18',
+        'title': 'Internet, Twitter - News subjects on Internet and Twitter news',
+        'desc': 'Internet, Twitter - News subjects on Internet and Twitter news',
+        'reports': ['global'],
+    },
 }
 
 
