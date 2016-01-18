@@ -787,6 +787,18 @@ WS_INFO = {
         'desc': 'Internet - News subjects who are victims',
         'reports': ['global'],
     },
+    'ws_s23': {
+        'name': 's23',
+        'title': 'Internet - News subjects quoted',
+        'desc': 'Internet - News subjects quoted',
+        'reports': ['global'],
+    },
+    'ws_s24': {
+        'name': 's23',
+        'title': 'Internet, Twitter - News subjects appearing in images and video plug-ins',
+        'desc': 'Internet, Twitter - News subjects appearing in images and video plug-ins',
+        'reports': ['global'],
+    },
 }
 
 

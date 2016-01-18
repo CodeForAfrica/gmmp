@@ -167,7 +167,7 @@ class XLSXReportBuilder:
         self.P = workbook.add_format(FORMATS['P'])
 
         if settings.DEBUG:
-            sheets = ['ws_s22']
+            sheets = ['ws_s24']
         else:
             sheets = WS_INFO.keys()
 
@@ -3628,6 +3628,69 @@ class XLSXReportBuilder:
 
                 c = ws.dim_colmax + 2
 
+
+    def ws_s23(self, ws):
+        """
+        Cols: Quoted; Sex
+        Rows: Country
+        :: Internet, Twitter
+        """
+        c = 1
+
+        for media_type, model in dm_person_models.iteritems():
+            if not media_type == 'Twitter':
+                self.write_primary_row_heading(ws, media_type, c=c+1, r=4)
+                secondary_counts = OrderedDict()
+                country = model.sheet_name() + '__country'
+                for code, answer in YESNO:
+                    counts = Counter()
+                    rows = model.objects\
+                        .values('sex', country)\
+                        .filter(**{country + '__in': self.country_list})\
+                        .filter(sex__in=self.male_female_ids)\
+                        .filter(is_quoted=code)\
+                        .annotate(n=Count('id'))
+
+                    for row in rows:
+                        counts.update({(row['sex'], self.recode_country(row[country])): row['n']})
+
+                    secondary_counts[answer] = counts
+
+                    self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, self.countries, row_perc=True, show_N=True, c=c, r=8)
+
+                c = ws.dim_colmax + 2
+
+
+    def ws_s24(self, ws):
+        """
+        Cols: Photographed; Sex
+        Rows: Country
+        :: Internet, Twitter
+        """
+        c = 1
+
+        for media_type, model in dm_person_models.iteritems():
+
+            self.write_primary_row_heading(ws, media_type, c=c+1, r=4)
+            secondary_counts = OrderedDict()
+            country = model.sheet_name() + '__country'
+            for code, answer in IS_PHOTOGRAPH:
+                counts = Counter()
+                rows = model.objects\
+                    .values('sex', country)\
+                    .filter(**{country + '__in': self.country_list})\
+                    .filter(sex__in=self.male_female_ids)\
+                    .filter(is_photograph=code)\
+                    .annotate(n=Count('id'))
+
+                for row in rows:
+                    counts.update({(row['sex'], self.recode_country(row[country])): row['n']})
+
+                secondary_counts[answer] = counts
+
+                self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, self.countries, row_perc=True, show_N=True, c=c, r=8)
+
+            c = ws.dim_colmax + 2
 
     # -------------------------------------------------------------------------------
     # Helper functions
