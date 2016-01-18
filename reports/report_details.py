@@ -739,6 +739,12 @@ WS_INFO = {
         'desc': 'Stories that clearly challenge stereotypes',
         'reports': ['global'],
     },
+    'ws_s15': {
+        'name': 's15',
+        'title': 'Stories that highlight gender equality or inequality',
+        'desc': 'Stories that highlight gender equality or inequality',
+        'reports': ['global'],
+    },
 }
 
 
