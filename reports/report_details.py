@@ -853,6 +853,12 @@ WS_INFO = {
         'desc': 'Reporters in major topic areas, by region',
         'reports': ['global'],
     },
+    'ws_sr07': {
+        'name': 'sr07',
+        'title': 'Reporters and sex of news subject, by region',
+        'desc': 'Reporters and sex of news subject, by region',
+        'reports': ['global'],
+    },
 }
 
 
