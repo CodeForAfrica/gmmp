@@ -167,7 +167,7 @@ class XLSXReportBuilder:
         self.P = workbook.add_format(FORMATS['P'])
 
         if settings.DEBUG:
-            sheets = ['ws_s13', 'ws_sr06', 'ws_sr07']
+            sheets = ['ws_sr08', 'ws_s12']
         else:
             sheets = WS_INFO.keys()
 
@@ -3309,7 +3309,7 @@ class XLSXReportBuilder:
                 major_topic = TOPIC_GROUPS[row['topic']]
                 counts.update({(major_topic, self.recode_country(row['country'])): row['n']})
 
-        self.tabulate(ws, counts, MAJOR_TOPICS, self.countries, raw_values=True)
+        self.tabulate(ws, counts, MAJOR_TOPICS, self.countries, raw_values=True, write_col_totals=False)
 
 
     def ws_s13(self, ws):
@@ -3745,7 +3745,7 @@ class XLSXReportBuilder:
                 counts.update({(major_topic, self.recode_country(row['country'])): row['n']})
 
 
-            self.tabulate(ws, counts, MAJOR_TOPICS, self.countries, raw_values=True, c=c, r=7)
+            self.tabulate(ws, counts, MAJOR_TOPICS, self.countries, raw_values=True, c=c, r=7, write_col_totals=False)
 
             c = ws.dim_colmax + 2
 
@@ -3770,7 +3770,7 @@ class XLSXReportBuilder:
                 counts.update({(row['stereotypes'], self.recode_country(row['country'])): row['n']})
 
 
-            self.tabulate(ws, counts, AGREE_DISAGREE, self.countries, raw_values=True, c=c, r=7)
+            self.tabulate(ws, counts, AGREE_DISAGREE, self.countries, raw_values=True, c=c, r=7, write_col_totals=False)
 
             c = ws.dim_colmax + 2
 
@@ -4051,6 +4051,30 @@ class XLSXReportBuilder:
             'Sex of news subject']
 
         self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, all_regions, row_perc=True, show_N=True)
+
+
+    def ws_sr08(self, ws):
+        """
+        Cols: Major topics; Women Central
+        Rows: Country
+        :: Newspaper, television, radio by region
+        """
+        all_regions = add_transnational_to_regions(self.regions)
+        counts = Counter()
+        region = 'country_region__region'
+        for media_type, model in tm_sheet_models.iteritems():
+            rows = model.objects\
+                .values('topic', region)\
+                .filter(**{region + '__in': self.region_list})\
+                .filter(about_women='Y')\
+                .annotate(n=Count('id'))
+
+            for row in rows:
+                major_topic = TOPIC_GROUPS[row['topic']]
+                region_id = [r[0] for r in all_regions if r[1] == row[region]][0]
+                counts.update({(major_topic, region_id): row['n']})
+
+        self.tabulate(ws, counts, MAJOR_TOPICS, all_regions, raw_values=True, write_col_totals=False)
 
     # -------------------------------------------------------------------------------
     # Helper functions

@@ -859,6 +859,12 @@ WS_INFO = {
         'desc': 'Reporters and sex of news subject, by region',
         'reports': ['global'],
     },
+    'ws_sr08': {
+        'name': 'sr08',
+        'title': 'Stories where women are central to the news, by region',
+        'desc': 'Stories where women are central to the news, by region',
+        'reports': ['global'],
+    },
 }
 
 
