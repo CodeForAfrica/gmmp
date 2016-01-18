@@ -167,7 +167,7 @@ class XLSXReportBuilder:
         self.P = workbook.add_format(FORMATS['P'])
 
         if settings.DEBUG:
-            sheets = ['ws_s16']
+            sheets = ['ws_s26', 'ws_s27']
         else:
             sheets = WS_INFO.keys()
 
@@ -2971,7 +2971,7 @@ class XLSXReportBuilder:
 
     def ws_s02(self, ws):
         """
-        Cols: Medium; Sex of presenters, reporters and subjects
+        Cols: Medium; Sex of subjects
         Rows: Country
         :: Newspaper, television, radio
         """
@@ -3277,6 +3277,7 @@ class XLSXReportBuilder:
                         .values(journo_sex_field, 'country')\
                         .filter(country__in= self.country_list)\
                         .filter(**{journo_sex_field + '__in': self.male_female_ids})\
+                        .filter(topic__in=topic_ids)\
                         .annotate(n=Count('id'))
                 else:
                     rows = model.objects\
@@ -3284,6 +3285,7 @@ class XLSXReportBuilder:
                             .filter(country__in= self.country_list)\
                             .filter(**{journo_sex_field + '__in': self.male_female_ids})\
                             .filter(**{journo_role_field: REPORTERS})\
+                            .filter(topic__in=topic_ids)\
                             .annotate(n=Count('id'))
 
                 counts.update({(r[journo_sex_field], self.recode_country(r['country'])): r['n'] for r in rows})
@@ -3405,6 +3407,379 @@ class XLSXReportBuilder:
                 counts.update({(row['equality_rights'], self.recode_country(row['country'])): row['n']})
 
         self.tabulate(ws, counts, YESNO, self.countries, row_perc=True, show_N=True)
+
+
+    def ws_s17(self, ws):
+        """
+        Cols: Sex of reporters and subjects
+        Rows: Country
+        :: Internet, Twitter
+        """
+        c = 1
+        for media_type, model in dm_journalist_models.iteritems():
+            self.write_primary_row_heading(ws, media_type, c=c+1, r=4)
+
+            secondary_counts = OrderedDict()
+            counts = Counter()
+            country = model.sheet_name() + '__country'
+
+            rows = model.objects\
+                .values('sex', country)\
+                .filter(**{country + '__in': self.country_list})\
+                .filter(sex__in=self.male_female_ids)\
+                .annotate(n=Count('id'))
+
+            for row in rows:
+                counts.update({(row['sex'], self.recode_country(row[country])): row['n']})
+
+            secondary_counts['Reporter'] = counts
+
+            counts = Counter()
+            for media_type, model in dm_person_models.iteritems():
+                country = model.sheet_name() + '__country'
+                rows = model.objects\
+                        .values('sex', country)\
+                        .filter(**{country + '__in': self.country_list})\
+                        .filter(sex__in=self.male_female_ids)\
+                        .annotate(n=Count('id'))
+
+                for row in rows:
+                    counts.update({(row['sex'], self.recode_country(row[country])): row['n']})
+
+            secondary_counts['Subjects'] = counts
+            self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, self.countries, row_perc=True, show_N=True, c=c, r=8)
+
+            c = ws.dim_colmax + 2
+
+
+    def ws_s18(self, ws):
+        """
+        Cols: Sex of subjects
+        Rows: Country
+        :: Internet, Twitter
+        """
+        c = 1
+        for media_type, model in dm_person_models.iteritems():
+            self.write_primary_row_heading(ws, media_type, c=c+1, r=4)
+
+            counts = Counter()
+
+            country = model.sheet_name() + '__country'
+            rows = model.objects\
+                    .values('sex', country)\
+                    .filter(**{country + '__in': self.country_list})\
+                    .filter(sex__in=self.male_female_ids)\
+                    .annotate(n=Count('id'))
+
+            for row in rows:
+                counts.update({(row['sex'], self.recode_country(row[country])): row['n']})
+
+            self.tabulate(ws, counts, self.male_female, self.countries, row_perc=True, show_N=True, c=c, r=7)
+
+            c = ws.dim_colmax + 2
+
+
+    def ws_s19(self, ws):
+        """
+        Cols: Major topics; Sex
+        Rows: Country
+        :: Internet, Twitter
+        """
+        c = 1
+
+        for media_type, model in dm_sheet_models.iteritems():
+            self.write_primary_row_heading(ws, media_type, c=c+1, r=4)
+            secondary_counts = OrderedDict()
+
+            for major_topic, topic_ids in GROUP_TOPICS_MAP.iteritems():
+                counts = Counter()
+                person_sex_field = '%s__sex' % model.person_field_name()
+                rows = model.objects\
+                        .values(person_sex_field, 'country')\
+                        .filter(country__in= self.country_list)\
+                        .filter(**{person_sex_field + '__in': self.male_female_ids})\
+                        .filter(topic__in=topic_ids)\
+                        .annotate(n=Count('id'))
+
+                counts.update({(r[person_sex_field], self.recode_country(r['country'])): r['n'] for r in rows})
+
+                major_topic_name = [mt[1] for mt in MAJOR_TOPICS if mt[0] == int(major_topic)][0]
+                secondary_counts[major_topic_name] = counts
+
+                self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, self.countries, row_perc=True, show_N=True, c=c, r=8)
+
+            c = ws.dim_colmax + 2
+
+
+    def ws_s20(self, ws):
+        """
+        Cols: Occupation; Sex
+        Rows: Country
+        :: Internet, Twitter
+        """
+        c = 1
+
+        for media_type, model in dm_person_models.iteritems():
+            if not media_type == 'Twitter':
+                self.write_primary_row_heading(ws, media_type, c=c+1, r=4)
+                secondary_counts = OrderedDict()
+                country = model.sheet_name() + '__country'
+
+                for occupation_id, occupation in OCCUPATION:
+                    counts = Counter()
+                    rows = model.objects\
+                            .values('sex', country)\
+                            .filter(**{country + '__in': self.country_list})\
+                            .filter(sex__in=self.male_female_ids)\
+                            .filter(occupation=occupation_id)\
+                            .annotate(n=Count('id'))
+
+                    for row in rows:
+                        counts.update({(row['sex'], self.recode_country(row[country])): row['n']})
+
+                    secondary_counts[clean_title(occupation)] = counts
+
+                    self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, self.countries, row_perc=True, show_N=True, c=c, r=8)
+
+                c = ws.dim_colmax + 2
+
+
+    def ws_s21(self, ws):
+        """
+        Cols: Function; Sex
+        Rows: Country
+        :: Internet, Twitter
+        """
+        c = 1
+
+        for media_type, model in dm_person_models.iteritems():
+            if not media_type == 'Twitter':
+                self.write_primary_row_heading(ws, media_type, c=c+1, r=4)
+                secondary_counts = OrderedDict()
+                country = model.sheet_name() + '__country'
+
+                for function_id, function in FUNCTION:
+                    counts = Counter()
+                    rows = model.objects\
+                        .values('sex', country)\
+                        .filter(**{country + '__in': self.country_list})\
+                        .filter(sex__in=self.male_female_ids)\
+                        .filter(function=function_id)\
+                        .annotate(n=Count('id'))
+
+                    for row in rows:
+                        counts.update({(row['sex'], self.recode_country(row[country])): row['n']})
+
+                    secondary_counts[clean_title(function)] = counts
+
+                    self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, self.countries, row_perc=True, show_N=True, c=c, r=8)
+
+                c = ws.dim_colmax + 2
+
+    def ws_s22(self, ws):
+        """
+        Cols: Victims; Sex
+        Rows: Country
+        :: Internet, Twitter
+        """
+        c = 1
+
+        for media_type, model in dm_person_models.iteritems():
+            if not media_type == 'Twitter':
+                self.write_primary_row_heading(ws, media_type, c=c+1, r=4)
+                secondary_counts = OrderedDict()
+                country = model.sheet_name() + '__country'
+
+                counts = Counter()
+                rows = model.objects\
+                    .values('sex', country)\
+                    .filter(**{country + '__in': self.country_list})\
+                    .filter(sex__in=self.male_female_ids)\
+                    .filter(victim_or_survivor='Y')\
+                    .exclude(victim_of=0)\
+                    .annotate(n=Count('id'))
+
+                for row in rows:
+                    counts.update({(row['sex'], self.recode_country(row[country])): row['n']})
+
+                secondary_counts['Victim'] = counts
+
+                counts = Counter()
+                rows = model.objects\
+                        .values('sex', country)\
+                        .filter(**{country + '__in': self.country_list})\
+                        .filter(sex__in=self.male_female_ids)\
+                        .filter(victim_or_survivor='N')\
+                        .annotate(n=Count('id'))
+                for row in rows:
+                    counts.update({(row['sex'], self.recode_country(row[country])): row['n']})
+
+                rows = model.objects\
+                    .values('sex', country)\
+                    .filter(**{country + '__in': self.country_list})\
+                    .filter(sex__in=self.male_female_ids)\
+                    .filter(victim_or_survivor='Y')\
+                    .exclude(survivor_of=0)\
+                    .annotate(n=Count('id'))
+                for row in rows:
+                    counts.update({(row['sex'], self.recode_country(row[country])): row['n']})
+
+                secondary_counts['Not a victim'] = counts
+
+                self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, self.countries, row_perc=True, show_N=True, c=c, r=8)
+
+                c = ws.dim_colmax + 2
+
+
+    def ws_s23(self, ws):
+        """
+        Cols: Quoted; Sex
+        Rows: Country
+        :: Internet, Twitter
+        """
+        c = 1
+
+        for media_type, model in dm_person_models.iteritems():
+            if not media_type == 'Twitter':
+                self.write_primary_row_heading(ws, media_type, c=c+1, r=4)
+                secondary_counts = OrderedDict()
+                country = model.sheet_name() + '__country'
+                for code, answer in YESNO:
+                    counts = Counter()
+                    rows = model.objects\
+                        .values('sex', country)\
+                        .filter(**{country + '__in': self.country_list})\
+                        .filter(sex__in=self.male_female_ids)\
+                        .filter(is_quoted=code)\
+                        .annotate(n=Count('id'))
+
+                    for row in rows:
+                        counts.update({(row['sex'], self.recode_country(row[country])): row['n']})
+
+                    secondary_counts[answer] = counts
+
+                    self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, self.countries, row_perc=True, show_N=True, c=c, r=8)
+
+                c = ws.dim_colmax + 2
+
+
+    def ws_s24(self, ws):
+        """
+        Cols: Photographed; Sex
+        Rows: Country
+        :: Internet, Twitter
+        """
+        c = 1
+
+        for media_type, model in dm_person_models.iteritems():
+
+            self.write_primary_row_heading(ws, media_type, c=c+1, r=4)
+            secondary_counts = OrderedDict()
+            country = model.sheet_name() + '__country'
+            for code, answer in IS_PHOTOGRAPH:
+                counts = Counter()
+                rows = model.objects\
+                    .values('sex', country)\
+                    .filter(**{country + '__in': self.country_list})\
+                    .filter(sex__in=self.male_female_ids)\
+                    .filter(is_photograph=code)\
+                    .annotate(n=Count('id'))
+
+                for row in rows:
+                    counts.update({(row['sex'], self.recode_country(row[country])): row['n']})
+
+                secondary_counts[answer] = counts
+
+                self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, self.countries, row_perc=True, show_N=True, c=c, r=8)
+
+            c = ws.dim_colmax + 2
+
+
+    def ws_s25(self, ws):
+        """
+        Cols: Major topics; Sex
+        Rows: Country
+        :: Internet, Twitter
+        """
+        c = 1
+
+        for media_type, model in dm_sheet_models.iteritems():
+            self.write_primary_row_heading(ws, media_type, c=c+1, r=4)
+
+            secondary_counts = OrderedDict()
+            journo_sex_field = '%s__sex' % model.journalist_field_name()
+
+            for major_topic, topic_ids in GROUP_TOPICS_MAP.iteritems():
+                counts = Counter()
+                rows = model.objects\
+                        .values(journo_sex_field, 'country')\
+                        .filter(country__in= self.country_list)\
+                        .filter(**{journo_sex_field + '__in': self.male_female_ids})\
+                        .filter(topic__in=topic_ids) \
+                        .annotate(n=Count('id'))
+
+                for row in rows:
+                    counts.update({(row[journo_sex_field], self.recode_country(row['country'])): row['n']})
+
+                major_topic_name = [mt[1] for mt in MAJOR_TOPICS if mt[0] == int(major_topic)][0]
+                secondary_counts[major_topic_name] = counts
+
+                self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, self.countries, row_perc=True, show_N=True, c=c, r=8)
+
+            c = ws.dim_colmax + 2
+
+
+    def ws_s26(self, ws):
+        """
+        Cols: Major topics; Women Central
+        Rows: Country
+        :: Internet, Twitter
+        """
+        c = 1
+        for media_type, model in dm_sheet_models.iteritems():
+            self.write_primary_row_heading(ws, media_type, c=c+1, r=4)
+
+            counts = Counter()
+            rows = model.objects\
+                .values('topic', 'country')\
+                .filter(country__in=self.country_list)\
+                .filter(about_women='Y')\
+                .annotate(n=Count('id'))
+
+            for row in rows:
+                major_topic = TOPIC_GROUPS[row['topic']]
+                counts.update({(major_topic, self.recode_country(row['country'])): row['n']})
+
+
+            self.tabulate(ws, counts, MAJOR_TOPICS, self.countries, raw_values=True, c=c, r=7)
+
+            c = ws.dim_colmax + 2
+
+
+    def ws_s27(self, ws):
+        """
+        Cols: Stereotypes
+        Rows: Country
+        :: Internet, Twitter
+        """
+        c = 1
+        for media_type, model in dm_sheet_models.iteritems():
+            self.write_primary_row_heading(ws, media_type, c=c+1, r=4)
+
+            counts = Counter()
+            rows = model.objects\
+                .values('stereotypes', 'country')\
+                .filter(country__in=self.country_list)\
+                .annotate(n=Count('id'))
+
+            for row in rows:
+                counts.update({(row['stereotypes'], self.recode_country(row['country'])): row['n']})
+
+
+            self.tabulate(ws, counts, AGREE_DISAGREE, self.countries, raw_values=True, c=c, r=7)
+
+            c = ws.dim_colmax + 2
+
 
     # -------------------------------------------------------------------------------
     # Helper functions

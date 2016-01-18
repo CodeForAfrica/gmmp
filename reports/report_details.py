@@ -751,6 +751,72 @@ WS_INFO = {
         'desc': 'Stories that mention human rights or equality legislation and policies',
         'reports': ['global'],
     },
+    'ws_s17': {
+        'name': 's17',
+        'title': 'Internet, Twitter - Sex of reporters and news subjects',
+        'desc': 'Internet, Twitter - Sex of reporters and news subjects',
+        'reports': ['global'],
+    },
+    'ws_s18': {
+        'name': 's18',
+        'title': 'Internet, Twitter - News subjects on Internet and Twitter news',
+        'desc': 'Internet, Twitter - News subjects on Internet and Twitter news',
+        'reports': ['global'],
+    },
+    'ws_s19': {
+        'name': 's19',
+        'title': 'Internet, Twitter - News subjects in major topic areas',
+        'desc': 'Internet, Twitter - News subjects in major topic areas',
+        'reports': ['global'],
+    },
+    'ws_s20': {
+        'name': 's20',
+        'title': 'Internet - News subjects in major occupational groups',
+        'desc': 'Internet - News subjects in major occupational groups',
+        'reports': ['global'],
+    },
+    'ws_s21': {
+        'name': 's21',
+        'title': 'Internet - Function of news subjects',
+        'desc': 'Internet - Function of news subjects',
+        'reports': ['global'],
+    },
+    'ws_s22': {
+        'name': 's22',
+        'title': 'Internet - News subjects who are victims',
+        'desc': 'Internet - News subjects who are victims',
+        'reports': ['global'],
+    },
+    'ws_s23': {
+        'name': 's23',
+        'title': 'Internet - News subjects quoted',
+        'desc': 'Internet - News subjects quoted',
+        'reports': ['global'],
+    },
+    'ws_s24': {
+        'name': 's24',
+        'title': 'Internet, Twitter - News subjects appearing in images and video plug-ins',
+        'desc': 'Internet, Twitter - News subjects appearing in images and video plug-ins',
+        'reports': ['global'],
+    },
+    'ws_s25': {
+        'name': 's25',
+        'title': 'Internet, Twitter - Reporters in major topic areas',
+        'desc': 'Internet, Twitter - Reporters in major topic areas',
+        'reports': ['global'],
+    },
+    'ws_s26': {
+        'name': 's26',
+        'title': 'Internet, Twitter - Topics in stories where women are central to the news',
+        'desc': 'Internet, Twitter - Topics in stories where women are central to the news',
+        'reports': ['global'],
+    },
+    'ws_s27': {
+        'name': 's27',
+        'title': 'Internet, Twitter - Stories that clearly challenge stereotypes',
+        'desc': 'Internet, Twitter - Stories that clearly challenge stereotypes',
+        'reports': ['global'],
+    },
 }
 
 
