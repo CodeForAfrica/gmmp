@@ -166,10 +166,10 @@ class XLSXReportBuilder:
         self.N = workbook.add_format(FORMATS['N'])
         self.P = workbook.add_format(FORMATS['P'])
 
-        # if settings.DEBUG:
-        #     sheets = ['ws_sr10']
-        # else:
-        sheets = WS_INFO.keys()
+        if settings.DEBUG:
+            sheets = ['ws_sr10']
+        else:
+            sheets = WS_INFO.keys()
 
         # choose only those suitable for this report type
         sheets = [s for s in sheets if self.report_type in WS_INFO[s]['reports']]
