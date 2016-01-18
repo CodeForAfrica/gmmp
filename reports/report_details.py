@@ -817,16 +817,22 @@ WS_INFO = {
         'desc': 'Internet, Twitter - Stories that clearly challenge stereotypes',
         'reports': ['global'],
     },
-    'ws_s28': {
-        'name': 's28',
+    'ws_s01r': {
+        'name': 's01r',
         'title': 'Sex of presenters, reporters and news subjects by region',
         'desc': 'Sex of presenters, reporters and news subjects by region',
         'reports': ['global'],
     },
-    'ws_s29': {
-        'name': 's29',
+    'ws_s02r': {
+        'name': 's02r',
         'title': 'News subjects in main topic areas by region',
         'desc': 'News subjects in main topic areas by region',
+        'reports': ['global'],
+    },
+    'ws_s03r': {
+        'name': 's03r',
+        'title': 'Function of news subjects by region',
+        'desc': 'Function of news subjects by region',
         'reports': ['global'],
     },
 }
