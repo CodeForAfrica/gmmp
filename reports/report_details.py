@@ -817,6 +817,12 @@ WS_INFO = {
         'desc': 'Internet, Twitter - Stories that clearly challenge stereotypes',
         'reports': ['global'],
     },
+    'ws_s28': {
+        'name': 's28',
+        'title': 'Sex of presenters, reporters and news subjects by region',
+        'desc': 'Sex of presenters, reporters and news subjects by region',
+        'reports': ['global'],
+    },
 }
 
 

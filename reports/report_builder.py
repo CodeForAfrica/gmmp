@@ -167,7 +167,7 @@ class XLSXReportBuilder:
         self.P = workbook.add_format(FORMATS['P'])
 
         if settings.DEBUG:
-            sheets = ['ws_s26', 'ws_s27']
+            sheets = ['ws_s28']
         else:
             sheets = WS_INFO.keys()
 
@@ -3779,6 +3779,62 @@ class XLSXReportBuilder:
             self.tabulate(ws, counts, AGREE_DISAGREE, self.countries, raw_values=True, c=c, r=7)
 
             c = ws.dim_colmax + 2
+
+    def ws_s28(self, ws):
+        """
+        Cols: Sex of presenters, reporters and subjects
+        Rows: Country
+        :: Newspaper, television, radio by region
+        """
+        all_regions = add_transnational_to_regions(self.regions)
+        secondary_counts = OrderedDict()
+        presenter_reporter = [('Presenter',[1, 3]), ('Reporter', [2])]
+
+        for journo_type, role_ids in presenter_reporter:
+            counts = Counter()
+
+            if journo_type == 'Presenter':
+                journo_models = broadcast_journalist_models
+            elif journo_type == 'Reporter':
+                journo_models = tm_journalist_models
+
+            for media_type, model in journo_models.iteritems():
+                region = model.sheet_name() + '__country_region__region'
+                if media_type == 'Print':
+                    # Newspaper journos don't have roles
+                    rows = model.objects\
+                        .values('sex', region)\
+                        .filter(**{region + '__in': self.region_list})\
+                        .filter(sex__in=self.male_female_ids)\
+                        .annotate(n=Count('id'))
+                else:
+                    rows = model.objects\
+                            .values('sex', region)\
+                            .filter(**{region + '__in': self.region_list})\
+                            .filter(sex__in=self.male_female_ids)\
+                            .filter(role__in=role_ids)\
+                            .annotate(n=Count('id'))
+                for row in rows:
+                    region_id = [r[0] for r in all_regions if r[1] == row[region]][0]
+                    counts.update({(row['sex'], region_id): row['n']})
+
+            secondary_counts[journo_type] = counts
+
+        counts = Counter()
+        for media_type, model in tm_person_models.iteritems():
+            region = model.sheet_name() + '__country_region__region'
+            rows = model.objects\
+                    .values('sex', region)\
+                    .filter(**{region + '__in': self.country_list})\
+                    .filter(sex__in=self.male_female_ids)\
+                    .annotate(n=Count('id'))
+
+            for row in rows:
+                region_id = [r[0] for r in all_regions if r[1] == row[region]][0]
+                counts.update({(row['sex'], region_id): row['n']})
+
+        secondary_counts['Subjects'] = counts
+        self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, all_regions, row_perc=True, show_N=True)
 
 
     # -------------------------------------------------------------------------------
