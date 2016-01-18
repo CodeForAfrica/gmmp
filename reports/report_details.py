@@ -847,6 +847,12 @@ WS_INFO = {
         'desc': 'Presenters and reporters, by region, by medium',
         'reports': ['global'],
     },
+    'ws_sr06': {
+        'name': 'sr06',
+        'title': 'Reporters in major topic areas, by region',
+        'desc': 'Reporters in major topic areas, by region',
+        'reports': ['global'],
+    },
 }
 
 
