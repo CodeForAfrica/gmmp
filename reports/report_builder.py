@@ -3277,6 +3277,7 @@ class XLSXReportBuilder:
                         .values(journo_sex_field, 'country')\
                         .filter(country__in= self.country_list)\
                         .filter(**{journo_sex_field + '__in': self.male_female_ids})\
+                        .filter(topic__in=topic_ids)\
                         .annotate(n=Count('id'))
                 else:
                     rows = model.objects\
@@ -3284,6 +3285,7 @@ class XLSXReportBuilder:
                             .filter(country__in= self.country_list)\
                             .filter(**{journo_sex_field + '__in': self.male_female_ids})\
                             .filter(**{journo_role_field: REPORTERS})\
+                            .filter(topic__in=topic_ids)\
                             .annotate(n=Count('id'))
 
                 counts.update({(r[journo_sex_field], self.recode_country(r['country'])): r['n'] for r in rows})
