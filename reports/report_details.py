@@ -727,6 +727,12 @@ WS_INFO = {
         'desc': 'Topics in stories where women are central to the news',
         'reports': ['global'],
     },
+    'ws_s13': {
+        'name': 's13',
+        'title': 'Sex of reporter in stories with female and male news subjects',
+        'desc': 'Sex of reporter in stories with female and male news subjects',
+        'reports': ['global'],
+    },
 }
 
 
