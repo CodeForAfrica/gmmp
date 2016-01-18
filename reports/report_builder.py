@@ -167,7 +167,7 @@ class XLSXReportBuilder:
         self.P = workbook.add_format(FORMATS['P'])
 
         if settings.DEBUG:
-            sheets = ['ws_s16']
+            sheets = ['ws_s17']
         else:
             sheets = WS_INFO.keys()
 
@@ -3405,6 +3405,49 @@ class XLSXReportBuilder:
                 counts.update({(row['equality_rights'], self.recode_country(row['country'])): row['n']})
 
         self.tabulate(ws, counts, YESNO, self.countries, row_perc=True, show_N=True)
+
+
+    def ws_s17(self, ws):
+        """
+        Cols: Sex of eporters and subjects
+        Rows: Country
+        :: Internet, Twitter
+        """
+        c = 1
+        for media_type, model in dm_journalist_models.iteritems():
+            self.write_primary_row_heading(ws, media_type, c=c+1, r=4)
+
+            secondary_counts = OrderedDict()
+            counts = Counter()
+            country = model.sheet_name() + '__country'
+
+            rows = model.objects\
+                .values('sex', country)\
+                .filter(**{country + '__in': self.country_list})\
+                .filter(sex__in=self.male_female_ids)\
+                .annotate(n=Count('id'))
+
+            for row in rows:
+                counts.update({(row['sex'], self.recode_country(row[country])): row['n']})
+
+            secondary_counts['Reporter'] = counts
+
+            counts = Counter()
+            for media_type, model in dm_person_models.iteritems():
+                country = model.sheet_name() + '__country'
+                rows = model.objects\
+                        .values('sex', country)\
+                        .filter(**{country + '__in': self.country_list})\
+                        .filter(sex__in=self.male_female_ids)\
+                        .annotate(n=Count('id'))
+
+                for row in rows:
+                    counts.update({(row['sex'], self.recode_country(row[country])): row['n']})
+
+            secondary_counts['Subjects'] = counts
+            self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, self.countries, row_perc=True, show_N=True, c=c, r=8)
+
+            c = ws.dim_colmax + 2
 
     # -------------------------------------------------------------------------------
     # Helper functions

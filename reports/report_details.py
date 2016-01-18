@@ -751,6 +751,12 @@ WS_INFO = {
         'desc': 'Stories that mention human rights or equality legislation and policies',
         'reports': ['global'],
     },
+    'ws_s17': {
+        'name': 's17',
+        'title': 'Internet, Twitter - Sex of reporters and news subjects',
+        'desc': 'Internet, Twitter - Sex of reporters and news subjects',
+        'reports': ['global'],
+    },
 }
 
 
