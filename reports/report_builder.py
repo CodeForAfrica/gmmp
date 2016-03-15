@@ -166,10 +166,10 @@ class XLSXReportBuilder:
         self.N = workbook.add_format(FORMATS['N'])
         self.P = workbook.add_format(FORMATS['P'])
 
-        # if settings.DEBUG:
-        #     sheets = ['ws_sr05']
-        # else:
-        sheets = WS_INFO.keys()
+        if settings.DEBUG:
+            sheets = ['ws_s17', 'ws_s18']
+        else:
+            sheets = WS_INFO.keys()
 
         # choose only those suitable for this report type
         sheets = [s for s in sheets if self.report_type in WS_INFO[s]['reports']]
@@ -3420,16 +3420,16 @@ class XLSXReportBuilder:
             secondary_counts['Reporter'] = counts
 
             counts = Counter()
-            for media_type, model in dm_person_models.iteritems():
-                country = model.sheet_name() + '__country'
-                rows = model.objects\
-                        .values('sex', country)\
-                        .filter(**{country + '__in': self.country_list})\
-                        .filter(sex__in=self.male_female_ids)\
-                        .annotate(n=Count('id'))
 
-                for row in rows:
-                    counts.update({(row['sex'], self.recode_country(row[country])): row['n']})
+            model =dm_person_models[media_type]
+            rows = model.objects\
+                    .values('sex', country)\
+                    .filter(**{country + '__in': self.country_list})\
+                    .filter(sex__in=self.male_female_ids)\
+                    .annotate(n=Count('id'))
+
+            for row in rows:
+                counts.update({(row['sex'], self.recode_country(row[country])): row['n']})
 
             secondary_counts['Subjects'] = counts
             self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, self.countries, row_perc=True, show_N=True, c=c, r=8)
