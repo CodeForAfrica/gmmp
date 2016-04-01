@@ -3470,7 +3470,6 @@ class XLSXReportBuilder:
         :: Internet, Twitter
         """
         c = 1
-
         for media_type, model in dm_person_models.iteritems():
 
             self.write_primary_row_heading(ws, media_type, c=c+1, r=4)
@@ -3687,24 +3686,26 @@ class XLSXReportBuilder:
         :: Internet, Twitter
         """
         c = 1
+        for media_type, model in dm_journalist_models.iteritems():
 
-        for media_type, model in dm_sheet_models.iteritems():
             self.write_primary_row_heading(ws, media_type, c=c+1, r=4)
-
             secondary_counts = OrderedDict()
-            journo_sex_field = '%s__sex' % model.journalist_field_name()
 
             for major_topic, topic_ids in GROUP_TOPICS_MAP.iteritems():
                 counts = Counter()
+                country = model.sheet_name() + '__country'
+                topic = model.sheet_name() + '__topic'
                 rows = model.objects\
-                        .values(journo_sex_field, 'country')\
-                        .filter(country__in= self.country_list)\
-                        .filter(**{journo_sex_field + '__in': self.male_female_ids})\
-                        .filter(topic__in=topic_ids) \
+                        .values('sex', country)\
+                        .filter(**{country + '__in': self.country_list})\
+                        .filter(sex__in=self.male_female_ids)\
+                        .filter(**{topic + '__in': topic_ids})\
                         .annotate(n=Count('id'))
 
-                for row in rows:
-                    counts.update({(row[journo_sex_field], self.recode_country(row['country'])): row['n']})
+                if media_type in REPORTER_MEDIA:
+                    rows = rows.filter(role=REPORTERS)
+
+                counts.update({(r['sex'], self.recode_country(r[country])): r['n'] for r in rows})
 
                 major_topic_name = [mt[1] for mt in MAJOR_TOPICS if mt[0] == int(major_topic)][0]
                 secondary_counts[major_topic_name] = counts
