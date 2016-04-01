@@ -167,7 +167,7 @@ class XLSXReportBuilder:
         self.P = workbook.add_format(FORMATS['P'])
 
         if settings.DEBUG:
-            sheets = ['ws_s03', 'ws_s11', 'ws_s19', 'ws_s25']
+            sheets = ['ws_s03', 'ws_s06', 'ws_s11', 'ws_s19', 'ws_s25']
         else:
             sheets = WS_INFO.keys()
 
@@ -3084,12 +3084,16 @@ class XLSXReportBuilder:
         counts = Counter()
         for media_type, model in tm_person_models.iteritems():
             country = model.sheet_name() + '__country'
+            """
+            Victim codes 0: Not applicable
+                         9: Do not know
+            """
             rows = model.objects\
                     .values('sex', country)\
                     .filter(**{country + '__in': self.country_list})\
                     .filter(sex__in=self.male_female_ids)\
                     .filter(victim_or_survivor='Y')\
-                    .exclude(victim_of=0)\
+                    .exclude(victim_of__in=[0,9])\
                     .annotate(n=Count('id'))
 
             for row in rows:
@@ -3115,7 +3119,7 @@ class XLSXReportBuilder:
                     .filter(**{country + '__in': self.country_list})\
                     .filter(sex__in=self.male_female_ids)\
                     .filter(victim_or_survivor='Y')\
-                    .exclude(survivor_of=0)\
+                    .exclude(survivor_of__in=[0,9])\
                     .annotate(n=Count('id'))
             for row in rows:
                 counts.update({(row['sex'], self.recode_country(row[country])): row['n']})
