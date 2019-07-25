@@ -59,3 +59,5 @@ docs/_build/
 target/
 staticfiles
 venv
+
+.idea/
