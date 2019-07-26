@@ -1,1 +1,1 @@
-web: gunicorn --worker-class gevent --timeout 600 gmmp.wsgi:application --log-file -
+web: gunicorn gmmp.wsgi:application --log-file -
