@@ -11,7 +11,7 @@ django-extensions==1.5.3
 django-grappelli==2.6.3
 django-guardian==1.2.5
 django-toolbelt==0.0.1
-gevent==1.5.0
+gevent==1.5a1
 greenlet==0.4.5
 gunicorn==19.2.1
 html5lib==0.999
