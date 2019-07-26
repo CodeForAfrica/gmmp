@@ -19,7 +19,9 @@ DEBUG = env.get('DJANGO_DEBUG', 'true') == 'true'
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 import dj_database_url
-DATABASES = {'default' : dj_database_url.config(default='postgres://gmmp:gmmp@localhost:5432/gmmp')}
+# DATABASES = {'default' : dj_database_url.config(default='postgres://gmmp:gmmp@localhost:5432/gmmp')}
+
+DATABASES = {'default' : dj_database_url.config(default=env['DATABASE_URL'])}
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
@@ -33,6 +35,8 @@ if DEBUG:
     SECRET_KEY = 'tm-v^$krw+%-vk5-u31dpini-e5dw(mi_pk0%s5g$$m%xp(r+r'
 else:
     SECRET_KEY = env.get('DJANGO_SECRET_KEY')
+
+DEBUG = True
 
 TEMPLATE_DEBUG = True
 
