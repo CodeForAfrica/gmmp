@@ -1,5 +1,5 @@
 Django==1.7.4
-Werkzeug==0.10.4
+Werkzeug==0.15.3
 XlsxWriter==0.7.2
 chardet==2.1.1
 colorama==0.2.5
