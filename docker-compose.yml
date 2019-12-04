@@ -1,0 +1,35 @@
+version: '3'
+services:
+  db:
+    image: postgres:9.6
+    ports:
+      - "54321:5432"
+    environment:
+      - POSTGRES_USER=gmmp
+      - POSTGRES_PASSWORD=gmmp
+      - POSTGRES_DB=gmmp
+      - PGUSER=gmmp
+      - PGPASSWORD=gmmp
+
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/src/gmmp
+      - logvolume01:/var/log
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=postgresql://gmmp:gmmp@db:5432/gmmp
+      - DJANGO_SECRET_KEY=somethingsecret
+      - SITE_URL=http://localhost:8000
+      - PGHOST=db
+      - PGDATABASE=gmmp
+      - PGUSER=gmmp
+      - PGPASSWORD=gmmp
+      - PYTHONDONTWRITEBYTECODE="True"
+      - DJANGO_DEBUG=${DJANGO_DEBUG:-True} # For testing deploys
+  
+volumes:
+  logvolume01: {}

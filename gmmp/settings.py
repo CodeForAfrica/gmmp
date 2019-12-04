@@ -19,9 +19,9 @@ DEBUG = env.get('DJANGO_DEBUG', 'true') == 'true'
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 import dj_database_url
-# DATABASES = {'default' : dj_database_url.config(default='postgres://gmmp:gmmp@localhost:5432/gmmp')}
+DATABASES = {'default' : dj_database_url.config(default='postgres://gmmp:gmmp@db:5432/gmmp')}
 
-DATABASES = {'default' : dj_database_url.config(default=env['DATABASE_URL'])}
+# DATABASES = {'default' : dj_database_url.config(default=env['DATABASE_URL'])}
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
@@ -114,7 +114,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
-STATIC_ROOT = 'staticfiles'
+STATIC_ROOT = '../staticfiles'
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
