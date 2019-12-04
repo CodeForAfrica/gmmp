@@ -1,7 +1,7 @@
 Django==1.7.4
 Werkzeug==0.15.3
 XlsxWriter==0.7.2
-chardet==2.1.1
+chardet==3.0.4
 colorama==0.2.5
 dj-database-url==0.3.0
 dj-static==0.0.6
