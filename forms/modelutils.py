@@ -15,7 +15,7 @@ TOPICS = (
     (5,  _('(5) Foreign/international politics, UN, peacekeeping')),
     (6,  _('(6) National defence, military spending, internal security, etc.')),
     (7,  _('(7) Other stories on politics (specify in comments)')),
-    (8,  _('(8) Economic policies, strategies, modules, indicators, stock markets, etc')),
+    (8,  _('(8) Economic policies, strategies, modules, indicators, stock markets, taxes, etc')),
     (9,  _('(9) Economic crisis, state bailouts of companies, company takeovers and mergers, etc.')),
     (10, _('(10) Poverty, housing, social welfare, aid, etc.')),
     (11, _('(11) Women''s participation in economic processes')),
