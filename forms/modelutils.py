@@ -74,14 +74,6 @@ SCOPE = (
     (4, _('(4) Foreign/International')),
 )
 
-SPACE = (
-    (1, _('(1) Full page')),
-    (2, _('(2) Half page')),
-    (3, _('(3) One third page')),
-    (4, _('(4) Quarter page')),
-    (5, _('(5) Less than quarter page'))
-)
-
 YESNO = (
     ('Y', _('(1) Yes')),
     ('N', _('(2) No')),
