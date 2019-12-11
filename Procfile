@@ -1,1 +1,1 @@
-web: gunicorn gmmp.wsgi:application --log-file -
+web: --name gmmp --reload gmmp.wsgi:application --log-file -
