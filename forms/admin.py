@@ -227,7 +227,6 @@ class InternetNewsSheetAdmin(PermsAdmin):
         'shared_via_twitter': admin.HORIZONTAL,
         'shared_on_facebook': admin.HORIZONTAL,
         'equality_rights': admin.HORIZONTAL,
-        'person_secondary': admin.HORIZONTAL,
         'about_women': admin.HORIZONTAL,
         'inequality_women': admin.HORIZONTAL,
         'stereotypes': admin.HORIZONTAL,
@@ -248,10 +247,6 @@ class InternetNewsSheetAdmin(PermsAdmin):
             ),
             'classes' : ('story-fieldset',),
         }),
-        ('Source', {
-            'fields' : ('person_secondary',),
-            'classes' : ('source-fieldset',),
-        }),
         ('Comments & Explanations', {
             'fields' : ('url_and_multimedia',),
         }),
@@ -270,13 +265,12 @@ class NewspaperSheetAdmin(PermsAdmin):
         return 'newspapersheet'
 
     inlines = [
-        NewspaperPersonInline,
         NewspaperJournalistInline,
+        NewspaperPersonInline,
     ]
 
     radio_fields = {
         'equality_rights': admin.HORIZONTAL,
-        'person_secondary': admin.HORIZONTAL,
         'about_women': admin.HORIZONTAL,
         'inequality_women': admin.HORIZONTAL,
         'stereotypes': admin.HORIZONTAL,
@@ -291,20 +285,25 @@ class NewspaperSheetAdmin(PermsAdmin):
         }),
         ('Story', {
             'fields': (
-                'page_number', 'topic', 'scope', 'space', 'equality_rights'
+                'page_number', 'topic', 'scope', 'space',
             ),
-            'classes' : ('story-fieldset',),
         }),
-        ('Source', {
-            'fields' : ('person_secondary',),
-            'classes' : ('source-fieldset',),
+        ('Analysis', {
+            'fields' : ('equality_rights', 'about_women', 'inequality_women', 'stereotypes'),
+        }),
+        ('Journalists & Reporters', {
+            'fields': (),
+            'classes' : ('journalists-fieldset',),
+        }),
+        ('People In The News', {
+            'description': 'Code (i) any person whom the story is about, even if they are not interviewed or quoted; (ii) Each person who is interviewed,  (iii) Each person in the story who is quoted, either directly or indirectly.',
+            'fields': (),
+            'classes' : ('people-fieldset',),
         }),
         ('Comments & Explanations', {
             'fields' : ('comments',),
         }),
-        ('Analysis', {
-            'fields' : ('about_women', 'inequality_women', 'stereotypes', 'further_analysis'),
-        }),
+        
     ]
 
     list_filter = basic_filters

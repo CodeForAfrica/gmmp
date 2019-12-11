@@ -46,7 +46,6 @@ class InternetNewsSheet(SheetModel):
     shared_on_facebook = models.CharField(max_length=1, choices=YESNO, verbose_name=_('(5) Shared on Facebook'), help_text=_('Has this story been shared by the media house on its Facebook Page?'))
     equality_rights = field_equality_rights(6)
 
-    person_secondary = field_person_secondary(9)
     # Analysis
     about_women = field_about_women('21', _('story'))
     inequality_women = field_inequality_women('22', _('story'))
@@ -108,7 +107,7 @@ def newspaper_journalist_meta (name, bases, mydict):
         'sex' : bases[0]._meta.get_fields_with_model()[0][0],
         'age' : bases[0]._meta.get_fields_with_model()[1][0],
     }
-    prepend_verbose(dct, 'sex', '6')
+    prepend_verbose(dct, 'sex', '9')
     return type(name, bases, mydict)
 
 class NewspaperJournalist(Journalist):
@@ -117,16 +116,20 @@ class NewspaperJournalist(Journalist):
     newspaper_sheet = models.ForeignKey('NewspaperSheet')
 
 class NewspaperPerson(Person):
-    sex = field_sex('8')
-    age = field_age('9')
-    occupation = field_occupation('10')
-    function = field_function('11')
-    family_role = field_family_role('12')
-    victim_or_survivor = field_victim_or_survivor('13')
-    victim_of = field_victim_of('14')
-    survivor_of = field_survivor_of('15')
-    is_quoted = field_is_quoted('16')
-    is_photograph = field_is_photograph('17')
+    sex = field_sex('10')
+    age = field_age('11')
+    occupation = field_occupation('12')
+    function = field_function('13')
+    family_role = field_family_role('14')
+    victim_or_survivor = field_victim_or_survivor('15')
+    victim_of = field_victim_of('16')
+    survivor_of = field_survivor_of('17')
+    is_quoted = field_is_quoted('18')
+    is_photograph = field_is_photograph('19')
+
+    special_qn_1 = field_special_qn('20', '1')
+    special_qn_2 = field_special_qn('21', '2')
+    special_qn_3 = field_special_qn('22', '3')
 
     newspaper_sheet = models.ForeignKey('NewspaperSheet')
 
@@ -135,17 +138,19 @@ class NewspaperSheet(SheetModel):
         verbose_name = _('Newspaper Submission')
 
     newspaper_name = models.CharField(max_length=255, verbose_name=_('Newspaper'), help_text=_('''Be as specific as possible. If the paper has different regional editions, write in the name of the edition you are monitoring - e.g. 'The Hindu - Delhi edition'.'''))
+
     page_number = models.PositiveIntegerField(verbose_name=_('(1) Page Number'), help_text=_('Write in the number of the page on which the story begins. Story appears on first page = 1, Seventh page = 7, etc.'))
     topic = field_topic('2')
     scope = field_scope('3')
     space = models.PositiveIntegerField(choices=SPACE, verbose_name=_('(4) Space'))
+
     equality_rights = field_equality_rights('5')
-    person_secondary = field_person_secondary('7')
-    comments = field_comments('18')
-    about_women = field_about_women('19', _('story'))
-    inequality_women = field_inequality_women('20', _('story'))
-    stereotypes = field_stereotypes('21', _('story'))
-    further_analysis = field_further_analysis('22', 'story')
+    about_women = field_about_women('6', _('story'))
+    inequality_women = field_inequality_women('7', _('story'))
+    stereotypes = field_stereotypes('8', _('story'))
+    
+    further_analysis = field_further_analysis('24', 'story')
+    comments = field_comments('23')
 
     def __unicode__(self):
         return self.newspaper_name
