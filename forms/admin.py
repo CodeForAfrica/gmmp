@@ -190,6 +190,12 @@ class TwitterSheetAdmin(PermsAdmin):
                 'media_name', 'twitter_handle'
             ),
         }),
+        ('Tweet', {
+            'fields': (
+                'retweet', 'topic'
+            ),
+            'classes' : ('story-fieldset',),
+        }),
         ('Analysis', {
             'fields' : ('equality_rights', 'about_women', 'inequality_women', 'stereotypes'),
         }),
