@@ -156,14 +156,18 @@ class NewspaperSheet(SheetModel):
         return self.newspaper_name
 
 class TelevisionPerson(Person):
-    sex = field_sex('8')
-    age = field_age('9')
-    occupation = field_occupation('10')
-    function = field_function('11')
-    family_role = field_family_role('12')
-    victim_or_survivor = field_victim_or_survivor('13')
-    victim_of = field_victim_of('14')
-    survivor_of = field_survivor_of('15')
+    sex = field_sex('11')
+    age = field_age('12')
+    occupation = field_occupation('13')
+    function = field_function('14')
+    family_role = field_family_role('15')
+    victim_or_survivor = field_victim_or_survivor('16')
+    victim_of = field_victim_of('17')
+    survivor_of = field_survivor_of('18')
+
+    special_qn_1 = field_special_qn('20', '1')
+    special_qn_2 = field_special_qn('21', '2')
+    special_qn_3 = field_special_qn('22', '3')
 
     television_sheet = models.ForeignKey('TelevisionSheet')
 
@@ -174,9 +178,9 @@ def television_journalist_meta(name, bases, mydict):
         'role' : bases[0]._meta.get_fields_with_model()[2][0],
     }
 
-    prepend_verbose(dct, 'role', '5')
-    prepend_verbose(dct, 'sex', '6')
-    prepend_verbose(dct, 'age', '7')
+    prepend_verbose(dct, 'role', '8')
+    prepend_verbose(dct, 'sex', '9')
+    prepend_verbose(dct, 'age', '10')
     return type(name, bases, mydict)
 
 class TelevisionJournalist(BroadcastJournalist):
@@ -191,14 +195,18 @@ class TelevisionSheet(SheetModel):
     start_time = models.TimeField(verbose_name=_('Time of Broadcast'))
     num_female_anchors = field_num_female_anchors
     num_male_anchors = field_num_male_anchors
+
     item_number = field_item_number('1')
     topic = field_topic('2')
     scope = field_scope('3')
+
     equality_rights = field_equality_rights('4')
-    about_women = field_about_women('16', _('story'))
-    inequality_women = field_inequality_women('17', _('story'))
-    stereotypes = field_stereotypes('18', _('story'))
-    further_analysis = field_further_analysis('19', 'story')
+    about_women = field_about_women('5', _('story'))
+    inequality_women = field_inequality_women('6', _('story'))
+    stereotypes = field_stereotypes('7', _('story'))
+
+    further_analysis = field_further_analysis('22', 'story')
+
     comments = field_comments('N/A')
 
     def __unicode__(self):
@@ -208,13 +216,17 @@ class TelevisionSheet(SheetModel):
         verbose_name = _('Television Submission')
 
 class RadioPerson(Person):
-    sex = field_sex('7')
-    occupation = field_occupation('8')
-    function = field_function('9')
-    family_role = field_family_role('10')
-    victim_or_survivor = field_victim_or_survivor('11')
-    victim_of = field_victim_of('12')
-    survivor_of = field_survivor_of('13')
+    sex = field_sex('10')
+    occupation = field_occupation('11')
+    function = field_function('12')
+    family_role = field_family_role('13')
+    victim_or_survivor = field_victim_or_survivor('14')
+    victim_of = field_victim_of('15')
+    survivor_of = field_survivor_of('16')
+
+    special_qn_1 = field_special_qn('20', '1')
+    special_qn_2 = field_special_qn('21', '2')
+    special_qn_3 = field_special_qn('22', '3')
 
     radio_sheet = models.ForeignKey('RadioSheet')
 
@@ -223,8 +235,8 @@ def radio_journalist_meta(name, bases, mydict):
         'sex' : bases[0]._meta.get_fields_with_model()[1][0],
         'role' : bases[0]._meta.get_fields_with_model()[2][0],
     }
-    prepend_verbose(dct, 'role', '5')
-    prepend_verbose(dct, 'sex', '6')
+    prepend_verbose(dct, 'role', '8')
+    prepend_verbose(dct, 'sex', '9')
     return type(name, bases, mydict)
 
 class RadioJournalist(BroadcastJournalist):
@@ -238,14 +250,18 @@ class RadioSheet(SheetModel):
     start_time = models.TimeField(verbose_name=_('Time of Broadcast'))
     num_female_anchors = field_num_female_anchors
     num_male_anchors = field_num_male_anchors
+
     item_number = field_item_number('1')
     topic = field_topic('2')
     scope = field_scope('3')
+
     equality_rights = field_equality_rights('4')
-    about_women = field_about_women('14', _('story'))
-    inequality_women = field_inequality_women('15', _('story'))
-    stereotypes = field_stereotypes('16', _('story'))
-    further_analysis = field_further_analysis('17', 'story')
+    about_women = field_about_women('5', _('story'))
+    inequality_women = field_inequality_women('6', _('story'))
+    stereotypes = field_stereotypes('7', _('story'))
+
+    further_analysis = field_further_analysis('20', 'story')
+
     comments = field_comments('N/A')
 
     def __unicode__(self):

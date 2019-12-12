@@ -348,7 +348,16 @@ class TelevisionSheetAdmin(PermsAdmin):
             'classes' : ('story-fieldset',),
         }),
         ('Analysis', {
-            'fields' : ('about_women', 'inequality_women', 'stereotypes', 'further_analysis'),
+            'fields' : ('equality_rights', 'about_women', 'inequality_women', 'stereotypes'),
+        }),
+        ('Journalists & Reporters', {
+            'fields': (),
+            'classes' : ('journalists-fieldset',),
+        }),
+        ('People In The News', {
+            'description': 'Code (i) any person whom the story is about, even if they are not interviewed or quoted; (ii) Each person who is interviewed,  (iii) Each person in the story who is quoted, either directly or indirectly.',
+            'fields': (),
+            'classes' : ('people-fieldset',),
         }),
         ('Comments & Explanations', {
             'fields' : ('comments',),
@@ -394,10 +403,18 @@ class RadioSheetAdmin(PermsAdmin):
             'fields': (
                 'item_number', 'topic', 'scope', 'equality_rights'
             ),
-            'classes' : ('story-fieldset',),
         }),
         ('Analysis', {
-            'fields' : ('about_women', 'inequality_women', 'stereotypes', 'further_analysis'),
+            'fields' : ('equality_rights', 'about_women', 'inequality_women', 'stereotypes'),
+        }),
+        ('Journalists & Reporters', {
+            'fields': (),
+            'classes' : ('journalists-fieldset',),
+        }),
+        ('People In The News', {
+            'description': 'Code (i) any person whom the story is about, even if they are not interviewed or quoted; (ii) Each person who is interviewed,  (iii) Each person in the story who is quoted, either directly or indirectly.',
+            'fields': (),
+            'classes' : ('people-fieldset',),
         }),
         ('Comments & Explanations', {
             'fields' : ('comments',),
