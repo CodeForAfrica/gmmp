@@ -8,21 +8,37 @@ def prepend_verbose(mydict, field_name, num):
     field = mydict[field_name]
     field.verbose_name = '(%s) %s' % (num, field_name)
 
+
+def internet_journalist_meta(name, bases, mydict):
+    dct = {
+        'sex' : bases[0]._meta.get_fields_with_model()[0][0],
+        'age' : bases[0]._meta.get_fields_with_model()[1][0],
+    }
+    prepend_verbose(dct, 'sex', '10')
+    prepend_verbose(dct, 'age', '11')
+    return type(name, bases, mydict)
+
 class InternetNewsJournalist(Journalist):
+    __metaclass__ = internet_journalist_meta
+
     internetnews_sheet = models.ForeignKey('InternetNewsSheet')
 
 class InternetNewsPerson(Person):
 
-    sex = field_sex('10')
-    age = field_age('11')
-    occupation = field_occupation('12')
-    function = field_function('13')
-    family_role = field_family_role('14')
-    victim_or_survivor = field_victim_or_survivor('15')
-    victim_of = field_victim_of('16')
-    survivor_of = field_survivor_of('17')
-    is_quoted = field_is_quoted('18')
-    is_photograph = field_is_photograph('19')
+    sex = field_sex('12')
+    age = field_age('13')
+    occupation = field_occupation('14')
+    function = field_function('15')
+    family_role = field_family_role('16')
+    victim_or_survivor = field_victim_or_survivor('17')
+    victim_of = field_victim_of('18')
+    survivor_of = field_survivor_of('19')
+    is_quoted = field_is_quoted('20')
+    is_photograph = field_is_photograph('21')
+
+    special_qn_1 = field_special_qn('20', '1')
+    special_qn_2 = field_special_qn('21', '2')
+    special_qn_3 = field_special_qn('22', '3')
 
     internetnews_sheet = models.ForeignKey('InternetNewsSheet')
 
@@ -38,20 +54,22 @@ class InternetNewsSheet(SheetModel):
 
     webpage_layer_no = models.PositiveIntegerField(help_text=_('Webpage Layer Number. Homepage=1, One click away=2, Five clicks away= 5, etc. Note that if a story appears on the front page, code with 1'), verbose_name=_('(1) Webpage Layer Number'))
     topic = field_topic('2')
-    topic_comments = models.TextField(verbose_name=_('(2a) Topic Comments'), help_text=_('Complete if no topic above is applicable'), blank=True)
     scope = field_scope('3')
     shared_via_twitter = models.CharField(max_length=1, verbose_name=_('(4) Shared via twitter?'), choices=YESNO, help_text=_('''Has this story been shared by the media house via Twitter?
 
-<br>Enter the exact URL of the story into <a href="http://topsy.com/" target="_blank">http://topsy.com</a> - answer yes if the media house's name appears in the search results.'''))
+<br>Enter the exact URL of the story into <a href="https://unionmetrics.com/free-tools/twitter-snapshot-report/" target="_blank">https://unionmetrics.com/free-tools/twitter-snapshot-report/</a> - answer yes if the media house's name appears in the search results.'''))
     shared_on_facebook = models.CharField(max_length=1, choices=YESNO, verbose_name=_('(5) Shared on Facebook'), help_text=_('Has this story been shared by the media house on its Facebook Page?'))
-    equality_rights = field_equality_rights(6)
+    
 
     # Analysis
-    about_women = field_about_women('21', _('story'))
-    inequality_women = field_inequality_women('22', _('story'))
-    stereotypes = field_stereotypes('23', 'story')
-    further_analysis = field_further_analysis('24', _('story'))
-    url_and_multimedia = field_url_and_multimedia('20', 'story')
+    equality_rights = field_equality_rights('6')
+    about_women = field_about_women('7', _('story'))
+    inequality_women = field_inequality_women('8', _('story'))
+    stereotypes = field_stereotypes('9', 'story')
+
+    further_analysis = field_further_analysis('26', _('story'))
+
+    url_and_multimedia = field_url_and_multimedia('25', 'story')
 
     def __unicode__(self):
         return self.website_url
@@ -64,7 +82,8 @@ def twitter_journalist_meta(name, bases, mydict):
         'sex' : bases[0]._meta.get_fields_with_model()[0][0],
         'age' : bases[0]._meta.get_fields_with_model()[1][0],
     }
-    prepend_verbose(dct, 'sex', '3')
+    prepend_verbose(dct, 'sex', '7')
+    prepend_verbose(dct, 'age', '8')
     return type(name, bases, mydict)
 
 class TwitterJournalist(Journalist):
@@ -73,8 +92,15 @@ class TwitterJournalist(Journalist):
     twitter_sheet = models.ForeignKey('TwitterSheet')
 
 class TwitterPerson(Person):
-    sex = field_sex('4')
-    is_photograph = field_is_photograph('5')
+    sex = field_sex('9')
+    age = field_age('10')
+    occupation = field_occupation('11')
+    function = field_function('12')
+    is_photograph = field_is_photograph('13')
+
+    special_qn_1 = field_special_qn('14', '1')
+    special_qn_2 = field_special_qn('15', '2')
+    special_qn_3 = field_special_qn('16', '3')
 
     twitter_sheet = models.ForeignKey('TwitterSheet')
 
@@ -83,7 +109,7 @@ class TwitterSheet(SheetModel):
         verbose_name = _('Twitter Submission')
 
     media_name = models.CharField(max_length=255, verbose_name=_('Media Name'), help_text=_('''For example. 'CNN Breaking News' '''))
-    twitter_handle = models.CharField(max_length=255, verbose_name=_('Twitter Handle'), help_text=_('e.g. https://twitter.com/cnnbrk'))
+    twitter_handle = models.CharField(max_length=255, verbose_name=_('Twitter Handle'), help_text=_('e.g. @cnnbrk'))
 
     # Story
     retweet = models.PositiveIntegerField(choices=RETWEET,
@@ -91,13 +117,16 @@ class TwitterSheet(SheetModel):
         help_text=_('Only retweets from the same media house can be coded. Do not code retweets from other news providers')
     )
     topic = field_topic('2')
-    comments = field_comments('TODO should this be here?')
-    url_and_multimedia = field_url_and_multimedia('6', 'tweet')
-
+    
     # Analysis
-    about_women = field_about_women('7', _('tweet'))
-    stereotypes = field_stereotypes('8', _('tweet'))
-    further_analysis = field_further_analysis('9', _('tweet'))
+    equality_rights = field_equality_rights('3')
+    about_women = field_about_women('4', _('story'))
+    inequality_women = field_inequality_women('5', _('story'))
+    stereotypes = field_stereotypes('6', 'story')
+
+    further_analysis = field_further_analysis('18', _('tweet'))
+
+    url_and_multimedia = field_url_and_multimedia('17', 'tweet')
 
     def __unicode__(self):
         return self.twitter_handle
