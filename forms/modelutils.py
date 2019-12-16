@@ -55,7 +55,7 @@ TOPICS = (
     (45, _('(45) Child abuse, sexual violence against children, neglect')),
     (46, _('(46) War, civil war, terrorism, other state-based violence')),
     (48, _(u'(48) Sexual harassment against women, rape, sexual assault, #MeToo #TimesUp...')),
-    (49, _('(49) Other gender violence such as femicide, trafficking of girls and women, FGM...')),
+    (49, _('(49) Other gender violence such as feminicide, trafficking of girls and women, FGM...')),
     (50, _('(50) Inequality between women and men such as income inequality/gender gap')),
     (51, _('(51) Celebrity news, births, marriages, royalty, etc.')),
     (52, _('(52) Arts, entertainment, leisure, cinema, books, dance')),
