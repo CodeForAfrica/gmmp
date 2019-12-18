@@ -133,7 +133,7 @@ class XLSXReportBuilder:
         self.female_ids = [id for id, value in self.female]
         self.yes = [(id, value) for id, value in YESNO if id == 'Y']
 
-        self.gmmp_year = '2015'
+        self.gmmp_year = '2020'
 
         self.historical = Historical()
 

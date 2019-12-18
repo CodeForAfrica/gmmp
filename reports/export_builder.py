@@ -24,7 +24,7 @@ class XLSXDataExportBuilder():
         self.person_exclude_fields = []
         self.journalist_exclude_fields =[]
 
-        self.sheet_fields_with_id = ['topic', 'scope', 'person_secondary', 'inequality_women', 'stereotypes']
+        self.sheet_fields_with_id = ['topic', 'scope', 'inequality_women', 'stereotypes']
         self.person_fields_with_id = ['sex', 'age', 'occupation', 'function', 'survivor_of', 'victim_of']
         self.journalist_fields_with_id = ['sex', 'age']
 
@@ -163,10 +163,6 @@ class XLSXDataExportBuilder():
                 ws.write(row, col, unicode(SCOPE[getattr(obj, field.name)-1][1]))
                 col += 1
                 ws.write(row, col, SCOPE[getattr(obj, field.name)-1][0])
-            elif field.name == 'person_secondary':
-                ws.write(row, col, unicode(SOURCE[getattr(obj, field.name)][1]))
-                col += 1
-                ws.write(row, col, SOURCE[getattr(obj, field.name)][0])
             elif field.name == 'inequality_women':
                 ws.write(row, col, unicode(AGREE_DISAGREE[getattr(obj, field.name)-1][1]))
                 col += 1

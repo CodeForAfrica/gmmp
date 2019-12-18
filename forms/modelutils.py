@@ -15,10 +15,10 @@ TOPICS = (
     (5,  _('(5) Foreign/international politics, UN, peacekeeping')),
     (6,  _('(6) National defence, military spending, internal security, etc.')),
     (7,  _('(7) Other stories on politics (specify in comments)')),
-    (8,  _('(8) Economic policies, strategies, modules, indicators, stock markets, etc')),
+    (8,  _('(8) Economic policies, strategies, modules, indicators, stock markets, taxes, etc')),
     (9,  _('(9) Economic crisis, state bailouts of companies, company takeovers and mergers, etc.')),
     (10, _('(10) Poverty, housing, social welfare, aid, etc.')),
-    (11, _('(11) Women''s participation in economic processes')),
+    (11, _('(11) Women\'s participation in economic processes')),
     (12, _('(12) Employment')),
     (13, _('(13) Informal work, street vending, etc.')),
     (14, _('(14) Other labour issues (strikes, trade unions, etc.)')),
@@ -34,41 +34,43 @@ TOPICS = (
     (24, _('(24) Birth control, fertility, sterilization, termination...')),
     (25, _('(25) Climate change, global warming')),
     (26, _('(26) Environment, pollution, tourism')),
-    (27, _('(27) Other stories on science (specify in comments)')),
-    (28, _('(28) Millennium Development Goals (MDGs), Post 2015 agenda, Sustainable Development Goals')),
+    (27, _('(27) Other stories on science (specify in \'comments\')')),
+    (28, _('(28) Development Goals (SDGs), Post 2015 agenda, Agenda 2030')),
     (29, _('(29) Family relations, inter-generational conflict, parents')),
     (30, _('(30) Human rights, women''s rights, rights of sexual minorities, rights of religious minorities, etc.')),
     (31, _('(31) Religion, culture, tradition, controversies...')),
     (32, _('(32) Migration, refugees, xenophobia, ethnic conflict...')),
     (33, _('(33) Other development issues, sustainability, etc.')),
     (34, _('(34) Education, childcare, nursery, university, literacy')),
-    (35, _('(35) Women''s movement, activism, demonstrations, etc')),
+    (35, _('(35) Women''s movement, feminist activism, demonstrations, etc')),
     (36, _('(36) Changing gender relations (outside the home)')),
     (37, _('(37) Family law, family codes, property law, inheritance...')),
     (38, _('(38) Legal system, judiciary, legislation apart from family')),
     (39, _('(39) Disaster, accident, famine, flood, plane crash, etc.')),
     (40, _('(40) Riots, demonstrations, public disorder, etc.')),
     (41, _('(41) Other stories on social/legal (specify in comments)')),
-    (42, _('(42) Non-violent crime, bribery, theft, drugs, corruption')),
-    (43, _('(43) Violent crime, murder, abduction, assault, etc.')),
-    (44, _('(44) Gender violence based on culture, family, inter-personal relations, feminicide, harassment, rape, sexual assault, trafficking, FGM...')),
-    (45, _('(45) Gender violence perpetuated by the State')),
-    (46, _('(46) Child abuse, sexual violence against children, neglect')),
-    (47, _('(47) War, civil war, terrorism, other state-based violence')),
-    (48, _('(48) Other crime/violence (specify in comments)')),
-    (49, _('(49) Celebrity news, births, marriages, royalty, etc.')),
-    (50, _('(50) Arts, entertainment, leisure, cinema, books, dance')),
-    (51, _('(51) Media, (including internet), portrayal of women/men')),
-    (52, _('(52) Beauty contests, models, fashion, cosmetic surgery')),
-    (53, _('(53) Sports, events, players, facilities, training, funding')),
-    (54, _('(54) Other celebrity/arts/media news (specify in comments)')),
-    (55, _('(55) Other (only use as a last resort & explain)')),
+    (42, _('(42) Non-violent crime, bribery, theft, drugs')),
+    (43, _('(43) Corruption  (incl. political corruption)')),
+    (44, _('(44) Violent crime, murder, abduction, assault, etc.')),
+    (45, _('(45) Child abuse, sexual violence against children, neglect')),
+    (46, _('(46) War, civil war, terrorism, other state-based violence')),
+    (48, _(u'(48) Sexual harassment against women, rape, sexual assault, #MeToo #TimesUp...')),
+    (49, _('(49) Other gender violence such as feminicide, trafficking of girls and women, FGM...')),
+    (50, _('(50) Inequality between women and men such as income inequality/gender gap')),
+    (51, _('(51) Celebrity news, births, marriages, royalty, etc.')),
+    (52, _('(52) Arts, entertainment, leisure, cinema, books, dance')),
+    (53, _('(53) Media, (including internet, social networks), portrayal of women/men')),
+    (54, _('(54) Fake news, mis-information, dis-information, mal-information...')),
+    (55, _('(55) Beauty contests, models, fashion, cosmetic surgery')),
+    (56, _('(56) Sports, events, players, facilities, training, funding')),
+    (57, _('(57) Other celebrity/arts/media news (specify in comments)')),
+    (58, _('(58) Other (only use as a last resort & explain)')),
 )
 
 SCOPE = (
     (1, _('(1) Local')),
     (2, _('(2) National')),
-    (3, _('(3) Sub-Regional')),
+    (3, _('(3) Sub-Regional and Regional')),
     (4, _('(4) Foreign/International')),
 )
 
@@ -103,8 +105,8 @@ SOURCE = (
 OCCUPATION = [
     (0,  _('(0) Not stated')),
     (1,  _('(1) Royalty, monarch, deposed monarch, etc.')),
-    (2,  _('(2) Government, politician, minister, spokesperson...')),
-    (3,  _('(3) Government employee, public servant, etc.')),
+    (2,  _('(2) Politician/ member of parliament, ...')),
+    (3,  _('(3) Government employee, public servant, spokesperson, etc.')),
     (4,  _('(4) Police, military, para-military, militia, fire officer')),
     (5,  _('(5) Academic expert, lecturer, teacher')),
     (6,  _('(6) Doctor, dentist, health specialist')),
@@ -341,34 +343,22 @@ class BroadcastJournalist(Journalist):
 field_scope = lambda x: models.PositiveIntegerField(choices=SCOPE, verbose_name=_('(%s) Scope' % x), help_text=_('Code the widest geographical scope that applies: if the event has both local and national importance, code national.'))
 field_topic = lambda x: models.PositiveIntegerField(choices=TOPICS, verbose_name=_('(%s) Topic' % x), help_text=_('''Choose one topic that best describes how the story is reported. Remember that a single event can be reported in different ways. Within each broad category, we include a code for 'other stories'. Please use these codes only as a <strong>last resort</strong>.'''))
 
-field_person_secondary = lambda x: models.PositiveIntegerField(choices=SOURCE, verbose_name=_('(%s) Source' % x), help_text=_('''<br><br>
-    Select ''Secondary Source'' only if the story is based solely on information from a report, article, or other piece of written information.<br><br>
-<strong>Code information for:</strong><br>
-  - Any person whom the story is about even if they are not interviewed or quoted<br>
-  - Each person who is interviewed<br>
-  - Each person in the story who is quoted, either directly or indirectly. Code only individual people.<br>
-<br>
-<strong>Do not code:</strong>
-  - Groups (e.g. a group of nurses, a group of soldiers);</br>
-  - Organisations, companies, collectivities (e.g. political parties);</br>
-  - Characters in novels or movies (unless the story is about them);</br>
-  - Deceased historical figures (unless the story is about them);</br>
-  - Interpreters (Code the person being interviewed as if they spoke without an interpreter).</br>
-'''))
-
 # TODO - I am not sure whether all this force_text stuff will bypass translation or not. Without it, labels are shown containing __proxy__ objects
 field_equality_rights = lambda x: models.CharField(choices=YESNO, verbose_name=_('(%s) Reference to gender equality / human rights legislation/ policy' % x), max_length=1, help_text=_('''Scan the full news story and code 'Yes' if it quotes or makes reference to any piece of legislation or policy that promotes gender equality or human rights.'''))
-field_comments = lambda x: models.TextField(verbose_name=_('(%s) Describe any photographs included in the story and the conclusions you draw from them.' % x), blank=True)
 field_about_women = lambda x, y: models.CharField(max_length=1, choices=YESNO, verbose_name=_('(%(field_number)s) Is the %(news_type)s about a particular woman or group of women?' % {"field_number" : x, "news_type" : force_text(y)}))
 field_inequality_women = lambda x, y: models.PositiveIntegerField(choices=AGREE_DISAGREE, verbose_name=_('(%(field_number)s) This %(news_type)s clearly highlights issues of inequality between women and men' % {"field_number" : x, "news_type" : force_text(y)}))
 field_stereotypes = lambda x, y: models.PositiveIntegerField(choices=AGREE_DISAGREE, verbose_name=_('(%s) Challenges Stereotypes') % x, help_text=_('This %s clearly challenges gender stereotypes' % force_text(y)))
+
+field_comments = lambda x: models.TextField(verbose_name=_('(%s) Describe any photographs included in the story and the conclusions you draw from them.' % x), blank=True)
+
 field_further_analysis = lambda x, y: models.CharField(max_length=1, choices=YESNO, verbose_name=_('(%(field_number)s) Does this %(news_type)s warrant further analysis?' % {"field_number" : x, "news_type" : force_text(y)}), help_text=_('''<br><br>A %(news_type)s warrants further analysis if it clearly perpetuates or clearly challenges gender stereotypes, if it includes women's opinions in a remarkable way, if it contributes to an understanding of inequalities between women and men, if it mentions or calls attention to women's human rights, etc. Consult the guide for further explanation''' % {"news_type" : force_text(y)}))
 field_url_and_multimedia = lambda x, y: models.TextField(verbose_name=_('(%(field_number)s) Copy and paste the URL of the %(news_type)s. Describe any photographs, images, other multimedia features included in the %(news_type)s. Note down the conclusions you draw from the images, audio and video.' % {"field_number" : x, "news_type" : force_text(y)}), blank=True)
 
-field_num_female_anchors = models.PositiveIntegerField(verbose_name=_('Number of female anchors'), help_text=_('The anchor (or announcer, or presenter) is the person who introduces the newscast and the individual items within it. <strong>Note: You should only include the anchors/announcers. Do not include reporters or other'))
-
+field_num_female_anchors = models.PositiveIntegerField(verbose_name=_('Number of female anchors'), help_text=_('The anchor (or announcer, or presenter) is the person who introduces the newscast and the individual items within it. <strong>Note: You should only include the anchors/announcers. Do not include reporters or other</strong>'))
 field_num_male_anchors = models.PositiveIntegerField(verbose_name=_('Number of male anchors'), help_text=_('The anchor (or announcer, or presenter) is the person who introduces the newscast and the individual items within it. <strong>Note: You should only include the anchors/announcers. Do not include reporters or other journalists</strong>'))
+
 field_item_number = lambda x: models.PositiveIntegerField(verbose_name=_('(%s) Item Number' % x), help_text=_('Write in the number that describes the position of the story within the newscast. E.g. the first story in the newscast is item 1; the seventh story is item 7.'))
+
 field_sex = lambda x: models.PositiveIntegerField(choices=GENDER, verbose_name=_('(%s) Sex' % x))
 
 field_age = lambda x: models.PositiveIntegerField(choices=AGES, verbose_name=_('(%s) Age (person appears)' % x))
@@ -388,3 +378,5 @@ field_is_quoted = lambda x: models.CharField(max_length=1, choices=YESNO, verbos
     help_text=_('<p>A person is <strong>directly quoted</strong> if their own words are printed, e.g. "The war against terror is our first priority" said President Bush.</p><p>If the story paraphrases what the person said, that is not a direct quote, e.g. President Bush said that top priority would be given to fighting the war against terror.</p>')
 )
 field_is_photograph = lambda x: models.PositiveIntegerField(choices=IS_PHOTOGRAPH, verbose_name=_('(%s) Is there a photograph of the person in the story?' % x))
+
+field_special_qn = lambda x, y: models.CharField(choices=YESNO, max_length=1, blank=True, verbose_name=_('(%(field_number)s) Special question %(qn_no)s' % {"field_number" : x, "qn_no" : y}))
