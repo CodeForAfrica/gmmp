@@ -25,7 +25,7 @@ RUN apt-get -qq update \
 ADD $APP_SRC $APP_SRVPROJ
 WORKDIR $APP_SRVPROJ
 
-RUN pip install -r requirements.txt
+RUN pip install -q -r requirements.txt
 
 
 # Expose port server
