@@ -8,6 +8,7 @@ done
 
 >&2 echo "Postgres is up - continuing"
 
+python manage.py migrate guardian --noinput
 python manage.py migrate --noinput                # Apply database migrations
 python manage.py collectstatic --clear --noinput  # Collect static files
 
@@ -22,7 +23,6 @@ exec gunicorn \
     --bind 0.0.0.0:8000 \
     --workers 3 \
     --worker-class gevent \
-    --log-level=info \
     --log-file=/src/logs/gunicorn.log \
     --access-logfile=/src/logs/access.log \
     "$@"

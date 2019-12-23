@@ -11,7 +11,7 @@ def populate_weights(apps, schema_editor):
     for item in COUNTRY_WEIGHTS:
         country = item['Country']
         item.pop('Country')
-        for media_type, weight in item.iteritems():
+        for media_type, weight in item.items():
             w = Weights.objects.using(db_alias).create(
                     country=country,
                     media_type=media_type,

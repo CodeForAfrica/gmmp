@@ -1,4 +1,4 @@
-FROM python:2.7
+FROM python:3.7
 ENV DEBIAN_FRONTEND noninteractive
 
 # Set env variables used in this Dockerfile
@@ -25,7 +25,7 @@ RUN apt-get -qq update \
 ADD $APP_SRC $APP_SRVPROJ
 WORKDIR $APP_SRVPROJ
 
-RUN pip install -q -r requirements.txt
+RUN pip install -r requirements.txt
 
 
 # Expose port server
@@ -33,4 +33,4 @@ EXPOSE 8000
 
 COPY ./contrib/docker/entrypoint.sh /docker-entrypoint.sh
 ENTRYPOINT ["/docker-entrypoint.sh"]
-CMD [ "--name", "gmmp", "--reload", "gmmp.wsgi:application" ]
+CMD [ "--name", "gmmp", "--reload", "gmmp.wsgi:application"]

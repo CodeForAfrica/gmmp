@@ -238,9 +238,9 @@ class CountryRegion(models.Model):
 
 
 class SheetModel(models.Model):
-    monitor = models.ForeignKey(Monitor, null=True)
+    monitor = models.ForeignKey(Monitor, null=True, on_delete=models.SET_NULL)
     country = CountryField(null=True)
-    country_region = models.ForeignKey(CountryRegion, null=True)
+    country_region = models.ForeignKey(CountryRegion, null=True, on_delete=models.SET_NULL)
 
 
     class Meta:

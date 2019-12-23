@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
 
-import models
+from . import models
 
 # Define an inline admin descriptor for Employee model
 # which acts a bit like a singleton

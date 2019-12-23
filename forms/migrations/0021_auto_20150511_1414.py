@@ -176,7 +176,7 @@ def populate_country_region(apps, schema_editor):
             region="Unmapped")
 
     # Create CountryRegion objects for supplied pairs
-    for region, country_list in region_map.iteritems():
+    for region, country_list in region_map.items():
         for country in country_list:
             # Is this check necessary?
             if not country_region_objs.filter(country=country):
@@ -213,31 +213,31 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='internetnewssheet',
             name='country_region',
-            field=models.ForeignKey(to='forms.CountryRegion', null=True),
+            field=models.ForeignKey(to='forms.CountryRegion', null=True, on_delete=models.SET_NULL),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='newspapersheet',
             name='country_region',
-            field=models.ForeignKey(to='forms.CountryRegion', null=True),
+            field=models.ForeignKey(to='forms.CountryRegion', null=True, on_delete=models.SET_NULL),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='radiosheet',
             name='country_region',
-            field=models.ForeignKey(to='forms.CountryRegion', null=True),
+            field=models.ForeignKey(to='forms.CountryRegion', null=True, on_delete=models.SET_NULL),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='televisionsheet',
             name='country_region',
-            field=models.ForeignKey(to='forms.CountryRegion', null=True),
+            field=models.ForeignKey(to='forms.CountryRegion', null=True, on_delete=models.SET_NULL),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='twittersheet',
             name='country_region',
-            field=models.ForeignKey(to='forms.CountryRegion', null=True),
+            field=models.ForeignKey(to='forms.CountryRegion', null=True, on_delete=models.SET_NULL),
             preserve_default=True,
         ),
 

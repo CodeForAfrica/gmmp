@@ -14,7 +14,7 @@ class Command(BaseCommand):
             sheets_to_fix = defaultdict(list)
             for row in reader:
                 sheets_to_fix[row['sheet_type']].append(row['id'])
-        for sheet_type, sheet_ids in sheets_to_fix.iteritems():
+        for sheet_type, sheet_ids in sheets_to_fix.items():
             model = sheet_models[sheet_type]
             for obj_id in sheet_ids:
                 sheet = model.objects.get(id=obj_id)
