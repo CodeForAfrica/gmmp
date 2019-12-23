@@ -4,7 +4,7 @@ from guardian.admin import GuardedModelAdmin
 from guardian import shortcuts
 from django.contrib.auth.models import Group
 
-import models
+from . import models
 
 class PermsAdmin(GuardedModelAdmin):
 
@@ -378,7 +378,7 @@ class TelevisionSheetAdmin(PermsAdmin):
         }),
         ('Story', {
             'fields': (
-                'item_number', 'topic', 'scope', 'equality_rights'
+                'item_number', 'topic', 'scope',
             ),
             'classes' : ('story-fieldset',),
         }),
@@ -439,7 +439,7 @@ class RadioSheetAdmin(PermsAdmin):
         }),
         ('Story', {
             'fields': (
-                'item_number', 'topic', 'scope', 'equality_rights'
+                'item_number', 'topic', 'scope',
             ),
         }),
         ('Analysis', {

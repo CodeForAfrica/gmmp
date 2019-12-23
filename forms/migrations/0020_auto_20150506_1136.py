@@ -22,7 +22,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='internetnewssheet',
             name='monitor',
-            field=models.ForeignKey(to='gmmp.Monitor', null=True),
+            field=models.ForeignKey(to='gmmp.Monitor', null=True, on_delete=models.SET_NULL),
             preserve_default=True,
         ),
         migrations.AddField(
@@ -34,7 +34,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='newspapersheet',
             name='monitor',
-            field=models.ForeignKey(to='gmmp.Monitor', null=True),
+            field=models.ForeignKey(to='gmmp.Monitor', null=True, on_delete=models.SET_NULL),
             preserve_default=True,
         ),
         migrations.AddField(
@@ -46,7 +46,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='radiosheet',
             name='monitor',
-            field=models.ForeignKey(to='gmmp.Monitor', null=True),
+            field=models.ForeignKey(to='gmmp.Monitor', null=True, on_delete=models.SET_NULL),
             preserve_default=True,
         ),
         migrations.AddField(
@@ -58,7 +58,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='televisionsheet',
             name='monitor',
-            field=models.ForeignKey(to='gmmp.Monitor', null=True),
+            field=models.ForeignKey(to='gmmp.Monitor', null=True, on_delete=models.SET_NULL),
             preserve_default=True,
         ),
         migrations.AddField(
@@ -70,7 +70,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='twittersheet',
             name='monitor',
-            field=models.ForeignKey(to='gmmp.Monitor', null=True),
+            field=models.ForeignKey(to='gmmp.Monitor', null=True, on_delete=models.SET_NULL),
             preserve_default=True,
         ),
 

@@ -9,7 +9,7 @@ def assign_country_region_to_sheet(apps, schema_editor):
     CountryRegion = apps.get_model("forms", "CountryRegion")
     db_alias = schema_editor.connection.alias
 
-    for name, model in sheet_models.iteritems():
+    for name, model in sheet_models.items():
         sheets_model = apps.get_model("forms", model._meta.object_name)
         sheets = sheets_model.objects.using(db_alias).all()
         for sheet in sheets:
@@ -27,7 +27,7 @@ def backwards(apps, schema_editor):
     from forms.models import sheet_models
     db_alias = schema_editor.connection.alias
 
-    for name, model in sheet_models.iteritems():
+    for name, model in sheet_models.items():
         sheets_model = apps.get_model("forms", model._meta.object_name)
         sheets = sheets_model.objects.using(db_alias).all()
         for sheet in sheets:

@@ -23,7 +23,7 @@ def get_countries():
     Return a (code, country) list for countries captured.
     """
     captured_country_codes = set()
-    for model in sheet_models.itervalues():
+    for model in sheet_models.values():
         rows = model.objects.values('country')
         captured_country_codes.update([r['country'] for r in rows])
     return [(code, name) for code, name in list(countries) if code in captured_country_codes]
@@ -47,7 +47,7 @@ def get_country_region(country):
     if country == 'ALL':
         return get_regions()
     else:
-        return [(0, [k for k, v in REGION_COUNTRY_MAP.items() if country in v][0])]
+        return [(0, [k for k, v in list(REGION_COUNTRY_MAP.items()) if country in v][0])]
 
 
 def add_transnational_to_regions(regions):
@@ -951,7 +951,7 @@ FOCUS_TOPIC_IDS = {
     3: [11, 13],
 }
 
-FOCUS_TOPIC_ID_MAP = {x: ft for ft, topics in FOCUS_TOPIC_IDS.iteritems() for x in topics}
+FOCUS_TOPIC_ID_MAP = {x: ft for ft, topics in FOCUS_TOPIC_IDS.items() for x in topics}
 
 FORMATS = {
     'heading': {

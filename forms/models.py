@@ -2,7 +2,7 @@ from collections import OrderedDict
 
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from modelutils import *
+from .modelutils import *
 
 def prepend_verbose(mydict, field_name, num):
     field = mydict[field_name]
@@ -21,7 +21,7 @@ def internet_journalist_meta(name, bases, mydict):
 class InternetNewsJournalist(Journalist):
     __metaclass__ = internet_journalist_meta
 
-    internetnews_sheet = models.ForeignKey('InternetNewsSheet')
+    internetnews_sheet = models.ForeignKey('InternetNewsSheet', on_delete=models.CASCADE)
 
 class InternetNewsPerson(Person):
 
@@ -40,7 +40,7 @@ class InternetNewsPerson(Person):
     special_qn_2 = field_special_qn('21', '2')
     special_qn_3 = field_special_qn('22', '3')
 
-    internetnews_sheet = models.ForeignKey('InternetNewsSheet')
+    internetnews_sheet = models.ForeignKey('InternetNewsSheet', on_delete=models.CASCADE)
 
 class InternetNewsSheet(SheetModel):
 
@@ -89,7 +89,7 @@ def twitter_journalist_meta(name, bases, mydict):
 class TwitterJournalist(Journalist):
     __metaclass__ = twitter_journalist_meta
 
-    twitter_sheet = models.ForeignKey('TwitterSheet')
+    twitter_sheet = models.ForeignKey('TwitterSheet', on_delete=models.CASCADE)
 
 class TwitterPerson(Person):
     sex = field_sex('9')
@@ -102,7 +102,7 @@ class TwitterPerson(Person):
     special_qn_2 = field_special_qn('15', '2')
     special_qn_3 = field_special_qn('16', '3')
 
-    twitter_sheet = models.ForeignKey('TwitterSheet')
+    twitter_sheet = models.ForeignKey('TwitterSheet', on_delete=models.CASCADE)
 
 class TwitterSheet(SheetModel):
     class Meta:
@@ -142,7 +142,7 @@ def newspaper_journalist_meta (name, bases, mydict):
 class NewspaperJournalist(Journalist):
     __metaclass__ = newspaper_journalist_meta
 
-    newspaper_sheet = models.ForeignKey('NewspaperSheet')
+    newspaper_sheet = models.ForeignKey('NewspaperSheet', on_delete=models.CASCADE)
 
 class NewspaperPerson(Person):
     sex = field_sex('10')
@@ -160,7 +160,7 @@ class NewspaperPerson(Person):
     special_qn_2 = field_special_qn('21', '2')
     special_qn_3 = field_special_qn('22', '3')
 
-    newspaper_sheet = models.ForeignKey('NewspaperSheet')
+    newspaper_sheet = models.ForeignKey('NewspaperSheet', on_delete=models.CASCADE)
 
 class NewspaperSheet(SheetModel):
     class Meta:
@@ -198,7 +198,7 @@ class TelevisionPerson(Person):
     special_qn_2 = field_special_qn('21', '2')
     special_qn_3 = field_special_qn('22', '3')
 
-    television_sheet = models.ForeignKey('TelevisionSheet')
+    television_sheet = models.ForeignKey('TelevisionSheet', on_delete=models.CASCADE)
 
 def television_journalist_meta(name, bases, mydict):
     dct = {
@@ -215,7 +215,7 @@ def television_journalist_meta(name, bases, mydict):
 class TelevisionJournalist(BroadcastJournalist):
     __metaclass__ = television_journalist_meta
 
-    television_sheet = models.ForeignKey('TelevisionSheet')
+    television_sheet = models.ForeignKey('TelevisionSheet', on_delete=models.CASCADE)
 
 class TelevisionSheet(SheetModel):
     station_name = models.CharField(max_length=255, verbose_name=_('Name of TV Station'), help_text=_('''Name of the television channel or station : Be as specific as possible. E.g. if the television company is called RTV, and if the newscast is broadcast on its second channel, write in 'RTV-2' '''))
@@ -257,7 +257,7 @@ class RadioPerson(Person):
     special_qn_2 = field_special_qn('21', '2')
     special_qn_3 = field_special_qn('22', '3')
 
-    radio_sheet = models.ForeignKey('RadioSheet')
+    radio_sheet = models.ForeignKey('RadioSheet', on_delete=models.CASCADE)
 
 def radio_journalist_meta(name, bases, mydict):
     dct = {
@@ -271,7 +271,7 @@ def radio_journalist_meta(name, bases, mydict):
 class RadioJournalist(BroadcastJournalist):
     __metaclass__ = radio_journalist_meta
 
-    radio_sheet = models.ForeignKey('RadioSheet')
+    radio_sheet = models.ForeignKey('RadioSheet', on_delete=models.CASCADE)
 
 class RadioSheet(SheetModel):
     station_name = models.CharField(max_length=255, verbose_name=_('Name of radio channel or station'), help_text=_('''Be as specific as possible. E.g. if the radio company is called RRI, and if the newscast is broadcast on its third channel, write in 'RRI-3'.'''))

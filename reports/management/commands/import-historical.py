@@ -44,7 +44,7 @@ class Command(BaseCommand):
             countries = {c: n for c, n in get_countries()}
 
             if not country.upper() in countries:
-                for code, name in countries.iteritems():
+                for code, name in countries.items():
                     if name.upper() == country:
                         country = code
                         break

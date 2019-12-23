@@ -1,4 +1,4 @@
-FROM python:2.7
+FROM python:3.7
 ENV DEBIAN_FRONTEND noninteractive
 
 # Set env variables used in this Dockerfile
@@ -33,4 +33,4 @@ EXPOSE 8000
 
 COPY ./contrib/docker/entrypoint.sh /docker-entrypoint.sh
 ENTRYPOINT ["/docker-entrypoint.sh"]
-CMD [ "--name", "gmmp", "--reload", "gmmp.wsgi:application" ]
+CMD [ "--name", "gmmp", "--reload", "gmmp.wsgi:application"]

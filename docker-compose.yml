@@ -17,6 +17,7 @@ services:
       - "8000:8000"
     volumes:
       - .:/src/gmmp
+      - ./contrib/docker/entrypoint.sh:/docker-entrypoint.sh
       - logvolume01:/var/log
     depends_on:
       - db
@@ -30,6 +31,7 @@ services:
       - PGPASSWORD=gmmp
       - PYTHONDONTWRITEBYTECODE="True"
       - DJANGO_DEBUG=${DJANGO_DEBUG:-True} # For testing deploys
+    command: ["--log-level", "debug", "--name", "gmmp", "--reload", "gmmp.wsgi:application"]
   
 volumes:
   logvolume01: {}

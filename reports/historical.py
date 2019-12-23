@@ -160,6 +160,11 @@ def v(v):
     """
     Try to interpret a value as an percentage
     """
+    try:
+        basestring
+    except NameError:
+        basestring = str
+    
     if not isinstance(v, basestring):
         return v
 
@@ -245,7 +250,7 @@ class Historical(object):
             self.log.info("Imported sheet %s" % old_sheet)
 
     def historical_sheets(self, coverage):
-        return [(sheet['historical'], sheet) for sheet in WS_INFO.itervalues()
+        return [(sheet['historical'], sheet) for sheet in WS_INFO.values()
                 if 'historical' in sheet and coverage in sheet['reports']]
 
     def import_1F(self, ws, sheet_info):
@@ -292,18 +297,18 @@ class Historical(object):
             self.slurp_year_grouped_table(ws, data, col_start=icol, cols=1, cols_per_group=5, year_heading_row=3, col_heading_row=2, row_start=4, row_end=11,
                                           skip_years=[1995, 2000, 2005])
 
-            year = data.keys()[0]
+            year = list(data.keys())[0]
             all_data.setdefault(year, {})
 
-            for items in data.itervalues():
-                keys = items.keys()
+            for items in data.values():
+                keys = list(items.keys())
                 keys.remove('n')
                 key = keys[0]
 
                 n_values = items['n']
                 p_values = items[key]
 
-                for k, p in p_values.items():
+                for k, p in list(p_values.items()):
                     p_values[k] = [p_values[k], n_values[k]]
 
                 del items['n']
@@ -334,7 +339,7 @@ class Historical(object):
         col_data = {}
         data[col_heading] = col_data
 
-        for irow in xrange(4, 55):
+        for irow in range(4, 55):
             row_heading = canon(ws.cell(column=5, row=irow).value)
             col_data[row_heading] = v(ws.cell(column=8, row=irow).value)
 
@@ -380,7 +385,7 @@ class Historical(object):
         col_data = {}
         data[col_heading] = col_data
 
-        for irow in xrange(4, 55):
+        for irow in range(4, 55):
             row_heading = canon(ws.cell(column=5, row=irow).value)
             col_data[row_heading] = v(ws.cell(column=9, row=irow).value)
 
@@ -398,13 +403,13 @@ class Historical(object):
         data = {}
         self.slurp_year_grouped_table(ws, data, col_start=6, cols=1, cols_per_group=5, year_heading_row=3, col_heading_row=2, row_start=5, row_end=11,
                                       skip_years=[1995, 2000])
-        for k, v in data.iteritems():
+        for k, v in data.items():
             all_data.setdefault(k, {})[canon('Anchor, announcer or presenter: Usually in the television studio')] = v
 
         data = {}
         self.slurp_year_grouped_table(ws, data, col_start=6, cols=1, cols_per_group=5, year_heading_row=23, col_heading_row=22, row_start=25, row_end=31,
                                       skip_years=[1995, 2000])
-        for k, v in data.iteritems():
+        for k, v in data.items():
             all_data.setdefault(k, {})[canon('Reporter: Usually outside the studio. Include reporters who do not appear on screen, but whose voice is heard (e.g. as voice-over).')] = v
 
         return all_data
@@ -541,7 +546,7 @@ class Historical(object):
         row2
         row3
         """
-        for icol in xrange(col_start, col_start + cols * cols_per_group, cols_per_group):
+        for icol in range(col_start, col_start + cols * cols_per_group, cols_per_group):
             major_col_heading = canon(ws.cell(column=icol, row=major_col_heading_row).value)
             major_col_data = {}
             data[major_col_heading] = major_col_data
@@ -558,12 +563,12 @@ class Historical(object):
         row2
         row3
         """
-        for icol in xrange(col_start, col_end + 1):
+        for icol in range(col_start, col_end + 1):
             col_heading = canon(ws.cell(column=icol, row=col_heading_row).value)
             col_data = {}
             data[col_heading] = col_data
 
-            for irow in xrange(row_start, row_end + 1):
+            for irow in range(row_start, row_end + 1):
                 row_heading = canon(ws.cell(column=row_heading_col, row=irow).value)
                 col_data[row_heading] = v(ws.cell(column=icol, row=irow).value)
 
@@ -579,10 +584,10 @@ class Historical(object):
         row2
         row3
         """
-        for icol in xrange(col_start, col_start + cols * cols_per_group, cols_per_group):
+        for icol in range(col_start, col_start + cols * cols_per_group, cols_per_group):
             col_heading = canon(ws.cell(column=icol, row=col_heading_row).value)
 
-            for iyear in xrange(icol, icol + cols_per_group):
+            for iyear in range(icol, icol + cols_per_group):
                 year = ws.cell(column=iyear, row=year_heading_row).value
                 if year in ['N', 'N-F']:
                     year = 2010
@@ -595,6 +600,6 @@ class Historical(object):
                     data = all_data.setdefault(year, {})
                     col_data = data.setdefault(effective_col_heading, {})
 
-                    for irow in xrange(row_start, row_end + 1):
+                    for irow in range(row_start, row_end + 1):
                         row_heading = canon(ws.cell(column=row_heading_col, row=irow).value)
                         col_data[row_heading] = v(ws.cell(column=iyear, row=irow).value)

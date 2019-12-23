@@ -4,7 +4,7 @@ from forms.models import sheet_models
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
-        for name, model in sheet_models.iteritems():
+        for name, model in sheet_models.items():
             country_errors_sheets = model.objects.exclude(monitor__country__in=F('country'))
             for sheet in country_errors_sheets:
                 try:

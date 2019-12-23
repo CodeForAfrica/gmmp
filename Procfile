@@ -1,0 +1,1 @@
+--log-level info --name gmmp --reload gmmp.wsgi:application

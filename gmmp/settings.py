@@ -14,7 +14,7 @@ from os import environ as env
 import django.conf.global_settings as DEFAULT_SETTINGS
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env.get('DJANGO_DEBUG', 'true') == 'true'
+DEBUG = env.get('DJANGO_DEBUG', True)
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
@@ -35,16 +35,12 @@ if DEBUG:
 else:
     SECRET_KEY = env.get('DJANGO_SECRET_KEY')
 
-# DEBUG = True
-#
-# TEMPLATE_DEBUG = True
-
 ALLOWED_HOSTS = ['*']
 
 
 # Application definition
 
-INSTALLED_APPS = (
+INSTALLED_APPS = [
     'grappelli',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -55,39 +51,56 @@ INSTALLED_APPS = (
     'django_extensions',
 
     'guardian',
+    'django_countries',
     'forms',
     'gmmp',
-    'django_countries',
     'reports',
-)
+]
 
-if DEBUG:
-    INSTALLED_APPS += ('debug_toolbar',)
-
-AUTHENTICATION_BACKENDS = (
+AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'guardian.backends.ObjectPermissionBackend',
-)
+]
 
-ANONYMOUS_USER_ID = -1
+ANONYMOUS_USER_NAME = None
 GUARDIAN_RAISE_403 = True
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-)
+]
 
-TEMPLATE_CONTEXT_PROCESSORS = DEFAULT_SETTINGS.TEMPLATE_CONTEXT_PROCESSORS + (
-    'django.core.context_processors.request',
-    'django.core.context_processors.i18n',
-)
 
+if DEBUG:
+    INSTALLED_APPS += ['debug_toolbar',]
+    MIDDLEWARE += ['debug_toolbar.middleware.DebugToolbarMiddleware',]
+
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.template.context_processors.i18n',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
+
+
+# ROOT_URLCONF = 'django.urls'
 ROOT_URLCONF = 'gmmp.urls'
 
 WSGI_APPLICATION = 'gmmp.wsgi.application'
@@ -116,11 +129,11 @@ USE_TZ = True
 STATIC_ROOT = '../staticfiles'
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = (
+STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
-)
+]
 
-GRAPPELLI_ADMIN_TITLE='<a href="/">Global Media Monitoring Project - 2020</a>'
+GRAPPELLI_ADMIN_TITLE='Global Media Monitoring Project - 2020'
 LOCALE_PATHS = [
     os.path.join(BASE_DIR, 'locale'),
     '/gmmp/forms/locale/',
