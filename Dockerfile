@@ -33,4 +33,4 @@ EXPOSE 8000
 
 COPY ./contrib/docker/entrypoint.sh /docker-entrypoint.sh
 ENTRYPOINT ["/docker-entrypoint.sh"]
-CMD [ "--name", "gmmp", "--reload", "gmmp.wsgi:application"]
+CMD ["--log-level", "info", "--name", "gmmp", "--reload", "gmmp.wsgi:application"]
