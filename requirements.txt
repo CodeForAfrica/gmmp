@@ -8,5 +8,5 @@ django-extensions==2.2.5
 django-grappelli==2.13.2
 django-guardian==2.1.0
 gunicorn[gevent]==20.0.4
-openpyxl==2.2.5
+openpyxl==3.0.2
 psycopg2==2.8.4
