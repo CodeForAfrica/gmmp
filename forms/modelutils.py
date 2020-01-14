@@ -179,8 +179,6 @@ IS_PHOTOGRAPH = [
 AGREE_DISAGREE = [
     (1, _('(1) Agree')),
     (2, _('(2) Disagree')),
-    (3, _('(3) Neither agree nor disagree')),
-    (4, _('(4) Do not know')),
 ]
 
 RETWEET = [
@@ -347,7 +345,7 @@ field_topic = lambda x: models.PositiveIntegerField(choices=TOPICS, verbose_name
 field_equality_rights = lambda x: models.CharField(choices=YESNO, verbose_name=_('(%s) Reference to gender equality / human rights legislation/ policy' % x), max_length=1, help_text=_('''Scan the full news story and code 'Yes' if it quotes or makes reference to any piece of legislation or policy that promotes gender equality or human rights.'''))
 field_about_women = lambda x, y: models.CharField(max_length=1, choices=YESNO, verbose_name=_('(%(field_number)s) Is the %(news_type)s about a particular woman or group of women?' % {"field_number" : x, "news_type" : force_text(y)}))
 field_inequality_women = lambda x, y: models.PositiveIntegerField(choices=AGREE_DISAGREE, verbose_name=_('(%(field_number)s) This %(news_type)s clearly highlights issues of inequality between women and men' % {"field_number" : x, "news_type" : force_text(y)}))
-field_stereotypes = lambda x, y: models.PositiveIntegerField(choices=AGREE_DISAGREE, verbose_name=_('(%s) Challenges Stereotypes') % x, help_text=_('This %s clearly challenges gender stereotypes' % force_text(y)))
+field_stereotypes = lambda x, y: models.PositiveIntegerField(choices=AGREE_DISAGREE, verbose_name=_('(%(field_number)s) This %(news_type)s clearly challenges gender stereotypes' % {"field_number" : x, "news_type" : force_text(y)}))
 
 field_comments = lambda x: models.TextField(verbose_name=_('(%s) Describe any photographs included in the story and the conclusions you draw from them.' % x), blank=True)
 
