@@ -8,63 +8,88 @@ from gmmp.models import Monitor
 
 
 TOPICS = (
-    (1,  _('(1) Women politicians, women electoral candidates...')),
-    (2,  _('(2) Peace, negotiations, treaties')),
-    (3,  _('(3) Other domestic politics, government, etc.')),
-    (4,  _('(4) Global partnerships')),
-    (5,  _('(5) Foreign/international politics, UN, peacekeeping')),
-    (6,  _('(6) National defence, military spending, internal security, etc.')),
-    (7,  _('(7) Other stories on politics (specify in comments)')),
-    (8,  _('(8) Economic policies, strategies, modules, indicators, stock markets, taxes, etc')),
-    (9,  _('(9) Economic crisis, state bailouts of companies, company takeovers and mergers, etc.')),
-    (10, _('(10) Poverty, housing, social welfare, aid, etc.')),
-    (11, _('(11) Women\'s participation in economic processes')),
-    (12, _('(12) Employment')),
-    (13, _('(13) Informal work, street vending, etc.')),
-    (14, _('(14) Other labour issues (strikes, trade unions, etc.)')),
-    (15, _('(15) Rural economy, agriculture, farming, land rights')),
-    (16, _('(16) Consumer issues, consumer protection, fraud...')),
-    (17, _('(17) Transport, traffic, roads...')),
-    (18, _('(18) Other stories on economy (specify in comments)')),
-    (19, _('(19) Science, technology, research, discoveries...')),
-    (20, _('(20) Medicine, health, hygiene, safety, (not EBOLA or HIV/AIDS)')),
-    (21, _('(21) EBOLA, treatment, response...')),
-    (22, _('(22) HIV and AIDS, policy, treatment, etc')),
-    (23, _('(23) Other epidemics, viruses, contagions, Influenza, BSE, SARS')),
-    (24, _('(24) Birth control, fertility, sterilization, termination...')),
-    (25, _('(25) Climate change, global warming')),
-    (26, _('(26) Environment, pollution, tourism')),
-    (27, _('(27) Other stories on science (specify in \'comments\')')),
-    (28, _('(28) Development Goals (SDGs), Post 2015 agenda, Agenda 2030')),
-    (29, _('(29) Family relations, inter-generational conflict, parents')),
-    (30, _('(30) Human rights, women''s rights, rights of sexual minorities, rights of religious minorities, etc.')),
-    (31, _('(31) Religion, culture, tradition, controversies...')),
-    (32, _('(32) Migration, refugees, xenophobia, ethnic conflict...')),
-    (33, _('(33) Other development issues, sustainability, etc.')),
-    (34, _('(34) Education, childcare, nursery, university, literacy')),
-    (35, _('(35) Women''s movement, feminist activism, demonstrations, etc')),
-    (36, _('(36) Changing gender relations (outside the home)')),
-    (37, _('(37) Family law, family codes, property law, inheritance...')),
-    (38, _('(38) Legal system, judiciary, legislation apart from family')),
-    (39, _('(39) Disaster, accident, famine, flood, plane crash, etc.')),
-    (40, _('(40) Riots, demonstrations, public disorder, etc.')),
-    (41, _('(41) Other stories on social/legal (specify in comments)')),
-    (42, _('(42) Non-violent crime, bribery, theft, drugs')),
-    (43, _('(43) Corruption  (incl. political corruption)')),
-    (44, _('(44) Violent crime, murder, abduction, assault, etc.')),
-    (45, _('(45) Child abuse, sexual violence against children, neglect')),
-    (46, _('(46) War, civil war, terrorism, other state-based violence')),
-    (48, _(u'(48) Sexual harassment against women, rape, sexual assault, #MeToo #TimesUp...')),
-    (49, _('(49) Other gender violence such as feminicide, trafficking of girls and women, FGM...')),
-    (50, _('(50) Inequality between women and men such as income inequality/gender gap')),
-    (51, _('(51) Celebrity news, births, marriages, royalty, etc.')),
-    (52, _('(52) Arts, entertainment, leisure, cinema, books, dance')),
-    (53, _('(53) Media, (including internet, social networks), portrayal of women/men')),
-    (54, _('(54) Fake news, mis-information, dis-information, mal-information...')),
-    (55, _('(55) Beauty contests, models, fashion, cosmetic surgery')),
-    (56, _('(56) Sports, events, players, facilities, training, funding')),
-    (57, _('(57) Other celebrity/arts/media news (specify in comments)')),
-    (58, _('(58) Other (only use as a last resort & explain)')),
+    ('Politics and Government', (
+            (1,  _('(1) Women politicians, women electoral candidates...')),
+            (2,  _('(2) Peace, negotiations, treaties...(local, regional, national),')),
+            (3,  _('(3) Other domestic politics/government (local, regional, national), elections, speeches, the political process ...')),
+            (4,  _('(4) Global partnerships (international trade and finance systems, e.g. WTO, IMF, World Bank, debt) ...')),
+            (5,  _('(5) Foreign/international politics, relations with other countries, negotiations, treaties, UN peacekeeping ...')),
+            (6,  _('(6) National defence, military spending, military training, military parades, internal security ...')),
+            (7,  _('(7) Other stories on politics and government (specify the topic in \'Comments\' section of coding sheet)')),
+        )
+    ),
+    ('Economy', (
+            (8,  _('(8) Economic policies, strategies, modules, indicators, stock markets, taxes,...')),
+            (9,  _('(9) Economic crisis, state bailouts of companies, company takeovers and mergers ...')),
+            (10, _('(10) Poverty, housing, social welfare, aid to those in need ...')),
+            (11, _('(11) Women’s participation in economic processes (informal work, paid employment, unemployment, unpaid labour)')),
+            (12, _('(12) Employment')),
+            (13, _('(13) Informal work, street vending, ...')),
+            (14, _('(14) Other labour issues, strikes, trade unions, negotiations, other employment and unemployment')),
+            (15, _('(15) Rural economy, agriculture, farming practices, agricultural policy, land rights ...')),
+            (16, _('(16) Consumer issues, consumer protection, regulation, prices, consumer fraud ...')),
+            (17, _('(17) Transport, traffic, roads...')),
+            (18, _('(18) Other stories on the economy (specify the topic in \'Comments\' section of coding sheet)')),
+        )
+    ),
+    ('Science and Health', (
+            (19, _('(19) Science, technology, research, funding, discoveries, developments ...')),
+            (20, _('(20) Medicine, health, hygiene, safety, disability, medical research, funding (not EBOLA or HIV- AIDS)...')),
+            (21, _('(21) EBOLA, treatment, response...')),
+            (22, _('(22) HIV and AIDS, incidence, policy, treatment, people affected ...')),
+            (23, _('(23) Other epidemics, viruses, contagions, Influenza, BSE, SARS ...')),
+            (24, _('(24) Birth control, fertility, sterilization, amniocentesis, termination of pregnancy ...')),
+            (25, _('(25) Climate change, global warming')),
+            (26, _('(26) Environment, pollution, tourism ...')),
+            (27, _('(27) Other stories on science or health (specify the topic in \'Comments\' section of coding sheet)')),
+        )
+    ),
+    ('Social and Legal', (
+            (28, _('(28) Sustainable Development Goals (SDGs), Post 2015 agenda, Agenda 2030')),
+            (29, _('(29) Family relations, inter-generational conflict, single parents ...')),
+            (30, _('(30) Human rights, women\'s rights, children\'s rights, gay & lesbian rights, rights of minorities ..')),
+            (31, _('(31) Religion, culture, tradition, cultural controversies, teachings, celebrations, practices ...')),
+            (32, _('(32) Migration, refugees, asylum seekers, ethnic conflict, integration, racism, xenophobia ...')),
+            (33, _('(33) Other development issues, sustainability,')),
+            (34, _('(34) Education, childcare, nursery, university, literacy')),
+            (35, _('(35) Women\'s movement, feminist activism, events, demonstrations, gender equality advocacy ...')),
+            (36, _('(36) Changing gender relations, roles and relationships of women and men inside and outside the home ...')),
+            (37, _('(37) Family law, family codes, property law, inheritance law and rights ...')),
+            (38, _('(38) Legal system, judicial system, legislation (apart from family, property & inheritance law) ...')),
+            (39, _('(39) Disaster, accident, famine, flood, plane crash, etc')),
+            (40, _('(40) Riots, demonstrations, public disorder, etc.')),
+            (41, _('(41) Other stories on social or legal issues (specify the topic in \'Comments\' section of coding sheet)')),
+        )
+    ),
+    ('Crime and Violence', (
+            (42, _('(42) Non-violent crime, bribery, theft, drug-dealing, ...')),
+            (43, _('(43) Corruption, (including political corruption/malpractice)')),
+            (44, _('(44) Violent crime, murder, abduction, kidnapping, assault, drug-related violence ...')),
+            (45, _('(45) Child abuse, sexual violence against children, neglect')),
+            (46, _('(46) War, civil war, terrorism, state-based violence')),
+            (47, _('(47) Other stories on crime and violence (specify the topic in \'Comments\' section of coding sheet)')),
+        )
+    ),
+    ('Gender and related', (
+            (48, _(u'(48) Sexual harassment against women, rape, sexual assault, #MeToo #TimesUp')),
+            (49, _('(49) Other gender violence such as feminicide, trafficking of girls and women, FGM...')),
+            (50, _('(50) Inequality between women and men such as income inequality/gender pay gap,')),
+        )
+    ),
+    ('Celebrity, Arts and Media, Sports', (
+            (51, _('(51) Celebrity news, births, marriages, deaths, obituaries, famous people, royalty ...')),
+            (52, _('(52) Arts, entertainment, leisure, cinema, theatre, books, dance ...')),
+            (53, _('(53) Media, including new media (computers, internet), portrayal of women and/or men')),
+            (54, _('(54) Fake news, mis-information, dis-information, mal-information...')),
+            (55, _('(55) Beauty contests, models, fashion, beauty aids, cosmetic surgery ...')),
+            (56, _('(56) Sports, events, players, facilities, training, policies, funding ...')),
+            (57, _('(57) Other stories on celebrities, arts, media (specify the topic in \'Comments\' section of coding sheet)')),
+        )
+    ),
+    ('Other', (
+            (58, _('(58) Use only as a last resort and explain')),
+        )
+    )
 )
 
 SCOPE = (
@@ -179,8 +204,6 @@ IS_PHOTOGRAPH = [
 AGREE_DISAGREE = [
     (1, _('(1) Agree')),
     (2, _('(2) Disagree')),
-    (3, _('(3) Neither agree nor disagree')),
-    (4, _('(4) Do not know')),
 ]
 
 RETWEET = [
@@ -347,7 +370,7 @@ field_topic = lambda x: models.PositiveIntegerField(choices=TOPICS, verbose_name
 field_equality_rights = lambda x: models.CharField(choices=YESNO, verbose_name=_('(%s) Reference to gender equality / human rights legislation/ policy' % x), max_length=1, help_text=_('''Scan the full news story and code 'Yes' if it quotes or makes reference to any piece of legislation or policy that promotes gender equality or human rights.'''))
 field_about_women = lambda x, y: models.CharField(max_length=1, choices=YESNO, verbose_name=_('(%(field_number)s) Is the %(news_type)s about a particular woman or group of women?' % {"field_number" : x, "news_type" : force_text(y)}))
 field_inequality_women = lambda x, y: models.PositiveIntegerField(choices=AGREE_DISAGREE, verbose_name=_('(%(field_number)s) This %(news_type)s clearly highlights issues of inequality between women and men' % {"field_number" : x, "news_type" : force_text(y)}))
-field_stereotypes = lambda x, y: models.PositiveIntegerField(choices=AGREE_DISAGREE, verbose_name=_('(%s) Challenges Stereotypes') % x, help_text=_('This %s clearly challenges gender stereotypes' % force_text(y)))
+field_stereotypes = lambda x, y: models.PositiveIntegerField(choices=AGREE_DISAGREE, verbose_name=_('(%(field_number)s) This %(news_type)s clearly challenges gender stereotypes' % {"field_number" : x, "news_type" : force_text(y)}))
 
 field_comments = lambda x: models.TextField(verbose_name=_('(%s) Describe any photographs included in the story and the conclusions you draw from them.' % x), blank=True)
 
