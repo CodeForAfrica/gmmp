@@ -273,7 +273,9 @@ class InternetNewsSheetAdmin(PermsAdmin):
             'classes' : ('people-fieldset',),
         }),
         ('Does this story warrant further analysis?', {
-            'description': '''A story warrants further analysis if it clearly perpetuates or clearly challenges gender stereotypes, if it includes women's opinions in a remarkable way, if it contributes to an understanding of inequalities between women and men, if it mentions or calls attention to women's human rights, etc. Consult the guide for further explanation. <br/><br/> *If you select '1' (Yes), you will need to send a print-out of the story, screen grab of the page and recordings of multimedia features in it to your national/regional coordinator.''',
+            'description': '''A story warrants further analysis if it clearly perpetuates or clearly challenges gender stereotypes, if it includes women's opinions in a remarkable way, if it contributes to an understanding of inequalities between women and men, if it mentions or calls attention to women's human rights, etc. Consult the guide for further explanation.
+            <br/><br/>
+            <small>*If you select '1' (Yes), you will need to send a print-out of the story, screen grab of the page and recordings of multimedia features in it to your national/regional coordinator.</small>''',
             'fields': ('further_analysis',),
         }),
         ('Comments & Explanations', {
@@ -336,7 +338,9 @@ class NewspaperSheetAdmin(PermsAdmin):
             'classes' : ('people-fieldset',),
         }),
         ('Does this story warrant further analysis?', {
-            'description': '''A story warrants further analysis if it clearly perpetuates or clearly challenges gender stereotypes, if it includes women's opinions in a remarkable way, if it contributes to an understanding of inequalities between women and men, if it mentions or calls attention to women's human rights, etc. Consult the guide for further explanation. <br/><br/> *If you select '1' (Yes), you will need to send a print-out of the story, screen grab of the page and recordings of multimedia features in it to your national/regional coordinator.''',
+            'description': '''*A story warrants further analysis if it clearly perpetuates or clearly challenges gender stereotypes, if it includes women’s opinions in a remarkable way, if it contributes to an understanding of inequalities between women and men, if it mentions or calls attention to women’s human rights, etc. Consult the guide for further explanation.
+            <br/><br/>
+            <small>*If you select ‘1’ (Yes), you will need to send a copy of the clipping to your national/regional coordinator.</small>''',
             'fields': ('further_analysis',),
         }),
         ('Comments & Explanations', {
@@ -459,6 +463,12 @@ class RadioSheetAdmin(PermsAdmin):
             Do not code: (i) Groups (e.g. a group of nurses, a group of soldiers); (ii) Organisations, companies, collectivities (e.g. political parties); (iii) Characters in novels or movies (unless the story is about them); (iv)Deceased historical figures (unless the story is about them); Interpreters (Code the person being interviewed as if they spoke without an interpreter).''',
             'fields': (),
             'classes' : ('people-fieldset',),
+        }),
+        ('Does this story warrant further analysis?', {
+            'description': '''A story warrants further analysis if it clearly perpetuates or clearly challenges gender stereotypes, if it includes women’s opinions in a remarkable way, if it contributes to an understanding of inequalities between women and men, if it mentions or calls attention to women’s human rights, etc. Consult the guide for further explanation.
+            <br/></br/>
+            <small>*If you select ‘1’ (Yes), you will need to send a copy of the recording to your national/regional coordinator.</small>''',
+            'fields': ('further_analysis',),
         }),
         ('Comments & Explanations', {
             'fields' : ('comments',),

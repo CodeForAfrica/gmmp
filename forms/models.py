@@ -194,9 +194,9 @@ class TelevisionPerson(Person):
     victim_of = field_victim_of('17')
     survivor_of = field_survivor_of('18')
 
-    special_qn_1 = field_special_qn('20', '1')
-    special_qn_2 = field_special_qn('21', '2')
-    special_qn_3 = field_special_qn('22', '3')
+    special_qn_1 = field_special_qn('19', '1')
+    special_qn_2 = field_special_qn('20', '2')
+    special_qn_3 = field_special_qn('21', '3')
 
     television_sheet = models.ForeignKey('TelevisionSheet', on_delete=models.CASCADE)
 
@@ -253,9 +253,9 @@ class RadioPerson(Person):
     victim_of = field_victim_of('15')
     survivor_of = field_survivor_of('16')
 
-    special_qn_1 = field_special_qn('20', '1')
-    special_qn_2 = field_special_qn('21', '2')
-    special_qn_3 = field_special_qn('22', '3')
+    special_qn_1 = field_special_qn('17', '1')
+    special_qn_2 = field_special_qn('18', '2')
+    special_qn_3 = field_special_qn('19', '3')
 
     radio_sheet = models.ForeignKey('RadioSheet', on_delete=models.CASCADE)
 
