@@ -10,6 +10,8 @@ urlpatterns = [
     # url(r'^blog/', include('blog.urls')),
 
     path('grappelli/', include('grappelli.urls')), # grappelli URLS
+    path(r'^jet/', include('jet.urls', 'jet')),  # Django JET URLS
+    path(r'^jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),  # Django JET dashboard URLS
     path('admin/', admin.site.urls), # admin site
     
     re_path(r'^$', TemplateView.as_view(template_name="index.html")),
