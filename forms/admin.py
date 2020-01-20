@@ -335,6 +335,10 @@ class NewspaperSheetAdmin(PermsAdmin):
             'fields': (),
             'classes' : ('people-fieldset',),
         }),
+        ('Does this story warrant further analysis?', {
+            'description': '''A story warrants further analysis if it clearly perpetuates or clearly challenges gender stereotypes, if it includes women's opinions in a remarkable way, if it contributes to an understanding of inequalities between women and men, if it mentions or calls attention to women's human rights, etc. Consult the guide for further explanation. <br/><br/> *If you select '1' (Yes), you will need to send a print-out of the story, screen grab of the page and recordings of multimedia features in it to your national/regional coordinator.''',
+            'fields': ('further_analysis',),
+        }),
         ('Comments & Explanations', {
             'fields' : ('comments',),
         }),
