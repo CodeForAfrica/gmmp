@@ -134,7 +134,6 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
-GRAPPELLI_ADMIN_TITLE='Global Media Monitoring Project - 2020'
 LOCALE_PATHS = [
     os.path.join(BASE_DIR, 'locale'),
     '/gmmp/forms/locale/',
@@ -142,6 +141,10 @@ LOCALE_PATHS = [
 
 # Temporary login screen for downloading the exported data
 LOGIN_URL = '/admin/login/'
+
+
+# Django Jet Customizations - https://jet.readthedocs.io/en/latest/config_file.html
+JET_DEFAULT_THEME = 'light-blue'
 
 
 # Logging
