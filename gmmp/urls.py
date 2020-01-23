@@ -14,7 +14,7 @@ urlpatterns = [
     re_path(r'^jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),  # Django JET dashboard URLS
     path('admin/', admin.site.urls), # admin site
     
-    re_path(r'^$', TemplateView.as_view(template_name="index.html")),
+    re_path(r'^$', RedirectView.as_view(url='/admin'), name='go-to-admin'),
 
     # TODO: Fix reports views, they're blocking migration
     # url(r'^reports/', include('reports.urls')),
