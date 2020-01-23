@@ -222,9 +222,9 @@ class InternetNewsPerson(Person):
     is_quoted = field_is_quoted('20')
     is_photograph = field_is_photograph('21')
 
-    special_qn_1 = field_special_qn('20', '1')
-    special_qn_2 = field_special_qn('21', '2')
-    special_qn_3 = field_special_qn('22', '3')
+    special_qn_1 = field_special_qn('22', '1')
+    special_qn_2 = field_special_qn('23', '2')
+    special_qn_3 = field_special_qn('24', '3')
 
     internetnews_sheet = models.ForeignKey('InternetNewsSheet', on_delete=models.CASCADE)
 
