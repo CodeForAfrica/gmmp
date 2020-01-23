@@ -9,6 +9,192 @@ def prepend_verbose(mydict, field_name, num):
     field.verbose_name = '(%s) %s' % (num, field_name)
 
 
+# ----------------------------
+# Newspaper
+# ----------------------------
+
+def newspaper_journalist_meta (name, bases, mydict):
+    dct = {
+        'sex' : bases[0]._meta.get_fields_with_model()[0][0],
+        'age' : bases[0]._meta.get_fields_with_model()[1][0],
+    }
+    prepend_verbose(dct, 'sex', '9')
+    return type(name, bases, mydict)
+
+class NewspaperJournalist(Journalist):
+    __metaclass__ = newspaper_journalist_meta
+
+    newspaper_sheet = models.ForeignKey('NewspaperSheet', on_delete=models.CASCADE)
+
+class NewspaperPerson(Person):
+    sex = field_sex('10')
+    age = field_age('11')
+    occupation = field_occupation('12')
+    function = field_function('13')
+    family_role = field_family_role('14')
+    victim_or_survivor = field_victim_or_survivor('15')
+    victim_of = field_victim_of('16')
+    survivor_of = field_survivor_of('17')
+    is_quoted = field_is_quoted('18')
+    is_photograph = field_is_photograph('19')
+
+    special_qn_1 = field_special_qn('20', '1')
+    special_qn_2 = field_special_qn('21', '2')
+    special_qn_3 = field_special_qn('22', '3')
+
+    newspaper_sheet = models.ForeignKey('NewspaperSheet', on_delete=models.CASCADE)
+
+class NewspaperSheet(SheetModel):
+    class Meta:
+        verbose_name = _('Newspaper Submission')
+
+    newspaper_name = models.CharField(max_length=255, verbose_name=_('Newspaper'), help_text=_('''Be as specific as possible. If the paper has different regional editions, write in the name of the edition you are monitoring - e.g. 'The Hindu - Delhi edition'.'''))
+
+    page_number = models.PositiveIntegerField(verbose_name=_('(1) Page Number'), help_text=_('Write in the number of the page on which the story begins. Story appears on first page = 1, Seventh page = 7, etc.'))
+    topic = field_topic('2')
+    scope = field_scope('3')
+    space = models.PositiveIntegerField(choices=SPACE, verbose_name=_('(4) Space'))
+
+    equality_rights = field_equality_rights('5')
+    about_women = field_about_women('6', _('story'))
+    inequality_women = field_inequality_women('7', _('story'))
+    stereotypes = field_stereotypes('8', _('story'))
+    
+    further_analysis = field_further_analysis('24', 'story')
+    comments = field_comments('23')
+
+    def __unicode__(self):
+        return self.newspaper_name
+
+# ----------------------------
+# Radio
+# ----------------------------
+
+class RadioPerson(Person):
+    sex = field_sex('10')
+    occupation = field_occupation('11')
+    function = field_function('12')
+    family_role = field_family_role('13')
+    victim_or_survivor = field_victim_or_survivor('14')
+    victim_of = field_victim_of('15')
+    survivor_of = field_survivor_of('16')
+
+    special_qn_1 = field_special_qn('17', '1')
+    special_qn_2 = field_special_qn('18', '2')
+    special_qn_3 = field_special_qn('19', '3')
+
+    radio_sheet = models.ForeignKey('RadioSheet', on_delete=models.CASCADE)
+
+def radio_journalist_meta(name, bases, mydict):
+    dct = {
+        'sex' : bases[0]._meta.get_fields_with_model()[1][0],
+        'role' : bases[0]._meta.get_fields_with_model()[2][0],
+    }
+    prepend_verbose(dct, 'role', '8')
+    prepend_verbose(dct, 'sex', '9')
+    return type(name, bases, mydict)
+
+class RadioJournalist(BroadcastJournalist):
+    __metaclass__ = radio_journalist_meta
+
+    radio_sheet = models.ForeignKey('RadioSheet', on_delete=models.CASCADE)
+
+class RadioSheet(SheetModel):
+    station_name = models.CharField(max_length=255, verbose_name=_('Name of radio channel or station'), help_text=_('''Be as specific as possible. E.g. if the radio company is called RRI, and if the newscast is broadcast on its third channel, write in 'RRI-3'.'''))
+
+    start_time = models.TimeField(verbose_name=_('Time of Broadcast'))
+    num_female_anchors = field_num_female_anchors
+    num_male_anchors = field_num_male_anchors
+
+    item_number = field_item_number('1')
+    topic = field_topic('2')
+    scope = field_scope('3')
+
+    equality_rights = field_equality_rights('4')
+    about_women = field_about_women('5', _('story'))
+    inequality_women = field_inequality_women('6', _('story'))
+    stereotypes = field_stereotypes('7', _('story'))
+
+    further_analysis = field_further_analysis('20', 'story')
+
+    comments = field_comments('N/A')
+
+    def __unicode__(self):
+        return self.station_name
+
+    class Meta:
+        verbose_name = _('Radio Submission')
+
+
+# ----------------------------
+# Television
+# ----------------------------
+
+class TelevisionPerson(Person):
+    sex = field_sex('11')
+    age = field_age('12')
+    occupation = field_occupation('13')
+    function = field_function('14')
+    family_role = field_family_role('15')
+    victim_or_survivor = field_victim_or_survivor('16')
+    victim_of = field_victim_of('17')
+    survivor_of = field_survivor_of('18')
+
+    special_qn_1 = field_special_qn('19', '1')
+    special_qn_2 = field_special_qn('20', '2')
+    special_qn_3 = field_special_qn('21', '3')
+
+    television_sheet = models.ForeignKey('TelevisionSheet', on_delete=models.CASCADE)
+
+def television_journalist_meta(name, bases, mydict):
+    dct = {
+        'sex' : bases[0]._meta.get_fields_with_model()[0][0],
+        'age' : bases[0]._meta.get_fields_with_model()[1][0],
+        'role' : bases[0]._meta.get_fields_with_model()[2][0],
+    }
+
+    prepend_verbose(dct, 'role', '8')
+    prepend_verbose(dct, 'sex', '9')
+    prepend_verbose(dct, 'age', '10')
+    return type(name, bases, mydict)
+
+class TelevisionJournalist(BroadcastJournalist):
+    __metaclass__ = television_journalist_meta
+
+    television_sheet = models.ForeignKey('TelevisionSheet', on_delete=models.CASCADE)
+
+class TelevisionSheet(SheetModel):
+    station_name = models.CharField(max_length=255, verbose_name=_('Name of TV Station'), help_text=_('''Name of the television channel or station : Be as specific as possible. E.g. if the television company is called RTV, and if the newscast is broadcast on its second channel, write in 'RTV-2' '''))
+
+    television_channel = models.CharField(max_length=255, verbose_name=_('Channel'), help_text=_('''Be as specific as possible. E.g. if the television company is called RTV, and if the newscast is broadcast on its second channel, write in 'RTV-2' '''))
+    start_time = models.TimeField(verbose_name=_('Time of Broadcast'))
+    num_female_anchors = field_num_female_anchors
+    num_male_anchors = field_num_male_anchors
+
+    item_number = field_item_number('1')
+    topic = field_topic('2')
+    scope = field_scope('3')
+
+    equality_rights = field_equality_rights('4')
+    about_women = field_about_women('5', _('story'))
+    inequality_women = field_inequality_women('6', _('story'))
+    stereotypes = field_stereotypes('7', _('story'))
+
+    further_analysis = field_further_analysis('22', 'story')
+
+    comments = field_comments('N/A')
+
+    def __unicode__(self):
+        return self.station_name
+
+    class Meta:
+        verbose_name = _('Television Submission')
+
+
+# ----------------------------
+# Internet News
+# ----------------------------
+
 def internet_journalist_meta(name, bases, mydict):
     dct = {
         'sex' : bases[0]._meta.get_fields_with_model()[0][0],
@@ -86,6 +272,10 @@ def twitter_journalist_meta(name, bases, mydict):
     prepend_verbose(dct, 'age', '8')
     return type(name, bases, mydict)
 
+# ----------------------------
+# Twitter
+# ----------------------------
+
 class TwitterJournalist(Journalist):
     __metaclass__ = twitter_journalist_meta
 
@@ -130,174 +320,6 @@ class TwitterSheet(SheetModel):
 
     def __unicode__(self):
         return self.twitter_handle
-
-def newspaper_journalist_meta (name, bases, mydict):
-    dct = {
-        'sex' : bases[0]._meta.get_fields_with_model()[0][0],
-        'age' : bases[0]._meta.get_fields_with_model()[1][0],
-    }
-    prepend_verbose(dct, 'sex', '9')
-    return type(name, bases, mydict)
-
-class NewspaperJournalist(Journalist):
-    __metaclass__ = newspaper_journalist_meta
-
-    newspaper_sheet = models.ForeignKey('NewspaperSheet', on_delete=models.CASCADE)
-
-class NewspaperPerson(Person):
-    sex = field_sex('10')
-    age = field_age('11')
-    occupation = field_occupation('12')
-    function = field_function('13')
-    family_role = field_family_role('14')
-    victim_or_survivor = field_victim_or_survivor('15')
-    victim_of = field_victim_of('16')
-    survivor_of = field_survivor_of('17')
-    is_quoted = field_is_quoted('18')
-    is_photograph = field_is_photograph('19')
-
-    special_qn_1 = field_special_qn('20', '1')
-    special_qn_2 = field_special_qn('21', '2')
-    special_qn_3 = field_special_qn('22', '3')
-
-    newspaper_sheet = models.ForeignKey('NewspaperSheet', on_delete=models.CASCADE)
-
-class NewspaperSheet(SheetModel):
-    class Meta:
-        verbose_name = _('Newspaper Submission')
-
-    newspaper_name = models.CharField(max_length=255, verbose_name=_('Newspaper'), help_text=_('''Be as specific as possible. If the paper has different regional editions, write in the name of the edition you are monitoring - e.g. 'The Hindu - Delhi edition'.'''))
-
-    page_number = models.PositiveIntegerField(verbose_name=_('(1) Page Number'), help_text=_('Write in the number of the page on which the story begins. Story appears on first page = 1, Seventh page = 7, etc.'))
-    topic = field_topic('2')
-    scope = field_scope('3')
-    space = models.PositiveIntegerField(choices=SPACE, verbose_name=_('(4) Space'))
-
-    equality_rights = field_equality_rights('5')
-    about_women = field_about_women('6', _('story'))
-    inequality_women = field_inequality_women('7', _('story'))
-    stereotypes = field_stereotypes('8', _('story'))
-    
-    further_analysis = field_further_analysis('24', 'story')
-    comments = field_comments('23')
-
-    def __unicode__(self):
-        return self.newspaper_name
-
-class TelevisionPerson(Person):
-    sex = field_sex('11')
-    age = field_age('12')
-    occupation = field_occupation('13')
-    function = field_function('14')
-    family_role = field_family_role('15')
-    victim_or_survivor = field_victim_or_survivor('16')
-    victim_of = field_victim_of('17')
-    survivor_of = field_survivor_of('18')
-
-    special_qn_1 = field_special_qn('19', '1')
-    special_qn_2 = field_special_qn('20', '2')
-    special_qn_3 = field_special_qn('21', '3')
-
-    television_sheet = models.ForeignKey('TelevisionSheet', on_delete=models.CASCADE)
-
-def television_journalist_meta(name, bases, mydict):
-    dct = {
-        'sex' : bases[0]._meta.get_fields_with_model()[0][0],
-        'age' : bases[0]._meta.get_fields_with_model()[1][0],
-        'role' : bases[0]._meta.get_fields_with_model()[2][0],
-    }
-
-    prepend_verbose(dct, 'role', '8')
-    prepend_verbose(dct, 'sex', '9')
-    prepend_verbose(dct, 'age', '10')
-    return type(name, bases, mydict)
-
-class TelevisionJournalist(BroadcastJournalist):
-    __metaclass__ = television_journalist_meta
-
-    television_sheet = models.ForeignKey('TelevisionSheet', on_delete=models.CASCADE)
-
-class TelevisionSheet(SheetModel):
-    station_name = models.CharField(max_length=255, verbose_name=_('Name of TV Station'), help_text=_('''Name of the television channel or station : Be as specific as possible. E.g. if the television company is called RTV, and if the newscast is broadcast on its second channel, write in 'RTV-2' '''))
-
-    television_channel = models.CharField(max_length=255, verbose_name=_('Channel'), help_text=_('''Be as specific as possible. E.g. if the television company is called RTV, and if the newscast is broadcast on its second channel, write in 'RTV-2' '''))
-    start_time = models.TimeField(verbose_name=_('Time of Broadcast'))
-    num_female_anchors = field_num_female_anchors
-    num_male_anchors = field_num_male_anchors
-
-    item_number = field_item_number('1')
-    topic = field_topic('2')
-    scope = field_scope('3')
-
-    equality_rights = field_equality_rights('4')
-    about_women = field_about_women('5', _('story'))
-    inequality_women = field_inequality_women('6', _('story'))
-    stereotypes = field_stereotypes('7', _('story'))
-
-    further_analysis = field_further_analysis('22', 'story')
-
-    comments = field_comments('N/A')
-
-    def __unicode__(self):
-        return self.station_name
-
-    class Meta:
-        verbose_name = _('Television Submission')
-
-class RadioPerson(Person):
-    sex = field_sex('10')
-    occupation = field_occupation('11')
-    function = field_function('12')
-    family_role = field_family_role('13')
-    victim_or_survivor = field_victim_or_survivor('14')
-    victim_of = field_victim_of('15')
-    survivor_of = field_survivor_of('16')
-
-    special_qn_1 = field_special_qn('17', '1')
-    special_qn_2 = field_special_qn('18', '2')
-    special_qn_3 = field_special_qn('19', '3')
-
-    radio_sheet = models.ForeignKey('RadioSheet', on_delete=models.CASCADE)
-
-def radio_journalist_meta(name, bases, mydict):
-    dct = {
-        'sex' : bases[0]._meta.get_fields_with_model()[1][0],
-        'role' : bases[0]._meta.get_fields_with_model()[2][0],
-    }
-    prepend_verbose(dct, 'role', '8')
-    prepend_verbose(dct, 'sex', '9')
-    return type(name, bases, mydict)
-
-class RadioJournalist(BroadcastJournalist):
-    __metaclass__ = radio_journalist_meta
-
-    radio_sheet = models.ForeignKey('RadioSheet', on_delete=models.CASCADE)
-
-class RadioSheet(SheetModel):
-    station_name = models.CharField(max_length=255, verbose_name=_('Name of radio channel or station'), help_text=_('''Be as specific as possible. E.g. if the radio company is called RRI, and if the newscast is broadcast on its third channel, write in 'RRI-3'.'''))
-
-    start_time = models.TimeField(verbose_name=_('Time of Broadcast'))
-    num_female_anchors = field_num_female_anchors
-    num_male_anchors = field_num_male_anchors
-
-    item_number = field_item_number('1')
-    topic = field_topic('2')
-    scope = field_scope('3')
-
-    equality_rights = field_equality_rights('4')
-    about_women = field_about_women('5', _('story'))
-    inequality_women = field_inequality_women('6', _('story'))
-    stereotypes = field_stereotypes('7', _('story'))
-
-    further_analysis = field_further_analysis('20', 'story')
-
-    comments = field_comments('N/A')
-
-    def __unicode__(self):
-        return self.station_name
-
-    class Meta:
-        verbose_name = _('Radio Submission')
 
 
 sheet_models = OrderedDict([
