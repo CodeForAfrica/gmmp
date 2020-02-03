@@ -143,10 +143,6 @@ LOCALE_PATHS = [
 LOGIN_URL = '/admin/login/'
 
 
-# Django Jet Customizations - https://jet.readthedocs.io/en/latest/config_file.html
-JET_DEFAULT_THEME = 'light-blue'
-
-
 # Logging
 LOGGING = {
     'version': 1,
@@ -184,3 +180,34 @@ COUNTRIES_OVERRIDE = {
     'B1': _('Belgium - French'),
     'B2': _('Belgium - Flemish')
 }
+
+# Django Jet Customizations - https://jet.readthedocs.io/en/latest/config_file.html
+JET_DEFAULT_THEME = 'light-blue'
+JET_SIDE_MENU_COMPACT = True
+JET_INDEX_DASHBOARD = 'gmmp.dashboard.CustomIndexDashboard'
+JET_SIDE_MENU_ITEMS = [
+    {'label': _('Add'), 'items': [
+        {'label': _('Add Newspaper'), 'url': {'type': 'reverse', 'name':'admin:forms_newspapersheet_add'}},
+        {'label': _('Add Radio'), 'url': {'type': 'reverse', 'name':'admin:forms_radiosheet_add'}},
+        {'label': _('Add Television'), 'url': {'type': 'reverse', 'name':'admin:forms_televisionsheet_add'}},
+        {'label': _('Add Internet News'), 'url': {'type': 'reverse', 'name':'admin:forms_internetnewssheet_add'}},
+        {'label': _('Add Twitter'), 'url': {'type': 'reverse', 'name':'admin:forms_twittersheet_add'}},
+    ]},
+    {'label': _('Submissions'), 'items': [
+        {'name': 'forms.newspapersheet'},
+        {'name': 'forms.radiosheet'},
+        {'name': 'forms.televisionsheet'},
+        {'name': 'forms.internetnewssheet'},
+        {'name': 'forms.twittersheet'},
+    ]},
+    {'label': _('General'), 'app_label': 'core', 'items': [
+        {'label': _('Help'), 'url': '#'},
+        {'label': _('Facebook Group'), 'url': 'https://www.facebook.com/groups/1601794946722112/', 'url_blank': True},
+        {'label': _('Methodology Guides & Coding Tools'), 'url': 'http://whomakesthenews.org/gmmp-2020/media-monitoring/methodology-guides-and-coding-tools', 'url_blank': True},
+    ]},
+    {'label': _('Other Links'), 'items': [
+        {'label': _('Who Makes The News'), 'url': 'http://whomakesthenews.org/', 'url_blank': True},
+        {'label': _('Facebook'), 'url': 'https://www.facebook.com/Global.Media.Monitoring.Project/', 'url_blank': True},
+    ]},
+]
+
