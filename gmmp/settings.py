@@ -207,6 +207,10 @@ JET_SIDE_MENU_ITEMS = [
         {'name': 'forms.internetnewssheet'},
         {'name': 'forms.twittersheet'},
     ]},
+    {'label': _('Access Control'), 'items': [
+        {'name': 'auth.user'},
+        {'name': 'auth.group'},
+    ]},
     {'label': _('General'), 'app_label': 'core', 'items': [
         {'label': _('Help'), 'url': '#'},
         {'label': _('Facebook Group'), 'url': 'https://www.facebook.com/groups/1601794946722112/', 'url_blank': True},
