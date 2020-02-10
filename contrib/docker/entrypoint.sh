@@ -11,8 +11,8 @@ done
 python manage.py migrate guardian --noinput
 python manage.py migrate jet --noinput
 python manage.py migrate dashboard --noinput
-python manage.py migrate --noinput                # Apply database migrations
-python manage.py collectstatic --clear --noinput  # Collect static files
+python manage.py migrate --noinput               # Apply database migrations
+python manage.py collectstatic --clear --noinput # Collect static files
 
 # Prepare log files and start outputting logs to stdout
 touch /src/logs/gunicorn.log
@@ -22,9 +22,9 @@ tail -n 0 -f /src/logs/*.log &
 # Start Gunicorn processes
 echo Starting Gunicorn.
 exec gunicorn \
-    --bind 0.0.0.0:8000 \
-    --workers 3 \
-    --worker-class gevent \
-    --log-file=/src/logs/gunicorn.log \
-    --access-logfile=/src/logs/access.log \
-    "$@"
+  --bind 0.0.0.0:8000 \
+  --workers 3 \
+  --worker-class gevent \
+  --log-file=/src/logs/gunicorn.log \
+  --access-logfile=/src/logs/access.log \
+  "$@"
