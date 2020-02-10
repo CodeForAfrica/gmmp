@@ -12,71 +12,86 @@ from forms.models import (
 
 
 class AddInternetNewsSubmission(DashboardModule):
-    title = _("Add Internet News Submissions")
+    title = _("Internet News")
     url = reverse("admin:forms_internetnewssheet_add")
     template = "gmmp/dashboard_modules/add_submission.html"
 
     def init_with_context(self, context):
         self.children = [
             {
-                "title": _("Add Internet News Submissions"),
+                "title": _("Add Internet News Article"),
                 "url": reverse("admin:forms_internetnewssheet_add"),
+                "description": _(
+                    "Capture here news that are online. Remember to only capture national (and if necessary, local) major websites."
+                ),
             },
         ]
 
 
 class AddNewspaperSubmission(DashboardModule):
-    title = _("Add Newspaper Submissions")
+    title = _("Newspapers")
     url = reverse("admin:forms_newspapersheet_add")
     template = "gmmp/dashboard_modules/add_submission.html"
 
     def init_with_context(self, context):
         self.children = [
             {
-                "title": _("Add Newspaper Submissions"),
+                "title": _("Add Newspaper Article"),
                 "url": reverse("admin:forms_newspapersheet_add"),
+                "description": _(
+                    "Newspaper news are news published on print. The number of newspapers you code will depend on the number of newspapers in your country."
+                ),
             },
         ]
 
 
 class AddRadioSubmission(DashboardModule):
-    title = _("Add Radio Submissions")
+    title = _("Radio News")
     url = reverse("admin:forms_radiosheet_add")
     template = "gmmp/dashboard_modules/add_submission.html"
 
     def init_with_context(self, context):
         self.children = [
             {
-                "title": _("Add Radio Submissions"),
+                "title": _("Add Radio Item"),
                 "url": reverse("admin:forms_radiosheet_add"),
+                "description": _(
+                    "Capture here news that are broadcast on the radio. The number of newscasts you code will depend on the number of radio channels that broadcast news in your country."
+                ),
             },
         ]
 
 
 class AddTelevisionSubmission(DashboardModule):
-    title = _("Add Television Submissions")
+    title = _("Television News")
     url = reverse("admin:forms_televisionsheet_add")
     template = "gmmp/dashboard_modules/add_submission.html"
 
     def init_with_context(self, context):
         self.children = [
             {
-                "title": _("Add Television Submissions"),
+                "title": _("Add Television Item"),
                 "url": reverse("admin:forms_televisionsheet_add"),
+                "description": _(
+                    "Capture here news that are broadcast on television. The number of newscast you code will depend on the number of television channels that broadcast news in your country."
+                ),
             },
         ]
 
 
 class AddTwitterSubmission(DashboardModule):
-    title = _("Add Twitter Submissions")
+    title = _("Twitter")
     url = reverse("admin:forms_twittersheet_add")
     template = "gmmp/dashboard_modules/add_submission.html"
 
     def init_with_context(self, context):
         self.children = [
             {
-                "title": _("Add Twitter Submissions"),
+                "title": _("Add Tweets"),
                 "url": reverse("admin:forms_twittersheet_add"),
+                "description": _(
+                    "Only capture tweets that are specific posts/feeds by news media on twitter. Remember to capture only national (and if necessary, local) media house Twitter feeds."
+                ),
             },
         ]
 
