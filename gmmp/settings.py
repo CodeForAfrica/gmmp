@@ -178,7 +178,8 @@ COUNTRIES_OVERRIDE = {
     'EN': _('England'),
     'WL': _('Wales'),
     'B1': _('Belgium - French'),
-    'B2': _('Belgium - Flemish')
+    'B2': _('Belgium - Flemish'),
+    'XI': _('International'),
 }
 
 # https://docs.djangoproject.com/en/2.2/ref/contrib/admin/#adminsite-attributes
@@ -216,4 +217,3 @@ JET_SIDE_MENU_ITEMS = [
         {'label': _('Facebook'), 'url': 'https://www.facebook.com/Global.Media.Monitoring.Project/', 'url_blank': True},
     ]},
 ]
-
