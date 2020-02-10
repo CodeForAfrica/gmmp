@@ -1,6 +1,11 @@
-<div style="padding: 4rem 2rem">
+<div class="submission">
+
   {% for sheet in module.children %}
-  <a href="{{sheet.url}}">
+  <div class="submission-description">
+    <p>{{sheet.description}}</p>
+  </div>
+  <a href="{{sheet.url}}" class="submission-action">
+    <span class="icon-add" aria-hidden="true"></span>
     {{ sheet.title }}
   </a>
   {% endfor %}
