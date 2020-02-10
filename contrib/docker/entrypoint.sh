@@ -9,6 +9,8 @@ done
 >&2 echo "Postgres is up - continuing"
 
 python manage.py migrate guardian --noinput
+python manage.py migrate jet --noinput
+python manage.py migrate dashboard --noinput
 python manage.py migrate --noinput                # Apply database migrations
 python manage.py collectstatic --clear --noinput  # Collect static files
 
