@@ -1,6 +1,11 @@
 {% extends 'admin/base_site.html' %}
 {% load static i18n %}
 
+{% block extrastyle %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" href="{% static 'css/gmmp.css' %}" />
+{% endblock %}
+
 {% block extrahead %}
 {{super}}
 <link rel="apple-touch-icon" sizes="180x180" href="{% static 'apple-touch-icon.png' %}">
@@ -16,4 +21,10 @@
 {% block welcome-msg %}
 {% trans 'Welcome,' %}
 <strong>{{ user.monitor.country.code }} / {% firstof user.get_short_name user.get_username %}</strong>
+{% endblock %}
+
+{% block footer %}
+<footer id="footer" class="footer">
+    <p>Copyright © Global Media Monitoring Project 2020</p>
+</footer>
 {% endblock %}
