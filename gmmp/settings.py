@@ -41,6 +41,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'gmmp',
     'jet.dashboard',
     'jet',
     'django.contrib.admin',
@@ -54,7 +55,6 @@ INSTALLED_APPS = [
     'guardian',
     'django_countries',
     'forms',
-    'gmmp',
     'reports',
 ]
 
@@ -180,6 +180,12 @@ COUNTRIES_OVERRIDE = {
     'B1': _('Belgium - French'),
     'B2': _('Belgium - Flemish')
 }
+
+# https://docs.djangoproject.com/en/2.2/ref/contrib/admin/#adminsite-attributes
+ADMIN_SITE_SITE_HEADER = 'GMMP Database'
+ADMIN_SITE_SITE_TITLE = 'GMMP'
+ADMIN_SITE_SITE_URL = None
+ADMIN_SITE_INDEX_TITLE = 'Dashboard'
 
 # Django Jet Customizations - https://jet.readthedocs.io/en/latest/config_file.html
 JET_DEFAULT_THEME = 'light-blue'
