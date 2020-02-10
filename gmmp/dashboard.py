@@ -2,7 +2,7 @@ from django.utils.translation import ugettext_lazy as _
 from jet.dashboard import modules
 from jet.dashboard.dashboard import Dashboard, AppIndexDashboard
 
-from gmmp.dashboard_modules import AddInternetNewsSubmission, AddNewspaperSubmission, AddRadioSubmission, AddTelevisionSubmission, AddTwitterSubmission
+from gmmp.dashboard_modules import AddInternetNewsSubmission, AddNewspaperSubmission, AddRadioSubmission, AddTelevisionSubmission, AddTwitterSubmission, Submissions
 
 class CustomIndexDashboard(Dashboard):
     columns = 3
@@ -29,10 +29,7 @@ class CustomIndexDashboard(Dashboard):
             column=1,
             order=1
         ))
-        self.children.append(modules.LinkList(
-            _('Add News Subbmission'),
-            children=[
-            ],
-            column=4,
-            order=0
+        self.children.append(Submissions(
+            column=2,
+            order=1
         ))

@@ -79,3 +79,37 @@ class AddTwitterSubmission(DashboardModule):
                 "url": reverse("admin:forms_twittersheet_add"),
             },
         ]
+
+
+class Submissions(DashboardModule):
+    title = "Submissions"
+    template = "gmmp/dashboard_modules/submissions.html"
+
+    def init_with_context(self, context):
+        self.children = [
+            {
+                "name": _("Newspaper Submission(s)"),
+                "count": NewspaperSheet.objects.count(),
+                "url": reverse("admin:forms_newspapersheet_changelist"),
+            },
+            {
+                "name": _("Radio Submission(s)"),
+                "count": RadioSheet.objects.count(),
+                "url": reverse("admin:forms_radiosheet_changelist"),
+            },
+            {
+                "name": _("Television Submission(s)"),
+                "count": TelevisionSheet.objects.count(),
+                "url": reverse("admin:forms_televisionsheet_changelist"),
+            },
+            {
+                "name": _("Internet News Submission(s)"),
+                "count": InternetNewsSheet.objects.count(),
+                "url": reverse("admin:forms_internetnewssheet_changelist"),
+            },
+            {
+                "name": _("Twitter Submission(s)"),
+                "count": TwitterSheet.objects.count(),
+                "url": reverse("admin:forms_twittersheet_changelist"),
+            },
+        ]

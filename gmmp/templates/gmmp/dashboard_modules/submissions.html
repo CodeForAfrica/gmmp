@@ -1,0 +1,11 @@
+<ul>
+    {% for sheet in module.children %}
+    <li>
+        <a href="{{sheet.url}}">
+            <span>
+                <span class="tooltip" title="{{ sheet.name }}">{{ sheet.count }}</span> {{ sheet.name }}
+            </span>
+        </a>
+    </li>
+    {% endfor %}
+</ul>
