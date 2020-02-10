@@ -1,0 +1,11 @@
+<ul class="submission">
+    {% for sheet in module.children %}
+    <li class="submission-item">
+        <a href="{{sheet.url}}">
+            <span>
+                <strong>{{ sheet.count }}</strong> {{ sheet.name }}
+            </span>
+        </a>
+    </li>
+    {% endfor %}
+</ul>

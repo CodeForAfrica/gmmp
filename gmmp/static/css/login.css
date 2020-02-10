@@ -1,0 +1,12 @@
+body.login {
+  padding-top: 10px;
+}
+body.login .img {
+  width: 100%;
+}
+body.login .login-form {
+  margin-bottom: 2rem;
+}
+body.login .submit-row input[type="submit"] {
+  background-color: #29abe2;
+}
