@@ -142,6 +142,11 @@ LOCALE_PATHS = [
 # Temporary login screen for downloading the exported data
 LOGIN_URL = '/admin/login/'
 
+# Email
+EMAIL_HOST = env.get('GMMP_EMAIL_HOST', 'smtp.sendgrid.net')
+EMAIL_PORT = int(env.get('GMMP_EMAIL_PORT', '2525'))
+EMAIL_HOST_USER = env.get('GMMP_EMAIL_HOST_USER', 'apikey')
+EMAIL_HOST_PASSWORD = env.get('GMMP_EMAIL_HOST_PASSWORD')
 
 # Logging
 LOGGING = {

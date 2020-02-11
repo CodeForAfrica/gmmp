@@ -31,6 +31,7 @@ services:
       - PGPASSWORD=gmmp
       - PYTHONDONTWRITEBYTECODE="True"
       - DJANGO_DEBUG=${DJANGO_DEBUG:-True} # For testing deploys
+      - GMMP_EMAIL_HOST_PASSWORD=${GMMP_EMAIL_HOST_PASSWORD}
     command:
       [
         "--log-level",
