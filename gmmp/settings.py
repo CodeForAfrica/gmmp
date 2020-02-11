@@ -143,10 +143,10 @@ LOCALE_PATHS = [
 LOGIN_URL = '/admin/login/'
 
 # Email
-EMAIL_HOST = os.environ.get('GMMP_EMAIL_HOST', 'smtp.sendgrid.net')
-EMAIL_PORT = int(os.environ.get('GMMP_EMAIL_PORT', '2525'))
-EMAIL_HOST_USER = os.environ.get('GMMP_EMAIL_HOST_USER', 'apikey')
-EMAIL_HOST_PASSWORD = os.environ.get('GMMP_EMAIL_HOST_PASSWORD')
+EMAIL_HOST = env.get('GMMP_EMAIL_HOST', 'smtp.sendgrid.net')
+EMAIL_PORT = int(env.get('GMMP_EMAIL_PORT', '2525'))
+EMAIL_HOST_USER = env.get('GMMP_EMAIL_HOST_USER', 'apikey')
+EMAIL_HOST_PASSWORD = env.get('GMMP_EMAIL_HOST_PASSWORD')
 
 # Logging
 LOGGING = {
