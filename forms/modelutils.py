@@ -8,7 +8,7 @@ from gmmp.models import Monitor
 
 
 TOPICS = (
-    ('Politics and Government', (
+    (_('Politics and Government'), (
             (1,  _('(1) Women politicians, women electoral candidates...')),
             (2,  _('(2) Peace, negotiations, treaties...(local, regional, national),')),
             (3,  _('(3) Other domestic politics/government (local, regional, national), elections, speeches, the political process ...')),
@@ -18,7 +18,7 @@ TOPICS = (
             (7,  _('(7) Other stories on politics and government (specify the topic in \'Comments\' section of coding sheet)')),
         )
     ),
-    ('Economy', (
+    (_('Economy'), (
             (8,  _('(8) Economic policies, strategies, modules, indicators, stock markets, taxes,...')),
             (9,  _('(9) Economic crisis, state bailouts of companies, company takeovers and mergers ...')),
             (10, _('(10) Poverty, housing, social welfare, aid to those in need ...')),
@@ -32,7 +32,7 @@ TOPICS = (
             (18, _('(18) Other stories on the economy (specify the topic in \'Comments\' section of coding sheet)')),
         )
     ),
-    ('Science and Health', (
+    (_('Science and Health'), (
             (19, _('(19) Science, technology, research, funding, discoveries, developments ...')),
             (20, _('(20) Medicine, health, hygiene, safety, disability, medical research, funding (not EBOLA or HIV- AIDS)...')),
             (21, _('(21) EBOLA, treatment, response...')),
@@ -44,7 +44,7 @@ TOPICS = (
             (27, _('(27) Other stories on science or health (specify the topic in \'Comments\' section of coding sheet)')),
         )
     ),
-    ('Social and Legal', (
+    (_('Social and Legal'), (
             (28, _('(28) Sustainable Development Goals (SDGs), Post 2015 agenda, Agenda 2030')),
             (29, _('(29) Family relations, inter-generational conflict, single parents ...')),
             (30, _('(30) Human rights, women\'s rights, children\'s rights, gay & lesbian rights, rights of minorities ..')),
@@ -61,7 +61,7 @@ TOPICS = (
             (41, _('(41) Other stories on social or legal issues (specify the topic in \'Comments\' section of coding sheet)')),
         )
     ),
-    ('Crime and Violence', (
+    (_('Crime and Violence'), (
             (42, _('(42) Non-violent crime, bribery, theft, drug-dealing, ...')),
             (43, _('(43) Corruption, (including political corruption/malpractice)')),
             (44, _('(44) Violent crime, murder, abduction, kidnapping, assault, drug-related violence ...')),
@@ -70,13 +70,13 @@ TOPICS = (
             (47, _('(47) Other stories on crime and violence (specify the topic in \'Comments\' section of coding sheet)')),
         )
     ),
-    ('Gender and related', (
+    (_('Gender and related'), (
             (48, _(u'(48) Sexual harassment against women, rape, sexual assault, #MeToo #TimesUp')),
             (49, _('(49) Other gender violence such as feminicide, trafficking of girls and women, FGM...')),
             (50, _('(50) Inequality between women and men such as income inequality/gender pay gap,')),
         )
     ),
-    ('Celebrity, Arts and Media, Sports', (
+    (_('Celebrity, Arts and Media, Sports'), (
             (51, _('(51) Celebrity news, births, marriages, deaths, obituaries, famous people, royalty ...')),
             (52, _('(52) Arts, entertainment, leisure, cinema, theatre, books, dance ...')),
             (53, _('(53) Media, including new media (computers, internet), portrayal of women and/or men')),
@@ -86,7 +86,7 @@ TOPICS = (
             (57, _('(57) Other stories on celebrities, arts, media (specify the topic in \'Comments\' section of coding sheet)')),
         )
     ),
-    ('Other', (
+    (_('Other'), (
             (58, _('(58) Use only as a last resort and explain')),
         )
     )
@@ -279,7 +279,7 @@ class SheetModel(models.Model):
 
     @classmethod
     def person_field_name(self):
-        """ Return the nawe of the person-related field for this model
+        """ Return the name of the person-related field for this model
         """
         return self.person_field().name.split(':')[-1]
 
@@ -293,7 +293,7 @@ class SheetModel(models.Model):
 
     @classmethod
     def journalist_field_name(self):
-        """ Return the nawe of the journalist-related field for this model
+        """ Return the name of the journalist-related field for this model
         """
         return self.journalist_field().name.split(':')[-1]
 
