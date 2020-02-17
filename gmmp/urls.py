@@ -14,11 +14,12 @@ admin.site.site_url = settings.ADMIN_SITE_SITE_URL
 admin.site.index_title = settings.ADMIN_SITE_INDEX_TITLE
 
 urlpatterns = i18n_patterns(
-    path("grappelli/", include("grappelli.urls")),  # grappelli URLS
-    re_path(r"^jet/", include("jet.urls", "jet")),  # Django JET URLS
-    re_path(
-        r"^jet/dashboard/", include("jet.dashboard.urls", "jet-dashboard")
-    ),  # Django JET dashboard URLS
+    # grappelli URLS
+    path("grappelli/", include("grappelli.urls")),
+    # Django JET URLS
+    re_path(r"^jet/", include("jet.urls", "jet")),
+    # Django JET dashboard URLS
+    re_path(r"^jet/dashboard/", include("jet.dashboard.urls", "jet-dashboard")),
     path(
         "admin/password_reset/",
         auth_views.PasswordResetView.as_view(),
@@ -39,9 +40,10 @@ urlpatterns = i18n_patterns(
         auth_views.PasswordResetCompleteView.as_view(),
         name="password_reset_complete",
     ),
-    path("admin/", admin.site.urls),  # Admin site URLS
+    # Admin site URLS
+    path("admin/", admin.site.urls),
     re_path(r"^$", RedirectView.as_view(url="/admin"), name="go-to-admin"),
     # TODO: Fix reports views, they're blocking migration
     # url(r'^reports/', include('reports.urls')),
-    prefix_default_language=False
+    prefix_default_language=False,
 ) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
