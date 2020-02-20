@@ -15,7 +15,7 @@
 .dashboard-item-content .submission-description {
   padding: 1.5rem 2rem;
   height: 13.5rem;
-  overflow-y: hidden;
+  overflow-y: auto;
 }
 .dashboard-item-content .submission .submission-item {
   font-size: 1rem;
