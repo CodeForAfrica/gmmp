@@ -19,6 +19,7 @@ RUN apt-get -qq update \
     && apt-get -qq install -y --no-install-recommends \
         apt-utils \
         postgresql-client \
+        gettext \
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Add application source code to SRCDIR
