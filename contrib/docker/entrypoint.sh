@@ -12,6 +12,7 @@ python manage.py migrate guardian --noinput
 python manage.py migrate jet --noinput
 python manage.py migrate dashboard --noinput
 python manage.py migrate --noinput               # Apply database migrations
+django-admin compilemessages                     # Compile *.po translation files
 python manage.py collectstatic --clear --noinput # Collect static files
 
 # Prepare log files and start outputting logs to stdout
