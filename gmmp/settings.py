@@ -183,7 +183,7 @@ LOGGING = {
     },
 }
 
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 COUNTRIES_OVERRIDE = {
     "SQ": _("Scotland"),
@@ -195,7 +195,7 @@ COUNTRIES_OVERRIDE = {
 }
 
 # https://docs.djangoproject.com/en/2.2/ref/contrib/admin/#adminsite-attributes
-ADMIN_SITE_SITE_HEADER = "GMMP Database"
+ADMIN_SITE_SITE_HEADER = _("GMMP Database")
 ADMIN_SITE_SITE_TITLE = "GMMP"
 ADMIN_SITE_SITE_URL = None
 ADMIN_SITE_INDEX_TITLE = "Dashboard"
@@ -206,32 +206,32 @@ JET_SIDE_MENU_COMPACT = True
 JET_INDEX_DASHBOARD = "gmmp.dashboard.CustomIndexDashboard"
 JET_SIDE_MENU_ITEMS = [
     {
-        "label": _("Add"),
+        "label": _("Code"),
         "items": [
             {
-                "label": _("Add Newspaper"),
+                "label": _("Newspapers"),
                 "url": {"type": "reverse", "name": "admin:forms_newspapersheet_add"},
             },
             {
-                "label": _("Add Radio"),
+                "label": _("Radio"),
                 "url": {"type": "reverse", "name": "admin:forms_radiosheet_add"},
             },
             {
-                "label": _("Add Television"),
+                "label": _("Television"),
                 "url": {"type": "reverse", "name": "admin:forms_televisionsheet_add"},
             },
             {
-                "label": _("Add Internet News"),
+                "label": _("Internet"),
                 "url": {"type": "reverse", "name": "admin:forms_internetnewssheet_add"},
             },
             {
-                "label": _("Add Twitter"),
+                "label": _("Twitter"),
                 "url": {"type": "reverse", "name": "admin:forms_twittersheet_add"},
             },
         ],
     },
     {
-        "label": _("Submissions"),
+        "label": _("Coded"),
         "items": [
             {"name": "forms.newspapersheet"},
             {"name": "forms.radiosheet"},

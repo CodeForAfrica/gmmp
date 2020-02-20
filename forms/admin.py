@@ -1,4 +1,4 @@
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.contrib import admin
 from guardian.admin import GuardedModelAdmin
 from guardian import shortcuts
@@ -47,23 +47,23 @@ class PermsAdmin(GuardedModelAdmin):
 class NewspaperJournalistInline(admin.TabularInline):
     model = models.NewspaperJournalist
     extra = 1
-    verbose_name_plural = _('''
-    For each newspaper story, you should code each journalist/reporter who wrote the story and whose name appears.
+    verbose_name_plural = _('''For each newspaper story, you should code each journalist/reporter who wrote the story and whose name appears.
+<br/>
 <strong>Do not code:</strong>
+<br/>
 Unnamed journalists (e.g. 'Staff reporter', 'Our correspondent')
-News agencies
-''')
+<br/>
+News agencies''')
     exclude = ('age',)
 
 class RadioJournalistInline(admin.TabularInline):
     model = models.RadioJournalist
     extra = 1
-    verbose_name_plural = _('''Add a new record for each journalist who:
-(i) wrote the story and whose name appears, or
-(ii) is visible in video clips, or
-(iii) can be heard in audio clips.
-
-Do not code: (i) Unnamed journalists (e.g. ''Staff reporter'', ''Our correspondent''); (ii) News agencies.''')
+    verbose_name_plural = _('''Use one line on the coding sheet for:
+<br/>
+Each news anchor or announcer: <strong>Code the anchor/announcer in each story, even if it is the same person.</strong>
+<br/>
+Each reporter''')
     exclude = ('age',)
 
     fieldsets = [
@@ -71,16 +71,15 @@ Do not code: (i) Unnamed journalists (e.g. ''Staff reporter'', ''Our corresponde
             'fields': ('role', 'sex')
         }),
     ]
-    
+
 class TelevisionJournalistInline(admin.TabularInline):
     model = models.TelevisionJournalist
     extra = 1
-    verbose_name_plural = _('''Add a new record for each journalist who:
-(i) wrote the story and whose name appears, or
-(ii) is visible in video clips, or
-(iii) can be heard in audio clips.
-
-Do not code: (i) Unnamed journalists (e.g. ''Staff reporter'', ''Our correspondent''); (ii) News agencies.''')
+    verbose_name_plural = _('''Use one line on the coding sheet for:
+<br/>
+Each news anchor or announcer: <strong>Code the anchor/announcer in each story, even if it is the same person.</strong>
+<br/>
+Each reporter''')
 
     fieldsets = [
         ('', {
@@ -91,21 +90,26 @@ Do not code: (i) Unnamed journalists (e.g. ''Staff reporter'', ''Our corresponde
 class InternetJournalistInline(admin.TabularInline):
     model = models.InternetNewsJournalist
     extra = 1
-    verbose_name_plural = _('''Add a new record for each journalist who:
-(i) wrote the story and whose name appears, or
-(ii) is visible in video clips, or
-(iii) can be heard in audio clips.
-
-Do not code: (i) Unnamed journalists (e.g. ''Staff reporter'', ''Our correspondent''); (ii) News agencies.''')
+    verbose_name_plural = _('''For each online news story, you should code each journalist/reporter who wrote the story and whose name appears.
+<br/>
+<strong>Do not code:</strong>
+<br/>
+Unnamed journalists (e.g. 'Staff reporter', 'Our correspondent')
+<br/>
+News agencies''')
 
 class TwitterJournalistInline(admin.TabularInline):
     model = models.TwitterJournalist
     extra = 1
-    verbose_name_plural = _('''
-        Code the journalist to whom the twitter account belongs if the account does not belong to the media house. Code any
-journalist referenced in the tweet. Code each journalist/reporter in a separate row.
-Do not code: (i) Unnamed journalists (e.g. 'Staff reporter', 'Our correspondent'); (ii) News agencies
-''')
+    verbose_name_plural = _('''<strong>Click on the link in the tweet leading to the full story to see the name of the journalist or reporter.</strong>
+<br />
+For each online news story, you should code each journalist/reporter who wrote the story and whose name appears.
+<br/>
+<strong>Do not code:</strong>
+<br/>
+Unnamed journalists (e.g. 'Staff reporter', 'Our correspondent')
+<br/>
+News agencies''')
     exclude = ('age',)
 
 
@@ -124,7 +128,7 @@ class RadioPersonInline(admin.StackedInline):
     inline_classes = ('grp-collapse grp-open',)
     extra = 1
     verbose_name_plural = _('People in the broadcast')
-    verbose_name = _('Person mentioned In the broadcast')
+    verbose_name = _('Person mentioned in the broadcast')
 
 class TelevisionPersonInline(admin.StackedInline):
     model = models.TelevisionPerson
@@ -173,41 +177,42 @@ class NewspaperSheetAdmin(PermsAdmin):
     }
 
     fieldsets = [
-        ('Basic Information', {
+        (_('Basic information'), {
             'fields': (
                 'newspaper_name',
             ),
         }),
-        ('Story', {
+        (_('Story'), {
             'fields': (
                 'page_number', 'topic', 'scope', 'space',
             ),
         }),
-        ('Analysis', {
+        (_('Analysis'), {
             'fields' : ('equality_rights', 'about_women', 'inequality_women', 'stereotypes'),
         }),
-        ('Journalists & Reporters', {
-            'description': '''Column 9 is for the journalist or reporter. For each story, code each journalist/reporter who wrote the story and whose name appears. Code each journalist/reporter in a separate row.
-            Do not code: (i) Unnamed journalists (e.g. 'Staff reporter', 'Our correspondent'); (ii) News agencies''',
+        (_('Journalists & Reporters'), {
+            'description': _('''Column 9 is for the journalist or reporter. For each story, code each journalist/reporter who wrote the story and whose name appears. Code each journalist/reporter in a separate row.
+            <br/>\n
+            Do not code: (i) Unnamed journalists (e.g. 'Staff reporter', 'Our correspondent'); (ii) News agencies'''),
             'fields': (),
             'classes' : ('journalists-fieldset',),
         }),
-        ('People In The News', {
-            'description': '''Columns 10 - 22 are for people in the news.
-            Code (i) any person whom the story is about, even if they are not interviewed or quoted; (ii) Each person who is interviewed,  (iii) Each person in the story who is quoted, either directly or indirectly.''',
+        (_('People in the news'), {
+            'description': _('''Columns 10 - 22 are for people in the news.
+            <br/>\n
+            Code (i) any person whom the story is about, even if they are not interviewed or quoted; (ii) Each person who is interviewed,  (iii) Each person in the story who is quoted, either directly or indirectly.'''),
             'fields': (),
             'classes' : ('people-fieldset',),
         }),
-        ('Does this story warrant further analysis?', {
-            'description': '''*A story warrants further analysis if it clearly perpetuates or clearly challenges gender stereotypes, if it includes women’s opinions in a remarkable way, if it contributes to an understanding of inequalities between women and men, if it mentions or calls attention to women’s human rights, etc. Consult the guide for further explanation.
+        (_('Does this story warrant further analysis?'), {
+            'description': _('''A story warrants further analysis if it clearly perpetuates or clearly challenges gender stereotypes, if it includes women’s opinions in a remarkable way, if it contributes to an understanding of inequalities between women and men, if it mentions or calls attention to women’s human rights, etc. Consult the guide for further explanation.
             <br/><br/>
-            <small>*If you select ‘1’ (Yes), you will need to send a copy of the clipping to your national/regional coordinator.</small>''',
+            <small>*If you select ‘1’ (Yes), you will need to send a copy of the clipping to your national/regional coordinator.</small>'''),
             'fields': ('further_analysis',),
         }),
-        ('Comments & Explanations', {
+        (_('Comments & Explanations'), {
             'fields' : ('comments',),
         }),
-        
     ]
 
     list_filter = basic_filters
@@ -238,38 +243,38 @@ class RadioSheetAdmin(PermsAdmin):
     }
 
     fieldsets = [
-        ('Basic Information', {
+        (_('Basic information'), {
             'fields': (
                 'station_name', 'start_time',
                 'num_female_anchors', 'num_male_anchors'
             ),
         }),
-        ('Story', {
+        (_('Story'), {
             'fields': (
                 'item_number', 'topic', 'scope',
             ),
         }),
-        ('Analysis', {
+        (_('Analysis'), {
             'fields' : ('equality_rights', 'about_women', 'inequality_women', 'stereotypes'),
         }),
-        ('Journalists & Reporters', {
-            'description': '''Columns 8 and 9 are for journalists, presenters, anchors, reporters, etc. Code the anchor/announcer even if it is the same person for each news item. Code each reporter and journalist''',
+        (_('Journalists & Reporters'), {
+            'description': _('''Columns 8 and 9 are for journalists, presenters, anchors, reporters, etc. Code the anchor/announcer even if it is the same person for each news item. Code each reporter and journalist'''),
             'fields': (),
             'classes' : ('journalists-fieldset',),
         }),
-        ('People In The News', {
-            'description': ''' Columns 10 to 19 are for people in the news. Code: (i) Each person in the story who speaks (ii) any person whom the story is about, even if they do not speak. Code only individual people. Code each person in a separate row.
-            Do not code: (i) Groups (e.g. a group of nurses, a group of soldiers); (ii) Organisations, companies, collectivities (e.g. political parties); (iii) Characters in novels or movies (unless the story is about them); (iv)Deceased historical figures (unless the story is about them); Interpreters (Code the person being interviewed as if they spoke without an interpreter).''',
+        (_('People in the news'), {
+            'description': _(''' Columns 10 to 19 are for people in the news. Code: (i) Each person in the story who speaks (ii) any person whom the story is about, even if they do not speak. Code only individual people. Code each person in a separate row.
+            Do not code: (i) Groups (e.g. a group of nurses, a group of soldiers); (ii) Organisations, companies, collectivities (e.g. political parties); (iii) Characters in novels or movies (unless the story is about them); (iv)Deceased historical figures (unless the story is about them); Interpreters (Code the person being interviewed as if they spoke without an interpreter).'''),
             'fields': (),
             'classes' : ('people-fieldset',),
         }),
-        ('Does this story warrant further analysis?', {
-            'description': '''A story warrants further analysis if it clearly perpetuates or clearly challenges gender stereotypes, if it includes women’s opinions in a remarkable way, if it contributes to an understanding of inequalities between women and men, if it mentions or calls attention to women’s human rights, etc. Consult the guide for further explanation.
-            <br/></br/>
-            <small>*If you select ‘1’ (Yes), you will need to send a copy of the recording to your national/regional coordinator.</small>''',
+        (_('Does this story warrant further analysis?'), {
+            'description': _('''A story warrants further analysis if it clearly perpetuates or clearly challenges gender stereotypes, if it includes women’s opinions in a remarkable way, if it contributes to an understanding of inequalities between women and men, if it mentions or calls attention to women’s human rights, etc. Consult the guide for further explanation.
+            <br/><br/>
+            <small>*If you select ‘1’ (Yes), you will need to send a copy of the recording to your national/regional coordinator.</small>'''),
             'fields': ('further_analysis',),
         }),
-        ('Comments & Explanations', {
+        (_('Comments & Explanations'), {
             'fields' : ('comments',),
         }),
     ]
@@ -302,40 +307,40 @@ class TelevisionSheetAdmin(PermsAdmin):
     }
 
     fieldsets = [
-        ('Basic Information', {
+        (_('Basic information'), {
             'fields': (
                 'station_name', 'television_channel', 'start_time',
                 'num_female_anchors', 'num_male_anchors'
             ),
         }),
-        ('Story', {
+        (_('Story'), {
             'fields': (
                 'item_number', 'topic', 'scope',
             ),
             'classes' : ('story-fieldset',),
         }),
-        ('Analysis', {
+        (_('Analysis'), {
             'fields' : ('equality_rights', 'about_women', 'inequality_women', 'stereotypes'),
         }),
-        ('Journalists & Reporters', {
-            'description': '''Columns 8, 9 and 10 are for journalists, presenters, anchors, reporters, etc. Code the anchor/announcer even if it is the same person for each news item. Code each reporter and journalist. Code each person in a separate row''',
+        (_('Journalists & Reporters'), {
+            'description': _('''Columns 8, 9 and 10 are for journalists, presenters, anchors, reporters, etc. Code the anchor/announcer even if it is the same person for each news item. Code each reporter and journalist. Code each person in a separate row'''),
             'fields': (),
             'classes' : ('journalists-fieldset',),
         }),
-        ('People In The News', {
-            'description': '''Columns 11 to 21 are for people in the news. Code each person in the story who speaks, and any person whom the story is about, even if they do not speak.
+        (_('People in the news'), {
+            'description': _('''Columns 11 to 21 are for people in the news. Code each person in the story who speaks, and any person whom the story is about, even if they do not speak.
             Code only individual people.
-            Do not code: (i) Groups (e.g. a group of nurses, a group of soldiers); (ii) Organisations, companies, collectivities (e.g. political parties); (iii) Characters in novels or movies (unless the story is about them); (iv) Deceased historical figures (unless the story is about them); (v) Interpreters (Code the person being interviewed as if they spoke without an interpreter).''',
+            Do not code: (i) Groups (e.g. a group of nurses, a group of soldiers); (ii) Organisations, companies, collectivities (e.g. political parties); (iii) Characters in novels or movies (unless the story is about them); (iv) Deceased historical figures (unless the story is about them); (v) Interpreters (Code the person being interviewed as if they spoke without an interpreter).'''),
             'fields': (),
             'classes' : ('people-fieldset',),
         }),
-        ('Does this story warrant further analysis?', {
-            'description': '''A story warrants further analysis if it clearly perpetuates or alternatively challenges gender stereotypes, if it includes women’s opinions in a remarkable way, if it contributes to an understanding of inequalities between women and men, if it mentions or calls attention to women’s human rights, etc. Consult the guide for further explanation.
+        (_('Does this story warrant further analysis?'), {
+            'description': _('''A story warrants further analysis if it clearly perpetuates or alternatively challenges gender stereotypes, if it includes women’s opinions in a remarkable way, if it contributes to an understanding of inequalities between women and men, if it mentions or calls attention to women’s human rights, etc. Consult the guide for further explanation.
             <br/><br/>
-            <small>*If you select ‘1’ (Yes), you will need to send a copy of the recording to your national/regional coordinator.</small>''',
+            <small>*If you select ‘1’ (Yes), you will need to send a copy of the recording to your national/regional coordinator.</small>'''),
             'fields': ('further_analysis',),
         }),
-        ('Comments & Explanations', {
+        (_('Comments & Explanations'), {
             'fields' : ('comments',),
         }),
     ]
@@ -370,7 +375,7 @@ class InternetNewsSheetAdmin(PermsAdmin):
     }
 
     fieldsets = [
-        ('Basic Information', {
+        (_('Basic information'), {
             'fields': (
                 'website_name', 'website_url', 'time_accessed', 'offline_presence'
             ),
@@ -381,25 +386,25 @@ class InternetNewsSheetAdmin(PermsAdmin):
         ('Analysis', {
             'fields' : ('equality_rights', 'about_women', 'inequality_women', 'stereotypes'),
         }),
-        ('Journalists & Reporters', {
-            'description': '''Columns 10 and 11 are for the reporter or journalist. For each story, code each journalist/reporter (i) who wrote the story and whose name appears, or (ii) who is visible in video clips, or (ii) who voice is heard in audio clips. Code each journalist/reporter in a separate row.
-            Do not code: (i) Unnamed journalists (e.g. 'Staff reporter', 'Our correspondent'); (ii) News agencies.''',
+        (_('Journalists & Reporters'), {
+            'description': _('''Columns 10 and 11 are for the reporter or journalist. For each story, code each journalist/reporter (i) who wrote the story and whose name appears, or (ii) who is visible in video clips, or (ii) who voice is heard in audio clips. Code each journalist/reporter in a separate row.
+            Do not code: (i) Unnamed journalists (e.g. 'Staff reporter', 'Our correspondent'); (ii) News agencies.'''),
             'fields': (),
             'classes' : ('journalists-fieldset',),
         }),
-        ('People In The News', {
-            'description': '''Columns 12 to 24 are for people in the news whether in the text or in video clips. Code (i) any person whom the story is about even if they are not interviewed or quoted; (ii) Each person who is interviewed, (iii) Each person in the story who is quoted, either directly or indirectly. Code only individual people.
-            Do not code: (i) Groups (e.g. a group of nurses, a group of soldiers); (ii) Organisations, companies, collectivities (e.g. political parties); (iii) Characters in novels or movies (unless the story is about them); (iv) Deceased historical figures (unless the story is about them); (v) Interpreters (Code the person being interviewed as if they spoke without an interpreter).''',
+        (_('People in the news'), {
+            'description': _('''Columns 12 to 24 are for people in the news whether in the text or in video clips. Code (i) any person whom the story is about even if they are not interviewed or quoted; (ii) Each person who is interviewed, (iii) Each person in the story who is quoted, either directly or indirectly. Code only individual people.
+            Do not code: (i) Groups (e.g. a group of nurses, a group of soldiers); (ii) Organisations, companies, collectivities (e.g. political parties); (iii) Characters in novels or movies (unless the story is about them); (iv) Deceased historical figures (unless the story is about them); (v) Interpreters (Code the person being interviewed as if they spoke without an interpreter).'''),
             'fields': (),
             'classes' : ('people-fieldset',),
         }),
-        ('Does this story warrant further analysis?', {
-            'description': '''A story warrants further analysis if it clearly perpetuates or clearly challenges gender stereotypes, if it includes women's opinions in a remarkable way, if it contributes to an understanding of inequalities between women and men, if it mentions or calls attention to women's human rights, etc. Consult the guide for further explanation.
+        (_('Does this story warrant further analysis?'), {
+            'description': _('''A story warrants further analysis if it clearly perpetuates or clearly challenges gender stereotypes, if it includes women's opinions in a remarkable way, if it contributes to an understanding of inequalities between women and men, if it mentions or calls attention to women's human rights, etc. Consult the guide for further explanation.
             <br/><br/>
-            <small>*If you select '1' (Yes), you will need to send a print-out of the story, screen grab of the page and recordings of multimedia features in it to your national/regional coordinator.</small>''',
+            <small>*If you select '1' (Yes), you will need to send a print-out of the story, screen grab of the page and recordings of multimedia features in it to your national/regional coordinator.</small>'''),
             'fields': ('further_analysis',),
         }),
-        ('Comments & Explanations', {
+        (_('Comments & Explanations'), {
             'fields' : ('url_and_multimedia',),
         }),
     ]
@@ -425,42 +430,43 @@ class TwitterSheetAdmin(PermsAdmin):
 
     radio_fields = {
         'retweet' : admin.HORIZONTAL,
+        'equality_rights': admin.HORIZONTAL,
         'about_women': admin.HORIZONTAL,
+        'inequality_women': admin.HORIZONTAL,
         'stereotypes': admin.HORIZONTAL,
         'further_analysis': admin.HORIZONTAL,
     }
 
     fieldsets = [
-
-        ('Basic Information', {
+        (_('Basic information'), {
             'fields': (
                 'media_name', 'twitter_handle'
             ),
         }),
-        ('Tweet', {
+        (_('Tweet'), {
             'fields': (
                 'retweet', 'topic'
             ),
             'classes' : ('story-fieldset',),
         }),
-        ('Analysis', {
+        (_('Analysis'), {
             'fields' : ('equality_rights', 'about_women', 'inequality_women', 'stereotypes'),
         }),
-        ('Journalists & Reporters', {
-            'description': '''Columns 7 and 8 are for the reporter or journalist. Code the journalist to who the twitter account belongs if the account does not belong to the media house.
+        (_('Journalists & Reporters'), {
+            'description': _('''Columns 7 and 8 are for the reporter or journalist. Code the journalist to who the twitter account belongs if the account does not belong to the media house.
             Code any journalist referenced in the tweet. Code each journalist/reporter in a separate row.
-            Do not code: (i) Unnamed journalists (e.g. 'Staff reporter', 'Our correspondent'); (ii) News agencies.''',
+            Do not code: (i) Unnamed journalists (e.g. 'Staff reporter', 'Our correspondent'); (ii) News agencies.'''),
             'fields': (),
             'classes' : ('journalists-fieldset',),
         }),
-        ('People In The News', {
-            'description': u'''Columns 9 - 16 are for people in the tweet. Code (i) any person whom the tweet is about even if they are not interviewed or quoted; (ii) Each person who is interviewed, (iii) Each person in the tweet who is quoted, either directly or indirectly. Code only individual people.
+        (_('People in the news'), {
+            'description': _('''Columns 9 - 16 are for people in the tweet. Code (i) any person whom the tweet is about even if they are not interviewed or quoted; (ii) Each person who is interviewed, (iii) Each person in the tweet who is quoted, either directly or indirectly. Code only individual people.
             Do not code: (i) Journalists referenced in the tweet (journalists are coded in questions 7-8); (ii)Groups (e.g. a group of nurses, a group of soldiers); (ii)
-            Organisations, companies, collectivities (e.g. political parties); (iii) Characters in novels or movies (unless the tweet is about them); (iv) Deceased historical figures (unless the tweet is about them); (v) Interpreters (Code the person being interviewed as if they spoke without an interpreter).''',
+            Organisations, companies, collectivities (e.g. political parties); (iii) Characters in novels or movies (unless the tweet is about them); (iv) Deceased historical figures (unless the tweet is about them); (v) Interpreters (Code the person being interviewed as if they spoke without an interpreter).'''),
             'fields': (),
             'classes' : ('people-fieldset',),
         }),
-        ('Comments & Explanations', {
+        (_('Comments & Explanations'), {
             'fields' : ('url_and_multimedia', ),
         }),
     ]

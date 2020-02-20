@@ -1,8 +1,9 @@
 from collections import OrderedDict
 
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
-from .modelutils import *
+from django.utils.translation import gettext_lazy as _
+
+from forms.modelutils import *
 
 def prepend_verbose(mydict, field_name, num):
     field = mydict[field_name]
@@ -27,41 +28,41 @@ class NewspaperJournalist(Journalist):
     newspaper_sheet = models.ForeignKey('NewspaperSheet', on_delete=models.CASCADE)
 
 class NewspaperPerson(Person):
-    sex = field_sex('10')
-    age = field_age('11')
-    occupation = field_occupation('12')
-    function = field_function('13')
-    family_role = field_family_role('14')
-    victim_or_survivor = field_victim_or_survivor('15')
-    victim_of = field_victim_of('16')
-    survivor_of = field_survivor_of('17')
-    is_quoted = field_is_quoted('18')
-    is_photograph = field_is_photograph('19')
+    sex = field_sex(_('(10) Sex'))
+    age = field_age(_('(11) Age (person appears)'))
+    occupation = field_occupation(_('(12) Occupation or Position'))
+    function = field_function(_('(13) Function in the news story'))
+    family_role = field_family_role(_('(14) Family Role Given?'))
+    victim_or_survivor = field_victim_or_survivor(_('(15) Does the story identify the person as either a victim or survivor?'))
+    victim_of = field_victim_of(_('(16) The story identifies the person as a victim of:'))
+    survivor_of = field_survivor_of(_('(17) The story identifies the person as a survivor of:'))
+    is_quoted = field_is_quoted(_('(18) Is the person directly quoted'))
+    is_photograph = field_is_photograph(_('(19) Is there a photograph of the person in the story?'))
 
-    special_qn_1 = field_special_qn('20', '1')
-    special_qn_2 = field_special_qn('21', '2')
-    special_qn_3 = field_special_qn('22', '3')
+    special_qn_1 = field_special_qn(_('(20) Special question (1)'))
+    special_qn_2 = field_special_qn(_('(21) Special question (2)'))
+    special_qn_3 = field_special_qn(_('(22) Special question (3)'))
 
     newspaper_sheet = models.ForeignKey('NewspaperSheet', on_delete=models.CASCADE)
 
 class NewspaperSheet(SheetModel):
     class Meta:
-        verbose_name = _('Newspaper Submission')
+        verbose_name = _('Newspaper')
 
     newspaper_name = models.CharField(max_length=255, verbose_name=_('Newspaper'), help_text=_('''Be as specific as possible. If the paper has different regional editions, write in the name of the edition you are monitoring - e.g. 'The Hindu - Delhi edition'.'''))
 
     page_number = models.PositiveIntegerField(verbose_name=_('(1) Page Number'), help_text=_('Write in the number of the page on which the story begins. Story appears on first page = 1, Seventh page = 7, etc.'))
-    topic = field_topic('2')
-    scope = field_scope('3')
+    topic = field_topic(_('(2) Topic'))
+    scope = field_scope(_('(3) Scope'))
     space = models.PositiveIntegerField(choices=SPACE, verbose_name=_('(4) Space'))
 
-    equality_rights = field_equality_rights('5')
-    about_women = field_about_women('6', _('story'))
-    inequality_women = field_inequality_women('7', _('story'))
-    stereotypes = field_stereotypes('8', _('story'))
-    
-    further_analysis = field_further_analysis('24', 'story')
-    comments = field_comments('23')
+    equality_rights = field_equality_rights(_('(5) Reference to gender equality / human rights legislation/ policy'))
+    about_women = field_about_women(_('(6) Is the story about a particular woman or group of women?'))
+    inequality_women = field_inequality_women(_('(7) This story clearly highlights issues of inequality between women and men'))
+    stereotypes = field_stereotypes(_('(8) This story clearly challenges gender stereotypes'))
+
+    further_analysis = field_further_analysis(_('(24) Does this story warrant further analysis?'), _('''<br><br>A story warrants further analysis if it clearly perpetuates or clearly challenges gender stereotypes, if it includes women's opinions in a remarkable way, if it contributes to an understanding of inequalities between women and men, if it mentions or calls attention to women's human rights, etc. Consult the guide for further explanation'''))
+    comments = field_comments(_('(23) Describe any photographs included in the story and the conclusions you draw from them.'))
 
     def __unicode__(self):
         return self.newspaper_name
@@ -71,17 +72,17 @@ class NewspaperSheet(SheetModel):
 # ----------------------------
 
 class RadioPerson(Person):
-    sex = field_sex('10')
-    occupation = field_occupation('11')
-    function = field_function('12')
-    family_role = field_family_role('13')
-    victim_or_survivor = field_victim_or_survivor('14')
-    victim_of = field_victim_of('15')
-    survivor_of = field_survivor_of('16')
+    sex = field_sex(_('(10) Sex'))
+    occupation = field_occupation(_('(11) Occupation or Position'))
+    function = field_function(_('(12) Function in the news story'))
+    family_role = field_family_role(_('(13) Family Role Given?'))
+    victim_or_survivor = field_victim_or_survivor(_('(14) Does the story identify the person as either a victim or survivor?'))
+    victim_of = field_victim_of(_('(15) The story identifies the person as a victim of:'))
+    survivor_of = field_survivor_of(_('(16) The story identifies the person as a survivor of:'))
 
-    special_qn_1 = field_special_qn('17', '1')
-    special_qn_2 = field_special_qn('18', '2')
-    special_qn_3 = field_special_qn('19', '3')
+    special_qn_1 = field_special_qn(_('(17) Special question (1)'))
+    special_qn_2 = field_special_qn(_('(18) Special question (2)'))
+    special_qn_3 = field_special_qn(_('(19) Special question (3)'))
 
     radio_sheet = models.ForeignKey('RadioSheet', on_delete=models.CASCADE)
 
@@ -106,24 +107,24 @@ class RadioSheet(SheetModel):
     num_female_anchors = field_num_female_anchors
     num_male_anchors = field_num_male_anchors
 
-    item_number = field_item_number('1')
-    topic = field_topic('2')
-    scope = field_scope('3')
+    item_number = field_item_number(_('(1) Item Number'))
+    topic = field_topic(_('(2) Topic'))
+    scope = field_scope(_('(3) Scope'))
 
-    equality_rights = field_equality_rights('4')
-    about_women = field_about_women('5', _('story'))
-    inequality_women = field_inequality_women('6', _('story'))
-    stereotypes = field_stereotypes('7', _('story'))
+    equality_rights = field_equality_rights(_('(4) Reference to gender equality / human rights legislation/ policy'))
+    about_women = field_about_women(_('(5) Is the story about a particular woman or group of women?'))
+    inequality_women = field_inequality_women(_('(6) This story clearly highlights issues of inequality between women and men'))
+    stereotypes = field_stereotypes(_('(7) This story clearly challenges gender stereotypes'))
 
-    further_analysis = field_further_analysis('20', 'story')
+    further_analysis = field_further_analysis(_('(20) Does this story warrant further analysis?'), _('''<br><br>A story warrants further analysis if it clearly perpetuates or clearly challenges gender stereotypes, if it includes women's opinions in a remarkable way, if it contributes to an understanding of inequalities between women and men, if it mentions or calls attention to women's human rights, etc. Consult the guide for further explanation'''))
 
-    comments = field_comments('N/A')
+    comments = field_comments(_('(N/A) Describe any photographs included in the story and the conclusions you draw from them.'))
 
     def __unicode__(self):
         return self.station_name
 
     class Meta:
-        verbose_name = _('Radio Submission')
+        verbose_name = _('Radio')
 
 
 # ----------------------------
@@ -131,18 +132,18 @@ class RadioSheet(SheetModel):
 # ----------------------------
 
 class TelevisionPerson(Person):
-    sex = field_sex('11')
-    age = field_age('12')
-    occupation = field_occupation('13')
-    function = field_function('14')
-    family_role = field_family_role('15')
-    victim_or_survivor = field_victim_or_survivor('16')
-    victim_of = field_victim_of('17')
-    survivor_of = field_survivor_of('18')
+    sex = field_sex(_('(11) Sex'))
+    age = field_age(_('(12) Age (person appears)'))
+    occupation = field_occupation(_('(13) Occupation or Position'))
+    function = field_function(_('(14) Function in the news story'))
+    family_role = field_family_role(_('(15) Family Role Given?'))
+    victim_or_survivor = field_victim_or_survivor(_('(16) Does the story identify the person as either a victim or survivor?'))
+    victim_of = field_victim_of(_('(17) The story identifies the person as a victim of:'))
+    survivor_of = field_survivor_of(_('(18) The story identifies the person as a survivor of:'))
 
-    special_qn_1 = field_special_qn('19', '1')
-    special_qn_2 = field_special_qn('20', '2')
-    special_qn_3 = field_special_qn('21', '3')
+    special_qn_1 = field_special_qn(_('(19) Special question (1)'))
+    special_qn_2 = field_special_qn(_('(20) Special question (2)'))
+    special_qn_3 = field_special_qn(_('(21) Special question (3)'))
 
     television_sheet = models.ForeignKey('TelevisionSheet', on_delete=models.CASCADE)
 
@@ -171,24 +172,24 @@ class TelevisionSheet(SheetModel):
     num_female_anchors = field_num_female_anchors
     num_male_anchors = field_num_male_anchors
 
-    item_number = field_item_number('1')
-    topic = field_topic('2')
-    scope = field_scope('3')
+    item_number = field_item_number(_('(1) Item Number'))
+    topic = field_topic(_('(2) Topic'))
+    scope = field_scope(_('(3) Scope'))
 
-    equality_rights = field_equality_rights('4')
-    about_women = field_about_women('5', _('story'))
-    inequality_women = field_inequality_women('6', _('story'))
-    stereotypes = field_stereotypes('7', _('story'))
+    equality_rights = field_equality_rights(_('(4) Reference to gender equality / human rights legislation/ policy'))
+    about_women = field_about_women(_('(5) Is the story about a particular woman or group of women?'))
+    inequality_women = field_inequality_women(_('(6) This story clearly highlights issues of inequality between women and men'))
+    stereotypes = field_stereotypes(_('(7) This story clearly challenges gender stereotypes'))
 
-    further_analysis = field_further_analysis('22', 'story')
+    further_analysis = field_further_analysis(_('(22) Does this story warrant further analysis?'), _('''<br><br>A story warrants further analysis if it clearly perpetuates or clearly challenges gender stereotypes, if it includes women's opinions in a remarkable way, if it contributes to an understanding of inequalities between women and men, if it mentions or calls attention to women's human rights, etc. Consult the guide for further explanation'''))
 
-    comments = field_comments('N/A')
+    comments = field_comments(_('(N/A) Describe any photographs included in the story and the conclusions you draw from them.'))
 
     def __unicode__(self):
         return self.station_name
 
     class Meta:
-        verbose_name = _('Television Submission')
+        verbose_name = _('Television')
 
 
 # ----------------------------
@@ -211,20 +212,20 @@ class InternetNewsJournalist(Journalist):
 
 class InternetNewsPerson(Person):
 
-    sex = field_sex('12')
-    age = field_age('13')
-    occupation = field_occupation('14')
-    function = field_function('15')
-    family_role = field_family_role('16')
-    victim_or_survivor = field_victim_or_survivor('17')
-    victim_of = field_victim_of('18')
-    survivor_of = field_survivor_of('19')
-    is_quoted = field_is_quoted('20')
-    is_photograph = field_is_photograph('21')
+    sex = field_sex(_('(12) Sex'))
+    age = field_age(_('(13) Age (person appears)'))
+    occupation = field_occupation(_('(14) Occupation or Position'))
+    function = field_function(_('(15) Function in the news story'))
+    family_role = field_family_role(_('(16) Family Role Given?'))
+    victim_or_survivor = field_victim_or_survivor(_('(17) Does the story identify the person as either a victim or survivor?'))
+    victim_of = field_victim_of(_('(18) The story identifies the person as a victim of:'))
+    survivor_of = field_survivor_of(_('(19) The story identifies the person as a survivor of:'))
+    is_quoted = field_is_quoted(_('(20) Is the person directly quoted'))
+    is_photograph = field_is_photograph(_('(21) Is there a photograph of the person in the story?'))
 
-    special_qn_1 = field_special_qn('22', '1')
-    special_qn_2 = field_special_qn('23', '2')
-    special_qn_3 = field_special_qn('24', '3')
+    special_qn_1 = field_special_qn(_('(22) Special question (1)'))
+    special_qn_2 = field_special_qn(_('(23) Special question (2)'))
+    special_qn_3 = field_special_qn(_('(24) Special question (3)'))
 
     internetnews_sheet = models.ForeignKey('InternetNewsSheet', on_delete=models.CASCADE)
 
@@ -239,29 +240,28 @@ class InternetNewsSheet(SheetModel):
     offline_presence = models.CharField(max_length=1, choices=YESNO, verbose_name=_('Offline presence?'))
 
     webpage_layer_no = models.PositiveIntegerField(help_text=_('Webpage Layer Number. Homepage=1, One click away=2, Five clicks away= 5, etc. Note that if a story appears on the front page, code with 1'), verbose_name=_('(1) Webpage Layer Number'))
-    topic = field_topic('2')
-    scope = field_scope('3')
+    topic = field_topic(_('(2) Topic'))
+    scope = field_scope(_('(3) Scope'))
     shared_via_twitter = models.CharField(max_length=1, verbose_name=_('(4) Shared via twitter?'), choices=YESNO, help_text=_('''Has this story been shared by the media house via Twitter?
 
 <br>Enter the exact URL of the story into <a href="https://unionmetrics.com/free-tools/twitter-snapshot-report/" target="_blank">https://unionmetrics.com/free-tools/twitter-snapshot-report/</a> - answer yes if the media house's name appears in the search results.'''))
     shared_on_facebook = models.CharField(max_length=1, choices=YESNO, verbose_name=_('(5) Shared on Facebook'), help_text=_('Has this story been shared by the media house on its Facebook Page?'))
-    
 
     # Analysis
-    equality_rights = field_equality_rights('6')
-    about_women = field_about_women('7', _('story'))
-    inequality_women = field_inequality_women('8', _('story'))
-    stereotypes = field_stereotypes('9', 'story')
+    equality_rights = field_equality_rights(_('(6) Reference to gender equality / human rights legislation/ policy'))
+    about_women = field_about_women(_('(7) Is the story about a particular woman or group of women?'))
+    inequality_women = field_inequality_women(_('(8) This story clearly highlights issues of inequality between women and men'))
+    stereotypes = field_stereotypes(_('(9) This story clearly challenges gender stereotypes'))
 
-    further_analysis = field_further_analysis('26', _('story'))
+    further_analysis = field_further_analysis(_('(26) Does this story warrant further analysis?'), _('''<br><br>A story warrants further analysis if it clearly perpetuates or clearly challenges gender stereotypes, if it includes women's opinions in a remarkable way, if it contributes to an understanding of inequalities between women and men, if it mentions or calls attention to women's human rights, etc. Consult the guide for further explanation'''))
 
-    url_and_multimedia = field_url_and_multimedia('25', 'story')
+    url_and_multimedia = field_url_and_multimedia(_('(25) Copy and paste the URL of the story. Describe any photographs, images, other multimedia features included in the story. Note down the conclusions you draw from the images, audio and video.'))
 
     def __unicode__(self):
         return self.website_url
 
     class Meta:
-        verbose_name = _('Internet News Submission')
+        verbose_name = _('Internet')
 
 def twitter_journalist_meta(name, bases, mydict):
     dct = {
@@ -282,21 +282,21 @@ class TwitterJournalist(Journalist):
     twitter_sheet = models.ForeignKey('TwitterSheet', on_delete=models.CASCADE)
 
 class TwitterPerson(Person):
-    sex = field_sex('9')
-    age = field_age('10')
-    occupation = field_occupation('11')
-    function = field_function('12')
-    is_photograph = field_is_photograph('13')
+    sex = field_sex(_('(9) Sex'))
+    age = field_age(_('(10) Age (person appears)'))
+    occupation = field_occupation(_('(11) Occupation or Position'))
+    function = field_function(_('(12) Function in the news story'))
+    is_photograph = field_is_photograph(_('(13) Is there a photograph of the person in the story?'))
 
-    special_qn_1 = field_special_qn('14', '1')
-    special_qn_2 = field_special_qn('15', '2')
-    special_qn_3 = field_special_qn('16', '3')
+    special_qn_1 = field_special_qn(_('(14) Special question (1)'))
+    special_qn_2 = field_special_qn(_('(15) Special question (2)'))
+    special_qn_3 = field_special_qn(_('(16) Special question (3)'))
 
     twitter_sheet = models.ForeignKey('TwitterSheet', on_delete=models.CASCADE)
 
 class TwitterSheet(SheetModel):
     class Meta:
-        verbose_name = _('Twitter Submission')
+        verbose_name = _('Twitter')
 
     media_name = models.CharField(max_length=255, verbose_name=_('Media Name'), help_text=_('''For example. 'CNN Breaking News' '''))
     twitter_handle = models.CharField(max_length=255, verbose_name=_('Twitter Handle'), help_text=_('e.g. @cnnbrk'))
@@ -306,17 +306,17 @@ class TwitterSheet(SheetModel):
         verbose_name=_('(1) Tweet or Retweet'),
         help_text=_('Only retweets from the same media house can be coded. Do not code retweets from other news providers')
     )
-    topic = field_topic('2')
-    
+    topic = field_topic(_('(2) Topic'))
+
     # Analysis
-    equality_rights = field_equality_rights('3')
-    about_women = field_about_women('4', _('story'))
-    inequality_women = field_inequality_women('5', _('story'))
-    stereotypes = field_stereotypes('6', 'story')
+    equality_rights = field_equality_rights(_('(3) Reference to gender equality / human rights legislation/ policy'))
+    about_women = field_about_women(_('(4) Is the story about a particular woman or group of women?'))
+    inequality_women = field_inequality_women(_('(5) This story clearly highlights issues of inequality between women and men'))
+    stereotypes = field_stereotypes(_('(6) This story clearly challenges gender stereotypes'))
 
-    further_analysis = field_further_analysis('18', _('tweet'))
+    further_analysis = field_further_analysis(_('(18) Does this tweet warrant further analysis?'), _('''<br><br>A tweet warrants further analysis if it clearly perpetuates or clearly challenges gender stereotypes, if it includes women's opinions in a remarkable way, if it contributes to an understanding of inequalities between women and men, if it mentions or calls attention to women's human rights, etc. Consult the guide for further explanation'''))
 
-    url_and_multimedia = field_url_and_multimedia('17', 'tweet')
+    url_and_multimedia = field_url_and_multimedia(_('(17) Copy and paste the URL of the tweet. Describe any photographs, images, other multimedia features included in the tweet. Note down the conclusions you draw from the images, audio and video.'))
 
     def __unicode__(self):
         return self.twitter_handle

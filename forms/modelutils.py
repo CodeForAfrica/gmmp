@@ -1,14 +1,13 @@
-from django.db import models
 from django.contrib.auth.models import User
-from django.utils.translation import ugettext_lazy as _
-from django.utils.encoding import force_text
+from django.db import models
+from django.utils.translation import gettext_lazy as _
 from django_countries.fields import CountryField
 
 from gmmp.models import Monitor
 
 
 TOPICS = (
-    ('Politics and Government', (
+    (_('Politics and Government'), (
             (1,  _('(1) Women politicians, women electoral candidates...')),
             (2,  _('(2) Peace, negotiations, treaties...(local, regional, national),')),
             (3,  _('(3) Other domestic politics/government (local, regional, national), elections, speeches, the political process ...')),
@@ -18,7 +17,7 @@ TOPICS = (
             (7,  _('(7) Other stories on politics and government (specify the topic in \'Comments\' section of coding sheet)')),
         )
     ),
-    ('Economy', (
+    (_('Economy'), (
             (8,  _('(8) Economic policies, strategies, modules, indicators, stock markets, taxes,...')),
             (9,  _('(9) Economic crisis, state bailouts of companies, company takeovers and mergers ...')),
             (10, _('(10) Poverty, housing, social welfare, aid to those in need ...')),
@@ -32,7 +31,7 @@ TOPICS = (
             (18, _('(18) Other stories on the economy (specify the topic in \'Comments\' section of coding sheet)')),
         )
     ),
-    ('Science and Health', (
+    (_('Science and Health'), (
             (19, _('(19) Science, technology, research, funding, discoveries, developments ...')),
             (20, _('(20) Medicine, health, hygiene, safety, disability, medical research, funding (not EBOLA or HIV- AIDS)...')),
             (21, _('(21) EBOLA, treatment, response...')),
@@ -44,7 +43,7 @@ TOPICS = (
             (27, _('(27) Other stories on science or health (specify the topic in \'Comments\' section of coding sheet)')),
         )
     ),
-    ('Social and Legal', (
+    (_('Social and Legal'), (
             (28, _('(28) Sustainable Development Goals (SDGs), Post 2015 agenda, Agenda 2030')),
             (29, _('(29) Family relations, inter-generational conflict, single parents ...')),
             (30, _('(30) Human rights, women\'s rights, children\'s rights, gay & lesbian rights, rights of minorities ..')),
@@ -61,7 +60,7 @@ TOPICS = (
             (41, _('(41) Other stories on social or legal issues (specify the topic in \'Comments\' section of coding sheet)')),
         )
     ),
-    ('Crime and Violence', (
+    (_('Crime and Violence'), (
             (42, _('(42) Non-violent crime, bribery, theft, drug-dealing, ...')),
             (43, _('(43) Corruption, (including political corruption/malpractice)')),
             (44, _('(44) Violent crime, murder, abduction, kidnapping, assault, drug-related violence ...')),
@@ -70,13 +69,13 @@ TOPICS = (
             (47, _('(47) Other stories on crime and violence (specify the topic in \'Comments\' section of coding sheet)')),
         )
     ),
-    ('Gender and related', (
+    (_('Gender and related'), (
             (48, _(u'(48) Sexual harassment against women, rape, sexual assault, #MeToo #TimesUp')),
             (49, _('(49) Other gender violence such as feminicide, trafficking of girls and women, FGM...')),
             (50, _('(50) Inequality between women and men such as income inequality/gender pay gap,')),
         )
     ),
-    ('Celebrity, Arts and Media, Sports', (
+    (_('Celebrity, Arts and Media, Sports'), (
             (51, _('(51) Celebrity news, births, marriages, deaths, obituaries, famous people, royalty ...')),
             (52, _('(52) Arts, entertainment, leisure, cinema, theatre, books, dance ...')),
             (53, _('(53) Media, including new media (computers, internet), portrayal of women and/or men')),
@@ -86,7 +85,7 @@ TOPICS = (
             (57, _('(57) Other stories on celebrities, arts, media (specify the topic in \'Comments\' section of coding sheet)')),
         )
     ),
-    ('Other', (
+    (_('Other'), (
             (58, _('(58) Use only as a last resort and explain')),
         )
     )
@@ -270,32 +269,32 @@ class SheetModel(models.Model):
         abstract = True
 
     @classmethod
-    def person_field(self):
+    def person_field(cls):
         """ Return the person-related field for this model
         """
-        for fld in self._meta.get_all_related_objects():
+        for fld in cls._meta.get_all_related_objects():
             if fld.model and issubclass(fld.model, Person):
                 return fld
 
     @classmethod
-    def person_field_name(self):
-        """ Return the nawe of the person-related field for this model
+    def person_field_name(cls):
+        """ Return the name of the person-related field for this model
         """
-        return self.person_field().name.split(':')[-1]
+        return cls.person_field().name.split(':')[-1]
 
     @classmethod
-    def journalist_field(self):
+    def journalist_field(cls):
         """ Return the journalist-related field for this model
         """
-        for fld in self._meta.get_all_related_objects():
+        for fld in cls._meta.get_all_related_objects():
             if fld.model and issubclass(fld.model, Journalist):
                 return fld
 
     @classmethod
-    def journalist_field_name(self):
-        """ Return the nawe of the journalist-related field for this model
+    def journalist_field_name(cls):
+        """ Return the name of the journalist-related field for this model
         """
-        return self.journalist_field().name.split(':')[-1]
+        return cls.journalist_field().name.split(':')[-1]
 
 
 class Person(models.Model):
@@ -308,18 +307,18 @@ class Person(models.Model):
         return cls.sheet_field().foreign_related_fields[0].model._meta.db_table
 
     @classmethod
-    def sheet_field(self):
+    def sheet_field(cls):
         """ Return the sheet-related field for this model
         """
-        for fld in self._meta.fields:
+        for fld in cls._meta.fields:
             if hasattr(fld, 'related') and fld.model and issubclass(fld.related.parent_model, SheetModel):
                 return fld
 
     @classmethod
-    def sheet_name(self):
+    def sheet_name(cls):
         """ Return the name of the sheet relation field
         """
-        for fld in self._meta.fields:
+        for fld in cls._meta.fields:
             if hasattr(fld, 'related') and fld.related and issubclass(fld.related.parent_model, SheetModel):
                 return fld.name.split(':')[-1]
 
@@ -341,18 +340,18 @@ class Journalist(models.Model):
         return cls.sheet_field().foreign_related_fields[0].model._meta.db_table
 
     @classmethod
-    def sheet_field(self):
+    def sheet_field(cls):
         """ Return the name of the sheet relation field
         """
-        for fld in self._meta.fields:
+        for fld in cls._meta.fields:
             if hasattr(fld, 'related') and fld.related and issubclass(fld.related.parent_model, SheetModel):
                 return fld
 
     @classmethod
-    def sheet_name(self):
+    def sheet_name(cls):
         """ Return the name of the sheet relation field
         """
-        for fld in self._meta.fields:
+        for fld in cls._meta.fields:
             if hasattr(fld, 'related') and fld.related and issubclass(fld.related.parent_model, SheetModel):
                 return fld.name.split(':')[-1]
 
@@ -363,43 +362,42 @@ class BroadcastJournalist(Journalist):
         abstract = True
 
 ##### Standard Fields ###########
-field_scope = lambda x: models.PositiveIntegerField(choices=SCOPE, verbose_name=_('(%s) Scope' % x), help_text=_('Code the widest geographical scope that applies: if the event has both local and national importance, code national.'))
-field_topic = lambda x: models.PositiveIntegerField(choices=TOPICS, verbose_name=_('(%s) Topic' % x), help_text=_('''Choose one topic that best describes how the story is reported. Remember that a single event can be reported in different ways. Within each broad category, we include a code for 'other stories'. Please use these codes only as a <strong>last resort</strong>.'''))
+field_scope = lambda x: models.PositiveIntegerField(choices=SCOPE, verbose_name=x, help_text=_('Code the widest geographical scope that applies: if the event has both local and national importance, code national.'))
+field_topic = lambda x: models.PositiveIntegerField(choices=TOPICS, verbose_name=x, help_text=_('''Choose one topic that best describes how the story is reported. Remember that a single event can be reported in different ways. Within each broad category, we include a code for 'other stories'. Please use these codes only as a <strong>last resort</strong>.'''))
 
-# TODO - I am not sure whether all this force_text stuff will bypass translation or not. Without it, labels are shown containing __proxy__ objects
-field_equality_rights = lambda x: models.CharField(choices=YESNO, verbose_name=_('(%s) Reference to gender equality / human rights legislation/ policy' % x), max_length=1, help_text=_('''Scan the full news story and code 'Yes' if it quotes or makes reference to any piece of legislation or policy that promotes gender equality or human rights.'''))
-field_about_women = lambda x, y: models.CharField(max_length=1, choices=YESNO, verbose_name=_('(%(field_number)s) Is the %(news_type)s about a particular woman or group of women?' % {"field_number" : x, "news_type" : force_text(y)}))
-field_inequality_women = lambda x, y: models.PositiveIntegerField(choices=AGREE_DISAGREE, verbose_name=_('(%(field_number)s) This %(news_type)s clearly highlights issues of inequality between women and men' % {"field_number" : x, "news_type" : force_text(y)}))
-field_stereotypes = lambda x, y: models.PositiveIntegerField(choices=AGREE_DISAGREE, verbose_name=_('(%(field_number)s) This %(news_type)s clearly challenges gender stereotypes' % {"field_number" : x, "news_type" : force_text(y)}))
+field_equality_rights = lambda x: models.CharField(choices=YESNO, verbose_name=x, max_length=1, help_text=_('''Scan the full news story and code 'Yes' if it quotes or makes reference to any piece of legislation or policy that promotes gender equality or human rights.'''))
+field_about_women = lambda x: models.CharField(max_length=1, choices=YESNO, verbose_name=x)
+field_inequality_women = lambda x: models.PositiveIntegerField(choices=AGREE_DISAGREE, verbose_name=x)
+field_stereotypes = lambda x: models.PositiveIntegerField(choices=AGREE_DISAGREE, verbose_name=x)
 
-field_comments = lambda x: models.TextField(verbose_name=_('(%s) Describe any photographs included in the story and the conclusions you draw from them.' % x), blank=True)
+field_comments = lambda x: models.TextField(verbose_name=x, blank=True)
 
-field_further_analysis = lambda x, y: models.CharField(max_length=1, choices=YESNO, verbose_name=_('(%(field_number)s) Does this %(news_type)s warrant further analysis?' % {"field_number" : x, "news_type" : force_text(y)}), help_text=_('''<br><br>A %(news_type)s warrants further analysis if it clearly perpetuates or clearly challenges gender stereotypes, if it includes women's opinions in a remarkable way, if it contributes to an understanding of inequalities between women and men, if it mentions or calls attention to women's human rights, etc. Consult the guide for further explanation''' % {"news_type" : force_text(y)}))
-field_url_and_multimedia = lambda x, y: models.TextField(verbose_name=_('(%(field_number)s) Copy and paste the URL of the %(news_type)s. Describe any photographs, images, other multimedia features included in the %(news_type)s. Note down the conclusions you draw from the images, audio and video.' % {"field_number" : x, "news_type" : force_text(y)}), blank=True)
+field_further_analysis = lambda x, y: models.CharField(max_length=1, choices=YESNO, verbose_name=x, help_text=y)
+field_url_and_multimedia = lambda x: models.TextField(verbose_name=x, blank=True)
 
 field_num_female_anchors = models.PositiveIntegerField(verbose_name=_('Number of female anchors'), help_text=_('The anchor (or announcer, or presenter) is the person who introduces the newscast and the individual items within it. <strong>Note: You should only include the anchors/announcers. Do not include reporters or other</strong>'))
 field_num_male_anchors = models.PositiveIntegerField(verbose_name=_('Number of male anchors'), help_text=_('The anchor (or announcer, or presenter) is the person who introduces the newscast and the individual items within it. <strong>Note: You should only include the anchors/announcers. Do not include reporters or other journalists</strong>'))
 
-field_item_number = lambda x: models.PositiveIntegerField(verbose_name=_('(%s) Item Number' % x), help_text=_('Write in the number that describes the position of the story within the newscast. E.g. the first story in the newscast is item 1; the seventh story is item 7.'))
+field_item_number = lambda x: models.PositiveIntegerField(verbose_name=x, help_text=_('Write in the number that describes the position of the story within the newscast. E.g. the first story in the newscast is item 1; the seventh story is item 7.'))
 
-field_sex = lambda x: models.PositiveIntegerField(choices=GENDER, verbose_name=_('(%s) Sex' % x))
+field_sex = lambda x: models.PositiveIntegerField(choices=GENDER, verbose_name=x)
 
-field_age = lambda x: models.PositiveIntegerField(choices=AGES, verbose_name=_('(%s) Age (person appears)' % x))
-field_occupation = lambda x: models.PositiveIntegerField(choices=OCCUPATION, verbose_name=_('(%s) Occupation or Position' % x))
+field_age = lambda x: models.PositiveIntegerField(choices=AGES, verbose_name=x)
+field_occupation = lambda x: models.PositiveIntegerField(choices=OCCUPATION, verbose_name=x)
 field_occupation_other = models.TextField(verbose_name=_('Other Occupation'), blank=True)
-field_function = lambda x: models.PositiveIntegerField(choices=FUNCTION, verbose_name=_('(%s) Function in the news story' % x))
-field_family_role = lambda x: models.CharField(max_length=1, choices=YESNO, verbose_name=_('(%s) Family Role Given?' % x), help_text=_('''Code yes only if the word 'wife', 'husband' etc is actually used to describe the person.'''))
+field_function = lambda x: models.PositiveIntegerField(choices=FUNCTION, verbose_name=x)
+field_family_role = lambda x: models.CharField(max_length=1, choices=YESNO, verbose_name=x, help_text=_('''Code yes only if the word 'wife', 'husband' etc is actually used to describe the person.'''))
 field_victim_or_survivor = lambda x: models.CharField(max_length=1, choices=YESNO,
-    verbose_name=_('(%s) Does the story identify the person as either a victim or survivor?' % x),
+    verbose_name=x,
     help_text=_('''<p>You should code a person as a <strong>victim</strong> either if the word 'victim' is used to describe her/him, or if the story Implies that the person is a victim - e.g. by using language or images that evoke particular emotions such as shock, horror, pity for the person.</p><p>You should code a person as a <strong>survivor</strong> either if the word 'survivor' is used to describe her/him, or if the story implies that the person is a survivor - e.g. by using language or images that evoke particular emotions such as admiration or respect for the person.</p>''')
     )
-field_victim_of = lambda x: models.PositiveIntegerField(choices=VICTIM_OF, verbose_name=_('(%s) The story identifies the person as a victim of:' % x), null=True, blank=True)
+field_victim_of = lambda x: models.PositiveIntegerField(choices=VICTIM_OF, verbose_name=x, null=True, blank=True)
 field_victim_comments = lambda x: models.TextField(verbose_name=_('(%s) Add comments if ''Other Victim'' was selected above' % x), blank=True)
-field_survivor_of = lambda x: models.PositiveIntegerField(choices=SURVIVOR_OF, verbose_name=_('(%s) The story identifies the person as a survivor of:' % x), null=True, blank=True)
+field_survivor_of = lambda x: models.PositiveIntegerField(choices=SURVIVOR_OF, verbose_name=x, null=True, blank=True)
 field_survivor_comments = lambda x: models.TextField(verbose_name=_('(%s) Add comments if ''Other Survivor'' was selected above' % x), blank=True)
-field_is_quoted = lambda x: models.CharField(max_length=1, choices=YESNO, verbose_name=_('(%s) Is the person directly quoted' % x),
+field_is_quoted = lambda x: models.CharField(max_length=1, choices=YESNO, verbose_name=x,
     help_text=_('<p>A person is <strong>directly quoted</strong> if their own words are printed, e.g. "The war against terror is our first priority" said President Bush.</p><p>If the story paraphrases what the person said, that is not a direct quote, e.g. President Bush said that top priority would be given to fighting the war against terror.</p>')
 )
-field_is_photograph = lambda x: models.PositiveIntegerField(choices=IS_PHOTOGRAPH, verbose_name=_('(%s) Is there a photograph of the person in the story?' % x))
+field_is_photograph = lambda x: models.PositiveIntegerField(choices=IS_PHOTOGRAPH, verbose_name=x)
 
-field_special_qn = lambda x, y: models.CharField(choices=YESNO, max_length=1, blank=True, verbose_name=_('(%(field_number)s) Special question %(qn_no)s' % {"field_number" : x, "qn_no" : y}))
+field_special_qn = lambda x: models.CharField(choices=YESNO, max_length=1, blank=True, verbose_name=x)
