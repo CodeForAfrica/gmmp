@@ -47,7 +47,7 @@ class NewspaperPerson(Person):
 
 class NewspaperSheet(SheetModel):
     class Meta:
-        verbose_name = _('Newspaper Submission')
+        verbose_name = _('Newspaper')
 
     newspaper_name = models.CharField(max_length=255, verbose_name=_('Newspaper'), help_text=_('''Be as specific as possible. If the paper has different regional editions, write in the name of the edition you are monitoring - e.g. 'The Hindu - Delhi edition'.'''))
 
@@ -124,7 +124,7 @@ class RadioSheet(SheetModel):
         return self.station_name
 
     class Meta:
-        verbose_name = _('Radio Submission')
+        verbose_name = _('Radio')
 
 
 # ----------------------------
@@ -189,7 +189,7 @@ class TelevisionSheet(SheetModel):
         return self.station_name
 
     class Meta:
-        verbose_name = _('Television Submission')
+        verbose_name = _('Television')
 
 
 # ----------------------------
@@ -261,7 +261,7 @@ class InternetNewsSheet(SheetModel):
         return self.website_url
 
     class Meta:
-        verbose_name = _('Internet News Submission')
+        verbose_name = _('Internet')
 
 def twitter_journalist_meta(name, bases, mydict):
     dct = {
@@ -296,7 +296,7 @@ class TwitterPerson(Person):
 
 class TwitterSheet(SheetModel):
     class Meta:
-        verbose_name = _('Twitter Submission')
+        verbose_name = _('Twitter')
 
     media_name = models.CharField(max_length=255, verbose_name=_('Media Name'), help_text=_('''For example. 'CNN Breaking News' '''))
     twitter_handle = models.CharField(max_length=255, verbose_name=_('Twitter Handle'), help_text=_('e.g. @cnnbrk'))
