@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-17 17:47+0300\n"
+"POT-Creation-Date: 2020-02-20 15:40+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,98 +18,99 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: gmmp/dashboard_modules.py:15
-msgid "Internet News"
+#: gmmp/dashboard_modules.py:15 gmmp/dashboard_modules.py:117
+#: gmmp/settings.py:224
+msgid "Internet"
 msgstr ""
 
-#: gmmp/dashboard_modules.py:22
-msgid "Add Internet News Article"
-msgstr ""
+#: gmmp/dashboard_modules.py:22 gmmp/dashboard_modules.py:38
+#: gmmp/dashboard_modules.py:54 gmmp/dashboard_modules.py:71
+msgid "Code Story"
+msgstr "Codifique Noticia"
 
-#: gmmp/dashboard_modules.py:25
+#: gmmp/dashboard_modules.py:24
 msgid ""
-"Capture here news that are online. Remember to only capture national (and if "
-"necessary, local) major websites."
+"Code all online news content from the home page or 'first layer' of the site "
+"that are not designated as health/sports/entertainment/business news unless "
+"it is apparent that they are\n"
+"uncharacteristically important stories that day (i.e. would appear in the "
+"front page section of a newspaper instead of the appropriate sub-section)."
 msgstr ""
+"Codifique todo el contenido de las noticias en línea en la página principal "
+"o \"primer nivel\" del sitio que no estén designadas como noticias relativas "
+"a salud/deportes/entretenimiento/negocios a menos que den la impresión que "
+"son notas notablemente importantes ese día (esto es, que aparezcan en la "
+"primera plana de un diario y no en la subsección que les correspondería)."
 
-#: gmmp/dashboard_modules.py:32
+#: gmmp/dashboard_modules.py:31 gmmp/dashboard_modules.py:102
+#: gmmp/settings.py:212
 msgid "Newspapers"
-msgstr ""
+msgstr "Periódico"
 
-#: gmmp/dashboard_modules.py:39
-msgid "Add Newspaper Article"
-msgstr ""
-
-#: gmmp/dashboard_modules.py:42
+#: gmmp/dashboard_modules.py:40
 msgid ""
-"Newspaper news are news published on print. The number of newspapers you "
-"code will depend on the number of newspapers in your country."
+"Begin with the main news page (usually Page 1). Code all the news stories on "
+"this page. Then go to the next major news page.\n"
+"Code regular news stories only - not editorials, commentaries, letters to "
+"the editor."
+msgstr ""
+"Empiece con la página principal (normalmente página 1). Codifique todas las "
+"noticias de esta página. Luego vaya a la próxima página de noticia "
+"principal.\n"
+"Codifique las noticias solamente. No los editoriales, comentarios, cartas al "
+"editor."
+
+#: gmmp/dashboard_modules.py:47 gmmp/dashboard_modules.py:107
+#: gmmp/settings.py:216
+msgid "Radio"
 msgstr ""
 
-#: gmmp/dashboard_modules.py:49
-msgid "Radio News"
-msgstr ""
-
-#: gmmp/dashboard_modules.py:56
-msgid "Add Radio Item"
-msgstr ""
-
-#: gmmp/dashboard_modules.py:59
+#: gmmp/dashboard_modules.py:56 gmmp/dashboard_modules.py:73
 msgid ""
-"Capture here news that are broadcast on the radio. The number of newscasts "
-"you code will depend on the number of radio channels that broadcast news in "
-"your country."
+"Code all the stories in the newscasts that you selected, including: All "
+"types of news — politics, local stories, international stories, reports on "
+"education, medicine, business, entertainment, and so on.\n"
+"Sports reports — code only if they are part of the newscast. (Do not code a "
+"programme if it is\n"
+"entirely about sports.)"
 msgstr ""
+"Codifique todas las noticias de los informativos que haya seleccionado, "
+"incluyendo: Todo tipo de noticias: políticas, noticias locales, "
+"internacionales, reportajes sobre educación, medicina, negocios, "
+"entretenimiento, etc.\n"
+"Reportajes sobre deportes. Codifique sólo si forman parte del informativo "
+"(no codifique un programa si es enteramente de deportes)."
 
-#: gmmp/dashboard_modules.py:66
-msgid "Television News"
-msgstr ""
+#: gmmp/dashboard_modules.py:64 gmmp/dashboard_modules.py:112
+#: gmmp/settings.py:220
+msgid "Television"
+msgstr "Televisión"
 
-#: gmmp/dashboard_modules.py:73
-msgid "Add Television Item"
-msgstr ""
-
-#: gmmp/dashboard_modules.py:76
-msgid ""
-"Capture here news that are broadcast on television. The number of newscast "
-"you code will depend on the number of television channels that broadcast "
-"news in your country."
-msgstr ""
-
-#: gmmp/dashboard_modules.py:83
+#: gmmp/dashboard_modules.py:81 gmmp/dashboard_modules.py:122
+#: gmmp/settings.py:228
 msgid "Twitter"
 msgstr ""
 
+#: gmmp/dashboard_modules.py:88
+msgid "Code Tweet"
+msgstr "Codifique Tuit"
+
 #: gmmp/dashboard_modules.py:90
-msgid "Add Tweets"
-msgstr ""
-
-#: gmmp/dashboard_modules.py:93
 msgid ""
-"Only capture tweets that are specific posts/feeds by news media on twitter. "
-"Remember to capture only national (and if necessary, local) media house "
-"Twitter feeds."
+"Begin coding after 6.30 p.m. on the global monitoring day. Code every third "
+"tweet time stamped 6.30 p.m. or earlier published on the media monitoring "
+"day up to 15 – 20 tweets. If the Twitter news feed provider you have chosen "
+"does not yield 15 to 20 Tweets by taking every third item, take every second "
+"item. If they provide less than 15 tweets per day, they are not appropriate "
+"for inclusion in the monitoring."
 msgstr ""
-
-#: gmmp/dashboard_modules.py:106
-msgid "Newspaper Submission(s)"
-msgstr ""
-
-#: gmmp/dashboard_modules.py:111
-msgid "Radio Submission(s)"
-msgstr ""
-
-#: gmmp/dashboard_modules.py:116
-msgid "Television Submission(s)"
-msgstr ""
-
-#: gmmp/dashboard_modules.py:121
-msgid "Internet News Submission(s)"
-msgstr ""
-
-#: gmmp/dashboard_modules.py:126
-msgid "Twitter Submission(s)"
-msgstr ""
+"Comience a codificar después de las 6:30 p.m. el día de monitoreo de medios. "
+"Codifique cada tercer tuit con horario de 6:30 p.m. o previo que se haya "
+"publicado el día del monitoreo de medios; hasta llegar a 15-20 tuits. Si el "
+"servicio de noticias vía Twitter que seleccionó no rinde de 15 a 20 tuits, "
+"tomando uno de cada tres tuits, comience a tomar uno de cada dos tuits. Si "
+"proveen menos de 15 tuits al día, entonces no resultan apropiados para "
+"incluirlos en el monitoreo."
 
 #: gmmp/settings.py:126
 msgid "English"
@@ -147,33 +148,17 @@ msgstr ""
 msgid "International"
 msgstr ""
 
+#: gmmp/settings.py:198
+msgid "GMMP Database"
+msgstr ""
+
 #: gmmp/settings.py:209
-msgid "Add"
-msgstr ""
-
-#: gmmp/settings.py:212
-msgid "Add Newspaper"
-msgstr ""
-
-#: gmmp/settings.py:216
-msgid "Add Radio"
-msgstr ""
-
-#: gmmp/settings.py:220
-msgid "Add Television"
-msgstr ""
-
-#: gmmp/settings.py:224
-msgid "Add Internet News"
-msgstr ""
-
-#: gmmp/settings.py:228
-msgid "Add Twitter"
-msgstr ""
+msgid "Code"
+msgstr "Codifique"
 
 #: gmmp/settings.py:234
-msgid "Submissions"
-msgstr ""
+msgid "Coded"
+msgstr "Codificadas"
 
 #: gmmp/settings.py:244
 msgid "Access Control"
@@ -185,7 +170,7 @@ msgstr ""
 
 #: gmmp/settings.py:251
 msgid "Help"
-msgstr ""
+msgstr "Ayuda"
 
 #: gmmp/settings.py:253
 msgid "Facebook Group"
@@ -193,7 +178,7 @@ msgstr ""
 
 #: gmmp/settings.py:258
 msgid "Methodology Guides & Coding Tools"
-msgstr ""
+msgstr "Guías de Monitoreo"
 
 #: gmmp/settings.py:265
 msgid "Other Links"
@@ -207,7 +192,7 @@ msgstr ""
 msgid "Facebook"
 msgstr ""
 
-#: gmmp/templates/admin/base_site.html:22
+#: gmmp/templates/admin/base_site.html:41
 msgid "Welcome,"
 msgstr ""
 
