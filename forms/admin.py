@@ -1,4 +1,4 @@
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.contrib import admin
 from guardian.admin import GuardedModelAdmin
 from guardian import shortcuts
@@ -47,23 +47,23 @@ class PermsAdmin(GuardedModelAdmin):
 class NewspaperJournalistInline(admin.TabularInline):
     model = models.NewspaperJournalist
     extra = 1
-    verbose_name_plural = _('''
-    For each newspaper story, you should code each journalist/reporter who wrote the story and whose name appears.
+    verbose_name_plural = _('''For each newspaper story, you should code each journalist/reporter who wrote the story and whose name appears.
+<br/>
 <strong>Do not code:</strong>
+<br/>
 Unnamed journalists (e.g. 'Staff reporter', 'Our correspondent')
-News agencies
-''')
+<br/>
+News agencies''')
     exclude = ('age',)
 
 class RadioJournalistInline(admin.TabularInline):
     model = models.RadioJournalist
     extra = 1
-    verbose_name_plural = _('''Add a new record for each journalist who:
-(i) wrote the story and whose name appears, or
-(ii) is visible in video clips, or
-(iii) can be heard in audio clips.
-
-Do not code: (i) Unnamed journalists (e.g. ''Staff reporter'', ''Our correspondent''); (ii) News agencies.''')
+    verbose_name_plural = _('''Use one line on the coding sheet for:
+<br/>
+Each news anchor or announcer: <strong>Code the anchor/announcer in each story, even if it is the same person.</strong>
+<br/>
+Each reporter''')
     exclude = ('age',)
 
     fieldsets = [
@@ -75,12 +75,11 @@ Do not code: (i) Unnamed journalists (e.g. ''Staff reporter'', ''Our corresponde
 class TelevisionJournalistInline(admin.TabularInline):
     model = models.TelevisionJournalist
     extra = 1
-    verbose_name_plural = _('''Add a new record for each journalist who:
-(i) wrote the story and whose name appears, or
-(ii) is visible in video clips, or
-(iii) can be heard in audio clips.
-
-Do not code: (i) Unnamed journalists (e.g. ''Staff reporter'', ''Our correspondent''); (ii) News agencies.''')
+    verbose_name_plural = _('''Use one line on the coding sheet for:
+<br/>
+Each news anchor or announcer: <strong>Code the anchor/announcer in each story, even if it is the same person.</strong>
+<br/>
+Each reporter''')
 
     fieldsets = [
         ('', {
@@ -91,21 +90,26 @@ Do not code: (i) Unnamed journalists (e.g. ''Staff reporter'', ''Our corresponde
 class InternetJournalistInline(admin.TabularInline):
     model = models.InternetNewsJournalist
     extra = 1
-    verbose_name_plural = _('''Add a new record for each journalist who:
-(i) wrote the story and whose name appears, or
-(ii) is visible in video clips, or
-(iii) can be heard in audio clips.
-
-Do not code: (i) Unnamed journalists (e.g. ''Staff reporter'', ''Our correspondent''); (ii) News agencies.''')
+    verbose_name_plural = _('''For each online news story, you should code each journalist/reporter who wrote the story and whose name appears.
+<br/>
+<strong>Do not code:</strong>
+<br/>
+Unnamed journalists (e.g. 'Staff reporter', 'Our correspondent')
+<br/>
+News agencies''')
 
 class TwitterJournalistInline(admin.TabularInline):
     model = models.TwitterJournalist
     extra = 1
-    verbose_name_plural = _('''
-        Code the journalist to whom the twitter account belongs if the account does not belong to the media house. Code any
-journalist referenced in the tweet. Code each journalist/reporter in a separate row.
-Do not code: (i) Unnamed journalists (e.g. 'Staff reporter', 'Our correspondent'); (ii) News agencies
-''')
+    verbose_name_plural = _('''<strong>Click on the link in the tweet leading to the full story to see the name of the journalist or reporter.</strong>
+<br />
+For each online news story, you should code each journalist/reporter who wrote the story and whose name appears.
+<br/>
+<strong>Do not code:</strong>
+<br/>
+Unnamed journalists (e.g. 'Staff reporter', 'Our correspondent')
+<br/>
+News agencies''')
     exclude = ('age',)
 
 
@@ -124,7 +128,7 @@ class RadioPersonInline(admin.StackedInline):
     inline_classes = ('grp-collapse grp-open',)
     extra = 1
     verbose_name_plural = _('People in the broadcast')
-    verbose_name = _('Person mentioned In the broadcast')
+    verbose_name = _('Person mentioned in the broadcast')
 
 class TelevisionPersonInline(admin.StackedInline):
     model = models.TelevisionPerson
@@ -188,18 +192,20 @@ class NewspaperSheetAdmin(PermsAdmin):
         }),
         (_('Journalists & Reporters'), {
             'description': _('''Column 9 is for the journalist or reporter. For each story, code each journalist/reporter who wrote the story and whose name appears. Code each journalist/reporter in a separate row.
+            <br/>\n
             Do not code: (i) Unnamed journalists (e.g. 'Staff reporter', 'Our correspondent'); (ii) News agencies'''),
             'fields': (),
             'classes' : ('journalists-fieldset',),
         }),
         (_('People in the news'), {
             'description': _('''Columns 10 - 22 are for people in the news.
+            <br/>\n
             Code (i) any person whom the story is about, even if they are not interviewed or quoted; (ii) Each person who is interviewed,  (iii) Each person in the story who is quoted, either directly or indirectly.'''),
             'fields': (),
             'classes' : ('people-fieldset',),
         }),
         (_('Does this story warrant further analysis?'), {
-            'description': _('''*A story warrants further analysis if it clearly perpetuates or clearly challenges gender stereotypes, if it includes women’s opinions in a remarkable way, if it contributes to an understanding of inequalities between women and men, if it mentions or calls attention to women’s human rights, etc. Consult the guide for further explanation.
+            'description': _('''A story warrants further analysis if it clearly perpetuates or clearly challenges gender stereotypes, if it includes women’s opinions in a remarkable way, if it contributes to an understanding of inequalities between women and men, if it mentions or calls attention to women’s human rights, etc. Consult the guide for further explanation.
             <br/><br/>
             <small>*If you select ‘1’ (Yes), you will need to send a copy of the clipping to your national/regional coordinator.</small>'''),
             'fields': ('further_analysis',),
@@ -262,13 +268,13 @@ class RadioSheetAdmin(PermsAdmin):
             'fields': (),
             'classes' : ('people-fieldset',),
         }),
-        ('Does this story warrant further analysis?', {
+        (_('Does this story warrant further analysis?'), {
             'description': _('''A story warrants further analysis if it clearly perpetuates or clearly challenges gender stereotypes, if it includes women’s opinions in a remarkable way, if it contributes to an understanding of inequalities between women and men, if it mentions or calls attention to women’s human rights, etc. Consult the guide for further explanation.
-            <br/></br/>
+            <br/><br/>
             <small>*If you select ‘1’ (Yes), you will need to send a copy of the recording to your national/regional coordinator.</small>'''),
             'fields': ('further_analysis',),
         }),
-        ('Comments & Explanations', {
+        (_('Comments & Explanations'), {
             'fields' : ('comments',),
         }),
     ]
@@ -424,7 +430,9 @@ class TwitterSheetAdmin(PermsAdmin):
 
     radio_fields = {
         'retweet' : admin.HORIZONTAL,
+        'equality_rights': admin.HORIZONTAL,
         'about_women': admin.HORIZONTAL,
+        'inequality_women': admin.HORIZONTAL,
         'stereotypes': admin.HORIZONTAL,
         'further_analysis': admin.HORIZONTAL,
     }
