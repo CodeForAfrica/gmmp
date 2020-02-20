@@ -1,5 +1,5 @@
 {% extends 'admin/base_site.html' %}
-{% load static i18n %}
+{% load static i18n i18n_switcher jet_tags %}
 
 {% block extrastyle %}
 {{ block.super }}
@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block extrahead %}
-{{super}}
+{{ block.super }}
 <link rel="apple-touch-icon" sizes="180x180" href="{% static 'apple-touch-icon.png' %}">
 <link rel="shortcut icon" href="{% static 'favicon.ico' %}" />
 <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon-32x32.png' %}">
@@ -16,6 +16,25 @@
 <link rel="mask-icon" href="{% static 'safari-pinned-tab.svg' %}" color="#29abe2">
 <meta name="msapplication-TileColor" content="#29abe2">
 <meta name="theme-color" content="#ffffff">
+{% endblock %}
+
+{% block blockbots %}
+{{ block.super }}
+<!-- FIXING SELECT 2 JQUERY ISSUE: https://github.com/geex-arts/django-jet/issues/284#issuecomment-359195347 -->
+<script src="{% static 'admin/js/vendor/jquery/jquery.js' as url %}{{ url|jet_append_version }}"
+    type="text/javascript"></script>
+<script src="{% static 'admin/js/jquery.init.js' as url %}{{ url|jet_append_version }}"></script>
+{% endblock %}
+
+{% block userlinks %}
+{{ block.super }}
+    {% get_available_languages as LANGUAGES %}
+    {% get_language_info_list for LANGUAGES as languages %}
+    {% for language in languages %}
+    <a href="{{ request|switch_i18n:language.code }}">
+        {{ language.name_local }}
+    </a>
+    {% endfor %}
 {% endblock %}
 
 {% block welcome-msg %}
