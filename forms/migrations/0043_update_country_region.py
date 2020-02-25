@@ -27,7 +27,6 @@ def get_region_map(CountryRegion):
 
 
 def code(apps, schema_editor):
-
     CountryRegion = apps.get_model("forms", "CountryRegion")
     db_alias = schema_editor.connection.alias
 
