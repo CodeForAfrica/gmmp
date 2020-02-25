@@ -25,3 +25,9 @@
 .dashboard #footer {
   padding: 0 1.42857rem;
 }
+
+/* FORMS */
+.submit-row input.default {
+  float: right;
+  margin-right: 0;
+}
