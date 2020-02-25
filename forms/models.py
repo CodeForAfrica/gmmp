@@ -244,8 +244,10 @@ class InternetNewsSheet(SheetModel):
     scope = field_scope(_('(3) Scope'))
     shared_via_twitter = models.CharField(max_length=1, verbose_name=_('(4) Shared via twitter?'), choices=YESNO, help_text=_('''Has this story been shared by the media house via Twitter?
 
-<br>Enter the exact URL of the story into <a href="https://unionmetrics.com/free-tools/twitter-snapshot-report/" target="_blank">https://unionmetrics.com/free-tools/twitter-snapshot-report/</a> - answer yes if the media house's name appears in the search results.'''))
-    shared_on_facebook = models.CharField(max_length=1, choices=YESNO, verbose_name=_('(5) Shared on Facebook'), help_text=_('Has this story been shared by the media house on its Facebook Page?'))
+<br>Enter the exact URL of the story into <a href="https://twitter.com" target="_blank">https://twitter.com</a> - answer yes if the media house's name appears in the search results.'''))
+    shared_on_facebook = models.CharField(max_length=1, choices=YESNO, verbose_name=_('(5) Shared on Facebook'), help_text=_('''Has this story been shared by the media house on its Facebook Page?
+
+<br>Scroll down the media house's Facebook page to check.'''))
 
     # Analysis
     equality_rights = field_equality_rights(_('(6) Reference to gender equality / human rights legislation/ policy'))
