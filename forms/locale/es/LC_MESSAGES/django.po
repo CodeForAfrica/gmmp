@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-20 15:40+0300\n"
+"POT-Creation-Date: 2020-02-25 12:44+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -513,7 +513,7 @@ msgid ""
 msgstr "La noticia aparece en la primera plana=1, en página 7= 7, etc."
 
 #: forms/models.py:55 forms/models.py:111 forms/models.py:176
-#: forms/models.py:243 forms/models.py:309
+#: forms/models.py:243 forms/models.py:311
 msgid "(2) Topic"
 msgstr "(2) Tema"
 
@@ -553,7 +553,7 @@ msgid "(24) Does this story warrant further analysis?"
 msgstr "(24) ¿El artículo garantiza ulterior análisis?"
 
 #: forms/models.py:64 forms/models.py:119 forms/models.py:184
-#: forms/models.py:256
+#: forms/models.py:258
 msgid ""
 "<br><br>A story warrants further analysis if it clearly perpetuates or "
 "clearly challenges gender stereotypes, if it includes women's opinions in a "
@@ -576,11 +576,11 @@ msgid ""
 "draw from them."
 msgstr ""
 
-#: forms/models.py:76 forms/models.py:287
+#: forms/models.py:76 forms/models.py:289
 msgid "(11) Occupation or Position"
 msgstr "(11) Ocupación o cargo"
 
-#: forms/models.py:77 forms/models.py:288
+#: forms/models.py:77 forms/models.py:290
 msgid "(12) Function in the news story"
 msgstr "(12) Función en la noticia"
 
@@ -839,10 +839,9 @@ msgstr ""
 msgid ""
 "Has this story been shared by the media house via Twitter?\n"
 "\n"
-"<br>Enter the exact URL of the story into <a href=\"https://unionmetrics.com/"
-"free-tools/twitter-snapshot-report/\" target=\"_blank\">https://unionmetrics."
-"com/free-tools/twitter-snapshot-report/</a> - answer yes if the media "
-"house's name appears in the search results."
+"<br>Enter the exact URL of the story into <a href=\"https://twitter.com\" "
+"target=\"_blank\">https://twitter.com</a> - answer yes if the media house's "
+"name appears in the search results."
 msgstr ""
 
 #: forms/models.py:248
@@ -850,128 +849,131 @@ msgid "(5) Shared on Facebook"
 msgstr ""
 
 #: forms/models.py:248
-msgid "Has this story been shared by the media house on its Facebook Page?"
+msgid ""
+"Has this story been shared by the media house on its Facebook Page?\n"
+"\n"
+"<br>Scroll down the media house's Facebook page to check."
 msgstr ""
 
-#: forms/models.py:251
+#: forms/models.py:253
 msgid "(6) Reference to gender equality / human rights legislation/ policy"
 msgstr ""
 "(6) Referencia a equidad de género/legislación sobre derechos humanos/"
 "políticas"
 
-#: forms/models.py:252
+#: forms/models.py:254
 #, fuzzy
 msgid "(7) Is the story about a particular woman or group of women?"
 msgstr ""
 "(7) ¿Es la noticia sobre una mujer en particular o un grupo de mujeres?"
 
-#: forms/models.py:253
+#: forms/models.py:255
 msgid ""
 "(8) This story clearly highlights issues of inequality between women and men"
 msgstr ""
 "(8) Esta noticia destaca claramente los problemas de desigualdad entre "
 "mujeres y hombres"
 
-#: forms/models.py:254
+#: forms/models.py:256
 msgid "(9) This story clearly challenges gender stereotypes"
 msgstr "(9) Esta noticia claramente desafía los estereotipos de género"
 
-#: forms/models.py:256
+#: forms/models.py:258
 msgid "(26) Does this story warrant further analysis?"
 msgstr "(26) ¿El artículo garantiza ulterior análisis?"
 
-#: forms/models.py:258
+#: forms/models.py:260
 msgid ""
 "(25) Copy and paste the URL of the story. Describe any photographs, images, "
 "other multimedia features included in the story. Note down the conclusions "
 "you draw from the images, audio and video."
 msgstr ""
 
-#: forms/models.py:264
+#: forms/models.py:266
 msgid "Internet"
 msgstr ""
 
-#: forms/models.py:285
+#: forms/models.py:287
 msgid "(9) Sex"
 msgstr "(9) Sexo"
 
-#: forms/models.py:286
+#: forms/models.py:288
 msgid "(10) Age (person appears)"
 msgstr "(10) Edad (sólo si mencionada)"
 
-#: forms/models.py:289
+#: forms/models.py:291
 msgid "(13) Is there a photograph of the person in the story?"
 msgstr "(13) Hay una fotografía de la persona en el artículo"
 
-#: forms/models.py:291
+#: forms/models.py:293
 msgid "(14) Special question (1)"
 msgstr "(14) Pregunta especial (1)"
 
-#: forms/models.py:292
+#: forms/models.py:294
 msgid "(15) Special question (2)"
 msgstr "(15) Pregunta especial (2)"
 
-#: forms/models.py:293
+#: forms/models.py:295
 msgid "(16) Special question (3)"
 msgstr "(16) Pregunta especial (3)"
 
-#: forms/models.py:299
+#: forms/models.py:301
 msgid "Twitter"
 msgstr ""
 
-#: forms/models.py:301
+#: forms/models.py:303
 msgid "Media Name"
 msgstr ""
 
-#: forms/models.py:301
+#: forms/models.py:303
 msgid "For example. 'CNN Breaking News' "
 msgstr ""
 
-#: forms/models.py:302
+#: forms/models.py:304
 msgid "Twitter Handle"
 msgstr ""
 
-#: forms/models.py:302
+#: forms/models.py:304
 msgid "e.g. @cnnbrk"
 msgstr ""
 
-#: forms/models.py:306
+#: forms/models.py:308
 msgid "(1) Tweet or Retweet"
 msgstr "(1) Tuit o Retuit"
 
-#: forms/models.py:307
+#: forms/models.py:309
 msgid ""
 "Only retweets from the same media house can be coded. Do not code retweets "
 "from other news providers"
 msgstr ""
 
-#: forms/models.py:312
+#: forms/models.py:314
 msgid "(3) Reference to gender equality / human rights legislation/ policy"
 msgstr ""
 "(3) Referencia a equidad de género/legislación sobre derechos humanos/"
 "políticas"
 
-#: forms/models.py:313
+#: forms/models.py:315
 msgid "(4) Is the story about a particular woman or group of women?"
 msgstr ""
 "(4) ¿Es la noticia sobre una mujer en particular o un grupo de mujeres?"
 
-#: forms/models.py:314
+#: forms/models.py:316
 msgid ""
 "(5) This story clearly highlights issues of inequality between women and men"
 msgstr ""
 "(5) Esta noticia destaca claramente los problemas de desigualdad entre "
 "mujeres y hombres"
 
-#: forms/models.py:315
+#: forms/models.py:317
 msgid "(6) This story clearly challenges gender stereotypes"
 msgstr "(6) Esta noticia claramente desafía los estereotipos de género"
 
-#: forms/models.py:317
+#: forms/models.py:319
 msgid "(18) Does this tweet warrant further analysis?"
 msgstr "(18) ¿El tuit garantiza ulterior análisis?"
 
-#: forms/models.py:317
+#: forms/models.py:319
 msgid ""
 "<br><br>A tweet warrants further analysis if it clearly perpetuates or "
 "clearly challenges gender stereotypes, if it includes women's opinions in a "
@@ -986,7 +988,7 @@ msgstr ""
 "humanos de las mujeres, etcétera. Consulte la guía para una mayor "
 "explicación."
 
-#: forms/models.py:319
+#: forms/models.py:321
 msgid ""
 "(17) Copy and paste the URL of the tweet. Describe any photographs, images, "
 "other multimedia features included in the tweet. Note down the conclusions "
