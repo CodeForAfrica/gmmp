@@ -185,12 +185,16 @@ LOGGING = {
 
 from django.utils.translation import gettext_lazy as _
 
+# Great Britain: https://en.wikipedia.org/wiki/ISO_3166-2:GB#Countries_and_province
 COUNTRIES_OVERRIDE = {
-    "SQ": _("Scotland"),
-    "EN": _("England"),
-    "WL": _("Wales"),
-    "B1": _("Belgium - French"),
-    "B2": _("Belgium - Flemish"),
+    "BE": None,
+    "QM": _("Belgium - French"),
+    "QN": _("Belgium - Flemish"),
+    "UK": None,
+    "QO": _("England"),
+    "QP": _("North Ireland"),
+    "QQ": _("Scotland"),
+    "QR": _("Wales"),
     "XI": _("International"),
 }
 
