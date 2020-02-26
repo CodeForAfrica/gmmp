@@ -245,7 +245,7 @@ class RadioSheetAdmin(PermsAdmin):
     fieldsets = [
         (_('Basic information'), {
             'fields': (
-                'station_name', 'start_time',
+                'channel', 'start_time',
                 'num_female_anchors', 'num_male_anchors'
             ),
         }),
@@ -309,7 +309,7 @@ class TelevisionSheetAdmin(PermsAdmin):
     fieldsets = [
         (_('Basic information'), {
             'fields': (
-                'station_name', 'television_channel', 'start_time',
+                'channel', 'start_time',
                 'num_female_anchors', 'num_male_anchors'
             ),
         }),

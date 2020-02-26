@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-25 12:16+0300\n"
+"POT-Creation-Date: 2020-02-26 13:46+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
 #: forms/admin.py:50
 msgid ""
 "For each newspaper story, you should code each journalist/reporter who wrote "
@@ -366,13 +367,13 @@ msgid ""
 "first page = 1, Seventh page = 7, etc."
 msgstr ""
 
-#: forms/models.py:55 forms/models.py:111 forms/models.py:176
-#: forms/models.py:243 forms/models.py:309
+#: forms/models.py:55 forms/models.py:111 forms/models.py:174
+#: forms/models.py:241 forms/models.py:309
 msgid "(2) Topic"
 msgstr ""
 
-#: forms/models.py:56 forms/models.py:112 forms/models.py:177
-#: forms/models.py:244
+#: forms/models.py:56 forms/models.py:112 forms/models.py:175
+#: forms/models.py:242
 msgid "(3) Scope"
 msgstr ""
 
@@ -401,7 +402,7 @@ msgstr ""
 msgid "(24) Does this story warrant further analysis?"
 msgstr ""
 
-#: forms/models.py:64 forms/models.py:119 forms/models.py:184
+#: forms/models.py:64 forms/models.py:119 forms/models.py:182
 #: forms/models.py:256
 msgid ""
 "<br><br>A story warrants further analysis if it clearly perpetuates or "
@@ -453,8 +454,8 @@ msgstr ""
 msgid "(19) Special question (3)"
 msgstr ""
 
-#: forms/models.py:104
-msgid "Name of radio channel or station"
+#: forms/models.py:104 forms/models.py:168
+msgid "Channel"
 msgstr ""
 
 #: forms/models.py:104
@@ -463,28 +464,28 @@ msgid ""
 "the newscast is broadcast on its third channel, write in 'RRI-3'."
 msgstr ""
 
-#: forms/models.py:106 forms/models.py:171
+#: forms/models.py:106 forms/models.py:169
 msgid "Time of Broadcast"
 msgstr ""
 
-#: forms/models.py:110 forms/models.py:175
+#: forms/models.py:110 forms/models.py:173
 msgid "(1) Item Number"
 msgstr ""
 
-#: forms/models.py:114 forms/models.py:179
+#: forms/models.py:114 forms/models.py:177
 msgid "(4) Reference to gender equality / human rights legislation/ policy"
 msgstr ""
 
-#: forms/models.py:115 forms/models.py:180
+#: forms/models.py:115 forms/models.py:178
 msgid "(5) Is the story about a particular woman or group of women?"
 msgstr ""
 
-#: forms/models.py:116 forms/models.py:181
+#: forms/models.py:116 forms/models.py:179
 msgid ""
 "(6) This story clearly highlights issues of inequality between women and men"
 msgstr ""
 
-#: forms/models.py:117 forms/models.py:182
+#: forms/models.py:117 forms/models.py:180
 msgid "(7) This story clearly challenges gender stereotypes"
 msgstr ""
 
@@ -492,7 +493,7 @@ msgstr ""
 msgid "(20) Does this story warrant further analysis?"
 msgstr ""
 
-#: forms/models.py:121 forms/models.py:186
+#: forms/models.py:121 forms/models.py:184
 msgid ""
 "(N/A) Describe any photographs included in the story and the conclusions you "
 "draw from them."
@@ -547,132 +548,119 @@ msgid "(21) Special question (3)"
 msgstr ""
 
 #: forms/models.py:168
-msgid "Name of TV Station"
-msgstr ""
-
-#: forms/models.py:168
-msgid ""
-"Name of the television channel or station : Be as specific as possible. E.g. "
-"if the television company is called RTV, and if the newscast is broadcast on "
-"its second channel, write in 'RTV-2' "
-msgstr ""
-
-#: forms/models.py:170
-msgid "Channel"
-msgstr ""
-
-#: forms/models.py:170
 msgid ""
 "Be as specific as possible. E.g. if the television company is called RTV, "
 "and if the newscast is broadcast on its second channel, write in 'RTV-2' "
 msgstr ""
 
-#: forms/models.py:184
+#: forms/models.py:182
 msgid "(22) Does this story warrant further analysis?"
 msgstr ""
 
-#: forms/models.py:192
+#: forms/models.py:190
 msgid "Television"
 msgstr ""
 
-#: forms/models.py:215
+#: forms/models.py:213
 msgid "(12) Sex"
 msgstr ""
 
-#: forms/models.py:216
+#: forms/models.py:214
 msgid "(13) Age (person appears)"
 msgstr ""
 
-#: forms/models.py:217
+#: forms/models.py:215
 msgid "(14) Occupation or Position"
 msgstr ""
 
-#: forms/models.py:218
+#: forms/models.py:216
 msgid "(15) Function in the news story"
 msgstr ""
 
-#: forms/models.py:219
+#: forms/models.py:217
 msgid "(16) Family Role Given?"
 msgstr ""
 
-#: forms/models.py:220
+#: forms/models.py:218
 msgid "(17) Does the story identify the person as either a victim or survivor?"
 msgstr ""
 
-#: forms/models.py:221
+#: forms/models.py:219
 msgid "(18) The story identifies the person as a victim of:"
 msgstr ""
 
-#: forms/models.py:222
+#: forms/models.py:220
 msgid "(19) The story identifies the person as a survivor of:"
 msgstr ""
 
-#: forms/models.py:223
+#: forms/models.py:221
 msgid "(20) Is the person directly quoted"
 msgstr ""
 
-#: forms/models.py:224
+#: forms/models.py:222
 msgid "(21) Is there a photograph of the person in the story?"
 msgstr ""
 
-#: forms/models.py:226
+#: forms/models.py:224
 msgid "(22) Special question (1)"
 msgstr ""
 
-#: forms/models.py:227
+#: forms/models.py:225
 msgid "(23) Special question (2)"
 msgstr ""
 
-#: forms/models.py:228
+#: forms/models.py:226
 msgid "(24) Special question (3)"
 msgstr ""
 
-#: forms/models.py:237
+#: forms/models.py:235
 msgid "Website Name"
 msgstr ""
 
-#: forms/models.py:238
+#: forms/models.py:236
 msgid "URL"
 msgstr ""
 
-#: forms/models.py:239
+#: forms/models.py:237
 msgid "Date and Time Accessed"
 msgstr ""
 
-#: forms/models.py:240
+#: forms/models.py:238
 msgid "Offline presence?"
 msgstr ""
 
-#: forms/models.py:242
+#: forms/models.py:240
 msgid ""
 "Webpage Layer Number. Homepage=1, One click away=2, Five clicks away= 5, "
 "etc. Note that if a story appears on the front page, code with 1"
 msgstr ""
 
-#: forms/models.py:242
+#: forms/models.py:240
 msgid "(1) Webpage Layer Number"
 msgstr ""
 
-#: forms/models.py:245
+#: forms/models.py:243
 msgid "(4) Shared via twitter?"
 msgstr ""
 
-#: forms/models.py:245
+#: forms/models.py:243
 msgid ""
 "Has this story been shared by the media house via Twitter?\n"
 "\n"
-"<br>Enter the exact URL of the story into <a href=\"https://unionmetrics.com/"
-"free-tools/twitter-snapshot-report/\" target=\"_blank\">https://unionmetrics."
-"com/free-tools/twitter-snapshot-report/</a> - answer yes if the media "
-"house's name appears in the search results."
+"<br>Enter the exact URL of the story into <a href=\"https://twitter.com\" "
+"target=\"_blank\">https://twitter.com</a> - answer yes if the media house's "
+"name appears in the search results."
 msgstr ""
 
-#: forms/models.py:248
+#: forms/models.py:246
 msgid "(5) Shared on Facebook"
 msgstr ""
 
-#: forms/models.py:248
-msgid "Has this story been shared by the media house on its Facebook Page?"
+#: forms/models.py:246
+msgid ""
+"Has this story been shared by the media house on its Facebook Page?\n"
+"\n"
+"<br>Scroll down the media house's Facebook page to check."
 msgstr ""
 
 #: forms/models.py:251

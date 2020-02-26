@@ -101,7 +101,7 @@ class RadioJournalist(BroadcastJournalist):
     radio_sheet = models.ForeignKey('RadioSheet', on_delete=models.CASCADE)
 
 class RadioSheet(SheetModel):
-    station_name = models.CharField(max_length=255, verbose_name=_('Name of radio channel or station'), help_text=_('''Be as specific as possible. E.g. if the radio company is called RRI, and if the newscast is broadcast on its third channel, write in 'RRI-3'.'''))
+    channel = models.CharField(max_length=255, verbose_name=_('Channel'), help_text=_('''Be as specific as possible. E.g. if the radio company is called RRI, and if the newscast is broadcast on its third channel, write in 'RRI-3'.'''))
 
     start_time = models.TimeField(verbose_name=_('Time of Broadcast'))
     num_female_anchors = field_num_female_anchors
@@ -121,7 +121,7 @@ class RadioSheet(SheetModel):
     comments = field_comments(_('(N/A) Describe any photographs included in the story and the conclusions you draw from them.'))
 
     def __unicode__(self):
-        return self.station_name
+        return self.channel
 
     class Meta:
         verbose_name = _('Radio')
@@ -165,9 +165,7 @@ class TelevisionJournalist(BroadcastJournalist):
     television_sheet = models.ForeignKey('TelevisionSheet', on_delete=models.CASCADE)
 
 class TelevisionSheet(SheetModel):
-    station_name = models.CharField(max_length=255, verbose_name=_('Name of TV Station'), help_text=_('''Name of the television channel or station : Be as specific as possible. E.g. if the television company is called RTV, and if the newscast is broadcast on its second channel, write in 'RTV-2' '''))
-
-    television_channel = models.CharField(max_length=255, verbose_name=_('Channel'), help_text=_('''Be as specific as possible. E.g. if the television company is called RTV, and if the newscast is broadcast on its second channel, write in 'RTV-2' '''))
+    channel = models.CharField(max_length=255, verbose_name=_('Channel'), help_text=_('''Be as specific as possible. E.g. if the television company is called RTV, and if the newscast is broadcast on its second channel, write in 'RTV-2' '''))
     start_time = models.TimeField(verbose_name=_('Time of Broadcast'))
     num_female_anchors = field_num_female_anchors
     num_male_anchors = field_num_male_anchors
@@ -186,7 +184,7 @@ class TelevisionSheet(SheetModel):
     comments = field_comments(_('(N/A) Describe any photographs included in the story and the conclusions you draw from them.'))
 
     def __unicode__(self):
-        return self.station_name
+        return self.channel
 
     class Meta:
         verbose_name = _('Television')
@@ -244,8 +242,10 @@ class InternetNewsSheet(SheetModel):
     scope = field_scope(_('(3) Scope'))
     shared_via_twitter = models.CharField(max_length=1, verbose_name=_('(4) Shared via twitter?'), choices=YESNO, help_text=_('''Has this story been shared by the media house via Twitter?
 
-<br>Enter the exact URL of the story into <a href="https://unionmetrics.com/free-tools/twitter-snapshot-report/" target="_blank">https://unionmetrics.com/free-tools/twitter-snapshot-report/</a> - answer yes if the media house's name appears in the search results.'''))
-    shared_on_facebook = models.CharField(max_length=1, choices=YESNO, verbose_name=_('(5) Shared on Facebook'), help_text=_('Has this story been shared by the media house on its Facebook Page?'))
+<br>Enter the exact URL of the story into <a href="https://twitter.com" target="_blank">https://twitter.com</a> - answer yes if the media house's name appears in the search results.'''))
+    shared_on_facebook = models.CharField(max_length=1, choices=YESNO, verbose_name=_('(5) Shared on Facebook'), help_text=_('''Has this story been shared by the media house on its Facebook Page?
+
+<br>Scroll down the media house's Facebook page to check.'''))
 
     # Analysis
     equality_rights = field_equality_rights(_('(6) Reference to gender equality / human rights legislation/ policy'))

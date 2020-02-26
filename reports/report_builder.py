@@ -94,9 +94,9 @@ def get_sheet_model_name_field(media_type):
     elif media_type == "Print":
         return "newspaper_name"
     elif media_type == "Television":
-        return "station_name"
+        return "channel"
     elif media_type == "Radio":
-        return "station_name"
+        return "channel"
 
 
 class XLSXReportBuilder:

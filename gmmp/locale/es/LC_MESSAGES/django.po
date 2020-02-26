@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-20 15:40+0300\n"
+"POT-Creation-Date: 2020-02-26 13:46+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: gmmp/dashboard_modules.py:15 gmmp/dashboard_modules.py:117
-#: gmmp/settings.py:224
+#: gmmp/settings.py:228
 msgid "Internet"
 msgstr ""
 
@@ -43,7 +43,7 @@ msgstr ""
 "primera plana de un diario y no en la subsección que les correspondería)."
 
 #: gmmp/dashboard_modules.py:31 gmmp/dashboard_modules.py:102
-#: gmmp/settings.py:212
+#: gmmp/settings.py:216
 msgid "Newspapers"
 msgstr "Periódico"
 
@@ -61,7 +61,7 @@ msgstr ""
 "editor."
 
 #: gmmp/dashboard_modules.py:47 gmmp/dashboard_modules.py:107
-#: gmmp/settings.py:216
+#: gmmp/settings.py:220
 msgid "Radio"
 msgstr ""
 
@@ -82,12 +82,12 @@ msgstr ""
 "(no codifique un programa si es enteramente de deportes)."
 
 #: gmmp/dashboard_modules.py:64 gmmp/dashboard_modules.py:112
-#: gmmp/settings.py:220
+#: gmmp/settings.py:224
 msgid "Television"
 msgstr "Televisión"
 
 #: gmmp/dashboard_modules.py:81 gmmp/dashboard_modules.py:122
-#: gmmp/settings.py:228
+#: gmmp/settings.py:232
 msgid "Twitter"
 msgstr ""
 
@@ -124,71 +124,75 @@ msgstr ""
 msgid "French"
 msgstr ""
 
-#: gmmp/settings.py:189
-msgid "Scotland"
-msgstr ""
-
-#: gmmp/settings.py:190
-msgid "England"
-msgstr ""
-
 #: gmmp/settings.py:191
-msgid "Wales"
-msgstr ""
-
-#: gmmp/settings.py:192
 msgid "Belgium - French"
 msgstr ""
 
-#: gmmp/settings.py:193
+#: gmmp/settings.py:192
 msgid "Belgium - Flemish"
 msgstr ""
 
 #: gmmp/settings.py:194
-msgid "International"
+msgid "England"
+msgstr ""
+
+#: gmmp/settings.py:195
+msgid "North Ireland"
+msgstr ""
+
+#: gmmp/settings.py:196
+msgid "Scotland"
+msgstr ""
+
+#: gmmp/settings.py:197
+msgid "Wales"
 msgstr ""
 
 #: gmmp/settings.py:198
+msgid "International"
+msgstr ""
+
+#: gmmp/settings.py:202
 msgid "GMMP Database"
 msgstr ""
 
-#: gmmp/settings.py:209
+#: gmmp/settings.py:213
 msgid "Code"
 msgstr "Codifique"
 
-#: gmmp/settings.py:234
+#: gmmp/settings.py:238
 msgid "Coded"
 msgstr "Codificadas"
 
-#: gmmp/settings.py:244
+#: gmmp/settings.py:248
 msgid "Access Control"
 msgstr ""
 
-#: gmmp/settings.py:248
+#: gmmp/settings.py:252
 msgid "General"
 msgstr ""
 
-#: gmmp/settings.py:251
+#: gmmp/settings.py:255
 msgid "Help"
 msgstr "Ayuda"
 
-#: gmmp/settings.py:253
+#: gmmp/settings.py:257
 msgid "Facebook Group"
 msgstr ""
 
-#: gmmp/settings.py:258
+#: gmmp/settings.py:262
 msgid "Methodology Guides & Coding Tools"
 msgstr "Guías de Monitoreo"
 
-#: gmmp/settings.py:265
+#: gmmp/settings.py:269
 msgid "Other Links"
 msgstr ""
 
-#: gmmp/settings.py:268
+#: gmmp/settings.py:272
 msgid "Who Makes The News"
 msgstr ""
 
-#: gmmp/settings.py:273
+#: gmmp/settings.py:277
 msgid "Facebook"
 msgstr ""
 
@@ -210,4 +214,32 @@ msgstr ""
 
 #: gmmp/templates/admin/login.html:54
 msgid "Log in"
+msgstr ""
+
+#: gmmp/templates/admin/submit_line.html:9
+msgid "Delete"
+msgstr ""
+
+#: gmmp/templates/admin/submit_line.html:11
+msgid "Save as new"
+msgstr ""
+
+#: gmmp/templates/admin/submit_line.html:12
+msgid "Save and continue editing"
+msgstr ""
+
+#: gmmp/templates/admin/submit_line.html:12
+msgid "Save and view"
+msgstr ""
+
+#: gmmp/templates/admin/submit_line.html:13
+msgid "Save and add another"
+msgstr ""
+
+#: gmmp/templates/admin/submit_line.html:14
+msgid "Save"
+msgstr ""
+
+#: gmmp/templates/admin/submit_line.html:15
+msgid "Close"
 msgstr ""
