@@ -101,7 +101,7 @@ class RadioJournalist(BroadcastJournalist):
     radio_sheet = models.ForeignKey('RadioSheet', on_delete=models.CASCADE)
 
 class RadioSheet(SheetModel):
-    station_name = models.CharField(max_length=255, verbose_name=_('Name of radio channel or station'), help_text=_('''Be as specific as possible. E.g. if the radio company is called RRI, and if the newscast is broadcast on its third channel, write in 'RRI-3'.'''))
+    channel = models.CharField(max_length=255, verbose_name=_('Channel'), help_text=_('''Be as specific as possible. E.g. if the radio company is called RRI, and if the newscast is broadcast on its third channel, write in 'RRI-3'.'''))
 
     start_time = models.TimeField(verbose_name=_('Time of Broadcast'))
     num_female_anchors = field_num_female_anchors
@@ -121,7 +121,7 @@ class RadioSheet(SheetModel):
     comments = field_comments(_('(N/A) Describe any photographs included in the story and the conclusions you draw from them.'))
 
     def __unicode__(self):
-        return self.station_name
+        return self.channel
 
     class Meta:
         verbose_name = _('Radio')
@@ -165,9 +165,7 @@ class TelevisionJournalist(BroadcastJournalist):
     television_sheet = models.ForeignKey('TelevisionSheet', on_delete=models.CASCADE)
 
 class TelevisionSheet(SheetModel):
-    station_name = models.CharField(max_length=255, verbose_name=_('Name of TV Station'), help_text=_('''Name of the television channel or station : Be as specific as possible. E.g. if the television company is called RTV, and if the newscast is broadcast on its second channel, write in 'RTV-2' '''))
-
-    television_channel = models.CharField(max_length=255, verbose_name=_('Channel'), help_text=_('''Be as specific as possible. E.g. if the television company is called RTV, and if the newscast is broadcast on its second channel, write in 'RTV-2' '''))
+    channel = models.CharField(max_length=255, verbose_name=_('Channel'), help_text=_('''Be as specific as possible. E.g. if the television company is called RTV, and if the newscast is broadcast on its second channel, write in 'RTV-2' '''))
     start_time = models.TimeField(verbose_name=_('Time of Broadcast'))
     num_female_anchors = field_num_female_anchors
     num_male_anchors = field_num_male_anchors
@@ -186,7 +184,7 @@ class TelevisionSheet(SheetModel):
     comments = field_comments(_('(N/A) Describe any photographs included in the story and the conclusions you draw from them.'))
 
     def __unicode__(self):
-        return self.station_name
+        return self.channel
 
     class Meta:
         verbose_name = _('Television')
