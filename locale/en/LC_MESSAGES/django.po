@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-25 12:44+0300\n"
+"POT-Creation-Date: 2020-02-26 13:46+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2027,4 +2027,24 @@ msgstr ""
 #: env/lib/python3.6/site-packages/grappelli/views/related.py:127
 #: env/lib/python3.6/site-packages/grappelli/views/related.py:157
 msgid "?"
+msgstr ""
+
+#: env/lib/python3.6/site-packages/sass_processor/management/commands/compilescss.py:63
+msgid "Delete generated `*.css` files instead of creating them."
+msgstr ""
+
+#: env/lib/python3.6/site-packages/sass_processor/management/commands/compilescss.py:70
+msgid ""
+"Store resulting .css in settings.SASS_PROCESSOR_ROOT folder. Default: store "
+"each css side-by-side with .scss."
+msgstr ""
+
+#: env/lib/python3.6/site-packages/sass_processor/management/commands/compilescss.py:77
+msgid "Set templating engine used (django, jinja2). Default: django."
+msgstr ""
+
+#: env/lib/python3.6/site-packages/sass_processor/management/commands/compilescss.py:84
+msgid ""
+"Set the precision for numeric computations in the SASS processor. Default: "
+"settings.SASS_PRECISION."
 msgstr ""
