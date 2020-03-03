@@ -64,7 +64,7 @@ class NewspaperSheet(SheetModel):
     further_analysis = field_further_analysis(_('(24) Does this story warrant further analysis?'), _('''<br><br>A story warrants further analysis if it clearly perpetuates or clearly challenges gender stereotypes, if it includes women's opinions in a remarkable way, if it contributes to an understanding of inequalities between women and men, if it mentions or calls attention to women's human rights, etc. Consult the guide for further explanation'''))
     comments = field_comments(_('(23) Describe any photographs included in the story and the conclusions you draw from them.'))
 
-    def __unicode__(self):
+    def __str__(self):
         return self.newspaper_name
 
 # ----------------------------
@@ -120,7 +120,7 @@ class RadioSheet(SheetModel):
 
     comments = field_comments(_('(N/A) Describe any photographs included in the story and the conclusions you draw from them.'))
 
-    def __unicode__(self):
+    def __str__(self):
         return self.channel
 
     class Meta:
@@ -183,7 +183,7 @@ class TelevisionSheet(SheetModel):
 
     comments = field_comments(_('(N/A) Describe any photographs included in the story and the conclusions you draw from them.'))
 
-    def __unicode__(self):
+    def __str__(self):
         return self.channel
 
     class Meta:
@@ -257,7 +257,7 @@ class InternetNewsSheet(SheetModel):
 
     url_and_multimedia = field_url_and_multimedia(_('(25) Copy and paste the URL of the story. Describe any photographs, images, other multimedia features included in the story. Note down the conclusions you draw from the images, audio and video.'))
 
-    def __unicode__(self):
+    def __str__(self):
         return self.website_url
 
     class Meta:
@@ -318,7 +318,7 @@ class TwitterSheet(SheetModel):
 
     url_and_multimedia = field_url_and_multimedia(_('(17) Copy and paste the URL of the tweet. Describe any photographs, images, other multimedia features included in the tweet. Note down the conclusions you draw from the images, audio and video.'))
 
-    def __unicode__(self):
+    def __str__(self):
         return self.twitter_handle
 
 
