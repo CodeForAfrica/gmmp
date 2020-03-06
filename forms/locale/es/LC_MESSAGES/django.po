@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-26 13:46+0300\n"
+"POT-Creation-Date: 2020-03-06 18:12+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -629,6 +629,14 @@ msgstr ""
 #: forms/models.py:106 forms/models.py:169
 msgid "Time of Broadcast"
 msgstr "Hora de comienzo del informativo"
+
+#: forms/models.py:107 forms/models.py:170
+msgid "Number of female anchors"
+msgstr "El número de presentadoras mujeres"
+
+#: forms/models.py:108 forms/models.py:171
+msgid "Number of male anchors"
+msgstr "El número de presentadores hombres"
 
 #: forms/models.py:110 forms/models.py:173
 msgid "(1) Item Number"
@@ -1852,25 +1860,6 @@ msgid ""
 msgstr ""
 
 #: forms/modelutils.py:378
-msgid "Number of female anchors"
-msgstr "El número de presentadoras mujeres"
-
-#: forms/modelutils.py:378
-msgid ""
-"The anchor (or announcer, or presenter) is the person who introduces the "
-"newscast and the individual items within it. <strong>Note: You should only "
-"include the anchors/announcers. Do not include reporters or other</strong>"
-msgstr ""
-"El presentador/a(o locutor/a) es la persona que presenta los informativos y "
-"los ítems individuales dentro de éste. <strong>Nota: Debería incluir sólo "
-"los presentadores/as/locutoras/es. No incluya reporteros/as u otros "
-"periodistas."
-
-#: forms/modelutils.py:379
-msgid "Number of male anchors"
-msgstr ""
-
-#: forms/modelutils.py:379
 msgid ""
 "The anchor (or announcer, or presenter) is the person who introduces the "
 "newscast and the individual items within it. <strong>Note: You should only "
@@ -1878,7 +1867,7 @@ msgid ""
 "journalists</strong>"
 msgstr ""
 
-#: forms/modelutils.py:381
+#: forms/modelutils.py:380
 msgid ""
 "Write in the number that describes the position of the story within the "
 "newscast. E.g. the first story in the newscast is item 1; the seventh story "
@@ -1888,17 +1877,17 @@ msgstr ""
 "informativo. Por ejemplo, la primera noticia en el informativo es ítem o "
 "noticia 1; el séptimo es ítem o noticia 7."
 
-#: forms/modelutils.py:387
+#: forms/modelutils.py:386
 msgid "Other Occupation"
 msgstr "Otra Ocupación"
 
-#: forms/modelutils.py:389
+#: forms/modelutils.py:388
 msgid ""
 "Code yes only if the word 'wife', 'husband' etc is actually used to describe "
 "the person."
 msgstr ""
 
-#: forms/modelutils.py:392
+#: forms/modelutils.py:391
 msgid ""
 "<p>You should code a person as a <strong>victim</strong> either if the word "
 "'victim' is used to describe her/him, or if the story Implies that the "
@@ -1919,17 +1908,17 @@ msgstr ""
 "o imágenes que evocan emociones particulares como la admiración o respeto "
 "por esta persona.</p>"
 
-#: forms/modelutils.py:395
+#: forms/modelutils.py:394
 #, python-format
 msgid "(%s) Add comments if Other Victim was selected above"
 msgstr ""
 
-#: forms/modelutils.py:397
+#: forms/modelutils.py:396
 #, python-format
 msgid "(%s) Add comments if Other Survivor was selected above"
 msgstr ""
 
-#: forms/modelutils.py:399
+#: forms/modelutils.py:398
 msgid ""
 "<p>A person is <strong>directly quoted</strong> if their own words are "
 "printed, e.g. \"The war against terror is our first priority\" said "
