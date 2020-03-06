@@ -104,8 +104,8 @@ class RadioSheet(SheetModel):
     channel = models.CharField(max_length=255, verbose_name=_('Channel'), help_text=_('''Be as specific as possible. E.g. if the radio company is called RRI, and if the newscast is broadcast on its third channel, write in 'RRI-3'.'''))
 
     start_time = models.TimeField(verbose_name=_('Time of Broadcast'))
-    num_female_anchors = field_num_female_anchors
-    num_male_anchors = field_num_male_anchors
+    num_female_anchors = field_num_anchors(_('Number of female anchors'))
+    num_male_anchors = field_num_anchors(_('Number of male anchors'))
 
     item_number = field_item_number(_('(1) Item Number'))
     topic = field_topic(_('(2) Topic'))
@@ -167,8 +167,8 @@ class TelevisionJournalist(BroadcastJournalist):
 class TelevisionSheet(SheetModel):
     channel = models.CharField(max_length=255, verbose_name=_('Channel'), help_text=_('''Be as specific as possible. E.g. if the television company is called RTV, and if the newscast is broadcast on its second channel, write in 'RTV-2' '''))
     start_time = models.TimeField(verbose_name=_('Time of Broadcast'))
-    num_female_anchors = field_num_female_anchors
-    num_male_anchors = field_num_male_anchors
+    num_female_anchors = field_num_anchors(_('Number of female anchors'))
+    num_male_anchors = field_num_anchors(_('Number of male anchors'))
 
     item_number = field_item_number(_('(1) Item Number'))
     topic = field_topic(_('(2) Topic'))
