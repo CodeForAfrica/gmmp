@@ -1866,6 +1866,10 @@ msgid ""
 "include the anchors/announcers. Do not include reporters or other "
 "journalists</strong>"
 msgstr ""
+"El presentador/a(o locutor/a) es la persona que presenta los informativos y "
+"los ítems individuales dentro de éste. <strong>Nota: Debería incluir sólo "
+"los presentadores/as/locutoras/es. No incluya reporteros/as u otros "
+"periodistas.</strong>"
 
 #: forms/modelutils.py:380
 msgid ""
