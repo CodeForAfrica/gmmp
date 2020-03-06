@@ -24,7 +24,7 @@ def switch_lang_code(path, language):
     # Add or substitute the new language prefix
     if parts[1] in lang_codes:
         if language == "en":
-            parts[1] = ""
+            parts.pop(1)
         else:
             parts[1] = language
     elif not language == "en":
