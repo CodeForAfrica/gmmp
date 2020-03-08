@@ -375,8 +375,7 @@ field_comments = lambda x: models.TextField(verbose_name=x, blank=True)
 field_further_analysis = lambda x, y: models.CharField(max_length=1, choices=YESNO, verbose_name=x, help_text=y)
 field_url_and_multimedia = lambda x: models.TextField(verbose_name=x, blank=True)
 
-field_num_female_anchors = models.PositiveIntegerField(verbose_name=_('Number of female anchors'), help_text=_('The anchor (or announcer, or presenter) is the person who introduces the newscast and the individual items within it. <strong>Note: You should only include the anchors/announcers. Do not include reporters or other</strong>'))
-field_num_male_anchors = models.PositiveIntegerField(verbose_name=_('Number of male anchors'), help_text=_('The anchor (or announcer, or presenter) is the person who introduces the newscast and the individual items within it. <strong>Note: You should only include the anchors/announcers. Do not include reporters or other journalists</strong>'))
+field_num_anchors = lambda x: models.PositiveIntegerField(verbose_name=x, help_text=_('The anchor (or announcer, or presenter) is the person who introduces the newscast and the individual items within it. <strong>Note: You should only include the anchors/announcers. Do not include reporters or other journalists</strong>'))
 
 field_item_number = lambda x: models.PositiveIntegerField(verbose_name=x, help_text=_('Write in the number that describes the position of the story within the newscast. E.g. the first story in the newscast is item 1; the seventh story is item 7.'))
 

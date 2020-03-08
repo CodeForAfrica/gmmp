@@ -246,7 +246,7 @@ class RadioSheetAdmin(PermsAdmin):
         (_('Basic information'), {
             'fields': (
                 'channel', 'start_time',
-                'num_female_anchors', 'num_male_anchors'
+                'num_female_anchors', 'num_male_anchors',
             ),
         }),
         (_('Story'), {
@@ -310,7 +310,7 @@ class TelevisionSheetAdmin(PermsAdmin):
         (_('Basic information'), {
             'fields': (
                 'channel', 'start_time',
-                'num_female_anchors', 'num_male_anchors'
+                'num_female_anchors', 'num_male_anchors',
             ),
         }),
         (_('Story'), {
