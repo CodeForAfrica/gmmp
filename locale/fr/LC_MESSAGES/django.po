@@ -16,7 +16,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: env/lib/python3.6/site-packages/django/contrib/messages/apps.py:7
 msgid "Messages"
@@ -1406,8 +1406,6 @@ msgstr ""
 #: env/lib/python3.6/site-packages/grappelli/templates/smuggler/load_data_form.html:42
 msgid "Please correct the errors below."
 msgstr ""
-"Some questions have not been completed. Review all tabs to ensure all "
-"answers have been entered"
 
 #: env/lib/python3.6/site-packages/grappelli/templates/admin/auth/user/change_password.html:34
 #: env/lib/python3.6/site-packages/grappelli/templates/registration/password_change_form.html:30
