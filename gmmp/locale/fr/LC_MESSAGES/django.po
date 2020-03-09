@@ -26,7 +26,7 @@ msgstr ""
 #: gmmp/dashboard_modules.py:22 gmmp/dashboard_modules.py:38
 #: gmmp/dashboard_modules.py:54 gmmp/dashboard_modules.py:71
 msgid "Code Story"
-msgstr ""
+msgstr "Coder reportage"
 
 #: gmmp/dashboard_modules.py:24
 msgid ""
@@ -36,11 +36,17 @@ msgid ""
 "uncharacteristically important stories that day (i.e. would appear in the "
 "front page section of a newspaper instead of the appropriate sub-section)."
 msgstr ""
+"Coder tout le contenu des informations en ligne sur la page principale ou "
+"“premier niveau” du site, qui ne sont pas relatives aux questions de "
+"santé/sports/variétés/affaires, à moins qu’elles ne donnent l’impression "
+"qu’il s’agisse de données notablement importantes de cette journée "
+"(c’est-à-dire, qu’elles apparaissent à la Une d’un quotidien et non pas dans "
+"la sous-section qui les auraient concernées)."
 
 #: gmmp/dashboard_modules.py:31 gmmp/dashboard_modules.py:102
 #: gmmp/settings.py:216
 msgid "Newspapers"
-msgstr ""
+msgstr "Journaux"
 
 #: gmmp/dashboard_modules.py:40
 msgid ""
@@ -49,6 +55,11 @@ msgid ""
 "Code regular news stories only - not editorials, commentaries, letters to "
 "the editor."
 msgstr ""
+"Commencez par la page d’actualité principale (qui sera le plus souvent la "
+"page 1). Codez tous les reportages sur cette page. Puis passez à la page "
+"principale d’actualité suivante.\n"
+"Codez des articles/reportages d’actualité. Ne codez pas des éditoriaux, des "
+"commentaires et des lettres à la rédaction."
 
 #: gmmp/dashboard_modules.py:47 gmmp/dashboard_modules.py:107
 #: gmmp/settings.py:220
@@ -64,11 +75,18 @@ msgid ""
 "programme if it is\n"
 "entirely about sports.)"
 msgstr ""
+"Coder tous les reportages figurant dans les émissions que vous avez "
+"sélectionnées, soit: Tous les types d’actualité : politique, nouvelles "
+"locales, nouvelles internationales, chroniques sur des questions médicales, "
+"éducatives, économiques, de spectacles, etc.\n"
+"L’actualité sportive – ne la coder que si elle fait partie de l’émission "
+"d’actualité. (Ne pas coder une émission si elle est consacrée uniquement "
+"aux sports.)"
 
 #: gmmp/dashboard_modules.py:64 gmmp/dashboard_modules.py:112
 #: gmmp/settings.py:224
 msgid "Television"
-msgstr ""
+msgstr "Télévision"
 
 #: gmmp/dashboard_modules.py:81 gmmp/dashboard_modules.py:122
 #: gmmp/settings.py:232
@@ -77,7 +95,7 @@ msgstr ""
 
 #: gmmp/dashboard_modules.py:88
 msgid "Code Tweet"
-msgstr ""
+msgstr "Coder Tweet"
 
 #: gmmp/dashboard_modules.py:90
 msgid ""
@@ -88,6 +106,12 @@ msgid ""
 "item. If they provide less than 15 tweets per day, they are not appropriate "
 "for inclusion in the monitoring."
 msgstr ""
+"Commencer à coder après 18h30 le jour du monitorage des médias. Coder tous les "
+"trois tweets paru sur l’horaire de 18h30 ou avant, publié le jour du "
+"monitorage des médias jusqu’à arriver à 15-20 tweets. Si en prenant un tweet "
+"sur trois, le service d’informations sélectionné via Twitter n’atteint pas 15 "
+"à 20 tweets, prenez un tweet sur deux. S’il y a moins de 15 tweets par jour, "
+"il sera inutile de les inclure dans le monitorage."
 
 #: gmmp/settings.py:126
 msgid "English"
@@ -139,7 +163,7 @@ msgstr ""
 
 #: gmmp/settings.py:238
 msgid "Coded"
-msgstr ""
+msgstr "Codés"
 
 #: gmmp/settings.py:248
 msgid "Access Control"
