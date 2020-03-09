@@ -1,5 +1,5 @@
 Django==2.2.9
-XlsxWriter==1.2.7
+XlsxWriter==1.2.8
 dj-database-url==0.5.0
 dj-static==0.0.6
 django-countries==6.0
