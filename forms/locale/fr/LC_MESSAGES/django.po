@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-05 10:54+0300\n"
+"POT-Creation-Date: 2020-03-08 16:28+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
 #: forms/admin.py:50
 msgid ""
 "For each newspaper story, you should code each journalist/reporter who wrote "
@@ -28,6 +29,14 @@ msgid ""
 "<br/>\n"
 "News agencies"
 msgstr ""
+"Pour chaque reportage, vous avez à coder chaque journaliste/ reporter / "
+"auteur du reportage et dont le nom est imprimé.\n"
+"<br/>\n"
+"<strong>Ne pas coder:</strong>\n"
+"<br/>\n"
+"Un journaliste non nommé (tel que « notre correspondant », « un reporter »)\n"
+"<br/>\n"
+"les agences de presse."
 
 #: forms/admin.py:62 forms/admin.py:78
 msgid ""
@@ -38,6 +47,13 @@ msgid ""
 "<br/>\n"
 "Each reporter"
 msgstr ""
+"Utilisez <strong>une ligne sur la fiche de codage pour</strong>:\n"
+"<br/>\n"
+"<strong>Chaque présentateur ou chef d’antenne</strong> : Codez le "
+"présentateur/chef d’antenne dans chaque reportage, même s’il s’agit de la "
+"même personne."
+"<br/>\n"
+"<strong>Chaque reporter</strong>"
 
 #: forms/admin.py:93
 msgid ""
@@ -50,6 +66,15 @@ msgid ""
 "<br/>\n"
 "News agencies"
 msgstr ""
+"Pour chaque information sur Internet, coder le "
+"<strong>journaliste/reporter</strong> ayant écrit le reportage et dont le nom "
+"est mentionné.\n"
+"<br/>\n"
+"<strong>Ne pas coder:</strong>\n"
+"<br/>\n"
+"Un journaliste non nommé (tel que « notre correspondant », « un reporter »)\n"
+"<br/>\n"
+"les agences de presse."
 
 #: forms/admin.py:104
 msgid ""
@@ -65,6 +90,19 @@ msgid ""
 "<br/>\n"
 "News agencies"
 msgstr ""
+"<strong>Cliquer sur le lien apparaissant dans le tweet, il vous amène au "
+"reportage complet où est mentionné le nom du/de la journaliste ou du/de la "
+"reporter.</strong>\n"
+"<br/>\n"
+"Pour chaque information sur Internet, coder le "
+"<strong>journaliste/reporter</strong> ayant écrit le reportage et dont le nom "
+"est mentionné.\n"
+"<br/>\n"
+"<strong>Ne pas coder:</strong>\n"
+"<br/>\n"
+"Un journaliste non nommé (tel que « notre correspondant », « un reporter »)\n"
+"<br/>\n"
+"les agences de presse."
 
 #: forms/admin.py:123
 msgid "People in the article"
@@ -85,11 +123,11 @@ msgstr ""
 #: forms/admin.py:144 forms/admin.py:200 forms/admin.py:265 forms/admin.py:330
 #: forms/admin.py:395 forms/admin.py:462
 msgid "People in the news"
-msgstr ""
+msgstr "Personnes évoquées dans les reportages"
 
 #: forms/admin.py:145
 msgid "Person in the news"
-msgstr ""
+msgstr "Personne objet du reportage"
 
 #: forms/admin.py:151
 msgid "People in the tweet"
@@ -102,20 +140,20 @@ msgstr ""
 #: forms/admin.py:180 forms/admin.py:246 forms/admin.py:310 forms/admin.py:378
 #: forms/admin.py:441
 msgid "Basic information"
-msgstr ""
+msgstr "Information de base"
 
 #: forms/admin.py:185 forms/admin.py:252 forms/admin.py:316
 msgid "Story"
-msgstr ""
+msgstr "Le reportage"
 
 #: forms/admin.py:190 forms/admin.py:257 forms/admin.py:322 forms/admin.py:452
 msgid "Analysis"
-msgstr ""
+msgstr "L'Analyse"
 
 #: forms/admin.py:193 forms/admin.py:260 forms/admin.py:325 forms/admin.py:389
 #: forms/admin.py:455
 msgid "Journalists & Reporters"
-msgstr ""
+msgstr "Journalistes et Reporters"
 
 #: forms/admin.py:194
 msgid ""
@@ -127,6 +165,13 @@ msgid ""
 "            Do not code: (i) Unnamed journalists (e.g. 'Staff reporter', "
 "'Our correspondent'); (ii) News agencies"
 msgstr ""
+"Colonne 9 est pour la/le journaliste ou reporter. Codifiez chaque "
+"journaliste ou reporter sur une ligne séparée.\n"
+"            <br/>\n"
+"\n"
+"            Ne pas codifier: Si le nom du journaliste n ́apparaît pas (par "
+"ex, si seulement apparaissent les termes “de la rédaction”, ou « de notre "
+"correspondant », ou agences de presse"
 
 #: forms/admin.py:201
 msgid ""
@@ -137,6 +182,13 @@ msgid ""
 "not interviewed or quoted; (ii) Each person who is interviewed,  (iii) Each "
 "person in the story who is quoted, either directly or indirectly."
 msgstr ""
+"Colonnes 10 – 22 pour les personnes évoquées dans le reportage.\n"
+"            <br/>\n"
+"\n"
+"            Codifiez (i) toute personne dont parle la note, même si elle n ́"
+"est pas l ́objet d ́une entrevue ou si elle n ́est pas citée; (ii) Toute "
+"personne ayant fait l ́objet d ́une entrevue, (iii) Toute personne citée dans "
+"la note, directement ou indirectement."
 
 #: forms/admin.py:207 forms/admin.py:271 forms/admin.py:337 forms/admin.py:401
 msgid "Does this story warrant further analysis?"
@@ -153,6 +205,16 @@ msgid ""
 "            <small>*If you select ‘1’ (Yes), you will need to send a copy of "
 "the clipping to your national/regional coordinator.</small>"
 msgstr ""
+"Un article mérite une analyse approfondie s ́il apparaît clairement qu ́il y a "
+"perpétuation ou remise en question des stéréotypes de genres, s ́il inclut l ́"
+"opinion des femmes de façon notoire, s ́il contribue à comprendre les "
+"inégalités entre femmes et hommes, s ́il mentionne ou attire l ́attention sur "
+"les droits humains des femmes, etc.... Consultez le guide pour plus d ́"
+"explication.\n"
+"            <br/><br/>\n"
+"            <small>*Si vous trouvez un reportage méritant à votre avis une "
+"analyse supplémentaire, vous aurez à en envoyer une coupure, enregistrement ou "
+"fichier numérique à votre coordinateur national/régional.</small>"
 
 #: forms/admin.py:213 forms/admin.py:277 forms/admin.py:343 forms/admin.py:407
 #: forms/admin.py:469
@@ -165,6 +227,10 @@ msgid ""
 "Code the anchor/announcer even if it is the same person for each news item. "
 "Code each reporter and journalist"
 msgstr ""
+"Colonnes 8 et 9 sont pour les journalistes, présentateurs, reporters, etc. "
+"Codifiez chaque présentateur/annonçant, même quand si c ́est la même personne "
+"qui présente diverses notes. Codifiez individuellement chaque journaliste et "
+"reporter."
 
 #: forms/admin.py:266
 msgid ""
@@ -178,6 +244,17 @@ msgid ""
 "Interpreters (Code the person being interviewed as if they spoke without an "
 "interpreter)."
 msgstr ""
+"Colonnes 10 à 19 sont pour les personnes dans les nouvelles. Codifiez (i) "
+"chaque personne qui parle dans le reportage (ii) toute personne dont le "
+"reportage parle, même si elle n ́intervient pas, ne s ́exprime pas. Ne "
+"codifiez que des individus. Codifiez chaque personne sur une ligne séparée.\n"
+"            Ne codifiez pas: (i) Groupes (p.ex. un groupe d ́infirmières, un "
+"groupe de soldats); (ii) organisations, entreprises, collectifs (p. ex. "
+"partis politiques); (iii) personnages de séries ou films à moins que le "
+"reportage ne traite d ́elles précisément); (iv) personnalités historique "
+"décédées (à moins que le reportage ne traite d ́elles précisément); "
+"interprètes (codifiez la personne qui est à l ́entrevue comme si l ́interprète "
+"n ́était pas présent(e))."
 
 #: forms/admin.py:272
 msgid ""
@@ -190,6 +267,16 @@ msgid ""
 "            <small>*If you select ‘1’ (Yes), you will need to send a copy of "
 "the recording to your national/regional coordinator.</small>"
 msgstr ""
+"Un article mérite une analyse approfondie s ́il apparaît clairement qu ́il y "
+"a perpétuation ou remise en question des stéréotypes de genres, s ́il inclut "
+"l ́opinion des femmes de façon notoire, s ́il contribue à comprendre les "
+"inégalités entre femmes et hommes, s ́il mentionne ou attire l ́attention sur "
+"les droits humains des femmes, etc.... Consultez le guide pour plus "
+"d'explication.\n"
+"            <br/><br/>\n"
+"            <small>*Si vous trouvez un reportage méritant à votre avis une "
+"analyse supplémentaire, vous aurez à en envoyer une coupure, enregistrement "
+"ou fichier numérique à votre coordinateur national/régional.</small>"
 
 #: forms/admin.py:326
 msgid ""
@@ -197,6 +284,10 @@ msgid ""
 "etc. Code the anchor/announcer even if it is the same person for each news "
 "item. Code each reporter and journalist. Code each person in a separate row"
 msgstr ""
+"Colonnes 8, 9 et 10 sont pour les journalistes, présentatrices/présentateurs, "
+"reporters, etc. Codifiez chaque présentateur/annonçant même quand c ́est la "
+"même personne qui présente diverses notes. Codifiez individuellement chaque "
+"journaliste et reporter. Codifiez chacun dans une ligne séparée."
 
 #: forms/admin.py:331
 msgid ""
@@ -211,6 +302,16 @@ msgid ""
 "(v) Interpreters (Code the person being interviewed as if they spoke without "
 "an interpreter)."
 msgstr ""
+"Colonnes 11 à 21 sont pour les personnes évoquées dans le reportage. Codifiez "
+"(i) chaque personne qui parle dans le reportage (ii) toute personne dont le "
+"reportage parle, même si elle n ́intervient pas, ne s ́exprime pas. Ne codifiez "
+"que des individus. Codifiez chaque personne sur une ligne séparée.. \n"
+"            Ne pas codifier: (i) Groupes (p.ex. un groupe d ́infirmières, un "
+"groupe de soldats); (ii) organisations, entreprises, collectifs (p. ex. partis "
+"politiques); (iii) personnages de séries ou films (à moins que le reportage "
+"porte sur eux ); (iv) dates historiques de décès (à moins que le reportage s ́"
+"y rapporte); interprètes (codifiez la personne faisant l ́objet de l ́entrevue "
+"comme si l ́interprète n ́était pas là)."
 
 #: forms/admin.py:338
 msgid ""
@@ -223,6 +324,16 @@ msgid ""
 "            <small>*If you select ‘1’ (Yes), you will need to send a copy of "
 "the recording to your national/regional coordinator.</small>"
 msgstr ""
+"Un article mérite une analyse approfondie s ́il apparaît clairement qu ́il y "
+"a perpétuation ou remise en question des stéréotypes de genres, s ́il inclut "
+"l ́opinion des femmes de façon notoire, s ́il contribue à comprendre les "
+"inégalités entre femmes et hommes, s ́il mentionne ou attire l ́attention sur "
+"les droits humains des femmes, etc.... Consultez le guide pour plus "
+"d'explication.\n"
+"            <br/><br/>\n"
+"            <small>*Si vous trouvez un reportage méritant à votre avis une "
+"analyse supplémentaire, vous aurez à en envoyer une coupure, enregistrement "
+"ou fichier numérique à votre coordinateur national/régional.</small>"
 
 #: forms/admin.py:390
 msgid ""
@@ -233,6 +344,14 @@ msgid ""
 "            Do not code: (i) Unnamed journalists (e.g. 'Staff reporter', "
 "'Our correspondent'); (ii) News agencies."
 msgstr ""
+"Colonnes 10 et 11 sont pour le/la journaliste ou reporter. Pour chaque note, "
+"codifiez individuellement chaque journaliste et reporter qui (i) ont écrit la "
+"note et dont les noms apparaissent ou (ii) de ceux/celles qui apparaissent "
+"dans les vidéo clips, ou (iii) dont la voix s ́entend dans les vidéos clips. "
+"Codifiez chaque journaliste et reporter sur une ligne séparée.\n"
+"            Ne pas codifier: Si le nom du journaliste n ́apparaît pas (par ex, "
+"si seulement apparaissent les termes “de la rédaction”, ou « de notre "
+"correspondant », ou agences de presse."
 
 #: forms/admin.py:396
 msgid ""
@@ -295,59 +414,61 @@ msgstr ""
 
 #: forms/models.py:31 forms/models.py:75
 msgid "(10) Sex"
-msgstr ""
+msgstr "(10) Sexe"
 
 #: forms/models.py:32
 msgid "(11) Age (person appears)"
-msgstr ""
+msgstr "(11) Age (la personne apparait)"
 
 #: forms/models.py:33
 msgid "(12) Occupation or Position"
-msgstr ""
+msgstr "(12) Travail ou fonction"
 
 #: forms/models.py:34
 msgid "(13) Function in the news story"
-msgstr ""
+msgstr "(13) Fonction dans le reportage"
 
 #: forms/models.py:35
 msgid "(14) Family Role Given?"
-msgstr ""
+msgstr "(14) Rôle attribue au sein de la famille?"
 
 #: forms/models.py:36
 msgid "(15) Does the story identify the person as either a victim or survivor?"
 msgstr ""
+"(15) Le reportage identifie-t-il la personne soit comme victime soit "
+"comme survivante, ou les deux?"
 
 #: forms/models.py:37
 msgid "(16) The story identifies the person as a victim of:"
-msgstr ""
+msgstr "(16) La note identifie la personne clairement comme victime de:"
 
 #: forms/models.py:38
 msgid "(17) The story identifies the person as a survivor of:"
-msgstr ""
+msgstr "(17) La note identifie la personne clairement comme survivant de:"
 
 #: forms/models.py:39
 msgid "(18) Is the person directly quoted"
-msgstr ""
+msgstr "(18) Cette personne est-elle citée directement dans le reportage?"
 
 #: forms/models.py:40
 msgid "(19) Is there a photograph of the person in the story?"
-msgstr ""
+msgstr "(19) Y-a-t-il une photographie de cette personne?"
 
 #: forms/models.py:42
 msgid "(20) Special question (1)"
-msgstr ""
+msgstr "(20) Question personnalisée (1)"
 
 #: forms/models.py:43
 msgid "(21) Special question (2)"
-msgstr ""
+msgstr "(21) Question personnalisée (2)"
 
 #: forms/models.py:44
 msgid "(22) Special question (3)"
-msgstr ""
+msgstr "(22) Question personnalisée (3)"
 
 #: forms/models.py:50 forms/models.py:52
 msgid "Newspaper"
-msgstr ""
+msgstr "Journaux"
 
 #: forms/models.py:52
 msgid ""
@@ -358,7 +479,7 @@ msgstr ""
 
 #: forms/models.py:54
 msgid "(1) Page Number"
-msgstr ""
+msgstr "(1) Numéro de page"
 
 #: forms/models.py:54
 msgid ""
@@ -369,37 +490,41 @@ msgstr ""
 #: forms/models.py:55 forms/models.py:111 forms/models.py:174
 #: forms/models.py:241 forms/models.py:309
 msgid "(2) Topic"
-msgstr ""
+msgstr "(2) Sujet"
 
 #: forms/models.py:56 forms/models.py:112 forms/models.py:175
 #: forms/models.py:242
 msgid "(3) Scope"
-msgstr ""
+msgstr "(3) Portée du reportage"
 
 #: forms/models.py:57
 msgid "(4) Space"
-msgstr ""
+msgstr "(4) Emplacement"
 
 #: forms/models.py:59
 msgid "(5) Reference to gender equality / human rights legislation/ policy"
-msgstr ""
+msgstr "(5) Politique ou législation pertinente centrée sur l’égalité de genre ou les droits humains"
 
 #: forms/models.py:60
 msgid "(6) Is the story about a particular woman or group of women?"
-msgstr ""
+msgstr "(6) L’article traite-t-il soit une femme en particulier soit un groupe de femmes?"
 
 #: forms/models.py:61
 msgid ""
 "(7) This story clearly highlights issues of inequality between women and men"
 msgstr ""
+"(7) Le reportage met en évidence des problèmes touchant à l’égalité ou à "
+"l’inégalité entre les femmes et les hommes"
 
 #: forms/models.py:62
 msgid "(8) This story clearly challenges gender stereotypes"
-msgstr ""
+msgstr "(8) Le reportage remet clairement en question les stéréotypes de genre"
 
 #: forms/models.py:64
 msgid "(24) Does this story warrant further analysis?"
 msgstr ""
+"(24) Croyez-vous que ce reportage constituerait un exemple utile dont il y "
+"aurait lieu de faire une analyse plus détaillée"
 
 #: forms/models.py:64 forms/models.py:119 forms/models.py:182
 #: forms/models.py:256
@@ -410,6 +535,12 @@ msgid ""
 "between women and men, if it mentions or calls attention to women's human "
 "rights, etc. Consult the guide for further explanation"
 msgstr ""
+"<br><br>Un article mérite une analyse approfondie s ́il apparaît clairement qu ́il y a "
+"perpétuation ou remise en question des stéréotypes de genres, s ́il inclut l ́"
+"opinion des femmes de façon notoire, s ́il contribue à comprendre les "
+"inégalités entre femmes et hommes, s ́il mentionne ou attire l ́attention sur "
+"les droits humains des femmes, etc.... Consultez le guide pour plus d ́"
+"explication."
 
 #: forms/models.py:65
 msgid ""
@@ -419,43 +550,45 @@ msgstr ""
 
 #: forms/models.py:76 forms/models.py:287
 msgid "(11) Occupation or Position"
-msgstr ""
+msgstr "(11) Travail ou fonction"
 
 #: forms/models.py:77 forms/models.py:288
 msgid "(12) Function in the news story"
-msgstr ""
+msgstr "(12) Fonction dans le reportage"
 
 #: forms/models.py:78
 msgid "(13) Family Role Given?"
-msgstr ""
+msgstr "(13) Rôle attribue au sein de la famille?"
 
 #: forms/models.py:79
 msgid "(14) Does the story identify the person as either a victim or survivor?"
 msgstr ""
+"(14) Le reportage identifie-t-il la personne soit comme victime soit "
+"comme survivante, ou les deux?"
 
 #: forms/models.py:80
 msgid "(15) The story identifies the person as a victim of:"
-msgstr ""
+msgstr "(15) La note identifie la personne clairement comme victime de:"
 
 #: forms/models.py:81
 msgid "(16) The story identifies the person as a survivor of:"
-msgstr ""
+msgstr "(16) La note identifie la personne clairement comme survivant de:"
 
 #: forms/models.py:83
 msgid "(17) Special question (1)"
-msgstr ""
+msgstr "(17) Question personnalisée (1)"
 
 #: forms/models.py:84
 msgid "(18) Special question (2)"
-msgstr ""
+msgstr "(18) Question personnalisée (2)"
 
 #: forms/models.py:85
 msgid "(19) Special question (3)"
-msgstr ""
+msgstr "(19) Question personnalisée (3)"
 
 #: forms/models.py:104 forms/models.py:168
 msgid "Channel"
-msgstr ""
+msgstr "Chaîne"
 
 #: forms/models.py:104
 msgid ""
@@ -465,11 +598,19 @@ msgstr ""
 
 #: forms/models.py:106 forms/models.py:169
 msgid "Time of Broadcast"
-msgstr ""
+msgstr "Heure du début de l’émission"
+
+#: forms/models.py:107 forms/models.py:170
+msgid "Number of female anchors"
+msgstr "Le nombre de présentatrices"
+
+#: forms/models.py:108 forms/models.py:171
+msgid "Number of male anchors"
+msgstr "Le nombre de présentateurs"
 
 #: forms/models.py:110 forms/models.py:173
 msgid "(1) Item Number"
-msgstr ""
+msgstr "(1) Numéro de rubrique"
 
 #: forms/models.py:114 forms/models.py:177
 msgid "(4) Reference to gender equality / human rights legislation/ policy"
@@ -500,7 +641,7 @@ msgstr ""
 
 #: forms/models.py:127
 msgid "Radio"
-msgstr ""
+msgstr "Radio"
 
 #: forms/models.py:135
 msgid "(11) Sex"
@@ -558,7 +699,7 @@ msgstr ""
 
 #: forms/models.py:190
 msgid "Television"
-msgstr ""
+msgstr "Télévision"
 
 #: forms/models.py:213
 msgid "(12) Sex"
@@ -1509,21 +1650,6 @@ msgid ""
 msgstr ""
 
 #: forms/modelutils.py:378
-msgid "Number of female anchors"
-msgstr ""
-
-#: forms/modelutils.py:378
-msgid ""
-"The anchor (or announcer, or presenter) is the person who introduces the "
-"newscast and the individual items within it. <strong>Note: You should only "
-"include the anchors/announcers. Do not include reporters or other</strong>"
-msgstr ""
-
-#: forms/modelutils.py:379
-msgid "Number of male anchors"
-msgstr ""
-
-#: forms/modelutils.py:379
 msgid ""
 "The anchor (or announcer, or presenter) is the person who introduces the "
 "newscast and the individual items within it. <strong>Note: You should only "
@@ -1531,24 +1657,24 @@ msgid ""
 "journalists</strong>"
 msgstr ""
 
-#: forms/modelutils.py:381
+#: forms/modelutils.py:380
 msgid ""
 "Write in the number that describes the position of the story within the "
 "newscast. E.g. the first story in the newscast is item 1; the seventh story "
 "is item 7."
 msgstr ""
 
-#: forms/modelutils.py:387
+#: forms/modelutils.py:386
 msgid "Other Occupation"
 msgstr ""
 
-#: forms/modelutils.py:389
+#: forms/modelutils.py:388
 msgid ""
 "Code yes only if the word 'wife', 'husband' etc is actually used to describe "
 "the person."
 msgstr ""
 
-#: forms/modelutils.py:392
+#: forms/modelutils.py:391
 msgid ""
 "<p>You should code a person as a <strong>victim</strong> either if the word "
 "'victim' is used to describe her/him, or if the story Implies that the "
@@ -1560,17 +1686,17 @@ msgid ""
 "admiration or respect for the person.</p>"
 msgstr ""
 
-#: forms/modelutils.py:395
+#: forms/modelutils.py:394
 #, python-format
 msgid "(%s) Add comments if Other Victim was selected above"
 msgstr ""
 
-#: forms/modelutils.py:397
+#: forms/modelutils.py:396
 #, python-format
 msgid "(%s) Add comments if Other Survivor was selected above"
 msgstr ""
 
-#: forms/modelutils.py:399
+#: forms/modelutils.py:398
 msgid ""
 "<p>A person is <strong>directly quoted</strong> if their own words are "
 "printed, e.g. \"The war against terror is our first priority\" said "
