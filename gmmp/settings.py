@@ -188,14 +188,14 @@ from django.utils.translation import gettext_lazy as _
 # Great Britain: https://en.wikipedia.org/wiki/ISO_3166-2:GB#Countries_and_province
 COUNTRIES_OVERRIDE = {
     "BE": None,
-    "QM": _("Belgium - French"),
-    "QN": _("Belgium - Flemish"),
+    "QM": {'name': _('Belgium - French'), 'alpha3': 'WAL'}, # Wallonia
+    "QN": {'name': _('Belgium - Flemish'), 'alpha3': 'VLG'},
     "UK": None,
-    "QO": _("England"),
-    "QP": _("North Ireland"),
-    "QQ": _("Scotland"),
-    "QR": _("Wales"),
-    "XI": _("International"),
+    "QO": {'name': _('England'), 'alpha3': 'ENG'},
+    "QP": {'name': _("North Ireland"), 'alpha3': 'NIR'},
+    "QQ": {'name': _("Scotland"), 'alpha3': 'SCT'},
+    "QR": {'name': _("Wales"), 'alpha3': 'WLS'},
+    "XI": {'name': _("International"), 'alpha3': 'XIN'},
 }
 
 # https://docs.djangoproject.com/en/2.2/ref/contrib/admin/#adminsite-attributes
