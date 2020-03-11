@@ -39,7 +39,7 @@
 
 {% block welcome-msg %}
 {% trans 'Welcome,' %}
-<strong>{{ user.monitor.country.code }} / {% firstof user.get_short_name user.get_username %}</strong>
+<strong>{{ user.monitor.country.alpha3 }} / {% firstof user.get_short_name user.get_username %}</strong>
 {% endblock %}
 
 {% block footer %}

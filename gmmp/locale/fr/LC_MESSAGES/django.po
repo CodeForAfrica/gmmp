@@ -26,7 +26,7 @@ msgstr ""
 #: gmmp/dashboard_modules.py:22 gmmp/dashboard_modules.py:38
 #: gmmp/dashboard_modules.py:54 gmmp/dashboard_modules.py:71
 msgid "Code Story"
-msgstr "Coder reportage"
+msgstr "Coder Reportage"
 
 #: gmmp/dashboard_modules.py:24
 msgid ""
