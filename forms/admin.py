@@ -118,6 +118,11 @@ News agencies''')
 
 class NewspaperPersonInline(admin.StackedInline):
     model = models.NewspaperPerson
+    radio_fields = {
+        'family_role': admin.HORIZONTAL,
+        'victim_or_survivor': admin.HORIZONTAL,
+        'is_quoted': admin.HORIZONTAL,
+    }
     inline_classes = ('grp-collapse grp-open',)
     extra = 1
     verbose_name_plural = _('People in the article')
@@ -125,6 +130,10 @@ class NewspaperPersonInline(admin.StackedInline):
 
 class RadioPersonInline(admin.StackedInline):
     model = models.RadioPerson
+    radio_fields = {
+        'family_role': admin.HORIZONTAL,
+        'victim_or_survivor': admin.HORIZONTAL,
+    }
     inline_classes = ('grp-collapse grp-open',)
     extra = 1
     verbose_name_plural = _('People in the broadcast')
@@ -133,12 +142,21 @@ class RadioPersonInline(admin.StackedInline):
 class TelevisionPersonInline(admin.StackedInline):
     model = models.TelevisionPerson
     inline_classes = ('grp-collapse grp-open',)
+    radio_fields = {
+        'family_role': admin.HORIZONTAL,
+        'victim_or_survivor': admin.HORIZONTAL,
+    }
     extra = 1
     verbose_name_plural = _('People in the broadcast')
     verbose_name = _('Person mentioned in the broadcast')
 
 class InternetNewsPersonInline(admin.StackedInline):
     model = models.InternetNewsPerson
+    radio_fields = {
+        'family_role': admin.HORIZONTAL,
+        'victim_or_survivor': admin.HORIZONTAL,
+        'is_quoted': admin.HORIZONTAL,
+    }
     inline_classes = ('grp-collapse grp-open',)
     extra = 1
     verbose_name_plural = _('People in the news')
