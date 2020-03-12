@@ -388,14 +388,14 @@ field_function = lambda x: models.PositiveIntegerField(choices=FUNCTION, verbose
 field_family_role = lambda x: models.CharField(max_length=1, choices=YESNO, verbose_name=x, help_text=_('''Code yes only if the word 'wife', 'husband' etc is actually used to describe the person.'''))
 field_victim_or_survivor = lambda x: models.CharField(max_length=1, choices=YESNO,
     verbose_name=x,
-    help_text=_('''<p>You should code a person as a <strong>victim</strong> either if the word 'victim' is used to describe her/him, or if the story Implies that the person is a victim - e.g. by using language or images that evoke particular emotions such as shock, horror, pity for the person.</p><p>You should code a person as a <strong>survivor</strong> either if the word 'survivor' is used to describe her/him, or if the story implies that the person is a survivor - e.g. by using language or images that evoke particular emotions such as admiration or respect for the person.</p>''')
+    help_text=_('''You should code a person as a victim <strong>either</strong> if the word 'victim' is used to describe her/him, <strong>or</strong> if the story Implies that the person is a victim - e.g. by using language or images that evoke particular emotions such as shock, horror, pity for the person.<br/>You should code a person as a survivor <strong>either</strong> if the word 'survivor' is used to describe her/him, <strong>or</strong> if the story implies that the person is a survivor - e.g. by using language or images that evoke particular emotions such as admiration or respect for the person.''')
     )
 field_victim_of = lambda x: models.PositiveIntegerField(choices=VICTIM_OF, verbose_name=x, null=True, blank=True)
 field_victim_comments = lambda x: models.TextField(verbose_name=_('(%s) Add comments if ''Other Victim'' was selected above' % x), blank=True)
 field_survivor_of = lambda x: models.PositiveIntegerField(choices=SURVIVOR_OF, verbose_name=x, null=True, blank=True)
 field_survivor_comments = lambda x: models.TextField(verbose_name=_('(%s) Add comments if ''Other Survivor'' was selected above' % x), blank=True)
 field_is_quoted = lambda x: models.CharField(max_length=1, choices=YESNO, verbose_name=x,
-    help_text=_('<p>A person is <strong>directly quoted</strong> if their own words are printed, e.g. "The war against terror is our first priority" said President Bush.</p><p>If the story paraphrases what the person said, that is not a direct quote, e.g. President Bush said that top priority would be given to fighting the war against terror.</p>')
+    help_text=_('A person is <strong>directly quoted</strong> if their own words are printed, e.g. "The war against terror is our first priority" said President Bush.<br/>If the story paraphrases what the person said, that is not a direct quote, e.g. President Bush said that top priority would be given to fighting the war against terror.')
 )
 field_is_photograph = lambda x: models.PositiveIntegerField(choices=IS_PHOTOGRAPH, verbose_name=x)
 
