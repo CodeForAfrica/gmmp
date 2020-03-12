@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-08 16:28+0300\n"
+"POT-Creation-Date: 2020-03-12 12:48+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,14 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: gmmp/admin.py:13
+msgid "Monitor Details"
+msgstr ""
+
+#: gmmp/admin.py:17
+msgid "Country"
+msgstr ""
 
 #: gmmp/dashboard_modules.py:15 gmmp/dashboard_modules.py:117
 #: gmmp/settings.py:228
@@ -37,11 +45,11 @@ msgid ""
 "front page section of a newspaper instead of the appropriate sub-section)."
 msgstr ""
 "Coder tout le contenu des informations en ligne sur la page principale ou "
-"“premier niveau” du site, qui ne sont pas relatives aux questions de "
-"santé/sports/variétés/affaires, à moins qu’elles ne donnent l’impression "
-"qu’il s’agisse de données notablement importantes de cette journée "
-"(c’est-à-dire, qu’elles apparaissent à la Une d’un quotidien et non pas dans "
-"la sous-section qui les auraient concernées)."
+"“premier niveau” du site, qui ne sont pas relatives aux questions de santé/"
+"sports/variétés/affaires, à moins qu’elles ne donnent l’impression qu’il "
+"s’agisse de données notablement importantes de cette journée (c’est-à-dire, "
+"qu’elles apparaissent à la Une d’un quotidien et non pas dans la sous-"
+"section qui les auraient concernées)."
 
 #: gmmp/dashboard_modules.py:31 gmmp/dashboard_modules.py:102
 #: gmmp/settings.py:216
@@ -80,8 +88,8 @@ msgstr ""
 "locales, nouvelles internationales, chroniques sur des questions médicales, "
 "éducatives, économiques, de spectacles, etc.\n"
 "L’actualité sportive – ne la coder que si elle fait partie de l’émission "
-"d’actualité. (Ne pas coder une émission si elle est consacrée uniquement "
-"aux sports.)"
+"d’actualité. (Ne pas coder une émission si elle est consacrée uniquement aux "
+"sports.)"
 
 #: gmmp/dashboard_modules.py:64 gmmp/dashboard_modules.py:112
 #: gmmp/settings.py:224
@@ -106,12 +114,12 @@ msgid ""
 "item. If they provide less than 15 tweets per day, they are not appropriate "
 "for inclusion in the monitoring."
 msgstr ""
-"Commencer à coder après 18h30 le jour du monitorage des médias. Coder tous les "
-"trois tweets paru sur l’horaire de 18h30 ou avant, publié le jour du "
+"Commencer à coder après 18h30 le jour du monitorage des médias. Coder tous "
+"les trois tweets paru sur l’horaire de 18h30 ou avant, publié le jour du "
 "monitorage des médias jusqu’à arriver à 15-20 tweets. Si en prenant un tweet "
-"sur trois, le service d’informations sélectionné via Twitter n’atteint pas 15 "
-"à 20 tweets, prenez un tweet sur deux. S’il y a moins de 15 tweets par jour, "
-"il sera inutile de les inclure dans le monitorage."
+"sur trois, le service d’informations sélectionné via Twitter n’atteint pas "
+"15 à 20 tweets, prenez un tweet sur deux. S’il y a moins de 15 tweets par "
+"jour, il sera inutile de les inclure dans le monitorage."
 
 #: gmmp/settings.py:126
 msgid "English"
