@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
+from django.utils.translation import gettext_lazy as _
 
 from . import models
 
@@ -9,11 +10,11 @@ from . import models
 class MonitorInline(admin.TabularInline):
     model = models.Monitor
     can_delete = False
-    verbose_name_plural = 'Monitor Details'
+    verbose_name_plural = _('Monitor Details')
 
 def monitor_country(obj):
     return obj.monitor.country.name
-monitor_country.short_description = 'Country'
+monitor_country.short_description = _('Country')
 monitor_country.admin_order_field = 'monitor__country'
 
 # Define a new User admin
