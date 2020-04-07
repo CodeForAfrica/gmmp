@@ -10,4 +10,4 @@ django-jet==1.0.8
 django-guardian==2.1.0
 gunicorn[gevent]==20.0.4
 openpyxl==3.0.2
-psycopg2==2.8.4
+psycopg2==2.8.5
