@@ -202,7 +202,7 @@ class NewspaperSheetAdmin(PermsAdmin):
         }),
         (_('Story'), {
             'fields': (
-                'page_number', 'topic', 'scope', 'space',
+                'page_number', 'covid19', 'topic', 'scope', 'space',
             ),
         }),
         (_('Analysis'), {
@@ -269,7 +269,7 @@ class RadioSheetAdmin(PermsAdmin):
         }),
         (_('Story'), {
             'fields': (
-                'item_number', 'topic', 'scope',
+                'item_number', 'covid19', 'topic', 'scope',
             ),
         }),
         (_('Analysis'), {
@@ -333,7 +333,7 @@ class TelevisionSheetAdmin(PermsAdmin):
         }),
         (_('Story'), {
             'fields': (
-                'item_number', 'topic', 'scope',
+                'item_number', 'covid19', 'topic', 'scope',
             ),
             'classes' : ('story-fieldset',),
         }),
@@ -399,7 +399,7 @@ class InternetNewsSheetAdmin(PermsAdmin):
             ),
         }),
         ('Story', {
-            'fields': ('webpage_layer_no','topic','scope', 'shared_via_twitter', 'shared_on_facebook'),
+            'fields': ('webpage_layer_no', 'covid19', 'topic', 'scope', 'shared_via_twitter', 'shared_on_facebook'),
         }),
         ('Analysis', {
             'fields' : ('equality_rights', 'about_women', 'inequality_women', 'stereotypes'),
@@ -463,7 +463,7 @@ class TwitterSheetAdmin(PermsAdmin):
         }),
         (_('Tweet'), {
             'fields': (
-                'retweet', 'topic'
+                'retweet', 'covid19', 'topic'
             ),
             'classes' : ('story-fieldset',),
         }),

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-12 12:48+0300\n"
+"POT-Creation-Date: 2020-08-20 06:46+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1199,70 +1199,70 @@ msgstr ""
 msgid "Connect, get help, or contribute"
 msgstr ""
 
-#: env/lib/python3.6/site-packages/grappelli/dashboard/dashboards.py:90
+#: env/lib/python3.6/site-packages/grappelli/dashboard/dashboards.py:87
 msgid "Dashboard"
 msgstr ""
 
-#: env/lib/python3.6/site-packages/grappelli/dashboard/dashboards.py:134
+#: env/lib/python3.6/site-packages/grappelli/dashboard/dashboards.py:131
 msgid "Quick links"
 msgstr ""
 
-#: env/lib/python3.6/site-packages/grappelli/dashboard/dashboards.py:137
+#: env/lib/python3.6/site-packages/grappelli/dashboard/dashboards.py:134
 msgid "Return to site"
 msgstr ""
 
-#: env/lib/python3.6/site-packages/grappelli/dashboard/dashboards.py:138
+#: env/lib/python3.6/site-packages/grappelli/dashboard/dashboards.py:135
 #: env/lib/python3.6/site-packages/grappelli/templates/admin/auth/user/change_password.html:11
 #: env/lib/python3.6/site-packages/grappelli/templates/admin/auth/user/change_password.html:57
 #: env/lib/python3.6/site-packages/grappelli/templates/admin/base.html:103
 msgid "Change password"
 msgstr ""
 
-#: env/lib/python3.6/site-packages/grappelli/dashboard/dashboards.py:140
+#: env/lib/python3.6/site-packages/grappelli/dashboard/dashboards.py:137
 #: env/lib/python3.6/site-packages/grappelli/templates/admin/base.html:106
 msgid "Log out"
 msgstr ""
 
-#: env/lib/python3.6/site-packages/grappelli/dashboard/dashboards.py:146
-#: env/lib/python3.6/site-packages/grappelli/dashboard/modules.py:218
+#: env/lib/python3.6/site-packages/grappelli/dashboard/dashboards.py:143
+#: env/lib/python3.6/site-packages/grappelli/dashboard/modules.py:216
 msgid "Applications"
 msgstr ""
 
-#: env/lib/python3.6/site-packages/grappelli/dashboard/dashboards.py:152
+#: env/lib/python3.6/site-packages/grappelli/dashboard/dashboards.py:149
 msgid "Administration"
 msgstr ""
 
-#: env/lib/python3.6/site-packages/grappelli/dashboard/dashboards.py:157
-#: env/lib/python3.6/site-packages/grappelli/dashboard/modules.py:297
+#: env/lib/python3.6/site-packages/grappelli/dashboard/dashboards.py:154
+#: env/lib/python3.6/site-packages/grappelli/dashboard/modules.py:295
 #: env/lib/python3.6/site-packages/grappelli/templates/admin/index.html:69
-msgid "Recent Actions"
+msgid "Recent actions"
 msgstr ""
 
-#: env/lib/python3.6/site-packages/grappelli/dashboard/dashboards.py:161
+#: env/lib/python3.6/site-packages/grappelli/dashboard/dashboards.py:158
 msgid "Latest Django News"
 msgstr ""
 
-#: env/lib/python3.6/site-packages/grappelli/dashboard/dashboards.py:168
+#: env/lib/python3.6/site-packages/grappelli/dashboard/dashboards.py:165
 msgid "Support"
 msgstr ""
 
-#: env/lib/python3.6/site-packages/grappelli/dashboard/dashboards.py:171
+#: env/lib/python3.6/site-packages/grappelli/dashboard/dashboards.py:168
 msgid "Django documentation"
 msgstr ""
 
-#: env/lib/python3.6/site-packages/grappelli/dashboard/dashboards.py:177
+#: env/lib/python3.6/site-packages/grappelli/dashboard/dashboards.py:174
 msgid "Django \"django-users\" mailing list"
 msgstr ""
 
-#: env/lib/python3.6/site-packages/grappelli/dashboard/dashboards.py:183
+#: env/lib/python3.6/site-packages/grappelli/dashboard/dashboards.py:180
 msgid "Django irc channel"
 msgstr ""
 
-#: env/lib/python3.6/site-packages/grappelli/dashboard/modules.py:186
+#: env/lib/python3.6/site-packages/grappelli/dashboard/modules.py:184
 msgid "Links"
 msgstr ""
 
-#: env/lib/python3.6/site-packages/grappelli/dashboard/modules.py:358
+#: env/lib/python3.6/site-packages/grappelli/dashboard/modules.py:356
 msgid "RSS Feed"
 msgstr ""
 
@@ -1656,7 +1656,7 @@ msgid "Custom Views"
 msgstr ""
 
 #: env/lib/python3.6/site-packages/grappelli/templates/admin/index.html:71
-msgid "My Actions"
+msgid "My actions"
 msgstr ""
 
 #: env/lib/python3.6/site-packages/grappelli/templates/admin/index.html:74
@@ -1707,7 +1707,7 @@ msgid ""
 msgstr ""
 
 #: env/lib/python3.6/site-packages/grappelli/templates/admin/pagination.html:9
-#: env/lib/python3.6/site-packages/grappelli/views/related.py:258
+#: env/lib/python3.6/site-packages/grappelli/views/related.py:256
 #, python-format
 msgid "%(counter)s result"
 msgid_plural "%(counter)s results"
@@ -2006,26 +2006,26 @@ msgstr ""
 msgid "Load"
 msgstr ""
 
-#: env/lib/python3.6/site-packages/grappelli/templatetags/grp_tags.py:64
+#: env/lib/python3.6/site-packages/grappelli/templatetags/grp_tags.py:63
 msgid "Django site admin"
 msgstr ""
 
-#: env/lib/python3.6/site-packages/grappelli/tests/test_switch.py:103
-#: env/lib/python3.6/site-packages/grappelli/tests/test_switch.py:162
-#: env/lib/python3.6/site-packages/grappelli/views/switch.py:37
-#: env/lib/python3.6/site-packages/grappelli/views/switch.py:48
+#: env/lib/python3.6/site-packages/grappelli/tests/test_switch.py:101
+#: env/lib/python3.6/site-packages/grappelli/tests/test_switch.py:160
+#: env/lib/python3.6/site-packages/grappelli/views/switch.py:32
+#: env/lib/python3.6/site-packages/grappelli/views/switch.py:43
 msgid "Permission denied."
 msgstr ""
 
-#: env/lib/python3.6/site-packages/grappelli/tests/test_switch.py:146
-#: env/lib/python3.6/site-packages/grappelli/views/switch.py:40
-#: env/lib/python3.6/site-packages/grappelli/views/switch.py:51
+#: env/lib/python3.6/site-packages/grappelli/tests/test_switch.py:144
+#: env/lib/python3.6/site-packages/grappelli/views/switch.py:35
+#: env/lib/python3.6/site-packages/grappelli/views/switch.py:46
 #, python-format
 msgid "%(name)s object with primary key %(key)r does not exist."
 msgstr ""
 
-#: env/lib/python3.6/site-packages/grappelli/views/related.py:127
-#: env/lib/python3.6/site-packages/grappelli/views/related.py:157
+#: env/lib/python3.6/site-packages/grappelli/views/related.py:125
+#: env/lib/python3.6/site-packages/grappelli/views/related.py:155
 msgid "?"
 msgstr ""
 
