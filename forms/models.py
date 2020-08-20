@@ -52,6 +52,7 @@ class NewspaperSheet(SheetModel):
     newspaper_name = models.CharField(max_length=255, verbose_name=_('Newspaper'), help_text=_('''Be as specific as possible. If the paper has different regional editions, write in the name of the edition you are monitoring - e.g. 'The Hindu - Delhi edition'.'''))
 
     page_number = models.PositiveIntegerField(verbose_name=_('(1) Page Number'), help_text=_('Write in the number of the page on which the story begins. Story appears on first page = 1, Seventh page = 7, etc.'))
+    covid19 = field_covid19(_('(z) Is this story related to coronavirus Covid-19?'))
     topic = field_topic(_('(2) Topic'))
     scope = field_scope(_('(3) Scope'))
     space = models.PositiveIntegerField(choices=SPACE, verbose_name=_('(4) Space'))
@@ -108,6 +109,7 @@ class RadioSheet(SheetModel):
     num_male_anchors = field_num_anchors(_('Number of male anchors'))
 
     item_number = field_item_number(_('(1) Item Number'))
+    covid19 = field_covid19(_('(z) Is this story related to coronavirus Covid-19?'))
     topic = field_topic(_('(2) Topic'))
     scope = field_scope(_('(3) Scope'))
 
@@ -171,6 +173,7 @@ class TelevisionSheet(SheetModel):
     num_male_anchors = field_num_anchors(_('Number of male anchors'))
 
     item_number = field_item_number(_('(1) Item Number'))
+    covid19 = field_covid19(_('(z) Is this story related to coronavirus Covid-19?'))
     topic = field_topic(_('(2) Topic'))
     scope = field_scope(_('(3) Scope'))
 
@@ -238,6 +241,7 @@ class InternetNewsSheet(SheetModel):
     offline_presence = models.CharField(max_length=1, choices=YESNO, verbose_name=_('Offline presence?'))
 
     webpage_layer_no = models.PositiveIntegerField(help_text=_('Webpage Layer Number. Homepage=1, One click away=2, Five clicks away= 5, etc. Note that if a story appears on the front page, code with 1'), verbose_name=_('(1) Webpage Layer Number'))
+    covid19 = field_covid19(_('(z) Is this story related to coronavirus Covid-19?'))
     topic = field_topic(_('(2) Topic'))
     scope = field_scope(_('(3) Scope'))
     shared_via_twitter = models.CharField(max_length=1, verbose_name=_('(4) Shared via twitter?'), choices=YESNO, help_text=_('''Has this story been shared by the media house via Twitter?
@@ -306,6 +310,7 @@ class TwitterSheet(SheetModel):
         verbose_name=_('(1) Tweet or Retweet'),
         help_text=_('Only retweets from the same media house can be coded. Do not code retweets from other news providers')
     )
+    covid19 = field_covid19(_('(z) Is this story related to coronavirus Covid-19?'))
     topic = field_topic(_('(2) Topic'))
 
     # Analysis
