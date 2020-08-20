@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-20 06:46+0000\n"
+"POT-Creation-Date: 2020-08-20 12:53+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -535,7 +535,7 @@ msgstr "C’est la page à laquelle le reportage commence"
 #: forms/models.py:55 forms/models.py:112 forms/models.py:176
 #: forms/models.py:244 forms/models.py:313
 msgid "(z) Is this story related to coronavirus Covid-19?"
-msgstr ""
+msgstr "(z) Ce reportage est-il lié au coronavirus Covid-19?"
 
 #: forms/models.py:56 forms/models.py:113 forms/models.py:177
 #: forms/models.py:245 forms/models.py:314
@@ -1209,6 +1209,9 @@ msgid ""
 "COVID-19 (For stories related to Covid-19 choose the closest relevant sub-"
 "topic)"
 msgstr ""
+"(23) Autres épidémies, virus, contagions, vache folle, grippe, pneumonie "
+"atypique (hors COVID19 ; Si le reportage est lié au COVID-19, choisissez la "
+"catégorie de sujet qui est la plus pertinente comme thème secondaire)"
 
 #: forms/modelutils.py:40
 msgid ""
@@ -1940,10 +1943,14 @@ msgstr ""
 #: forms/modelutils.py:371
 msgid ""
 "Note: For the question below it is important <strong>NOT</strong> to code "
-"COVID19-related stories under topic 23 butto choose the most relevant "
+"COVID19-related stories under topic 23 but to choose the most relevant "
 "<strong>secondary</strong> topic theme in order to ensure results that can "
 "be compared with those from previous GMMPs."
 msgstr ""
+"Attention : Pour la question suivante, il est important de <strong>NE PAS</"
+"strong> coder les reportages liés au COVID-19 sous le sujet 23, mais de "
+"choisir le thème de sujet <strong>secondaire</strong> le plus pertinent afin "
+"d’assurer des résultats qui peuvent être comparés à ceux des GMMP précédents."
 
 #: forms/modelutils.py:372
 msgid ""
@@ -1955,6 +1962,14 @@ msgid ""
 "if the story is about the spread of COVID-19 in a refugee camp, it should be "
 "coded under topic 32 <em>‘Migration, refugees...’</em>. "
 msgstr ""
+"Si le reportage est lié au COVID-19 (indiqué par choix de réponse (1) à la "
+"question 'z'), choisissez la catégorie de <strong>sujet</strong> qui est la "
+"plus pertinente comme thème <strong>secondaire</strong>, <strong>PAS</"
+"strong> le sujet 23. Par exemple, si le reportage porte sur les pertes "
+"d’emplois dues au COVID-19, celui-ci devrait être codé sous le sujet 12 "
+"<em>emploi</em>; ou si le reportage est sur la propagation du COVID-19 dans "
+"un camp de réfugiés, celui-ci devrait être codé sous le sujet 32 "
+"<em>Migration, réfugiés …</em>."
 
 #: forms/modelutils.py:374
 msgid ""
