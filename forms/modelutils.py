@@ -103,6 +103,11 @@ YESNO = (
     ('N', _('(2) No')),
 )
 
+YESNO_NUMBER = (
+    (1, _('(1) Yes')),
+    (2, _('(2) No')),
+)
+
 GENDER = (
     (1, _('(1) Female')),
     (2, _('(2) Male')),
@@ -363,7 +368,8 @@ class BroadcastJournalist(Journalist):
 
 ##### Standard Fields ###########
 field_scope = lambda x: models.PositiveIntegerField(choices=SCOPE, verbose_name=x, help_text=_('Code the widest geographical scope that applies: if the event has both local and national importance, code national.'))
-field_topic = lambda x: models.PositiveIntegerField(choices=TOPICS, verbose_name=x, help_text=_('''Choose one topic that best describes how the story is reported. Remember that a single event can be reported in different ways. Within each broad category, we include a code for 'other stories'. Please use these codes only as a <strong>last resort</strong>.'''))
+field_covid19 = lambda x: models.PositiveIntegerField(choices=YESNO_NUMBER, verbose_name=x, help_text=_('''Note: For the question below it is important <strong>NOT</strong> to code COVID19-related stories under topic 23 but to choose the most relevant <strong>secondary</strong> topic theme in order to ensure results that can be compared with those from previous GMMPs.'''), default=2)
+field_topic = lambda x: models.PositiveIntegerField(choices=TOPICS, verbose_name=x, help_text=_('''If the story <strong>IS</strong> COVID19-related (indicated by answer choice (1) in question (z) above, choose the <strong>topic</strong> category which is the most relevant as the <strong>secondary</strong> topic theme, <strong>NOT</strong> topic 23. For example, if the story is about job losses due to COVID-19, it should be coded under topic 12 <em>‘Employment’</em>; or if the story is about the spread of COVID-19 in a refugee camp, it should be coded under topic 32 <em>‘Migration, refugees...’</em>. '''))
 
 field_equality_rights = lambda x: models.CharField(choices=YESNO, verbose_name=x, max_length=1, help_text=_('''Scan the full news story and code 'Yes' if it quotes or makes reference to any piece of legislation or policy that promotes gender equality or human rights.'''))
 field_about_women = lambda x: models.CharField(max_length=1, choices=YESNO, verbose_name=x)
