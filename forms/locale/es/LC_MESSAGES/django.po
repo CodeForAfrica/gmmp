@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-20 06:46+0000\n"
+"POT-Creation-Date: 2020-08-20 12:53+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -525,7 +525,7 @@ msgstr "La noticia aparece en la primera plana=1, en página 7= 7, etc."
 #: forms/models.py:55 forms/models.py:112 forms/models.py:176
 #: forms/models.py:244 forms/models.py:313
 msgid "(z) Is this story related to coronavirus Covid-19?"
-msgstr ""
+msgstr "(z) ¿Esta historia está relacionada con el coronavirus Covid-19?"
 
 #: forms/models.py:56 forms/models.py:113 forms/models.py:177
 #: forms/models.py:245 forms/models.py:314
@@ -1191,6 +1191,9 @@ msgid ""
 "COVID-19 (For stories related to Covid-19 choose the closest relevant sub-"
 "topic)"
 msgstr ""
+"(23) Otras epidemias, virus, contagio, influenza, BSE, SARS. No COVID-19 (Si "
+"la historia está relacionada con COVID19, elija la categoría del tema que "
+"sea más relevante como tópico secundario)"
 
 #: forms/modelutils.py:40
 msgid ""
@@ -1891,10 +1894,14 @@ msgstr ""
 #: forms/modelutils.py:371
 msgid ""
 "Note: For the question below it is important <strong>NOT</strong> to code "
-"COVID19-related stories under topic 23 butto choose the most relevant "
+"COVID19-related stories under topic 23 but to choose the most relevant "
 "<strong>secondary</strong> topic theme in order to ensure results that can "
 "be compared with those from previous GMMPs."
 msgstr ""
+"Nota: Para la siguiente pregunta, es importante NO codificar las historias "
+"relacionadas con COVID19 del tópico 23, sino elegir el "
+"tema <strong>secundario</strong> más relevante para garantizar que los "
+"resultados puedan compararse con los de GMMP anteriores."
 
 #: forms/modelutils.py:372
 msgid ""
@@ -1906,6 +1913,14 @@ msgid ""
 "if the story is about the spread of COVID-19 in a refugee camp, it should be "
 "coded under topic 32 <em>‘Migration, refugees...’</em>. "
 msgstr ""
+"Si la historia <strong>está</strong> relacionada con COVID19 (indicada por "
+"la opción de respuesta (1) en la pregunta 'z'), elija la categoría del tema "
+"que sea más relevante como tópico <strong>secundario</strong>, <strong>NO</"
+"strong> del tópico 23. Por ejemplo, si la historia trata sobre la pérdida de "
+"empleos debido al COVID-19, debe codificarse bajo el tema 12 <em>'Empleo'</"
+"em>; o si la historia es sobre la propagación de COVID-19 en un campo de "
+"personas refugiadas, debe codificarse bajo el tema 32 <em>'Migración, "
+"personas refugiadas ...'</em>."
 
 #: forms/modelutils.py:374
 msgid ""
