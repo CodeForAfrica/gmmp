@@ -36,7 +36,7 @@ TOPICS = (
             (20, _('(20) Medicine, health, hygiene, safety, disability, medical research, funding (not EBOLA or HIV- AIDS)...')),
             (21, _('(21) EBOLA, treatment, response...')),
             (22, _('(22) HIV and AIDS, incidence, policy, treatment, people affected ...')),
-            (23, _('(23) Other epidemics, viruses, contagions, Influenza, BSE, SARS ...')),
+            (23, _('(23) Other epidemics, viruses, contagions, Influenza, BSE, SARS. NOT COVID-19 (For stories related to Covid-19 choose the closest relevant sub-topic)')),
             (24, _('(24) Birth control, fertility, sterilization, amniocentesis, termination of pregnancy ...')),
             (25, _('(25) Climate change, global warming')),
             (26, _('(26) Environment, pollution, tourism ...')),
