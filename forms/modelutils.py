@@ -125,6 +125,17 @@ AGES = (
     (6, _('(6) 65 years or more')),
 )
 
+AGES_PEOPLE_IN_THE_NEWS = (
+    (0, _('(0) Do not know')),
+    (1, _('(1) 12 and under')),
+    (2, _('(2) 13-18')),
+    (3, _('(3) 19-34')),
+    (4, _('(4) 35-49')),
+    (5, _('(5) 50-64')),
+    (6, _('(6) 65-79')),
+    (7, _('(7) 80 years or more')),
+)
+
 SOURCE = (
     (0, _('(0) Do not know')),
     (1, _('(1) Person')),
@@ -387,7 +398,7 @@ field_item_number = lambda x: models.PositiveIntegerField(verbose_name=x, help_t
 
 field_sex = lambda x: models.PositiveIntegerField(choices=GENDER, verbose_name=x)
 
-field_age = lambda x: models.PositiveIntegerField(choices=AGES, verbose_name=x)
+field_age = lambda x: models.PositiveIntegerField(choices=AGES_PEOPLE_IN_THE_NEWS, verbose_name=x)
 field_occupation = lambda x: models.PositiveIntegerField(choices=OCCUPATION, verbose_name=x)
 field_occupation_other = models.TextField(verbose_name=_('Other Occupation'), blank=True)
 field_function = lambda x: models.PositiveIntegerField(choices=FUNCTION, verbose_name=x)
