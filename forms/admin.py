@@ -110,7 +110,6 @@ For each online news story, you should code each journalist/reporter who wrote t
 Unnamed journalists (e.g. 'Staff reporter', 'Our correspondent')
 <br/>
 News agencies''')
-    exclude = ('age',)
 
 
 # People In The News
