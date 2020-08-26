@@ -69,8 +69,9 @@ class NewspaperSheet(SheetModel):
     comments = field_comments(_('(23) Describe any photographs included in the story and the conclusions you draw from them.'))
 
     def __str__(self):
-        created_at = self.created_at.strftime("%Y-%m-%d %H:%M:%S")
-        return f"{self.newspaper_name} {created_at} page {self.page_number}"
+        created_at = self.created_at.strftime("%Y-%m-%d")
+        space = SPACE[self.space][1].split(')')[1] # Extract space title from SPACE tuple
+        return f"{self.newspaper_name} {created_at} page {self.page_number} {space}"
 
 # ----------------------------
 # Radio
