@@ -48,6 +48,9 @@ class NewspaperPerson(Person):
 class NewspaperSheet(SheetModel):
     class Meta:
         verbose_name = _('Newspaper')
+    
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     newspaper_name = models.CharField(max_length=255, verbose_name=_('Newspaper'), help_text=_('''Be as specific as possible. If the paper has different regional editions, write in the name of the edition you are monitoring - e.g. 'The Hindu - Delhi edition'.'''))
 
@@ -66,7 +69,9 @@ class NewspaperSheet(SheetModel):
     comments = field_comments(_('(23) Describe any photographs included in the story and the conclusions you draw from them.'))
 
     def __str__(self):
-        return self.newspaper_name
+        created_at = self.created_at.strftime("%Y-%m-%d")
+        space = SPACE[self.space][1].split(')')[1] # Extract space title from SPACE tuple
+        return f"{self.newspaper_name} {created_at} page {self.page_number} {space}"
 
 # ----------------------------
 # Radio
@@ -102,6 +107,9 @@ class RadioJournalist(BroadcastJournalist):
     radio_sheet = models.ForeignKey('RadioSheet', on_delete=models.CASCADE)
 
 class RadioSheet(SheetModel):
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
     channel = models.CharField(max_length=255, verbose_name=_('Channel'), help_text=_('''Be as specific as possible. E.g. if the radio company is called RRI, and if the newscast is broadcast on its third channel, write in 'RRI-3'.'''))
 
     start_time = models.TimeField(verbose_name=_('Time of Broadcast'))
@@ -123,7 +131,7 @@ class RadioSheet(SheetModel):
     comments = field_comments(_('(N/A) Describe any photographs included in the story and the conclusions you draw from them.'))
 
     def __str__(self):
-        return self.channel
+        return f"{self.channel} {str(self.start_time)} story {str(self.item_number)}"
 
     class Meta:
         verbose_name = _('Radio')
@@ -167,6 +175,9 @@ class TelevisionJournalist(BroadcastJournalist):
     television_sheet = models.ForeignKey('TelevisionSheet', on_delete=models.CASCADE)
 
 class TelevisionSheet(SheetModel):
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
     channel = models.CharField(max_length=255, verbose_name=_('Channel'), help_text=_('''Be as specific as possible. E.g. if the television company is called RTV, and if the newscast is broadcast on its second channel, write in 'RTV-2' '''))
     start_time = models.TimeField(verbose_name=_('Time of Broadcast'))
     num_female_anchors = field_num_anchors(_('Number of female anchors'))
@@ -187,7 +198,7 @@ class TelevisionSheet(SheetModel):
     comments = field_comments(_('(N/A) Describe any photographs included in the story and the conclusions you draw from them.'))
 
     def __str__(self):
-        return self.channel
+        return f"{self.channel} {str(self.start_time)} story {str(self.item_number)}"
 
     class Meta:
         verbose_name = _('Television')
@@ -234,6 +245,9 @@ class InternetNewsSheet(SheetModel):
 
     def __init__(self, *args, **kwargs):
         super(InternetNewsSheet, self).__init__(*args, **kwargs)
+    
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     # Story
     website_name = models.CharField(max_length=255, verbose_name=_('Website Name'))
     website_url = models.CharField(max_length=255, verbose_name=_('URL'))
@@ -262,7 +276,8 @@ class InternetNewsSheet(SheetModel):
     url_and_multimedia = field_url_and_multimedia(_('(25) Copy and paste the URL of the story. Describe any photographs, images, other multimedia features included in the story. Note down the conclusions you draw from the images, audio and video.'))
 
     def __str__(self):
-        return self.website_url
+        time_accessed = self.time_accessed.strftime("%Y-%m-%d %H:%M:%S")
+        return f"{self.website_name} {time_accessed} {self.website_url}"
 
     class Meta:
         verbose_name = _('Internet')
@@ -301,7 +316,10 @@ class TwitterPerson(Person):
 class TwitterSheet(SheetModel):
     class Meta:
         verbose_name = _('Twitter')
-
+    
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
     media_name = models.CharField(max_length=255, verbose_name=_('Media Name'), help_text=_('''For example. 'CNN Breaking News' '''))
     twitter_handle = models.CharField(max_length=255, verbose_name=_('Twitter Handle'), help_text=_('e.g. @cnnbrk'))
 
@@ -324,7 +342,8 @@ class TwitterSheet(SheetModel):
     url_and_multimedia = field_url_and_multimedia(_('(17) Copy and paste the URL of the tweet. Describe any photographs, images, other multimedia features included in the tweet. Note down the conclusions you draw from the images, audio and video.'))
 
     def __str__(self):
-        return self.twitter_handle
+        created_at = self.created_at.strftime("%Y-%m-%d %H:%M:%S")
+        return f"{self.media_name} {created_at} {self.twitter_handle}"
 
 
 sheet_models = OrderedDict([
