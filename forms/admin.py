@@ -237,7 +237,8 @@ class NewspaperSheetAdmin(PermsAdmin):
     class Media:
         js = [
             'forms/admin/move_fields.js',
-            'forms/admin/move_fields_newspaper.js'
+            'forms/admin/move_fields_newspaper.js',
+            'forms/admin/dependency_fields.js'
         ]
 
 class RadioSheetAdmin(PermsAdmin):
@@ -301,7 +302,8 @@ class RadioSheetAdmin(PermsAdmin):
     class Media:
         js = [
             'forms/admin/move_fields.js',
-            'forms/admin/move_radio_fields.js'
+            'forms/admin/move_radio_fields.js',
+            'forms/admin/dependency_fields.js'
         ]
 
 class TelevisionSheetAdmin(PermsAdmin):
@@ -367,7 +369,8 @@ class TelevisionSheetAdmin(PermsAdmin):
     class Media:
         js = [
             'forms/admin/move_fields.js',
-            'forms/admin/move_television_fields.js'
+            'forms/admin/move_television_fields.js',
+            'forms/admin/dependency_fields.js'
         ]
 class InternetNewsSheetAdmin(PermsAdmin):
 
@@ -431,7 +434,8 @@ class InternetNewsSheetAdmin(PermsAdmin):
     class Media:
         js = [
             'forms/admin/move_fields.js',
-            'forms/admin/move_internet_fields.js'
+            'forms/admin/move_internet_fields.js',
+            'forms/admin/dependency_fields.js'
         ]
 
 class TwitterSheetAdmin(PermsAdmin):
