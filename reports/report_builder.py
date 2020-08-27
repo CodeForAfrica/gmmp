@@ -111,7 +111,7 @@ class XLSXReportBuilder:
             self.regions = get_country_region(form.cleaned_data['country'])
             self.report_type = 'country'
         elif isinstance(form, RegionForm):
-            region = [name for i, name in form.REGIONS if str(i) == form.cleaned_data['region']][0]
+            region = [name for i, name in form.get_form_regions() if str(i) == form.cleaned_data['region']][0]
             self.countries = get_region_countries(region)
             self.regions = [(0, region)]
             self.report_type = 'region'

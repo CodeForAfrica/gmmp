@@ -44,7 +44,6 @@ urlpatterns = (
         # Admin site URLS
         path("admin/", admin.site.urls),
         re_path(r"^$", RedirectView.as_view(url="/admin"), name="go-to-admin"),
-        # TODO: Fix reports views, they're blocking migration
         path('reports/', include('reports.urls')),
         prefix_default_language=False,
     )
