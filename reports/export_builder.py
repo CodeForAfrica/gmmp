@@ -2,7 +2,7 @@
 import io
 
 # Django
-from django.url import reverse
+from django.urls import reverse
 from django.contrib.sites.shortcuts import get_current_site
 
 # 3rd Party
