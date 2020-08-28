@@ -44,8 +44,7 @@ urlpatterns = (
         # Admin site URLS
         path("admin/", admin.site.urls),
         re_path(r"^$", RedirectView.as_view(url="/admin"), name="go-to-admin"),
-        # TODO: Fix reports views, they're blocking migration
-        # url(r'^reports/', include('reports.urls')),
+        path('reports/', include('reports.urls')),
         prefix_default_language=False,
     )
     + [path("i18n/", include("django.conf.urls.i18n"))]
