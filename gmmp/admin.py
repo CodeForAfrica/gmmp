@@ -12,6 +12,12 @@ class MonitorInline(admin.TabularInline):
     can_delete = False
     verbose_name_plural = _('Monitor Details')
 
+
+class SpecialQuestionsInline(admin.StackedInline):
+    model = models.SpecialQuestions
+    can_delete = False
+    verbose_name_plural = _('Special Questions')
+
 def monitor_country(obj):
     return obj.monitor.country.name
 monitor_country.short_description = _('Country')
@@ -19,7 +25,7 @@ monitor_country.admin_order_field = 'monitor__country'
 
 # Define a new User admin
 class UserAdmin(UserAdmin):
-    inlines = (MonitorInline, )
+    inlines = (MonitorInline, SpecialQuestionsInline)
     list_display = ('username', 'email', 'first_name', 'last_name', 'is_staff', monitor_country)
     list_filter = ('monitor__country',)
     search_fields = ('username', 'email', 'first_name', 'last_name', 'monitor__country')

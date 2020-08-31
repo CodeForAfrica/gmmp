@@ -416,4 +416,8 @@ field_is_quoted = lambda x: models.CharField(max_length=1, choices=YESNO, verbos
 )
 field_is_photograph = lambda x: models.PositiveIntegerField(choices=IS_PHOTOGRAPH, verbose_name=x)
 
-field_special_qn = lambda x: models.CharField(choices=YESNO, max_length=1, blank=True, verbose_name=x)
+field_special_qn = lambda x: models.CharField(
+    choices=YESNO,
+    max_length=1,
+    blank=True,
+    verbose_name=x,)

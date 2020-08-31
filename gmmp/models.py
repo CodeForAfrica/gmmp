@@ -10,3 +10,11 @@ class Monitor(models.Model):
         return "%s" % self.country
 
 
+class SpecialQuestions(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    question_1 = models.CharField(max_length=500)
+    question_2 = models.CharField(max_length=500)
+    question_3 = models.CharField(max_length=500)
+
+    def __unicode__(self):
+        return f"{self.user.country} special questions"

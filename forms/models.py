@@ -10,6 +10,10 @@ def prepend_verbose(mydict, field_name, num):
     field.verbose_name = '(%s) %s' % (num, field_name)
 
 
+def get_special_questions():
+    pass
+
+
 # ----------------------------
 # Newspaper
 # ----------------------------
