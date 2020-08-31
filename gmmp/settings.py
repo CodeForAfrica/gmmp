@@ -246,7 +246,7 @@ JET_SIDE_MENU_ITEMS = [
     },
     {
         "label": _("Access Control"),
-        "items": [{"name": "auth.user"}, {"name": "auth.group"},],
+        "items": [{"name": "auth.user", "permissions": ['auth.view_group']}, {"name": "auth.group", "permissions": ['auth.view_group']},],
     },
     {
         "label": _("General"),
