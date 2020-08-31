@@ -39,6 +39,11 @@ class PermsAdmin(GuardedModelAdmin):
 
         group, _ = Group.objects.get_or_create(name='%s_admin' % country)
         shortcuts.assign_perm('forms.change_%s' % self.permcode, group, obj)
+    
+    def render_change_form(self, request, context, add=False, change=False, form_url='', obj=None):
+        response = super(PermsAdmin, self).render_change_form(request, context, add, change, form_url, obj)
+        response.context_data['title'] = _("Add Article")
+        return response
 
 # Inline Elements:
 
