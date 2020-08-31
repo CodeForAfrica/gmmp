@@ -46,4 +46,22 @@
 <footer id="footer" class="footer">
     <p>Copyright © Global Media Monitoring Project 2020</p>
 </footer>
+<script>
+    // Setting the permissions required for JET_SIDE_MENU_ITEMS to show items only ensures that the items aren't displayed.
+    // However, the titles e.g ACCESS CONTROL are still displayed. This function hides titles that don't have any children in them.
+    (function($){
+        $(document).ready(function() {
+            let sidebars = $('div[class="sidebar-section"]');
+            sidebars.each(sidebar => {
+                let sidebar_section = $(sidebars[sidebar]).find(".sidebar-title")
+                if(sidebar_section.length){
+                    let sidebar_link = $(sidebars[sidebar]).find(".sidebar-link");
+                    if (sidebar_link.length === 0) {
+                        sidebars[sidebar].hidden=true;
+                    }
+                }
+            });
+        });
+    }(jet.jQuery));
+</script>
 {% endblock %}
