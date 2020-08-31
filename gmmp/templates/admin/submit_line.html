@@ -19,8 +19,10 @@
             let last_tab = $('.changeform-tabs li:last-child').hasClass('selected');
             if(last_tab) {
                 $('input[name=_addanother]').show()
+                $('input[name=_save]').show()
             }else{
                 $('input[name=_addanother]').hide()
+                $('input[name=_save]').hide()
             }
         });
         $('body').click(function(e) {
@@ -28,8 +30,10 @@
                 let last_tab = $('.changeform-tabs li:last-child').hasClass('selected');
                 if(last_tab) {
                 $('input[name=_addanother]').show()
+                $('input[name=_save]').show()
                 }else{
                     $('input[name=_addanother]').hide()
+                    $('input[name=_save]').hide()
                 }
             }, 0)            
         });
