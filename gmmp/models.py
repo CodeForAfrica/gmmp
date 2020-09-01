@@ -17,5 +17,5 @@ class SpecialQuestions(models.Model):
     question_2 = models.CharField(max_length=500)
     question_3 = models.CharField(max_length=500)
 
-    def __unicode__(self):
-        return f"{self.user.country} special questions"
+    def __str__(self):
+        return f"{self.user.monitor.country} special questions"
