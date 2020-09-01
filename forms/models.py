@@ -5,9 +5,16 @@ from django.utils.translation import gettext_lazy as _
 
 from forms.modelutils import *
 
-def prepend_verbose(mydict, field_name, num):
+# The following necessitated for some of the channges 
+# https://code.djangoproject.com/ticket/19539 necessitated removal of __metaclass__ 
+# get_fields_with_model was deprected and thus the move to fields
+
+
+def prepend_verbose(mydict, field_name, num, verbose_name=None):
     field = mydict[field_name]
-    field.verbose_name = '(%s) %s' % (num, field_name)
+    # Some field_name differ from the expected verbose_name. e.g for age, the desired verbose_name is AGE (PERSON APPEARS).
+    # Instead of passing AGE (PERSON APPEARS) as the field name, we can instead pass it as the expected verbose_name  
+    field.verbose_name = f'({num}) {verbose_name if verbose_name else field_name}'
 
 # ----------------------------
 # Newspaper
@@ -15,15 +22,13 @@ def prepend_verbose(mydict, field_name, num):
 
 def newspaper_journalist_meta (name, bases, mydict):
     dct = {
-        'sex' : bases[0]._meta.get_fields_with_model()[0][0],
-        'age' : bases[0]._meta.get_fields_with_model()[1][0],
+        'sex' : bases[0]._meta.fields[0],
+        'age' : bases[0]._meta.fields[1],
     }
     prepend_verbose(dct, 'sex', '9')
     return type(name, bases, mydict)
 
-class NewspaperJournalist(Journalist):
-    __metaclass__ = newspaper_journalist_meta
-
+class NewspaperJournalist(Journalist, metaclass=newspaper_journalist_meta):
     newspaper_sheet = models.ForeignKey('NewspaperSheet', on_delete=models.CASCADE)
 
 class NewspaperPerson(Person):
@@ -93,16 +98,14 @@ class RadioPerson(Person):
 
 def radio_journalist_meta(name, bases, mydict):
     dct = {
-        'sex' : bases[0]._meta.get_fields_with_model()[1][0],
-        'role' : bases[0]._meta.get_fields_with_model()[2][0],
+        'sex' : bases[0]._meta.fields[0],
+        'role' : bases[0]._meta.fields[2],
     }
     prepend_verbose(dct, 'role', '8')
     prepend_verbose(dct, 'sex', '9')
     return type(name, bases, mydict)
 
-class RadioJournalist(BroadcastJournalist):
-    __metaclass__ = radio_journalist_meta
-
+class RadioJournalist(BroadcastJournalist, metaclass=radio_journalist_meta):
     radio_sheet = models.ForeignKey('RadioSheet', on_delete=models.CASCADE)
 
 class RadioSheet(SheetModel):
@@ -158,19 +161,16 @@ class TelevisionPerson(Person):
 
 def television_journalist_meta(name, bases, mydict):
     dct = {
-        'sex' : bases[0]._meta.get_fields_with_model()[0][0],
-        'age' : bases[0]._meta.get_fields_with_model()[1][0],
-        'role' : bases[0]._meta.get_fields_with_model()[2][0],
+        'sex' : bases[0]._meta.fields[0],
+        'age' : bases[0]._meta.fields[1],
+        'role' : bases[0]._meta.fields[2],
     }
-
     prepend_verbose(dct, 'role', '8')
     prepend_verbose(dct, 'sex', '9')
-    prepend_verbose(dct, 'age', '10')
+    prepend_verbose(dct, 'age', '10', 'Age (Person Appears)')
     return type(name, bases, mydict)
 
-class TelevisionJournalist(BroadcastJournalist):
-    __metaclass__ = television_journalist_meta
-
+class TelevisionJournalist(BroadcastJournalist, metaclass=television_journalist_meta):
     television_sheet = models.ForeignKey('TelevisionSheet', on_delete=models.CASCADE)
 
 class TelevisionSheet(SheetModel):
@@ -209,16 +209,14 @@ class TelevisionSheet(SheetModel):
 
 def internet_journalist_meta(name, bases, mydict):
     dct = {
-        'sex' : bases[0]._meta.get_fields_with_model()[0][0],
-        'age' : bases[0]._meta.get_fields_with_model()[1][0],
+        'sex' : bases[0]._meta.fields[0],
+        'age' : bases[0]._meta.fields[1],
     }
     prepend_verbose(dct, 'sex', '10')
-    prepend_verbose(dct, 'age', '11')
+    prepend_verbose(dct, 'age', '11', 'Age (Person Appears)')
     return type(name, bases, mydict)
 
-class InternetNewsJournalist(Journalist):
-    __metaclass__ = internet_journalist_meta
-
+class InternetNewsJournalist(Journalist, metaclass=internet_journalist_meta):
     internetnews_sheet = models.ForeignKey('InternetNewsSheet', on_delete=models.CASCADE)
 
 class InternetNewsPerson(Person):
@@ -283,20 +281,18 @@ class InternetNewsSheet(SheetModel):
 
 def twitter_journalist_meta(name, bases, mydict):
     dct = {
-        'sex' : bases[0]._meta.get_fields_with_model()[0][0],
-        'age' : bases[0]._meta.get_fields_with_model()[1][0],
+        'sex' : bases[0]._meta.fields[0],
+        'age' : bases[0]._meta.fields[1],
     }
     prepend_verbose(dct, 'sex', '7')
-    prepend_verbose(dct, 'age', '8')
+    prepend_verbose(dct, 'age', '8', 'Age (Person Appears)')
     return type(name, bases, mydict)
 
 # ----------------------------
 # Twitter
 # ----------------------------
 
-class TwitterJournalist(Journalist):
-    __metaclass__ = twitter_journalist_meta
-
+class TwitterJournalist(Journalist, metaclass=twitter_journalist_meta):
     twitter_sheet = models.ForeignKey('TwitterSheet', on_delete=models.CASCADE)
 
 class TwitterPerson(Person):
