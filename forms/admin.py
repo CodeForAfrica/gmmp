@@ -308,9 +308,6 @@ class RadioSheetAdmin(PermsAdmin):
             <small>*If you select ‘1’ (Yes), you will need to send a copy of the recording to your national/regional coordinator.</small>'''),
             'fields': ('further_analysis',),
         }),
-        (_('Comments & Explanations'), {
-            'fields' : ('comments',),
-        }),
     ]
 
     list_filter = basic_filters
