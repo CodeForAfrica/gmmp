@@ -5,6 +5,7 @@ from guardian import shortcuts
 from django.contrib.auth.models import Group
 
 from . import models
+from gmmp.models import SpecialQuestions
 
 class PermsAdmin(GuardedModelAdmin):
 
@@ -114,8 +115,18 @@ News agencies''')
 
 # People In The News
 # ------------------
+class PersonInTheNewsInLine(admin.StackedInline):
+    def get_formset(self, request, obj=None, **kwargs):
+            form = super(PersonInTheNewsInLine, self).get_formset(request, obj, **kwargs)
+            country = request.user.monitor.country
+            country_special_questions = SpecialQuestions.objects.filter(country=country).first()
+            if country_special_questions:
+                form.form.base_fields['special_qn_1'].label = country_special_questions.question_1
+                form.form.base_fields['special_qn_2'].label = country_special_questions.question_2
+                form.form.base_fields['special_qn_3'].label = country_special_questions.question_3
+            return form
 
-class NewspaperPersonInline(admin.StackedInline):
+class NewspaperPersonInline(PersonInTheNewsInLine):
     model = models.NewspaperPerson
     radio_fields = {
         'family_role': admin.HORIZONTAL,
@@ -127,7 +138,7 @@ class NewspaperPersonInline(admin.StackedInline):
     verbose_name_plural = _('People in the article')
     verbose_name = _('Person mentioned in the article')
 
-class RadioPersonInline(admin.StackedInline):
+class RadioPersonInline(PersonInTheNewsInLine):
     model = models.RadioPerson
     radio_fields = {
         'family_role': admin.HORIZONTAL,
@@ -138,7 +149,7 @@ class RadioPersonInline(admin.StackedInline):
     verbose_name_plural = _('People in the broadcast')
     verbose_name = _('Person mentioned in the broadcast')
 
-class TelevisionPersonInline(admin.StackedInline):
+class TelevisionPersonInline(PersonInTheNewsInLine):
     model = models.TelevisionPerson
     inline_classes = ('grp-collapse grp-open',)
     radio_fields = {
@@ -149,7 +160,7 @@ class TelevisionPersonInline(admin.StackedInline):
     verbose_name_plural = _('People in the broadcast')
     verbose_name = _('Person mentioned in the broadcast')
 
-class InternetNewsPersonInline(admin.StackedInline):
+class InternetNewsPersonInline(PersonInTheNewsInLine):
     model = models.InternetNewsPerson
     radio_fields = {
         'family_role': admin.HORIZONTAL,
@@ -161,7 +172,7 @@ class InternetNewsPersonInline(admin.StackedInline):
     verbose_name_plural = _('People in the news')
     verbose_name = _('Person in the news')
 
-class TwitterPersonInline(admin.StackedInline):
+class TwitterPersonInline(PersonInTheNewsInLine):
     model = models.TwitterPerson
     inline_classes = ('grp-collapse grp-open',)
     extra = 1

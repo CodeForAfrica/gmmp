@@ -9,7 +9,6 @@ def prepend_verbose(mydict, field_name, num):
     field = mydict[field_name]
     field.verbose_name = '(%s) %s' % (num, field_name)
 
-
 # ----------------------------
 # Newspaper
 # ----------------------------
