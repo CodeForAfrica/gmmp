@@ -19,9 +19,9 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('country', django_countries.fields.CountryField(default='KE', max_length=2)),
-                ('question_1', models.CharField(max_length=500)),
-                ('question_2', models.CharField(max_length=500)),
-                ('question_3', models.CharField(max_length=500)),
+                ('question_1', models.TextField()),
+                ('question_2', models.TextField()),
+                ('question_3', models.TextField()),
                 ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),
