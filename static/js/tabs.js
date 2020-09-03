@@ -8,17 +8,20 @@
     let internetnewssheet_form = $('#internetnewssheet_form').length;
     let twittersheet_form = $('#twittersheet_form').length;
 
-
     if(newspapersheet_form > 0 || twittersheet_form > 0 || radiosheet_form > 0 || televisionsheet_form > 0 || internetnewssheet_form > 0){
+        // Rename the save and continue button to Next
+        let cont = $('input[name=_continue]').val('Next Tab')
         $(document).ready(function() {
             module = $('.changeform-tabs li.selected').index();
             let last_tab = $('.changeform-tabs li:last-child').hasClass('selected');
             if(last_tab) {
                 $('input[name=_addanother]').show()
                 $('input[name=_save]').show()
+                $('input[name=_continue]').hide()
             }else{
                 $('input[name=_addanother]').hide()
                 $('input[name=_save]').hide()
+                $('input[name=_continue]').show()
             }
         });
         $('body').click(function(e) {
@@ -28,9 +31,11 @@
                 if(last_tab) {
                 $('input[name=_addanother]').show()
                 $('input[name=_save]').show()
+                $('input[name=_continue]').hide()
                 }else{
                     $('input[name=_addanother]').hide()
                     $('input[name=_save]').hide()
+                    $('input[name=_continue]').show()
                 }
             }, 0)            
         });
