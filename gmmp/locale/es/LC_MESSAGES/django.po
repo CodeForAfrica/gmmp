@@ -210,7 +210,7 @@ msgstr ""
 
 #: gmmp/templates/admin/change_form.html:6
 msgid "Home"
-msgstr ""
+msgstr "Hogar"
 
 #: gmmp/templates/admin/change_form.html:9
 msgid "Add Article"
