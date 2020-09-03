@@ -215,38 +215,43 @@ JET_SIDE_MENU_ITEMS = [
             {
                 "label": _("Newspapers"),
                 "url": {"type": "reverse", "name": "admin:forms_newspapersheet_add"},
+                "permissions": ['forms.view_newspapersheet'],
             },
             {
                 "label": _("Radio"),
                 "url": {"type": "reverse", "name": "admin:forms_radiosheet_add"},
+                "permissions": ['forms.view_radiosheet']
             },
             {
                 "label": _("Television"),
                 "url": {"type": "reverse", "name": "admin:forms_televisionsheet_add"},
+                "permissions": ['forms.view_televisionsheet']
             },
             {
                 "label": _("Internet"),
                 "url": {"type": "reverse", "name": "admin:forms_internetnewssheet_add"},
+                 "permissions": ['forms.view_internetnewssheet']
             },
             {
                 "label": _("Twitter"),
                 "url": {"type": "reverse", "name": "admin:forms_twittersheet_add"},
+                "permissions": ['forms.view_twittersheet']
             },
         ],
     },
     {
         "label": _("Coded"),
         "items": [
-            {"name": "forms.newspapersheet"},
-            {"name": "forms.radiosheet"},
-            {"name": "forms.televisionsheet"},
-            {"name": "forms.internetnewssheet"},
-            {"name": "forms.twittersheet"},
+            {"name": "forms.newspapersheet", "permissions": ['forms.view_newspapersheet']},
+            {"name": "forms.radiosheet", "permissions": ['forms.view_radiosheet']},
+            {"name": "forms.televisionsheet", "permissions": ['forms.view_televisionsheet']},
+            {"name": "forms.internetnewssheet", "permissions": ['forms.view_internetnewssheet']},
+            {"name": "forms.twittersheet", "permissions": ['forms.view_twittersheet']},
         ],
     },
     {
         "label": _("Access Control"),
-        "items": [{"name": "auth.user"}, {"name": "auth.group"},],
+        "items": [{"name": "auth.user", "permissions": ['auth.view_user']}, {"name": "auth.group", "permissions": ['auth.view_group']},],
     },
     {
         "label": _("General"),

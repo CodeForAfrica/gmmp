@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-24 14:29+0000\n"
+"POT-Creation-Date: 2020-08-31 07:24+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -208,6 +208,14 @@ msgstr ""
 #: gmmp/templates/admin/base_site.html:41
 msgid "Welcome,"
 msgstr ""
+
+#: gmmp/templates/admin/change_form.html:6
+msgid "Home"
+msgstr "Accueil"
+
+#: gmmp/templates/admin/change_form.html:9
+msgid "Add Article"
+msgstr "Ajouter Article"
 
 #: gmmp/templates/admin/login.html:23
 msgid "Please correct the error below."
