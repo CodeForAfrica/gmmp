@@ -32,6 +32,7 @@ services:
       - PYTHONDONTWRITEBYTECODE="True"
       - DJANGO_DEBUG=${DJANGO_DEBUG:-True} # For testing deploys
       - GMMP_EMAIL_HOST_PASSWORD=${GMMP_EMAIL_HOST_PASSWORD}
+      - OAUTHLIB_RELAX_TOKEN_SCOPE=1 # https://stackoverflow.com/a/51643134
     command:
       [
         "--log-level",
