@@ -8,5 +8,17 @@
 &rsaquo; {% if has_view_permission %}<a href="{% url opts|admin_urlname:'changelist' %}">{{ opts.verbose_name_plural|capfirst }}</a>{% else %}{{ opts.verbose_name_plural|capfirst }}{% endif %}
 &rsaquo; {% if add %}{% blocktrans with name=opts.verbose_name %}Add Article{% endblocktrans %}{% else %}{{ original|truncatewords:"18" }}{% endif %}
 </div>
+    <div class="breadcrumbs">
+        &rsaquo;<label>Monitor mode?</label>           
+                <label>
+                    <input type="radio" id="short_monitor_mode" name="monitor_mode" value="SHORT" checked>
+                        Short
+                </label>
+                <label>
+                    <input type="radio" id="long_monitor_mode" name="monitor_mode" value="LONG">
+                        Long 
+            </label>
+    </div>
+</div>
 {% endblock %}
 
