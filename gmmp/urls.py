@@ -47,6 +47,7 @@ urlpatterns = (
         path('reports/', include('reports.urls')),
         prefix_default_language=False,
     )
+    + [path("", include("gsheets.urls"))]
     + [path("i18n/", include("django.conf.urls.i18n"))]
     + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 )
