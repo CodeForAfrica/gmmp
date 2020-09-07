@@ -126,9 +126,19 @@ class PersonInTheNewsInLine(admin.StackedInline):
             country = request.user.monitor.country
             country_special_questions = SpecialQuestions.objects.filter(country=country).first()
             if country_special_questions:
-                form.form.base_fields['special_qn_1'].label = country_special_questions.question_1
-                form.form.base_fields['special_qn_2'].label = country_special_questions.question_2
-                form.form.base_fields['special_qn_3'].label = country_special_questions.question_3
+                question_1 = country_special_questions.question_1
+                if question_1:
+                    label_1 = form.form.base_fields['special_qn_1'].label
+                    form.form.base_fields['special_qn_1'].label = '{}: {}'.format(label_1, question_1)
+                question_2 = country_special_questions.question_2
+                if question_2:
+                    label_2 = form.form.base_fields['special_qn_2'].label
+                    form.form.base_fields['special_qn_2'].label = '{}: {}'.format(label_2, question_2)
+                question_3 = country_special_questions.question_3
+                if question_3:
+                    label_3 = form.form.base_fields['special_qn_3'].label
+                    form.form.base_fields['special_qn_3'].label = '{}: {}'.format(label_3, question_3)
+
             return form
 
 class NewspaperPersonInline(PersonInTheNewsInLine):
