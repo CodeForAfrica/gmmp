@@ -519,7 +519,8 @@ class TwitterSheetAdmin(PermsAdmin):
     class Media:
         js = [
             'forms/admin/move_fields.js',
-            'forms/admin/move_twitter_fields.js'
+            'forms/admin/move_twitter_fields.js',
+            'forms/admin/dependency_fields.js'
         ]
 
 

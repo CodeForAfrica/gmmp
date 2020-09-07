@@ -6,7 +6,7 @@
         }
     };
     let internent_check = function () {
-        // For TV show the age
+        // For Internet show the age
         if($('#internetnewssheet_form').length > 0){
             $('.field-age').show();
         }
