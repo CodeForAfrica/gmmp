@@ -10,14 +10,12 @@ services:
       - POSTGRES_DB=gmmp
       - PGUSER=gmmp
       - PGPASSWORD=gmmp
-
   web:
     build: .
     ports:
       - "8000:8000"
     volumes:
-      - .:/src/gmmp
-      - ./contrib/docker/entrypoint.sh:/docker-entrypoint.sh
+      - .:/app
       - logvolume01:/var/log
     depends_on:
       - db
@@ -34,10 +32,9 @@ services:
       - GMMP_EMAIL_HOST_PASSWORD=${GMMP_EMAIL_HOST_PASSWORD}
     command:
       [
-        "--log-level",
-        "debug",
-        "--name",
-        "gmmp",
+        "./contrib/docker/cmd.sh",
+        "--log-level=debug",
+        "--name=gmmp",
         "--reload",
         "gmmp.wsgi:application",
       ]
