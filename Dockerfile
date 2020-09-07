@@ -71,7 +71,8 @@ EXPOSE 8000
 COPY ${APP_HOST} ${APP_DOCKER}
 COPY ${APP_HOST}/contrib/docker/*.sh /
 RUN chmod +x /entrypoint.sh \
-    && chmod +x /cmd.sh
+    && chmod +x /cmd.sh \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 ### Run app
 ENTRYPOINT ["/entrypoint.sh"]
