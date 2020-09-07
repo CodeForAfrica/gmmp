@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     "django_extensions",
     "guardian",
     "django_countries",
+    "gsheets",
     "forms",
     "reports",
 ]
@@ -287,3 +288,11 @@ JET_SIDE_MENU_ITEMS = [
     },
 ]
 
+# GSheets
+GSHEETS = {
+    'CLIENT_SECRETS': os.path.join(BASE_DIR, env.get("GSHEETS_CLIENT_SECRETS", ".env/credentials.json")),
+}
+GSHEETS_SPECIAL_QUESTIONS = {
+    'SPREADSHEET_ID': '1dttFvgcmS4yYrioge2Awav5k65QSAlSd95bX9yCqjA0',
+    'SHEET_NAME': 'DATA',
+}
