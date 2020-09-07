@@ -1517,7 +1517,7 @@ msgstr ""
 
 #: forms/modelutils.py:136
 msgid "(7) 80 years or more"
-msgstr "(6) 80 años o más"
+msgstr "(7) 80 años o más"
 
 #: forms/modelutils.py:141
 msgid "(1) Person"

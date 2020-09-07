@@ -1543,10 +1543,8 @@ msgid "(6) 65-79"
 msgstr ""
 
 #: forms/modelutils.py:136
-#, fuzzy
-#| msgid "(6) 65 years or more"
 msgid "(7) 80 years or more"
-msgstr "(6) 80+"
+msgstr "(7) 80+"
 
 #: forms/modelutils.py:141
 msgid "(1) Person"
