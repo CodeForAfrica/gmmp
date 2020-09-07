@@ -1,31 +1,14 @@
-#!/bin/bash
-set -e
+#!/bin/sh
 
-until psql $DATABASE_URL -c '\l'; do
-  >&2 echo "Postgres is unavailable - sleeping"
-  sleep 1
-done
+if [ "$DATABASE" = "postgres" ]
+then
+    echo "Waiting for postgres..."
 
->&2 echo "Postgres is up - continuing"
+    while ! nc -z $SQL_HOST $SQL_PORT; do
+      sleep 0.1
+    done
 
-python manage.py migrate guardian --noinput
-python manage.py migrate jet --noinput
-python manage.py migrate dashboard --noinput
-python manage.py migrate --noinput               # Apply database migrations
-django-admin compilemessages                     # Compile *.po translation files
-python manage.py collectstatic --clear --noinput # Collect static files
+    echo "PostgreSQL started"
+fi
 
-# Prepare log files and start outputting logs to stdout
-touch /src/logs/gunicorn.log
-touch /src/logs/access.log
-tail -n 0 -f /src/logs/*.log &
-
-# Start Gunicorn processes
-echo Starting Gunicorn.
-exec gunicorn \
-  --bind 0.0.0.0:8000 \
-  --workers 3 \
-  --worker-class gevent \
-  --log-file=/src/logs/gunicorn.log \
-  --access-logfile=/src/logs/access.log \
-  "$@"
+exec "$@"
