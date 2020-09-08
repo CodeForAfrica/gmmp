@@ -1,5 +1,5 @@
 (function($){
-    const special_fields = function () {
+    const special_tabs = function () {
         // For TV show the age
         if($('#televisionsheet_form').length > 0){
             $('.field-age').show();
@@ -22,7 +22,7 @@
         $('.field-webpage_layer_no').show();
         $('.field-victim_or_survivor').show();
 
-        special_fields();
+        special_tabs();
         const newspaper_person = $('#id_newspaperperson_set-0-victim_or_survivor_1:checked').length;
         const radio_person = $('#id_radioperson_set-0-victim_or_survivor_1:checked').length;
         const tv_person = $('#id_televisionperson_set-0-victim_or_survivor_1:checked').length;
@@ -51,7 +51,7 @@
         $('.field-item_number').hide();
         $('.field-webpage_layer_no').hide();
         $('.field-age').hide();
-        special_fields();
+        special_tabs();
     }
 
     $(document).ready(function() {

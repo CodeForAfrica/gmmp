@@ -75,9 +75,9 @@ class NewspaperSheet(SheetModel):
     def __str__(self):
         created_at = self.created_at.strftime("%Y-%m-%d")
         space = SPACE[self.space][1].split(')')[1] if self.space else "" # Extract space title from SPACE tuple
-        page = f"page {self.page_number}" if self.page_number else ""
+        page = f" page {self.page_number}" if self.page_number else ""
 
-        return f"{self.newspaper_name} {created_at} {page} {space}"
+        return f"{self.newspaper_name} {created_at}{page} {space}"
 
 # ----------------------------
 # Radio
@@ -200,8 +200,8 @@ class TelevisionSheet(SheetModel):
     comments = field_comments(_('(N/A) Describe any photographs included in the story and the conclusions you draw from them.'))
 
     def __str__(self):
-        item_number = f"story {str(self.item_number)}" if self.item_number else ""
-        return f"{self.channel} {str(self.start_time)} {item_number}"
+        item_number = f" story {str(self.item_number)}" if self.item_number else ""
+        return f"{self.channel} {str(self.start_time)}{item_number}"
 
     class Meta:
         verbose_name = _('Television')
@@ -278,7 +278,8 @@ class InternetNewsSheet(SheetModel):
 
     def __str__(self):
         time_accessed = self.time_accessed.strftime("%Y-%m-%d %H:%M:%S")
-        return f"{self.website_name} {time_accessed} {self.website_url}"
+        website_url = f" {self.website_url}"
+        return f"{self.website_name} {time_accessed}{website_url}"
 
     class Meta:
         verbose_name = _('Internet')
@@ -342,7 +343,8 @@ class TwitterSheet(SheetModel):
 
     def __str__(self):
         created_at = self.created_at.strftime("%Y-%m-%d %H:%M:%S")
-        return f"{self.media_name} {created_at} {self.twitter_handle}"
+        twitter_handle = f" {self.twitter_handle}"
+        return f"{self.media_name} {created_at}{twitter_handle}"
 
 
 sheet_models = OrderedDict([
