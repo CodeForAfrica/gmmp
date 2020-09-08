@@ -1,37 +1,79 @@
-FROM python:3.7
-ENV DEBIAN_FRONTEND noninteractive
+# Multi-stage build
 
-# Set env variables used in this Dockerfile
-# Local directory with project source
-ENV APP_SRC=.
-# Directory in container for all project files
-ENV APP_SRVHOME=/src
-# Directory in container for project source files
-ENV APP_SRVPROJ=/src/gmmp
+###############################################################################
+## Python base image
+###############################################################################
+FROM python:3.8-slim AS python-base
 
-# Create application subdirectories
-WORKDIR $APP_SRVHOME
-RUN mkdir media static staticfiles logs
-VOLUME ["$APP_SRVHOME/media/", "$APP_SRVHOME/logs/"]
+### Arg
+#### See: https://stackoverflow.com/a/56569081
+ARG DEBIAN_FRONTEND=noninteractive
 
-# Install requirements
-RUN apt-get -qq update \
-    && apt-get -qq install -y --no-install-recommends \
-        apt-utils \
-        postgresql-client \
-        gettext \
-    && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+### Env
+ENV APP_HOST=.
+ENV APP_DOCKER=/app
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
 
-# Add application source code to SRCDIR
-ADD $APP_SRC $APP_SRVPROJ
-WORKDIR $APP_SRVPROJ
+### Dependencies
+#### System
+####  We need libpq-dev in both build and final runtime image
+RUN apt-get update \
+    && apt-get -y upgrade \
+    && apt-get -y install libpq-dev \
+    && apt-get clean
 
-RUN pip install -q -r requirements.txt
+###############################################################################
+## Python builder base image
+###############################################################################
+FROM python-base AS python-builder-base
 
+### Dependencies
+#### System
+RUN apt-get -y install gcc python-dev \
+    && pip install --upgrade pip
 
-# Expose port server
+###############################################################################
+## Python builder image
+###############################################################################
+
+FROM python-builder-base AS python-builder
+
+### Env
+ENV PATH=/root/.local/bin:$PATH
+
+### Dependencies
+#### Python
+COPY ${APP_HOST}/requirements.txt /tmp
+RUN pip install --user -r /tmp/requirements.txt
+
+###############################################################################
+## App image
+###############################################################################
+FROM python-base AS app
+
+### Env
+ENV PATH=/root/.local/bin:$PATH
+
+### Dependencies
+#### Python (copy from python-builder)
+COPY --from=python-builder /root/.local /root/.local
+
+### Volumes
+WORKDIR ${APP_DOCKER}
+RUN mkdir media static logs
+VOLUME ["${APP_DOCKER}/media/", "${APP_DOCKER}/logs/"]
+
+# Expose server port
 EXPOSE 8000
 
-COPY ./contrib/docker/entrypoint.sh /docker-entrypoint.sh
-ENTRYPOINT ["/docker-entrypoint.sh"]
-CMD ["--log-level", "info", "--name", "gmmp", "--reload", "gmmp.wsgi:application"]
+### Setup app
+COPY ${APP_HOST} ${APP_DOCKER}
+COPY ${APP_HOST}/contrib/docker/*.sh /
+RUN chmod +x /entrypoint.sh \
+    && chmod +x /cmd.sh \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+### Run app
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["/cmd.sh"]
