@@ -1,16 +1,15 @@
 (function($){
-    let tv_check = function () {
+    let special_fields = function () {
         // For TV show the age
         if($('#televisionsheet_form').length > 0){
             $('.field-age').show();
         }
-    };
-    let internent_check = function () {
         // For Internet show the age
         if($('#internetnewssheet_form').length > 0){
             $('.field-age').show();
         }
     };
+
     let long_monitoring_mode = function () {
         $('.field-page_number').show();
         $('.field-space').show();
@@ -21,11 +20,9 @@
         $('.field-special_qn_3').show();
         $('.field-item_number').show();
         $('.field-webpage_layer_no').show();
-        tv_check();
-        internent_check();
-
         $('.field-victim_or_survivor').show();
 
+        special_fields();
         let newspaper_person = $('#id_newspaperperson_set-0-victim_or_survivor_1:checked').length;
         let radio_person = $('#id_radioperson_set-0-victim_or_survivor_1:checked').length;
         let tv_person = $('#id_televisionperson_set-0-victim_or_survivor_1:checked').length;
@@ -53,8 +50,8 @@
         $('.field-special_qn_3').hide();
         $('.field-item_number').hide();
         $('.field-webpage_layer_no').hide();
-        tv_check();
-        internent_check();
+        $('.field-age').hide();
+        special_fields();
     }
 
     $(document).ready(function() {

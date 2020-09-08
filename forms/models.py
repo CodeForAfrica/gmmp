@@ -135,8 +135,8 @@ class RadioSheet(SheetModel):
     comments = field_comments(_('(N/A) Describe any photographs included in the story and the conclusions you draw from them.'))
 
     def __str__(self):
-        item_number = f"story {str(self.item_number)}" if self.item_number else ""
-        return f"{self.channel} {str(self.start_time)} {item_number}"
+        item_number = f" story {str(self.item_number)}" if self.item_number else ""
+        return f"{self.channel} {str(self.start_time)}{item_number}"
 
     class Meta:
         verbose_name = _('Radio')
