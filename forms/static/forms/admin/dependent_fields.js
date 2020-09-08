@@ -1,5 +1,5 @@
 (function($){
-    let special_fields = function () {
+    const special_fields = function () {
         // For TV show the age
         if($('#televisionsheet_form').length > 0){
             $('.field-age').show();
@@ -10,7 +10,7 @@
         }
     };
 
-    let long_monitoring_mode = function () {
+    const long_monitoring_mode = function () {
         $('.field-page_number').show();
         $('.field-space').show();
         $('.field-age').show();
@@ -23,10 +23,10 @@
         $('.field-victim_or_survivor').show();
 
         special_fields();
-        let newspaper_person = $('#id_newspaperperson_set-0-victim_or_survivor_1:checked').length;
-        let radio_person = $('#id_radioperson_set-0-victim_or_survivor_1:checked').length;
-        let tv_person = $('#id_televisionperson_set-0-victim_or_survivor_1:checked').length;
-        let internent_person = $('#id_internetnewsperson_set-0-victim_or_survivor_1:checked').length;
+        const newspaper_person = $('#id_newspaperperson_set-0-victim_or_survivor_1:checked').length;
+        const radio_person = $('#id_radioperson_set-0-victim_or_survivor_1:checked').length;
+        const tv_person = $('#id_televisionperson_set-0-victim_or_survivor_1:checked').length;
+        const internent_person = $('#id_internetnewsperson_set-0-victim_or_survivor_1:checked').length;
 
         if((newspaper_person > 0) || (radio_person > 0) || (tv_person > 0) || (internent_person > 0)){
             $('.field-victim_of').hide();
@@ -37,7 +37,7 @@
         }
     }
 
-    let short_monitoring_mode = function() {
+    const short_monitoring_mode = function() {
         // Show the short monitor mode form.
         $('.field-page_number').hide();
         $('.field-space').hide();
@@ -55,7 +55,7 @@
     }
 
     $(document).ready(function() {
-        let monitor_mode = localStorage.getItem("monitor_mode");
+        const monitor_mode = localStorage.getItem("monitor_mode");
         if(monitor_mode === "short"){
             $('#short_monitor_mode').prop("checked", true)
             short_monitoring_mode()
