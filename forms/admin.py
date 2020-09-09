@@ -220,6 +220,11 @@ class NewspaperSheetAdmin(PermsAdmin):
     }
 
     fieldsets = [
+        (_('Monitor Mode'), {
+            'fields': (
+                'monitor_mode',
+            ),
+        }),
         (_('Basic information'), {
             'fields': (
                 'newspaper_name',
@@ -287,6 +292,11 @@ class RadioSheetAdmin(PermsAdmin):
     }
 
     fieldsets = [
+        (_('Monitor Mode'), {
+            'fields': (
+                'monitor_mode',
+            ),
+        }),
         (_('Basic information'), {
             'fields': (
                 'channel', 'start_time',
@@ -349,6 +359,11 @@ class TelevisionSheetAdmin(PermsAdmin):
     }
 
     fieldsets = [
+        (_('Monitor Mode'), {
+            'fields': (
+                'monitor_mode',
+            ),
+        }),
         (_('Basic information'), {
             'fields': (
                 'channel', 'start_time',
@@ -418,6 +433,11 @@ class InternetNewsSheetAdmin(PermsAdmin):
     }
 
     fieldsets = [
+        (_('Monitor Mode'), {
+            'fields': (
+                'monitor_mode',
+            ),
+        }),
         (_('Basic information'), {
             'fields': (
                 'website_name', 'website_url', 'time_accessed', 'offline_presence'
@@ -482,6 +502,11 @@ class TwitterSheetAdmin(PermsAdmin):
     }
 
     fieldsets = [
+        (_('Monitor Mode'), {
+            'fields': (
+                'monitor_mode',
+            ),
+        }),
         (_('Basic information'), {
             'fields': (
                 'media_name', 'twitter_handle'

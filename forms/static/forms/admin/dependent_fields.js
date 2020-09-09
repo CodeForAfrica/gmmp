@@ -55,12 +55,10 @@
     }
 
     $(document).ready(function() {
-        const monitor_mode = localStorage.getItem("monitor_mode");
+        const monitor_mode = $("#id_monitor_mode").find(":selected").text().toLowerCase()
         if(monitor_mode === "short"){
-            $('#short_monitor_mode').prop("checked", true)
             short_monitoring_mode()
         }else{
-            $('#long_monitor_mode').prop("checked", true);
             long_monitoring_mode()
         }
     });
@@ -107,6 +105,11 @@
             removeValue('id_internetnewsperson_set-0-survivor_of');
             $('.field-victim_of').show();
             $('.field-survivor_of').show();
+        const monitor_mode = $("#id_monitor_mode").find(":selected").text().toLowerCase()
+        if(monitor_mode === "short"){
+            short_monitoring_mode()
+        }else{
+            long_monitoring_mode()
         }
     });
 }(jet.jQuery));
