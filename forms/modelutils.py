@@ -104,8 +104,8 @@ YESNO = (
 )
 
 MONITOR_MODE = (
-    (1, _('Long')),
-    (2, _('Short')),
+    (1, _('Full monitoring')),
+    (2, _('Short monitoring')),
 )
 
 YESNO_NUMBER = (
@@ -282,7 +282,7 @@ class CountryRegion(models.Model):
 
 class SheetModel(models.Model):
     monitor = models.ForeignKey(Monitor, null=True, on_delete=models.SET_NULL)
-    monitor_mode = models.IntegerField(choices=MONITOR_MODE, default=1)
+    monitor_mode = models.IntegerField(choices=MONITOR_MODE, default=1, verbose_name=_('Format'))
     country = CountryField(null=True)
     country_region = models.ForeignKey(CountryRegion, null=True, on_delete=models.SET_NULL)
 
