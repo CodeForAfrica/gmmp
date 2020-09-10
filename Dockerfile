@@ -76,4 +76,4 @@ RUN chmod +x /entrypoint.sh \
 
 ### Run app
 ENTRYPOINT ["/entrypoint.sh"]
-CMD ["/cmd.sh"]
+CMD ["/cmd.sh", "gmmp.wsgi:application"]
