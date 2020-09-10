@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-31 07:24+0000\n"
+"POT-Creation-Date: 2020-09-10 14:38+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,11 +18,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: forms/admin.py:44
+#: forms/admin.py:45
 msgid "Add Article"
 msgstr ""
 
-#: forms/admin.py:55
+#: forms/admin.py:56
 msgid ""
 "For each newspaper story, you should code each journalist/reporter who wrote "
 "the story and whose name appears.\n"
@@ -34,7 +34,7 @@ msgid ""
 "News agencies"
 msgstr ""
 
-#: forms/admin.py:67 forms/admin.py:83
+#: forms/admin.py:68 forms/admin.py:84
 msgid ""
 "Use one line on the coding sheet for:\n"
 "<br/>\n"
@@ -44,7 +44,7 @@ msgid ""
 "Each reporter"
 msgstr ""
 
-#: forms/admin.py:98
+#: forms/admin.py:99
 msgid ""
 "For each online news story, you should code each journalist/reporter who "
 "wrote the story and whose name appears.\n"
@@ -56,7 +56,7 @@ msgid ""
 "News agencies"
 msgstr ""
 
-#: forms/admin.py:109
+#: forms/admin.py:110
 msgid ""
 "<strong>Click on the link in the tweet leading to the full story to see the "
 "name of the journalist or reporter.</strong>\n"
@@ -71,58 +71,63 @@ msgid ""
 "News agencies"
 msgstr ""
 
-#: forms/admin.py:132
+#: forms/admin.py:153
 msgid "People in the article"
 msgstr ""
 
-#: forms/admin.py:133
+#: forms/admin.py:154
 msgid "Person mentioned in the article"
 msgstr ""
 
-#: forms/admin.py:143 forms/admin.py:154
+#: forms/admin.py:164 forms/admin.py:175
 msgid "People in the broadcast"
 msgstr ""
 
-#: forms/admin.py:144 forms/admin.py:155
+#: forms/admin.py:165 forms/admin.py:176
 msgid "Person mentioned in the broadcast"
 msgstr ""
 
-#: forms/admin.py:166 forms/admin.py:222 forms/admin.py:288 forms/admin.py:354
-#: forms/admin.py:420 forms/admin.py:488
+#: forms/admin.py:187 forms/admin.py:248 forms/admin.py:319 forms/admin.py:387
+#: forms/admin.py:458 forms/admin.py:531
 msgid "People in the news"
 msgstr ""
 
-#: forms/admin.py:167
+#: forms/admin.py:188
 msgid "Person in the news"
 msgstr ""
 
-#: forms/admin.py:173
+#: forms/admin.py:194
 msgid "People in the tweet"
 msgstr ""
 
-#: forms/admin.py:174
+#: forms/admin.py:195
 msgid "Person mentioned in the tweet"
 msgstr ""
 
-#: forms/admin.py:202 forms/admin.py:269 forms/admin.py:334 forms/admin.py:403
-#: forms/admin.py:467
+#: forms/admin.py:223 forms/admin.py:295 forms/admin.py:362 forms/admin.py:436
+#: forms/admin.py:505 forms/modelutils.py:285
+msgid "Format"
+msgstr ""
+
+#: forms/admin.py:228 forms/admin.py:300 forms/admin.py:367 forms/admin.py:441
+#: forms/admin.py:510
 msgid "Basic information"
 msgstr ""
 
-#: forms/admin.py:207 forms/admin.py:275 forms/admin.py:340
+#: forms/admin.py:233 forms/admin.py:306 forms/admin.py:373
 msgid "Story"
 msgstr ""
 
-#: forms/admin.py:212 forms/admin.py:280 forms/admin.py:346 forms/admin.py:478
+#: forms/admin.py:238 forms/admin.py:311 forms/admin.py:379 forms/admin.py:521
 msgid "Analysis"
 msgstr ""
 
-#: forms/admin.py:215 forms/admin.py:283 forms/admin.py:349 forms/admin.py:414
-#: forms/admin.py:481
+#: forms/admin.py:241 forms/admin.py:314 forms/admin.py:382 forms/admin.py:452
+#: forms/admin.py:524
 msgid "Journalists & Reporters"
 msgstr ""
 
-#: forms/admin.py:216
+#: forms/admin.py:242
 msgid ""
 "Column 9 is for the journalist or reporter. For each story, code each "
 "journalist/reporter who wrote the story and whose name appears. Code each "
@@ -133,7 +138,7 @@ msgid ""
 "'Our correspondent'); (ii) News agencies"
 msgstr ""
 
-#: forms/admin.py:223
+#: forms/admin.py:249
 msgid ""
 "Columns 10 - 22 are for people in the news.\n"
 "            <br/>\n"
@@ -143,11 +148,11 @@ msgid ""
 "person in the story who is quoted, either directly or indirectly."
 msgstr ""
 
-#: forms/admin.py:229 forms/admin.py:294 forms/admin.py:361 forms/admin.py:426
+#: forms/admin.py:255 forms/admin.py:325 forms/admin.py:394 forms/admin.py:464
 msgid "Does this story warrant further analysis?"
 msgstr ""
 
-#: forms/admin.py:230
+#: forms/admin.py:256
 msgid ""
 "A story warrants further analysis if it clearly perpetuates or clearly "
 "challenges gender stereotypes, if it includes women’s opinions in a "
@@ -159,19 +164,18 @@ msgid ""
 "the clipping to your national/regional coordinator.</small>"
 msgstr ""
 
-#: forms/admin.py:235 forms/admin.py:300 forms/admin.py:367 forms/admin.py:432
-#: forms/admin.py:495
+#: forms/admin.py:261 forms/admin.py:400 forms/admin.py:470 forms/admin.py:538
 msgid "Comments & Explanations"
 msgstr ""
 
-#: forms/admin.py:284
+#: forms/admin.py:315
 msgid ""
 "Columns 8 and 9 are for journalists, presenters, anchors, reporters, etc. "
 "Code the anchor/announcer even if it is the same person for each news item. "
 "Code each reporter and journalist"
 msgstr ""
 
-#: forms/admin.py:289
+#: forms/admin.py:320
 msgid ""
 " Columns 10 to 19 are for people in the news. Code: (i) Each person in the "
 "story who speaks (ii) any person whom the story is about, even if they do "
@@ -184,7 +188,7 @@ msgid ""
 "interpreter)."
 msgstr ""
 
-#: forms/admin.py:295
+#: forms/admin.py:326
 msgid ""
 "A story warrants further analysis if it clearly perpetuates or clearly "
 "challenges gender stereotypes, if it includes women’s opinions in a "
@@ -196,14 +200,14 @@ msgid ""
 "the recording to your national/regional coordinator.</small>"
 msgstr ""
 
-#: forms/admin.py:350
+#: forms/admin.py:383
 msgid ""
 "Columns 8, 9 and 10 are for journalists, presenters, anchors, reporters, "
 "etc. Code the anchor/announcer even if it is the same person for each news "
 "item. Code each reporter and journalist. Code each person in a separate row"
 msgstr ""
 
-#: forms/admin.py:355
+#: forms/admin.py:388
 msgid ""
 "Columns 11 to 21 are for people in the news. Code each person in the story "
 "who speaks, and any person whom the story is about, even if they do not "
@@ -217,7 +221,7 @@ msgid ""
 "an interpreter)."
 msgstr ""
 
-#: forms/admin.py:362
+#: forms/admin.py:395
 msgid ""
 "A story warrants further analysis if it clearly perpetuates or alternatively "
 "challenges gender stereotypes, if it includes women’s opinions in a "
@@ -229,7 +233,7 @@ msgid ""
 "the recording to your national/regional coordinator.</small>"
 msgstr ""
 
-#: forms/admin.py:415
+#: forms/admin.py:453
 msgid ""
 "Columns 10 and 11 are for the reporter or journalist. For each story, code "
 "each journalist/reporter (i) who wrote the story and whose name appears, or "
@@ -239,7 +243,7 @@ msgid ""
 "'Our correspondent'); (ii) News agencies."
 msgstr ""
 
-#: forms/admin.py:421
+#: forms/admin.py:459
 msgid ""
 "Columns 12 to 24 are for people in the news whether in the text or in video "
 "clips. Code (i) any person whom the story is about even if they are not "
@@ -254,7 +258,7 @@ msgid ""
 "an interpreter)."
 msgstr ""
 
-#: forms/admin.py:427
+#: forms/admin.py:465
 msgid ""
 "A story warrants further analysis if it clearly perpetuates or clearly "
 "challenges gender stereotypes, if it includes women's opinions in a "
@@ -267,11 +271,11 @@ msgid ""
 "features in it to your national/regional coordinator.</small>"
 msgstr ""
 
-#: forms/admin.py:472
+#: forms/admin.py:515
 msgid "Tweet"
 msgstr ""
 
-#: forms/admin.py:482
+#: forms/admin.py:525
 msgid ""
 "Columns 7 and 8 are for the reporter or journalist. Code the journalist to "
 "who the twitter account belongs if the account does not belong to the media "
@@ -282,7 +286,7 @@ msgid ""
 "'Our correspondent'); (ii) News agencies."
 msgstr ""
 
-#: forms/admin.py:489
+#: forms/admin.py:532
 msgid ""
 "Columns 9 - 16 are for people in the tweet. Code (i) any person whom the "
 "tweet is about even if they are not interviewed or quoted; (ii) Each person "
@@ -298,121 +302,121 @@ msgid ""
 "an interpreter)."
 msgstr ""
 
-#: forms/models.py:31 forms/models.py:81
+#: forms/models.py:35 forms/models.py:87
 msgid "(10) Sex"
 msgstr ""
 
-#: forms/models.py:32
+#: forms/models.py:36
 msgid "(11) Age (person appears)"
 msgstr ""
 
-#: forms/models.py:33
+#: forms/models.py:37
 msgid "(12) Occupation or Position"
 msgstr ""
 
-#: forms/models.py:34
+#: forms/models.py:38
 msgid "(13) Function in the news story"
 msgstr ""
 
-#: forms/models.py:35
+#: forms/models.py:39
 msgid "(14) Family Role Given?"
 msgstr ""
 
-#: forms/models.py:36
+#: forms/models.py:40
 msgid "(15) Does the story identify the person as either a victim or survivor?"
 msgstr ""
 
-#: forms/models.py:37
+#: forms/models.py:41
 msgid "(16) The story identifies the person as a victim of:"
 msgstr ""
 
-#: forms/models.py:38
+#: forms/models.py:42
 msgid "(17) The story identifies the person as a survivor of:"
 msgstr ""
 
-#: forms/models.py:39
+#: forms/models.py:43
 msgid "(18) Is the person directly quoted"
 msgstr ""
 
-#: forms/models.py:40
+#: forms/models.py:44
 msgid "(19) Is there a photograph of the person in the story?"
 msgstr ""
 
-#: forms/models.py:42
+#: forms/models.py:46
 msgid "(20) Special question (1)"
 msgstr ""
 
-#: forms/models.py:43
+#: forms/models.py:47
 msgid "(21) Special question (2)"
 msgstr ""
 
-#: forms/models.py:44
+#: forms/models.py:48
 msgid "(22) Special question (3)"
 msgstr ""
 
-#: forms/models.py:50 forms/models.py:55
+#: forms/models.py:54 forms/models.py:59
 msgid "Newspaper"
 msgstr ""
 
-#: forms/models.py:55
+#: forms/models.py:59
 msgid ""
 "Be as specific as possible. If the paper has different regional editions, "
 "write in the name of the edition you are monitoring - e.g. 'The Hindu - "
 "Delhi edition'."
 msgstr ""
 
-#: forms/models.py:57
+#: forms/models.py:61
 msgid "(1) Page Number"
 msgstr ""
 
-#: forms/models.py:57
+#: forms/models.py:61
 msgid ""
 "Write in the number of the page on which the story begins. Story appears on "
 "first page = 1, Seventh page = 7, etc."
 msgstr ""
 
-#: forms/models.py:58 forms/models.py:120 forms/models.py:187
-#: forms/models.py:258 forms/models.py:331
+#: forms/models.py:62 forms/models.py:124 forms/models.py:189
+#: forms/models.py:259 forms/models.py:331
 msgid "(z) Is this story related to coronavirus Covid-19?"
 msgstr ""
 
-#: forms/models.py:59 forms/models.py:121 forms/models.py:188
-#: forms/models.py:259 forms/models.py:332
+#: forms/models.py:63 forms/models.py:125 forms/models.py:190
+#: forms/models.py:260 forms/models.py:332
 msgid "(2) Topic"
 msgstr ""
 
-#: forms/models.py:60 forms/models.py:122 forms/models.py:189
-#: forms/models.py:260
+#: forms/models.py:64 forms/models.py:126 forms/models.py:191
+#: forms/models.py:261
 msgid "(3) Scope"
 msgstr ""
 
-#: forms/models.py:61
+#: forms/models.py:65
 msgid "(4) Space"
 msgstr ""
 
-#: forms/models.py:63
+#: forms/models.py:67
 msgid "(5) Reference to gender equality / human rights legislation/ policy"
 msgstr ""
 
-#: forms/models.py:64
+#: forms/models.py:68
 msgid "(6) Is the story about a particular woman or group of women?"
 msgstr ""
 
-#: forms/models.py:65
+#: forms/models.py:69
 msgid ""
 "(7) This story clearly highlights issues of inequality between women and men"
 msgstr ""
 
-#: forms/models.py:66
+#: forms/models.py:70
 msgid "(8) This story clearly challenges gender stereotypes"
 msgstr ""
 
-#: forms/models.py:68
+#: forms/models.py:72
 msgid "(24) Does this story warrant further analysis?"
 msgstr ""
 
-#: forms/models.py:68 forms/models.py:129 forms/models.py:196
-#: forms/models.py:274
+#: forms/models.py:72 forms/models.py:133 forms/models.py:198
+#: forms/models.py:275
 msgid ""
 "<br><br>A story warrants further analysis if it clearly perpetuates or "
 "clearly challenges gender stereotypes, if it includes women's opinions in a "
@@ -421,246 +425,246 @@ msgid ""
 "rights, etc. Consult the guide for further explanation"
 msgstr ""
 
-#: forms/models.py:69
+#: forms/models.py:73
 msgid ""
 "(23) Describe any photographs included in the story and the conclusions you "
 "draw from them."
 msgstr ""
 
-#: forms/models.py:82 forms/models.py:306
+#: forms/models.py:88 forms/models.py:306
 msgid "(11) Occupation or Position"
 msgstr ""
 
-#: forms/models.py:83 forms/models.py:307
+#: forms/models.py:89 forms/models.py:307
 msgid "(12) Function in the news story"
 msgstr ""
 
-#: forms/models.py:84
+#: forms/models.py:90
 msgid "(13) Family Role Given?"
 msgstr ""
 
-#: forms/models.py:85
+#: forms/models.py:91
 msgid "(14) Does the story identify the person as either a victim or survivor?"
 msgstr ""
 
-#: forms/models.py:86
+#: forms/models.py:92
 msgid "(15) The story identifies the person as a victim of:"
 msgstr ""
 
-#: forms/models.py:87
+#: forms/models.py:93
 msgid "(16) The story identifies the person as a survivor of:"
 msgstr ""
 
-#: forms/models.py:89
+#: forms/models.py:95
 msgid "(17) Special question (1)"
 msgstr ""
 
-#: forms/models.py:90
+#: forms/models.py:96
 msgid "(18) Special question (2)"
 msgstr ""
 
-#: forms/models.py:91
+#: forms/models.py:97
 msgid "(19) Special question (3)"
 msgstr ""
 
-#: forms/models.py:113 forms/models.py:181
+#: forms/models.py:117 forms/models.py:183
 msgid "Channel"
 msgstr ""
 
-#: forms/models.py:113
+#: forms/models.py:117
 msgid ""
 "Be as specific as possible. E.g. if the radio company is called RRI, and if "
 "the newscast is broadcast on its third channel, write in 'RRI-3'."
 msgstr ""
 
-#: forms/models.py:115 forms/models.py:182
+#: forms/models.py:119 forms/models.py:184
 msgid "Time of Broadcast"
 msgstr ""
 
-#: forms/models.py:116 forms/models.py:183
+#: forms/models.py:120 forms/models.py:185
 msgid "Number of female anchors"
 msgstr ""
 
-#: forms/models.py:117 forms/models.py:184
+#: forms/models.py:121 forms/models.py:186
 msgid "Number of male anchors"
 msgstr ""
 
-#: forms/models.py:119 forms/models.py:186
+#: forms/models.py:123 forms/models.py:188
 msgid "(1) Item Number"
 msgstr ""
 
-#: forms/models.py:124 forms/models.py:191
+#: forms/models.py:128 forms/models.py:193
 msgid "(4) Reference to gender equality / human rights legislation/ policy"
 msgstr ""
 
-#: forms/models.py:125 forms/models.py:192
+#: forms/models.py:129 forms/models.py:194
 msgid "(5) Is the story about a particular woman or group of women?"
 msgstr ""
 
-#: forms/models.py:126 forms/models.py:193
+#: forms/models.py:130 forms/models.py:195
 msgid ""
 "(6) This story clearly highlights issues of inequality between women and men"
 msgstr ""
 
-#: forms/models.py:127 forms/models.py:194
+#: forms/models.py:131 forms/models.py:196
 msgid "(7) This story clearly challenges gender stereotypes"
 msgstr ""
 
-#: forms/models.py:129
+#: forms/models.py:133
 msgid "(20) Does this story warrant further analysis?"
 msgstr ""
 
-#: forms/models.py:131 forms/models.py:198
+#: forms/models.py:135 forms/models.py:200
 msgid ""
 "(N/A) Describe any photographs included in the story and the conclusions you "
 "draw from them."
 msgstr ""
 
-#: forms/models.py:137
+#: forms/models.py:142
 msgid "Radio"
 msgstr ""
 
-#: forms/models.py:145
+#: forms/models.py:150
 msgid "(11) Sex"
 msgstr ""
 
-#: forms/models.py:146
+#: forms/models.py:151
 msgid "(12) Age (person appears)"
 msgstr ""
 
-#: forms/models.py:147
+#: forms/models.py:152
 msgid "(13) Occupation or Position"
 msgstr ""
 
-#: forms/models.py:148
+#: forms/models.py:153
 msgid "(14) Function in the news story"
 msgstr ""
 
-#: forms/models.py:149
+#: forms/models.py:154
 msgid "(15) Family Role Given?"
 msgstr ""
 
-#: forms/models.py:150
+#: forms/models.py:155
 msgid "(16) Does the story identify the person as either a victim or survivor?"
 msgstr ""
 
-#: forms/models.py:151
+#: forms/models.py:156
 msgid "(17) The story identifies the person as a victim of:"
 msgstr ""
 
-#: forms/models.py:152
+#: forms/models.py:157
 msgid "(18) The story identifies the person as a survivor of:"
 msgstr ""
 
-#: forms/models.py:154
+#: forms/models.py:159
 msgid "(19) Special question (1)"
 msgstr ""
 
-#: forms/models.py:155
+#: forms/models.py:160
 msgid "(20) Special question (2)"
 msgstr ""
 
-#: forms/models.py:156
+#: forms/models.py:161
 msgid "(21) Special question (3)"
 msgstr ""
 
-#: forms/models.py:181
+#: forms/models.py:183
 msgid ""
 "Be as specific as possible. E.g. if the television company is called RTV, "
 "and if the newscast is broadcast on its second channel, write in 'RTV-2' "
 msgstr ""
 
-#: forms/models.py:196
+#: forms/models.py:198
 msgid "(22) Does this story warrant further analysis?"
 msgstr ""
 
-#: forms/models.py:204
+#: forms/models.py:207
 msgid "Television"
 msgstr ""
 
-#: forms/models.py:227
+#: forms/models.py:228
 msgid "(12) Sex"
 msgstr ""
 
-#: forms/models.py:228
+#: forms/models.py:229
 msgid "(13) Age (person appears)"
 msgstr ""
 
-#: forms/models.py:229
+#: forms/models.py:230
 msgid "(14) Occupation or Position"
 msgstr ""
 
-#: forms/models.py:230
+#: forms/models.py:231
 msgid "(15) Function in the news story"
 msgstr ""
 
-#: forms/models.py:231
+#: forms/models.py:232
 msgid "(16) Family Role Given?"
 msgstr ""
 
-#: forms/models.py:232
+#: forms/models.py:233
 msgid "(17) Does the story identify the person as either a victim or survivor?"
 msgstr ""
 
-#: forms/models.py:233
+#: forms/models.py:234
 msgid "(18) The story identifies the person as a victim of:"
 msgstr ""
 
-#: forms/models.py:234
+#: forms/models.py:235
 msgid "(19) The story identifies the person as a survivor of:"
 msgstr ""
 
-#: forms/models.py:235
+#: forms/models.py:236
 msgid "(20) Is the person directly quoted"
 msgstr ""
 
-#: forms/models.py:236
+#: forms/models.py:237
 msgid "(21) Is there a photograph of the person in the story?"
 msgstr ""
 
-#: forms/models.py:238
+#: forms/models.py:239
 msgid "(22) Special question (1)"
 msgstr ""
 
-#: forms/models.py:239
+#: forms/models.py:240
 msgid "(23) Special question (2)"
 msgstr ""
 
-#: forms/models.py:240
+#: forms/models.py:241
 msgid "(24) Special question (3)"
 msgstr ""
 
-#: forms/models.py:252
+#: forms/models.py:253
 msgid "Website Name"
 msgstr ""
 
-#: forms/models.py:253
+#: forms/models.py:254
 msgid "URL"
 msgstr ""
 
-#: forms/models.py:254
+#: forms/models.py:255
 msgid "Date and Time Accessed"
 msgstr ""
 
-#: forms/models.py:255
+#: forms/models.py:256
 msgid "Offline presence?"
 msgstr ""
 
-#: forms/models.py:257
+#: forms/models.py:258
 msgid ""
 "Webpage Layer Number. Homepage=1, One click away=2, Five clicks away= 5, "
 "etc. Note that if a story appears on the front page, code with 1"
 msgstr ""
 
-#: forms/models.py:257
+#: forms/models.py:258
 msgid "(1) Webpage Layer Number"
 msgstr ""
 
-#: forms/models.py:261
+#: forms/models.py:262
 msgid "(4) Shared via twitter?"
 msgstr ""
 
-#: forms/models.py:261
+#: forms/models.py:262
 msgid ""
 "Has this story been shared by the media house via Twitter?\n"
 "\n"
@@ -669,46 +673,46 @@ msgid ""
 "name appears in the search results."
 msgstr ""
 
-#: forms/models.py:264
+#: forms/models.py:265
 msgid "(5) Shared on Facebook"
 msgstr ""
 
-#: forms/models.py:264
+#: forms/models.py:265
 msgid ""
 "Has this story been shared by the media house on its Facebook Page?\n"
 "\n"
 "<br>Scroll down the media house's Facebook page to check."
 msgstr ""
 
-#: forms/models.py:269
+#: forms/models.py:270
 msgid "(6) Reference to gender equality / human rights legislation/ policy"
 msgstr ""
 
-#: forms/models.py:270
+#: forms/models.py:271
 msgid "(7) Is the story about a particular woman or group of women?"
 msgstr ""
 
-#: forms/models.py:271
+#: forms/models.py:272
 msgid ""
 "(8) This story clearly highlights issues of inequality between women and men"
 msgstr ""
 
-#: forms/models.py:272
+#: forms/models.py:273
 msgid "(9) This story clearly challenges gender stereotypes"
 msgstr ""
 
-#: forms/models.py:274
+#: forms/models.py:275
 msgid "(26) Does this story warrant further analysis?"
 msgstr ""
 
-#: forms/models.py:276
+#: forms/models.py:277
 msgid ""
 "(25) Copy and paste the URL of the story. Describe any photographs, images, "
 "other multimedia features included in the story. Note down the conclusions "
 "you draw from the images, audio and video."
 msgstr ""
 
-#: forms/models.py:283
+#: forms/models.py:285
 msgid "Internet"
 msgstr ""
 
@@ -1150,380 +1154,388 @@ msgstr ""
 msgid "(4) Foreign/International"
 msgstr ""
 
-#: forms/modelutils.py:102 forms/modelutils.py:107 forms/modelutils.py:214
+#: forms/modelutils.py:102 forms/modelutils.py:112 forms/modelutils.py:219
 msgid "(1) Yes"
 msgstr ""
 
-#: forms/modelutils.py:103 forms/modelutils.py:108 forms/modelutils.py:215
+#: forms/modelutils.py:103 forms/modelutils.py:113 forms/modelutils.py:220
 msgid "(2) No"
 msgstr ""
 
-#: forms/modelutils.py:112
+#: forms/modelutils.py:107
+msgid "Full monitoring"
+msgstr ""
+
+#: forms/modelutils.py:108
+msgid "Short monitoring"
+msgstr ""
+
+#: forms/modelutils.py:117
 msgid "(1) Female"
 msgstr ""
 
-#: forms/modelutils.py:113
+#: forms/modelutils.py:118
 msgid "(2) Male"
 msgstr ""
 
-#: forms/modelutils.py:114
+#: forms/modelutils.py:119
 msgid "(3) Other (transgender, etc.)"
 msgstr ""
 
-#: forms/modelutils.py:115
+#: forms/modelutils.py:120
 msgid "(4) Do not know"
 msgstr ""
 
-#: forms/modelutils.py:119 forms/modelutils.py:129 forms/modelutils.py:140
-#: forms/modelutils.py:177
+#: forms/modelutils.py:124 forms/modelutils.py:134 forms/modelutils.py:145
+#: forms/modelutils.py:182
 msgid "(0) Do not know"
 msgstr ""
 
-#: forms/modelutils.py:120 forms/modelutils.py:130
+#: forms/modelutils.py:125 forms/modelutils.py:135
 msgid "(1) 12 and under"
 msgstr ""
 
-#: forms/modelutils.py:121 forms/modelutils.py:131
+#: forms/modelutils.py:126 forms/modelutils.py:136
 msgid "(2) 13-18"
 msgstr ""
 
-#: forms/modelutils.py:122 forms/modelutils.py:132
+#: forms/modelutils.py:127 forms/modelutils.py:137
 msgid "(3) 19-34"
 msgstr ""
 
-#: forms/modelutils.py:123 forms/modelutils.py:133
+#: forms/modelutils.py:128 forms/modelutils.py:138
 msgid "(4) 35-49"
 msgstr ""
 
-#: forms/modelutils.py:124 forms/modelutils.py:134
+#: forms/modelutils.py:129 forms/modelutils.py:139
 msgid "(5) 50-64"
 msgstr ""
 
-#: forms/modelutils.py:125
+#: forms/modelutils.py:130
 msgid "(6) 65 years or more"
 msgstr ""
 
-#: forms/modelutils.py:135
+#: forms/modelutils.py:140
 msgid "(6) 65-79"
 msgstr ""
 
-#: forms/modelutils.py:136
+#: forms/modelutils.py:141
 msgid "(7) 80 years or more"
 msgstr ""
 
-#: forms/modelutils.py:141
+#: forms/modelutils.py:146
 msgid "(1) Person"
 msgstr ""
 
-#: forms/modelutils.py:142
+#: forms/modelutils.py:147
 msgid "(2) Secondary Source"
 msgstr ""
 
-#: forms/modelutils.py:146
+#: forms/modelutils.py:151
 msgid "(0) Not stated"
 msgstr ""
 
-#: forms/modelutils.py:147
+#: forms/modelutils.py:152
 msgid "(1) Royalty, monarch, deposed monarch, etc."
 msgstr ""
 
-#: forms/modelutils.py:148
+#: forms/modelutils.py:153
 msgid "(2) Politician/ member of parliament, ..."
 msgstr ""
 
-#: forms/modelutils.py:149
+#: forms/modelutils.py:154
 msgid "(3) Government employee, public servant, spokesperson, etc."
 msgstr ""
 
-#: forms/modelutils.py:150
+#: forms/modelutils.py:155
 msgid "(4) Police, military, para-military, militia, fire officer"
 msgstr ""
 
-#: forms/modelutils.py:151
+#: forms/modelutils.py:156
 msgid "(5) Academic expert, lecturer, teacher"
 msgstr ""
 
-#: forms/modelutils.py:152
+#: forms/modelutils.py:157
 msgid "(6) Doctor, dentist, health specialist"
 msgstr ""
 
-#: forms/modelutils.py:153
+#: forms/modelutils.py:158
 msgid "(7) Health worker, social worker, childcare worker"
 msgstr ""
 
-#: forms/modelutils.py:154
+#: forms/modelutils.py:159
 msgid "(8) Science/ technology professional, engineer, etc."
 msgstr ""
 
-#: forms/modelutils.py:155
+#: forms/modelutils.py:160
 msgid "(9) Media professional, journalist, film-maker, etc."
 msgstr ""
 
-#: forms/modelutils.py:156
+#: forms/modelutils.py:161
 msgid "(10) Lawyer, judge, magistrate, legal advocate, etc."
 msgstr ""
 
-#: forms/modelutils.py:157
+#: forms/modelutils.py:162
 msgid "(11) Business person, exec, manager, stock broker..."
 msgstr ""
 
-#: forms/modelutils.py:158
+#: forms/modelutils.py:163
 msgid "(12) Office or service worker, non-management worker"
 msgstr ""
 
-#: forms/modelutils.py:159
+#: forms/modelutils.py:164
 msgid "(13) Tradesperson, artisan, labourer, truck driver, etc."
 msgstr ""
 
-#: forms/modelutils.py:160
+#: forms/modelutils.py:165
 msgid "(14) Agriculture, mining, fishing, forestry"
 msgstr ""
 
-#: forms/modelutils.py:161
+#: forms/modelutils.py:166
 msgid "(15) Religious figure, priest, monk, rabbi, mullah, nun"
 msgstr ""
 
-#: forms/modelutils.py:162
+#: forms/modelutils.py:167
 msgid "(16) Activist or worker in civil society org., NGO, trade union"
 msgstr ""
 
-#: forms/modelutils.py:163
+#: forms/modelutils.py:168
 msgid "(17) Sex worker"
 msgstr ""
 
-#: forms/modelutils.py:164
+#: forms/modelutils.py:169
 msgid "(18) Celebrity, artist, actor, writer, singer, TV personality"
 msgstr ""
 
-#: forms/modelutils.py:165
+#: forms/modelutils.py:170
 msgid "(19) Sportsperson, athlete, player, coach, referee"
 msgstr ""
 
-#: forms/modelutils.py:166
+#: forms/modelutils.py:171
 msgid "(20) Student, pupil, schoolchild"
 msgstr ""
 
-#: forms/modelutils.py:167
+#: forms/modelutils.py:172
 msgid ""
 "(21) Homemaker, parent (male or female)) only if no other occupation is "
 "given e.g. doctor/mother=code 6"
 msgstr ""
 
-#: forms/modelutils.py:168
+#: forms/modelutils.py:173
 msgid "(22) Child, young person no other occupation given"
 msgstr ""
 
-#: forms/modelutils.py:169
+#: forms/modelutils.py:174
 msgid "(23) Villager or resident no other occupation given"
 msgstr ""
 
-#: forms/modelutils.py:170
+#: forms/modelutils.py:175
 msgid "(24) Retired person, pensioner no other occupation given"
 msgstr ""
 
-#: forms/modelutils.py:171
+#: forms/modelutils.py:176
 msgid "(25) Criminal, suspect no other occupation given"
 msgstr ""
 
-#: forms/modelutils.py:172
+#: forms/modelutils.py:177
 msgid "(26) Unemployed no other occupation given"
 msgstr ""
 
-#: forms/modelutils.py:173
+#: forms/modelutils.py:178
 msgid "(27) Other only as last resort & explain"
 msgstr ""
 
-#: forms/modelutils.py:178
+#: forms/modelutils.py:183
 msgid "(1) Subject"
 msgstr ""
 
-#: forms/modelutils.py:179
+#: forms/modelutils.py:184
 msgid "(2) Spokesperson"
 msgstr ""
 
-#: forms/modelutils.py:180
+#: forms/modelutils.py:185
 msgid "(3) Expert or commentator"
 msgstr ""
 
-#: forms/modelutils.py:181
+#: forms/modelutils.py:186
 msgid "(4) Personal Experience"
 msgstr ""
 
-#: forms/modelutils.py:182
+#: forms/modelutils.py:187
 msgid "(5) Eye Witness"
 msgstr ""
 
-#: forms/modelutils.py:183
+#: forms/modelutils.py:188
 msgid "(6) Popular Opinion"
 msgstr ""
 
-#: forms/modelutils.py:184
+#: forms/modelutils.py:189
 msgid "(7) Other"
 msgstr ""
 
-#: forms/modelutils.py:188
+#: forms/modelutils.py:193
 msgid "(0) Not applicable (the story identifies the person only as a survivor)"
 msgstr ""
 
-#: forms/modelutils.py:189
+#: forms/modelutils.py:194
 msgid "(1) Victim of an accident, natural disaster, poverty"
 msgstr ""
 
-#: forms/modelutils.py:190
+#: forms/modelutils.py:195
 msgid "(2) Victim of domestic violence, rape, murder, etc."
 msgstr ""
 
-#: forms/modelutils.py:191
+#: forms/modelutils.py:196
 msgid ""
 "(3) Victim of non-domestic sexual violence, rape, assault, etc (sexual "
 "violence only)"
 msgstr ""
 
-#: forms/modelutils.py:192
+#: forms/modelutils.py:197
 msgid "(4) Victim of other non-domestic crime, robbery, etc."
 msgstr ""
 
-#: forms/modelutils.py:193
+#: forms/modelutils.py:198
 msgid "(5) Victim of violation based on religion, tradition..."
 msgstr ""
 
-#: forms/modelutils.py:194
+#: forms/modelutils.py:199
 msgid "(6) Victim of war, terrorism, vigilantism, state violence..."
 msgstr ""
 
-#: forms/modelutils.py:195
+#: forms/modelutils.py:200
 msgid ""
 "(7) Victim of discrimination based on gender, race, ethnicity, age, "
 "religion, ability, etc"
 msgstr ""
 
-#: forms/modelutils.py:196
+#: forms/modelutils.py:201
 msgid "(8) Other victim (specify in comments)"
 msgstr ""
 
-#: forms/modelutils.py:197 forms/modelutils.py:210
+#: forms/modelutils.py:202 forms/modelutils.py:215
 msgid "(9) Do not know, cannot decide"
 msgstr ""
 
-#: forms/modelutils.py:201
+#: forms/modelutils.py:206
 msgid "(0) Not applicable (the story identifies the person only as a victim)"
 msgstr ""
 
-#: forms/modelutils.py:202
+#: forms/modelutils.py:207
 msgid "(1) Survivor of an accident, natural disaster, poverty"
 msgstr ""
 
-#: forms/modelutils.py:203
+#: forms/modelutils.py:208
 msgid "(2) Survivor of domestic violence, rape, murder, etc."
 msgstr ""
 
-#: forms/modelutils.py:204
+#: forms/modelutils.py:209
 msgid ""
 "(3) Survivor of non-domestic sexual violence, rape, assault, etc. (sexual "
 "violence only)"
 msgstr ""
 
-#: forms/modelutils.py:205
+#: forms/modelutils.py:210
 msgid "(4) Survivor of other non-domestic crime, robbery, etc."
 msgstr ""
 
-#: forms/modelutils.py:206
+#: forms/modelutils.py:211
 msgid "(5) Survivor of violation based on religion, tradition..."
 msgstr ""
 
-#: forms/modelutils.py:207
+#: forms/modelutils.py:212
 msgid "(6) Survivor of war, terrorism, vigilantism, state violence..."
 msgstr ""
 
-#: forms/modelutils.py:208
+#: forms/modelutils.py:213
 msgid ""
 "(7) Survivor of discrimination based on gender, race, ethnicity, age, "
 "religion, ability, etc."
 msgstr ""
 
-#: forms/modelutils.py:209
+#: forms/modelutils.py:214
 msgid "(8) Other survivor (specify in comments)"
 msgstr ""
 
-#: forms/modelutils.py:216
+#: forms/modelutils.py:221
 msgid "(3) Do not know"
 msgstr ""
 
-#: forms/modelutils.py:220
+#: forms/modelutils.py:225
 msgid "(1) Agree"
 msgstr ""
 
-#: forms/modelutils.py:221
+#: forms/modelutils.py:226
 msgid "(2) Disagree"
 msgstr ""
 
-#: forms/modelutils.py:225
+#: forms/modelutils.py:230
 msgid "(1) Tweet"
 msgstr ""
 
-#: forms/modelutils.py:226
+#: forms/modelutils.py:231
 msgid "(2) Retweet"
 msgstr ""
 
-#: forms/modelutils.py:230
+#: forms/modelutils.py:235
 msgid "(1) Full page"
 msgstr ""
 
-#: forms/modelutils.py:231
+#: forms/modelutils.py:236
 msgid "(2) Half page"
 msgstr ""
 
-#: forms/modelutils.py:232
+#: forms/modelutils.py:237
 msgid "(3) One third page"
 msgstr ""
 
-#: forms/modelutils.py:233
+#: forms/modelutils.py:238
 msgid "(4) Quarter page"
 msgstr ""
 
-#: forms/modelutils.py:234
+#: forms/modelutils.py:239
 msgid "(5) Less than quarter page"
 msgstr ""
 
-#: forms/modelutils.py:238
+#: forms/modelutils.py:243
 msgid "(1) Anchor, announcer or presenter: Usually in the television studio"
 msgstr ""
 
-#: forms/modelutils.py:239
+#: forms/modelutils.py:244
 msgid ""
 "(2) Reporter: Usually outside the studio. Include reporters who do not "
 "appear on screen, but whose voice is heard (e.g. as voice-over)."
 msgstr ""
 
-#: forms/modelutils.py:240
+#: forms/modelutils.py:245
 msgid ""
 "(3) Other journalist: Sportscaster, weather forecaster, commentator/analyst "
 "etc."
 msgstr ""
 
-#: forms/modelutils.py:318
+#: forms/modelutils.py:324
 msgid "Person"
 msgstr ""
 
-#: forms/modelutils.py:344
+#: forms/modelutils.py:350
 msgid "Journalists Sex"
 msgstr ""
 
-#: forms/modelutils.py:345
+#: forms/modelutils.py:351
 msgid "Age (person appears)"
 msgstr ""
 
-#: forms/modelutils.py:375
+#: forms/modelutils.py:381
 msgid "Role"
 msgstr ""
 
-#: forms/modelutils.py:381
+#: forms/modelutils.py:387
 msgid ""
 "Code the widest geographical scope that applies: if the event has both local "
 "and national importance, code national."
 msgstr ""
 
-#: forms/modelutils.py:382
+#: forms/modelutils.py:388
 msgid ""
 "Note: For the question below it is important <strong>NOT</strong> to code "
 "COVID19-related stories under topic 23 but to choose the most relevant "
@@ -1531,7 +1543,7 @@ msgid ""
 "be compared with those from previous GMMPs."
 msgstr ""
 
-#: forms/modelutils.py:383
+#: forms/modelutils.py:389
 msgid ""
 "If the story <strong>IS</strong> COVID19-related (indicated by answer choice "
 "(1) in question (z) above, choose the <strong>topic</strong> category which "
@@ -1542,14 +1554,14 @@ msgid ""
 "coded under topic 32 <em>‘Migration, refugees...’</em>. "
 msgstr ""
 
-#: forms/modelutils.py:385
+#: forms/modelutils.py:391
 msgid ""
 "Scan the full news story and code 'Yes' if it quotes or makes reference to "
 "any piece of legislation or policy that promotes gender equality or human "
 "rights."
 msgstr ""
 
-#: forms/modelutils.py:395
+#: forms/modelutils.py:401
 msgid ""
 "The anchor (or announcer, or presenter) is the person who introduces the "
 "newscast and the individual items within it. <strong>Note: You should only "
@@ -1557,24 +1569,24 @@ msgid ""
 "journalists</strong>"
 msgstr ""
 
-#: forms/modelutils.py:397
+#: forms/modelutils.py:403
 msgid ""
 "Write in the number that describes the position of the story within the "
 "newscast. E.g. the first story in the newscast is item 1; the seventh story "
 "is item 7."
 msgstr ""
 
-#: forms/modelutils.py:403
+#: forms/modelutils.py:409
 msgid "Other Occupation"
 msgstr ""
 
-#: forms/modelutils.py:405
+#: forms/modelutils.py:411
 msgid ""
 "Code yes only if the word 'wife', 'husband' etc is actually used to describe "
 "the person."
 msgstr ""
 
-#: forms/modelutils.py:408
+#: forms/modelutils.py:414
 msgid ""
 "You should code a person as a victim <strong>either</strong> if the word "
 "'victim' is used to describe her/him, <strong>or</strong> if the story "
@@ -1586,17 +1598,17 @@ msgid ""
 "that evoke particular emotions such as admiration or respect for the person."
 msgstr ""
 
-#: forms/modelutils.py:411
+#: forms/modelutils.py:418
 #, python-format
 msgid "(%s) Add comments if Other Victim was selected above"
 msgstr ""
 
-#: forms/modelutils.py:413
+#: forms/modelutils.py:420
 #, python-format
 msgid "(%s) Add comments if Other Survivor was selected above"
 msgstr ""
 
-#: forms/modelutils.py:415
+#: forms/modelutils.py:422
 msgid ""
 "A person is <strong>directly quoted</strong> if their own words are printed, "
 "e.g. \"The war against terror is our first priority\" said President Bush."
