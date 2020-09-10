@@ -58,11 +58,11 @@ class NewspaperSheet(SheetModel):
 
     newspaper_name = models.CharField(max_length=255, verbose_name=_('Newspaper'), help_text=_('''Be as specific as possible. If the paper has different regional editions, write in the name of the edition you are monitoring - e.g. 'The Hindu - Delhi edition'.'''))
 
-    page_number = models.PositiveIntegerField(verbose_name=_('(1) Page Number'), help_text=_('Write in the number of the page on which the story begins. Story appears on first page = 1, Seventh page = 7, etc.'))
+    page_number = models.PositiveIntegerField(verbose_name=_('(1) Page Number'), help_text=_('Write in the number of the page on which the story begins. Story appears on first page = 1, Seventh page = 7, etc.'), null=True, blank=True)
     covid19 = field_covid19(_('(z) Is this story related to coronavirus Covid-19?'))
     topic = field_topic(_('(2) Topic'))
     scope = field_scope(_('(3) Scope'))
-    space = models.PositiveIntegerField(choices=SPACE, verbose_name=_('(4) Space'))
+    space = models.PositiveIntegerField(choices=SPACE, verbose_name=_('(4) Space'), null=True, blank=True)
 
     equality_rights = field_equality_rights(_('(5) Reference to gender equality / human rights legislation/ policy'))
     about_women = field_about_women(_('(6) Is the story about a particular woman or group of women?'))
@@ -74,8 +74,10 @@ class NewspaperSheet(SheetModel):
 
     def __str__(self):
         created_at = self.created_at.strftime("%Y-%m-%d")
-        space = SPACE[self.space][1].split(')')[1] # Extract space title from SPACE tuple
-        return f"{self.newspaper_name} {created_at} page {self.page_number} {space}"
+        space = SPACE[self.space][1].split(')')[1] if self.space else "" # Extract space title from SPACE tuple
+        page = f" page {self.page_number}" if self.page_number else ""
+
+        return f"{self.newspaper_name} {created_at}{page} {space}"
 
 # ----------------------------
 # Radio
@@ -133,7 +135,8 @@ class RadioSheet(SheetModel):
     comments = field_comments(_('(N/A) Describe any photographs included in the story and the conclusions you draw from them.'))
 
     def __str__(self):
-        return f"{self.channel} {str(self.start_time)} story {str(self.item_number)}"
+        item_number = f" story {str(self.item_number)}" if self.item_number else ""
+        return f"{self.channel} {str(self.start_time)}{item_number}"
 
     class Meta:
         verbose_name = _('Radio')
@@ -197,7 +200,8 @@ class TelevisionSheet(SheetModel):
     comments = field_comments(_('(N/A) Describe any photographs included in the story and the conclusions you draw from them.'))
 
     def __str__(self):
-        return f"{self.channel} {str(self.start_time)} story {str(self.item_number)}"
+        item_number = f" story {str(self.item_number)}" if self.item_number else ""
+        return f"{self.channel} {str(self.start_time)}{item_number}"
 
     class Meta:
         verbose_name = _('Television')
@@ -251,7 +255,7 @@ class InternetNewsSheet(SheetModel):
     time_accessed = models.DateTimeField(verbose_name=_('Date and Time Accessed'))
     offline_presence = models.CharField(max_length=1, choices=YESNO, verbose_name=_('Offline presence?'))
 
-    webpage_layer_no = models.PositiveIntegerField(help_text=_('Webpage Layer Number. Homepage=1, One click away=2, Five clicks away= 5, etc. Note that if a story appears on the front page, code with 1'), verbose_name=_('(1) Webpage Layer Number'))
+    webpage_layer_no = models.PositiveIntegerField(help_text=_('Webpage Layer Number. Homepage=1, One click away=2, Five clicks away= 5, etc. Note that if a story appears on the front page, code with 1'), verbose_name=_('(1) Webpage Layer Number'), blank=True, null=True)
     covid19 = field_covid19(_('(z) Is this story related to coronavirus Covid-19?'))
     topic = field_topic(_('(2) Topic'))
     scope = field_scope(_('(3) Scope'))
@@ -274,7 +278,8 @@ class InternetNewsSheet(SheetModel):
 
     def __str__(self):
         time_accessed = self.time_accessed.strftime("%Y-%m-%d %H:%M:%S")
-        return f"{self.website_name} {time_accessed} {self.website_url}"
+        website_url = f" {self.website_url}"
+        return f"{self.website_name} {time_accessed}{website_url}"
 
     class Meta:
         verbose_name = _('Internet')
@@ -338,7 +343,8 @@ class TwitterSheet(SheetModel):
 
     def __str__(self):
         created_at = self.created_at.strftime("%Y-%m-%d %H:%M:%S")
-        return f"{self.media_name} {created_at} {self.twitter_handle}"
+        twitter_handle = f" {self.twitter_handle}"
+        return f"{self.media_name} {created_at}{twitter_handle}"
 
 
 sheet_models = OrderedDict([

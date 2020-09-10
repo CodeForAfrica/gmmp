@@ -220,6 +220,11 @@ class NewspaperSheetAdmin(PermsAdmin):
     }
 
     fieldsets = [
+        (_('Monitor Mode'), {
+            'fields': (
+                'monitor_mode',
+            ),
+        }),
         (_('Basic information'), {
             'fields': (
                 'newspaper_name',
@@ -264,7 +269,7 @@ class NewspaperSheetAdmin(PermsAdmin):
         js = [
             'forms/admin/move_fields.js',
             'forms/admin/move_fields_newspaper.js',
-            'forms/admin/dependency_fields.js'
+            'forms/admin/dependent_fields.js'
         ]
 
 class RadioSheetAdmin(PermsAdmin):
@@ -287,6 +292,11 @@ class RadioSheetAdmin(PermsAdmin):
     }
 
     fieldsets = [
+        (_('Monitor Mode'), {
+            'fields': (
+                'monitor_mode',
+            ),
+        }),
         (_('Basic information'), {
             'fields': (
                 'channel', 'start_time',
@@ -326,7 +336,7 @@ class RadioSheetAdmin(PermsAdmin):
         js = [
             'forms/admin/move_fields.js',
             'forms/admin/move_radio_fields.js',
-            'forms/admin/dependency_fields.js'
+            'forms/admin/dependent_fields.js'
         ]
 
 class TelevisionSheetAdmin(PermsAdmin):
@@ -349,6 +359,11 @@ class TelevisionSheetAdmin(PermsAdmin):
     }
 
     fieldsets = [
+        (_('Monitor Mode'), {
+            'fields': (
+                'monitor_mode',
+            ),
+        }),
         (_('Basic information'), {
             'fields': (
                 'channel', 'start_time',
@@ -393,7 +408,7 @@ class TelevisionSheetAdmin(PermsAdmin):
         js = [
             'forms/admin/move_fields.js',
             'forms/admin/move_television_fields.js',
-            'forms/admin/dependency_fields.js'
+            'forms/admin/dependent_fields.js'
         ]
 class InternetNewsSheetAdmin(PermsAdmin):
 
@@ -418,6 +433,11 @@ class InternetNewsSheetAdmin(PermsAdmin):
     }
 
     fieldsets = [
+        (_('Monitor Mode'), {
+            'fields': (
+                'monitor_mode',
+            ),
+        }),
         (_('Basic information'), {
             'fields': (
                 'website_name', 'website_url', 'time_accessed', 'offline_presence'
@@ -458,7 +478,7 @@ class InternetNewsSheetAdmin(PermsAdmin):
         js = [
             'forms/admin/move_fields.js',
             'forms/admin/move_internet_fields.js',
-            'forms/admin/dependency_fields.js'
+            'forms/admin/dependent_fields.js'
         ]
 
 class TwitterSheetAdmin(PermsAdmin):
@@ -482,6 +502,11 @@ class TwitterSheetAdmin(PermsAdmin):
     }
 
     fieldsets = [
+        (_('Monitor Mode'), {
+            'fields': (
+                'monitor_mode',
+            ),
+        }),
         (_('Basic information'), {
             'fields': (
                 'media_name', 'twitter_handle'
@@ -519,7 +544,8 @@ class TwitterSheetAdmin(PermsAdmin):
     class Media:
         js = [
             'forms/admin/move_fields.js',
-            'forms/admin/move_twitter_fields.js'
+            'forms/admin/move_twitter_fields.js',
+            'forms/admin/dependent_fields.js'
         ]
 
 

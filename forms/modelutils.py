@@ -103,6 +103,11 @@ YESNO = (
     ('N', _('(2) No')),
 )
 
+MONITOR_MODE = (
+    (1, _('Long')),
+    (2, _('Short')),
+)
+
 YESNO_NUMBER = (
     (1, _('(1) Yes')),
     (2, _('(2) No')),
@@ -277,6 +282,7 @@ class CountryRegion(models.Model):
 
 class SheetModel(models.Model):
     monitor = models.ForeignKey(Monitor, null=True, on_delete=models.SET_NULL)
+    monitor_mode = models.IntegerField(choices=MONITOR_MODE, default=1)
     country = CountryField(null=True)
     country_region = models.ForeignKey(CountryRegion, null=True, on_delete=models.SET_NULL)
 
@@ -394,26 +400,27 @@ field_url_and_multimedia = lambda x: models.TextField(verbose_name=x, blank=True
 
 field_num_anchors = lambda x: models.PositiveIntegerField(verbose_name=x, help_text=_('The anchor (or announcer, or presenter) is the person who introduces the newscast and the individual items within it. <strong>Note: You should only include the anchors/announcers. Do not include reporters or other journalists</strong>'))
 
-field_item_number = lambda x: models.PositiveIntegerField(verbose_name=x, help_text=_('Write in the number that describes the position of the story within the newscast. E.g. the first story in the newscast is item 1; the seventh story is item 7.'))
+field_item_number = lambda x: models.PositiveIntegerField(verbose_name=x, help_text=_('Write in the number that describes the position of the story within the newscast. E.g. the first story in the newscast is item 1; the seventh story is item 7.'), blank=True, null=True)
 
-field_sex = lambda x: models.PositiveIntegerField(choices=GENDER, verbose_name=x)
+field_sex = lambda x: models.PositiveIntegerField(choices=GENDER, verbose_name=x, null=True, blank=True)
 
-field_age = lambda x: models.PositiveIntegerField(choices=AGES_PEOPLE_IN_THE_NEWS, verbose_name=x)
-field_occupation = lambda x: models.PositiveIntegerField(choices=OCCUPATION, verbose_name=x)
+field_age = lambda x: models.PositiveIntegerField(choices=AGES_PEOPLE_IN_THE_NEWS, verbose_name=x, null=True, blank=True)
+field_occupation = lambda x: models.PositiveIntegerField(choices=OCCUPATION, verbose_name=x, null=True, blank=True)
 field_occupation_other = models.TextField(verbose_name=_('Other Occupation'), blank=True)
-field_function = lambda x: models.PositiveIntegerField(choices=FUNCTION, verbose_name=x)
-field_family_role = lambda x: models.CharField(max_length=1, choices=YESNO, verbose_name=x, help_text=_('''Code yes only if the word 'wife', 'husband' etc is actually used to describe the person.'''))
+field_function = lambda x: models.PositiveIntegerField(choices=FUNCTION, verbose_name=x, null=True, blank=True)
+field_family_role = lambda x: models.CharField(max_length=1, choices=YESNO, verbose_name=x, help_text=_('''Code yes only if the word 'wife', 'husband' etc is actually used to describe the person.'''), default="N")
 field_victim_or_survivor = lambda x: models.CharField(max_length=1, choices=YESNO,
     verbose_name=x,
-    help_text=_('''You should code a person as a victim <strong>either</strong> if the word 'victim' is used to describe her/him, <strong>or</strong> if the story Implies that the person is a victim - e.g. by using language or images that evoke particular emotions such as shock, horror, pity for the person.<br/>You should code a person as a survivor <strong>either</strong> if the word 'survivor' is used to describe her/him, <strong>or</strong> if the story implies that the person is a survivor - e.g. by using language or images that evoke particular emotions such as admiration or respect for the person.''')
+    help_text=_('''You should code a person as a victim <strong>either</strong> if the word 'victim' is used to describe her/him, <strong>or</strong> if the story Implies that the person is a victim - e.g. by using language or images that evoke particular emotions such as shock, horror, pity for the person.<br/>You should code a person as a survivor <strong>either</strong> if the word 'survivor' is used to describe her/him, <strong>or</strong> if the story implies that the person is a survivor - e.g. by using language or images that evoke particular emotions such as admiration or respect for the person.'''),
+    default="N"
     )
 field_victim_of = lambda x: models.PositiveIntegerField(choices=VICTIM_OF, verbose_name=x, null=True, blank=True)
 field_victim_comments = lambda x: models.TextField(verbose_name=_('(%s) Add comments if ''Other Victim'' was selected above' % x), blank=True)
 field_survivor_of = lambda x: models.PositiveIntegerField(choices=SURVIVOR_OF, verbose_name=x, null=True, blank=True)
 field_survivor_comments = lambda x: models.TextField(verbose_name=_('(%s) Add comments if ''Other Survivor'' was selected above' % x), blank=True)
-field_is_quoted = lambda x: models.CharField(max_length=1, choices=YESNO, verbose_name=x,
+field_is_quoted = lambda x: models.CharField(max_length=1, choices=YESNO, verbose_name=x, default="N",
     help_text=_('A person is <strong>directly quoted</strong> if their own words are printed, e.g. "The war against terror is our first priority" said President Bush.<br/>If the story paraphrases what the person said, that is not a direct quote, e.g. President Bush said that top priority would be given to fighting the war against terror.')
 )
-field_is_photograph = lambda x: models.PositiveIntegerField(choices=IS_PHOTOGRAPH, verbose_name=x)
+field_is_photograph = lambda x: models.PositiveIntegerField(choices=IS_PHOTOGRAPH, verbose_name=x, blank=True)
 
 field_special_qn = lambda x: models.CharField(choices=YESNO, max_length=1, blank=True, verbose_name=x)
