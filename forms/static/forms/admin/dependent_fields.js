@@ -90,8 +90,6 @@
             $('.field-special_qn_3').hide();
             $('.field-item_number').hide();
             $('.field-webpage_layer_no').hide();
-            tv_check();
-            internent_check();
         }else{
             removeValue('id_newspaperperson_set-0-victim_of');
             removeValue('id_newspaperperson_set-0-survivor_of');
