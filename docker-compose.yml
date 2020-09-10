@@ -32,6 +32,7 @@ services:
       - GMMP_EMAIL_HOST_PASSWORD=${GMMP_EMAIL_HOST_PASSWORD}
       - OAUTHLIB_RELAX_TOKEN_SCOPE=1 # https://stackoverflow.com/a/51643134
     command: [
+        "/cmd.sh",
         "--log-level=debug",
         "--reload",
         "gmmp.wsgi:application",
