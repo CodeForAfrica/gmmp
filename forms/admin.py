@@ -269,7 +269,9 @@ class NewspaperSheetAdmin(PermsAdmin):
         js = [
             'forms/admin/move_fields.js',
             'forms/admin/move_fields_newspaper.js',
-            'forms/admin/dependent_fields.js'
+            'forms/admin/dependent_fields.js',
+            'forms/admin/check_tab_errors/check.js',
+            'forms/admin/check_tab_errors/newspaperperson.js',
         ]
 
 class RadioSheetAdmin(PermsAdmin):
@@ -336,7 +338,9 @@ class RadioSheetAdmin(PermsAdmin):
         js = [
             'forms/admin/move_fields.js',
             'forms/admin/move_radio_fields.js',
-            'forms/admin/dependent_fields.js'
+            'forms/admin/dependent_fields.js',
+            'forms/admin/check_tab_errors/check.js',
+            'forms/admin/check_tab_errors/radioperson.js',
         ]
 
 class TelevisionSheetAdmin(PermsAdmin):
@@ -408,7 +412,9 @@ class TelevisionSheetAdmin(PermsAdmin):
         js = [
             'forms/admin/move_fields.js',
             'forms/admin/move_television_fields.js',
-            'forms/admin/dependent_fields.js'
+            'forms/admin/dependent_fields.js',
+            'forms/admin/check_tab_errors/check.js',
+            'forms/admin/check_tab_errors/televisionperson.js',
         ]
 class InternetNewsSheetAdmin(PermsAdmin):
 
@@ -478,7 +484,9 @@ class InternetNewsSheetAdmin(PermsAdmin):
         js = [
             'forms/admin/move_fields.js',
             'forms/admin/move_internet_fields.js',
-            'forms/admin/dependent_fields.js'
+            'forms/admin/dependent_fields.js',
+            'forms/admin/check_tab_errors/check.js',
+            'forms/admin/check_tab_errors/internetnewsperson.js',
         ]
 
 class TwitterSheetAdmin(PermsAdmin):
