@@ -220,7 +220,7 @@ class NewspaperSheetAdmin(PermsAdmin):
     }
 
     fieldsets = [
-        (_('Monitor Mode'), {
+        (_('Format'), {
             'fields': (
                 'monitor_mode',
             ),
@@ -292,7 +292,7 @@ class RadioSheetAdmin(PermsAdmin):
     }
 
     fieldsets = [
-        (_('Monitor Mode'), {
+        (_('Format'), {
             'fields': (
                 'monitor_mode',
             ),
@@ -359,7 +359,7 @@ class TelevisionSheetAdmin(PermsAdmin):
     }
 
     fieldsets = [
-        (_('Monitor Mode'), {
+        (_('Format'), {
             'fields': (
                 'monitor_mode',
             ),
@@ -433,7 +433,7 @@ class InternetNewsSheetAdmin(PermsAdmin):
     }
 
     fieldsets = [
-        (_('Monitor Mode'), {
+        (_('Format'), {
             'fields': (
                 'monitor_mode',
             ),
@@ -502,7 +502,7 @@ class TwitterSheetAdmin(PermsAdmin):
     }
 
     fieldsets = [
-        (_('Monitor Mode'), {
+        (_('Format'), {
             'fields': (
                 'monitor_mode',
             ),

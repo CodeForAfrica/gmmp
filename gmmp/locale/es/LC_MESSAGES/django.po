@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-31 07:24+0000\n"
+"POT-Creation-Date: 2020-09-10 14:38+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,7 +27,7 @@ msgid "Country"
 msgstr ""
 
 #: gmmp/dashboard_modules.py:15 gmmp/dashboard_modules.py:117
-#: gmmp/settings.py:228
+#: gmmp/settings.py:232
 msgid "Internet"
 msgstr ""
 
@@ -51,7 +51,7 @@ msgstr ""
 "primera plana de un diario y no en la subsección que les correspondería)."
 
 #: gmmp/dashboard_modules.py:31 gmmp/dashboard_modules.py:102
-#: gmmp/settings.py:216
+#: gmmp/settings.py:217
 msgid "Newspapers"
 msgstr "Periódico"
 
@@ -69,7 +69,7 @@ msgstr ""
 "editor."
 
 #: gmmp/dashboard_modules.py:47 gmmp/dashboard_modules.py:107
-#: gmmp/settings.py:220
+#: gmmp/settings.py:222
 msgid "Radio"
 msgstr ""
 
@@ -90,12 +90,12 @@ msgstr ""
 "(no codifique un programa si es enteramente de deportes)."
 
 #: gmmp/dashboard_modules.py:64 gmmp/dashboard_modules.py:112
-#: gmmp/settings.py:224
+#: gmmp/settings.py:227
 msgid "Television"
 msgstr "Televisión"
 
 #: gmmp/dashboard_modules.py:81 gmmp/dashboard_modules.py:122
-#: gmmp/settings.py:232
+#: gmmp/settings.py:237
 msgid "Twitter"
 msgstr ""
 
@@ -120,87 +120,87 @@ msgstr ""
 "proveen menos de 15 tuits al día, entonces no resultan apropiados para "
 "incluirlos en el monitoreo."
 
-#: gmmp/settings.py:126
+#: gmmp/settings.py:127
 msgid "English"
 msgstr ""
 
-#: gmmp/settings.py:127
+#: gmmp/settings.py:128
 msgid "Spanish"
 msgstr ""
 
-#: gmmp/settings.py:128
+#: gmmp/settings.py:129
 msgid "French"
 msgstr ""
 
-#: gmmp/settings.py:191
+#: gmmp/settings.py:192
 msgid "Belgium - French"
 msgstr ""
 
-#: gmmp/settings.py:192
+#: gmmp/settings.py:193
 msgid "Belgium - Flemish"
 msgstr ""
 
-#: gmmp/settings.py:194
+#: gmmp/settings.py:195
 msgid "England"
 msgstr ""
 
-#: gmmp/settings.py:195
+#: gmmp/settings.py:196
 msgid "North Ireland"
 msgstr ""
 
-#: gmmp/settings.py:196
+#: gmmp/settings.py:197
 msgid "Scotland"
 msgstr ""
 
-#: gmmp/settings.py:197
+#: gmmp/settings.py:198
 msgid "Wales"
 msgstr ""
 
-#: gmmp/settings.py:198
+#: gmmp/settings.py:199
 msgid "International"
 msgstr ""
 
-#: gmmp/settings.py:202
+#: gmmp/settings.py:203
 msgid "GMMP Database"
 msgstr ""
 
-#: gmmp/settings.py:213
+#: gmmp/settings.py:214
 msgid "Code"
 msgstr "Codifique"
 
-#: gmmp/settings.py:238
+#: gmmp/settings.py:244
 msgid "Coded"
 msgstr "Codificadas"
 
-#: gmmp/settings.py:248
+#: gmmp/settings.py:254
 msgid "Access Control"
 msgstr ""
 
-#: gmmp/settings.py:252
+#: gmmp/settings.py:258
 msgid "General"
 msgstr ""
 
-#: gmmp/settings.py:255
+#: gmmp/settings.py:261
 msgid "Help"
 msgstr "Ayuda"
 
-#: gmmp/settings.py:257
+#: gmmp/settings.py:263
 msgid "Facebook Group"
 msgstr ""
 
-#: gmmp/settings.py:262
+#: gmmp/settings.py:268
 msgid "Methodology Guides & Coding Tools"
 msgstr "Guías de Monitoreo"
 
-#: gmmp/settings.py:269
+#: gmmp/settings.py:275
 msgid "Other Links"
 msgstr ""
 
-#: gmmp/settings.py:272
+#: gmmp/settings.py:278
 msgid "Who Makes The News"
 msgstr ""
 
-#: gmmp/settings.py:277
+#: gmmp/settings.py:283
 msgid "Facebook"
 msgstr ""
 

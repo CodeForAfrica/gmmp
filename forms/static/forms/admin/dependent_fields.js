@@ -90,8 +90,6 @@
             $('.field-special_qn_3').hide();
             $('.field-item_number').hide();
             $('.field-webpage_layer_no').hide();
-            tv_check();
-            internent_check();
         }else{
             removeValue('id_newspaperperson_set-0-victim_of');
             removeValue('id_newspaperperson_set-0-survivor_of');
@@ -103,8 +101,8 @@
             removeValue('id_internetnewsperson_set-0-survivor_of');
             $('.field-victim_of').show();
             $('.field-survivor_of').show();
-        const monitor_mode = $("#id_monitor_mode").find(":selected").text().toLowerCase()
-        if(monitor_mode === "short"){
+        const monitor_mode = $("#id_monitor_mode").find(":selected").val()
+        if(monitor_mode === "2"){
             short_monitoring_mode()
         }else{
             long_monitoring_mode()
