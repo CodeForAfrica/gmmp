@@ -21,5 +21,4 @@ exec gunicorn \
   --log-file=/app/logs/gunicorn.log \
   --access-logfile=/app/logs/access.log \
   --name=gmmp \
-  gmmp.wsgi:application
   "$@"

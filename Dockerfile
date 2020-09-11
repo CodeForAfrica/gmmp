@@ -20,7 +20,7 @@ ENV PYTHONUNBUFFERED 1
 ####  We need libpq-dev in both build and final runtime image
 RUN apt-get update \
     && apt-get -y upgrade \
-    && apt-get -y install libpq-dev \
+    && apt-get -y install gettext libpq-dev \
     && apt-get clean
 
 ###############################################################################
@@ -76,4 +76,4 @@ RUN chmod +x /entrypoint.sh \
 
 ### Run app
 ENTRYPOINT ["/entrypoint.sh"]
-CMD ["/cmd.sh"]
+CMD ["/cmd.sh", "gmmp.wsgi:application"]
