@@ -54,8 +54,8 @@
     }
 
     $(document).ready(function() {
-        const monitor_mode = $("#id_monitor_mode").find(":selected").text().toLowerCase()
-        if(monitor_mode === "short"){
+        const monitor_mode = $("#id_monitor_mode").find(":selected").val()
+        if(monitor_mode === "2"){
             short_monitoring_mode()
         }else{
             long_monitoring_mode()
@@ -73,6 +73,13 @@
         let tv_person = $('#id_televisionperson_set-0-victim_or_survivor_1:checked').length;
         let internent_person = $('#id_internetnewsperson_set-0-victim_or_survivor_1:checked').length;
 
+        const monitor_mode = $("#id_monitor_mode").find(":selected").val()
+        if(monitor_mode === "2"){
+            short_monitoring_mode()
+        }else{
+            long_monitoring_mode()
+        }
+
         if((newspaper_person > 0) || (radio_person > 0) || (tv_person > 0) || (internent_person > 0)){
             addValue('id_newspaperperson_set-0-victim_of');
             addValue('id_newspaperperson_set-0-survivor_of');
@@ -82,14 +89,6 @@
             addValue('id_televisionperson_set-0-survivor_of');
             addValue('id_internetnewsperson_set-0-victim_of');
             addValue('id_internetnewsperson_set-0-survivor_of');
-            $('.field-victim_of').hide();
-            $('.field-survivor_of').hide();
-            $('.field-is_photograph').hide();
-            $('.field-special_qn_1').hide();
-            $('.field-special_qn_2').hide();
-            $('.field-special_qn_3').hide();
-            $('.field-item_number').hide();
-            $('.field-webpage_layer_no').hide();
         }else{
             removeValue('id_newspaperperson_set-0-victim_of');
             removeValue('id_newspaperperson_set-0-survivor_of');
@@ -99,13 +98,5 @@
             removeValue('id_televisionperson_set-0-survivor_of');
             removeValue('id_internetnewsperson_set-0-victim_of');
             removeValue('id_internetnewsperson_set-0-survivor_of');
-            $('.field-victim_of').show();
-            $('.field-survivor_of').show();
-        const monitor_mode = $("#id_monitor_mode").find(":selected").val()
-        if(monitor_mode === "2"){
-            short_monitoring_mode()
-        }else{
-            long_monitoring_mode()
-        }
     }});
 }(jet.jQuery));
