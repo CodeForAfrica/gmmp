@@ -17,7 +17,7 @@ class PermsAdmin(GuardedModelAdmin):
         """
         country = request.user.monitor.country
         obj.monitor = request.user.monitor
-        obj.monitor_code = request.user.id
+        obj.monitor_code = form.cleaned_data['monitor_code']
         obj.country = country
         obj.country_region = models.CountryRegion.objects.get(country=country)
         obj.save()
@@ -202,12 +202,6 @@ class TwitterPersonInline(PersonInTheNewsInLine):
 basic_filters = ('topic', 'about_women', 'stereotypes', 'further_analysis')
 
 class NewspaperSheetAdmin(PermsAdmin):
-    def get_formset(self, request, obj=None, **kwargs):
-        form = super(NewspaperSheetAdmin, self).get_formset(request, obj, **kwargs)
-        form.form.base_fields['monitor_code'].label = 1
-        raise Exception(form)
-        return form
-    
     @property
     def permcode(self):
         return 'newspapersheet'
