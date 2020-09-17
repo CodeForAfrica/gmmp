@@ -50,15 +50,24 @@
         $('.field-item_number').hide();
         $('.field-webpage_layer_no').hide();
         $('.field-age').hide();
+        // Make the Does the story identify the person as either a victim or survivor? question false by default
+        $('#id_newspaperperson_set-0-victim_or_survivor_1').prop("checked", true);
+        $('#id_radioperson_set-0-victim_or_survivor_1').prop("checked", true);
+        $('#id_televisionperson_set-0-victim_or_survivor_1').prop("checked", true);
+        $('#id_internetnewsperson_set-0-victim_or_survivor_1').prop("checked", true);
+        // Select 'Do not Know for the  Is there a photograph of the person in the story?' question since it's required.
+        $("#id_newspaperperson_set-0-is_photograph option[value=3]").prop("selected", true);
+        $("#id_internetnewsperson_set-0-is_photograph option[value=3]").prop("selected", true);
+        $("#id_twitterperson_set-0-is_photograph option[value=3]").prop("selected", true);
         special_tabs($('.field-age'));
     }
 
     $(document).ready(function() {
         const monitor_mode = $("#id_monitor_mode").find(":selected").val()
         if(monitor_mode === "2"){
-            short_monitoring_mode()
+            short_monitoring_mode();
         }else{
-            long_monitoring_mode()
+            long_monitoring_mode();
         }
     });
     $(document).change(function() {
