@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-10 14:38+0000\n"
+"POT-Creation-Date: 2020-09-17 06:35+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -87,8 +87,8 @@ msgstr ""
 msgid "Person mentioned in the broadcast"
 msgstr ""
 
-#: forms/admin.py:187 forms/admin.py:248 forms/admin.py:319 forms/admin.py:387
-#: forms/admin.py:458 forms/admin.py:531
+#: forms/admin.py:187 forms/admin.py:248 forms/admin.py:321 forms/admin.py:391
+#: forms/admin.py:464 forms/admin.py:539
 msgid "People in the news"
 msgstr ""
 
@@ -104,26 +104,26 @@ msgstr ""
 msgid "Person mentioned in the tweet"
 msgstr ""
 
-#: forms/admin.py:223 forms/admin.py:295 forms/admin.py:362 forms/admin.py:436
-#: forms/admin.py:505 forms/modelutils.py:285
+#: forms/admin.py:223 forms/admin.py:297 forms/admin.py:366 forms/admin.py:442
+#: forms/admin.py:513 forms/modelutils.py:285
 msgid "Format"
 msgstr ""
 
-#: forms/admin.py:228 forms/admin.py:300 forms/admin.py:367 forms/admin.py:441
-#: forms/admin.py:510
+#: forms/admin.py:228 forms/admin.py:302 forms/admin.py:371 forms/admin.py:447
+#: forms/admin.py:518
 msgid "Basic information"
 msgstr ""
 
-#: forms/admin.py:233 forms/admin.py:306 forms/admin.py:373
+#: forms/admin.py:233 forms/admin.py:308 forms/admin.py:377
 msgid "Story"
 msgstr ""
 
-#: forms/admin.py:238 forms/admin.py:311 forms/admin.py:379 forms/admin.py:521
+#: forms/admin.py:238 forms/admin.py:313 forms/admin.py:383 forms/admin.py:529
 msgid "Analysis"
 msgstr ""
 
-#: forms/admin.py:241 forms/admin.py:314 forms/admin.py:382 forms/admin.py:452
-#: forms/admin.py:524
+#: forms/admin.py:241 forms/admin.py:316 forms/admin.py:386 forms/admin.py:458
+#: forms/admin.py:532
 msgid "Journalists & Reporters"
 msgstr ""
 
@@ -148,7 +148,8 @@ msgid ""
 "person in the story who is quoted, either directly or indirectly."
 msgstr ""
 
-#: forms/admin.py:255 forms/admin.py:325 forms/admin.py:394 forms/admin.py:464
+#: forms/admin.py:255 forms/admin.py:327 forms/admin.py:398 forms/admin.py:470
+#: forms/admin.py:546
 msgid "Does this story warrant further analysis?"
 msgstr ""
 
@@ -164,18 +165,18 @@ msgid ""
 "the clipping to your national/regional coordinator.</small>"
 msgstr ""
 
-#: forms/admin.py:261 forms/admin.py:400 forms/admin.py:470 forms/admin.py:538
+#: forms/admin.py:261 forms/admin.py:404 forms/admin.py:476 forms/admin.py:552
 msgid "Comments & Explanations"
 msgstr ""
 
-#: forms/admin.py:315
+#: forms/admin.py:317
 msgid ""
 "Columns 8 and 9 are for journalists, presenters, anchors, reporters, etc. "
 "Code the anchor/announcer even if it is the same person for each news item. "
 "Code each reporter and journalist"
 msgstr ""
 
-#: forms/admin.py:320
+#: forms/admin.py:322
 msgid ""
 " Columns 10 to 19 are for people in the news. Code: (i) Each person in the "
 "story who speaks (ii) any person whom the story is about, even if they do "
@@ -188,7 +189,7 @@ msgid ""
 "interpreter)."
 msgstr ""
 
-#: forms/admin.py:326
+#: forms/admin.py:328
 msgid ""
 "A story warrants further analysis if it clearly perpetuates or clearly "
 "challenges gender stereotypes, if it includes women’s opinions in a "
@@ -200,14 +201,14 @@ msgid ""
 "the recording to your national/regional coordinator.</small>"
 msgstr ""
 
-#: forms/admin.py:383
+#: forms/admin.py:387
 msgid ""
 "Columns 8, 9 and 10 are for journalists, presenters, anchors, reporters, "
 "etc. Code the anchor/announcer even if it is the same person for each news "
 "item. Code each reporter and journalist. Code each person in a separate row"
 msgstr ""
 
-#: forms/admin.py:388
+#: forms/admin.py:392
 msgid ""
 "Columns 11 to 21 are for people in the news. Code each person in the story "
 "who speaks, and any person whom the story is about, even if they do not "
@@ -221,7 +222,7 @@ msgid ""
 "an interpreter)."
 msgstr ""
 
-#: forms/admin.py:395
+#: forms/admin.py:399
 msgid ""
 "A story warrants further analysis if it clearly perpetuates or alternatively "
 "challenges gender stereotypes, if it includes women’s opinions in a "
@@ -233,7 +234,7 @@ msgid ""
 "the recording to your national/regional coordinator.</small>"
 msgstr ""
 
-#: forms/admin.py:453
+#: forms/admin.py:459
 msgid ""
 "Columns 10 and 11 are for the reporter or journalist. For each story, code "
 "each journalist/reporter (i) who wrote the story and whose name appears, or "
@@ -243,7 +244,7 @@ msgid ""
 "'Our correspondent'); (ii) News agencies."
 msgstr ""
 
-#: forms/admin.py:459
+#: forms/admin.py:465
 msgid ""
 "Columns 12 to 24 are for people in the news whether in the text or in video "
 "clips. Code (i) any person whom the story is about even if they are not "
@@ -258,7 +259,7 @@ msgid ""
 "an interpreter)."
 msgstr ""
 
-#: forms/admin.py:465
+#: forms/admin.py:471
 msgid ""
 "A story warrants further analysis if it clearly perpetuates or clearly "
 "challenges gender stereotypes, if it includes women's opinions in a "
@@ -271,11 +272,11 @@ msgid ""
 "features in it to your national/regional coordinator.</small>"
 msgstr ""
 
-#: forms/admin.py:515
+#: forms/admin.py:523
 msgid "Tweet"
 msgstr ""
 
-#: forms/admin.py:525
+#: forms/admin.py:533
 msgid ""
 "Columns 7 and 8 are for the reporter or journalist. Code the journalist to "
 "who the twitter account belongs if the account does not belong to the media "
@@ -286,7 +287,7 @@ msgid ""
 "'Our correspondent'); (ii) News agencies."
 msgstr ""
 
-#: forms/admin.py:532
+#: forms/admin.py:540
 msgid ""
 "Columns 9 - 16 are for people in the tweet. Code (i) any person whom the "
 "tweet is about even if they are not interviewed or quoted; (ii) Each person "
@@ -300,6 +301,19 @@ msgid ""
 "them); (iv) Deceased historical figures (unless the tweet is about them); "
 "(v) Interpreters (Code the person being interviewed as if they spoke without "
 "an interpreter)."
+msgstr ""
+
+#: forms/admin.py:547
+msgid ""
+"A story warrants further analysis if it clearly perpetuates or alternatively "
+"challenges gender stereotypes, if it includes women’s opinions in a "
+"remarkable way, if it contributes to an understanding of inequalities "
+"between women and men, if it mentions or calls attention to women’s human "
+"rights, etc. Consult the guide for further explanation.\n"
+"            <br/><br/>\n"
+"            <small>*If you select ‘1’ (Yes), you will need to send a print-"
+"out of the tweet and screen grab of the page to your national/regional "
+"coordinator.</small>"
 msgstr ""
 
 #: forms/models.py:35 forms/models.py:87
@@ -1598,17 +1612,17 @@ msgid ""
 "that evoke particular emotions such as admiration or respect for the person."
 msgstr ""
 
-#: forms/modelutils.py:418
+#: forms/modelutils.py:416
 #, python-format
 msgid "(%s) Add comments if Other Victim was selected above"
 msgstr ""
 
-#: forms/modelutils.py:420
+#: forms/modelutils.py:418
 #, python-format
 msgid "(%s) Add comments if Other Survivor was selected above"
 msgstr ""
 
-#: forms/modelutils.py:422
+#: forms/modelutils.py:420
 msgid ""
 "A person is <strong>directly quoted</strong> if their own words are printed, "
 "e.g. \"The war against terror is our first priority\" said President Bush."
