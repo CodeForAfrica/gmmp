@@ -22,10 +22,10 @@
         $('.field-webpage_layer_no').show();
         $('.field-victim_or_survivor').show();
 
-        const newspaper_person = $('#id_newspaperperson_set-0-victim_or_survivor_1:checked').length;
-        const radio_person = $('#id_radioperson_set-0-victim_or_survivor_1:checked').length;
-        const tv_person = $('#id_televisionperson_set-0-victim_or_survivor_1:checked').length;
-        const internent_person = $('#id_internetnewsperson_set-0-victim_or_survivor_1:checked').length;
+        const newspaper_person = $('#id_newspaperperson_set-0-victim_or_survivor_2:checked').length;
+        const radio_person = $('#id_radioperson_set-0-victim_or_survivor_2:checked').length;
+        const tv_person = $('#id_televisionperson_set-0-victim_or_survivor_2:checked').length;
+        const internent_person = $('#id_internetnewsperson_set-0-victim_or_survivor_2:checked').length;
 
         if((newspaper_person > 0) || (radio_person > 0) || (tv_person > 0) || (internent_person > 0)){
             $('.field-victim_of').hide();
@@ -50,20 +50,27 @@
         $('.field-item_number').hide();
         $('.field-webpage_layer_no').hide();
         $('.field-age').hide();
-        // Make the Does the story identify the person as either a victim or survivor? question false by default
-        $('#id_newspaperperson_set-0-victim_or_survivor_1').prop("checked", true);
-        $('#id_radioperson_set-0-victim_or_survivor_1').prop("checked", true);
-        $('#id_televisionperson_set-0-victim_or_survivor_1').prop("checked", true);
-        $('#id_internetnewsperson_set-0-victim_or_survivor_1').prop("checked", true);
-        // Select 'Do not Know for the  Is there a photograph of the person in the story?' question since it's required.
-        $("#id_newspaperperson_set-0-is_photograph option[value=3]").prop("selected", true);
-        $("#id_internetnewsperson_set-0-is_photograph option[value=3]").prop("selected", true);
-        $("#id_twitterperson_set-0-is_photograph option[value=3]").prop("selected", true);
+
         special_tabs($('.field-age'));
     }
 
     $(document).ready(function() {
         const monitor_mode = $("#id_monitor_mode").find(":selected").val()
+        $("#id_newspaperperson_set-0-family_role li:first-child").remove()
+        $("#id_radioperson_set-0-family_role li:first-child").remove()
+        $("#id_internetperson_set-0-family_role li:first-child").remove()
+        $("#id_twitterperson_set-0-family_role li:first-child").remove()
+
+        $("#id_newspaperperson_set-0-victim_or_survivor li:first-child").remove()
+        $("#id_radioperson_set-0-victim_or_survivor li:first-child").remove()
+        $("#id_internetperson_set-0-victim_or_survivor li:first-child").remove()
+        $("#id_twitterperson_set-0-victim_or_survivor li:first-child").remove()
+
+        $("#id_newspaperperson_set-0-is_quoted li:first-child").remove()
+        $("#id_radioperson_set-0-is_quoted li:first-child").remove()
+        $("#id_internetperson_set-0-is_quoted li:first-child").remove()
+        $("#id_twitterperson_set-0-is_quoted li:first-child").remove()
+
         if(monitor_mode === "2"){
             short_monitoring_mode();
         }else{
@@ -71,11 +78,12 @@
         }
     });
     $(document).change(function() {
-        const removeValue = function(id) {
-            $(`#${id}`).children('option:first').removeAttr('value');
-        };
-        const addValue = function(id) {
+        const removeValidation = function(id) {
             $(`#${id}`).children('option:first').attr('value', '');
+        };
+        const addValidation = function(id) {
+            // Set --- since it's an invalid value and thus will receive validation error if user doesn't select another value
+            $(`#${id}`).children('option:first').attr('value', '----')
         };
         let newspaper_person = $('#id_newspaperperson_set-0-victim_or_survivor_1:checked').length;
         let radio_person = $('#id_radioperson_set-0-victim_or_survivor_1:checked').length;
@@ -90,22 +98,22 @@
         }
 
         if((newspaper_person > 0) || (radio_person > 0) || (tv_person > 0) || (internent_person > 0)){
-            addValue('id_newspaperperson_set-0-victim_of');
-            addValue('id_newspaperperson_set-0-survivor_of');
-            addValue('id_radioperson_set-0-victim_of');
-            addValue('id_radioperson_set-0-survivor_of');
-            addValue('id_televisionperson_set-0-victim_of');
-            addValue('id_televisionperson_set-0-survivor_of');
-            addValue('id_internetnewsperson_set-0-victim_of');
-            addValue('id_internetnewsperson_set-0-survivor_of');
+            addValidation('id_newspaperperson_set-0-victim_of');
+            addValidation('id_newspaperperson_set-0-survivor_of');
+            addValidation('id_radioperson_set-0-victim_of');
+            addValidation('id_radioperson_set-0-survivor_of');
+            addValidation('id_televisionperson_set-0-victim_of');
+            addValidation('id_televisionperson_set-0-survivor_of');
+            addValidation('id_internetnewsperson_set-0-victim_of');
+            addValidation('id_internetnewsperson_set-0-survivor_of');
         }else{
-            removeValue('id_newspaperperson_set-0-victim_of');
-            removeValue('id_newspaperperson_set-0-survivor_of');
-            removeValue('id_radioperson_set-0-victim_of');
-            removeValue('id_radioperson_set-0-survivor_of');
-            removeValue('id_televisionperson_set-0-victim_of');
-            removeValue('id_televisionperson_set-0-survivor_of');
-            removeValue('id_internetnewsperson_set-0-victim_of');
-            removeValue('id_internetnewsperson_set-0-survivor_of');
+            removeValidation('id_newspaperperson_set-0-victim_of');
+            removeValidation('id_newspaperperson_set-0-survivor_of');
+            removeValidation('id_radioperson_set-0-victim_of');
+            removeValidation('id_radioperson_set-0-survivor_of');
+            removeValidation('id_televisionperson_set-0-victim_of');
+            removeValidation('id_televisionperson_set-0-survivor_of');
+            removeValidation('id_internetnewsperson_set-0-victim_of');
+            removeValidation('id_internetnewsperson_set-0-survivor_of');
     }});
 }(jet.jQuery));
