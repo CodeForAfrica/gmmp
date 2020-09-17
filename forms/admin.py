@@ -227,8 +227,8 @@ class NewspaperSheetAdmin(PermsAdmin):
         }),
         (_('Basic information'), {
             'fields': (
-                'newspaper_name',
                 'monitor_code',
+                'newspaper_name',
             ),
         }),
         (_('Story'), {
