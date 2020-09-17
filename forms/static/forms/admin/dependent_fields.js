@@ -44,20 +44,24 @@
 
     $(document).ready(function() {
         // Remove "None" option from these fields
-        $("#id_newspaperperson_set-0-family_role li:first-child").remove()
-        $("#id_radioperson_set-0-family_role li:first-child").remove()
-        $("#id_internetperson_set-0-family_role li:first-child").remove()
-        $("#id_twitterperson_set-0-family_role li:first-child").remove()
+        var person_mentioned_in_article = 0;
+        while($(`#id_newspaperperson_set-${person_mentioned_in_article}-victim_or_survivor_1`).length){
+            $(`#id_newspaperperson_set-${person_mentioned_in_article}-family_role li:first-child`).remove()
+            $(`#id_radioperson_set-${person_mentioned_in_article}-family_role li:first-child`).remove()
+            $(`#id_internetperson_set-${person_mentioned_in_article}-family_role li:first-child`).remove()
+            $(`#id_twitterperson_set-${person_mentioned_in_article}-family_role li:first-child`).remove()
 
-        $("#id_newspaperperson_set-0-victim_or_survivor li:first-child").remove()
-        $("#id_radioperson_set-0-victim_or_survivor li:first-child").remove()
-        $("#id_internetperson_set-0-victim_or_survivor li:first-child").remove()
-        $("#id_twitterperson_set-0-victim_or_survivor li:first-child").remove()
+            $(`#id_newspaperperson_set-${person_mentioned_in_article}-victim_or_survivor li:first-child`).remove()
+            $(`#id_radioperson_set-${person_mentioned_in_article}-victim_or_survivor li:first-child`).remove()
+            $(`#id_internetperson_set-${person_mentioned_in_article}-victim_or_survivor li:first-child`).remove()
+            $(`#id_twitterperson_set-${person_mentioned_in_article}-victim_or_survivor li:first-child`).remove()
 
-        $("#id_newspaperperson_set-0-is_quoted li:first-child").remove()
-        $("#id_radioperson_set-0-is_quoted li:first-child").remove()
-        $("#id_internetperson_set-0-is_quoted li:first-child").remove()
-        $("#id_twitterperson_set-0-is_quoted li:first-child").remove()
+            $(`#id_newspaperperson_set-${person_mentioned_in_article}-is_quoted li:first-child`).remove()
+            $(`#id_radioperson_set-${person_mentioned_in_article}-is_quoted li:first-child`).remove()
+            $(`#id_internetperson_set-${person_mentioned_in_article}-is_quoted li:first-child`).remove()
+            $(`#id_twitterperson_set-${person_mentioned_in_article}-is_quoted li:first-child`).remove()
+            person_mentioned_in_article+=1;
+        }
 
         // "1": Full monitoring, "2": Short monitoring
         var monitor_mode = $("#id_monitor_mode").find(":selected").val()
