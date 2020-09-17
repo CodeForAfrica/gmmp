@@ -202,6 +202,7 @@ class TwitterPersonInline(PersonInTheNewsInLine):
 basic_filters = ('topic', 'about_women', 'stereotypes', 'further_analysis')
 
 class NewspaperSheetAdmin(PermsAdmin):
+
     @property
     def permcode(self):
         return 'newspapersheet'
