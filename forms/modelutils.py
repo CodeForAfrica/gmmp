@@ -285,6 +285,7 @@ class SheetModel(models.Model):
     monitor_mode = models.IntegerField(choices=MONITOR_MODE, default=1, verbose_name=_('Format'))
     country = CountryField(null=True)
     country_region = models.ForeignKey(CountryRegion, null=True, on_delete=models.SET_NULL)
+    monitor_code = models.IntegerField(verbose_name=_('Monitor Code'))
 
 
     class Meta:

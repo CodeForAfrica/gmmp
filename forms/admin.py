@@ -17,6 +17,7 @@ class PermsAdmin(GuardedModelAdmin):
         """
         country = request.user.monitor.country
         obj.monitor = request.user.monitor
+        obj.monitor_code = request.user.id
         obj.country = country
         obj.country_region = models.CountryRegion.objects.get(country=country)
         obj.save()
@@ -201,7 +202,12 @@ class TwitterPersonInline(PersonInTheNewsInLine):
 basic_filters = ('topic', 'about_women', 'stereotypes', 'further_analysis')
 
 class NewspaperSheetAdmin(PermsAdmin):
-
+    def get_formset(self, request, obj=None, **kwargs):
+        form = super(NewspaperSheetAdmin, self).get_formset(request, obj, **kwargs)
+        form.form.base_fields['monitor_code'].label = 1
+        raise Exception(form)
+        return form
+    
     @property
     def permcode(self):
         return 'newspapersheet'
@@ -228,6 +234,7 @@ class NewspaperSheetAdmin(PermsAdmin):
         (_('Basic information'), {
             'fields': (
                 'newspaper_name',
+                'monitor_code',
             ),
         }),
         (_('Story'), {
@@ -301,6 +308,7 @@ class RadioSheetAdmin(PermsAdmin):
         }),
         (_('Basic information'), {
             'fields': (
+                'monitor_code',
                 'channel', 'start_time',
                 'num_female_anchors', 'num_male_anchors',
             ),
@@ -370,6 +378,7 @@ class TelevisionSheetAdmin(PermsAdmin):
         }),
         (_('Basic information'), {
             'fields': (
+                'monitor_code',
                 'channel', 'start_time',
                 'num_female_anchors', 'num_male_anchors',
             ),
@@ -446,6 +455,7 @@ class InternetNewsSheetAdmin(PermsAdmin):
         }),
         (_('Basic information'), {
             'fields': (
+                'monitor_code',
                 'website_name', 'website_url', 'time_accessed', 'offline_presence'
             ),
         }),
@@ -517,6 +527,7 @@ class TwitterSheetAdmin(PermsAdmin):
         }),
         (_('Basic information'), {
             'fields': (
+                'monitor_code',
                 'media_name', 'twitter_handle'
             ),
         }),
