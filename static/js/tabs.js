@@ -2,13 +2,13 @@
     var set_button_navigation = function() {
         var last_tab = $('.changeform-tabs li:last-child').hasClass('selected');
         if(last_tab) {
-            $('input[name=_addanother]').show()
-            $('input[name=_save]').show()
-            $('input[name=_continue]').hide()
+            $('input[name=_addanother]').show();
+            $('input[name=_save]').show();
+            $('input[name=_continue]').hide();
         }else{
-            $('input[name=_addanother]').hide()
-            $('input[name=_save]').hide()
-            $('input[name=_continue]').show()
+            $('input[name=_addanother]').hide();
+            $('input[name=_save]').hide();
+            $('input[name=_continue]').show();
         }
     };
 
@@ -22,16 +22,18 @@
         if(newspapersheet_form || twittersheet_form || radiosheet_form || televisionsheet_form || internetnewssheet_form){
             // Rename the save and continue button to Next
             var continueButton$ = $('input[name=_continue]');
-            continueButton$.val('Next Tab')
+            continueButton$.val('Next Tab');
             continueButton$.click((function(e) {
                 e.preventDefault();
                 // Move to next tab unless we are on the last tab
+                var selectedTab$ = $('.changeform-tabs li.selected');
+                    
                 if ($('.changeform-tabs li.selected:last-child').length === 0){
-                    $('.changeform-tabs li.selected').removeClass('selected').next().addClass('selected');
+                    selectedTab$.removeClass('selected').next().addClass('selected');
+                    var module = selectedTab$.index();
+                    $('.module_'+module).removeClass('selected');
+                    $('.module_'+(module+1)).addClass('selected');
                     set_button_navigation();
-                    var module = $('.changeform-tabs li.selected').index();
-                    $('.module_'+(module-1)).removeClass('selected');
-                    $('.module_'+module).addClass('selected');
                 }
             }));
             $('.changeform-tabs li').click(function (e) {
