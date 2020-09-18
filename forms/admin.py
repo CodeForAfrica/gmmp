@@ -543,6 +543,12 @@ class TwitterSheetAdmin(PermsAdmin):
             'fields': (),
             'classes' : ('people-fieldset',),
         }),
+        (_('Does this tweet warrant further analysis?'), {
+            'description': _('''A story warrants further analysis if it clearly perpetuates or alternatively challenges gender stereotypes, if it includes women’s opinions in a remarkable way, if it contributes to an understanding of inequalities between women and men, if it mentions or calls attention to women’s human rights, etc. Consult the guide for further explanation.
+            <br/><br/>
+            <small>*If you select ‘1’ (Yes), you will need to send a print-out of the tweet and screen grab of the page to your national/regional coordinator.</small>'''),
+            'fields': ('further_analysis',),
+        }),
         (_('Comments & Explanations'), {
             'fields' : ('url_and_multimedia', ),
         }),

@@ -1,16 +1,5 @@
 (function($){
-    const special_tabs = function (field_age) {
-        // For TV show the age
-        if($('#televisionsheet_form').length > 0){
-            field_age.show();
-        }
-        // For Internet show the age
-        if($('#internetnewssheet_form').length > 0){
-            field_age.show();
-        }
-    };
-
-    const long_monitoring_mode = function () {
+    var activate_long_monitoring_mode = function () {
         $('.field-page_number').show();
         $('.field-space').show();
         $('.field-age').show();
@@ -22,12 +11,11 @@
         $('.field-webpage_layer_no').show();
         $('.field-victim_or_survivor').show();
 
-        const newspaper_person = $('#id_newspaperperson_set-0-victim_or_survivor_1:checked').length;
-        const radio_person = $('#id_radioperson_set-0-victim_or_survivor_1:checked').length;
-        const tv_person = $('#id_televisionperson_set-0-victim_or_survivor_1:checked').length;
-        const internent_person = $('#id_internetnewsperson_set-0-victim_or_survivor_1:checked').length;
-
-        if((newspaper_person > 0) || (radio_person > 0) || (tv_person > 0) || (internent_person > 0)){
+        var no_newspaper_person = $('#id_newspaperperson_set-0-victim_or_survivor_2:checked').length > 0;
+        var no_radio_person = $('#id_radioperson_set-0-victim_or_survivor_2:checked').length > 0;
+        var no_tv_person = $('#id_televisionperson_set-0-victim_or_survivor_2:checked').length > 0;
+        var no_internent_person = $('#id_internetnewsperson_set-0-victim_or_survivor_2:checked').length > 0;
+        if(no_newspaper_person || no_radio_person || no_tv_person || no_internent_person){
             $('.field-victim_of').hide();
             $('.field-survivor_of').hide();
         }else{
@@ -36,8 +24,7 @@
         }
     }
 
-    const short_monitoring_mode = function() {
-        // Show the short monitor mode form.
+    var activate_short_monitoring_mode = function() {
         $('.field-page_number').hide();
         $('.field-space').hide();
         $('.field-victim_or_survivor').hide();
@@ -49,63 +36,84 @@
         $('.field-special_qn_3').hide();
         $('.field-item_number').hide();
         $('.field-webpage_layer_no').hide();
-        $('.field-age').hide();
-        special_tabs($('.field-age'));
+        // For TV or Internet, do not hide age field
+        if(!(($('#televisionsheet_form').length > 0) || ($('#internetnewssheet_form').length > 0))) {
+            $('.field-age').hide();
+        }
     }
 
     $(document).ready(function() {
-        const monitor_mode = $("#id_monitor_mode").find(":selected").text().toLowerCase()
-        if(monitor_mode === "short"){
-            short_monitoring_mode()
+        // Remove "None" option from these fields
+        
+        $("ul[id^='id_newspaperperson_set-'][id$='-family_role'] li:first-child").remove();
+        $("ul[id^='id_newspaperperson_set-'][id$='-victim_or_survivor'] li:first-child").remove();
+        $("ul[id^='id_newspaperperson_set-'][id$='-is_quoted'] li:first-child").remove();
+        
+        $("ul[id^='id_radioperson_set-'][id$='-family_role'] li:first-child").remove();
+        $("ul[id^='id_radioperson_set-'][id$='-victim_or_survivor'] li:first-child").remove();
+        $("ul[id^='id_radioperson_set-'][id$='-is_quoted'] li:first-child").remove();
+        
+        $("ul[id^='id_televisionperson_set-'][id$='-family_role'] li:first-child").remove();
+        $("ul[id^='id_televisionperson_set-'][id$='-victim_or_survivor'] li:first-child").remove();
+        $("ul[id^='id_televisionperson_set-'][id$='-is_quoted'] li:first-child").remove();
+        $("ul[id^='id_internetnewsperson_set-'][id$='-family_role'] li:first-child").remove();
+        $("ul[id^='id_internetnewsperson_set-'][id$='-victim_or_survivor'] li:first-child").remove();
+        $("ul[id^='id_internetnewsperson_set-'][id$='-is_quoted'] li:first-child").remove();
+        $("ul[id^='id_twitterperson_set-'][id$='-family_role'] li:first-child").remove();
+        $("ul[id^='id_twitterperson_set-'][id$='-victim_or_survivor'] li:first-child").remove();
+        $("ul[id^='id_twitterperson_set-'][id$='-is_quoted'] li:first-child").remove();
+
+        // "1": Full monitoring, "2": Short monitoring
+        var monitor_mode = $("#id_monitor_mode").find(":selected").val();
+        if(monitor_mode === "2"){
+            activate_short_monitoring_mode();
         }else{
-            long_monitoring_mode()
+            activate_long_monitoring_mode();
         }
     });
-    $(document).change(function() {
-        const removeValue = function(id) {
-            $(`#${id}`).children('option:first').removeAttr('value');
-        };
-        const addValue = function(id) {
-            $(`#${id}`).children('option:first').attr('value', '');
-        };
-        let newspaper_person = $('#id_newspaperperson_set-0-victim_or_survivor_1:checked').length;
-        let radio_person = $('#id_radioperson_set-0-victim_or_survivor_1:checked').length;
-        let tv_person = $('#id_televisionperson_set-0-victim_or_survivor_1:checked').length;
-        let internent_person = $('#id_internetnewsperson_set-0-victim_or_survivor_1:checked').length;
 
-        if((newspaper_person > 0) || (radio_person > 0) || (tv_person > 0) || (internent_person > 0)){
-            addValue('id_newspaperperson_set-0-victim_of');
-            addValue('id_newspaperperson_set-0-survivor_of');
-            addValue('id_radioperson_set-0-victim_of');
-            addValue('id_radioperson_set-0-survivor_of');
-            addValue('id_televisionperson_set-0-victim_of');
-            addValue('id_televisionperson_set-0-survivor_of');
-            addValue('id_internetnewsperson_set-0-victim_of');
-            addValue('id_internetnewsperson_set-0-survivor_of');
-            $('.field-victim_of').hide();
-            $('.field-survivor_of').hide();
-            $('.field-is_photograph').hide();
-            $('.field-special_qn_1').hide();
-            $('.field-special_qn_2').hide();
-            $('.field-special_qn_3').hide();
-            $('.field-item_number').hide();
-            $('.field-webpage_layer_no').hide();
-        }else{
-            removeValue('id_newspaperperson_set-0-victim_of');
-            removeValue('id_newspaperperson_set-0-survivor_of');
-            removeValue('id_radioperson_set-0-victim_of');
-            removeValue('id_radioperson_set-0-survivor_of');
-            removeValue('id_televisionperson_set-0-victim_of');
-            removeValue('id_televisionperson_set-0-survivor_of');
-            removeValue('id_internetnewsperson_set-0-victim_of');
-            removeValue('id_internetnewsperson_set-0-survivor_of');
-            $('.field-victim_of').show();
-            $('.field-survivor_of').show();
-        const monitor_mode = $("#id_monitor_mode").find(":selected").val()
+    $(document).change(function() {
+        var monitor_mode = $("#id_monitor_mode").find(":selected").val();
         if(monitor_mode === "2"){
-            short_monitoring_mode()
+            // Uncheck "Yes" on victim or survivor question
+            $('#id_newspaperperson_set-0-victim_or_survivor_1').prop('checked', false);
+            $('#id_radioperson_set-0-victim_or_survivor_1').prop('checked', false);
+            $('#id_televisionperson_set-0-victim_or_survivor_1').prop('checked', false);
+            $('#id_internetnewsperson_set-0-victim_or_survivor_1').prop('checked', false);
+            activate_short_monitoring_mode();
         }else{
-            long_monitoring_mode()
+            var removeValidation$ = function(id) {
+                $(id).children('option:first').attr('value', '');
+            };
+            var addValidation$ = function(id) {
+                // Set --- since it's an invalid value and thus will receive validation error if user doesn't select another value
+                $(id).children('option:first').attr('value', '----');
+            };
+            var newspaper_person = $('#id_newspaperperson_set-0-victim_or_survivor_1:checked').length > 0;
+            var radio_person = $('#id_radioperson_set-0-victim_or_survivor_1:checked').length > 0;
+            var tv_person = $('#id_televisionperson_set-0-victim_or_survivor_1:checked').length > 0;
+            var internent_person = $('#id_internetnewsperson_set-0-victim_or_survivor_1:checked').length > 0;
+            if(newspaper_person || radio_person  || tv_person || internent_person){
+                addValidation$('#id_newspaperperson_set-0-victim_of');
+                addValidation$('#id_newspaperperson_set-0-survivor_of');
+                addValidation$('#id_radioperson_set-0-victim_of');
+                addValidation$('#id_radioperson_set-0-survivor_of');
+                addValidation$('#id_televisionperson_set-0-victim_of');
+                addValidation$('#id_televisionperson_set-0-survivor_of');
+                addValidation$('#id_internetnewsperson_set-0-victim_of');
+                addValidation$('#id_internetnewsperson_set-0-survivor_of');
+    
+            }else{
+                removeValidation$('#id_newspaperperson_set-0-victim_of');
+                removeValidation$('#id_newspaperperson_set-0-survivor_of');
+                removeValidation$('#id_radioperson_set-0-victim_of');
+                removeValidation$('#id_radioperson_set-0-survivor_of');
+                removeValidation$('#id_televisionperson_set-0-victim_of');
+                removeValidation$('#id_televisionperson_set-0-survivor_of');
+                removeValidation$('#id_internetnewsperson_set-0-victim_of');
+                removeValidation$('#id_internetnewsperson_set-0-survivor_of');
+            }
+            activate_long_monitoring_mode();
         }
-    }});
+    });
 }(jet.jQuery));
