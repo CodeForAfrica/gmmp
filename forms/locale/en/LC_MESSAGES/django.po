@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-17 06:35+0000\n"
+"POT-Creation-Date: 2020-09-18 10:15+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -149,7 +149,6 @@ msgid ""
 msgstr ""
 
 #: forms/admin.py:255 forms/admin.py:327 forms/admin.py:398 forms/admin.py:470
-#: forms/admin.py:546
 msgid "Does this story warrant further analysis?"
 msgstr ""
 
@@ -301,6 +300,10 @@ msgid ""
 "them); (iv) Deceased historical figures (unless the tweet is about them); "
 "(v) Interpreters (Code the person being interviewed as if they spoke without "
 "an interpreter)."
+msgstr ""
+
+#: forms/admin.py:546
+msgid "Does this tweet warrant further analysis?"
 msgstr ""
 
 #: forms/admin.py:547
@@ -1600,7 +1603,7 @@ msgid ""
 "the person."
 msgstr ""
 
-#: forms/modelutils.py:414
+#: forms/modelutils.py:416
 msgid ""
 "You should code a person as a victim <strong>either</strong> if the word "
 "'victim' is used to describe her/him, <strong>or</strong> if the story "
@@ -1612,17 +1615,17 @@ msgid ""
 "that evoke particular emotions such as admiration or respect for the person."
 msgstr ""
 
-#: forms/modelutils.py:416
+#: forms/modelutils.py:418
 #, python-format
 msgid "(%s) Add comments if Other Victim was selected above"
 msgstr ""
 
-#: forms/modelutils.py:418
+#: forms/modelutils.py:420
 #, python-format
 msgid "(%s) Add comments if Other Survivor was selected above"
 msgstr ""
 
-#: forms/modelutils.py:420
+#: forms/modelutils.py:424
 msgid ""
 "A person is <strong>directly quoted</strong> if their own words are printed, "
 "e.g. \"The war against terror is our first priority\" said President Bush."
