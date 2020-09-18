@@ -29,6 +29,9 @@
                 if ($('.changeform-tabs li.selected:last-child').length === 0){
                     $('.changeform-tabs li.selected').removeClass('selected').next().addClass('selected');
                     set_button_navigation();
+                    var module = $('.changeform-tabs li.selected').index();
+                    $(`.module_${module-1}`).removeClass('selected');
+                    $(`.module_${module}`).addClass('selected');
                 }
             }));
             $('.changeform-tabs li').click(function (e) {
