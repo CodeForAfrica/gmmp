@@ -44,34 +44,24 @@
 
     $(document).ready(function() {
         // Remove "None" option from these fields
-        var person_mentioned_in_article = 0;
-        var newspaperperson_set = radioperson_set = televisionperson_set = internetperson_set = twitterperson_set = 1;
         
-        while(newspaperperson_set || radioperson_set || televisionperson_set || internetperson_set || twitterperson_set){
-            $('#id_newspaperperson_set-'+person_mentioned_in_article+'-family_role li:first-child').remove();
-            $('#id_radioperson_set-'+person_mentioned_in_article+'-family_role li:first-child').remove();
-            $('#id_televisionperson_set-'+person_mentioned_in_article+'-family_role li:first-child').remove();
-            $('#id_internetperson_set-'+person_mentioned_in_article+'-family_role li:first-child').remove();
-            $('#id_twitterperson_set-'+person_mentioned_in_article+'-family_role li:first-child').remove();
-
-            $('#id_newspaperperson_set-'+person_mentioned_in_article+'-victim_or_survivor li:first-child').remove();
-            $('#id_radioperson_set-'+person_mentioned_in_article+'-victim_or_survivor li:first-child').remove();
-            $('#id_televisionperson_set-'+person_mentioned_in_article+'-victim_or_survivor li:first-child').remove();
-            $('#id_internetperson_set-'+person_mentioned_in_article+'-victim_or_survivor li:first-child').remove();
-            $('#id_twitterperson_set-'+person_mentioned_in_article+'-victim_or_survivor li:first-child').remove();
-
-            $('#id_newspaperperson_set-'+person_mentioned_in_article+'-is_quoted li:first-child').remove();
-            $('#id_radioperson_set-'+person_mentioned_in_article+'-is_quoted li:first-child').remove();
-            $('#id_televisionperson_set-'+person_mentioned_in_article+'-is_quoted li:first-child').remove();
-            $('#id_internetperson_set-'+person_mentioned_in_article+'-is_quoted li:first-child').remove();
-            $('#id_twitterperson_set-'+person_mentioned_in_article+'-is_quoted li:first-child').remove();
-            person_mentioned_in_article+=1;
-            newspaperperson_set = $('#id_newspaperperson_set-'+person_mentioned_in_article+'-victim_or_survivor_1').length;
-            radioperson_set = $('#id_radioperson_set-'+person_mentioned_in_article+'-victim_or_survivor_1').length;
-            televisionperson_set = $('#id_televisionperson_set-'+person_mentioned_in_article+'-victim_or_survivor_1').length;
-            internetperson_set = $('#id_internetperson_set-'+person_mentioned_in_article+'-victim_or_survivor_1').length;
-            twitterperson_set = $('#id_twitterperson_set-'+person_mentioned_in_article+'-victim_or_survivor_1').length;
-        }
+        $("ul[id^='id_newspaperperson_set-'][id$='-family_role'] li:first-child").remove();
+        $("ul[id^='id_newspaperperson_set-'][id$='-victim_or_survivor'] li:first-child").remove();
+        $("ul[id^='id_newspaperperson_set-'][id$='-is_quoted'] li:first-child").remove();
+        
+        $("ul[id^='id_radioperson_set-'][id$='-family_role'] li:first-child").remove();
+        $("ul[id^='id_radioperson_set-'][id$='-victim_or_survivor'] li:first-child").remove();
+        $("ul[id^='id_radioperson_set-'][id$='-is_quoted'] li:first-child").remove();
+        
+        $("ul[id^='id_televisionperson_set-'][id$='-family_role'] li:first-child").remove();
+        $("ul[id^='id_televisionperson_set-'][id$='-victim_or_survivor'] li:first-child").remove();
+        $("ul[id^='id_televisionperson_set-'][id$='-is_quoted'] li:first-child").remove();
+        $("ul[id^='id_internetnewsperson_set-'][id$='-family_role'] li:first-child").remove();
+        $("ul[id^='id_internetnewsperson_set-'][id$='-victim_or_survivor'] li:first-child").remove();
+        $("ul[id^='id_internetnewsperson_set-'][id$='-is_quoted'] li:first-child").remove();
+        $("ul[id^='id_twitterperson_set-'][id$='-family_role'] li:first-child").remove();
+        $("ul[id^='id_twitterperson_set-'][id$='-victim_or_survivor'] li:first-child").remove();
+        $("ul[id^='id_twitterperson_set-'][id$='-is_quoted'] li:first-child").remove();
 
         // "1": Full monitoring, "2": Short monitoring
         var monitor_mode = $("#id_monitor_mode").find(":selected").val();
