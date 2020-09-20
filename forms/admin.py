@@ -17,6 +17,7 @@ class PermsAdmin(GuardedModelAdmin):
         """
         country = request.user.monitor.country
         obj.monitor = request.user.monitor
+        obj.monitor_code = form.cleaned_data['monitor_code']
         obj.country = country
         obj.country_region = models.CountryRegion.objects.get(country=country)
         obj.save()
@@ -227,6 +228,7 @@ class NewspaperSheetAdmin(PermsAdmin):
         }),
         (_('Basic information'), {
             'fields': (
+                'monitor_code',
                 'newspaper_name',
             ),
         }),
@@ -301,6 +303,7 @@ class RadioSheetAdmin(PermsAdmin):
         }),
         (_('Basic information'), {
             'fields': (
+                'monitor_code',
                 'channel', 'start_time',
                 'num_female_anchors', 'num_male_anchors',
             ),
@@ -370,6 +373,7 @@ class TelevisionSheetAdmin(PermsAdmin):
         }),
         (_('Basic information'), {
             'fields': (
+                'monitor_code',
                 'channel', 'start_time',
                 'num_female_anchors', 'num_male_anchors',
             ),
@@ -446,6 +450,7 @@ class InternetNewsSheetAdmin(PermsAdmin):
         }),
         (_('Basic information'), {
             'fields': (
+                'monitor_code',
                 'website_name', 'website_url', 'time_accessed', 'offline_presence'
             ),
         }),
@@ -517,6 +522,7 @@ class TwitterSheetAdmin(PermsAdmin):
         }),
         (_('Basic information'), {
             'fields': (
+                'monitor_code',
                 'media_name', 'twitter_handle'
             ),
         }),
