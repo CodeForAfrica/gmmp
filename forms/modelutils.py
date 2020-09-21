@@ -342,7 +342,8 @@ class Person(models.Model):
         """ Return the name of the sheet relation field
         """
         for fld in cls._meta.fields:
-            if hasattr(fld, 'related') and fld.related and issubclass(fld.related.parent_model, SheetModel):
+            # related field was removed https://docs.djangoproject.com/en/dev/internals/deprecation/#deprecation-removed-in-1-10
+            if fld.is_relation and issubclass(fld.related_model, SheetModel):
                 return fld.name.split(':')[-1]
 
 
@@ -375,7 +376,8 @@ class Journalist(models.Model):
         """ Return the name of the sheet relation field
         """
         for fld in cls._meta.fields:
-            if hasattr(fld, 'related') and fld.related and issubclass(fld.related.parent_model, SheetModel):
+            # related field was removed https://docs.djangoproject.com/en/dev/internals/deprecation/#deprecation-removed-in-1-10
+            if fld.is_relation and issubclass(fld.related_model, SheetModel):
                 return fld.name.split(':')[-1]
 
 class BroadcastJournalist(Journalist):
