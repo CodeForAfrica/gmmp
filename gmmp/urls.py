@@ -7,6 +7,7 @@ from django.urls import include, path, re_path
 from django.views.generic.base import RedirectView, TemplateView
 
 from gmmp import settings
+from gmmp.views import CustomPassowrdResetView, CustomPasswordResetDoneView
 
 admin.site.site_header = settings.ADMIN_SITE_SITE_HEADER
 admin.site.site_title = settings.ADMIN_SITE_SITE_TITLE
@@ -23,12 +24,12 @@ urlpatterns = (
         re_path(r"^jet/dashboard/", include("jet.dashboard.urls", "jet-dashboard")),
         path(
             "admin/password_reset/",
-            auth_views.PasswordResetView.as_view(),
+            CustomPassowrdResetView.as_view(),
             name="admin_password_reset",
         ),
         path(
             "admin/password_reset/done/",
-            auth_views.PasswordResetDoneView.as_view(),
+            CustomPasswordResetDoneView.as_view(),
             name="password_reset_done",
         ),
         path(
