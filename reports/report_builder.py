@@ -149,7 +149,7 @@ class XLSXReportBuilder:
         """
         Generate an Excel spreadsheet and return it as a string.
         """
-        output = io.StringIO()
+        output = io.BytesIO()
         workbook = xlsxwriter.Workbook(output)
 
         # setup formats
