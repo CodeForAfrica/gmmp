@@ -42,6 +42,14 @@
 
                 set_button_navigation();
             });
+            if($('.success').length){
+                var selectedTab$ = $('.changeform-tabs li.selected');
+                var module = selectedTab$.index();
+                selectedTab$.removeClass('selected');
+                $('.changeform-tabs li:first-child').addClass('selected');
+                $('.module_'+module).removeClass('selected');
+                $('.module_0').addClass('selected');
+            }
             set_button_navigation();
         }
     });
