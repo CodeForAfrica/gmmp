@@ -96,31 +96,34 @@ class Submissions(DashboardModule):
     title = "Coded"
     template = "gmmp/dashboard_modules/submissions.html"
 
+    def _get_count(self, model_, user):
+        return model_.objects.count() if user.is_superuser else model_.objects.filter(country=user.monitor.country).count()
+
     def init_with_context(self, context):
         self.children = [
             {
                 "name": _("Newspapers"),
-                "count": NewspaperSheet.objects.count(),
+                "count": self._get_count(NewspaperSheet, context.request.user),
                 "url": reverse("admin:forms_newspapersheet_changelist"),
             },
             {
                 "name": _("Radio"),
-                "count": RadioSheet.objects.count(),
+                "count": self._get_count(RadioSheet, context.request.user),
                 "url": reverse("admin:forms_radiosheet_changelist"),
             },
             {
                 "name": _("Television"),
-                "count": TelevisionSheet.objects.count(),
+                "count": self._get_count(TelevisionSheet, context.request.user),
                 "url": reverse("admin:forms_televisionsheet_changelist"),
             },
             {
                 "name": _("Internet"),
-                "count": InternetNewsSheet.objects.count(),
+                "count": self._get_count(InternetNewsSheet, context.request.user),
                 "url": reverse("admin:forms_internetnewssheet_changelist"),
             },
             {
                 "name": _("Twitter"),
-                "count": TwitterSheet.objects.count(),
+                "count": self._get_count(TwitterSheet, context.request.user),
                 "url": reverse("admin:forms_twittersheet_changelist"),
             },
         ]
