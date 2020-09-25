@@ -30,7 +30,8 @@ class PermsAdmin(GuardedModelAdmin):
         return shortcuts.get_objects_for_user(request.user, [perm])
 
     def get_queryset(self, request):
-        return self.perms_queryset(request, 'forms.change_%s' % self.permcode)
+        qs = self.perms_queryset(request, 'forms.change_%s' % self.permcode)
+        return qs.filter(country=request.user.monitor.country) if not request.user.is_superuser else qs
 
     def assign_permissions(self, user, obj):
         country = user.monitor.country
