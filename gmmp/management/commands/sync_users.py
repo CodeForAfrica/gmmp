@@ -21,14 +21,14 @@ class Command(BaseCommand):
         country_users = CountryUser.objects.all()
         for country_user in country_users:
             # Create users
-            group, _ = Group.objects.get_or_create(name=country_user.Designation)
-            user, _ = User.objects.get_or_create(email=country_user.Email,
-                        first_name=country_user.Firstname, last_name=country_user.Lastname, username=country_user.Username)
+            group, _ = Group.objects.get_or_create(name=country_user.designation)
+            user, _ = User.objects.get_or_create(email=country_user.email,
+                        first_name=country_user.firstname, last_name=country_user.lastname, username=country_user.username)
             user.set_password(settings.COUNTRY_USER_DEFAULT_PASSWORD)
             user.groups.add(group)
 
             # On sending activation email, user.is_staff should be set to true to enable user login
             user.save()
             monitor, _ = Monitor.objects.get_or_create(user=user)
-            monitor.country = country_user.Country
+            monitor.country = country_user.country
             monitor.save()

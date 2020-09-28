@@ -34,9 +34,9 @@ class CountryUser(SheetPullableMixin, models.Model):
     
     guid = models.CharField(primary_key=True, max_length=255, default=uuid4)
     
-    Country = CountryField(default="KE")
-    Firstname = models.CharField(max_length=127)
-    Lastname = models.CharField(max_length=127)
-    Username = models.CharField(max_length=127)
-    Email = models.CharField(max_length=127)
-    Designation = models.CharField(max_length=127)
+    country = CountryField(default="KE")
+    firstname = models.CharField(max_length=127)
+    lastname = models.CharField(max_length=127)
+    username = models.CharField(max_length=127)
+    email = models.CharField(max_length=127)
+    designation = models.CharField(max_length=127)
