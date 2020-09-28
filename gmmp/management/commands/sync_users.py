@@ -2,8 +2,8 @@ import os
 from django.core.management.base import BaseCommand
 from django.contrib.auth.models import User, Group
 from django.core.management import call_command
+from django.conf import settings
 from gmmp.models import Monitor, CountryUser
-
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
@@ -24,7 +24,7 @@ class Command(BaseCommand):
             group, _ = Group.objects.get_or_create(name=country_user.Designation)
             user, _ = User.objects.get_or_create(email=country_user.Email,
                         first_name=country_user.Firstname, last_name=country_user.Lastname, username=country_user.Username)
-            user.set_password(os.environ.get("SECRET_PASSWORD"))
+            user.set_password(settings.COUNTRY_USER_DEFAULT_PASSWORD)
             user.groups.add(group)
 
             # On sending activation email, user.is_staff should be set to true to enable user login
