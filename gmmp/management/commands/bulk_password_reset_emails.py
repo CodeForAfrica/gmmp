@@ -20,7 +20,7 @@ class Command(BaseCommand):
         password_reset_form = render_to_string(
             'emails/welcome_password_reset.html', {'SITE_URL': settings.SITE_URL})
         send_mass_html_mail(
-            'Reset your password on GMMP',
+            'New account on app.gmmp.ngo',
             '''Hi there''',
             password_reset_form,
             settings.EMAIL_FROM,
