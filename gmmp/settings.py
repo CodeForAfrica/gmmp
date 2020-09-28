@@ -166,7 +166,7 @@ SITE_URL = env.get('SITE_URL', 'http://localhost:8000')
 LOGIN_URL = "/admin/login/"
 
 # Email
-FROM_EMAIL = env.get("FROM_EMAIL", "support@gmmp.ngo")
+EMAIL_FROM = env.get("GMMP_EMAIL_FROM", "webmaster@localhost")
 EMAIL_HOST = env.get("GMMP_EMAIL_HOST", "smtp.sendgrid.net")
 EMAIL_PORT = int(env.get("GMMP_EMAIL_PORT", "2525"))
 EMAIL_HOST_USER = env.get("GMMP_EMAIL_HOST_USER", "apikey")
