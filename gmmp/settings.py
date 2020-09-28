@@ -158,10 +158,15 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
 
+
+SITE_URL = env.get('SITE_URL', 'http://localhost:8000')
+
+
 # Temporary login screen for downloading the exported data
 LOGIN_URL = "/admin/login/"
 
 # Email
+FROM_EMAIL = env.get("FROM_EMAIL", "support@gmmp.ngo")
 EMAIL_HOST = env.get("GMMP_EMAIL_HOST", "smtp.sendgrid.net")
 EMAIL_PORT = int(env.get("GMMP_EMAIL_PORT", "2525"))
 EMAIL_HOST_USER = env.get("GMMP_EMAIL_HOST_USER", "apikey")
