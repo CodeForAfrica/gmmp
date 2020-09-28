@@ -12,7 +12,12 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 import os
 from django.utils.translation import gettext_lazy as _
 from os import environ as env
+from pathlib import Path 
+from dotenv import load_dotenv
 import django.conf.global_settings as DEFAULT_SETTINGS
+
+env_path = Path(".") / ".env"
+load_dotenv(dotenv_path=env_path)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.get("DJANGO_DEBUG", True)
