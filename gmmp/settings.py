@@ -16,7 +16,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 import django.conf.global_settings as DEFAULT_SETTINGS
 
-env_path = Path(".") / ".env"
+env_path = Path(".") / ".env/.env"
 load_dotenv(dotenv_path=env_path)
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -300,4 +300,8 @@ GSHEETS = {
 GSHEETS_SPECIAL_QUESTIONS = {
     'SPREADSHEET_ID': env.get("GSHEETS_SPECIAL_QUESTIONS_SPREADSHEET_ID", "1dttFvgcmS4yYrioge2Awav5k65QSAlSd95bX9yCqjA0"),
     'SHEET_NAME': env.get("GSHEETS_SPECIAL_QUESTIONS_SHEET_NAME", "DATA"),
+}
+GSHEET_GMMP_USERS = {
+    'SPREADSHEET_ID': env.get("GSHEETS_GMMP_USERS_SPREADSHEET_ID", "1FjdgUbuCg5oYxv6my1E0Hw5gF1yDsOGb8Frm1HIXX3E"),
+    'SHEET_NAME': env.get("GSHEETS_GMMP_USERS_SHEET_NAME", "DATA"),
 }
