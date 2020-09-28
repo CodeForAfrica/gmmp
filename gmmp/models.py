@@ -27,3 +27,16 @@ class SpecialQuestions(SheetPullableMixin, models.Model):
 
     def __str__(self):
         return f"{self.country} Special Questions"
+
+class CountryUser(SheetPullableMixin, models.Model):
+    spreadsheet_id = settings.GSHEET_COUNTRY_USERS['SPREADSHEET_ID']
+    sheet_name = settings.GSHEET_COUNTRY_USERS['SHEET_NAME']
+    
+    guid = models.CharField(primary_key=True, max_length=255, default=uuid4)
+    
+    country = CountryField(default="KE")
+    firstname = models.CharField(max_length=127)
+    lastname = models.CharField(max_length=127)
+    username = models.CharField(max_length=127)
+    email = models.CharField(max_length=127)
+    designation = models.CharField(max_length=127)

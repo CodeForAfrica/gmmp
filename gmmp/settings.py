@@ -12,7 +12,12 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 import os
 from django.utils.translation import gettext_lazy as _
 from os import environ as env
+from pathlib import Path 
+from dotenv import load_dotenv
 import django.conf.global_settings as DEFAULT_SETTINGS
+
+env_path = Path(".") / ".env/.env"
+load_dotenv(dotenv_path=env_path)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.get("DJANGO_DEBUG", True)
@@ -39,6 +44,7 @@ if DEBUG:
 else:
     SECRET_KEY = env.get("DJANGO_SECRET_KEY")
 
+COUNTRY_USER_DEFAULT_PASSWORD = env.get("COUNTRY_USER_DEFAULT_PASSWORD")
 ALLOWED_HOSTS = ["*"]
 
 
@@ -295,4 +301,8 @@ GSHEETS = {
 GSHEETS_SPECIAL_QUESTIONS = {
     'SPREADSHEET_ID': env.get("GSHEETS_SPECIAL_QUESTIONS_SPREADSHEET_ID", "1dttFvgcmS4yYrioge2Awav5k65QSAlSd95bX9yCqjA0"),
     'SHEET_NAME': env.get("GSHEETS_SPECIAL_QUESTIONS_SHEET_NAME", "DATA"),
+}
+GSHEET_COUNTRY_USERS = {
+    'SPREADSHEET_ID': env.get("GSHEETS_COUNTRY_USERS_SPREADSHEET_ID", "1FjdgUbuCg5oYxv6my1E0Hw5gF1yDsOGb8Frm1HIXX3E"),
+    'SHEET_NAME': env.get("GSHEETS_COUNTRY_USERS_SHEET_NAME", "DATA"),
 }
