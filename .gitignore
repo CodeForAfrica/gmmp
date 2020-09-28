@@ -435,3 +435,11 @@ tags
 .history
 
 # End of https://www.toptal.com/developers/gitignore/api/vim,venv,emacs,linux,macos,django,python,virtualenv,intellij+all,visualstudiocode
+
+
+# Customizations
+
+# .env template file
+!.env/.env.template
+
+# End of Customizations

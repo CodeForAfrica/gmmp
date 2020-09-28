@@ -31,6 +31,8 @@ class SpecialQuestions(SheetPullableMixin, models.Model):
 class CountryUser(SheetPullableMixin, models.Model):
     spreadsheet_id = settings.GSHEET_COUNTRY_USERS['SPREADSHEET_ID']
     sheet_name = settings.GSHEET_COUNTRY_USERS['SHEET_NAME']
+    model_id_field = 'guid'
+    sheet_id_field = 'Platform ID'
     
     guid = models.CharField(primary_key=True, max_length=255, default=uuid4)
     
