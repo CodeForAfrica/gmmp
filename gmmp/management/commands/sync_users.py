@@ -27,7 +27,7 @@ class Command(BaseCommand):
             user.set_password(settings.COUNTRY_USER_DEFAULT_PASSWORD)
             user.groups.add(group)
 
-            # On sending activation email, user.is_staff should be set to true to enable user login
+            user.is_staff = True
             user.save()
             monitor, _ = Monitor.objects.get_or_create(user=user)
             monitor.country = country_user.country
