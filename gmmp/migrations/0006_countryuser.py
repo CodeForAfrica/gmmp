@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='GmmpUser',
+            name='CountryUser',
             fields=[
                 ('guid', models.CharField(default=uuid.uuid4, max_length=255, primary_key=True, serialize=False)),
                 ('Country', models.CharField(max_length=127)),
