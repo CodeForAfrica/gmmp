@@ -9,7 +9,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         # Remove all users in the system
         CountryUser.objects.all().delete()
-        User.objects.filter(is_superuser=False).delete() # We don't want to delete superusers
+        User.objects.filter().delete()
         
         # Pull all gmmp users
         try:
