@@ -286,6 +286,9 @@ class SheetModel(models.Model):
     country = CountryField(null=True)
     country_region = models.ForeignKey(CountryRegion, null=True, on_delete=models.SET_NULL)
     monitor_code = models.CharField(verbose_name=_('Monitor Code'), max_length=255)
+    deleted =  models.BooleanField(
+        help_text="Mark this sheet as deleted.", default=False
+    )
 
 
     class Meta:
@@ -321,6 +324,9 @@ class SheetModel(models.Model):
 
 
 class Person(models.Model):
+    deleted =  models.BooleanField(
+        help_text="Mark this person as deleted.", default=False
+    )
     class Meta:
         verbose_name = _('Person')
         abstract = True
@@ -352,6 +358,9 @@ class Journalist(models.Model):
     sex = models.PositiveIntegerField(choices=GENDER, verbose_name=_('Journalist''s Sex'))
     age = models.PositiveIntegerField(choices=AGES, verbose_name=_('Age (person appears)'), null=True)
     tbl = dict(GENDER)
+    deleted =  models.BooleanField(
+        help_text="Mark this Journalist as deleted.", default=False
+    )
 
     def __unicode__(self):
         return u"%s" % (self.tbl[self.sex])
