@@ -31,6 +31,7 @@ class PermsAdmin(GuardedModelAdmin):
 
     def get_queryset(self, request):
         qs = self.perms_queryset(request, 'forms.change_%s' % self.permcode)
+        qs = qs.filter(deleted=False)
         return qs.filter(country=request.user.monitor.country) if not request.user.is_superuser else qs
 
     def assign_permissions(self, user, obj):
@@ -46,6 +47,11 @@ class PermsAdmin(GuardedModelAdmin):
         response = super(PermsAdmin, self).render_change_form(request, context, add, change, form_url, obj)
         response.context_data['title'] = _("Add Article")
         return response
+    
+    def delete_model(self, request, obj):
+        obj.deleted = True
+        obj.save()
+        return
 
 # Inline Elements:
 
@@ -62,7 +68,7 @@ class NewspaperJournalistInline(admin.TabularInline):
 Unnamed journalists (e.g. 'Staff reporter', 'Our correspondent')
 <br/>
 News agencies''')
-    exclude = ('age',)
+    exclude = ('age', 'deleted', )
 
 class RadioJournalistInline(admin.TabularInline):
     model = models.RadioJournalist
@@ -72,7 +78,7 @@ class RadioJournalistInline(admin.TabularInline):
 Each news anchor or announcer: <strong>Code the anchor/announcer in each story, even if it is the same person.</strong>
 <br/>
 Each reporter''')
-    exclude = ('age',)
+    exclude = ('age', 'deleted', )
 
     fieldsets = [
         ('', {
@@ -88,6 +94,7 @@ class TelevisionJournalistInline(admin.TabularInline):
 Each news anchor or announcer: <strong>Code the anchor/announcer in each story, even if it is the same person.</strong>
 <br/>
 Each reporter''')
+    exclude = ('deleted', )
 
     fieldsets = [
         ('', {
@@ -105,6 +112,7 @@ class InternetJournalistInline(admin.TabularInline):
 Unnamed journalists (e.g. 'Staff reporter', 'Our correspondent')
 <br/>
 News agencies''')
+    exclude = ('deleted', )
 
 class TwitterJournalistInline(admin.TabularInline):
     model = models.TwitterJournalist
@@ -118,11 +126,14 @@ For each online news story, you should code each journalist/reporter who wrote t
 Unnamed journalists (e.g. 'Staff reporter', 'Our correspondent')
 <br/>
 News agencies''')
+    exclude = ('deleted', )
+
 
 
 # People In The News
 # ------------------
 class PersonInTheNewsInLine(admin.StackedInline):
+    exclude = ('deleted', )
     def get_formset(self, request, obj=None, **kwargs):
             form = super(PersonInTheNewsInLine, self).get_formset(request, obj, **kwargs)
             country = request.user.monitor.country
