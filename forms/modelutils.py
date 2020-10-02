@@ -2,8 +2,14 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django_countries.fields import CountryField
+from django.db import models
 
 from gmmp.models import Monitor
+
+
+class CustomManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(deleted=False)
 
 
 TOPICS = (
@@ -286,7 +292,10 @@ class SheetModel(models.Model):
     country = CountryField(null=True)
     country_region = models.ForeignKey(CountryRegion, null=True, on_delete=models.SET_NULL)
     monitor_code = models.CharField(verbose_name=_('Monitor Code'), max_length=255)
-
+    deleted =  models.BooleanField(
+        help_text="Mark this sheet as deleted.", default=False
+    )
+    objects = CustomManager()
 
     class Meta:
         abstract = True
@@ -321,6 +330,11 @@ class SheetModel(models.Model):
 
 
 class Person(models.Model):
+    deleted =  models.BooleanField(
+        help_text="Mark this person as deleted.", default=False
+    )
+    objects = CustomManager()
+
     class Meta:
         verbose_name = _('Person')
         abstract = True
@@ -352,6 +366,10 @@ class Journalist(models.Model):
     sex = models.PositiveIntegerField(choices=GENDER, verbose_name=_('Journalist''s Sex'))
     age = models.PositiveIntegerField(choices=AGES, verbose_name=_('Age (person appears)'), null=True)
     tbl = dict(GENDER)
+    deleted =  models.BooleanField(
+        help_text="Mark this Journalist as deleted.", default=False
+    )
+    objects = CustomManager()
 
     def __unicode__(self):
         return u"%s" % (self.tbl[self.sex])
