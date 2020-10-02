@@ -2,10 +2,15 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django_countries.fields import CountryField
+from django.db import models
 
 from gmmp.models import Monitor
 
-from forms.manager import CustomManager
+
+class CustomManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(deleted=False)
+
 
 TOPICS = (
     (_('Politics and Government'), (
