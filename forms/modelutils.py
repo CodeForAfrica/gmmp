@@ -5,6 +5,7 @@ from django_countries.fields import CountryField
 
 from gmmp.models import Monitor
 
+from forms.manager import CustomManager
 
 TOPICS = (
     (_('Politics and Government'), (
@@ -289,7 +290,7 @@ class SheetModel(models.Model):
     deleted =  models.BooleanField(
         help_text="Mark this sheet as deleted.", default=False
     )
-
+    objects = CustomManager()
 
     class Meta:
         abstract = True
@@ -327,6 +328,7 @@ class Person(models.Model):
     deleted =  models.BooleanField(
         help_text="Mark this person as deleted.", default=False
     )
+    objects = CustomManager()
     class Meta:
         verbose_name = _('Person')
         abstract = True
@@ -361,6 +363,7 @@ class Journalist(models.Model):
     deleted =  models.BooleanField(
         help_text="Mark this Journalist as deleted.", default=False
     )
+    objects = CustomManager()
 
     def __unicode__(self):
         return u"%s" % (self.tbl[self.sex])

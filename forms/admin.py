@@ -31,7 +31,6 @@ class PermsAdmin(GuardedModelAdmin):
 
     def get_queryset(self, request):
         qs = self.perms_queryset(request, 'forms.change_%s' % self.permcode)
-        qs = qs.filter(deleted=False)
         return qs.filter(country=request.user.monitor.country) if not request.user.is_superuser else qs
 
     def assign_permissions(self, user, obj):
@@ -50,6 +49,9 @@ class PermsAdmin(GuardedModelAdmin):
     
     def delete_model(self, request, obj):
         obj.deleted = True
+        # Mark all Newspaper Person and Journalists as deleted too
+        obj.newspaperperson_set.update(deleted=True)
+        obj.newspaperjournalist_set.update(deleted=True)
         obj.save()
         return
 
