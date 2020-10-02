@@ -329,6 +329,7 @@ class Person(models.Model):
         help_text="Mark this person as deleted.", default=False
     )
     objects = CustomManager()
+
     class Meta:
         verbose_name = _('Person')
         abstract = True
