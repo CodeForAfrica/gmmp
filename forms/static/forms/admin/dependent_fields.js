@@ -12,6 +12,29 @@
         $('.field-victim_or_survivor').show();
 
         /**
+         * Toggles using the `No` answer i.e. add validation if `No` is
+         * **NOT** selected, implying **YES** is selected.
+         */
+        var toggle_validation = function toggle_validation(person_set, el) {
+            if (el.id === 'id_' + person_set + '-victim_or_survivor_2') {
+                var add_validation$ = function(id) {
+                    // Set --- since it's an invalid value and thus will receive
+                    // validation error if user doesn't select another value
+                    $(id).children('option:first').attr('value', '----');
+                };
+                var remove_validation$ = function(id) {
+                    $(id).children('option:first').attr('value', '');
+                };
+                if (!$(el).prop('checked')) {
+                    add_validation$('#id_' + person_set + '-victim_of');
+                    add_validation$('#id_' + person_set + '-survivor_of');
+                } else {
+                    remove_validation$('#id_' + person_set + '-victim_of');
+                    remove_validation$('#id_' + person_set + '-survivor_of');
+                }
+            }
+        };
+        /**
          * Toggles using the `No` answer i.e. hide if `No` is selected.
          */
         var toggle_person_set_victim_or_survivor_questions =
@@ -32,21 +55,25 @@
         var newspaper_person_set = 'newspaperperson_set';
         var $newspaper_person_victim_or_survivor = $("input[id^='id_" + newspaper_person_set + "-'][id$='-victim_or_survivor_2']");
         $newspaper_person_victim_or_survivor.each(function (index) {
+            toggle_validation(newspaper_person_set + '-' + index, this);
             toggle_person_set_victim_or_survivor_questions(newspaper_person_set + '-' + index, this);
         });
         var radio_person_set = 'radioperson_set';
         var $radio_person_victim_or_survivor = $("input[id^='id_" + radio_person_set +  "-'][id$='-victim_or_survivor_2']");
         $radio_person_victim_or_survivor.each(function (index) {
+            toggle_validation(radio_person_set + '-' + index, this);
             toggle_person_set_victim_or_survivor_questions(radio_person_set + '-' + index, this);
         });
         var tv_person_set = 'televisionperson_set';
         var $tv_person_victim_or_survivor = $("input[id^='id_" + tv_person_set + "-'][id$='-victim_or_survivor_2']");
         $tv_person_victim_or_survivor.each(function (index) {
+            toggle_validation(tv_person_set + '-' + index, this);
             toggle_person_set_victim_or_survivor_questions(tv_person_set + '-' + index, this);
         });
         var internet_person_set = 'internetnewsperson_set';
         var $internet_person_victim_or_survivor = $("input[id^='id_" + internet_person_set + "-'][id$='-victim_or_survivor_2']");
         $internet_person_victim_or_survivor.each(function (index) {
+            toggle_validation(internet_person_set + '-' + index, this);
             toggle_person_set_victim_or_survivor_questions(internet_person_set + '-' + index, this);
         });
     }
@@ -109,37 +136,6 @@
             $('#id_internetnewsperson_set-0-victim_or_survivor_1').prop('checked', false);
             activate_short_monitoring_mode();
         }else{
-            var removeValidation$ = function(id) {
-                $(id).children('option:first').attr('value', '');
-            };
-            var addValidation$ = function(id) {
-                // Set --- since it's an invalid value and thus will receive validation error if user doesn't select another value
-                $(id).children('option:first').attr('value', '----');
-            };
-            var newspaper_person = $('#id_newspaperperson_set-0-victim_or_survivor_1:checked').length > 0;
-            var radio_person = $('#id_radioperson_set-0-victim_or_survivor_1:checked').length > 0;
-            var tv_person = $('#id_televisionperson_set-0-victim_or_survivor_1:checked').length > 0;
-            var internent_person = $('#id_internetnewsperson_set-0-victim_or_survivor_1:checked').length > 0;
-            if(newspaper_person || radio_person  || tv_person || internent_person){
-                addValidation$('#id_newspaperperson_set-0-victim_of');
-                addValidation$('#id_newspaperperson_set-0-survivor_of');
-                addValidation$('#id_radioperson_set-0-victim_of');
-                addValidation$('#id_radioperson_set-0-survivor_of');
-                addValidation$('#id_televisionperson_set-0-victim_of');
-                addValidation$('#id_televisionperson_set-0-survivor_of');
-                addValidation$('#id_internetnewsperson_set-0-victim_of');
-                addValidation$('#id_internetnewsperson_set-0-survivor_of');
-    
-            }else{
-                removeValidation$('#id_newspaperperson_set-0-victim_of');
-                removeValidation$('#id_newspaperperson_set-0-survivor_of');
-                removeValidation$('#id_radioperson_set-0-victim_of');
-                removeValidation$('#id_radioperson_set-0-survivor_of');
-                removeValidation$('#id_televisionperson_set-0-victim_of');
-                removeValidation$('#id_televisionperson_set-0-survivor_of');
-                removeValidation$('#id_internetnewsperson_set-0-victim_of');
-                removeValidation$('#id_internetnewsperson_set-0-survivor_of');
-            }
             activate_long_monitoring_mode();
         }
     });
