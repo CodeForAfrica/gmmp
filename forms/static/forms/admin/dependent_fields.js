@@ -11,17 +11,44 @@
         $('.field-webpage_layer_no').show();
         $('.field-victim_or_survivor').show();
 
-        var no_newspaper_person = $('#id_newspaperperson_set-0-victim_or_survivor_2:checked').length > 0;
-        var no_radio_person = $('#id_radioperson_set-0-victim_or_survivor_2:checked').length > 0;
-        var no_tv_person = $('#id_televisionperson_set-0-victim_or_survivor_2:checked').length > 0;
-        var no_internent_person = $('#id_internetnewsperson_set-0-victim_or_survivor_2:checked').length > 0;
-        if(no_newspaper_person || no_radio_person || no_tv_person || no_internent_person){
-            $('.field-victim_of').hide();
-            $('.field-survivor_of').hide();
-        }else{
-            $('.field-victim_of').show();
-            $('.field-survivor_of').show();
-        }
+        /**
+         * Toggles using the `No` answer i.e. hide if `No` is selected.
+         */
+        var toggle_person_set_victim_or_survivor_questions =
+            function toggle_person_set_victim_or_survivor_questions(person_set, el) {
+                if (el.id === 'id_' + person_set + '-victim_or_survivor_2') {
+                    var $person_set = $('#' + person_set);
+                    var $person_set_victim_question = $person_set.find('.field-victim_of');
+                    var $person_set_survivor_question = $person_set.find('.field-survivor_of');
+                    if ($(el).prop('checked')) { 
+                        $person_set_victim_question.hide();
+                        $person_set_survivor_question.hide();
+                    } else {
+                        $person_set_victim_question.show();
+                        $person_set_survivor_question.show();
+                    }
+                }
+            };
+        var newspaper_person_set = 'newspaperperson_set';
+        var $newspaper_person_victim_or_survivor = $("input[id^='id_" + newspaper_person_set + "-'][id$='-victim_or_survivor_2']");
+        $newspaper_person_victim_or_survivor.each(function (index) {
+            toggle_person_set_victim_or_survivor_questions(newspaper_person_set + '-' + index, this);
+        });
+        var radio_person_set = 'radioperson_set';
+        var $radio_person_victim_or_survivor = $("input[id^='id_" + radio_person_set +  "-'][id$='-victim_or_survivor_2']");
+        $radio_person_victim_or_survivor.each(function (index) {
+            toggle_person_set_victim_or_survivor_questions(radio_person_set + '-' + index, this);
+        });
+        var tv_person_set = 'televisionperson_set';
+        var $tv_person_victim_or_survivor = $("input[id^='id_" + tv_person_set + "-'][id$='-victim_or_survivor_2']");
+        $tv_person_victim_or_survivor.each(function (index) {
+            toggle_person_set_victim_or_survivor_questions(tv_person_set + '-' + index, this);
+        });
+        var internet_person_set = 'internetnewsperson_set';
+        var $internet_person_victim_or_survivor = $("input[id^='id_" + internet_person_set + "-'][id$='-victim_or_survivor_2']");
+        $internet_person_victim_or_survivor.each(function (index) {
+            toggle_person_set_victim_or_survivor_questions(internet_person_set + '-' + index, this);
+        });
     }
 
     var activate_short_monitoring_mode = function() {
