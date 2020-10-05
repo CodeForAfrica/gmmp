@@ -74,7 +74,7 @@ class NewspaperSheet(SheetModel):
 
     def __str__(self):
         created_at = self.created_at.strftime("%Y-%m-%d")
-        space = SPACE[self.space][1].split(')')[1] if self.space else "" # Extract space title from SPACE tuple
+        space = SPACE[self.space - 1][1].split(')')[1] if self.space else "" # Extract space title from SPACE tuple
         page = f" page {self.page_number}" if self.page_number else ""
 
         return f"{self.newspaper_name} {created_at}{page} {space}"
