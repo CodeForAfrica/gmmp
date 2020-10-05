@@ -20,7 +20,7 @@ env_path = Path(".") / ".env/.env"
 load_dotenv(dotenv_path=env_path)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env.get("DJANGO_DEBUG", True)
+DEBUG = env.get("DJANGO_DEBUG", False) == 'True'
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
