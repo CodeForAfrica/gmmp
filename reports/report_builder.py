@@ -82,11 +82,8 @@ def clean_title(text):
     Return the string passed in stripped of its numbers and parentheses
     Except for the DRC. Of course.
     """
+    text = str(text)
     if text != "Congo (the Democratic Republic of the)":
-        try:
-            text[text.find(')')+1:]
-        except Exception:
-            text = str(text)
         return text[text.find(')')+1:].lstrip()
     return text
 
@@ -436,6 +433,9 @@ class XLSXReportBuilder:
             weights = 'SELECT cast(SUM(reports_weights.weight) as float) AS "n",'
 
         raw_query = raw_query.replace('SELECT', weights)
+        if raw_query.find('GROUP BY') == -1:
+            group_by = ''.join(raw_query.split('FROM')[0].split('"n"')[-1].split()[1:])
+            raw_query+= f'GROUP BY {group_by}'
         cursor = connection.cursor()
         cursor.execute(raw_query, params)
         return self.dictfetchall(cursor)
