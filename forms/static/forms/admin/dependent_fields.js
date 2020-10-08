@@ -16,7 +16,7 @@
          * **NOT** selected, implying **YES** is selected.
          */
         var toggle_validation = function toggle_validation(person_set, el) {
-            if (el.id === 'id_' + person_set + '-victim_or_survivor_2') {
+            if (el.id === 'id_' + person_set + '-victim_or_survivor_1') {
                 var add_validation$ = function(id) {
                     // Set --- since it's an invalid value and thus will receive
                     // validation error if user doesn't select another value
@@ -25,7 +25,7 @@
                 var remove_validation$ = function(id) {
                     $(id).children('option:first').attr('value', '');
                 };
-                if (!$(el).prop('checked')) {
+                if ($(el).prop('checked')) {
                     add_validation$('#id_' + person_set + '-victim_of');
                     add_validation$('#id_' + person_set + '-survivor_of');
                 } else {
@@ -39,11 +39,11 @@
          */
         var toggle_person_set_victim_or_survivor_questions =
             function toggle_person_set_victim_or_survivor_questions(person_set, el) {
-                if (el.id === 'id_' + person_set + '-victim_or_survivor_2') {
+                if (el.id === 'id_' + person_set + '-victim_or_survivor_1') {
                     var $person_set = $('#' + person_set);
                     var $person_set_victim_question = $person_set.find('.field-victim_of');
                     var $person_set_survivor_question = $person_set.find('.field-survivor_of');
-                    if ($(el).prop('checked')) { 
+                    if (!$(el).prop('checked')) { 
                         $person_set_victim_question.hide();
                         $person_set_survivor_question.hide();
                     } else {
@@ -53,25 +53,25 @@
                 }
             };
         var newspaper_person_set = 'newspaperperson_set';
-        var $newspaper_person_victim_or_survivor = $("input[id^='id_" + newspaper_person_set + "-'][id$='-victim_or_survivor_2']");
+        var $newspaper_person_victim_or_survivor = $("input[id^='id_" + newspaper_person_set + "-'][id$='-victim_or_survivor_1']");
         $newspaper_person_victim_or_survivor.each(function (index) {
             toggle_validation(newspaper_person_set + '-' + index, this);
             toggle_person_set_victim_or_survivor_questions(newspaper_person_set + '-' + index, this);
         });
         var radio_person_set = 'radioperson_set';
-        var $radio_person_victim_or_survivor = $("input[id^='id_" + radio_person_set +  "-'][id$='-victim_or_survivor_2']");
+        var $radio_person_victim_or_survivor = $("input[id^='id_" + radio_person_set +  "-'][id$='-victim_or_survivor_1']");
         $radio_person_victim_or_survivor.each(function (index) {
             toggle_validation(radio_person_set + '-' + index, this);
             toggle_person_set_victim_or_survivor_questions(radio_person_set + '-' + index, this);
         });
         var tv_person_set = 'televisionperson_set';
-        var $tv_person_victim_or_survivor = $("input[id^='id_" + tv_person_set + "-'][id$='-victim_or_survivor_2']");
+        var $tv_person_victim_or_survivor = $("input[id^='id_" + tv_person_set + "-'][id$='-victim_or_survivor_1']");
         $tv_person_victim_or_survivor.each(function (index) {
             toggle_validation(tv_person_set + '-' + index, this);
             toggle_person_set_victim_or_survivor_questions(tv_person_set + '-' + index, this);
         });
         var internet_person_set = 'internetnewsperson_set';
-        var $internet_person_victim_or_survivor = $("input[id^='id_" + internet_person_set + "-'][id$='-victim_or_survivor_2']");
+        var $internet_person_victim_or_survivor = $("input[id^='id_" + internet_person_set + "-'][id$='-victim_or_survivor_1']");
         $internet_person_victim_or_survivor.each(function (index) {
             toggle_validation(internet_person_set + '-' + index, this);
             toggle_person_set_victim_or_survivor_questions(internet_person_set + '-' + index, this);
