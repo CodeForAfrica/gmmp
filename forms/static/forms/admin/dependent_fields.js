@@ -12,8 +12,8 @@
         $('.field-victim_or_survivor').show();
 
         /**
-         * Toggles using the `No` answer i.e. add validation if `No` is
-         * **NOT** selected, implying **YES** is selected.
+         * Toggles using the `Yes` answer i.e. add validation if `Yes` is
+         * selected, If `No` is selected or nothing is selected at all, we remove validation.
          */
         var toggle_validation = function toggle_validation(person_set, el) {
             if (el.id === 'id_' + person_set + '-victim_or_survivor_1') {
@@ -35,7 +35,7 @@
             }
         };
         /**
-         * Toggles using the `No` answer i.e. hide if `No` is selected.
+         * Toggles using the `Yes` answer i.e. show if `Yes` is selected.
          */
         var toggle_person_set_victim_or_survivor_questions =
             function toggle_person_set_victim_or_survivor_questions(person_set, el) {
