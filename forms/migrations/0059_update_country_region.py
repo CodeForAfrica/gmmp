@@ -7,8 +7,7 @@ COUNTRY_REGION = [
     ("Myanmar", "Asia"),
     ("Angola","Africa"),
     ("Cambodia","Asia"),
-    ("Cayman Islands","Caribbean"), 	
-    ("Côte d'Ivoire","Africa"),
+    ("Cayman Islands","Caribbean"),
     ("Dominica","Caribbean"),
     ("Greenland","Europe"),
     ("Honduras","Latin America"),
@@ -44,7 +43,11 @@ def code(apps, schema_editor):
     CountryRegion = apps.get_model("forms", "CountryRegion")
     db_alias = schema_editor.connection.alias
 
-    # Update regions
+    # Update Regions
+    CountryRegion.objects.using(db_alias).filter(region="Pacific Islands").update(region="Pacific")
+    CountryRegion.objects.using(db_alias).filter(region="Pacific Islands").update(region="Pacific")
+
+    # Update countries regions
     CountryRegion.objects.using(db_alias).filter(country="CY").update(region="Europe")
     CountryRegion.objects.using(db_alias).filter(country="KZ").update(region="Asia")
     CountryRegion.objects.using(db_alias).filter(country="PR").update(region="Caribbean")
