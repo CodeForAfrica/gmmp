@@ -5,6 +5,23 @@ from django.db import models, migrations
 
 COUNTRY_REGION = [
     ("Myanmar", "Asia"),
+    ("Angola","Africa"),
+    ("Cambodia","Asia"),
+    ("Cayman Islands","Caribbean"), 	
+    ("Côte d'Ivoire","Africa"),
+    ("Dominica","Caribbean"),
+    ("Greenland","Europe"),
+    ("Honduras","Latin America"),
+    ("Hong Kong","Asia"),
+    ("Iraq","Middle East"),
+    ("Jordan","Middle East"),
+    ("Macao","Asia"),
+    ("Papua New Guinea","Pacific"),
+    ("Russia","Europe"),
+    ("Rwanda","Africa"),
+    ("Seychelles","Africa"),
+    ("Timor-Leste","Asia"),
+    ("Uzbekistan","Asia"),
 ]
 
 def get_region_map(CountryRegion):
@@ -30,6 +47,9 @@ def code(apps, schema_editor):
     # Update regions
     CountryRegion.objects.using(db_alias).filter(country="CY").update(region="Europe")
     CountryRegion.objects.using(db_alias).filter(country="KZ").update(region="Asia")
+    CountryRegion.objects.using(db_alias).filter(country="PR").update(region="Caribbean")
+    CountryRegion.objects.using(db_alias).filter(country="VU").update(region="Pacific")
+
     # Create CountryRegion objects for supplied pairs
     region_map = get_region_map(CountryRegion)
     for region, country_code_list in region_map.items():
