@@ -43,10 +43,6 @@ def code(apps, schema_editor):
     CountryRegion = apps.get_model("forms", "CountryRegion")
     db_alias = schema_editor.connection.alias
 
-    # Update Regions
-    CountryRegion.objects.using(db_alias).filter(region="Pacific Islands").update(region="Pacific")
-    CountryRegion.objects.using(db_alias).filter(region="Pacific Islands").update(region="Pacific")
-
     # Update countries regions
     CountryRegion.objects.using(db_alias).filter(country="CY").update(region="Europe")
     CountryRegion.objects.using(db_alias).filter(country="KZ").update(region="Asia")
