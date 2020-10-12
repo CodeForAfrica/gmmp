@@ -204,10 +204,11 @@ COUNTRIES_OVERRIDE = {
     "QN": {'name': _('Belgium - Flemish'), 'alpha3': 'VLG'},
     "UK": None,
     "QO": {'name': _('England'), 'alpha3': 'ENG'},
-    "QP": {'name': _("North Ireland"), 'alpha3': 'NIR'},
+    "QP": {'name': _("Northern Ireland"), 'alpha3': 'NIR'},
     "QQ": {'name': _("Scotland"), 'alpha3': 'SCT'},
     "QR": {'name': _("Wales"), 'alpha3': 'WLS'},
     "XI": {'name': _("International"), 'alpha3': 'XIN'},
+    "PS": {'name': _("Palestine"), 'alpha3': 'PSE'}
 }
 
 # https://docs.djangoproject.com/en/2.2/ref/contrib/admin/#adminsite-attributes
