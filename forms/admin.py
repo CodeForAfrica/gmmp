@@ -49,9 +49,37 @@ class PermsAdmin(GuardedModelAdmin):
     
     def delete_model(self, request, obj):
         obj.deleted = True
-        # Mark all Newspaper Person and Journalists as deleted too
-        obj.newspaperperson_set.update(deleted=True)
-        obj.newspaperjournalist_set.update(deleted=True)
+        # Mark all Persons and Journalists as deleted too
+        if hasattr(obj, 'newspaperperson_set'):
+            obj.newspaperperson_set.update(deleted=True)
+        
+        if hasattr(obj, 'newspaperjournalist_set'):
+            obj.newspaperjournalist_set.update(deleted=True)
+
+        if hasattr(obj, 'radioperson_set'):
+            obj.radioperson_set.update(deleted=True)
+        
+        if hasattr(obj, 'radiojournalist_set'):
+            obj.radiojournalist_set.update(deleted=True)
+        
+        if hasattr(obj, 'televisionperson_set'):
+            obj.televisionperson_set.update(deleted=True)
+        
+        if hasattr(obj, 'televisionjournalist_set'):
+            obj.televisionjournalist_set.update(deleted=True)
+        
+        if hasattr(obj, 'internentperson_set'):
+            obj.internentperson_set.update(deleted=True)
+        
+        if hasattr(obj, 'internentjournalist_set'):
+            obj.internentjournalist_set.update(deleted=True)
+        
+        if hasattr(obj, 'twitterperson_set'):
+            obj.twitterperson_set.update(deleted=True)
+        
+        if hasattr(obj, 'twitterjournalist_set'):
+            obj.twitterjournalist_set.update(deleted=True)
+
         obj.save()
         return
 
