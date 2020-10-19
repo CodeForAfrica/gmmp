@@ -5,7 +5,6 @@ from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.urls import include, path, re_path
 from django.views.generic.base import RedirectView, TemplateView
-from rest_framework import routers
 
 from forms import views
 from gmmp import settings
@@ -15,9 +14,6 @@ admin.site.site_header = settings.ADMIN_SITE_SITE_HEADER
 admin.site.site_title = settings.ADMIN_SITE_SITE_TITLE
 admin.site.site_url = settings.ADMIN_SITE_SITE_URL
 admin.site.index_title = settings.ADMIN_SITE_INDEX_TITLE
-
-router = routers.DefaultRouter()
-router.register(r'data_upload', views.DataUploadEndpoint, 'data_upload')
 
 urlpatterns = (
     i18n_patterns(
@@ -56,5 +52,4 @@ urlpatterns = (
     + [path("", include("gsheets.urls"))]
     + [path("i18n/", include("django.conf.urls.i18n"))]
     + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT),
-    path('api/', include(router.urls))
 )
