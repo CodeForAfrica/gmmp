@@ -43,6 +43,7 @@ urlpatterns = (
             auth_views.PasswordResetCompleteView.as_view(),
             name="password_reset_complete",
         ),
+        path('api/data_uploader/', views.DataUploadEndpoint.as_view(), name="data_uploader"),
         # Admin site URLS
         path("admin/", admin.site.urls),
         re_path(r"^$", RedirectView.as_view(url="/admin"), name="go-to-admin"),
@@ -51,5 +52,5 @@ urlpatterns = (
     )
     + [path("", include("gsheets.urls"))]
     + [path("i18n/", include("django.conf.urls.i18n"))]
-    + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT),
+    + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 )
