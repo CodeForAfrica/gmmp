@@ -64,63 +64,63 @@ WS_INFO = {
         'title': 'Participating Countries',
         'desc': 'Breakdown of all media by region',
         'reports': ['global'],
-        'historical': '1F',
+        'historical': '1',
     },
     'ws_02': {
         'name': '2',
         'title': 'Participating Countries in each Region',
         'desc': 'Breakdown of all media by country',
         'reports': ['global', 'region'],
-        'historical': '2F',
+        'historical': '2',
     },
     'ws_03': {
         'name': '3',
         'title': 'Counts of media monitored',
         'desc': 'Total number of distinct media monitored',
         'reports': ['global'],
-        'historical': '2aF'
+        'historical': '3'
     },
     'ws_04': {
         'name': '4',
         'title': 'Topics in the news by region',
         'desc': 'Breakdown of major news topics by region by medium',
         'reports': ['global', 'region'],
-        'historical': '3aF'
+        'historical': '4'
     },
     'ws_05': {
         'name': '5',
         'title': 'Summary of women in the news, by GMMP year',
         'desc': 'Overall presence of women in news',
         'reports': ['global', 'region', 'country'],
-        'historical': '9aF',
+        'historical': '5',
     },
     'ws_06': {
         'name': '6',
         'title': 'Breakdown of women in the news in major topics by region',
         'desc': 'Women in the news (sources) in major news topics by region ',
         'reports': ['global', 'region'],
-        'historical': '3bF',
+        'historical': '6',
     },
     'ws_07': {
         'name': '7',
         'title': 'Women in the news (sources) by medium',
         'desc': 'Breakdown by sex of all mediums',
         'reports': ['global', 'region', 'country'],
-        'historical': '9bF'
+        'historical': '7'
     },
     'ws_08': {
         'name': '8',
         'title': 'Sex of news subjects (sources) inlocal,national,sub-regional/regional, foreign/intnl news',
         'desc': 'Breakdown by sex local,national,sub-regional/regional, intnl news',
         'reports': ['global', 'region', 'country'],
-        'historical': '9cF'
+        'historical': '8'
     },
     'ws_09': {
         'name': '9',
         'title': 'Sex of news subjects in different story topics',
         'desc': 'Breakdown of topic by sex',
         'reports': ['global', 'region'],
-        'historical': '9dF'
+        'historical': '9'
     },
     'ws_10': {
         'name': '10',
@@ -151,98 +151,98 @@ WS_INFO = {
         'title': 'Position or occupation of news sources, by sex',
         'desc': 'Breakdown of new sources by occupation and sex',
         'reports': ['global', 'region', 'country'],
-        'historical': '9eF'
+        'historical': '14'
     },
     'ws_15': {
         'name': '15',
         'title': 'News subject''s Function in news story, by sex',
         'desc': 'Breakdown by sex and function',
         'reports': ['global', 'region', 'country'],
-        'historical': '9fF'
+        'historical': '15'
     },
     'ws_16': {
         'name': '16',
         'title': 'Function of news subjects by sex - by occupation',
         'desc': 'Breakdown of  Function of news subjects by sex - by occupation',
         'reports': ['global', 'region', 'country'],
-        'historical': '20aF'
+        'historical': '16'
     },
     'ws_17': {
         'name': '17',
         'title': 'Function of news subjects by sex - by age',
         'desc': 'Breakdown of  Function of news subjects by sex - by age',
         'reports': ['global', 'region', 'country'],
-        'historical': '20bF'
+        'historical': '17'
     },
     'ws_18': {
         'name': '18',
         'title': 'Age of news subjects by print, by sex',
         'desc': 'B.down of  Age of news subjects by print, by sex',
         'reports': ['global', 'region', 'country'],
-        'historical': '18cF'
+        'historical': '18'
     },
     'ws_19': {
         'name': '19',
         'title': 'Age of Television news subjects, by sex',
         'desc': 'B.down of  Age of Television news subjects, by sex (age captured for Television only)',
         'reports': ['global', 'region', 'country'],
-        'historical': '18dF'
+        'historical': '19'
     },
     'ws_20': {
         'name': '20',
         'title': 'Functions and Occupations by sex of news subject',
         'desc': 'B.down of  news subjects\' functions and occupations by sex of news subject',
         'reports': ['global', 'region', 'country'],
-        'historical': '20fF'
+        'historical': '20'
     },
     'ws_21': {
         'name': '21',
         'title': 'Breakdown by victim type by sex',
         'desc': 'News Subjects who are portrayed as victims, by sex',
         'reports': ['global', 'region', 'country'],
-        'historical': '9gF'
+        'historical': '21'
     },
     'ws_23': {
         'name': '23',
         'title': 'Breakdown by survivor type by sex',
         'desc': 'News subjects who are portrayed as survivors, by sex',
         'reports': ['global', 'region', 'country'],
-        'historical': '19bF'
+        'historical': '23'
     },
     'ws_24': {
         'name': '24',
         'title': 'Breakdown by family status, by sex.',
         'desc': 'News subjects who are identified by family status, by sex',
         'reports': ['global', 'region', 'country'],
-        'historical': '9hF'
+        'historical': '24'
     },
     'ws_25': {
         'name': '25',
         'title': 'B.down by sex of subject, family status, by sex of reporter',
         'desc': 'News subjects who are identified by family status, by sex of news subject, by sex of reporter',
         'reports': ['global', 'region', 'country'],
-        'historical': '9kF'
+        'historical': '25'
     },
     'ws_26': {
         'name': '26',
         'title': 'Breakdown of  news subjects quoted, by sex',
         'desc': 'News subjects quoted, by sex',
         'reports': ['global', 'region', 'country'],
-        'historical': '20gF'
+        'historical': '26'
     },
     'ws_27': {
         'name': '27',
         'title': 'Breakdown of News subjects photographed, by sex',
         'desc': 'News subjects photographed, by sex',
         'reports': ['global', 'region', 'country'],
-        'historical': '20hF'
+        'historical': '27'
     },
     'ws_28': {
         'name': '28',
         'title': 'Breakdown of total female reporters & presenters by region by medium ',
         'desc': 'Female reporters, announcers and presenters all media, by region',
         'reports': ['global', 'region', 'country'],
-        'historical': '10bF'
+        'historical': '28'
     },
     'ws_29': {
         'name': '29',
@@ -261,7 +261,7 @@ WS_INFO = {
         'title': 'Breakdown of Reporters, by sex on different topics - Detail',
         'desc': 'Rporters, by sex on different topics - Detail',
         'reports': ['global'],
-        'historical': '12dF'
+        'historical': '31'
     },
     'ws_32': {
         'name': '32',
@@ -274,21 +274,21 @@ WS_INFO = {
         'title': 'Breakdown of News Subject (sex of source) selection by female & male reporters',
         'desc': 'Selection of News Subject (sex of source, in rows) by female & male reporters (in columns)',
         'reports': ['global', 'region', 'country'],
-        'historical': '13bF'
+        'historical': '34'
     },
     'ws_35': {
         'name': '35',
         'title': 'Breakdown of television Announcers & Reporters, by age, by sex',
         'desc': 'Age of television Announcers & Reporters, by sex',
         'reports': ['global', 'region', 'country'],
-        'historical': '14F'
+        'historical': '35'
     },
     'ws_36': {
         'name': '36',
         'title': 'Breakdown of Stories with Women as central focus (is this story about a particular woman or women) by sex of reporter',
         'desc': 'Stories with Women as central focus  by sex of reporter',
         'reports': ['global', 'region', 'country'],
-        'historical': '15aF'
+        'historical': '36'
     },
     'ws_38': {
         'name': '38',
@@ -301,21 +301,21 @@ WS_INFO = {
         'title': 'Breakdown of Stories with Women as a central Focus by minor topic',
         'desc': 'Stories with Women as a central Focus by minor topic',
         'reports': ['global'],
-        'historical': '15bF'
+        'historical': '39'
     },
     'ws_40': {
         'name': '40',
         'title': 'Breakdown of Stories with Women as a central Focus by topic and region',
         'desc': 'Stories with Women as a central Focus by topic and region',
         'reports': ['global'],
-        'historical': '15cF'
+        'historical': '40'
     },
     'ws_41': {
         'name': '41',
         'title': 'Breakdown of Stories where issues of gender equality/inequality are raised by topic',
         'desc': 'Stories where issues of gender equality/inequality are raised by topic',
         'reports': ['global', 'region', 'country'],
-        'historical': '16eF'
+        'historical': '41'
     },
     'ws_42': {
         'name': '42',
@@ -334,14 +334,14 @@ WS_INFO = {
         'title': 'Stories where issues of gender equality/inequality are raised by sex of reporter and by region',
         'desc': 'Stories where issues of gender equality/inequality are raised by sex of reporter and by region',
         'reports': ['global', 'region'],
-        'historical': '16cF'
+        'historical': '44'
     },
     'ws_45': {
         'name': '45',
         'title': 'Stories where issues of gender equality/inequality are raised by sex of \'people in the news\' and by region',
         'desc': 'Stories where issues of gender equality/inequality are raised by sex of \'people in the news\' and by region',
         'reports': ['global', 'region'],
-        'historical': '16dF'
+        'historical': '45'
     },
     'ws_46': {
         'name': '46',
