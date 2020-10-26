@@ -147,9 +147,11 @@ RECODES = {
 
 
 def canon(key):
-    key = key.replace(u'\u2026', '')
-    key = recode(key.strip())
-    return key.strip().lower()
+    if key:
+        key = key.replace(u'\u2026', '')
+        key = recode(key.strip())
+        return key.strip().lower()
+    return ''
 
 
 def recode(v):
@@ -593,7 +595,11 @@ class Historical(object):
                     year = 2010
                     effective_col_heading = canon('N')
                 else:
-                    year = int(year)
+                    if year:
+                        year = int(year)
+                    else:
+                        # Figure out what this year needs to be
+                        year = 2010
                     effective_col_heading = col_heading
 
                 if year not in skip_years:

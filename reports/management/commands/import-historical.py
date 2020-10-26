@@ -8,25 +8,21 @@ from reports.report_details import REGION_COUNTRY_MAP, get_countries
 
 class Command(BaseCommand):
     help = 'Import historical GMMP data from an XLSX file'
-    option_list = BaseCommand.option_list + (
-        make_option('--global',
-            action='store_true',
-            help='Coverage is global'),
-        make_option('--region REGION',
-            action='store',
-            dest='region',
-            help='Import historical data for a region. One of: %s' % ', '.join(sorted(REGION_COUNTRY_MAP.keys()))),
-        make_option('--country COUNTRY',
-            action='store',
-            dest='country',
-            help='Import historical data for a country. One of: %s' % ', '.join(sorted(c[0] for c in get_countries()))),
-    )
+
+    def add_arguments(self, parser):
+        parser.add_argument('--filename', action='append', dest='filename', help='XLSX file to import')
+        parser.add_argument('--global', action='store_true', help='Coverage is global')
+        parser.add_argument('--region REGION', action='store', dest='region', help='Import historical data for a region. One of: %s' % ', '.join(sorted(REGION_COUNTRY_MAP.keys())))
+        parser.add_argument('--country COUNTRY', action='store', dest='country', help='Import historical data for a country. One of: %s' % ', '.join(sorted(c[0] for c in get_countries())))
 
     def handle(self, *args, **options):
         historical = Historical()
         coverage = None
         region = None
         country = None
+        filenames = options['filename']
+        if not filenames:
+            raise CommandError("Must specify --filename")
 
         if options['global']:
             coverage = 'global'
@@ -55,7 +51,7 @@ class Command(BaseCommand):
         else:
             raise CommandError("Must specify --global or --region")
 
-        for fname in args:
+        for fname in filenames:
             historical.import_from_file(fname, coverage, region=region, country=country)
 
         historical.save()
