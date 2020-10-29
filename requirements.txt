@@ -12,4 +12,4 @@ django-guardian==2.3.0
 gunicorn[gevent]==20.0.4
 openpyxl==3.0.5
 psycopg2==2.8.6
-python-dotenv==0.14.0
+python-dotenv==0.15.0
