@@ -6,7 +6,14 @@ from forms.models import (
     TwitterSheet,
     InternetNewsPerson,
     InternetNewsJournalist,
-
+    TwitterJournalist,
+    TwitterPerson,
+    TelevisionJournalist,
+    TelevisionPerson,
+    RadioPerson,
+    RadioJournalist,
+    NewspaperPerson,
+    NewspaperJournalist,
 )
 from .index import merge_coded_data
 
@@ -44,7 +51,7 @@ class DataUpload():
         """
             Create newspaper sheet in database
         """
-        return NewspaperSheet.objects.create(
+        newspaper_sheet = NewspaperSheet.objects.create(
             newspaper_name=data.get('newspaper_name'),
             page_number=data.get('page_number'),
             covid19=data.get('covid19'),
@@ -59,12 +66,36 @@ class DataUpload():
             comments=data.get('comments'),
             country=data.get('country'),
         )
+        for person in data['people']:
+            NewspaperPerson.objects.create(
+                sex=person.get("sex"),
+                age=person.get("age"),
+                occupation=person.get("occupation"),
+                function=person.get("function"),
+                family_role=person.get("family_role"),
+                victim_or_survivor=person.get("victim_or_survivor"),
+                victim_of=person.get("victim_of"),
+                survivor_of=person.get("survivor_of"),
+                is_quoted=person.get("is_quoted"),
+                is_photograph=person.get("is_photograph"),
+                special_qn_1=person.get("special_qn_1"),
+                special_qn_2=person.get("special_qn_2"),
+                special_qn_3=person.get("special_qn_3"),
+                newspaper_sheet=newspaper_sheet
+            )
+
+        for journalist in data['journalists']:
+            NewspaperJournalist.objects.create(
+                newspaper_sheet=newspaper_sheet,
+                sex=journalist.get("sex"),
+                age=journalist.get("age"),
+            )
 
     def _radio_creator(self, data):
         """
             Create radio sheet in database
         """
-        return RadioSheet.objects.create(
+        radio_sheet = RadioSheet.objects.create(
             channel=data.get('channel'),
             start_time=data.get('start_time'),
             num_female_anchors=data.get('num_female_anchors'),
@@ -81,12 +112,33 @@ class DataUpload():
             comments=data.get('comments'),
             country=data.get('country'),
         )
+        for person in data['people']:
+            RadioPerson.objects.create(
+                sex=person.get("sex"),
+                occupation=person.get("occupation"),
+                function=person.get("function"),
+                family_role=person.get("family_role"),
+                victim_or_survivor=person.get("victim_or_survivor"),
+                victim_of=person.get("victim_of"),
+                survivor_of=person.get("survivor_of"),
+                special_qn_1=person.get("special_qn_1"),
+                special_qn_2=person.get("special_qn_2"),
+                special_qn_3=person.get("special_qn_3"),
+                radio_sheet=radio_sheet
+            )
+
+        for journalist in data['journalists']:
+            RadioJournalist.objects.create(
+                radio_sheet=radio_sheet,
+                sex=journalist.get("sex"),
+                age=journalist.get("age"),
+            )
 
     def _television_creator(self, data):
         """
             Create television sheet in database
         """
-        return TelevisionSheet.objects.create(
+        television_sheet = TelevisionSheet.objects.create(
             channel=data.get('channel'),
             start_time=data.get('start_time'),
             num_female_anchors=data.get('num_female_anchors'),
@@ -103,6 +155,29 @@ class DataUpload():
             comments=data.get('comments'),
             country=data.get('country'),
         )
+        for person in data['people']:
+            TelevisionPerson.objects.create(
+                sex=person.get("sex"),
+                age=person.get("age"),
+                occupation=person.get("occupation"),
+                function=person.get("function"),
+                family_role=person.get("family_role"),
+                victim_or_survivor=person.get("victim_or_survivor"),
+                victim_of=person.get("victim_of"),
+                survivor_of=person.get("survivor_of"),
+                special_qn_1=person.get("special_qn_1"),
+                special_qn_2=person.get("special_qn_2"),
+                special_qn_3=person.get("special_qn_3"),
+                television_sheet=television_sheet
+            )
+
+        for journalist in data['journalists']:
+            TelevisionJournalist.objects.create(
+                television_sheet=television_sheet,
+                sex=journalist.get("sex"),
+                age=journalist.get("age"),
+                role=journalist.get("role")
+            )
 
     def _internet_creator(self, data):
         """
@@ -127,12 +202,36 @@ class DataUpload():
             url_and_multimedia=data.get('url_and_multimedia'),
             country=data.get('country'),
         )
+        for person in data['people']:
+            InternetNewsPerson.objects.create(
+                sex=person.get("sex"),
+                age=person.get("age"),
+                occupation=person.get("occupation"),
+                function=person.get("function"),
+                family_role=person.get("family_role"),
+                victim_or_survivor=person.get("victim_or_survivor"),
+                victim_of=person.get("victim_of"),
+                survivor_of=person.get("survivor_of"),
+                is_quoted=person.get("is_quoted"),
+                is_photograph=person.get("is_photograph"),
+                special_qn_1=person.get("special_qn_1"),
+                special_qn_2=person.get("special_qn_2"),
+                special_qn_3=person.get("special_qn_3"),
+                internetnews_sheet=internet_news
+            )
+
+        for journalist in data['journalists']:
+            InternetNewsJournalist.objects.create(
+                internetnews_sheet=internet_news,
+                sex=journalist.get("sex"),
+                age=journalist.get("age")
+            )
 
     def _twitter_creator(self, data):
         """
             Create twitter sheet in database
         """
-        return TwitterSheet.objects.create(
+        twitter_news = TwitterSheet.objects.create(
             media_name=data.get('media_name'),
             twitter_handle=data.get('twitter_handle'),
             retweet=data.get('retweet'),
@@ -146,3 +245,22 @@ class DataUpload():
             url_and_multimedia=data.get('url_and_multimedia'),
             country=data.get('country'),
         )
+        for person in data['people']:
+            TwitterPerson.objects.create(
+                sex=person.get("sex"),
+                age=person.get("age"),
+                occupation=person.get("occupation"),
+                function=person.get("function"),
+                is_photograph=person.get("is_photograph"),
+                special_qn_1=person.get("special_qn_1"),
+                special_qn_2=person.get("special_qn_2"),
+                special_qn_3=person.get("special_qn_3"),
+                twitter_sheet=twitter_news
+            )
+
+        for journalist in data['journalists']:
+            TwitterJournalist.objects.create(
+                twitter_sheet=twitter_news,
+                sex=journalist.get("sex"),
+                age=journalist.get("age")
+            )
