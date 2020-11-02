@@ -202,6 +202,6 @@ def get_sheet(filename):
 
 
 story_name = "./data/bbc_world.xlsx"
-get_people(story_name)['InternetCoding']
-get_journalist(story_name)['InternetCoding']
-get_sheet(story_name)['InternetCoding']
+get_people(story_name)['InternetCoding'].to_json(orient ='records')
+get_journalist(story_name)['InternetCoding'].to_json(orient ='records')
+get_sheet(story_name)['InternetCoding'].to_json(orient ='records')
