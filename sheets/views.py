@@ -5,6 +5,7 @@ from forms.models import (
     InternetNewsSheet,
     TwitterSheet
 )
+from .data_transfer.index import merge_coded_data
 
 # Create your views here.
 
@@ -14,20 +15,23 @@ class DataUpload():
         """
             Upload data
         """
-        for data in request.data:
-            self._create(data['data'], data['type'])
-
+        sheet_name, coding = 'bbc_world', 'InternetCoding'
+        data = merge_coded_data(sheet_name, coding)
+        for item in data:
+            # self._create(item, coding)
+            print(item)
+            print("\n\n\n\n")
 
     def _create(self, data, type):
         """
             Create objects in database
         """
         types = dict(
-            newspaper=self._newspaper_creator,
-            radio=self._radio_creator,
-            television=self._television_creator,
-            internet=self._internet_creator,
-            twitter=self._twitter_creator
+            NewspaperCoding=self._newspaper_creator,
+            RadioCoding=self._radio_creator,
+            TelevisionCoding=self._television_creator,
+            InternetCoding=self._internet_creator,
+            TwitterCodings=self._twitter_creator
         )
         for item in data:
             try:
