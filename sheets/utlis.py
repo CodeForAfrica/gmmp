@@ -1,112 +1,199 @@
 import re
 from django_countries.fields import countries
 
-from sheets.serializers import InternetNewsSheetSerializer, InternetNewsPersonSerializer, InternetNewsJournalistSerializer
+from sheets.serializers import (
+    NewspaperSheet, NewspaperPerson, NewspaperJournalist,
+    InternetNewsSheetSerializer, InternetNewsPersonSerializer, InternetNewsJournalistSerializer,
+)
+
+def get_all_coding_data(coding_data, row):
+    country = countries.alpha2(coding_data.get('countries').get(row)) if coding_data.get('countries') else None
+    monitor_code = coding_data.get('monitors').get(row) if coding_data.get('monitors') else None
+    newspaper_name = coding_data.get('newspaper_name').get(row) if coding_data.get('newspaper_name') else None
+    covid19 = coding_data.get('covid19').get(row) if coding_data.get('covid19') else None
+    topic = coding_data.get('topic').get(row) if coding_data.get('topic') else None
+    scope = coding_data.get('scope').get(row) if coding_data.get('scope') else None
+    space = coding_data.get('space').get(row) if coding_data.get('space') else None
+    equality_rights = coding_data.get('equality_rights').get(row) if coding_data.get('equality_rights') else None
+    about_women = coding_data.get('about_women').get(row) if coding_data.get('about_women') else None
+    inequality_women = coding_data.get('inequality_women').get(row) if coding_data.get('inequality_women') else None
+    stereotypes = coding_data.get('stereotypes').get(row) if coding_data.get('stereotypes') else None
+    date = format_date(coding_data.get('time_accessed').get(row).split('  ')[0]) if coding_data.get('time_accessed') else None
+    time = format_time(coding_data.get('time_accessed').get(row).split('  ')[1]) if coding_data.get('time_accessed') else None
+    website_name = coding_data.get('website_name').get(row) if coding_data.get('website_name') else None
+    website_url = coding_data.get('website_url').get(row) if coding_data.get('website_url') else None
+    offline_presence = re.findall(r'\d+', coding_data.get('offline_presence').get(row)) if coding_data.get('offline_presence') else None
+    webpage_layer_no = coding_data.get('webpage_layer_no').get(row) if coding_data.get('webpage_layer_no') else None
+    shared_via_twitter = coding_data.get('shared_via_twitter').get(row) if coding_data.get('shared_via_twitter') else None
+    shared_on_facebook = coding_data.get('shared_on_facebook').get(row) if coding_data.get('shared_on_facebook') else None
+    equality_rights = coding_data.get('equality_rights').get(row) if coding_data.get('equality_rights') else None
+    comments = coding_data.get('comments').get(row) if coding_data.get('comments') else None
+    sex = coding_data.get("sex").get(row) if coding_data.get('sex') else None
+    age = coding_data.get("age").get(row) if coding_data.get('age') else None
+    occupation = coding_data.get("occupation").get(row) if coding_data.get('occupation') else None
+    function = coding_data.get("function").get(row) if coding_data.get('function') else None
+    family_role = coding_data.get("family_role").get(row) if coding_data.get('family_role') else None
+    victim_or_survivor = coding_data.get("victim_or_survivor").get(row) if coding_data.get('victim_or_survivor') else None
+    victim_of = coding_data.get("victim_of").get(row) if coding_data.get('victim_of') else None
+    survivor_of = coding_data.get("survivor_of").get(row) if coding_data.get('survivor_of') else None
+    is_quoted = coding_data.get("is_quoted").get(row) if coding_data.get('is_quoted') else None
+    is_photograph = coding_data.get("is_photograph").get(row) if coding_data.get('is_photograph') else None
+    special_qn_1 = coding_data.get("special_qn_1").get(row) if coding_data.get('special_qn_1') else None
+    special_qn_2 = coding_data.get("special_qn_2").get(row) if coding_data.get('special_qn_2') else None
+    special_qn_3 = coding_data.get("special_qn_3").get(row) if coding_data.get('special_qn_3') else None
+
+    return {
+        "monitor_mode": 1,
+        "country": country,
+        "monitor_code": monitor_code,
+        "newspaper_name": newspaper_name,
+        "website_name": website_name,
+        "webpage_layer_no": int(webpage_layer_no) if webpage_layer_no else '',
+        "shared_via_twitter": 'Y' if shared_via_twitter == '1' else 'N',
+        "shared_on_facebook": 'Y' if shared_on_facebook == '1' else 'N',
+        "equality_rights": 'Y' if equality_rights == '1' else 'N',
+        "offline_presence": 'Y' if offline_presence[0] == '1' else 'N',
+        "time_accessed": f"{date} {time}",
+        "website_url": website_url,
+        "covid19": int(covid19) if covid19 else '',
+        "topic": int(topic) if topic else '',
+        "scope": int(scope) if scope else '',
+        "space": space,
+        "equality_rights": 'Y' if equality_rights == 'Y' else 'N',
+        "about_women": 'Y' if about_women == 'Y' else 'N',
+        "inequality_women": int(inequality_women) if inequality_women else "",
+        "stereotypes": int(stereotypes) if stereotypes else '',
+        "url_and_multimedia": comments,
+        "sex": int(sex) if sex else None,
+        "age": int(age) if age else None,
+        "occupation": int(occupation) if occupation else None,
+        "function": int(function) if function else None,
+        "family_role": 'Y' if family_role == '1' else 'N',
+        "victim_or_survivor": 'Y' if victim_or_survivor == '1' else 'N',
+        "victim_of": int(victim_of) if victim_of else None,
+        "survivor_of": int(survivor_of) if survivor_of else None,
+        "is_quoted": 'Y' if is_quoted == '1' else 'N',
+        "is_photograph": int(is_photograph) if is_photograph else None,
+        "special_qn_1": 'Y' if special_qn_1 == '1' else 'N',
+        "special_qn_2": 'Y' if special_qn_2 == '1' else 'N',
+        "special_qn_3": 'Y' if special_qn_3 == '1' else 'N',
+        "further_analysis": 'N'
+    }
+
+def get_people_data(coding_data, row):
+    common_data = get_all_coding_data(coding_data, row)
+
+    return {
+        "sex": common_data.get("sex"),
+        "age": common_data.get("age"),
+        "occupation": common_data.get("occupation"),
+        "function": common_data.get("function"),
+        "family_role": common_data.get("family_role"),
+        "victim_or_survivor": common_data.get("victim_or_survivor"),
+        "victim_of": common_data.get("victim_of"),
+        "survivor_of": common_data.get("survivor_of"),
+        "is_quoted": common_data.get("is_quoted"),
+        "is_photograph": common_data.get("is_photograph"),
+        "special_qn_1": common_data.get("special_qn_1"),
+        "special_qn_2": common_data.get("special_qn_2"),
+        "special_qn_3": common_data.get("special_qn_3"),
+    }
+
+def get_internent_coding_data(internet_coding_data, row):
+    common_data = get_all_coding_data(internet_coding_data, row)
+    
+    return {
+        "monitor_mode": common_data.get('monitor_mode'),
+        "country": common_data.get('country'),
+        "monitor_code": common_data.get('monitor_code'),
+        "website_name": common_data.get('website_name'),
+        "website_url": common_data.get('website_url'),
+        "time_accessed": common_data.get('time_accessed'),
+        "offline_presence": common_data.get('offline_presence'),
+        "webpage_layer_no": common_data.get('webpage_layer_no'),
+        "covid19": common_data.get('covid19'),
+        "topic": common_data.get('topic'),
+        "scope": common_data.get('scope'),
+        "shared_via_twitter": common_data.get('shared_via_twitter'),
+        "shared_on_facebook": common_data.get('shared_on_facebook'),
+        "equality_rights": common_data.get('equality_rights'),
+        "about_women": common_data.get('about_women'),
+        "inequality_women": common_data.get('inequality_women'),
+        "stereotypes": common_data.get('stereotypes'),
+        "url_and_multimedia": common_data.get('url_and_multimedia'),
+        "further_analysis": common_data.get('further_analysis'),
+    }
 
 def save_internent_news_data(internet_coding_data, journalist_internet_coding_data):
-    for row in internet_coding_data.get('countries', []):
-        date = format_date(internet_coding_data.get('time_accessed').get(row).split('  ')[0])
-        time = format_time(internet_coding_data.get('time_accessed').get(row).split('  ')[1])
+    if internet_coding_data:
+        for row in internet_coding_data.get('countries', []):
+            sheet_data = get_internent_coding_data(internet_coding_data, row)
+            
+            internet_news_sheet_serializer = InternetNewsSheetSerializer(data=sheet_data)
 
-        webpage_layer_no = internet_coding_data.get('webpage_layer_no').get(row)
-        covid19 = internet_coding_data.get('covid19').get(row)
-        topic = internet_coding_data.get('topic').get(row)
-        scope = internet_coding_data.get('scope').get(row)
-        inequality_women = internet_coding_data.get('inequality_women').get(row)
-        stereotypes = internet_coding_data.get('stereotypes').get(row)
-        url_and_multimedia = internet_coding_data.get('comments').get(row)
+            if internet_news_sheet_serializer.is_valid():
+                internet_news_sheet = internet_news_sheet_serializer.save()
+                person_data = {}
+                person_data['internetnews_sheet'] = internet_news_sheet.id
+                # If next row is current row+1 then that row belongs to this sheet
+                # e.g if current row is 2 and next row is 3 then that row holds the second Journalist or the second person in the news.
+                while internet_coding_data.get("sex").get(row):
+                    people_data = get_people_data(internet_coding_data, row)
+                    person_data.update(people_data)
 
-        sheet_data = {
-            "monitor_mode": 1,
-            "country": countries.alpha2(internet_coding_data.get('countries').get(row)),
-            "monitor_code": internet_coding_data.get('monitors').get(row),
-            "website_name": internet_coding_data.get('website_name').get(row),
-            "website_url": internet_coding_data.get('website_url').get(row),
-            "time_accessed": f"{date} {time}",
-            "offline_presence": 'Y' if re.findall(r'\d+', internet_coding_data.get('offline_presence').get(row))[0] == '1' else 'N',
-            "webpage_layer_no": int(webpage_layer_no) if webpage_layer_no else '',
-            "covid19": int(covid19) if covid19 else '',
-            "topic": int(topic) if topic else '',
-            "scope": int(scope) if scope else '',
-            "shared_via_twitter": 'Y' if internet_coding_data.get('shared_via_twitter').get(row) == '1' else 'N',
-            "shared_on_facebook": 'Y' if internet_coding_data.get('shared_on_facebook').get(row) == '1' else 'N',
-            "equality_rights": 'Y' if internet_coding_data.get('equality_rights').get(row) == '1' else 'N',
-            "about_women": 'Y' if internet_coding_data.get('about_women').get(row) == '1' else 'N',
-            "inequality_women": int(inequality_women) if inequality_women else '',
-            "stereotypes": int(stereotypes) if stereotypes else '',
-            "url_and_multimedia": url_and_multimedia,
-            "further_analysis": 'N'
-        }
-        
-        internet_news_sheet_serializer = InternetNewsSheetSerializer(data=sheet_data)
+                    internet_news_person_serializer = InternetNewsPersonSerializer(data=person_data)
+                    if internet_news_person_serializer.is_valid():
+                        internet_news_person_serializer.save()
+                    else: 
+                        self.stdout.write("Error occurred ", internet_news_person_serializer.errors)
+                    
+                    sex = journalist_internet_coding_data.get("sex").get(row)
+                    # age = journalist_internet_coding_data.get("age").get(row)
 
-        if internet_news_sheet_serializer.is_valid():
-            internet_news_sheet = internet_news_sheet_serializer.save()
-            person_data = {}
-            person_data['internetnews_sheet'] = internet_news_sheet.id
-            # If next row is current row+1 then that row belongs to this sheet
-            # e.g if current row is 2 and next row is 3 then that row holds the second Journalist or the second person in the news.
-            while internet_coding_data.get("sex").get(row):
-                sex = internet_coding_data.get("sex").get(row)
-                age = internet_coding_data.get("age").get(row)
-                occupation = internet_coding_data.get("occupation").get(row)
-                function = internet_coding_data.get("function").get(row)
-                family_role = internet_coding_data.get("family_role").get(row)
-                victim_or_survivor = internet_coding_data.get("victim_or_survivor").get(row)
-                victim_of = internet_coding_data.get("victim_of").get(row)
-                survivor_of = internet_coding_data.get("survivor_of").get(row)
-                is_quoted = internet_coding_data.get("is_quoted").get(row)
-                is_photograph = internet_coding_data.get("is_photograph").get(row)
-                special_qn_1 = internet_coding_data.get("special_qn_1").get(row)
-                special_qn_2 = internet_coding_data.get("special_qn_2").get(row)
-                special_qn_3 = internet_coding_data.get("special_qn_3").get(row)
+                    journalist_data = {
+                        "sex": int(sex) if sex else None,
+                        "age": None,
+                        "internetnews_sheet": internet_news_sheet.id
+                    }
+                    internet_news_journalist_serializer = InternetNewsJournalistSerializer(data=journalist_data)
+                    if internet_news_journalist_serializer.is_valid():
+                        internet_news_journalist_serializer.save()
+                    else:
+                        print("Error occurred: Journalist Sex can't be null")
+                    row = str(int(row) + 1)
 
-                person_data.update({
-                    "sex": int(sex) if sex else None,
-                    "age": int(age) if age else None,
-                    "occupation": int(occupation) if occupation else None,
-                    "function": int(function) if function else None,
-                    "family_role": 'Y' if family_role == '1' else 'N',
-                    "victim_or_survivor": 'Y' if victim_or_survivor == '1' else 'N',
-                    "victim_of": int(victim_of) if victim_of else None,
-                    "survivor_of": int(survivor_of) if survivor_of else None,
-                    "is_quoted": 'Y' if is_quoted == '1' else 'N',
-                    "is_photograph": int(is_photograph) if is_photograph else None,
-                    "special_qn_1": 'Y' if special_qn_1 == '1' else 'N',
-                    "special_qn_2": 'Y' if special_qn_2 == '1' else 'N',
-                    "special_qn_3": 'Y' if special_qn_3 == '1' else 'N'
-                })
-                internet_news_person_serializer = InternetNewsPersonSerializer(data=person_data)
-                if internet_news_person_serializer.is_valid():
-                    internet_news_person_serializer.save()
-                else: 
-                    self.stdout.write("Error occurred ", internet_news_person_serializer.errors)
-                
-                sex = journalist_internet_coding_data.get("sex").get(row)
-                # age = journalist_internet_coding_data.get("age").get(row)
+def save_newspaper_news_data(newspaper_coding_data, journalist_newspaper_coding_data):
+    if newspaper_coding_data:
+        for row in newspaper_coding_data.get('countries', []):
+            inequality_women = newspaper_coding_data.get('inequality_women').get(row)
+            stereotypes = newspaper_coding_data.get('stereotypes').get(row)
 
-                journalist_data = {
-                    "sex": int(sex) if sex else None,
-                    "age": None,
-                    "internetnews_sheet": internet_news_sheet.id
-                }
-                internet_news_journalist_serializer = InternetNewsJournalistSerializer(data=journalist_data)
-                if internet_news_journalist_serializer.is_valid():
-                    internet_news_journalist_serializer.save()
-                else:
-                    print("Error occurred: Journalist Sex can't be null")
-                row = str(int(row) + 1)
+            sheet_data = {
+                "monitor_mode": 1,
+                "country": countries.alpha2(newspaper_coding_data.get('countries').get(row)),
+                "monitor_code": newspaper_coding_data.get('monitors').get(row),
+                "newspaper_name": newspaper_coding_data.get('newspaper_name').get(row),
+                "page_number": newspaper_coding_data.get('page_number').get(row),
+                "covid19": newspaper_coding_data.get('covid19').get(row),
+                "topic": newspaper_coding_data.get('topic').get(row),
+                "scope": newspaper_coding_data.get('scope').get(row),
+                "space": newspaper_coding_data.get('space').get(row),
+                "equality_rights": 'Y' if newspaper_coding_data.get('equality_rights').get(row) == '1' else 'N',
+                "about_women": 'Y' if newspaper_coding_data.get('about_women').get(row) == '1' else 'N',
+                "inequality_women": int(inequality_women) if inequality_women else '',
+                "stereotypes": int(stereotypes) if stereotypes else '',
+                "further_analysis": 'N'
+            }
+    else:
+        return {}
 
-def save_newspaper_news_data():
+def save_radio_news_data(radio_coding_data, journalist_radio_coding_data):
     pass
 
-def save_radio_news_data():
+def save_tv_news_data(tv_coding_data, journalist_tv_coding_data):
     pass
 
-def save_tv_news_data():
-    pass
-
-def save_twitter_news_data():
+def save_twitter_news_data(internet_coding_data, journalist_internet_coding_data):
     pass
 
 
@@ -127,6 +214,9 @@ def merge_data(a, b, path=None):
 
 
 def get_common_coding_data(data):
+    # This gives you data for the whole sheet. e.g {"countries": {row1, row2, row3, ..., rowN}}
+    # You will thus be required to further extract data for individual rows while saving the data into the database
+    # e.g .get('countries').get(row)
     rows = [x for x in data['country_code']]
     if not rows:
         return None

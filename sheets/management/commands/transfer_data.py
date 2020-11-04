@@ -42,7 +42,7 @@ class Command(BaseCommand):
         journalist_twitter_coding_data = get_twitter_coding_data(journalists.get('TwitterCoding', {}))
         
         save_newspaper_news_data(newspaper_coding_data, journalist_newspaper_coding_data)
-        save_radio_news_data(radio_coding_data, radio_coding_data)
+        save_radio_news_data(radio_coding_data, journalist_radio_coding_data)
         save_tv_news_data(tv_coding_data, journalist_tv_coding_data)
         save_internent_news_data(internet_coding_data, journalist_internet_coding_data)
         save_twitter_news_data(twitter_coding_data, journalist_twitter_coding_data)
