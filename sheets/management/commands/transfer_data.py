@@ -20,7 +20,7 @@ from sheets.utlis import (
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
-        story_name = "bbc_world"
+        story_name = "long_monitoring"
 
         #functions to run
         journalists = get_journalist(story_name)
@@ -40,7 +40,7 @@ class Command(BaseCommand):
         journalist_internet_coding_data = get_internet_coding_data(journalists.get('InternetCoding', {}))
         twitter_coding_data = get_twitter_coding_data(data.get('TwitterCoding', {}))
         journalist_twitter_coding_data = get_twitter_coding_data(journalists.get('TwitterCoding', {}))
-        
+
         save_newspaper_news_data(newspaper_coding_data, journalist_newspaper_coding_data)
         save_radio_news_data(radio_coding_data, journalist_radio_coding_data)
         save_tv_news_data(tv_coding_data, journalist_tv_coding_data)

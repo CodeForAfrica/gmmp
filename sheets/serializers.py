@@ -1,10 +1,42 @@
 from rest_framework import serializers
 
 from forms.models import (
-            NewspaperSheet, NewspaperPerson, NewspaperJournalist,
-            InternetNewsSheet, InternetNewsPerson, InternetNewsJournalist,
+    NewspaperSheet,
+    NewspaperPerson,
+    NewspaperJournalist,
+    InternetNewsSheet,
+    InternetNewsPerson,
+    InternetNewsJournalist,
+    RadioSheet,
+    RadioPerson,
+    RadioJournalist,
+    TelevisionPerson,
+    TelevisionJournalist,
+    TelevisionSheet,
+    TwitterJournalist,
+    TwitterPerson,
+    TwitterSheet,
 )
 
+
+class TwitterSheetSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TwitterSheet
+        fields = '__all__'
+        read_only_fields = ['id']
+
+class TwitterPersonSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TwitterPerson
+        fields = '__all__'
+        read_only_fields = ['id']
+
+
+class TwitterJournalistSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TwitterJournalist
+        fields = '__all__'
+        read_only_fields = ['id']
 class NewspaperSheetSerializer(serializers.ModelSerializer):
     class Meta:
         model = NewspaperSheet
@@ -41,3 +73,40 @@ class InternetNewsJournalistSerializer(serializers.ModelSerializer):
         fields = '__all__'
         read_only_fields = ['id']
 
+
+class RadioSheetSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RadioSheet
+        fields = '__all__'
+        read_only_fields = ['id']
+
+class RadioPersonSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RadioPerson
+        fields = '__all__'
+        read_only_fields = ['id']
+
+class RadioJournalistSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RadioJournalist
+        fields = '__all__'
+        read_only_fields = ['id']
+
+
+class TelevisionSheetSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TelevisionSheet
+        fields = '__all__'
+        read_only_fields = ['id']
+
+class TelevisionPersonSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TelevisionPerson
+        fields = '__all__'
+        read_only_fields = ['id']
+
+class TelevisionJournalistSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TelevisionJournalist
+        fields = '__all__'
+        read_only_fields = ['id']
