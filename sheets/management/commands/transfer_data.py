@@ -1,7 +1,7 @@
 from django.core.management.base import BaseCommand
 
 from sheets.extractor_script import get_journalist, get_people, get_sheet
-from sheets.utlis import (
+from sheets.utils import (
             merge_data,
             get_common_coding_data,
             get_newspaper_coding_data,
