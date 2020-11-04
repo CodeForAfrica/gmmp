@@ -2,8 +2,15 @@ import re
 from django_countries.fields import countries
 
 from sheets.serializers import (
-    NewspaperSheet, NewspaperPerson, NewspaperJournalist,
-    InternetNewsSheetSerializer, InternetNewsPersonSerializer, InternetNewsJournalistSerializer,
+    NewspaperSheet,
+    NewspaperPerson,
+    NewspaperJournalist,
+    InternetNewsSheetSerializer,
+    InternetNewsPersonSerializer,
+    InternetNewsJournalistSerializer,
+    NewspaperSheetSerializer,
+    NewspaperPersonSerializer,
+    NewspaperJournalistSerializer,
 )
 
 def get_all_coding_data(coding_data, row):
@@ -101,7 +108,7 @@ def get_people_data(coding_data, row):
 
 def get_internent_coding_data(internet_coding_data, row):
     common_data = get_all_coding_data(internet_coding_data, row)
-    
+
     return {
         "monitor_mode": common_data.get('monitor_mode'),
         "country": common_data.get('country'),
@@ -128,7 +135,7 @@ def save_internent_news_data(internet_coding_data, journalist_internet_coding_da
     if internet_coding_data:
         for row in internet_coding_data.get('countries', []):
             sheet_data = get_internent_coding_data(internet_coding_data, row)
-            
+
             internet_news_sheet_serializer = InternetNewsSheetSerializer(data=sheet_data)
 
             if internet_news_sheet_serializer.is_valid():
@@ -144,9 +151,9 @@ def save_internent_news_data(internet_coding_data, journalist_internet_coding_da
                     internet_news_person_serializer = InternetNewsPersonSerializer(data=person_data)
                     if internet_news_person_serializer.is_valid():
                         internet_news_person_serializer.save()
-                    else: 
+                    else:
                         self.stdout.write("Error occurred ", internet_news_person_serializer.errors)
-                    
+
                     sex = journalist_internet_coding_data.get("sex").get(row)
                     # age = journalist_internet_coding_data.get("age").get(row)
 
@@ -184,6 +191,30 @@ def save_newspaper_news_data(newspaper_coding_data, journalist_newspaper_coding_
                 "stereotypes": int(stereotypes) if stereotypes else '',
                 "further_analysis": 'N'
             }
+            newspaper_news_serializer = NewspaperSheetSerializer(data=sheet_data)
+            if newspaper_news_serializer.is_valid():
+                newspaper_news = newspaper_news_serializer.save()
+                person_data = dict(newspaper_sheet=newspaper_news.id)
+                while newspaper_coding_data.get("sex").get(row):
+                    person_data.update(get_people_data(newspaper_coding_data, row))
+                    newspaper_person_serialiser = NewspaperPersonSerializer(data=person_data)
+                    if newspaper_person_serialiser.is_valid():
+                        newspaper_person_serialiser.save()
+                    else:
+                        print("Error occurred ", newspaper_person_serialiser.errors, flush=True)
+
+                    sex = journalist_newspaper_coding_data.get("sex").get(row)
+                    journalist_data = {
+                        "sex": int(sex) if sex else None,
+                        "age": None,
+                        "newspaper_sheet": newspaper_news.id,
+                    }
+                    newspaper_journalist_serializer = NewspaperJournalistSerializer(data=journalist_data)
+                    if newspaper_journalist_serializer.is_valid():
+                        newspaper_journalist_serializer.save()
+                    else:
+                        print("Error occurred: Journalist sex can't be null", flush=True)
+                    row = str(int(row) + 1)
     else:
         return {}
 
