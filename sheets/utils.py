@@ -29,13 +29,13 @@ def get_all_coding_data(coding_data, row):
     covid19 = coding_data.get('covid19').get(row) if coding_data.get('covid19') else None
     topic = coding_data.get('topic').get(row) if coding_data.get('topic') else None
     scope = coding_data.get('scope').get(row) if coding_data.get('scope') else None
-    space = coding_data.get('space').get(row) if coding_data.get('space') else None
+    space = coding_data.get('space').get(row) if coding_data.get('space') else {}
     equality_rights = coding_data.get('equality_rights').get(row) if coding_data.get('equality_rights') else None
     about_women = coding_data.get('about_women').get(row) if coding_data.get('about_women') else None
     inequality_women = coding_data.get('inequality_women').get(row) if coding_data.get('inequality_women') else None
     stereotypes = coding_data.get('stereotypes').get(row) if coding_data.get('stereotypes') else None
-    date = format_date(coding_data.get('time_accessed').get(row).split('  ')[0]) if coding_data.get('time_accessed') else None
-    time = format_time(coding_data.get('time_accessed').get(row).split('  ')[1]) if coding_data.get('time_accessed') else None
+    date = format_date(coding_data.get('time_accessed').get(row).split(' ')[0]) if coding_data.get('time_accessed') else None
+    time = format_time(coding_data.get('time_accessed').get(row).split(' ')[1]) if coding_data.get('time_accessed') else None
     website_name = coding_data.get('website_name').get(row) if coding_data.get('website_name') else None
     website_url = coding_data.get('website_url').get(row) if coding_data.get('website_url') else None
     offline_presence = re.findall(r'\d+', coding_data.get('offline_presence').get(row)) if coding_data.get('offline_presence') else ['0']
@@ -336,17 +336,23 @@ def save_twitter_news_data(twitter_coding_data, journalist_twitter_coding_data):
             inequality_women = twitter_coding_data.get('inequality_women').get(row)
             stereotypes = twitter_coding_data.get('stereotypes').get(row)
 
+            about_women_data = twitter_coding_data.get('about_women')
+            if about_women_data:
+                about_women = 'Y' if about_women_data.get(row) == '1' else 'N'
+            else:
+                about_women = 'N'
+
             sheet_data = {
                 "monitor_mode": 1,
                 "country": countries.alpha2(twitter_coding_data.get('countries').get(row)),
                 "monitor_code": twitter_coding_data.get('monitors').get(row),
-                "media_name": twitter_coding_data.get('channel').get(row),
-                "twitter_handle": twitter_coding_data.get('start_time').get(row),
-                "retweet": twitter_coding_data.get('num_female_anchors').get(row),
+                "media_name": twitter_coding_data.get('media_name').get(row),
+                "twitter_handle": twitter_coding_data.get('twitter_handle').get(row),
+                "retweet": twitter_coding_data.get('retweet').get(row),
                 "covid19": twitter_coding_data.get('covid19').get(row),
                 "topic": 'Y' if twitter_coding_data.get('topic').get(row) == '1' else 'N',
                 "equality_rights": 'Y' if twitter_coding_data.get('equality_rights').get(row) == '1' else 'N',
-                "about_women": 'Y' if twitter_coding_data.get('about_women').get(row) == '1' else 'N',
+                "about_women": about_women,
                 "inequality_women": int(inequality_women) if inequality_women else '',
                 "stereotypes": int(stereotypes) if stereotypes else '',
                 "further_analysis": 'N',
@@ -434,6 +440,7 @@ def get_newspaper_coding_data(data):
         return []
     common_coding_data['newspaper_name'] = data.get('newspaper_name')
     common_coding_data['page_number'] = data.get('page_number')
+    common_coding_data['space'] = data.get('space')
 
     return common_coding_data
 
@@ -441,7 +448,6 @@ def get_radio_coding_data(data):
     common_coding_data = get_common_coding_data(data)
     if not common_coding_data:
         return []
-    
     common_coding_data['channel'] = data.get('channel')
     common_coding_data['start_time'] = data.get('start_time')
     common_coding_data['num_female_anchors'] = data.get('num_female_anchors')
@@ -484,9 +490,7 @@ def get_twitter_coding_data(data):
         return []
     common_coding_data['twitter_handle'] = data.get('twitter_handle')
     common_coding_data['retweet'] = data.get('retweet')
-    common_coding_data['num_female_anchors'] = data.get('num_female_anchors')
-    common_coding_data['num_male_anchors'] = data.get('num_male_anchors')
-    common_coding_data['item_number'] = data.get('item_number')
+    common_coding_data['media_name'] = data.get('media_name')
 
     return common_coding_data
 
@@ -494,8 +498,8 @@ def format_date(date):
     date = date.split(".")
     date.reverse()
     date = '-'.join(date)
-    return date
+    return date.strip()
 
 def format_time(time):
     time = time.replace(".", ":")
-    return time
+    return time.strip()
