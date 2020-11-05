@@ -442,4 +442,5 @@ tags
 # .env template file
 !.env/.env.template
 
+/sheets/data_transfer/data/
 # End of Customizations
