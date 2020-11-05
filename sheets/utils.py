@@ -30,6 +30,8 @@ def get_all_coding_data(coding_data, row):
     topic = coding_data.get('topic').get(row) if coding_data.get('topic') else None
     scope = coding_data.get('scope').get(row) if coding_data.get('scope') else None
     space = coding_data.get('space').get(row) if coding_data.get('space') else {}
+    channel = coding_data.get('channel').get(row) if coding_data.get('channel') else ""
+    item_number = coding_data.get('item_number').get(row) if coding_data.get('item_number') else None
     media_name = coding_data.get('media_name').get(row) if coding_data.get('media_name') else ""
     twitter_handle = coding_data.get('twitter_handle').get(row) if coding_data.get('twitter_handle') else ""
     retweet = coding_data.get('retweet').get(row) if coding_data.get('retweet') else None
@@ -40,6 +42,7 @@ def get_all_coding_data(coding_data, row):
     stereotypes = coding_data.get('stereotypes').get(row) if coding_data.get('stereotypes') else None
     date = format_date(coding_data.get('time_accessed').get(row).split(' ')[0]) if coding_data.get('time_accessed') else None
     time = format_time(coding_data.get('time_accessed').get(row).split(' ')[1]) if coding_data.get('time_accessed') else None
+    start_time = format_time(coding_data.get('start_time').get(row)) if coding_data.get('start_time') else None
     website_name = coding_data.get('website_name').get(row) if coding_data.get('website_name') else None
     website_url = coding_data.get('website_url').get(row) if coding_data.get('website_url') else None
     offline_presence = re.findall(r'\d+', coding_data.get('offline_presence').get(row)) if coding_data.get('offline_presence') else ['0']
@@ -50,6 +53,8 @@ def get_all_coding_data(coding_data, row):
     comments = coding_data.get('comments').get(row) if coding_data.get('comments') else None
     sex = coding_data.get("sex").get(row) if coding_data.get('sex') else None
     age = coding_data.get("age").get(row) if coding_data.get('age') else None
+    num_female_anchors = coding_data.get("num_female_anchors").get(row) if coding_data.get('num_female_anchors') else None
+    num_male_anchors = coding_data.get("num_male_anchors").get(row) if coding_data.get('num_male_anchors') else None
     occupation = coding_data.get("occupation").get(row) if coding_data.get('occupation') else None
     function = coding_data.get("function").get(row) if coding_data.get('function') else None
     family_role = coding_data.get("family_role").get(row) if coding_data.get('family_role') else None
@@ -78,8 +83,13 @@ def get_all_coding_data(coding_data, row):
         "covid19": int(covid19) if covid19 else '',
         "topic": int(topic) if topic else '',
         "scope": int(scope) if scope else '',
+        "item_number": int(item_number) if item_number else '',
+        "num_female_anchors": int(num_female_anchors) if num_female_anchors else 0,
+        "num_male_anchors": int(num_male_anchors) if num_male_anchors else 0,
         "space": space,
         "page_number": page_number,
+        "channel": channel,
+        "start_time": start_time,
         "media_name": media_name,
         "twitter_handle": twitter_handle,
         "retweet": retweet,
@@ -252,6 +262,10 @@ def save_journalist_data(coding_data, row, serializer, sheet, parent_id):
         "age": age,
         f"{sheet}": parent_id,
     }
+    if sheet in ['newspaper_sheet', 'radio_sheet']:
+        journalist_data.update({
+            "role": coding_data.get("role").get(row)
+        })
     news_journalist_serializer = serializer(data=journalist_data)
     if news_journalist_serializer.is_valid():
         news_journalist_serializer.save()
@@ -413,6 +427,7 @@ def get_radio_coding_data(data):
     common_coding_data['num_female_anchors'] = data.get('num_female_anchors')
     common_coding_data['num_male_anchors'] = data.get('num_male_anchors')
     common_coding_data['item_number'] = data.get('item_number')
+    common_coding_data['role'] = data.get('role')
 
     return common_coding_data
 
@@ -426,6 +441,7 @@ def get_tv_coding_data(data):
     common_coding_data['num_female_anchors'] = data.get('num_female_anchors')
     common_coding_data['num_male_anchors'] = data.get('num_male_anchors')
     common_coding_data['item_number'] = data.get('item_number')
+    common_coding_data['role'] = data.get('role')
 
     return common_coding_data
 
