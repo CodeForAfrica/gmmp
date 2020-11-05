@@ -19,13 +19,16 @@ from sheets.utils import (
 )
 
 class Command(BaseCommand):
+    def add_arguments(self, parser):
+        parser.add_argument('filename', nargs='+')
+
     def handle(self, *args, **options):
-        story_name = "long_monitoring"
+        filename = options['filename'][0]
 
         #functions to run
-        journalists = get_journalist(story_name)
-        people = get_people(story_name)
-        sheets = get_sheet(story_name)
+        journalists = get_journalist(filename)
+        people = get_people(filename)
+        sheets = get_sheet(filename)
 
         # We can't merge people and journalists since they both have sex and age fields
         data = merge_data(sheets, people)
