@@ -109,7 +109,7 @@ sheetname_mapping = {"Print": ['NewspaperCoding', 'CODAGE POUR JOURNAUX', 'CODIF
 people_dict = {'NewspaperCoding': {'10': 'sex', '11': 'age', '12': 'occupation', '13': 'function', '14': 'family_role',
                                    '15': 'victim_or_survivor', '16': 'victim_of', '17': 'survivor_of', '18': 'is_quoted', '19': 'is_photograph',
                                    '20': 'special_qn_1', '21': 'special_qn_2','22': 'special_qn_3'},
-                'RadioCoding': {'10': 'sex', '11': 'age', '12': 'occupation','13': 'family_role', '14': 'victim_or_survivor',
+                'RadioCoding': {'10': 'sex', '11': 'occupation', '12': 'function','13': 'family_role', '14': 'victim_or_survivor',
                                 '15': 'victim_of', '16': 'survivor_of', '17': 'special_qn_1', '18': 'special_qn_2','19': 'special_qn_3'},
                 'TelevisionCoding': {'11': 'sex','12': 'age', '13': 'occupation', '14': 'function','15': 'family_role', '16': 'victim_or_survivor',
                                      '17': 'victim_of', '18': 'survivor_of', '19': 'special_qn_1','20': 'special_qn_2','21': 'special_qn_3'},

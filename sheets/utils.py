@@ -262,7 +262,7 @@ def save_journalist_data(coding_data, row, serializer, sheet, parent_id):
         "age": age,
         f"{sheet}": parent_id,
     }
-    if sheet in ['newspaper_sheet', 'radio_sheet']:
+    if sheet in ['television_sheet', 'radio_sheet']:
         journalist_data.update({
             "role": coding_data.get("role").get(row)
         })
