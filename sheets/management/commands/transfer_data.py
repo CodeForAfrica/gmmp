@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 
-from sheets.extractor_script import get_journalist, get_people, get_sheet
+from sheets.extractor_script import get_journalist, get_people, get_sheet, read_coding_sheet
 from sheets.utils import (
             merge_data,
             get_common_coding_data,
@@ -25,11 +25,11 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         filename = options['filename'][0]
 
+        coding_dict = read_coding_sheet(filename)
         #functions to run
-        journalists = get_journalist(filename)
-        people = get_people(filename)
-        sheets = get_sheet(filename)
-
+        journalists = get_journalist(coding_dict.copy())
+        people = get_people(coding_dict.copy())
+        sheets = get_sheet(coding_dict.copy())
         # We can't merge people and journalists since they both have sex and age fields
         data = merge_data(sheets, people)
 
