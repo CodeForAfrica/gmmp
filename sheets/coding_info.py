@@ -1,33 +1,11 @@
 from collections import OrderedDict
 
-#coding sheet descriptions
- #dict that indicates how each sheet looks like
-media_dict = {"NewspaperCoding": "NEWSPAPER CODING SHEET",
-                  "RadioCoding": "RADIO CODING SHEET",
-                  "TelevisionCoding": "TELEVISION CODING SHEET",
-                  "InternetCoding":"INTERNET NEWS CODING SHEET",
-                  "TwitterCoding": "TWITTER NEWS CODING SHEET",
-                  "CODAGE POUR JOURNAUX": "FICHE DE CODAGE POUR JOURNAUX",
-                  "CODAGE D'EMMISSION RADIO": "FICHE DE CODAGE D’EMISSION RADIO",
-                  "CODAGE D’ÉMISSION DE TÉLÉVISION":"FICHE DE CODAGE D’ÉMISSION DE TÉLÉVISION",
-                  "CODAGE POUR INTERNET":"FICHE DE CODAGE POUR INTERNET",
-                  "CODAGE POUR TWITTER":"FICHE DE CODAGE POUR TWITTER",
-                  "CODIFICACIÓN PARA PERIÓDICOS":"HOJA DE CODIFICACIÓN PARA PERIÓDICOS",
-                  "CODIFICACIÓN PARA RADIO":"HOJA DE CODIFICACIÓN PARA RADIO",
-                  "CODIFICACIÓN PARA TELEVISIÓN":"HOJA DE CODIFICACIÓN PARA TELEVISIÓN",
-                  "CODIFICACIÓN PARA INTERNET":"HOJA DE CODIFICACIÓN PARA INTERNET",
-                  "CODIFICACIÓN PARA TWITTER":"HOJA DE CODIFICACIÓN PARA TWITTER",
-                  "CODIFICAÇÃO DE JORNAIS":"FOLHA DE CODIFICAÇÃO DE JORNAIS",
-                  "CODIFICAÇÃO DE RÁDIO":"FOLHA DE CODIFICAÇÃO DE RÁDIO",
-                  "CODIFICAÇÃO DE TELEVISÃO":"FOLHA DE CODIFICAÇÃO DE TELEVISÃO",
-                  "CODIFICAÇÃO INTERNET":"FOLHA DE CODIFICAÇÃO INTERNET",
-                  "CODIFICAÇÃO TWITTER":"FOLHA DE CODIFICAÇÃO TWITTER"}
-
 #Basic Information descriptions
 basic_info = {'Basic Information':"Other", 
               'Information de base':'Autre', 
               'Información básica':'Otro',
-              'Informações básicas': 'Outra'}
+              'Informações básicas': 'Outra',
+              'Informação básica':'Outra'}
 
 #Basic info translations
 basicinfo_translations = {"country_code":['Código del país','Cód país','Code du pays', 'Country code'],

@@ -1,6 +1,4 @@
-import numpy as np
 import pandas as pd
-import os
 import json
 from django.conf import settings
 import sheets.coding_info  as coding_info
@@ -21,10 +19,8 @@ def read_coding_sheet(filename):
     sheet_list = [] #empty list to store coding sheet names
     
     #loop through sheetnames and extract the coding sheets
-    for sheet in xl_file.sheet_names:
-        for coding in coding_names:
-            if coding in sheet:
-                sheet_list.append(sheet)
+    for coding in coding_names:
+        [sheet_list.append(sheet) for sheet in xl_file.sheet_names if coding in sheet]
 
     #read workbook
     sheet_dict = pd.read_excel(xl_file, sheet_name = sheet_list)
@@ -38,58 +34,42 @@ def get_response(coding_dict):
     #mark the row in which text starts
     qz = ['Story', 'Reportage', 'Noticia', 'Notícia']
     
-    #import dict which identifies how each sheet looks like
-    medias = coding_info.media_dict
-    
-    #TODO strip text
+    #extract reponses
     for key,value in dict_copy.items():
-        for media_key, media_value in medias.items():
-            try:
-                if key in dict_copy:
-                    name = media_value
+        #strip whitespace
+        dict_copy[key] = dict_copy[key].applymap(lambda x: x.strip() if isinstance(x, str) else x)
+        #coding starts on the row after "story". create a flag to indicate this row
+        dict_copy[key]['flag'] = dict_copy[key].isin(qz).any(1).astype('str')
 
-                    sheet_title = dict_copy[key].columns[dict_copy[key].isin([name]).any()]
 
-                    dict_copy[key] = dict_copy[key].iloc[:,dict_copy[key].columns.get_loc(str(sheet_title[0])):]
-            
-                    #coding starts on the row after "story". create a flag to indicate this row
-                    dict_copy[key]['flag'] = dict_copy[key].isin(qz).any(1).astype('str')
+        #select only the rows below the flag and set the first row as header
+        dict_copy[key] = dict_copy[key].iloc[dict_copy[key]\
+                         .flag.str.contains('True').idxmax():].reset_index(drop = True)
+
+
+        #set first row as header and drop first two rows
+        dict_copy[key] = dict_copy[key].dropna(how = 'all', axis = 1)\
+                    .rename(columns = dict_copy[key].iloc[1]).drop(dict_copy[key].index[0:2]).drop(columns = ['False'])
                     
-                    #select only the rows below the flag and set the first row as header
-                    dict_copy[key] = dict_copy[key].iloc[dict_copy[key]\
-                                     .flag.str.contains('True').idxmax():].reset_index(drop = True)
-                    
-            
-                    #set first row as header and drop first two rows
-                    dict_copy[key] = dict_copy[key].dropna(how = 'all', axis = 1)\
-                                    .rename(columns = dict_copy[key].iloc[1])\
-                                    .drop(dict_copy[key].index[0:2])
-                    
-                    dict_copy[key] = dict_copy[key].drop(columns = ['False'])
-                    
-                    
-                    #drop null rows
-                    dict_copy[key].dropna(how = 'all', inplace = True)
-                    #add story label new story starts when the first column is not null
-                    dict_copy[key]['story_label'] = dict_copy[key].iloc[:,0].notnull().cumsum() #column that indicates story number
-            
-                    #edit comments question
-                    col_markers = ['Comments','Commentaires','Comentarios','Multimedia','Comentários']
-                    new_col = '30 Comments'
-                     
-                    #edit column names
-                    for col in dict_copy[key].columns:
-                        for mark in col_markers:
-                            if mark in col:
-                                dict_copy[key].rename(columns = {col: new_col}, inplace = True)
-                                dict_copy[key].columns = dict_copy[key].columns.str.split().str[0].str.strip()\
-                                                        .str.replace("\(|\)|\.","")
-                                
-                                #edit responses in certain columns
-                                dict_copy[key] = dict_copy[key].apply(lambda y: y.replace("(?<=\)).*|\(|\)", "", regex = True) if y.name not in ['30', 'story_label'] else y)            
-            except:
-                pass
-    
+
+        #add story label new story starts when the first column is not null
+        dict_copy[key].loc[:,'story_label'] = dict_copy[key].iloc[:,0].notnull().cumsum() #column that indicates story number
+
+        #edit comments question
+        col_markers = ['Comments','Commentaires','Comentarios','Multimedia','Comentários']
+        new_col = '30 Comments'
+
+        #edit column names
+        for col in dict_copy[key].columns:
+            for mark in col_markers:
+                if mark in col:
+                    dict_copy[key].rename(columns = {col: new_col}, inplace = True)
+                    dict_copy[key].columns = dict_copy[key].columns.str.split().str[0].str.strip()\
+                                            .str.replace("\(|\)|\.","")
+
+                    #edit responses in certain columns
+                    dict_copy[key] = dict_copy[key].apply(lambda y: y.replace("(?<=\)).*|\(|\)", "", regex = True) if y.name not in ['30', 'story_label'] else y)            
+
     return dict_copy
 
 #read coding info
@@ -105,18 +85,25 @@ def get_coding_info(coding_details):
                 coding_details[a] = coding_details[a][coding_details[a][col].eq(value).cumsum().lt(1)]\
                                 .transpose()
                 
-                #replace country code value
-                coding_details[a].fillna(method = 'ffill', inplace = True)
-                
+                #strip whitespace
+                coding_details[a] = coding_details[a].applymap(lambda x: x.strip() if isinstance(x, str) else x)
+
                 #first row as header
                 coding_details[a].rename(columns=coding_details[a].iloc[0], inplace = True)
-                coding_details[a].drop(coding_details[a].index[0:2], inplace = True)
+                coding_details[a].drop(coding_details[a].index[0:1], inplace = True)
                 
                 #rename columns to match database
                 for k, v in translations.items():
                     for col in coding_details[a].columns:
                         if col in v:
                             coding_details[a].rename(columns = {col:k}, inplace = True)
+                            
+                            #replace country code value
+                            coding_details[a].fillna(method = 'ffill', inplace = True)
+                            
+                            #drop rows
+                            coding_details[a] = coding_details[a].tail(1)         
+
     return coding_details
 
 #add coding info to sheet
@@ -131,11 +118,13 @@ def add_coding_info(coding_dict):
     for key, value in dict_copy.items():
         for info_key, info_value in coding_details.items():
             if info_key == key:
-                null_cols = coding_details[key].columns.tolist()
+                basicinfo = coding_details[key].columns.tolist()
                 dict_copy[key] = pd.concat([coding_details[info_key],dict_copy[key]], copy = False)
-                dict_copy[key][null_cols] = dict_copy[key][null_cols].fillna(method = 'ffill')
-                #drop nulls
-                dict_copy[key].dropna(subset = ['story_label'], inplace = True)
+                dict_copy[key][basicinfo] = dict_copy[key][basicinfo].fillna(method = 'ffill')
+        
+        #drop nulls
+        dict_copy[key].dropna(subset = ['story_label'], inplace = True)
+
     return dict_copy
 
 #extract people info
@@ -164,13 +153,9 @@ def get_people(coding_dict):
 
         dict_copy[key] = dict_copy[key].filter(regex = '^(?![0-9])(?![z])', axis = 1)
         dict_copy[key].loc[:,'people_id'] = dict_copy[key].groupby('story_label').cumcount()+1
-    return {
-        "NewspaperCoding": json.loads(dict_copy['NewspaperCoding'].to_json()),
-        "RadioCoding": json.loads(dict_copy['RadioCoding'].to_json()),
-        "TelevisionCoding": json.loads(dict_copy['TelevisionCoding'].to_json()),
-        "InternetCoding": json.loads(dict_copy['InternetCoding'].to_json()),
-        "TwitterCoding": json.loads(dict_copy['TwitterCoding'].to_json()),
-    }
+    
+    coding_data = format_coding_data(dict_copy)
+    return coding_data
 
 #get journalist info
 def get_journalist(coding_dict):
@@ -205,14 +190,9 @@ def get_journalist(coding_dict):
         
         #drop additonal nulls in internet and twitter, brought about by a story having no journalists and multiple people in the news.
         dict_copy[key].dropna(inplace = True)
-
-    return {
-        "NewspaperCoding": json.loads(dict_copy['NewspaperCoding'].to_json()),
-        "RadioCoding": json.loads(dict_copy['RadioCoding'].to_json()),
-        "TelevisionCoding": json.loads(dict_copy['TelevisionCoding'].to_json()),
-        "InternetCoding": json.loads(dict_copy['InternetCoding'].to_json()),
-        "TwitterCoding": json.loads(dict_copy['TwitterCoding'].to_json()),
-    }     
+    
+    coding_data = format_coding_data(dict_copy)
+    return coding_data
 
 #get sheet information
 def get_sheet(coding_dict):
@@ -243,10 +223,30 @@ def get_sheet(coding_dict):
       
         #dropna
         dict_copy[key].dropna(subset = ['covid19'], inplace = True)
+    
+    coding_data = format_coding_data(dict_copy)
+    return coding_data
+
+def format_coding_data(coding_dict):
+    mapping = coding_info.sheetname_mapping
+    for media in mapping:
+        for multi_lang in mapping[media]:
+            media_coding = coding_dict.get(multi_lang)
+            if media_coding is not None:
+                if media == 'Print':
+                    newspaperCoding = media_coding.to_json()
+                if media == 'Radio':
+                    radioCoding = media_coding.to_json()
+                if media == 'Television':
+                    televisionCoding = media_coding.to_json()
+                if media == 'Internet':
+                    internetCoding = media_coding.to_json()
+                if media == 'Twitter':
+                    twitterCoding = media_coding.to_json()
     return {
-        "NewspaperCoding": json.loads(dict_copy['NewspaperCoding'].to_json()),
-        "RadioCoding": json.loads(dict_copy['RadioCoding'].to_json()),
-        "TelevisionCoding": json.loads(dict_copy['TelevisionCoding'].to_json()),
-        "InternetCoding": json.loads(dict_copy['InternetCoding'].to_json()),
-        "TwitterCoding": json.loads(dict_copy['TwitterCoding'].to_json()),
+        "NewspaperCoding": json.loads(newspaperCoding),
+        "RadioCoding": json.loads(radioCoding),
+        "TelevisionCoding": json.loads(televisionCoding),
+        "InternetCoding": json.loads(internetCoding),
+        "TwitterCoding": json.loads(twitterCoding),
     }
