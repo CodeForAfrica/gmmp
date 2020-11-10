@@ -84,7 +84,7 @@ sheet_info = {'Print': {'1':'page_number', 'z':'covid19', '2':'topic','3':'scope
                                     '22':'further_analysis', '30':'comments'},
              'Internet': {'1':'webpage_layer_no', 'z':'covid19', '2':'topic'	,'3':'scope', '4':'shared_via_twitter','5':'shared_via_facebook',
                                     '6':'equality_rights','7':'about_women','8':'inequality_women','9':'stereotypes',
-                                    '25':'further_analysis', '30':'comments'},
+                                    '26':'further_analysis', '30':'comments'},
              'Twitter': {'1':'retweet', 'z':'covid19', '2':'topic',
                                     '3':'equality_rights','4':'about_women','5':'inequality_women','6':'stereotypes',
                                     '18':'further_analysis', '30':'comments'}}
