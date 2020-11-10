@@ -66,6 +66,7 @@ def get_all_coding_data(coding_data, row):
     special_qn_1 = coding_data.get("special_qn_1").get(row) if coding_data.get('special_qn_1') else None
     special_qn_2 = coding_data.get("special_qn_2").get(row) if coding_data.get('special_qn_2') else None
     special_qn_3 = coding_data.get("special_qn_3").get(row) if coding_data.get('special_qn_3') else None
+    further_analysis = coding_data.get("further_analysis").get(row) if coding_data.get('further_analysis') else None
 
     return {
         "monitor_mode": 1,
@@ -112,7 +113,7 @@ def get_all_coding_data(coding_data, row):
         "special_qn_1": 'Y' if special_qn_1 == '1' else 'N',
         "special_qn_2": 'Y' if special_qn_2 == '1' else 'N',
         "special_qn_3": 'Y' if special_qn_3 == '1' else 'N',
-        "further_analysis": 'N'
+        "further_analysis": 'Y' if further_analysis == '1' else 'N'
     }
 
 def get_people_data(coding_data, row):
@@ -406,6 +407,7 @@ def get_common_coding_data(data):
         "special_qn_1": data.get('special_qn_1'),
         "special_qn_2": data.get('special_qn_2'),
         "special_qn_3": data.get('special_qn_3'),
+        "further_analysis": data.get('further_analysis'),
     }
 
 def get_newspaper_coding_data(data):
