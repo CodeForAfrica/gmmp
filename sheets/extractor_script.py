@@ -151,16 +151,24 @@ def get_people(filename):
     #read people dict
     people = coding_info.people_dict
     
+    #read sheetname mapping
+    mapping = coding_info.sheetname_mapping
+  
+    #extract people in the news
     for key, value in dict_copy.items():
-        for main in people:
-            for a,b in people[main].items():
-                for col in dict_copy[key].columns:
-                    if key == main and col == a:
-                        dict_copy[key].rename(columns = {col:b}, inplace = True)
-        
+        #access mapping dictionary
+        for map_name, sheetname in mapping.items():    
+            #access journalust dictionary
+            for main in people:                   
+                if key in sheetname and map_name == main:
+                    for a,b in people[main].items():
+                        #rename columns
+                        for col in dict_copy[key].columns:
+                            if col == a:
+                                dict_copy[key].rename(columns = {col:b}, inplace = True)
+
         dict_copy[key] = dict_copy[key].filter(regex = '^(?![0-9])(?![z])', axis = 1)
-        dict_copy[key]['person_id'] = dict_copy[key].groupby('story_label').cumcount()+1
-    
+        dict_copy[key].loc[:,'people_id'] = dict_copy[key].groupby('story_label').cumcount()+1
     return {
         "NewspaperCoding": json.loads(dict_copy['NewspaperCoding'].to_json()),
         "RadioCoding": json.loads(dict_copy['RadioCoding'].to_json()),
@@ -175,20 +183,34 @@ def get_journalist(filename):
     #read data
     dict_copy = add_coding_info(filename)
     
-    #read people dict
+    #read journalist dict
     journalist = coding_info.journalist_dict
     
-    for key, value in dict_copy.items():
-        for main in journalist:
-            for a,b in journalist[main].items():
-                for col in dict_copy[key].columns:
-                    if key == main and col == a:
-                        dict_copy[key].rename(columns = {col:b}, inplace = True)
-        
-        dict_copy[key] = dict_copy[key].filter(regex = '^(?![0-9])(?![z])', axis = 1)
-        #drop nulls
-       # dict_copy[key] = dict_copy[key][(dict_copy[key]['role'].notnull()) | (dict_copy[key]['journalist_id'] == 1)]
+    #read sheetname mapping
+    mapping = coding_info.sheetname_mapping
     
+    #extract journalists
+    for key, value in dict_copy.items():
+        #access mapping dictionary
+        for map_name, sheetname in mapping.items():    
+            #access journalist dictionary
+            for main in journalist:                   
+                if key in sheetname and map_name == main:
+                    for a,b in journalist[main].items():
+                        #rename columns
+                        for col in dict_copy[key].columns:
+                            if col == a:
+                                dict_copy[key].rename(columns = {col:b}, inplace = True)
+
+        #filter columns
+        dict_copy[key] = dict_copy[key].filter(regex = '^(?![0-9])(?![z])', axis = 1)
+         
+        #add journalist id
+        dict_copy[key].loc[:,'journalist_id'] = dict_copy[key].groupby('story_label').cumcount()+1
+        
+        #drop additonal nulls in internet and twitter, brought about by a story having no journalists and multiple people in the news.
+        dict_copy[key].dropna(inplace = True)
+
     return {
         "NewspaperCoding": json.loads(dict_copy['NewspaperCoding'].to_json()),
         "RadioCoding": json.loads(dict_copy['RadioCoding'].to_json()),
@@ -204,15 +226,26 @@ def get_sheet(filename):
     
     #read people dict
     sheetinfo = coding_info.sheet_info
+    
+    #read sheetname mapping
+    mapping = coding_info.sheetname_mapping
+  
+    #extract sheet info
     for key, value in dict_copy.items():
-        for main in sheetinfo:
-            for a,b in sheetinfo[main].items():
-                for col in dict_copy[key].columns:
-                    if key == main and col == a:
-                        dict_copy[key].rename(columns = {col:b}, inplace = True)
+        #access mapping dictionary
+        for map_name, sheetname in mapping.items():    
+            #access sheetinfo dictionary
+            for main in sheetinfo:                   
+                if key in sheetname and map_name == main:
+                    for a,b in sheetinfo[main].items():
+                        #rename columns
+                        for col in dict_copy[key].columns:
+                            if col == a:
+                                dict_copy[key].rename(columns = {col:b}, inplace = True)
+
         
         dict_copy[key] = dict_copy[key].filter(regex = '^(?![0-9])(?![z])', axis = 1)
-
+      
         #dropna
         dict_copy[key].dropna(subset = ['covid19'], inplace = True)
     return {
@@ -221,4 +254,4 @@ def get_sheet(filename):
         "TelevisionCoding": json.loads(dict_copy['TelevisionCoding'].to_json()),
         "InternetCoding": json.loads(dict_copy['InternetCoding'].to_json()),
         "TwitterCoding": json.loads(dict_copy['TwitterCoding'].to_json()),
-    }    
+    }
