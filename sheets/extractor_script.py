@@ -32,10 +32,7 @@ def read_coding_sheet(filename):
     return sheet_dict
 
 #clean responses
-def get_response(filename):
-    #read data
-    coding_dict = read_coding_sheet(filename)
-    
+def get_response(coding_dict):
     dict_copy = coding_dict.copy()
     
     #mark the row in which text starts
@@ -96,8 +93,7 @@ def get_response(filename):
     return dict_copy
 
 #read coding info
-def get_coding_info(filename):
-    coding_details = read_coding_sheet(filename)
+def get_coding_info(coding_details):
     
     col_names = coding_info.basic_info
     translations = coding_info.basicinfo_translations
@@ -124,12 +120,12 @@ def get_coding_info(filename):
     return coding_details
 
 #add coding info to sheet
-def add_coding_info(filename):
+def add_coding_info(coding_dict):
     #read data
-    dict_copy = get_response(filename)
+    dict_copy = get_response(coding_dict)
     
     #coding info
-    coding_details = get_coding_info(filename)
+    coding_details = get_coding_info(coding_dict)
     
     #add coding info
     for key, value in dict_copy.items():
@@ -143,10 +139,9 @@ def add_coding_info(filename):
     return dict_copy
 
 #extract people info
-def get_people(filename):
-    
+def get_people(coding_dict):
     #read data
-    dict_copy = add_coding_info(filename)
+    dict_copy = add_coding_info(coding_dict)
     
     #read people dict
     people = coding_info.people_dict
@@ -178,10 +173,10 @@ def get_people(filename):
     }
 
 #get journalist info
-def get_journalist(filename):
+def get_journalist(coding_dict):
     
     #read data
-    dict_copy = add_coding_info(filename)
+    dict_copy = add_coding_info(coding_dict)
     
     #read journalist dict
     journalist = coding_info.journalist_dict
@@ -220,9 +215,9 @@ def get_journalist(filename):
     }     
 
 #get sheet information
-def get_sheet(filename):
+def get_sheet(coding_dict):
     #read data
-    dict_copy = add_coding_info(filename)
+    dict_copy = add_coding_info(coding_dict)
     
     #read people dict
     sheetinfo = coding_info.sheet_info
