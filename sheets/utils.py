@@ -276,6 +276,9 @@ def save_journalist_data(coding_data, row, serializer, sheet, parent_id):
 def save_newspaper_news_data(newspaper_coding_data, journalist_newspaper_coding_data):
     if newspaper_coding_data:
         for row in newspaper_coding_data.get('countries', []):
+            # If the page number doesn't exist we skip
+            if not newspaper_coding_data.get('page_number').get(row):
+                continue
             sheet_data = get_data_for_newspaper_coding(newspaper_coding_data, row)
             newspaper_news_serializer = NewspaperSheetSerializer(data=sheet_data)
 
@@ -293,6 +296,9 @@ def save_newspaper_news_data(newspaper_coding_data, journalist_newspaper_coding_
 def save_radio_news_data(radio_coding_data, journalist_radio_coding_data):
     if radio_coding_data:
         for row in radio_coding_data.get('countries', []):
+            # If the item number doesn't exist we skip
+            if not radio_coding_data.get('item_number').get(row):
+                continue
             sheet_data = get_data_for_radio(radio_coding_data, row)
             radio_news_serializer = RadioSheetSerializer(data=sheet_data)
 
@@ -310,6 +316,9 @@ def save_radio_news_data(radio_coding_data, journalist_radio_coding_data):
 def save_tv_news_data(tv_coding_data, journalist_tv_coding_data):
     if tv_coding_data:
         for row in tv_coding_data.get('countries', []):
+            # If the item number doesn't exist we skip
+            if not tv_coding_data.get('item_number').get(row):
+                continue
             sheet_data = get_data_for_tv(tv_coding_data, row)
             tv_news_serializer = TelevisionSheetSerializer(data=sheet_data)
     
@@ -326,6 +335,9 @@ def save_tv_news_data(tv_coding_data, journalist_tv_coding_data):
 def save_internent_news_data(internet_coding_data, journalist_internet_coding_data):
     if internet_coding_data:
         for row in internet_coding_data.get('countries', []):
+            # If the webpage layer number doesn't exist we skip
+            if not internet_coding_data.get('webpage_layer_no').get(row):
+                continue
             sheet_data = get_data_for_internent_coding(internet_coding_data, row)
 
             internet_news_sheet_serializer = InternetNewsSheetSerializer(data=sheet_data)
@@ -345,6 +357,9 @@ def save_internent_news_data(internet_coding_data, journalist_internet_coding_da
 def save_twitter_news_data(twitter_coding_data, journalist_twitter_coding_data):
     if twitter_coding_data:
         for row in twitter_coding_data.get('countries', []):
+            # If the retweet number doesn't exist we skip
+            if not twitter_coding_data.get('retweet').get(row):
+                continue
             sheet_data = get_data_for_twitter_coding(twitter_coding_data, row)
 
             twitter_news_serializer = TwitterSheetSerializer(data=sheet_data)
