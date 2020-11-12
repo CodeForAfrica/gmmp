@@ -40,9 +40,6 @@ def get_all_coding_data(coding_data, row):
     about_women = coding_data.get('about_women').get(row) if coding_data.get('about_women') else None
     inequality_women = coding_data.get('inequality_women').get(row) if coding_data.get('inequality_women') else None
     stereotypes = coding_data.get('stereotypes').get(row) if coding_data.get('stereotypes') else None
-    date = format_date(coding_data.get('time_accessed').get(row).split(' ')[0]) if coding_data.get('time_accessed') else None
-    time = format_time(coding_data.get('time_accessed').get(row).split(' ')[1]) if coding_data.get('time_accessed') else None
-    start_time = format_time(coding_data.get('start_time').get(row)) if coding_data.get('start_time') else None
     website_name = coding_data.get('website_name').get(row) if coding_data.get('website_name') else None
     website_url = coding_data.get('website_url').get(row) if coding_data.get('website_url') else None
     offline_presence = re.findall(r'\d+', coding_data.get('offline_presence').get(row)) if coding_data.get('offline_presence') else ['0']
@@ -68,6 +65,17 @@ def get_all_coding_data(coding_data, row):
     special_qn_3 = coding_data.get("special_qn_3").get(row) if coding_data.get('special_qn_3') else None
     further_analysis = coding_data.get("further_analysis").get(row) if coding_data.get('further_analysis') else None
 
+    # For date and time, unknown exceptions can occurr
+    try:
+        date = format_date(coding_data.get('time_accessed').get(row).split(' ')[0]) if coding_data.get('time_accessed') else None
+    except Exception:
+        date = None
+    try:
+        time = format_time(coding_data.get('time_accessed').get(row).split(' ')[1]) if coding_data.get('time_accessed') else None
+    except Exception:
+        time = "00:00:00"
+    start_time = format_time(coding_data.get('start_time').get(row)) if coding_data.get('start_time') else None
+    
     return {
         "monitor_mode": 1,
         "country": country,
@@ -494,5 +502,10 @@ def format_date(date):
     return date.strip()
 
 def format_time(time):
+    timeformat = "%H.%M.%S"
+    try:
+        datetime.datetime.strptime(start_time, timeformat)
+    except Exception:
+        return "00:00:00"
     time = time.replace(".", ":")
     return time.strip()
