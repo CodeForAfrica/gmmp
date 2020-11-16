@@ -82,7 +82,7 @@ def get_all_coding_data(coding_data, row):
         "monitor_code": monitor_code,
         "newspaper_name": newspaper_name,
         "website_name": website_name,
-        "webpage_layer_no": int(webpage_layer_no) if webpage_layer_no else '',
+        "webpage_layer_no": int(webpage_layer_no) if webpage_layer_no else None,
         "shared_via_twitter": 'Y' if shared_via_twitter == '1' else 'N',
         "shared_on_facebook": 'Y' if shared_on_facebook == '1' else 'N',
         "equality_rights": 'Y' if equality_rights == '1' else 'N',
@@ -92,7 +92,7 @@ def get_all_coding_data(coding_data, row):
         "covid19": int(covid19) if covid19 else '',
         "topic": int(topic) if topic else '',
         "scope": int(scope) if scope else '',
-        "item_number": int(item_number) if item_number else '',
+        "item_number": int(item_number) if item_number else None,
         "num_female_anchors": int(num_female_anchors) if num_female_anchors else 0,
         "num_male_anchors": int(num_male_anchors) if num_male_anchors else 0,
         "space": space,
@@ -283,17 +283,26 @@ def save_journalist_data(coding_data, row, serializer, sheet, parent_id):
 
 def save_newspaper_news_data(newspaper_coding_data, journalist_newspaper_coding_data):
     if newspaper_coding_data:
-        for row in newspaper_coding_data.get('countries', []):
-            # If the page number doesn't exist we skip
-            if not newspaper_coding_data.get('page_number').get(row):
-                continue
+        for row in newspaper_coding_data.get('story_label', []):
+
             sheet_data = get_data_for_newspaper_coding(newspaper_coding_data, row)
             newspaper_news_serializer = NewspaperSheetSerializer(data=sheet_data)
 
             if newspaper_news_serializer.is_valid():
                 newspaper_news = newspaper_news_serializer.save()
                 person_data = dict(newspaper_sheet=newspaper_news.id)
-                while newspaper_coding_data.get("sex").get(row):
+                while newspaper_coding_data.get("sex").get(row)\
+                    or newspaper_coding_data.get("age").get(row)\
+                    or newspaper_coding_data.get("occupation").get(row)\
+                    or newspaper_coding_data.get("function").get(row)\
+                    or newspaper_coding_data.get("family_role").get(row)\
+                    or newspaper_coding_data.get("victim_or_survivor").get(row)\
+                    or newspaper_coding_data.get("is_quoted").get(row)\
+                    or newspaper_coding_data.get("is_photograph").get(row)\
+                    or newspaper_coding_data.get("special_qn_1").get(row)\
+                    or newspaper_coding_data.get("special_qn_2").get(row)\
+                    or newspaper_coding_data.get("special_qn_3").get(row):
+
                     save_person_data(newspaper_coding_data, person_data, row, NewspaperPersonSerializer)
                     save_journalist_data(journalist_newspaper_coding_data, row, NewspaperJournalistSerializer, "newspaper_sheet", newspaper_news.id)
                     row = str(int(row) + 1)
@@ -303,17 +312,26 @@ def save_newspaper_news_data(newspaper_coding_data, journalist_newspaper_coding_
 
 def save_radio_news_data(radio_coding_data, journalist_radio_coding_data):
     if radio_coding_data:
-        for row in radio_coding_data.get('countries', []):
-            # If the item number doesn't exist we skip
-            if not radio_coding_data.get('item_number').get(row):
-                continue
+        for row in radio_coding_data.get('story_label', []):
+
             sheet_data = get_data_for_radio(radio_coding_data, row)
             radio_news_serializer = RadioSheetSerializer(data=sheet_data)
 
             if radio_news_serializer.is_valid():
                 radio_news = radio_news_serializer.save()
                 person_data = dict(radio_sheet=radio_news.id)
-                while radio_coding_data.get("sex").get(row):
+                while radio_coding_data.get("sex").get(row)\
+                    or radio_coding_data.get("age").get(row)\
+                    or radio_coding_data.get("occupation").get(row)\
+                    or radio_coding_data.get("function").get(row)\
+                    or radio_coding_data.get("family_role").get(row)\
+                    or radio_coding_data.get("victim_or_survivor").get(row)\
+                    or radio_coding_data.get("is_quoted").get(row)\
+                    or radio_coding_data.get("is_photograph").get(row)\
+                    or radio_coding_data.get("special_qn_1").get(row)\
+                    or radio_coding_data.get("special_qn_2").get(row)\
+                    or radio_coding_data.get("special_qn_3").get(row):
+
                     save_person_data(radio_coding_data, person_data, row, RadioPersonSerializer)
                     save_journalist_data(journalist_radio_coding_data, row, RadioJournalistSerializer, "radio_sheet", radio_news.id)
                     row = str(int(row) + 1)
@@ -323,17 +341,26 @@ def save_radio_news_data(radio_coding_data, journalist_radio_coding_data):
 
 def save_tv_news_data(tv_coding_data, journalist_tv_coding_data):
     if tv_coding_data:
-        for row in tv_coding_data.get('countries', []):
-            # If the item number doesn't exist we skip
-            if not tv_coding_data.get('item_number').get(row):
-                continue
+        for row in tv_coding_data.get('story_label', []):
+            
             sheet_data = get_data_for_tv(tv_coding_data, row)
             tv_news_serializer = TelevisionSheetSerializer(data=sheet_data)
     
             if tv_news_serializer.is_valid():
                 tv_news = tv_news_serializer.save()
                 person_data = dict(television_sheet=tv_news.id)
-                while tv_coding_data.get("sex").get(row):
+                while tv_coding_data.get("sex").get(row)\
+                    or tv_coding_data.get("age").get(row)\
+                    or tv_coding_data.get("occupation").get(row)\
+                    or tv_coding_data.get("function").get(row)\
+                    or tv_coding_data.get("family_role").get(row)\
+                    or tv_coding_data.get("victim_or_survivor").get(row)\
+                    or tv_coding_data.get("is_quoted").get(row)\
+                    or tv_coding_data.get("is_photograph").get(row)\
+                    or tv_coding_data.get("special_qn_1").get(row)\
+                    or tv_coding_data.get("special_qn_2").get(row)\
+                    or tv_coding_data.get("special_qn_3").get(row):
+
                     save_person_data(tv_coding_data, person_data, row, TelevisionPersonSerializer)
                     save_journalist_data(journalist_tv_coding_data, row, TelevisionJournalistSerializer, "television_sheet", tv_news.id)
                     row = str(int(row) + 1)
@@ -342,10 +369,8 @@ def save_tv_news_data(tv_coding_data, journalist_tv_coding_data):
 
 def save_internent_news_data(internet_coding_data, journalist_internet_coding_data):
     if internet_coding_data:
-        for row in internet_coding_data.get('countries', []):
-            # If the webpage layer number doesn't exist we skip
-            if not internet_coding_data.get('webpage_layer_no').get(row):
-                continue
+        for row in internet_coding_data.get('story_label', []):
+            
             sheet_data = get_data_for_internent_coding(internet_coding_data, row)
 
             internet_news_sheet_serializer = InternetNewsSheetSerializer(data=sheet_data)
@@ -355,7 +380,18 @@ def save_internent_news_data(internet_coding_data, journalist_internet_coding_da
                 person_data = dict(internetnews_sheet=internet_news_sheet.id)
                 # If next row is current row+1 then that row belongs to this sheet
                 # e.g if current row is 2 and next row is 3 then that row holds the second Journalist or the second person in the news.
-                while internet_coding_data.get("sex").get(row):
+                while internet_coding_data.get("sex").get(row)\
+                    or internet_coding_data.get("age").get(row)\
+                    or internet_coding_data.get("occupation").get(row)\
+                    or internet_coding_data.get("function").get(row)\
+                    or internet_coding_data.get("family_role").get(row)\
+                    or internet_coding_data.get("victim_or_survivor").get(row)\
+                    or internet_coding_data.get("is_quoted").get(row)\
+                    or internet_coding_data.get("is_photograph").get(row)\
+                    or internet_coding_data.get("special_qn_1").get(row)\
+                    or internet_coding_data.get("special_qn_2").get(row)\
+                    or internet_coding_data.get("special_qn_3").get(row):
+
                     save_person_data(internet_coding_data, person_data, row, InternetNewsPersonSerializer)
                     save_journalist_data(journalist_internet_coding_data, row, InternetNewsJournalistSerializer, "internetnews_sheet", internet_news_sheet.id)
                     row = str(int(row) + 1)
@@ -364,17 +400,26 @@ def save_internent_news_data(internet_coding_data, journalist_internet_coding_da
 
 def save_twitter_news_data(twitter_coding_data, journalist_twitter_coding_data):
     if twitter_coding_data:
-        for row in twitter_coding_data.get('countries', []):
-            # If the retweet number doesn't exist we skip
-            if not twitter_coding_data.get('retweet').get(row):
-                continue
+        for row in twitter_coding_data.get('story_label', []):
+            
             sheet_data = get_data_for_twitter_coding(twitter_coding_data, row)
 
             twitter_news_serializer = TwitterSheetSerializer(data=sheet_data)
             if twitter_news_serializer.is_valid():
                 twitter_news = twitter_news_serializer.save()
                 person_data = dict(twitter_sheet=twitter_news.id)
-                while twitter_coding_data.get("sex").get(row):
+                while twitter_coding_data.get("sex").get(row)\
+                        or twitter_coding_data.get("age").get(row)\
+                        or twitter_coding_data.get("occupation").get(row)\
+                        or twitter_coding_data.get("function").get(row)\
+                        or twitter_coding_data.get("family_role").get(row)\
+                        or twitter_coding_data.get("victim_or_survivor").get(row)\
+                        or twitter_coding_data.get("is_quoted").get(row)\
+                        or twitter_coding_data.get("is_photograph").get(row)\
+                        or twitter_coding_data.get("special_qn_1").get(row)\
+                        or twitter_coding_data.get("special_qn_2").get(row)\
+                        or twitter_coding_data.get("special_qn_3").get(row):
+
                     save_person_data(twitter_coding_data, person_data, row, TwitterPersonSerializer)
                     save_journalist_data(journalist_twitter_coding_data, row, TwitterJournalistSerializer, "twitter_sheet", twitter_news.id)
 
@@ -405,6 +450,14 @@ def get_common_coding_data(data):
     rows = [x for x in data['country_code']]
     if not rows:
         return None
+    # Ensure we only pick unique stories
+    # This will remove story_labels with same value meaning same story
+    story_label = {}
+    for story in data['story_label']:
+        if not story_label.get(data['story_label'][story]):
+            story_label.update({data['story_label'][story]:story})
+        
+    story_label = {y:x for x,y in story_label.items()}
     return {
         "countries": data.get('country_code'),
         "monitors": data.get('monitor_code'),
@@ -416,7 +469,7 @@ def get_common_coding_data(data):
         "inequality_women": data.get('inequality_women'),
         "stereotypes": data.get('stereotypes'),
         "comments": data.get('comments'),
-        "story_label": data.get('story_label'),
+        "story_label": story_label,
         "sex": data.get('sex'),
         "age": data.get('age'),
         "occupation": data.get('occupation'),
