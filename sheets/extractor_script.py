@@ -27,7 +27,10 @@ def read_coding_sheet(filename):
 
     return sheet_dict
 
-#clean responses
+"""
+## 2. Extract the responses from the coding sheet
+This function will extract all the responses, leaving out blank columns
+"""
 def get_response(coding_dict):
     dict_copy = coding_dict.copy()
     
@@ -52,8 +55,8 @@ def get_response(coding_dict):
                     .rename(columns = dict_copy[key].iloc[1]).drop(dict_copy[key].index[0:2]).drop(columns = ['False'])
                     
 
-        #add story label new story starts when the first column is not null
-        dict_copy[key].loc[:,'story_label'] = dict_copy[key].iloc[:,0].notnull().cumsum() #column that indicates story number
+        #add story label new story after a completely null row
+        dict_copy[key].loc[:,'story_label'] = dict_copy[key].isnull().apply(lambda y: all(y), axis=1).cumsum()+1  #column that indicates story number
 
         #edit comments question
         col_markers = ['Comments','Commentaires','Comentarios','Multimedia','Comentários']
@@ -70,8 +73,12 @@ def get_response(coding_dict):
                     #edit responses in certain columns
                     dict_copy[key] = dict_copy[key].apply(lambda y: y.replace("(?<=\)).*|\(|\)", "", regex = True) if y.name not in ['30', 'story_label'] else y)            
 
+                    #drop nulls
+                    dict_copy[key].dropna(thresh = 2, inplace = True)
+    
     return dict_copy
 
+# 3. Extract the basic information from coding sheets
 #read coding info
 def get_coding_info(coding_details):
     
@@ -102,8 +109,8 @@ def get_coding_info(coding_details):
                             coding_details[a].fillna(method = 'ffill', inplace = True)
                             
                             #drop rows
-                            coding_details[a] = coding_details[a].tail(1)         
-
+                            coding_details[a] = coding_details[a].tail(1)
+                            
     return coding_details
 
 #add coding info to sheet
@@ -194,6 +201,7 @@ def get_journalist(coding_dict):
     coding_data = format_coding_data(dict_copy)
     return coding_data
 
+# Extract information related to the sheet
 #get sheet information
 def get_sheet(coding_dict):
     #read data
