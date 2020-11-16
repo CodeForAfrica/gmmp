@@ -60,9 +60,9 @@ def get_all_coding_data(coding_data, row):
     survivor_of = coding_data.get("survivor_of").get(row) if coding_data.get('survivor_of') else None
     is_quoted = coding_data.get("is_quoted").get(row) if coding_data.get('is_quoted') else None
     is_photograph = coding_data.get("is_photograph").get(row) if coding_data.get('is_photograph') else None
-    special_qn_1 = coding_data.get("special_qn_1").get(row) if coding_data.get('special_qn_1') else None
-    special_qn_2 = coding_data.get("special_qn_2").get(row) if coding_data.get('special_qn_2') else None
-    special_qn_3 = coding_data.get("special_qn_3").get(row) if coding_data.get('special_qn_3') else None
+    special_qn_1 = yes_no(coding_data.get("special_qn_1").get(row) if coding_data.get('special_qn_1') else None)
+    special_qn_2 = yes_no(coding_data.get("special_qn_2").get(row) if coding_data.get('special_qn_2') else None)
+    special_qn_3 = yes_no(coding_data.get("special_qn_3").get(row) if coding_data.get('special_qn_3') else None)
     further_analysis = coding_data.get("further_analysis").get(row) if coding_data.get('further_analysis') else None
 
     # For date and time, unknown exceptions can occurr
@@ -118,9 +118,9 @@ def get_all_coding_data(coding_data, row):
         "survivor_of": int(survivor_of) if survivor_of else None,
         "is_quoted": 'Y' if is_quoted == '1' else 'N',
         "is_photograph": int(is_photograph) if is_photograph else None,
-        "special_qn_1": 'Y' if special_qn_1 == '1' else 'N',
-        "special_qn_2": 'Y' if special_qn_2 == '1' else 'N',
-        "special_qn_3": 'Y' if special_qn_3 == '1' else 'N',
+        "special_qn_1": special_qn_1,
+        "special_qn_2": special_qn_2,
+        "special_qn_3": special_qn_3,
         "further_analysis": 'Y' if further_analysis == '1' else 'N'
     }
 
@@ -291,18 +291,7 @@ def save_newspaper_news_data(newspaper_coding_data, journalist_newspaper_coding_
             if newspaper_news_serializer.is_valid():
                 newspaper_news = newspaper_news_serializer.save()
                 person_data = dict(newspaper_sheet=newspaper_news.id)
-                while newspaper_coding_data.get("sex").get(row)\
-                    or newspaper_coding_data.get("age").get(row)\
-                    or newspaper_coding_data.get("occupation").get(row)\
-                    or newspaper_coding_data.get("function").get(row)\
-                    or newspaper_coding_data.get("family_role").get(row)\
-                    or newspaper_coding_data.get("victim_or_survivor").get(row)\
-                    or newspaper_coding_data.get("is_quoted").get(row)\
-                    or newspaper_coding_data.get("is_photograph").get(row)\
-                    or newspaper_coding_data.get("special_qn_1").get(row)\
-                    or newspaper_coding_data.get("special_qn_2").get(row)\
-                    or newspaper_coding_data.get("special_qn_3").get(row):
-
+                while has_person(newspaper_coding_data, row):
                     save_person_data(newspaper_coding_data, person_data, row, NewspaperPersonSerializer)
                     save_journalist_data(journalist_newspaper_coding_data, row, NewspaperJournalistSerializer, "newspaper_sheet", newspaper_news.id)
                     row = str(int(row) + 1)
@@ -320,18 +309,7 @@ def save_radio_news_data(radio_coding_data, journalist_radio_coding_data):
             if radio_news_serializer.is_valid():
                 radio_news = radio_news_serializer.save()
                 person_data = dict(radio_sheet=radio_news.id)
-                while radio_coding_data.get("sex").get(row)\
-                    or radio_coding_data.get("age").get(row)\
-                    or radio_coding_data.get("occupation").get(row)\
-                    or radio_coding_data.get("function").get(row)\
-                    or radio_coding_data.get("family_role").get(row)\
-                    or radio_coding_data.get("victim_or_survivor").get(row)\
-                    or radio_coding_data.get("is_quoted").get(row)\
-                    or radio_coding_data.get("is_photograph").get(row)\
-                    or radio_coding_data.get("special_qn_1").get(row)\
-                    or radio_coding_data.get("special_qn_2").get(row)\
-                    or radio_coding_data.get("special_qn_3").get(row):
-
+                while has_person(radio_coding_data, row):
                     save_person_data(radio_coding_data, person_data, row, RadioPersonSerializer)
                     save_journalist_data(journalist_radio_coding_data, row, RadioJournalistSerializer, "radio_sheet", radio_news.id)
                     row = str(int(row) + 1)
@@ -349,18 +327,7 @@ def save_tv_news_data(tv_coding_data, journalist_tv_coding_data):
             if tv_news_serializer.is_valid():
                 tv_news = tv_news_serializer.save()
                 person_data = dict(television_sheet=tv_news.id)
-                while tv_coding_data.get("sex").get(row)\
-                    or tv_coding_data.get("age").get(row)\
-                    or tv_coding_data.get("occupation").get(row)\
-                    or tv_coding_data.get("function").get(row)\
-                    or tv_coding_data.get("family_role").get(row)\
-                    or tv_coding_data.get("victim_or_survivor").get(row)\
-                    or tv_coding_data.get("is_quoted").get(row)\
-                    or tv_coding_data.get("is_photograph").get(row)\
-                    or tv_coding_data.get("special_qn_1").get(row)\
-                    or tv_coding_data.get("special_qn_2").get(row)\
-                    or tv_coding_data.get("special_qn_3").get(row):
-
+                while has_person(tv_coding_data, row):
                     save_person_data(tv_coding_data, person_data, row, TelevisionPersonSerializer)
                     save_journalist_data(journalist_tv_coding_data, row, TelevisionJournalistSerializer, "television_sheet", tv_news.id)
                     row = str(int(row) + 1)
@@ -380,18 +347,7 @@ def save_internent_news_data(internet_coding_data, journalist_internet_coding_da
                 person_data = dict(internetnews_sheet=internet_news_sheet.id)
                 # If next row is current row+1 then that row belongs to this sheet
                 # e.g if current row is 2 and next row is 3 then that row holds the second Journalist or the second person in the news.
-                while internet_coding_data.get("sex").get(row)\
-                    or internet_coding_data.get("age").get(row)\
-                    or internet_coding_data.get("occupation").get(row)\
-                    or internet_coding_data.get("function").get(row)\
-                    or internet_coding_data.get("family_role").get(row)\
-                    or internet_coding_data.get("victim_or_survivor").get(row)\
-                    or internet_coding_data.get("is_quoted").get(row)\
-                    or internet_coding_data.get("is_photograph").get(row)\
-                    or internet_coding_data.get("special_qn_1").get(row)\
-                    or internet_coding_data.get("special_qn_2").get(row)\
-                    or internet_coding_data.get("special_qn_3").get(row):
-
+                while has_person(internet_coding_data, row):
                     save_person_data(internet_coding_data, person_data, row, InternetNewsPersonSerializer)
                     save_journalist_data(journalist_internet_coding_data, row, InternetNewsJournalistSerializer, "internetnews_sheet", internet_news_sheet.id)
                     row = str(int(row) + 1)
@@ -408,18 +364,7 @@ def save_twitter_news_data(twitter_coding_data, journalist_twitter_coding_data):
             if twitter_news_serializer.is_valid():
                 twitter_news = twitter_news_serializer.save()
                 person_data = dict(twitter_sheet=twitter_news.id)
-                while twitter_coding_data.get("sex").get(row)\
-                        or twitter_coding_data.get("age").get(row)\
-                        or twitter_coding_data.get("occupation").get(row)\
-                        or twitter_coding_data.get("function").get(row)\
-                        or twitter_coding_data.get("family_role").get(row)\
-                        or twitter_coding_data.get("victim_or_survivor").get(row)\
-                        or twitter_coding_data.get("is_quoted").get(row)\
-                        or twitter_coding_data.get("is_photograph").get(row)\
-                        or twitter_coding_data.get("special_qn_1").get(row)\
-                        or twitter_coding_data.get("special_qn_2").get(row)\
-                        or twitter_coding_data.get("special_qn_3").get(row):
-
+                while has_person(twitter_coding_data, row):
                     save_person_data(twitter_coding_data, person_data, row, TwitterPersonSerializer)
                     save_journalist_data(journalist_twitter_coding_data, row, TwitterJournalistSerializer, "twitter_sheet", twitter_news.id)
 
@@ -562,3 +507,37 @@ def format_time(time):
         return "00:00:00"
     time = time.replace(".", ":")
     return time.strip()
+
+def has_person(coding_data, row):
+    if coding_data.get("sex") and coding_data.get("sex").get(row):
+        return True
+    elif coding_data.get("age") and coding_data.get("age").get(row):
+        return True
+    elif coding_data.get("occupation") and coding_data.get("occupation").get(row):
+        return True
+    elif coding_data.get("function") and coding_data.get("function").get(row):
+        return True
+    elif coding_data.get("family_role") and coding_data.get("family_role").get(row):
+        return True
+    elif coding_data.get("victim_or_survivor") and coding_data.get("victim_or_survivor").get(row):
+        return True
+    elif coding_data.get("is_quoted") and coding_data.get("is_quoted").get(row):
+        return True
+    elif coding_data.get("is_photograph") and coding_data.get("is_photograph").get(row):
+        return True
+    elif coding_data.get("special_qn_1") and coding_data.get("special_qn_1").get(row):
+        return True
+    elif coding_data.get("special_qn_2") and coding_data.get("special_qn_2").get(row):
+        return True
+    elif coding_data.get("special_qn_3") and coding_data.get("special_qn_3").get(row):
+        return True
+    else:
+        return False
+
+def yes_no(question):
+    if question == '1':
+        return 'Y'
+    elif question == '2':
+        return 'N'
+    else:
+        return None
