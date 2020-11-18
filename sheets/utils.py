@@ -47,7 +47,6 @@ def get_all_coding_data(coding_data, row):
     shared_via_twitter = coding_data.get('shared_via_twitter').get(row) if coding_data.get('shared_via_twitter') else None
     shared_on_facebook = coding_data.get('shared_on_facebook').get(row) if coding_data.get('shared_on_facebook') else None
     equality_rights = coding_data.get('equality_rights').get(row) if coding_data.get('equality_rights') else None
-    comments = coding_data.get('comments').get(row) if coding_data.get('comments') else None
     sex = coding_data.get("sex").get(row) if coding_data.get('sex') else None
     age = coding_data.get("age").get(row) if coding_data.get('age') else None
     num_female_anchors = coding_data.get("num_female_anchors").get(row) if coding_data.get('num_female_anchors') else None
@@ -75,7 +74,22 @@ def get_all_coding_data(coding_data, row):
     except Exception:
         time = "00:00:00"
     start_time = format_time(coding_data.get('start_time').get(row)) if coding_data.get('start_time') else None
-    
+
+    # Start Comment Merge Block
+    # merge all comment strings across multiple cells belonging to the same story
+    # into one long string
+    key = int(row)
+    comments = coding_data.get('comments') if coding_data.get('comments') else {}
+    merged_comment = comments.get(row) if comments else ''
+    for comment in comments:
+        comment_id = int(comment)
+        if comment_id <= key:
+            continue
+        if comment_id > key and comment_id - key == 1:
+            merged_comment += f' {comments.get(str(key + 1))}'
+            key += 1
+    # End Comment Merge Block
+
     return {
         "monitor_mode": 1,
         "country": country,
@@ -106,8 +120,8 @@ def get_all_coding_data(coding_data, row):
         "about_women": 'Y' if about_women == 'Y' else 'N',
         "inequality_women": int(inequality_women) if inequality_women else "",
         "stereotypes": int(stereotypes) if stereotypes else '',
-        "url_and_multimedia": comments or "N/A",
-        "comments": comments or 'N/A',
+        "url_and_multimedia": comments or "N/A", # TODO: Isaiah, I'm not sure why we have comments here, instead of url_and_multimedia
+        "comments": merged_comment or 'N/A',
         "sex": int(sex) if sex else None,
         "age": int(age) if age else None,
         "occupation": int(occupation) if occupation else None,
