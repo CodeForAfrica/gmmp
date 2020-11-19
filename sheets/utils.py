@@ -86,7 +86,7 @@ def get_all_coding_data(coding_data, row):
         if comment_id <= key:
             continue
         if comment_id > key and comment_id - key == 1:
-            merged_comment += f' {comments.get(str(key + 1))}'
+            merged_comment += f' {comments.get(str(key + 1))}' if comments.get(str(key + 1)) != None else ''
             key += 1
     # End Comment Merge Block
 
@@ -159,7 +159,7 @@ def get_people_data(coding_data, row):
 
 def get_data_for_newspaper_coding(newspaper_coding_data, row):
     common_data = get_all_coding_data(newspaper_coding_data, row)
-
+    import pdb; pdb.set_trace()
     return {
         "monitor_mode": common_data.get('monitor_mode'),
         "country": common_data.get('country'),
