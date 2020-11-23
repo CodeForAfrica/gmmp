@@ -241,7 +241,7 @@ class TwitterPersonInline(PersonInTheNewsInLine):
 # Forms
 # -----
 
-basic_filters = ('topic', 'about_women', 'stereotypes', 'further_analysis')
+basic_filters = ('topic', 'about_women', 'stereotypes', 'further_analysis', 'country')
 
 class NewspaperSheetAdmin(PermsAdmin):
 
