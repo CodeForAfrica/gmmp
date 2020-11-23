@@ -28,12 +28,7 @@ def read_coding_sheet(filename):
     return sheet_dict
 
 
-"""
-## 2. Extract the responses from the coding sheet
-This function will extract all the responses, leaving out blank columns
-"""
-
-
+# extract the responses from the coding sheet
 def get_response(coding_dict):
     dict_copy = coding_dict.copy()
 
@@ -41,7 +36,7 @@ def get_response(coding_dict):
     qz = ["Story", "Reportage", "Noticia", "Notícia"]
 
     # extract reponses
-    for key, value in dict_copy.items():
+    for key, _ in dict_copy.items():
         # strip whitespace
         dict_copy[key] = dict_copy[key].applymap(
             lambda x: x.strip() if isinstance(x, str) else x
@@ -90,12 +85,12 @@ def get_response(coding_dict):
                         .columns.str.split()
                         .str[0]
                         .str.strip()
-                        .str.replace("\(|\)|\.", "")
+                        .str.replace(r"\(|\)|\.", "")
                     )
 
                     # edit responses in certain columns
                     dict_copy[key] = dict_copy[key].apply(
-                        lambda y: y.replace("(?<=\)).*|\(|\)", "", regex=True)
+                        lambda y: y.replace(r"(?<=\)).*|\(|\)", "", regex=True)
                         if y.name not in ["30", "story_label"]
                         else y
                     )
@@ -113,7 +108,7 @@ def get_coding_info(coding_details):
     col_names = coding_info.basic_info
     translations = coding_info.basicinfo_translations
 
-    for a, b in coding_details.items():
+    for a, _ in coding_details.items():
         for col, value in col_names.items():
             if col in coding_details[a].columns:
                 coding_details[a] = coding_details[a].iloc[
@@ -158,8 +153,8 @@ def add_coding_info(coding_dict):
     coding_details = get_coding_info(coding_dict)
 
     # add coding info
-    for key, value in dict_copy.items():
-        for info_key, info_value in coding_details.items():
+    for key, _ in dict_copy.items():
+        for info_key, _ in coding_details.items():
             if info_key == key:
                 basicinfo = coding_details[key].columns.tolist()
                 dict_copy[key] = pd.concat(
@@ -187,7 +182,7 @@ def get_people(coding_dict):
     mapping = coding_info.sheetname_mapping
 
     # extract people in the news
-    for key, value in dict_copy.items():
+    for key, _ in dict_copy.items():
         # access mapping dictionary
         for map_name, sheetname in mapping.items():
             # access journalust dictionary
@@ -221,7 +216,7 @@ def get_journalist(coding_dict):
     mapping = coding_info.sheetname_mapping
 
     # extract journalists
-    for key, value in dict_copy.items():
+    for key, _ in dict_copy.items():
         # access mapping dictionary
         for map_name, sheetname in mapping.items():
             # access journalist dictionary
@@ -261,7 +256,7 @@ def get_sheet(coding_dict):
     mapping = coding_info.sheetname_mapping
 
     # extract sheet info
-    for key, value in dict_copy.items():
+    for key, _ in dict_copy.items():
         # access mapping dictionary
         for map_name, sheetname in mapping.items():
             # access sheetinfo dictionary
