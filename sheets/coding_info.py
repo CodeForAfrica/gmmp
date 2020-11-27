@@ -66,6 +66,7 @@ basicinfo_translations = {
         "Nom d'utilisateur Twitter",
         "Twitter handle",
     ],
+    "monitor_mode": ["Format"],
 }
 
 # Coding sheetname mapping
@@ -243,4 +244,3 @@ sheet_info = {
         "30": "comments",
     },
 }
-
