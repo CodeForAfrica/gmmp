@@ -32,6 +32,17 @@ def get_all_coding_data(coding_data, row):
     monitor_code = (
         coding_data.get("monitors").get(row) if coding_data.get("monitors") else None
     )
+    monitor_mode = (
+        coding_data.get("monitor_mode").get(row)
+        if coding_data.get("monitor_mode")
+        else "long monitoring"
+    )
+
+    if monitor_mode.lower() == "short monitoring":
+        monitor_mode = 2
+    else:
+        monitor_mode = 1
+
     newspaper_name = (
         coding_data.get("newspaper_name").get(row)
         if coding_data.get("newspaper_name")
@@ -230,7 +241,7 @@ def get_all_coding_data(coding_data, row):
     # End Comment Merge Block
 
     return {
-        "monitor_mode": 1,
+        "monitor_mode": monitor_mode,
         "country": country,
         "monitor_code": monitor_code,
         "newspaper_name": newspaper_name,
@@ -259,8 +270,7 @@ def get_all_coding_data(coding_data, row):
         "about_women": "Y" if about_women == "Y" else "N",
         "inequality_women": int(inequality_women) if inequality_women else "",
         "stereotypes": int(stereotypes) if stereotypes else "",
-        "url_and_multimedia": comments
-        or "N/A",  # TODO: Isaiah, I'm not sure why we have comments here, instead of url_and_multimedia
+        "url_and_multimedia": merged_comment or "N/A",
         "comments": merged_comment or "N/A",
         "sex": int(sex) if sex else None,
         "age": int(age) if age else None,
@@ -301,9 +311,7 @@ def get_people_data(coding_data, row):
 
 def get_data_for_newspaper_coding(newspaper_coding_data, row):
     common_data = get_all_coding_data(newspaper_coding_data, row)
-    import pdb
 
-    pdb.set_trace()
     return {
         "monitor_mode": common_data.get("monitor_mode"),
         "country": common_data.get("country"),
