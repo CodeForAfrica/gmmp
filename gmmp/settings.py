@@ -66,7 +66,7 @@ INSTALLED_APPS = [
     "gsheets",
     "forms",
     "reports",
-    "sheets",
+    "coding_sheets",
 ]
 
 AUTHENTICATION_BACKENDS = [

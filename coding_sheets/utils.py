@@ -1,7 +1,7 @@
 import re
 from django_countries.fields import countries
 
-from sheets.serializers import (
+from coding_sheets.serializers import (
     NewspaperSheet,
     NewspaperPerson,
     NewspaperJournalist,
