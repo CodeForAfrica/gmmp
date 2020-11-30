@@ -17,8 +17,6 @@ from coding_sheets.utils import (
     get_tv_coding_data,
     get_internet_coding_data,
     get_twitter_coding_data,
-    format_date,
-    format_time,
     save_newspaper_news_data,
     save_radio_news_data,
     save_tv_news_data,

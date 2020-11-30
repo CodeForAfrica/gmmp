@@ -198,29 +198,22 @@ def get_all_coding_data(coding_data, row):
         if coding_data.get("further_analysis")
         else None
     )
+    time_accessed = None
     if coding_data.get("time_accessed"):
         date_time_accessed = coding_data.get("time_accessed").get(row)
         if date_time_accessed:
             date_time_accessed = datetime.fromtimestamp(
                 int(str(date_time_accessed)[:10])
             )
-            date = format_date(
-                f"{date_time_accessed.year}-{date_time_accessed.month}-{date_time_accessed.day}"
-            )
-            time = format_time(
-                f"{date_time_accessed.hour}.{date_time_accessed.minute}.{date_time_accessed.second}"
-            )
-        else:
-            date = "0000:00:00"
-            time = "00:00:00"
-    else:
-        date = "0000:00:00"
-        time = "00:00:00"
+            time_accessed = format_date_time(date_time_accessed)
     start_time = (
-        format_time(coding_data.get("start_time").get(row))
+        coding_data.get("start_time").get(row)
         if coding_data.get("start_time")
         else None
     )
+    if start_time:
+        start_time = datetime.fromtimestamp(int(str(start_time)[:10]))
+        start_time = f"{start_time.hour}:{start_time.minute}"
 
     # Start Comment Merge Block
     # merge all comment strings across multiple cells belonging to the same story
@@ -252,7 +245,7 @@ def get_all_coding_data(coding_data, row):
         "shared_on_facebook": "Y" if shared_on_facebook == "1" else "N",
         "equality_rights": "Y" if equality_rights == "1" else "N",
         "offline_presence": "Y" if offline_presence[0] == "1" else "N",
-        "time_accessed": f"{date} {time}",
+        "time_accessed": time_accessed,
         "website_url": website_url,
         "covid19": int(covid19) if covid19 else "",
         "topic": int(topic) if topic else "",
@@ -724,11 +717,8 @@ def get_twitter_coding_data(data):
     return common_coding_data
 
 
-def format_date(date):
-    date = date.split(".")
-    date.reverse()
-    date = "-".join(date)
-    return date.strip()
+def format_date_time(date_time):
+    return f"{date_time.year}-{date_time.month}-{date_time.day} {date_time.hour}:{date_time.minute}"
 
 
 def format_time(time):
