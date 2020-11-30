@@ -9,10 +9,7 @@ pd.set_option("display.max_colwidth", 100)
 def read_coding_sheet(filename):
     """Read the workbook and extract data into different dataframes."""
     # excel file
-    file_name = (
-        settings.BASE_DIR + "/coding_sheets/data_transfer/data/" + f"{filename}.xlsx"
-    )
-    xl_file = pd.ExcelFile(file_name)
+    xl_file = pd.ExcelFile(filename)
 
     # list of coding names
     coding_names = ["Coding", "CODAGE", "CODIFICACIÓN", "CODIFICAÇÃO"]

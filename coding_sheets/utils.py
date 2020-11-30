@@ -201,9 +201,15 @@ def get_all_coding_data(coding_data, row):
     if coding_data.get("time_accessed"):
         date_time_accessed = coding_data.get("time_accessed").get(row)
         if date_time_accessed:
-            date_time_accessed = datetime.fromtimestamp(int(str(date_time_accessed)[:10]))
-            date = format_date(f"{date_time_accessed.year}-{date_time_accessed.month}-{date_time_accessed.day}")
-            time = format_time(f"{date_time_accessed.hour}.{date_time_accessed.minute}.{date_time_accessed.second}")
+            date_time_accessed = datetime.fromtimestamp(
+                int(str(date_time_accessed)[:10])
+            )
+            date = format_date(
+                f"{date_time_accessed.year}-{date_time_accessed.month}-{date_time_accessed.day}"
+            )
+            time = format_time(
+                f"{date_time_accessed.hour}.{date_time_accessed.minute}.{date_time_accessed.second}"
+            )
         else:
             date = "0000:00:00"
             time = "00:00:00"
