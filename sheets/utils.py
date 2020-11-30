@@ -436,20 +436,21 @@ def save_person_data(coding_data, person_data, row, serializer):
 
 
 def save_journalist_data(coding_data, row, serializer, sheet, parent_id):
-    sex = coding_data.get("sex").get(row)
-    age = coding_data.get("sex").get(row)
-    journalist_data = {
-        "sex": int(sex) if sex else None,
-        "age": age,
-        f"{sheet}": parent_id,
-    }
-    if sheet in ["television_sheet", "radio_sheet"]:
-        journalist_data.update({"role": coding_data.get("role").get(row)})
-    news_journalist_serializer = serializer(data=journalist_data)
-    if news_journalist_serializer.is_valid():
-        news_journalist_serializer.save()
-    else:
-        print("Error occurred: ", news_journalist_serializer.errors)
+    if coding_data:
+        sex = coding_data.get("sex").get(row)
+        age = coding_data.get("sex").get(row)
+        journalist_data = {
+            "sex": int(sex) if sex else None,
+            "age": age,
+            f"{sheet}": parent_id,
+        }
+        if sheet in ["television_sheet", "radio_sheet"]:
+            journalist_data.update({"role": coding_data.get("role").get(row)})
+        news_journalist_serializer = serializer(data=journalist_data)
+        if news_journalist_serializer.is_valid():
+            news_journalist_serializer.save()
+        else:
+            print("Error occurred: ", news_journalist_serializer.errors)
 
 
 def save_newspaper_news_data(newspaper_coding_data, journalist_newspaper_coding_data):
