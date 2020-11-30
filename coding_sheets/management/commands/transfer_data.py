@@ -30,20 +30,21 @@ from coding_sheets.utils import (
 class Command(BaseCommand):
     def add_arguments(self, parser):
         parser.add_argument(
-            "--filename", help="Specify a filename inorder to transfer a single file"
+            "filelocation",
+            help="Folder containing the excel sheets /the excel sheet location",
         )
 
     def handle(self, *args, **options):
-        if options["filename"]:
-            filenames = [options["filename"]]
-        else:
-            files_location = settings.BASE_DIR + "/coding_sheets/data_transfer/data/"
+        filelocation = options["filelocation"]
+        if os.path.isdir(filelocation):
             # Ignore the extension
             filenames = [
-                file_name.split(".")[0]
-                for file_name in os.listdir(files_location)
+                f"{filelocation}/{file_name}"
+                for file_name in os.listdir(filelocation)
                 if file_name.endswith("xlsx")
             ]
+        else:
+            filenames = [filelocation]
 
         for filename in filenames:
             coding_dict = read_coding_sheet(filename)
