@@ -1,4 +1,5 @@
 import re
+from datetime import datetime
 from django_countries.fields import countries
 
 from coding_sheets.serializers import (
@@ -197,23 +198,17 @@ def get_all_coding_data(coding_data, row):
         if coding_data.get("further_analysis")
         else None
     )
-
-    # For date and time, unknown exceptions can occurr
-    try:
-        date = (
-            format_date(coding_data.get("time_accessed").get(row).split(" ")[0])
-            if coding_data.get("time_accessed")
-            else None
-        )
-    except Exception:
-        date = None
-    try:
-        time = (
-            format_time(coding_data.get("time_accessed").get(row).split(" ")[1])
-            if coding_data.get("time_accessed")
-            else None
-        )
-    except Exception:
+    if coding_data.get("time_accessed"):
+        date_time_accessed = coding_data.get("time_accessed").get(row)
+        if date_time_accessed:
+            date_time_accessed = datetime.fromtimestamp(int(str(date_time_accessed)[:10]))
+            date = format_date(f"{date_time_accessed.year}-{date_time_accessed.month}-{date_time_accessed.day}")
+            time = format_time(f"{date_time_accessed.hour}.{date_time_accessed.minute}.{date_time_accessed.second}")
+        else:
+            date = "0000:00:00"
+            time = "00:00:00"
+    else:
+        date = "0000:00:00"
         time = "00:00:00"
     start_time = (
         format_time(coding_data.get("start_time").get(row))
@@ -226,7 +221,7 @@ def get_all_coding_data(coding_data, row):
     # into one long string
     key = int(row)
     comments = coding_data.get("comments") if coding_data.get("comments") else {}
-    merged_comment = comments.get(row) if comments else ""
+    merged_comment = comments.get(row) if comments.get(row) else ""
     for comment in comments:
         comment_id = int(comment)
         if comment_id <= key:
@@ -732,8 +727,9 @@ def format_date(date):
 
 def format_time(time):
     timeformat = "%H.%M.%S"
+    time = time.replace(":", ".")
     try:
-        datetime.datetime.strptime(start_time, timeformat)
+        datetime.strptime(time, timeformat)
     except Exception:
         return "00:00:00"
     time = time.replace(".", ":")
