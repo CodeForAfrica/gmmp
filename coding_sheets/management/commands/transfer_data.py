@@ -3,13 +3,13 @@ import os
 from django.core.management.base import BaseCommand
 from django.conf import settings
 
-from sheets.extractor_script import (
+from coding_sheets.extractor_script import (
     get_journalist,
     get_people,
     get_sheet,
     read_coding_sheet,
 )
-from sheets.utils import (
+from coding_sheets.utils import (
     merge_data,
     get_common_coding_data,
     get_newspaper_coding_data,
@@ -37,7 +37,7 @@ class Command(BaseCommand):
         if options["filename"]:
             filenames = [options["filename"]]
         else:
-            files_location = settings.BASE_DIR + "/sheets/data_transfer/data/"
+            files_location = settings.BASE_DIR + "/coding_sheets/data_transfer/data/"
             # Ignore the extension
             filenames = [
                 file_name.split(".")[0]
