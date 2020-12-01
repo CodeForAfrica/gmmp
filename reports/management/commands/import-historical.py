@@ -9,7 +9,7 @@ from reports.report_details import REGION_COUNTRY_MAP, get_countries
 class Command(BaseCommand):
     help = 'Import historical GMMP data from an XLSX file'
     def add_arguments(self, parser):
-        parser.add_argument('--filename', action='append', dest='filename', help='XLSX file to import')
+        parser.add_argument('filenames', nargs='+', help='Excel file(s) to import')
         parser.add_argument('--global', action='store_true', help='Coverage is global')
         parser.add_argument('--region REGION', action='store', dest='region', help='Import historical data for a region. One of: %s' % ', '.join(sorted(REGION_COUNTRY_MAP.keys())))
         parser.add_argument('--country COUNTRY', action='store', dest='country', help='Import historical data for a country. One of: %s' % ', '.join(sorted(c[0] for c in get_countries())))
@@ -20,10 +20,7 @@ class Command(BaseCommand):
         coverage = None
         region = None
         country = None
-        filenames = options['filename']
-
-        if not filenames:
-            raise CommandError("Must specify --filename")
+        filenames = options['filenames']
 
         if options['global']:
             coverage = 'global'
