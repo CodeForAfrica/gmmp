@@ -139,16 +139,32 @@ def get_coding_info(coding_details):
                             # drop rows
                             coding_details[a] = coding_details[a].tail(1)
 
-                            #edit offline presence
-                            coding_details[a] = coding_details[a].apply(lambda y: y.replace("(?<=\)).*|\(|\)", "", regex = True) if y.name in ['offline_presence'] else y)            
-                            
-                            #edit time for internet
-                            coding_details[a] = coding_details[a].apply(lambda y: y.apply(pd.to_datetime, format= '%Y-%m-%d %H:%M', errors='coerce')\
-                                                                        .fillna(pd.to_datetime('2020-09-29 01:00')) if y.name in ['time_accessed'] else y)            
-                            
-                            #edit time for broadcast media
-                            coding_details[a] = coding_details[a].apply(lambda y: y.apply(pd.to_datetime, format= '%H:%M', errors='coerce')\
-                                                                        .fillna(pd.to_datetime('01:00')) if y.name in ['start_time'] else y)
+                            # edit offline presence
+                            coding_details[a] = coding_details[a].apply(
+                                lambda y: y.replace("(?<=\)).*|\(|\)", "", regex=True)
+                                if y.name in ["offline_presence"]
+                                else y
+                            )
+
+                            # edit time for internet
+                            coding_details[a] = coding_details[a].apply(
+                                lambda y: y.apply(
+                                    pd.to_datetime,
+                                    format="%Y-%m-%d %H:%M",
+                                    errors="coerce",
+                                ).fillna(pd.to_datetime("2020-09-29 01:00"))
+                                if y.name in ["time_accessed"]
+                                else y
+                            )
+
+                            # edit time for broadcast media
+                            coding_details[a] = coding_details[a].apply(
+                                lambda y: y.apply(
+                                    pd.to_datetime, format="%H:%M", errors="coerce"
+                                ).fillna(pd.to_datetime("01:00"))
+                                if y.name in ["start_time"]
+                                else y
+                            )
 
     return coding_details
 

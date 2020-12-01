@@ -108,9 +108,9 @@ def get_all_coding_data(coding_data, row):
         else None
     )
     offline_presence = (
-        re.findall(r"\d+", coding_data.get("offline_presence").get(row))
+        coding_data.get("offline_presence").get(row)
         if coding_data.get("offline_presence")
-        else ["0"]
+        else None
     )
     webpage_layer_no = (
         coding_data.get("webpage_layer_no").get(row)
@@ -244,7 +244,7 @@ def get_all_coding_data(coding_data, row):
         "shared_via_twitter": "Y" if shared_via_twitter == "1" else "N",
         "shared_on_facebook": "Y" if shared_on_facebook == "1" else "N",
         "equality_rights": "Y" if equality_rights == "1" else "N",
-        "offline_presence": "Y" if offline_presence[0] == "1" else "N",
+        "offline_presence": "Y" if offline_presence == "1" else "N",
         "time_accessed": time_accessed,
         "website_url": website_url,
         "covid19": int(covid19) if covid19 else "",
