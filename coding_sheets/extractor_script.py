@@ -303,6 +303,12 @@ def get_sheet(coding_dict):
 
 
 def format_coding_data(coding_dict):
+    newspaperCoding = "{}"
+    radioCoding = "{}"
+    televisionCoding = "{}"
+    internetCoding = "{}"
+    twitterCoding = "{}"
+
     mapping = coding_info.sheetname_mapping
     for media in mapping:
         for multi_lang in mapping[media]:

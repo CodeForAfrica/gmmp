@@ -11,7 +11,6 @@ from coding_sheets.extractor_script import (
 )
 from coding_sheets.utils import (
     merge_data,
-    get_common_coding_data,
     get_newspaper_coding_data,
     get_radio_coding_data,
     get_tv_coding_data,
@@ -49,6 +48,10 @@ class Command(BaseCommand):
 
         for filename in filenames:
             try:
+                filename_content = [x for x in filename.split("/") if x]
+                sheet_country = filename_content[-2]
+                sheet_name = filename_content[-1]
+
                 coding_dict = read_coding_sheet(filename)
                 # functions to run
                 journalists = get_journalist(coding_dict.copy())
@@ -85,19 +88,39 @@ class Command(BaseCommand):
                 )
 
                 save_newspaper_news_data(
-                    newspaper_coding_data, journalist_newspaper_coding_data
+                    sheet_country,
+                    sheet_name,
+                    newspaper_coding_data,
+                    journalist_newspaper_coding_data,
                 )
-                save_radio_news_data(radio_coding_data, journalist_radio_coding_data)
-                save_tv_news_data(tv_coding_data, journalist_tv_coding_data)
+                save_radio_news_data(
+                    sheet_country,
+                    sheet_name,
+                    radio_coding_data,
+                    journalist_radio_coding_data,
+                )
+                save_tv_news_data(
+                    sheet_country, sheet_name, tv_coding_data, journalist_tv_coding_data
+                )
                 save_internent_news_data(
-                    internet_coding_data, journalist_internet_coding_data
+                    sheet_country,
+                    sheet_name,
+                    internet_coding_data,
+                    journalist_internet_coding_data,
                 )
                 save_twitter_news_data(
-                    twitter_coding_data, journalist_twitter_coding_data
+                    sheet_country,
+                    sheet_name,
+                    twitter_coding_data,
+                    journalist_twitter_coding_data,
                 )
                 successful_uploads.append(filename)
             except Exception as error:
                 failed_uploads.append({filename: f"Reason: {error}"})
 
-        self.stdout.write(self.style.WARNING(f"The following sheets were not successfully uploaded {failed_uploads}"))
+        self.stdout.write(
+            self.style.WARNING(
+                f"The following sheets were not successfully uploaded {failed_uploads}"
+            )
+        )
         self.stdout.write(self.style.SUCCESS("Done Uploading files"))
