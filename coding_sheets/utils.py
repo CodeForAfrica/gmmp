@@ -2,6 +2,8 @@ import re
 from datetime import datetime
 from django_countries.fields import countries
 
+from forms.models import CountryRegion
+
 from coding_sheets.models import (
     ProcessedSheet,
     UnProccessedRow,
@@ -34,6 +36,10 @@ def get_all_coding_data(coding_data, row):
         if coding_data.get("countries")
         else None
     )
+    try:
+        country_region = CountryRegion.objects.get(country=country).id
+    except Exception:
+        country_region = None
     monitor_code = (
         coding_data.get("monitors").get(row) if coding_data.get("monitors") else None
     )
@@ -236,6 +242,7 @@ def get_all_coding_data(coding_data, row):
     return {
         "monitor_mode": monitor_mode,
         "country": country,
+        "country_region": country_region,
         "monitor_code": monitor_code,
         "newspaper_name": newspaper_name,
         "website_name": website_name,
@@ -307,6 +314,7 @@ def get_data_for_newspaper_coding(newspaper_coding_data, row):
     return {
         "monitor_mode": common_data.get("monitor_mode"),
         "country": common_data.get("country"),
+        "country_region": common_data.get("country_region"),
         "monitor_code": common_data.get("monitor_code"),
         "newspaper_name": common_data.get("newspaper_name"),
         "page_number": common_data.get("page_number"),
@@ -329,6 +337,7 @@ def get_data_for_radio(radio_coding_data, row):
     return {
         "monitor_mode": common_data.get("monitor_mode"),
         "country": common_data.get("country"),
+        "country_region": common_data.get("country_region"),
         "monitor_code": common_data.get("monitor_code"),
         "channel": common_data.get("channel"),
         "start_time": common_data.get("start_time"),
@@ -353,6 +362,7 @@ def get_data_for_tv(tv_coding_data, row):
     return {
         "monitor_mode": common_data.get("monitor_mode"),
         "country": common_data.get("country"),
+        "country_region": common_data.get("country_region"),
         "monitor_code": common_data.get("monitor_code"),
         "channel": common_data.get("channel"),
         "start_time": common_data.get("start_time"),
@@ -377,6 +387,7 @@ def get_data_for_internent_coding(internet_coding_data, row):
     return {
         "monitor_mode": common_data.get("monitor_mode"),
         "country": common_data.get("country"),
+        "country_region": common_data.get("country_region"),
         "monitor_code": common_data.get("monitor_code"),
         "website_name": common_data.get("website_name"),
         "website_url": common_data.get("website_url"),
@@ -403,6 +414,7 @@ def get_data_for_twitter_coding(twitter_coding_data, row):
     return {
         "monitor_mode": common_data.get("monitor_mode"),
         "country": common_data.get("country"),
+        "country_region": common_data.get("country_region"),
         "monitor_code": common_data.get("monitor_code"),
         "media_name": common_data.get("media_name"),
         "twitter_handle": common_data.get("twitter_handle"),

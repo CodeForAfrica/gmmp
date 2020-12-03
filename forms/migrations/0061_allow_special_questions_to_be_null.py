@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('forms', '0059_update_country_region'),
+        ('forms', '0060_add_moldova_to_country_region'),
     ]
 
     operations = [
