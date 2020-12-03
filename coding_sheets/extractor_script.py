@@ -261,9 +261,6 @@ def get_journalist(coding_dict):
             dict_copy[key].groupby("story_label").cumcount() + 1
         )
 
-        # drop additonal nulls in internet and twitter, brought about by a story having no journalists and multiple people in the news.
-        dict_copy[key].dropna(inplace=True)
-
     coding_data = format_coding_data(dict_copy)
     return coding_data
 
