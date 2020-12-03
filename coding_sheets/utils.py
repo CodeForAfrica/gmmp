@@ -36,10 +36,11 @@ def get_all_coding_data(coding_data, row):
         if coding_data.get("countries")
         else None
     )
-    try:
-        country_region = CountryRegion.objects.get(country=country).id
-    except Exception:
-        country_region = None
+    country_region = (
+        CountryRegion.objects.filter(country=country).first().id
+        if CountryRegion.objects.filter(country=country).first()
+        else None
+    )
     monitor_code = (
         coding_data.get("monitors").get(row) if coding_data.get("monitors") else None
     )
@@ -437,16 +438,10 @@ def save_person_data(
     person_serialiser = serializer(data=person_data)
     if person_serialiser.is_valid():
         person_serialiser.save()
-        ProcessedSheet.objects.create(
-            country=country, sheet_name=sheet_name, sheet_tab=sheet_tab, sheet_row=row
-        )
+        save_proccessed_row(country, sheet_name, sheet_tab, row)
     else:
-        UnProccessedRow.objects.get_or_create(
-            country=country,
-            sheet_name=sheet_name,
-            sheet_tab=sheet_tab,
-            sheet_row=row,
-            row_error=person_serialiser.errors,
+        save_unprocessed_row(
+            country, sheet_name, sheet_tab, row, person_serialiser.errors
         )
 
 
@@ -463,23 +458,33 @@ def save_journalist_data(
         }
         if sheet in ["television_sheet", "radio_sheet"]:
             journalist_data.update({"role": coding_data.get("role").get(row)})
-        news_journalist_serializer = serializer(data=journalist_data)
-        if news_journalist_serializer.is_valid():
-            news_journalist_serializer.save()
-            ProcessedSheet.objects.create(
-                country=country,
-                sheet_name=sheet_name,
-                sheet_tab=sheet_tab,
-                sheet_row=row,
-            )
+        journalist_serializer = serializer(data=journalist_data)
+        if journalist_serializer.is_valid():
+            journalist_serializer.save()
+            save_proccessed_row(country, sheet_name, sheet_tab, row)
         else:
-            UnProccessedRow.objects.get_or_create(
-                country=country,
-                sheet_name=sheet_name,
-                sheet_tab=sheet_tab,
-                sheet_row=row,
-                row_error=news_journalist_serializer.errors,
+            save_unprocessed_row(
+                country, sheet_name, sheet_tab, row, journalist_serializer.errors
             )
+
+
+def save_proccessed_row(country, sheet_name, sheet_tab, row):
+    ProcessedSheet.objects.create(
+        country=country,
+        sheet_name=sheet_name,
+        sheet_tab=sheet_tab,
+        sheet_row=row,
+    )
+
+
+def save_unprocessed_row(country, sheet_name, sheet_tab, row, errors):
+    UnProccessedRow.objects.get_or_create(
+        country=country,
+        sheet_name=sheet_name,
+        sheet_tab=sheet_tab,
+        sheet_row=row,
+        row_error=errors,
+    )
 
 
 def save_newspaper_news_data(
@@ -500,12 +505,8 @@ def save_newspaper_news_data(
 
             if newspaper_news_serializer.is_valid():
                 newspaper_news = newspaper_news_serializer.save()
-                ProcessedSheet.objects.create(
-                    country=country,
-                    sheet_name=sheet_name,
-                    sheet_tab="NewspaperCoding",
-                    sheet_row=row,
-                )
+                save_proccessed_row(country, sheet_name, "NewspaperCoding", row)
+
                 person_data = dict(newspaper_sheet=newspaper_news.id)
                 person_row = row
                 while has_person(newspaper_coding_data, person_row):
@@ -550,12 +551,12 @@ def save_newspaper_news_data(
                     )
                     journalist_row = str(int(journalist_row) + 1)
             else:
-                UnProccessedRow.objects.get_or_create(
-                    country=country,
-                    sheet_name=sheet_name,
-                    sheet_tab="NewspaperCoding",
-                    sheet_row=row,
-                    row_error=newspaper_news_serializer.errors,
+                save_unprocessed_row(
+                    country,
+                    sheet_name,
+                    "NewspaperCoding",
+                    row,
+                    newspaper_news_serializer.errors,
                 )
 
 
@@ -577,12 +578,7 @@ def save_radio_news_data(
 
             if radio_news_serializer.is_valid():
                 radio_news = radio_news_serializer.save()
-                ProcessedSheet.objects.create(
-                    country=country,
-                    sheet_name=sheet_name,
-                    sheet_tab="RadioCoding",
-                    sheet_row=row,
-                )
+                save_proccessed_row(country, sheet_name, "RadioCoding", row)
                 person_data = dict(radio_sheet=radio_news.id)
                 person_row = row
                 while has_person(radio_coding_data, person_row):
@@ -627,12 +623,12 @@ def save_radio_news_data(
                     )
                     journalist_row = str(int(journalist_row) + 1)
             else:
-                UnProccessedRow.objects.get_or_create(
-                    country=country,
-                    sheet_name=sheet_name,
-                    sheet_tab="RadioCoding",
-                    sheet_row=row,
-                    row_error=radio_news_serializer.errors,
+                save_unprocessed_row(
+                    country,
+                    sheet_name,
+                    "RadioCoding",
+                    row,
+                    radio_news_serializer.errors,
                 )
 
 
@@ -652,12 +648,7 @@ def save_tv_news_data(country, sheet_name, tv_coding_data, journalist_tv_coding_
 
             if tv_news_serializer.is_valid():
                 tv_news = tv_news_serializer.save()
-                ProcessedSheet.objects.create(
-                    country=country,
-                    sheet_name=sheet_name,
-                    sheet_tab="TelevisionCoding",
-                    sheet_row=row,
-                )
+                save_proccessed_row(country, sheet_name, "TelevisionCoding", row)
                 person_data = dict(television_sheet=tv_news.id)
                 person_row = row
                 while has_person(tv_coding_data, person_row):
@@ -705,12 +696,12 @@ def save_tv_news_data(country, sheet_name, tv_coding_data, journalist_tv_coding_
                     )
                     journalist_row = str(int(journalist_row) + 1)
             else:
-                UnProccessedRow.objects.get_or_create(
-                    country=country,
-                    sheet_name=sheet_name,
-                    sheet_tab="TelevisionCoding",
-                    sheet_row=row,
-                    row_error=tv_news_serializer.errors,
+                save_unprocessed_row(
+                    country,
+                    sheet_name,
+                    "TelevisionCoding",
+                    row,
+                    tv_news_serializer.errors,
                 )
 
 
@@ -734,12 +725,7 @@ def save_internent_news_data(
 
             if internet_news_sheet_serializer.is_valid():
                 internet_news_sheet = internet_news_sheet_serializer.save()
-                ProcessedSheet.objects.create(
-                    country=country,
-                    sheet_name=sheet_name,
-                    sheet_tab="InternetCoding",
-                    sheet_row=row,
-                )
+                save_proccessed_row(country, sheet_name, "InternetCoding", row)
                 person_data = dict(internetnews_sheet=internet_news_sheet.id)
                 # If next row is current row+1 then that row belongs to this sheet
                 # e.g if current row is 2 and next row is 3 then that row holds the second Journalist or the second person in the news.
@@ -786,12 +772,12 @@ def save_internent_news_data(
                     )
                     journalist_row = str(int(journalist_row) + 1)
             else:
-                UnProccessedRow.objects.get_or_create(
-                    country=country,
-                    sheet_name=sheet_name,
-                    sheet_tab="InternetCoding",
-                    sheet_row=row,
-                    row_error=internet_news_sheet_serializer.errors,
+                save_unprocessed_row(
+                    country,
+                    sheet_name,
+                    "InternetCoding",
+                    row,
+                    internet_news_sheet_serializer.errors,
                 )
 
 
@@ -813,12 +799,7 @@ def save_twitter_news_data(
 
             if twitter_news_serializer.is_valid():
                 twitter_news = twitter_news_serializer.save()
-                ProcessedSheet.objects.create(
-                    country=country,
-                    sheet_name=sheet_name,
-                    sheet_tab="TwitterCoding",
-                    sheet_row=row,
-                )
+                save_proccessed_row(country, sheet_name, "TwitterCoding", row)
                 person_data = dict(twitter_sheet=twitter_news.id)
                 person_row = row
                 while has_person(twitter_coding_data, person_row):
@@ -864,12 +845,12 @@ def save_twitter_news_data(
 
                     journalist_row = str(int(journalist_row) + 1)
             else:
-                UnProccessedRow.objects.get_or_create(
-                    country=country,
-                    sheet_name=sheet_name,
-                    sheet_tab="TwitterCoding",
-                    sheet_row=row,
-                    row_error=twitter_news_serializer.errors,
+                save_unprocessed_row(
+                    country,
+                    sheet_name,
+                    "TwitterCoding",
+                    row,
+                    twitter_news_serializer.errors,
                 )
 
 
