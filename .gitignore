@@ -442,4 +442,7 @@ tags
 # .env template file
 !.env/.env.template
 
+# report sheets folder
+/report_sheets
+
 # End of Customizations
