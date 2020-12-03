@@ -58,7 +58,7 @@ def get_all_coding_data(coding_data, row):
     )
     topic = coding_data.get("topic").get(row) if coding_data.get("topic") else None
     scope = coding_data.get("scope").get(row) if coding_data.get("scope") else None
-    space = coding_data.get("space").get(row) if coding_data.get("space") else {}
+    space = coding_data.get("space").get(row) if coding_data.get("space") else None
     channel = coding_data.get("channel").get(row) if coding_data.get("channel") else ""
     item_number = (
         coding_data.get("item_number").get(row)
@@ -882,9 +882,11 @@ def get_common_coding_data(data):
     # This gives you data for the whole sheet. e.g {"countries": {row1, row2, row3, ..., rowN}}
     # You will thus be required to further extract data for individual rows while saving the data into the database
     # e.g .get('countries').get(row)
-    # import pdb; pdb.set_trace()
-    rows = [x for x in data["country_code"]]
-    if not rows:
+    if data:
+        rows = [x for x in data["country_code"]]
+        if not rows:
+            return None
+    else:
         return None
     # Ensure we only pick unique stories
     # This will remove story_labels with same value meaning same story
@@ -897,6 +899,7 @@ def get_common_coding_data(data):
     return {
         "countries": data.get("country_code"),
         "monitors": data.get("monitor_code"),
+        "monitor_mode": data.get("monitor_mode"),
         "covid19": data.get("covid19"),
         "scope": data.get("scope"),
         "topic": data.get("topic"),
