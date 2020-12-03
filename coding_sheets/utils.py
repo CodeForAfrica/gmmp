@@ -442,8 +442,8 @@ def save_journalist_data(
     coding_data, row, serializer, sheet, parent_id, country, sheet_name, sheet_tab
 ):
     if coding_data:
-        sex = coding_data.get("sex").get(row)
-        age = coding_data.get("sex").get(row)
+        sex = coding_data.get("sex").get(row) if coding_data.get("sex") else None
+        age = coding_data.get("age").get(row) if coding_data.get("age") else None
         journalist_data = {
             "sex": int(sex) if sex else None,
             "age": age,
@@ -1052,6 +1052,8 @@ def has_journalist(coding_data, row):
         if coding_data.get("sex") and coding_data.get("sex").get(row):
             return True
         elif coding_data.get("age") and coding_data.get("age").get(row):
+            return True
+        elif coding_data.get("role") and coding_data.get("role").get(row):
             return True
         else:
             return False
