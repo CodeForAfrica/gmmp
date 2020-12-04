@@ -147,13 +147,11 @@ RECODES = {
 
 
 def canon(key):
-    print(key)
-    try:
+    if key:
         key = key.replace(u'\u2026', '')
         key = recode(key.strip())
         return key.strip().lower()
-    except AttributeError:
-        return ''
+    return ''
 
 
 def recode(v):
