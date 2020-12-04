@@ -82,6 +82,7 @@ def clean_title(text):
     Return the string passed in stripped of its numbers and parentheses
     Except for the DRC. Of course.
     """
+    text = str(text)
     if text != "Congo (the Democratic Republic of the)":
         return text[text.find(')')+1:].lstrip()
     return text
@@ -432,6 +433,10 @@ class XLSXReportBuilder:
             weights = 'SELECT cast(SUM(reports_weights.weight) as float) AS "n",'
 
         raw_query = raw_query.replace('SELECT', weights)
+        if raw_query.find('GROUP BY') == -1:
+            group_by = ''.join(raw_query.split('FROM')[0].split('"n"')[-1].split()[1:])
+            raw_query+= f'GROUP BY {group_by}'
+        
         cursor = connection.cursor()
         cursor.execute(raw_query, params)
         return self.dictfetchall(cursor)
@@ -668,7 +673,7 @@ class XLSXReportBuilder:
         """
         counts = Counter()
         for media_type, model in tm_person_models.items():
-            if 'scope' in model.sheet_field().rel.to._meta.get_all_field_names():
+            if 'scope' in [field_name.name for field_name in model.sheet_field().remote_field.model._meta.get_fields()]:
                 scope = '%s__scope' % model.sheet_name()
                 rows = model.objects\
                         .values('sex', scope)\
@@ -730,7 +735,7 @@ class XLSXReportBuilder:
         """
         counts = Counter()
         for media_type, model in tm_sheet_models.items():
-            if 'equality_rights' in model._meta.get_all_field_names():
+            if 'equality_rights' in [field_name.name for field_name in model._meta.get_fields()]:
                 rows = model.objects\
                     .values('equality_rights', 'topic')\
                     .filter(country__in=self.country_list)
@@ -752,7 +757,7 @@ class XLSXReportBuilder:
             counts = Counter()
             for media_type, model in tm_sheet_models.items():
                 # Some models has no equality rights field
-                if 'equality_rights' in model._meta.get_all_field_names():
+                if 'equality_rights' in [field_name.name for field_name in model._meta.get_fields()]:
                     rows = model.objects\
                         .values('equality_rights', 'topic')\
                         .filter(country_region__region=region_name)
@@ -774,7 +779,7 @@ class XLSXReportBuilder:
         for gender_id, gender in self.male_female:
             counts = Counter()
             for media_type, model in tm_journalist_models.items():
-                if 'equality_rights' in model.sheet_field().rel.to._meta.get_all_field_names():
+                if 'equality_rights' in [field_name.name for field_name in model.sheet_field().remote_field.model._meta.get_fields()]:
                     topic = '%s__topic' % model.sheet_name()
                     equality_rights = '%s__equality_rights' % model.sheet_name()
                     rows = model.objects\
@@ -798,7 +803,7 @@ class XLSXReportBuilder:
         counts = Counter()
         for media_type, model in tm_person_models.items():
             # some Person models don't have an occupation field
-            if 'occupation' in model._meta.get_all_field_names():
+            if 'occupation' in [field_name.name for field_name in model._meta.get_fields()]:
                 rows = model.objects\
                         .values('sex', 'occupation')\
                         .filter(**{model.sheet_name() + '__country__in': self.country_list})\
@@ -819,7 +824,7 @@ class XLSXReportBuilder:
         counts = Counter()
         for media_type, model in tm_person_models.items():
             # some Person models don't have a function field
-            if 'function' in model._meta.get_all_field_names():
+            if 'function' in [field_name.name for field_name in model._meta.get_fields()]:
                 rows = model.objects\
                         .values('sex', 'function')\
                         .filter(**{model.sheet_name() + '__country__in': self.country_list})\
@@ -841,7 +846,7 @@ class XLSXReportBuilder:
         for function_id, function in FUNCTION:
             counts = Counter()
             for media_type, model in tm_person_models.items():
-                if 'function' in model._meta.get_all_field_names() and 'occupation' in model._meta.get_all_field_names():
+                if 'function' and 'occupation' in [field_name.name for field_name in model._meta.get_fields()]:
                     rows = model.objects\
                             .values('sex', 'occupation')\
                             .filter(**{model.sheet_name() + '__country__in':self.country_list})\
@@ -865,7 +870,7 @@ class XLSXReportBuilder:
         for age_id, age in AGES:
             counts = Counter()
             for media_type, model in tm_person_models.items():
-                if 'function' in model._meta.get_all_field_names() and 'age' in model._meta.get_all_field_names():
+                if 'function' and 'age' in [field_name.name for field_name in model._meta.get_fields()]:
                     rows = model.objects\
                             .values('sex', 'function')\
                             .filter(**{model.sheet_name() + '__country__in':self.country_list})\
@@ -930,7 +935,7 @@ class XLSXReportBuilder:
         for func_id, function in FUNCTION:
             counts = Counter()
             for media_type, model in tm_person_models.items():
-                if 'function' in model._meta.get_all_field_names() and 'occupation' in model._meta.get_all_field_names():
+                if 'function' and 'occupation' in [field_name.name for field_name in model._meta.get_fields()]:
                     rows = model.objects\
                             .values('sex', 'occupation')\
                             .filter(**{model.sheet_name() + '__country__in':self.country_list})\
@@ -951,7 +956,7 @@ class XLSXReportBuilder:
         """
         counts = Counter()
         for media_type, model in tm_person_models.items():
-            if 'victim_of' in model._meta.get_all_field_names():
+            if 'victim_of' in [field_name.name for field_name in model._meta.get_fields()]:
                 rows = model.objects\
                         .values('sex', 'victim_of')\
                         .filter(**{model.sheet_name() + '__country__in':self.country_list})\
@@ -971,7 +976,7 @@ class XLSXReportBuilder:
         """
         counts = Counter()
         for media_type, model in tm_person_models.items():
-            if 'survivor_of' in model._meta.get_all_field_names():
+            if 'survivor_of' in [field_name.name for field_name in model._meta.get_fields()]:
                 rows = model.objects\
                         .values('sex', 'survivor_of')\
                         .filter(**{model.sheet_name() + '__country__in':self.country_list})\
@@ -992,7 +997,7 @@ class XLSXReportBuilder:
         """
         counts = Counter()
         for media_type, model in tm_person_models.items():
-            if 'family_role' in model._meta.get_all_field_names():
+            if 'family_role' in [field_name.name for field_name in model._meta.get_fields()]:
                 rows = model.objects\
                         .values('sex', 'family_role')\
                         .filter(**{model.sheet_name() + '__country__in':self.country_list})\
@@ -1014,9 +1019,9 @@ class XLSXReportBuilder:
         for sex_id, sex in self.male_female:
             counts = Counter()
             for media_type, model in tm_person_models.items():
-                if 'family_role' in model._meta.get_all_field_names():
+                if 'family_role' in [field_name.name for field_name in model._meta.get_fields()]:
                     sheet_name = model.sheet_name()
-                    journo_name = model._meta.get_field(model.sheet_name()).rel.to.journalist_field_name()
+                    journo_name = model._meta.get_field(model.sheet_name()).remote_field.model.journalist_field_name()
                     rows = model.objects\
                             .values('sex', 'family_role')\
                             .filter(**{model.sheet_name() + '__country__in':self.country_list})\
@@ -1044,7 +1049,7 @@ class XLSXReportBuilder:
         """
         counts = Counter()
         for media_type, model in tm_person_models.items():
-            if 'is_quoted' in model._meta.get_all_field_names():
+            if 'is_quoted' in [field_name.name for field_name in model._meta.get_fields()]:
                 rows = model.objects\
                         .values('sex', 'is_quoted')\
                         .filter(**{model.sheet_name() + '__country__in':self.country_list})\
@@ -1064,7 +1069,7 @@ class XLSXReportBuilder:
         """
         counts = Counter()
         for media_type, model in tm_person_models.items():
-            if 'is_photograph' in model._meta.get_all_field_names():
+            if 'is_photograph' in [field_name.name for field_name in model._meta.get_fields()]:
                 rows = model.objects\
                         .values('sex', 'is_photograph')\
                         .filter(**{model.sheet_name() + '__country__in':self.country_list})\
@@ -1133,7 +1138,7 @@ class XLSXReportBuilder:
                     sheet_name = model.sheet_name()
                     country = sheet_name + '__country'
                     scope =  sheet_name + '__scope'
-                    if 'scope' in model._meta.get_field(sheet_name).rel.to._meta.get_all_field_names():
+                    if 'scope' in [field_name.name for field_name in model._meta.get_field(sheet_name).remote_field.model._meta.get_fields()]:
                         rows = model.objects\
                                 .values('sex', scope)\
                                 .filter(**{country + '__in': self.country_list})\
@@ -1155,7 +1160,7 @@ class XLSXReportBuilder:
                     sheet_name = model.sheet_name()
                     region = sheet_name + '__country_region__region'
                     scope =  sheet_name + '__scope'
-                    if 'scope' in model._meta.get_field(sheet_name).rel.to._meta.get_all_field_names():
+                    if 'scope' in [field_name.name for field_name in model._meta.get_field(sheet_name).remote_field.model._meta.get_fields()]:
                         rows = model.objects\
                                 .values('sex', scope)\
                                 .filter(**{region: region_name})\
@@ -1186,7 +1191,7 @@ class XLSXReportBuilder:
                     sheet_name = model.sheet_name()
                     country = sheet_name + '__country'
                     topic =  sheet_name + '__topic'
-                    if 'topic' in model._meta.get_field(sheet_name).rel.to._meta.get_all_field_names():
+                    if 'topic' in [field_name.name for field_name in model._meta.get_field(sheet_name).remote_field.model._meta.get_fields()]:
                         rows = model.objects\
                                 .values('sex', topic)\
                                 .filter(**{country + '__in': self.country_list})\
@@ -1210,7 +1215,7 @@ class XLSXReportBuilder:
                     sheet_name = model.sheet_name()
                     region = sheet_name + '__country_region__region'
                     topic =  sheet_name + '__topic'
-                    if 'topic' in model._meta.get_field(sheet_name).rel.to._meta.get_all_field_names():
+                    if 'topic' in [field_name.name for field_name in model._meta.get_field(sheet_name).remote_field.model._meta.get_fields()]:
                         rows = model.objects\
                                 .values('sex', topic)\
                                 .filter(**{region: region_name})\
@@ -1237,7 +1242,7 @@ class XLSXReportBuilder:
         for media_type, model in tm_journalist_models.items():
             sheet_name = model.sheet_name()
             topic =  sheet_name + '__topic'
-            if 'topic' in model._meta.get_field(sheet_name).rel.to._meta.get_all_field_names():
+            if 'topic' in [field_name.name for field_name in model._meta.get_field(sheet_name).remote_field.model._meta.get_fields()]:
                 rows = model.objects\
                         .values('sex', topic)\
                         .filter(**{model.sheet_name() + '__country__in':self.country_list})\
@@ -1265,7 +1270,7 @@ class XLSXReportBuilder:
             counts = Counter()
             sheet_name = model.sheet_name()
             topic =  sheet_name + '__topic'
-            if 'topic' in model._meta.get_field(sheet_name).rel.to._meta.get_all_field_names():
+            if 'topic' in [field_name.name for field_name in model._meta.get_field(sheet_name).remote_field.model._meta.get_fields()]:
                 rows = model.objects\
                         .values('sex', topic)\
                         .filter(**{model.sheet_name() + '__country__in':self.country_list})\
@@ -1290,7 +1295,7 @@ class XLSXReportBuilder:
         counts = Counter()
         for media_type, model in tm_person_models.items():
             sheet_name = model.sheet_name()
-            journo_name = model._meta.get_field(model.sheet_name()).rel.to.journalist_field_name()
+            journo_name = model._meta.get_field(model.sheet_name()).remote_field.model.journalist_field_name()
             journo_sex = sheet_name + '__' + journo_name + '__sex'
             rows = model.objects\
                     .extra(select={"subject_sex": model._meta.db_table + ".sex"})\
@@ -1353,7 +1358,7 @@ class XLSXReportBuilder:
         for media_type, model in tm_journalist_models.items():
             sheet_name = model.sheet_name()
             about_women =  sheet_name + '__about_women'
-            if 'about_women' in model._meta.get_field(sheet_name).rel.to._meta.get_all_field_names():
+            if 'about_women' in [field_name.name for field_name in model._meta.get_field(sheet_name).remote_field.model._meta.get_fields()]:
                 rows = model.objects\
                         .values('sex', about_women)\
                         .filter(**{model.sheet_name() + '__country__in':self.country_list})\
@@ -1376,7 +1381,7 @@ class XLSXReportBuilder:
         """
         counts = Counter()
         for media_type, model in tm_sheet_models.items():
-            if 'about_women' in model._meta.get_all_field_names():
+            if 'about_women' in [field_name.name for field_name in model._meta.get_fields()]:
                 rows = model.objects\
                         .values('about_women', 'topic')\
                         .filter(country__in=self.country_list)
@@ -1395,7 +1400,7 @@ class XLSXReportBuilder:
         """
         counts = Counter()
         for media_type, model in tm_sheet_models.items():
-            if 'about_women' in model._meta.get_all_field_names():
+            if 'about_women' in [field_name.name for field_name in model._meta.get_fields()]:
                 rows = model.objects\
                         .values('about_women', 'topic')\
                         .filter(country__in=self.country_list)
@@ -1416,7 +1421,7 @@ class XLSXReportBuilder:
         for region_id, region in self.regions:
             counts = Counter()
             for media_type, model in tm_sheet_models.items():
-                if 'about_women' in model._meta.get_all_field_names():
+                if 'about_women' in [field_name.name for field_name in model._meta.get_fields()]:
                     rows = model.objects\
                             .values('topic', 'about_women')\
                             .filter(country_region__region=region)
@@ -1436,7 +1441,7 @@ class XLSXReportBuilder:
         """
         counts = Counter()
         for media_type, model in tm_sheet_models.items():
-            if 'equality_rights' in model._meta.get_all_field_names():
+            if 'equality_rights' in [field_name.name for field_name in model._meta.get_fields()]:
                 rows = model.objects\
                         .values('equality_rights', 'topic')\
                         .filter(country__in=self.country_list)
@@ -1456,7 +1461,7 @@ class XLSXReportBuilder:
         for region_id, region in self.regions:
             counts = Counter()
             for media_type, model in tm_sheet_models.items():
-                if 'equality_rights' in model._meta.get_all_field_names():
+                if 'equality_rights' in [field_name.name for field_name in model._meta.get_fields()]:
                     rows = model.objects\
                             .values('topic', 'equality_rights')\
                             .filter(country_region__region=region)
@@ -1479,7 +1484,7 @@ class XLSXReportBuilder:
                 sheet_name = model.sheet_name()
                 topic = sheet_name + '__topic'
                 equality_rights =  sheet_name + '__equality_rights'
-                if 'equality_rights' in model._meta.get_field(sheet_name).rel.to._meta.get_all_field_names():
+                if 'equality_rights' in [field_name.name for field_name in model._meta.get_field(sheet_name).remote_field.model._meta.get_fields()]:
                     rows = model.objects\
                             .values(topic, equality_rights)\
                             .filter(**{model.sheet_name() + '__country__in':self.country_list})\
@@ -1506,7 +1511,7 @@ class XLSXReportBuilder:
                 sheet_name = model.sheet_name()
                 region = sheet_name + '__country_region__region'
                 equality_rights =  sheet_name + '__equality_rights'
-                if 'equality_rights' in model._meta.get_field(sheet_name).rel.to._meta.get_all_field_names():
+                if 'equality_rights' in [field_name.name for field_name in model._meta.get_field(sheet_name).remote_field.model._meta.get_fields()]:
                     rows = model.objects\
                             .values(equality_rights, region)\
                             .filter(sex=gender_id)\
@@ -1532,7 +1537,7 @@ class XLSXReportBuilder:
         """
         counts = Counter()
         for media_type, model in tm_person_models.items():
-            if 'equality_rights' in model.sheet_field().rel.to._meta.get_all_field_names():
+            if 'equality_rights' in [field_name.name for field_name in model.sheet_field().remote_field.model._meta.get_fields()]:
                 region = model.sheet_name() + '__country_region__region'
                 equality_rights = model.sheet_name() + '__equality_rights'
                 rows = model.objects\
@@ -1557,7 +1562,7 @@ class XLSXReportBuilder:
         for region_id, region in self.regions:
             counts = Counter()
             for media_type, model in tm_sheet_models.items():
-                if 'stereotypes' in model._meta.get_all_field_names():
+                if 'stereotypes' in [field_name.name for field_name in model._meta.get_fields()]:
                     rows = model.objects\
                             .values('stereotypes', 'topic')\
                             .filter(country_region__region=region)
@@ -1599,7 +1604,7 @@ class XLSXReportBuilder:
                 sheet_name = model.sheet_name()
                 topic = sheet_name + '__topic'
                 stereotypes =  sheet_name + '__stereotypes'
-                if 'stereotypes' in model._meta.get_field(sheet_name).rel.to._meta.get_all_field_names():
+                if 'stereotypes' in [field_name.name for field_name in model._meta.get_field(sheet_name).remote_field.model._meta.get_fields()]:
                     rows = model.objects\
                             .values(stereotypes, topic)\
                             .filter(sex=gender_id)\
@@ -1860,7 +1865,7 @@ class XLSXReportBuilder:
         counts = Counter()
         model = person_models.get('Internet')
         sheet_name = model.sheet_name()
-        journo_name = model._meta.get_field(model.sheet_name()).rel.to.journalist_field_name()
+        journo_name = model._meta.get_field(model.sheet_name()).remote_field.model.journalist_field_name()
         journo_sex = sheet_name + '__' + journo_name + '__sex'
 
         rows = model.objects\
@@ -2186,7 +2191,7 @@ class XLSXReportBuilder:
         counts = Counter()
         for media_type, model in journalist_models.items():
             sheet_name = model.sheet_name()
-            person_name = model.sheet_field().rel.to.person_field_name()
+            person_name = model.sheet_field().remote_field.model.person_field_name()
             topic_field = sheet_name + '__topic'
             rows = model.objects\
                         .values('sex', topic_field)\
@@ -2251,7 +2256,7 @@ class XLSXReportBuilder:
                 actual_topic_ids = FOCUS_TOPIC_IDS[topic_id]
 
                 for media_type, model in models.items():
-                    if 'stereotypes' in model._meta.get_all_field_names():
+                    if 'stereotypes' in [field_name.name for field_name in model._meta.get_fields()]:
                         rows = model.objects\
                             .values('stereotypes', 'country')\
                             .filter(topic__in=actual_topic_ids)
@@ -2277,7 +2282,7 @@ class XLSXReportBuilder:
                 actual_topic_ids = FOCUS_TOPIC_IDS[topic_id]
 
                 for media_type, model in models.items():
-                    if 'equality_rights' in model._meta.get_all_field_names():
+                    if 'equality_rights' in [field_name.name for field_name in model._meta.get_fields()]:
                         rows = model.objects\
                             .values('equality_rights', 'country')\
                             .filter(topic__in=actual_topic_ids)
@@ -2305,7 +2310,7 @@ class XLSXReportBuilder:
                 actual_topic_ids = FOCUS_TOPIC_IDS[topic_id]
 
                 for media_type, model in models.items():
-                    if 'victim_of' in model._meta.get_all_field_names():
+                    if 'victim_of' in [field_name.name for field_name in model._meta.get_fields()]:
                         country_field = '%s__country' % model.sheet_name()
                         rows = model.objects\
                             .values('victim_of', country_field)\
@@ -2334,7 +2339,7 @@ class XLSXReportBuilder:
                 actual_topic_ids = FOCUS_TOPIC_IDS[topic_id]
 
                 for media_type, model in models.items():
-                    if 'survivor_of' in model._meta.get_all_field_names():
+                    if 'survivor_of' in [field_name.name for field_name in model._meta.get_fields()]:
                         country_field = '%s__country' % model.sheet_name()
                         rows = model.objects\
                             .values('survivor_of', country_field)\
@@ -3322,7 +3327,7 @@ class XLSXReportBuilder:
             counts = Counter()
             for media_type, model in tm_person_models.items():
                 sheet_name = model.sheet_name()
-                journo_name = model._meta.get_field(model.sheet_name()).rel.to.journalist_field_name()
+                journo_name = model._meta.get_field(model.sheet_name()).remote_field.model.journalist_field_name()
                 country = model.sheet_name() + '__country'
                 rows = model.objects\
                         .values('sex', country)\
@@ -4017,7 +4022,7 @@ class XLSXReportBuilder:
             counts = Counter()
             for media_type, model in tm_person_models.items():
                 sheet_name = model.sheet_name()
-                journo_name = model._meta.get_field(model.sheet_name()).rel.to.journalist_field_name()
+                journo_name = model._meta.get_field(model.sheet_name()).remote_field.model.journalist_field_name()
                 region = model.sheet_name() + '__country_region__region'
                 rows = model.objects\
                         .values('sex', region)\
@@ -4332,7 +4337,7 @@ class XLSXReportBuilder:
             if self.report_type == 'global':
                 raise e
             ws.write(r, c, "Historical data not available at the %s level." % self.report_type)
-            self.log.warn(e.message)
+            self.log.warn(e)
             return
 
         years = sorted(historical_data.keys())

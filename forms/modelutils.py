@@ -304,8 +304,8 @@ class SheetModel(models.Model):
     def person_field(cls):
         """ Return the person-related field for this model
         """
-        for fld in cls._meta.get_all_related_objects():
-            if fld.model and issubclass(fld.model, Person):
+        for fld in cls._meta.get_fields():
+            if fld.related_model and issubclass(fld.related_model, Person):
                 return fld
 
     @classmethod
@@ -318,8 +318,8 @@ class SheetModel(models.Model):
     def journalist_field(cls):
         """ Return the journalist-related field for this model
         """
-        for fld in cls._meta.get_all_related_objects():
-            if fld.model and issubclass(fld.model, Journalist):
+        for fld in cls._meta.get_fields():
+            if fld.related_model and issubclass(fld.related_model, Journalist):
                 return fld
 
     @classmethod
@@ -348,7 +348,7 @@ class Person(models.Model):
         """ Return the sheet-related field for this model
         """
         for fld in cls._meta.fields:
-            if hasattr(fld, 'related') and fld.model and issubclass(fld.related.parent_model, SheetModel):
+            if fld.is_relation and fld.model and issubclass(fld.related_model, SheetModel):
                 return fld
 
     @classmethod
@@ -386,7 +386,7 @@ class Journalist(models.Model):
         """ Return the name of the sheet relation field
         """
         for fld in cls._meta.fields:
-            if hasattr(fld, 'related') and fld.related and issubclass(fld.related.parent_model, SheetModel):
+            if fld.is_relation and issubclass(fld.related_model, SheetModel):
                 return fld
 
     @classmethod
