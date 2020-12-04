@@ -433,9 +433,6 @@ class XLSXReportBuilder:
             weights = 'SELECT cast(SUM(reports_weights.weight) as float) AS "n",'
 
         raw_query = raw_query.replace('SELECT', weights)
-        if raw_query.find('GROUP BY') == -1:
-            group_by = ''.join(raw_query.split('FROM')[0].split('"n"')[-1].split()[1:])
-            raw_query+= f'GROUP BY {group_by}'
         
         cursor = connection.cursor()
         cursor.execute(raw_query, params)
@@ -453,7 +450,8 @@ class XLSXReportBuilder:
             for media_type, model in models.items():
                 rows = model.objects\
                         .values('country_region__region')\
-                        .filter(country_region__region__in=self.region_list)
+                        .filter(country_region__region__in=self.region_list)\
+                        .annotate(n=Count('id'))
 
                 rows = self.apply_weights(rows, model._meta.db_table, media_type)
 
@@ -535,7 +533,8 @@ class XLSXReportBuilder:
             rows = model.objects\
                     .values('country_region__region')\
                     .annotate(n=Count(get_sheet_model_name_field(media_type), distinct=True))\
-                    .filter(country_region__region__in=self.region_list)
+                    .filter(country_region__region__in=self.region_list)\
+                    .annotate(n=Count('id'))
 
             for row in rows:
                 region = row['country_region__region']
@@ -562,7 +561,8 @@ class XLSXReportBuilder:
                 for media_type, model in models.items():
                     rows = model.objects\
                             .values('topic')\
-                            .filter(country_region__region=region)
+                            .filter(country_region__region=region)\
+                            .annotate(n=Count('id'))
 
                     rows = self.apply_weights(rows, model._meta.db_table, media_type)
 
@@ -601,7 +601,8 @@ class XLSXReportBuilder:
                 rows = model.objects\
                     .values('sex', topic_field)\
                     .filter(**{model.sheet_name() + '__country__in': self.country_list})\
-                    .filter(sex__in=self.male_female_ids)
+                    .filter(sex__in=self.male_female_ids)\
+                    .annotate(n=Count('id'))
 
                 rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
                 for r in rows:
@@ -632,7 +633,8 @@ class XLSXReportBuilder:
                     rows = model.objects\
                         .values('sex', topic_field)\
                         .filter(**{model.sheet_name() + '__country_region__region':region})\
-                        .filter(sex__in=self.male_female_ids)
+                        .filter(sex__in=self.male_female_ids)\
+                        .annotate(n=Count('id'))
 
                     rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
 
@@ -654,7 +656,8 @@ class XLSXReportBuilder:
             rows = model.objects\
                     .values('sex')\
                     .filter(**{model.sheet_name() + '__country__in': self.country_list})\
-                    .filter(sex__in=self.male_female_ids)
+                    .filter(sex__in=self.male_female_ids)\
+                    .annotate(n=Count('id'))
 
             rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
 
@@ -678,7 +681,8 @@ class XLSXReportBuilder:
                 rows = model.objects\
                         .values('sex', scope)\
                         .filter(**{model.sheet_name() + '__country__in': self.country_list})\
-                        .filter(sex__in=self.male_female_ids)
+                        .filter(sex__in=self.male_female_ids)\
+                        .annotate(n=Count('id'))
 
                 rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
 
@@ -698,7 +702,8 @@ class XLSXReportBuilder:
             rows = model.objects\
                     .values('sex', topic)\
                     .filter(**{model.sheet_name() + '__country__in': self.country_list})\
-                    .filter(sex__in=self.male_female_ids)
+                    .filter(sex__in=self.male_female_ids)\
+                    .annotate(n=Count('id'))
 
             rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
 
@@ -719,7 +724,8 @@ class XLSXReportBuilder:
             if media_type == 'Print':
                 rows = model.objects\
                         .values('space', 'topic')\
-                        .filter(country__in=self.country_list)
+                        .filter(country__in=self.country_list)\
+                        .annotate(n=Count('id'))
 
                 rows = self.apply_weights(rows, model._meta.db_table, media_type)
 
@@ -738,7 +744,8 @@ class XLSXReportBuilder:
             if 'equality_rights' in [field_name.name for field_name in model._meta.get_fields()]:
                 rows = model.objects\
                     .values('equality_rights', 'topic')\
-                    .filter(country__in=self.country_list)
+                    .filter(country__in=self.country_list)\
+                    .annotate(n=Count('id'))
 
                 rows = self.apply_weights(rows, model._meta.db_table, media_type)
 
@@ -760,7 +767,8 @@ class XLSXReportBuilder:
                 if 'equality_rights' in [field_name.name for field_name in model._meta.get_fields()]:
                     rows = model.objects\
                         .values('equality_rights', 'topic')\
-                        .filter(country_region__region=region_name)
+                        .filter(country_region__region=region_name)\
+                        .annotate(n=Count('id'))
 
                     rows = self.apply_weights(rows, model._meta.db_table, media_type)
 
@@ -785,7 +793,8 @@ class XLSXReportBuilder:
                     rows = model.objects\
                             .values(equality_rights, topic)\
                             .filter(**{model.sheet_name() + '__country__in': self.country_list})\
-                            .filter(sex=gender_id)
+                            .filter(sex=gender_id)\
+                            .annotate(n=Count('id'))
 
                     rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
 
@@ -807,7 +816,8 @@ class XLSXReportBuilder:
                 rows = model.objects\
                         .values('sex', 'occupation')\
                         .filter(**{model.sheet_name() + '__country__in': self.country_list})\
-                        .filter(sex__in=self.male_female_ids)
+                        .filter(sex__in=self.male_female_ids)\
+                        .annotate(n=Count('id'))
 
                 rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
 
@@ -828,7 +838,8 @@ class XLSXReportBuilder:
                 rows = model.objects\
                         .values('sex', 'function')\
                         .filter(**{model.sheet_name() + '__country__in': self.country_list})\
-                        .filter(sex__in=self.male_female_ids)
+                        .filter(sex__in=self.male_female_ids)\
+                        .annotate(n=Count('id'))
 
                 rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
 
@@ -851,7 +862,8 @@ class XLSXReportBuilder:
                             .values('sex', 'occupation')\
                             .filter(**{model.sheet_name() + '__country__in':self.country_list})\
                             .filter(function=function_id)\
-                            .filter(sex__in=self.male_female_ids)
+                            .filter(sex__in=self.male_female_ids)\
+                            .annotate(n=Count('id'))
 
                     rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
 
@@ -875,7 +887,8 @@ class XLSXReportBuilder:
                             .values('sex', 'function')\
                             .filter(**{model.sheet_name() + '__country__in':self.country_list})\
                             .filter(age=age_id)\
-                            .filter(sex__in=self.male_female_ids)
+                            .filter(sex__in=self.male_female_ids)\
+                            .annotate(n=Count('id'))
 
                     rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
 
@@ -895,7 +908,8 @@ class XLSXReportBuilder:
         rows = NewspaperPerson.objects\
                 .values('sex', 'age')\
                 .filter(newspaper_sheet__country__in=self.country_list)\
-                .filter(sex__in=self.male_female_ids)
+                .filter(sex__in=self.male_female_ids)\
+                .annotate(n=Count('id'))
 
         rows = self.apply_weights(rows, NewspaperPerson.sheet_db_table(), 'Print')
         counts.update({(r['sex'], r['age']): r['n'] for r in rows})
@@ -916,7 +930,8 @@ class XLSXReportBuilder:
                 rows = model.objects\
                         .values('sex', 'age')\
                         .filter(**{model.sheet_name() + '__country__in':self.country_list})\
-                        .filter(sex__in=self.male_female_ids)
+                        .filter(sex__in=self.male_female_ids)\
+                        .annotate(n=Count('id'))
 
                 rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
 
@@ -940,7 +955,8 @@ class XLSXReportBuilder:
                             .values('sex', 'occupation')\
                             .filter(**{model.sheet_name() + '__country__in':self.country_list})\
                             .filter(function=func_id)\
-                            .filter(sex__in=self.male_female_ids)
+                            .filter(sex__in=self.male_female_ids)\
+                            .annotate(n=Count('id'))
 
                     rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
 
@@ -961,7 +977,8 @@ class XLSXReportBuilder:
                         .values('sex', 'victim_of')\
                         .filter(**{model.sheet_name() + '__country__in':self.country_list})\
                         .filter(sex__in=self.male_female_ids)\
-                        .exclude(victim_of=None)
+                        .exclude(victim_of=None)\
+                        .annotate(n=Count('id'))
 
                 rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
 
@@ -981,7 +998,8 @@ class XLSXReportBuilder:
                         .values('sex', 'survivor_of')\
                         .filter(**{model.sheet_name() + '__country__in':self.country_list})\
                         .exclude(survivor_of=None)\
-                        .filter(sex__in=self.male_female_ids)
+                        .filter(sex__in=self.male_female_ids)\
+                        .annotate(n=Count('id'))
 
                 rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
 
@@ -1001,7 +1019,8 @@ class XLSXReportBuilder:
                 rows = model.objects\
                         .values('sex', 'family_role')\
                         .filter(**{model.sheet_name() + '__country__in':self.country_list})\
-                        .filter(sex__in=self.male_female_ids)
+                        .filter(sex__in=self.male_female_ids)\
+                        .annotate(n=Count('id'))
 
                 rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
 
@@ -1026,7 +1045,8 @@ class XLSXReportBuilder:
                             .values('sex', 'family_role')\
                             .filter(**{model.sheet_name() + '__country__in':self.country_list})\
                             .filter(**{sheet_name + '__' + journo_name + '__sex':sex_id})\
-                            .filter(sex__in=self.male_female_ids)
+                            .filter(sex__in=self.male_female_ids)\
+                            .annotate(n=Count('id'))
 
                     if media_type in REPORTER_MEDIA:
                         rows = rows.filter(**{sheet_name + '__' + journo_name + '__role':REPORTERS})
@@ -1053,7 +1073,8 @@ class XLSXReportBuilder:
                 rows = model.objects\
                         .values('sex', 'is_quoted')\
                         .filter(**{model.sheet_name() + '__country__in':self.country_list})\
-                        .filter(sex__in=self.male_female_ids)
+                        .filter(sex__in=self.male_female_ids)\
+                        .annotate(n=Count('id'))
 
                 rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
 
@@ -1073,7 +1094,8 @@ class XLSXReportBuilder:
                 rows = model.objects\
                         .values('sex', 'is_photograph')\
                         .filter(**{model.sheet_name() + '__country__in':self.country_list})\
-                        .filter(sex__in=self.male_female_ids)
+                        .filter(sex__in=self.male_female_ids)\
+                        .annotate(n=Count('id'))
 
                 rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
 
@@ -1096,7 +1118,8 @@ class XLSXReportBuilder:
                 rows = model.objects\
                         .values('sex', country)\
                         .filter(**{country + '__in': self.country_list})\
-                        .filter(sex__in=self.male_female_ids)
+                        .filter(sex__in=self.male_female_ids)\
+                        .annotate(n=Count('id'))
 
                 rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
 
@@ -1112,7 +1135,8 @@ class XLSXReportBuilder:
                 rows = model.objects\
                         .values('sex', region)\
                         .filter(**{region + '__in': self.region_list})\
-                        .filter(sex__in=self.male_female_ids)
+                        .filter(sex__in=self.male_female_ids)\
+                        .annotate(n=Count('id'))
 
                 rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
 
@@ -1142,7 +1166,8 @@ class XLSXReportBuilder:
                         rows = model.objects\
                                 .values('sex', scope)\
                                 .filter(**{country + '__in': self.country_list})\
-                                .filter(sex__in=self.male_female_ids)
+                                .filter(sex__in=self.male_female_ids)\
+                                .annotate(n=Count('id'))
                         if media_type in REPORTER_MEDIA:
                             rows = rows.filter(role=REPORTERS)
 
@@ -1164,7 +1189,8 @@ class XLSXReportBuilder:
                         rows = model.objects\
                                 .values('sex', scope)\
                                 .filter(**{region: region_name})\
-                                .filter(sex__in=self.male_female_ids)
+                                .filter(sex__in=self.male_female_ids)\
+                                .annotate(n=Count('id'))
 
                         if media_type in REPORTER_MEDIA:
                             rows = rows.filter(role=REPORTERS)
@@ -1195,7 +1221,8 @@ class XLSXReportBuilder:
                         rows = model.objects\
                                 .values('sex', topic)\
                                 .filter(**{country + '__in': self.country_list})\
-                                .filter(sex__in=self.male_female_ids)
+                                .filter(sex__in=self.male_female_ids)\
+                                .annotate(n=Count('id'))
 
                         if media_type in REPORTER_MEDIA:
                             rows = rows.filter(role=REPORTERS)
@@ -1219,7 +1246,8 @@ class XLSXReportBuilder:
                         rows = model.objects\
                                 .values('sex', topic)\
                                 .filter(**{region: region_name})\
-                                .filter(sex__in=self.male_female_ids)
+                                .filter(sex__in=self.male_female_ids)\
+                                .annotate(n=Count('id'))
 
                         if media_type in REPORTER_MEDIA:
                             rows = rows.filter(role=REPORTERS)
@@ -1246,7 +1274,8 @@ class XLSXReportBuilder:
                 rows = model.objects\
                         .values('sex', topic)\
                         .filter(**{model.sheet_name() + '__country__in':self.country_list})\
-                        .filter(sex__in=self.male_female_ids)
+                        .filter(sex__in=self.male_female_ids)\
+                        .annotate(n=Count('id'))
 
                 if media_type in REPORTER_MEDIA:
                     rows = rows.filter(role=REPORTERS)
@@ -1274,7 +1303,8 @@ class XLSXReportBuilder:
                 rows = model.objects\
                         .values('sex', topic)\
                         .filter(**{model.sheet_name() + '__country__in':self.country_list})\
-                        .filter(sex__in=self.male_female_ids)
+                        .filter(sex__in=self.male_female_ids)\
+                        .annotate(n=Count('id'))
 
                 if media_type in REPORTER_MEDIA:
                     rows = rows.filter(role=REPORTERS)
@@ -1328,7 +1358,8 @@ class XLSXReportBuilder:
                 .values('sex', 'age')\
                 .filter(television_sheet__country__in=self.country_list)\
                 .filter(sex__in=self.male_female_ids)\
-                .filter(role=TV_ROLE_ANNOUNCER[0])
+                .filter(role=TV_ROLE_ANNOUNCER[0])\
+                .annotate(n=Count('id'))
 
         rows = self.apply_weights(rows, TelevisionJournalist.sheet_db_table(), 'Television')
         counts.update({(r['sex'], r['age']): r['n'] for r in rows})
@@ -1339,7 +1370,8 @@ class XLSXReportBuilder:
                 .values('sex', 'age')\
                 .filter(television_sheet__country__in=self.country_list)\
                 .filter(sex__in=self.male_female_ids)\
-                .filter(role=TV_ROLE_REPORTER[0])
+                .filter(role=TV_ROLE_REPORTER[0])\
+                .annotate(n=Count('id'))
 
         rows = self.apply_weights(rows, TelevisionJournalist.sheet_db_table(), 'Television')
         counts.update({(r['sex'], r['age']): r['n'] for r in rows})
@@ -1362,7 +1394,8 @@ class XLSXReportBuilder:
                 rows = model.objects\
                         .values('sex', about_women)\
                         .filter(**{model.sheet_name() + '__country__in':self.country_list})\
-                        .filter(sex__in=self.male_female_ids)
+                        .filter(sex__in=self.male_female_ids)\
+                        .annotate(n=Count('id'))
 
                 if media_type in REPORTER_MEDIA:
                     rows = rows.filter(role=REPORTERS)
@@ -1384,7 +1417,8 @@ class XLSXReportBuilder:
             if 'about_women' in [field_name.name for field_name in model._meta.get_fields()]:
                 rows = model.objects\
                         .values('about_women', 'topic')\
-                        .filter(country__in=self.country_list)
+                        .filter(country__in=self.country_list)\
+                        .annotate(n=Count('id'))
 
                 rows = self.apply_weights(rows, model._meta.db_table, media_type)
 
@@ -1403,7 +1437,8 @@ class XLSXReportBuilder:
             if 'about_women' in [field_name.name for field_name in model._meta.get_fields()]:
                 rows = model.objects\
                         .values('about_women', 'topic')\
-                        .filter(country__in=self.country_list)
+                        .filter(country__in=self.country_list)\
+                        .annotate(n=Count('id'))
 
                 rows = self.apply_weights(rows, model._meta.db_table, media_type)
 
@@ -1424,7 +1459,8 @@ class XLSXReportBuilder:
                 if 'about_women' in [field_name.name for field_name in model._meta.get_fields()]:
                     rows = model.objects\
                             .values('topic', 'about_women')\
-                            .filter(country_region__region=region)
+                            .filter(country_region__region=region)\
+                            .annotate(n=Count('id'))
 
                     rows = self.apply_weights(rows, model._meta.db_table, media_type)
 
@@ -1444,7 +1480,8 @@ class XLSXReportBuilder:
             if 'equality_rights' in [field_name.name for field_name in model._meta.get_fields()]:
                 rows = model.objects\
                         .values('equality_rights', 'topic')\
-                        .filter(country__in=self.country_list)
+                        .filter(country__in=self.country_list)\
+                        .annotate(n=Count('id'))
 
                 rows = self.apply_weights(rows, model._meta.db_table, media_type)
 
@@ -1464,7 +1501,8 @@ class XLSXReportBuilder:
                 if 'equality_rights' in [field_name.name for field_name in model._meta.get_fields()]:
                     rows = model.objects\
                             .values('topic', 'equality_rights')\
-                            .filter(country_region__region=region)
+                            .filter(country_region__region=region)\
+                            .annotate(n=Count('id'))
 
                     rows = self.apply_weights(rows, model._meta.db_table, media_type)
 
@@ -1488,7 +1526,8 @@ class XLSXReportBuilder:
                     rows = model.objects\
                             .values(topic, equality_rights)\
                             .filter(**{model.sheet_name() + '__country__in':self.country_list})\
-                            .filter(sex=gender_id)
+                            .filter(sex=gender_id)\
+                            .annotate(n=Count('id'))
 
                     if media_type in REPORTER_MEDIA:
                         rows = rows.filter(role=REPORTERS)
@@ -1515,7 +1554,8 @@ class XLSXReportBuilder:
                     rows = model.objects\
                             .values(equality_rights, region)\
                             .filter(sex=gender_id)\
-                            .filter(**{region + '__in':self.region_list})
+                            .filter(**{region + '__in':self.region_list})\
+                            .annotate(n=Count('id'))
 
                     if media_type in REPORTER_MEDIA:
                         rows = rows.filter(role=REPORTERS)
@@ -1543,7 +1583,8 @@ class XLSXReportBuilder:
                 rows = model.objects\
                         .values('sex', region)\
                         .filter(**{region + '__in':self.region_list})\
-                        .filter(**{equality_rights:'Y'})
+                        .filter(**{equality_rights:'Y'})\
+                        .annotate(n=Count('id'))
 
                 rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
 
@@ -1565,7 +1606,8 @@ class XLSXReportBuilder:
                 if 'stereotypes' in [field_name.name for field_name in model._meta.get_fields()]:
                     rows = model.objects\
                             .values('stereotypes', 'topic')\
-                            .filter(country_region__region=region)
+                            .filter(country_region__region=region)\
+                            .annotate(n=Count('id'))
 
                     rows = self.apply_weights(rows, model._meta.db_table, media_type)
 
@@ -1583,7 +1625,8 @@ class XLSXReportBuilder:
         for media_type, model in tm_sheet_models.items():
             rows = model.objects\
                     .values('stereotypes', 'topic')\
-                    .filter(country__in=self.country_list)
+                    .filter(country__in=self.country_list)\
+                    .annotate(n=Count('id'))
 
             rows = self.apply_weights(rows, model._meta.db_table, media_type)
 
@@ -1608,7 +1651,8 @@ class XLSXReportBuilder:
                     rows = model.objects\
                             .values(stereotypes, topic)\
                             .filter(sex=gender_id)\
-                            .filter(**{model.sheet_name() + '__country__in':self.country_list})
+                            .filter(**{model.sheet_name() + '__country__in':self.country_list})\
+                            .annotate(n=Count('id'))
 
                     if media_type in REPORTER_MEDIA:
                         rows = rows.filter(role=REPORTERS)
@@ -1631,7 +1675,8 @@ class XLSXReportBuilder:
             model = sheet_models.get('Internet')
             rows = model.objects\
                     .values('topic', 'country')\
-                    .filter(country__in=self.country_list)
+                    .filter(country__in=self.country_list)\
+                    .annotate(n=Count('id'))
 
             rows = self.apply_weights(rows, model._meta.db_table, 'Internet')
 
@@ -1645,7 +1690,8 @@ class XLSXReportBuilder:
             model = sheet_models.get('Internet')
             rows = model.objects\
                     .values('topic', 'country_region__region')\
-                    .filter(country_region__region__in=self.region_list)
+                    .filter(country_region__region__in=self.region_list)\
+                    .annotate(n=Count('id'))
 
             rows = self.apply_weights(rows, model._meta.db_table, 'Internet')
 
@@ -1668,7 +1714,8 @@ class XLSXReportBuilder:
         rows = model.objects\
                 .values('topic', 'country')\
                 .filter(country__in=self.country_list)\
-                .filter(shared_via_twitter='Y')
+                .filter(shared_via_twitter='Y')\
+                .annotate(n=Count('id'))
 
         rows = self.apply_weights(rows, model._meta.db_table, 'Internet')
 
@@ -1690,7 +1737,8 @@ class XLSXReportBuilder:
         rows = model.objects\
                 .values('topic', 'country')\
                 .filter(country__in=self.country_list)\
-                .filter(shared_on_facebook='Y')
+                .filter(shared_on_facebook='Y')\
+                .annotate(n=Count('id'))
 
         rows = self.apply_weights(rows, model._meta.db_table, 'Internet')
 
@@ -1712,7 +1760,8 @@ class XLSXReportBuilder:
         rows = model.objects\
                 .values('topic', 'country')\
                 .filter(country__in=self.country_list)\
-                .filter(equality_rights='Y')
+                .filter(equality_rights='Y')\
+                .annotate(n=Count('id'))
 
         rows = self.apply_weights(rows, model._meta.db_table, 'Internet')
 
@@ -1738,7 +1787,8 @@ class XLSXReportBuilder:
             journo_sex_field = '%s__sex' % model.journalist_field_name()
             rows = model.objects\
                 .values(journo_sex_field, 'country')\
-                .filter(topic__in=topic_ids)
+                .filter(topic__in=topic_ids)\
+                .annotate(n=Count('id'))
 
             rows = self.apply_weights(rows, model._meta.db_table, 'Internet')
             counts.update({(r['sex'], self.recode_country(r['country'])): r['n'] for r in rows})
@@ -1760,7 +1810,8 @@ class XLSXReportBuilder:
             country_field = '%s__country' % model.sheet_name()
             rows = model.objects\
                 .values('sex', country_field)\
-                .filter(**{model.sheet_name() + '__topic__in':topic_ids})
+                .filter(**{model.sheet_name() + '__topic__in':topic_ids})\
+                .annotate(n=Count('id'))
 
             rows = self.apply_weights(rows, model.sheet_db_table(), 'Internet')
             counts.update({(r['sex'], self.recode_country(r['country'])): r['n'] for r in rows})
@@ -1782,7 +1833,8 @@ class XLSXReportBuilder:
 
         rows = model.objects\
                 .values(country_field, 'occupation')\
-                .filter(sex=1)
+                .filter(sex=1)\
+                .annotate(n=Count('id'))
 
         rows = self.apply_weights(rows, model.sheet_db_table(), "Internet")
         counts.update({(r['occupation'], self.recode_country(r['country'])): r['n'] for r in rows})
@@ -1821,7 +1873,8 @@ class XLSXReportBuilder:
         for code, country in self.countries:
             rows = model.objects\
                     .values('sex', 'family_role')\
-                    .filter(**{model.sheet_name() + '__country':code})
+                    .filter(**{model.sheet_name() + '__country':code})\
+                    .annotate(n=Count('id'))
 
             rows = self.apply_weights(rows, model.sheet_db_table(), "Internet")
 
@@ -1847,7 +1900,8 @@ class XLSXReportBuilder:
         for code, country in self.countries:
             rows = model.objects\
                     .values('sex', 'is_photograph')\
-                    .filter(**{model.sheet_name() + '__country':code})
+                    .filter(**{model.sheet_name() + '__country':code})\
+                    .annotate(n=Count('id'))
 
             rows = self.apply_weights(rows, model.sheet_db_table(), "Internet")
             counts = {(row['sex'], row['is_photograph']): row['n'] for row in rows}
@@ -1895,7 +1949,8 @@ class XLSXReportBuilder:
         for code, country in self.countries:
             rows = model.objects\
                     .values('sex', 'age')\
-                    .filter(**{model.sheet_name() + '__country':code})
+                    .filter(**{model.sheet_name() + '__country':code})\
+                    .annotate(n=Count('id'))
 
             rows = self.apply_weights(rows, model.sheet_db_table(), "Internet")
             counts = {(row['sex'], row['age']): row['n'] for row in rows}
@@ -1919,7 +1974,8 @@ class XLSXReportBuilder:
         for code, country in self.countries:
             rows = model.objects\
                     .values('sex', 'is_quoted')\
-                    .filter(**{model.sheet_name() + '__country':code})
+                    .filter(**{model.sheet_name() + '__country':code})\
+                    .annotate(n=Count('id'))
 
             rows = self.apply_weights(rows, model.sheet_db_table(), "Internet")
             counts = {(row['sex'], row['is_quoted']): row['n'] for row in rows}
@@ -1943,7 +1999,8 @@ class XLSXReportBuilder:
         for code, country in self.countries:
             rows = model.objects\
                     .values('topic', 'equality_rights')\
-                    .filter(country=code)
+                    .filter(country=code)\
+                    .annotate(n=Count('id'))
 
             rows = self.apply_weights(rows, model._meta.db_table, "Internet")
             counts = {(row['topic'], row['equality_rights']): row['n'] for row in rows}
@@ -1967,7 +2024,8 @@ class XLSXReportBuilder:
         for code, country in self.countries:
             rows = model.objects\
                     .values('topic', 'stereotypes')\
-                    .filter(country=code)
+                    .filter(country=code)\
+                    .annotate(n=Count('id'))
 
             rows = self.apply_weights(rows, model._meta.db_table, "Internet")
             counts = {(row['topic'], row['stereotypes']): row['n'] for row in rows}
@@ -1991,7 +2049,8 @@ class XLSXReportBuilder:
         for code, country in self.countries:
             rows = model.objects\
                     .values('topic', 'about_women')\
-                    .filter(country=code)
+                    .filter(country=code)\
+                    .annotate(n=Count('id'))
 
             rows = self.apply_weights(rows, model._meta.db_table, "Internet")
             counts = {(row['topic'], row['about_women']): row['n'] for row in rows}
@@ -2015,7 +2074,8 @@ class XLSXReportBuilder:
         for code, country in self.countries:
             rows = model.objects\
                     .values('topic', 'retweet')\
-                    .filter(country=code)
+                    .filter(country=code)\
+                    .annotate(n=Count('id'))
 
             rows = self.apply_weights(rows, model._meta.db_table, "Twitter")
 
@@ -2041,7 +2101,8 @@ class XLSXReportBuilder:
         for code, country in self.countries:
             rows = model.objects\
                     .values(topic_field, 'sex')\
-                    .filter(**{model.sheet_name() + '__country':code})
+                    .filter(**{model.sheet_name() + '__country':code})\
+                    .annotate(n=Count('id'))
 
             rows = self.apply_weights(rows, model.sheet_db_table(), "Twitter")
 
@@ -2063,7 +2124,8 @@ class XLSXReportBuilder:
         model = sheet_models.get('Twitter')
         rows = model.objects\
                 .values('topic', 'country')\
-                .filter(**{model.journalist_field_name() + '__sex':1})
+                .filter(**{model.journalist_field_name() + '__sex':1})\
+                .annotate(n=Count('id'))
 
         rows = self.apply_weights(rows, model._meta.db_table, "Twitter")
         counts.update({(TOPIC_GROUPS[row['topic']], self.recode_country(row['country'])): row['n'] for row in rows})
@@ -2085,7 +2147,8 @@ class XLSXReportBuilder:
         for code, country in self.countries:
             rows = model.objects\
                     .values('topic', 'about_women')\
-                    .filter(country=code)
+                    .filter(country=code)\
+                    .annotate(n=Count('id'))
 
             rows = self.apply_weights(rows, model._meta.db_table, "Twitter")
 
@@ -2110,7 +2173,8 @@ class XLSXReportBuilder:
         for code, country in self.countries:
             rows = model.objects\
                     .values('topic', 'stereotypes')\
-                    .filter(country=code)
+                    .filter(country=code)\
+                    .annotate(n=Count('id'))
 
             rows = self.apply_weights(rows, model._meta.db_table, "Twitter")
             counts = {(TOPIC_GROUPS[row['topic']], row['stereotypes']): row['n'] for row in rows}
@@ -2141,7 +2205,8 @@ class XLSXReportBuilder:
                 rows = model.objects\
                     .values('country')\
                     .filter(**{person_name + '__sex': self.female[0][0]})\
-                    .filter(topic__in=actual_topic_ids)
+                    .filter(topic__in=actual_topic_ids)\
+                    .annotate(n=Count('id'))
 
                 rows = self.apply_weights(rows, model._meta.db_table, media_type)
                 counts.update({(media_id, self.recode_country(r['country'])): r['n'] for r in rows})
@@ -2169,7 +2234,8 @@ class XLSXReportBuilder:
                 rows = model.objects\
                     .values('country')\
                     .filter(**{journo_name + '__sex': self.female[0][0]})\
-                    .filter(topic__in=actual_topic_ids)
+                    .filter(topic__in=actual_topic_ids)\
+                    .annotate(n=Count('id'))
 
                 if media_type in REPORTER_MEDIA:
                     rows = rows.filter(**{journo_name + '__role':REPORTERS})
@@ -2198,7 +2264,8 @@ class XLSXReportBuilder:
                         .filter(**{sheet_name + '__country__in':self.country_list})\
                         .filter(**{sheet_name + '__'+ person_name + '__sex':self.female[0][0]})\
                         .filter(**{sheet_name + '__topic__in':focus_topic_ids})\
-                        .filter(sex__in=self.male_female_ids)
+                        .filter(sex__in=self.male_female_ids)\
+                        .annotate(n=Count('id'))
 
             if media_type in REPORTER_MEDIA:
                 rows = rows.filter(role=REPORTERS)
@@ -2232,7 +2299,8 @@ class XLSXReportBuilder:
                     rows = model.objects\
                         .values('country', 'about_women')\
                         .filter(country__in=self.country_list)\
-                        .filter(topic__in=actual_topic_ids)
+                        .filter(topic__in=actual_topic_ids)\
+                        .annotate(n=Count('id'))
 
                     rows = self.apply_weights(rows, model._meta.db_table, media_type)
                     counts.update({(r['about_women'], self.recode_country(r['country'])): r['n'] for r in rows})
@@ -2259,7 +2327,8 @@ class XLSXReportBuilder:
                     if 'stereotypes' in [field_name.name for field_name in model._meta.get_fields()]:
                         rows = model.objects\
                             .values('stereotypes', 'country')\
-                            .filter(topic__in=actual_topic_ids)
+                            .filter(topic__in=actual_topic_ids)\
+                            .annotate(n=Count('id'))
 
                         rows = self.apply_weights(rows, model._meta.db_table, media_type)
                         counts.update({(r['stereotypes'], self.recode_country(r['country'])): r['n'] for r in rows})
@@ -2285,7 +2354,8 @@ class XLSXReportBuilder:
                     if 'equality_rights' in [field_name.name for field_name in model._meta.get_fields()]:
                         rows = model.objects\
                             .values('equality_rights', 'country')\
-                            .filter(topic__in=actual_topic_ids)
+                            .filter(topic__in=actual_topic_ids)\
+                            .annotate(n=Count('id'))
 
                         rows = self.apply_weights(rows, model._meta.db_table, media_type)
                         counts.update({(r['equality_rights'], self.recode_country(r['country'])): r['n'] for r in rows})
@@ -2314,7 +2384,8 @@ class XLSXReportBuilder:
                         country_field = '%s__country' % model.sheet_name()
                         rows = model.objects\
                             .values('victim_of', country_field)\
-                            .filter(**{model.sheet_name() + '__topic__in':actual_topic_ids})
+                            .filter(**{model.sheet_name() + '__topic__in':actual_topic_ids})\
+                            .annotate(n=Count('id'))
 
                         rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
                         counts.update({(r['victim_of'], self.recode_country(r['country'])): r['n'] for r in rows})
@@ -2343,7 +2414,8 @@ class XLSXReportBuilder:
                         country_field = '%s__country' % model.sheet_name()
                         rows = model.objects\
                             .values('survivor_of', country_field)\
-                            .filter(**{model.sheet_name() + '__topic__in':actual_topic_ids})
+                            .filter(**{model.sheet_name() + '__topic__in':actual_topic_ids})\
+                            .annotate(n=Count('id'))
 
                         rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
                         counts.update({(r['survivor_of'], self.recode_country(r['country'])): r['n'] for r in rows})
@@ -2367,7 +2439,8 @@ class XLSXReportBuilder:
             region_field = '%s__country_region__region' % model.sheet_name()
             rows = model.objects\
                 .values('sex', region_field)\
-                .filter(**{model.sheet_name() + '__topic__in':topic_ids})
+                .filter(**{model.sheet_name() + '__topic__in':topic_ids})\
+                .annotate(n=Count('id'))
 
             rows = self.apply_weights(rows, model.sheet_db_table(), 'Internet')
 
@@ -2405,7 +2478,8 @@ class XLSXReportBuilder:
                 counts = Counter()
                 rows = model.objects\
                     .values('shared_via_twitter', 'country_region__region')\
-                    .filter(topic__in=topic_ids)
+                    .filter(topic__in=topic_ids)\
+                    .annotate(n=Count('id'))
 
                 rows = self.apply_weights(rows, model._meta.db_table, 'Internet')
 
@@ -2447,7 +2521,8 @@ class XLSXReportBuilder:
                 counts = Counter()
                 rows = model.objects\
                     .values('shared_on_facebook', 'country_region__region')\
-                    .filter(topic__in=topic_ids)
+                    .filter(topic__in=topic_ids)\
+                    .annotate(n=Count('id'))
 
                 rows = self.apply_weights(rows, model._meta.db_table, 'Internet')
 
@@ -2489,7 +2564,8 @@ class XLSXReportBuilder:
                 counts = Counter()
                 rows = model.objects\
                     .values('equality_rights', 'country_region__region')\
-                    .filter(topic__in=topic_ids)
+                    .filter(topic__in=topic_ids)\
+                    .annotate(n=Count('id'))
 
                 rows = self.apply_weights(rows, model._meta.db_table, 'Internet')
 
@@ -2521,7 +2597,8 @@ class XLSXReportBuilder:
             region_field = '%s__country_region__region' % model.sheet_name()
             rows = model.objects\
                 .values('sex', region_field)\
-                .filter(**{model.sheet_name() + '__topic__in':topic_ids})
+                .filter(**{model.sheet_name() + '__topic__in':topic_ids})\
+                .annotate(n=Count('id'))
 
             rows = self.apply_weights(rows, model.sheet_db_table(), 'Internet')
 
@@ -2548,7 +2625,8 @@ class XLSXReportBuilder:
         region_field = '%s__country_region__region' % model.sheet_name()
         rows = model.objects\
             .values('occupation', region_field)\
-            .filter(sex__in=self.female_ids)
+            .filter(sex__in=self.female_ids)\
+            .annotate(n=Count('id'))
 
         rows = self.apply_weights(rows, model.sheet_db_table(), 'Internet')
 
@@ -2570,7 +2648,8 @@ class XLSXReportBuilder:
         counts = Counter()
         region_field = '%s__country_region__region' % model.sheet_name()
         rows = model.objects\
-            .values('function', region_field)
+            .values('function', region_field)\
+            .annotate(n=Count('id'))
 
         rows = self.apply_weights(rows, model.sheet_db_table(), 'Internet')
 
@@ -2593,7 +2672,8 @@ class XLSXReportBuilder:
             counts = Counter()
             region_field = '%s__country_region__region' % model.sheet_name()
             rows = model.objects\
-                .values('family_role', region_field)
+                .values('family_role', region_field)\
+                .annotate(n=Count('id'))
 
             rows = self.apply_weights(rows, model.sheet_db_table(), 'Internet')
 
@@ -2618,7 +2698,8 @@ class XLSXReportBuilder:
             counts = Counter()
             region_field = '%s__country_region__region' % model.sheet_name()
             rows = model.objects\
-                .values('is_photograph', region_field)
+                .values('is_photograph', region_field)\
+                .annotate(n=Count('id'))
 
             rows = self.apply_weights(rows, model.sheet_db_table(), 'Internet')
 
@@ -2645,7 +2726,8 @@ class XLSXReportBuilder:
 
             rows = model.objects\
                 .values('internetnews_sheet__internetnewsperson__sex', region_field)\
-                .filter(sex=gender_id)
+                .filter(sex=gender_id)\
+                .annotate(n=Count('id'))
 
             rows = self.apply_weights(rows, model.sheet_db_table(), 'Internet')
 
@@ -2676,7 +2758,8 @@ class XLSXReportBuilder:
             counts = Counter()
             region_field = '%s__country_region__region' % model.sheet_name()
             rows = model.objects\
-                .values('age', region_field)
+                .values('age', region_field)\
+                .annotate(n=Count('id'))
 
             rows = self.apply_weights(rows, model.sheet_db_table(), 'Internet')
 
@@ -2701,7 +2784,8 @@ class XLSXReportBuilder:
             counts = Counter()
             region_field = '%s__country_region__region' % model.sheet_name()
             rows = model.objects\
-                .values('is_quoted', region_field)
+                .values('is_quoted', region_field)\
+                .annotate(n=Count('id'))
 
             rows = self.apply_weights(rows, model.sheet_db_table(), 'Internet')
 
@@ -2728,7 +2812,8 @@ class XLSXReportBuilder:
         for region_id, region in all_regions:
             rows = model.objects\
                     .values('topic', 'equality_rights')\
-                    .filter(country_region__region=region)
+                    .filter(country_region__region=region)\
+                    .annotate(n=Count('id'))
 
             rows = self.apply_weights(rows, model._meta.db_table, "Internet")
             for row in rows:
@@ -2755,7 +2840,8 @@ class XLSXReportBuilder:
         for region_id, region in all_regions:
             rows = model.objects\
                     .values('topic', 'stereotypes')\
-                    .filter(country_region__region=region)
+                    .filter(country_region__region=region)\
+                    .annotate(n=Count('id'))
 
             rows = self.apply_weights(rows, model._meta.db_table, "Internet")
             for row in rows:
@@ -2783,7 +2869,8 @@ class XLSXReportBuilder:
         for region_id, region in all_regions:
             rows = model.objects\
                     .values('topic', 'about_women')\
-                    .filter(country_region__region=region)
+                    .filter(country_region__region=region)\
+                    .annotate(n=Count('id'))
 
             rows = self.apply_weights(rows, model._meta.db_table, "Internet")
             for row in rows:
@@ -2809,7 +2896,8 @@ class XLSXReportBuilder:
             counts = Counter()
             rows = model.objects\
                 .values('retweet', 'country_region__region')\
-                .filter(topic__in=topic_ids)
+                .filter(topic__in=topic_ids)\
+                .annotate(n=Count('id'))
 
             rows = self.apply_weights(rows, model._meta.db_table, 'Twitter')
 
@@ -2851,7 +2939,8 @@ class XLSXReportBuilder:
                 rows = model.objects\
                     .values('sex', region_field)\
                     .filter(**{model.sheet_name() + '__topic__in':topic_ids})\
-                    .filter(sex__in=self.male_female_ids)
+                    .filter(sex__in=self.male_female_ids)\
+                    .annotate(n=Count('id'))
 
                 rows = self.apply_weights(rows, model.sheet_db_table(), 'Twitter')
 
@@ -2882,7 +2971,8 @@ class XLSXReportBuilder:
             counts = Counter()
             rows = model.objects\
                 .values('about_women', 'country_region__region')\
-                .filter(topic__in=topic_ids)
+                .filter(topic__in=topic_ids)\
+                .annotate(n=Count('id'))
 
             rows = self.apply_weights(rows, model._meta.db_table, 'Twitter')
 
@@ -2910,7 +3000,8 @@ class XLSXReportBuilder:
             counts = Counter()
             rows = model.objects\
                 .values('stereotypes', 'country_region__region')\
-                .filter(topic__in=topic_ids)
+                .filter(topic__in=topic_ids)\
+                .annotate(n=Count('id'))
 
             rows = self.apply_weights(rows, model._meta.db_table, 'Twitter')
 
