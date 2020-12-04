@@ -147,9 +147,13 @@ RECODES = {
 
 
 def canon(key):
-    key = key.replace(u'\u2026', '')
-    key = recode(key.strip())
-    return key.strip().lower()
+    print(key)
+    try:
+        key = key.replace(u'\u2026', '')
+        key = recode(key.strip())
+        return key.strip().lower()
+    except AttributeError:
+        return ''
 
 
 def recode(v):
@@ -231,13 +235,13 @@ class Historical(object):
         elif country:
             self.log.info("Importing for country %s" % country)
             key = canon(country)
-
         for old_sheet, new_sheet in self.historical_sheets(coverage):
             # find matching sheet name
             ws = None
             for name in wb.sheetnames:
-                if name == old_sheet or name.startswith(old_sheet + ' '):
+                if name == old_sheet[0] or name.startswith(old_sheet + ' '):
                     ws = wb[name]
+                    break
 
             if not ws:
                 self.log.warn("Couldn't find historical sheet %s; only have these sheets available: %s" % (old_sheet,
@@ -246,7 +250,7 @@ class Historical(object):
 
             self.log.info("Importing sheet %s" % old_sheet)
             data = getattr(self, 'import_%s' % old_sheet)(ws, new_sheet)
-            self.all_data.setdefault(key, {})[old_sheet] = data
+            self.all_data.setdefault(key, {})[old_sheet]["2015"] = data
             self.log.info("Imported sheet %s" % old_sheet)
 
     def historical_sheets(self, coverage):
@@ -254,13 +258,13 @@ class Historical(object):
                 if 'historical' in sheet and coverage in sheet['reports']]
 
     def import_1F(self, ws, sheet_info):
-        year = 2010
+        year = 2015
         data = {}
         all_data = {year: data}
 
-        self.slurp_table(ws, data, col_start=15, col_end=18, row_end=12)
+        self.slurp_table(ws, data, col_start=3, col_end=10, row_end=14)
 
-        return all_data
+        return data
 
     def import_2aF(self, ws, sheet_info):
         year = 2010
@@ -553,7 +557,7 @@ class Historical(object):
 
             self.slurp_table(ws, major_col_data, icol, icol + cols_per_group - 1, row_end, row_start=row_start, col_heading_row=major_col_heading_row + 1, row_heading_col=row_heading_col)
 
-    def slurp_table(self, ws, data, col_start, col_end, row_end, row_start=5, col_heading_row=4, row_heading_col=5):
+    def slurp_table(self, ws, data, col_start, col_end, row_end, row_start=7, col_heading_row=5, row_heading_col=2):
         """
         Grab values from a simple table with column and row titles.
 

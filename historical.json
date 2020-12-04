@@ -1258,6 +1258,68 @@
           "north america": 0.12,
           "pacific islands": 0.27
         }
+      },
+      "2015": {
+        "": {
+          "africa": 230,
+          "asia": 537,
+          "caribbean": 231,
+          "europe": 3668,
+          "latin america": 1578,
+          "middle east": 139,
+          "north america": 400,
+          "pacific islands": 264
+        },
+        "internet": {
+          "africa": 0.443478260869565,
+          "asia": 0.858472998137803,
+          "caribbean": 0.142857142857143,
+          "europe": 0.468647764449291,
+          "latin america": 0.335234474017744,
+          "middle east": 1,
+          "north america": 0.6375,
+          "pacific islands": 0.295454545454545
+        },
+        "print": {
+          "africa": 0.393680052666228,
+          "asia": 0.559696342305038,
+          "caribbean": 0.656174334140436,
+          "europe": 0.494573954983923,
+          "latin america": 0.284057971014493,
+          "middle east": 0.27613104524181,
+          "north america": 0.556464811783961,
+          "pacific islands": 0.406685236768802
+        },
+        "radio": {
+          "africa": 0.341672152732061,
+          "asia": 0.0791350356567748,
+          "caribbean": 0.196125907990315,
+          "europe": 0.241961414790997,
+          "latin america": 0.357101449275362,
+          "middle east": 0.308892355694228,
+          "north america": 0.0515548281505728,
+          "pacific islands": 0.16991643454039
+        },
+        "television": {
+          "africa": 0.264647794601712,
+          "asia": 0.361168622038187,
+          "caribbean": 0.147699757869249,
+          "europe": 0.26346463022508,
+          "latin america": 0.358840579710145,
+          "middle east": 0.414976599063963,
+          "north america": 0.391980360065466,
+          "pacific islands": 0.423398328690808
+        },
+        "twitter": {
+          "africa": 0.556521739130435,
+          "asia": 0.141527001862197,
+          "caribbean": 0.857142857142857,
+          "europe": 0.531352235550709,
+          "latin america": 0.664765525982256,
+          "middle east": 0,
+          "north america": 0.3625,
+          "pacific islands": 0.704545454545455
+        }
       }
     },
     "20aF": {
