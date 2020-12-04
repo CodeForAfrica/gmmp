@@ -206,7 +206,7 @@ class XLSXReportBuilder:
         ws.write(3, 1, 'number of items (NOT weighted)')
 
         ws.write(5, 0, 'Number', self.col_heading)
-        ws.write(5, 1, 'Number in 2010 Report', self.col_heading)
+        ws.write(5, 1, 'Number in 2015 Report', self.col_heading)
         ws.write(5, 2, 'Title', self.col_heading)
         ws.write(5, 3, 'Description', self.col_heading)
 
