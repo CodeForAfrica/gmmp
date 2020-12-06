@@ -1280,6 +1280,16 @@
           "north america": 0.6375,
           "pacific islands": 0.295454545454545
         },
+        "n": {
+          "africa": 1519,
+          "asia": 4347,
+          "caribbean": 413,
+          "europe": 4976,
+          "latin america": 1725,
+          "middle east": 641,
+          "north america": 1222,
+          "pacific islands": 359
+        },
         "print": {
           "africa": 0.393680052666228,
           "asia": 0.559696342305038,
