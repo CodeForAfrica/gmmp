@@ -247,8 +247,10 @@ class XLSXReportBuilder:
                             media_id = [media[0] for media in MEDIA_TYPES if media[1] == media_type][0]
                             counts.update({(media_id, self.recode_country(row[country_field])): row['n']})
                 self.write_primary_row_heading(ws, region, r=r)
-                region_countries = [(code, country) for code, country in self.countries if code in REGION_COUNTRY_MAP[region]]
-
+                if region == 'Global':
+                    region_countries = [(code, country) for code, country in self.countries]
+                else:
+                    region_countries = [(code, country) for code, country in self.countries if code in REGION_COUNTRY_MAP[region]]
                 for i, row in enumerate(region_countries):
                     row_id, row_heading = row
                     ws.write(r+i, c, clean_title(row_heading), self.label)
@@ -505,7 +507,10 @@ class XLSXReportBuilder:
                 counts_list.append(counts)
 
             self.write_primary_row_heading(ws, region, r=r)
-            region_countries = [(code, country) for code, country in self.countries if code in REGION_COUNTRY_MAP[region]]
+            if region == 'Global':
+                region_countries = [(code, country) for code, country in self.countries]
+            else:
+                region_countries = [(code, country) for code, country in self.countries if code in REGION_COUNTRY_MAP[region]]
             self.tabulate(ws, counts_list[0], TM_MEDIA_TYPES, region_countries, row_perc=True, write_col_headings=True, r=r)
             c = 7
             self.tabulate(ws, counts_list[1], DM_MEDIA_TYPES, region_countries, row_perc=True, write_col_headings=True, write_row_headings=False, r=r, c=c)
