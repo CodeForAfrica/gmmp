@@ -223,7 +223,7 @@ class Historical(object):
 
         return self.all_data[key][sheet['historical']]
 
-    def import_from_file(self, fname, coverage, region=None, country=None):
+    def import_from_file(self, fname, coverage, region=None, country=None, year=None):
         from reports.utils.work_sheet_mapper import mapper as work_sheet_mapper
 
         wb = openpyxl.load_workbook(fname, read_only=True, data_only=True)

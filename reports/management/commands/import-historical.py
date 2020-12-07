@@ -11,8 +11,21 @@ class Command(BaseCommand):
     def add_arguments(self, parser):
         parser.add_argument('filenames', nargs='+', help='Excel file(s) to import')
         parser.add_argument('--global', action='store_true', help='Coverage is global')
-        parser.add_argument('--region REGION', action='store', dest='region', help='Import historical data for a region. One of: %s' % ', '.join(sorted(REGION_COUNTRY_MAP.keys())))
-        parser.add_argument('--country COUNTRY', action='store', dest='country', help='Import historical data for a country. One of: %s' % ', '.join(sorted(c[0] for c in get_countries())))
+        parser.add_argument(
+            '--region REGION',
+            action='store',
+            dest='region',
+            help='Import historical data for a region. One of: %s' % ', '.join(sorted(REGION_COUNTRY_MAP.keys())))
+        parser.add_argument(
+            '--country COUNTRY',
+            action='store',
+            dest='country',
+            help='Import historical data for a country. One of: %s' % ', '.join(sorted(c[0] for c in get_countries())))
+        parser.add_argument(
+            '--year YEAR',
+            action='store',
+            dest='year',
+            help='State the year the imported file belongs to. Either "2010" or "2015"')
 
 
     def handle(self, *args, **options):
@@ -20,7 +33,11 @@ class Command(BaseCommand):
         coverage = None
         region = None
         country = None
+        year = options['year']
         filenames = options['filenames']
+
+        if not year in ['2010', '2015']:
+            raise CommandError(f"Invalid year: {year}")
 
         if options['global']:
             coverage = 'global'
@@ -50,6 +67,6 @@ class Command(BaseCommand):
             raise CommandError("Must specify --global or --region")
 
         for fname in filenames:
-            historical.import_from_file(fname, coverage, region=region, country=country)
+            historical.import_from_file(fname, coverage, region=region, country=country, year=year)
 
         historical.save()
