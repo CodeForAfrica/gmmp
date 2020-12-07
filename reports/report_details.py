@@ -60,13 +60,13 @@ def add_transnational_to_regions(regions):
 
 
 WS_INFO = {
-    # 'ws_01': {
-    #     'name': '1',
-    #     'title': 'Participating Countries',
-    #     'desc': 'Breakdown of all media by region',
-    #     'reports': ['global'],
-    #     'historical': '1F',
-    # },
+    'ws_01': {
+        'name': '1',
+        'title': 'Participating Countries',
+        'desc': 'Breakdown of all media by region',
+        'reports': ['global'],
+        'historical': '1F',
+    },
     # 'ws_02': {
     #     'name': '2',
     #     'title': 'Participating Countries in each Region',

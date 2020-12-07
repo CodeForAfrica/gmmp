@@ -320,10 +320,19 @@ class Historical(object):
 
         return all_data
 
-    # def import_9aF(self, ws, sheet_info):
-    #     all_data = {}
-    #     self.slurp_year_grouped_table(ws, all_data, col_start=6, cols=1, cols_per_group=5, year_heading_row=4, col_heading_row=3, row_start=5, row_end=12)
-    #     return all_data
+    def import_9aF(self, ws, sheet_info):
+        all_data = {}
+        col_start, col_end, row_end, row_start, col_heading_row, row_heading_col, publication_row = 3, 5, 14, 8, 6, 2, 5
+
+        for publications in [3, 7]:
+            publication_group = canon(ws.cell(column=publications, row=publication_row).value)
+            data = {}
+            all_data[publication_group] = data
+
+            self.slurp_table(ws, data, col_start, col_end, row_end, row_start, col_heading_row, row_heading_col)
+            col_start, col_end = 7, 9
+
+        return all_data
 
     def import_9bF(self, ws, sheet_info):
         data = {}
@@ -556,26 +565,6 @@ class Historical(object):
             data[major_col_heading] = major_col_data
 
             self.slurp_table(ws, major_col_data, icol, icol + cols_per_group - 1, row_end, row_start=row_start, col_heading_row=major_col_heading_row + 1, row_heading_col=row_heading_col)
-
-    def import_9aF(self, ws, sheet_info):
-        # all_data = {}
-        # self.slurp_year_grouped_table(ws, all_data, col_start=6, cols=1, cols_per_group=5, year_heading_row=4, col_heading_row=3, row_start=5, row_end=12)
-        all_data = {}
-        # self.slurp_table(ws, all_data, col_start=3, col_end=10, row_end=14)
-        col_start, col_end, row_end, row_start, col_heading_row, row_heading_col, publication_row = 3, 5, 14, 8, 6, 2, 5
-
-        for publications in [3, 7]:
-            publication_group = canon(ws.cell(column=publications, row=publication_row).value)
-            data = {}
-            all_data[publication_group] = data
-
-            self.slurp_table(ws, data, col_start, col_end, row_end, row_start, col_heading_row, row_heading_col)
-            col_start, col_end = 7, 9
-
-        # import pdb
-        # pdb.set_trace()
-
-        return all_data
 
     def slurp_table(self, ws, data, col_start, col_end, row_end, row_start=7, col_heading_row=5, row_heading_col=2):
         """
