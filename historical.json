@@ -3206,6 +3206,66 @@
           "social and legal": 1216,
           "the girl-child": 46
         }
+      },
+      "2015": {
+        "internet, twitter": {
+          "female": {
+            "celebrity, arts and media, sports": 0.264462809917355,
+            "crime and violence": 0.284408602150538,
+            "economy": 0.238571428571429,
+            "other": 0.283783783783784,
+            "politics and government": 0.186261558784676,
+            "science and health": 0.425257731958763,
+            "social and legal": 0.298821849339522
+          },
+          "male": {
+            "celebrity, arts and media, sports": 0.735537190082645,
+            "crime and violence": 0.715591397849462,
+            "economy": 0.761428571428571,
+            "other": 0.716216216216216,
+            "politics and government": 0.813738441215324,
+            "science and health": 0.574742268041237,
+            "social and legal": 0.701178150660478
+          },
+          "n": {
+            "celebrity, arts and media, sports": 1331,
+            "crime and violence": 1860,
+            "economy": 700,
+            "other": 74,
+            "politics and government": 2271,
+            "science and health": 388,
+            "social and legal": 2801
+          }
+        },
+        "print, radio, television": {
+          "female": {
+            "celebrity, arts and media, sports": 0.22746185852982,
+            "crime and violence": 0.284393063583815,
+            "economy": 0.212435233160622,
+            "other": 0.32520325203252,
+            "politics and government": 0.159446120098711,
+            "science and health": 0.352134146341463,
+            "social and legal": 0.284361165448368
+          },
+          "male": {
+            "celebrity, arts and media, sports": 0.77253814147018,
+            "crime and violence": 0.715606936416185,
+            "economy": 0.787564766839378,
+            "other": 0.67479674796748,
+            "politics and government": 0.840553879901289,
+            "science and health": 0.647865853658537,
+            "social and legal": 0.715638834551632
+          },
+          "n": {
+            "celebrity, arts and media, sports": 3605,
+            "crime and violence": 4325,
+            "economy": 3281,
+            "other": 246,
+            "politics and government": 7294,
+            "science and health": 1968,
+            "social and legal": 9713
+          }
+        }
       }
     },
     "9bF": {
