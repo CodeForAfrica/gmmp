@@ -3,6 +3,9 @@ from .base import BaseImport
 from reports.utils.canon import canon
 
 class Import2015(BaseImport):
+    """
+        Holds the methods that handles importing 2015 data files
+    """
     def import_1F(self, ws, sheet_info):
         data = {}
         self.slurp_table(ws, data, col_start=3, col_end=10, row_end=14)

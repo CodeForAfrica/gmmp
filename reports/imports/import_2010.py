@@ -3,6 +3,9 @@ from .base import BaseImport, v
 from reports.utils.canon import canon
 
 class Import2010(BaseImport):
+    """
+        Holds the methods that handles importing 2010 data files
+    """
     def import_1F(self, ws, sheet_info):
         year = 2010
         data = {}

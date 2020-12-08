@@ -76,7 +76,7 @@ class Historical(BaseImport):
                 continue
 
             self.log.info("Importing sheet %s" % old_sheet)
-            import_classes = {
+            import_classes = {  # instantiate the classes we need for our imports
                 "2010": Import2010(),
                 "2015": Import2015(),
             }
