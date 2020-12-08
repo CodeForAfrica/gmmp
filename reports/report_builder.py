@@ -708,8 +708,8 @@ class XLSXReportBuilder:
 
             counts.update({(r['sex'], r['topic']): r['n'] for r in rows})
 
-        self.tabulate(ws, counts, self.male_female, TOPICS, row_perc=True, filter_cols=self.female)
-        self.tabulate_historical(ws, '09', self.female, TOPICS, write_row_headings=False)
+        self.tabulate(ws, counts, self.male_female,  [y for x in TOPICS for y in x[1]], row_perc=True, filter_cols=self.female)
+        self.tabulate_historical(ws, '09', self.female, [y for x in TOPICS for y in x[1]], write_row_headings=False)
 
     def ws_10(self, ws):
         """
@@ -1283,8 +1283,8 @@ class XLSXReportBuilder:
 
                 counts.update({(r['sex'], r['topic']): r['n'] for r in rows})
 
-        self.tabulate(ws, counts, self.male_female, TOPICS, row_perc=True, filter_cols=self.female)
-        self.tabulate_historical(ws, '31', self.female, TOPICS, write_row_headings=False)
+        self.tabulate(ws, counts, self.male_female, [y for x in TOPICS for y in x[1]], row_perc=True, filter_cols=self.female)
+        self.tabulate_historical(ws, '31', self.female, [y for x in TOPICS for y in x[1]], write_row_headings=False)
 
     def ws_32(self, ws):
         """
@@ -1314,7 +1314,7 @@ class XLSXReportBuilder:
                     counts.update({(row['sex'], row['topic']): row['n']})
             secondary_counts[media_type] = counts
 
-        self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, TOPICS, row_perc=False, show_N=True)
+        self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, [y for x in TOPICS for y in x[1]], row_perc=False, show_N=True)
 
     def ws_34(self, ws):
         """
@@ -1443,8 +1443,8 @@ class XLSXReportBuilder:
 
                 counts.update({(r['about_women'], r['topic']): r['n'] for r in rows})
 
-        self.tabulate(ws, counts, YESNO, TOPICS, row_perc=True, filter_cols=self.yes)
-        self.tabulate_historical(ws, '39', self.yes, TOPICS, write_row_headings=False)
+        self.tabulate(ws, counts, YESNO, [y for x in TOPICS for y in x[1]], row_perc=True, filter_cols=self.yes)
+        self.tabulate_historical(ws, '39', self.yes, [y for x in TOPICS for y in x[1]], write_row_headings=False)
 
     def ws_40(self, ws):
         """
@@ -1466,8 +1466,8 @@ class XLSXReportBuilder:
                     counts.update({(r['about_women'], r['topic']): r['n'] for r in rows})
             secondary_counts[region] = counts
 
-        self.tabulate_secondary_cols(ws, secondary_counts, YESNO, TOPICS, row_perc=False, filter_cols=self.yes)
-        self.tabulate_historical(ws, '40', self.regions, TOPICS, write_row_headings=False, r=7)
+        self.tabulate_secondary_cols(ws, secondary_counts, YESNO, [y for x in TOPICS for y in x[1]], row_perc=False, filter_cols=self.yes)
+        self.tabulate_historical(ws, '40', self.regions, [y for x in TOPICS for y in x[1]], write_row_headings=False, r=7)
 
     def ws_41(self, ws):
         """
@@ -1485,8 +1485,8 @@ class XLSXReportBuilder:
                 rows = self.apply_weights(rows, model._meta.db_table, media_type)
 
                 counts.update({(r['equality_rights'], r['topic']): r['n'] for r in rows})
-        self.tabulate(ws, counts, YESNO, TOPICS, row_perc=False, show_N=True)
-        self.tabulate_historical(ws, '41', self.female, TOPICS, write_row_headings=False, r=6)
+        self.tabulate(ws, counts, YESNO, [y for x in TOPICS for y in x[1]], row_perc=False, show_N=True)
+        self.tabulate_historical(ws, '41', self.female, [y for x in TOPICS for y in x[1]], write_row_headings=False, r=6)
 
     def ws_42(self, ws):
         """
@@ -1507,7 +1507,7 @@ class XLSXReportBuilder:
 
                     counts.update({(r['equality_rights'], r['topic']): r['n'] for r in rows})
             secondary_counts[region] = counts
-        self.tabulate_secondary_cols(ws, secondary_counts, YESNO, TOPICS, row_perc=True)
+        self.tabulate_secondary_cols(ws, secondary_counts, YESNO, [y for x in TOPICS for y in x[1]], row_perc=True)
 
     def ws_43(self, ws):
         """
@@ -1535,7 +1535,7 @@ class XLSXReportBuilder:
 
                     counts.update({(r['equality_rights'], r['topic']): r['n'] for r in rows})
             secondary_counts[gender] = counts
-        self.tabulate_secondary_cols(ws, secondary_counts, YESNO, TOPICS, row_perc=True)
+        self.tabulate_secondary_cols(ws, secondary_counts, YESNO, [y for x in TOPICS for y in x[1]], row_perc=True)
 
     def ws_44(self, ws):
         """
@@ -1991,7 +1991,7 @@ class XLSXReportBuilder:
         :: Internet media type only
         """
         r = 6
-        self.write_col_headings(ws, TOPICS)
+        self.write_col_headings(ws, [y for x in TOPICS for y in x[1]])
 
         counts = Counter()
         model = sheet_models.get('Internet')
@@ -2005,7 +2005,7 @@ class XLSXReportBuilder:
             counts = {(row['topic'], row['equality_rights']): row['n'] for row in rows}
 
             self.write_primary_row_heading(ws, country, r=r)
-            self.tabulate(ws, counts, TOPICS, YESNO, row_perc=True, write_col_headings=False, r=r)
+            self.tabulate(ws, counts, [y for x in TOPICS for y in x[1]], YESNO, row_perc=True, write_col_headings=False, r=r)
             r += len(YESNO)
 
     def ws_63(self, ws):
@@ -2016,7 +2016,7 @@ class XLSXReportBuilder:
         :: Internet media type only
         """
         r = 6
-        self.write_col_headings(ws, TOPICS)
+        self.write_col_headings(ws, [y for x in TOPICS for y in x[1]])
 
         counts = Counter()
         model = sheet_models.get('Internet')
@@ -2030,7 +2030,7 @@ class XLSXReportBuilder:
             counts = {(row['topic'], row['stereotypes']): row['n'] for row in rows}
 
             self.write_primary_row_heading(ws, country, r=r)
-            self.tabulate(ws, counts, TOPICS, AGREE_DISAGREE, row_perc=True, write_col_headings=False, r=r)
+            self.tabulate(ws, counts, [y for x in TOPICS for y in x[1]], AGREE_DISAGREE, row_perc=True, write_col_headings=False, r=r)
             r += len(AGREE_DISAGREE)
 
     def ws_64(self, ws):
@@ -2041,7 +2041,7 @@ class XLSXReportBuilder:
         :: Internet media type only
         """
         r = 6
-        self.write_col_headings(ws, TOPICS)
+        self.write_col_headings(ws, [y for x in TOPICS for y in x[1]])
 
         counts = Counter()
         model = sheet_models.get('Internet')
@@ -2055,7 +2055,7 @@ class XLSXReportBuilder:
             counts = {(row['topic'], row['about_women']): row['n'] for row in rows}
 
             self.write_primary_row_heading(ws, country, r=r)
-            self.tabulate(ws, counts, TOPICS, YESNO, row_perc=True, write_col_headings=False, r=r)
+            self.tabulate(ws, counts, [y for x in TOPICS for y in x[1]], YESNO, row_perc=True, write_col_headings=False, r=r)
             r += len(YESNO)
 
     def ws_65(self, ws):
@@ -2486,7 +2486,7 @@ class XLSXReportBuilder:
                     region_id = [region[0] for region in all_regions if region[1] == row['region']][0]
                     counts.update({(row['shared_via_twitter'], region_id): row['n']})
 
-                minor_topic_name = [mt[1] for mt in TOPICS if mt[0] == int(minor_topic)][0]
+                minor_topic_name = [mt[1] for mt in [y for x in TOPICS for y in x[1]] if mt[0] == int(minor_topic)][0]
                 secondary_counts[minor_topic_name] = counts
 
             self.tabulate_secondary_cols(ws, secondary_counts, YESNO, all_regions, c=c, r=r, write_row_headings=write_row_headings, show_N=True, row_perc=True)
@@ -2529,7 +2529,7 @@ class XLSXReportBuilder:
                     region_id = [region[0] for region in all_regions if region[1] == row['region']][0]
                     counts.update({(row['shared_on_facebook'], region_id): row['n']})
 
-                minor_topic_name = [mt[1] for mt in TOPICS if mt[0] == int(minor_topic)][0]
+                minor_topic_name = [mt[1] for mt in [y for x in TOPICS for y in x[1]] if mt[0] == int(minor_topic)][0]
                 secondary_counts[minor_topic_name] = counts
 
             self.tabulate_secondary_cols(ws, secondary_counts, YESNO, all_regions, c=c, r=r, write_row_headings=write_row_headings, show_N=True, row_perc=True)
@@ -2572,7 +2572,7 @@ class XLSXReportBuilder:
                     region_id = [region[0] for region in all_regions if region[1] == row['region']][0]
                     counts.update({(row['equality_rights'], region_id): row['n']})
 
-                minor_topic_name = [mt[1] for mt in TOPICS if mt[0] == int(minor_topic)][0]
+                minor_topic_name = [mt[1] for mt in [y for x in TOPICS for y in x[1]] if mt[0] == int(minor_topic)][0]
                 secondary_counts[minor_topic_name] = counts
 
             self.tabulate_secondary_cols(ws, secondary_counts, YESNO, all_regions, c=c, r=r, write_row_headings=write_row_headings, show_N=True, row_perc=True)
@@ -2947,7 +2947,7 @@ class XLSXReportBuilder:
                     region_id = [region[0] for region in all_regions if region[1] == row['region']][0]
                     counts.update({(row['sex'], region_id): row['n']})
 
-                minor_topic_name = [mt[1] for mt in TOPICS if mt[0] == int(minor_topic)][0]
+                minor_topic_name = [mt[1] for mt in [y for x in TOPICS for y in x[1]] if mt[0] == int(minor_topic)][0]
                 secondary_counts[minor_topic_name] = counts
 
             self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, all_regions, c=c, r=r, write_row_headings=write_row_headings, show_N=True, row_perc=True)

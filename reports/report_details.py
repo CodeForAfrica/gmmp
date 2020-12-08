@@ -548,24 +548,24 @@ WS_INFO = {
         'desc': 'Internet - Main topics by region',
         'reports': ['global'],
     },
-    # 'ws_80': {
-    #     'name': '80',
-    #     'title': 'Internet - Story shared on Twitter',
-    #     'desc': 'Internet - Story shared on Twitter',
-    #     'reports': ['global'],
-    # },
-    # 'ws_81': {
-    #     'name': '81',
-    #     'title': 'Internet - Story shared on Facebook',
-    #     'desc': 'Internet - Story shared on Facebook',
-    #     'reports': ['global'],
-    # },
-    # 'ws_82': {
-    #     'name': '82',
-    #     'title': 'Internet - Reference to gender equality/HR policies',
-    #     'desc': 'Internet - Reference to gender equality/HR policies',
-    #     'reports': ['global'],
-    # },
+    'ws_80': {
+        'name': '80',
+        'title': 'Internet - Story shared on Twitter',
+        'desc': 'Internet - Story shared on Twitter',
+        'reports': ['global'],
+    },
+    'ws_81': {
+        'name': '81',
+        'title': 'Internet - Story shared on Facebook',
+        'desc': 'Internet - Story shared on Facebook',
+        'reports': ['global'],
+    },
+    'ws_82': {
+        'name': '82',
+        'title': 'Internet - Reference to gender equality/HR policies',
+        'desc': 'Internet - Reference to gender equality/HR policies',
+        'reports': ['global'],
+    },
     'ws_83': {
         'name': '83',
         'title': 'Internet - reporters in main stories',
@@ -638,12 +638,12 @@ WS_INFO = {
         'desc': 'Twitter - Original tweet or retweet',
         'reports': ['global'],
     },
-    # 'ws_95': {
-    #     'name': '95',
-    #     'title': 'Twitter - Female reporters',
-    #     'desc': 'Twitter - Female reporters',
-    #     'reports': ['global'],
-    # },
+    'ws_95': {
+        'name': '95',
+        'title': 'Twitter - Female reporters',
+        'desc': 'Twitter - Female reporters',
+        'reports': ['global'],
+    },
     'ws_96': {
         'name': '96',
         'title': 'Twitter - Women\'s centrality',
