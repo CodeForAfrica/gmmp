@@ -6,7 +6,9 @@ import re
 
 from reports.report_details import WS_INFO
 from reports.utils.canon import canon
-from reports.imports.base import v, BaseImport
+from reports.imports.base import BaseImport
+from reports.imports.import_2010 import Import2010
+from reports.imports.import_2015 import Import2015
 
 
 class Historical(BaseImport):
@@ -74,8 +76,12 @@ class Historical(BaseImport):
                 continue
 
             self.log.info("Importing sheet %s" % old_sheet)
-            data = getattr(self, 'import_%s' % old_sheet)(ws, new_sheet)
-            self.all_data.setdefault(key, {})[old_sheet]["2015"] = data
+            import_classes = {
+                "2010": Import2010(),
+                "2015": Import2015(),
+            }
+            data = getattr(import_classes[year], 'import_%s' % old_sheet)(ws, new_sheet)
+            self.all_data.setdefault(key, {})[old_sheet][year] = data
             self.log.info("Imported sheet %s" % old_sheet)
 
     def historical_sheets(self, coverage):
