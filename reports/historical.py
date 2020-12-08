@@ -6,7 +6,7 @@ import re
 
 from reports.report_details import WS_INFO
 from reports.utils.canon import canon
-from reports.imports.base_import import v, BaseImport
+from reports.imports.base import v, BaseImport
 
 
 class Historical(BaseImport):
@@ -82,14 +82,7 @@ class Historical(BaseImport):
         return [(sheet['historical'], sheet) for sheet in WS_INFO.values()
                 if 'historical' in sheet and coverage in sheet['reports']]
 
-    def import_1F(self, ws, sheet_info):
-        year = 2015
-        data = {}
-        all_data = {year: data}
 
-        self.slurp_table(ws, data, col_start=3, col_end=10, row_end=14)
-
-        return data
 
     def import_2aF(self, ws, sheet_info):
         year = 2010
@@ -145,19 +138,7 @@ class Historical(BaseImport):
 
         return all_data
 
-    def import_9aF(self, ws, sheet_info):
-        all_data = {}
-        col_start, col_end, row_end, row_start, col_heading_row, row_heading_col, publication_row = 3, 5, 14, 8, 6, 2, 5
 
-        for publications in [3, 7]:
-            publication_group = canon(ws.cell(column=publications, row=publication_row).value)
-            data = {}
-            all_data[publication_group] = data
-
-            self.slurp_table(ws, data, col_start, col_end, row_end, row_start, col_heading_row, row_heading_col)
-            col_start, col_end = 7, 9
-
-        return all_data
 
     def import_9bF(self, ws, sheet_info):
         data = {}
