@@ -4,10 +4,7 @@ from reports.utils.canon import canon
 
 class Import2015(BaseImport):
     def import_1F(self, ws, sheet_info):
-        year = 2015
         data = {}
-        all_data = {year: data}
-
         self.slurp_table(ws, data, col_start=3, col_end=10, row_end=14)
 
         return data
