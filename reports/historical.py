@@ -62,24 +62,21 @@ class Historical(BaseImport):
         elif country:
             self.log.info("Importing for country %s" % country)
             key = canon(country)
+        import_classes = {  # instantiate the classes we need for our imports
+            "2010": Import2010(),
+            "2015": Import2015(),
+        }
         for old_sheet, new_sheet in self.historical_sheets(coverage):
             # find matching sheet name
-            ws = None
-            for name in wb.sheetnames:
-                if name == work_sheet_mapper[old_sheet] or name.startswith(old_sheet + ' '):
-                    ws = wb[name]
-                    break
-
+            import_class = import_classes[year]
+            ws = import_class.get_work_sheet(wb, old_sheet, year)
+            import pdb; pdb.set_trace()
             if not ws:
                 self.log.warn("Couldn't find historical sheet %s; only have these sheets available: %s" % (old_sheet,
                             ', '.join(sorted(wb.sheetnames))))
                 continue
 
             self.log.info("Importing sheet %s" % old_sheet)
-            import_classes = {  # instantiate the classes we need for our imports
-                "2010": Import2010(),
-                "2015": Import2015(),
-            }
             data = getattr(import_classes[year], 'import_%s' % old_sheet)(ws, new_sheet)
             self.all_data.setdefault(key, {})[old_sheet][year] = data
             self.log.info("Imported sheet %s" % old_sheet)

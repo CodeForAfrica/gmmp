@@ -62,6 +62,8 @@ def add_transnational_to_regions(regions):
 WS_INFO = {
     'ws_01': {
         'name': '1',
+        '2015': '1',
+        '2010': '1F',
         'title': 'Participating Countries',
         'desc': 'Breakdown of all media by region',
         'reports': ['global'],
@@ -88,13 +90,13 @@ WS_INFO = {
     #     'reports': ['global', 'region'],
     #     'historical': '3aF'
     # },
-    'ws_05': {
-        'name': '5',
-        'title': 'Summary of women in the news, by GMMP year',
-        'desc': 'Overall presence of women in news',
-        'reports': ['global', 'region', 'country'],
-        'historical': '9aF',
-    },
+    # 'ws_05': {
+    #     'name': '5',
+    #     'title': 'Summary of women in the news, by GMMP year',
+    #     'desc': 'Overall presence of women in news',
+    #     'reports': ['global', 'region', 'country'],
+    #     'historical': '9aF',
+    # },
     # 'ws_06': {
     #     'name': '6',
     #     'title': 'Breakdown of women in the news in major topics by region',

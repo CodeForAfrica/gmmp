@@ -1,11 +1,20 @@
 from .base import BaseImport
 
 from reports.utils.canon import canon
+from reports.utils.work_sheet_mapper import mapper as work_sheet_mapper
 
 class Import2015(BaseImport):
     """
         Holds the methods that handles importing 2015 data files
     """
+    def get_work_sheet(self, wb, old_sheet, year):
+        ws = None
+        for name in wb.sheetnames:
+            if name == work_sheet_mapper[old_sheet] or name.startswith(old_sheet + ' '):
+                ws = wb[name]
+                break
+        return ws
+
     def import_1F(self, ws, sheet_info):
         data = {}
         self.slurp_table(ws, data, col_start=3, col_end=10, row_end=14)
