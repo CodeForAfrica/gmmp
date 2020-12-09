@@ -13,6 +13,7 @@ def get_regions():
     country_regions = CountryRegion.objects\
                         .values('region')\
                         .exclude(region='Unmapped')\
+                        .exclude(region='Global')\
                         .exclude(region='Transnational')
     regions = set(item['region'] for item in country_regions)
     return [(i, region) for i, region in enumerate(sorted(list(regions)))]
@@ -259,7 +260,7 @@ WS_INFO = {
     'ws_31': {
         'name': '31',
         'title': 'Breakdown of Reporters, by sex on different topics - Detail',
-        'desc': 'Rporters, by sex on different topics - Detail',
+        'desc': 'Reporters, by sex on different topics - Detail',
         'reports': ['global'],
         'historical': '12dF'
     },
@@ -885,10 +886,10 @@ REGION_COUNTRY_MAP = {
         'BJ', 'BW', 'BF', 'BI', 'CM', 'CV', 'CF', 'TD', 'KM', 'CD', 'CG', 'GQ',
         'ET', 'GA', 'GM', 'GH', 'GW', 'GN', 'CI', 'KE', 'LS', 'LR', 'MG', 'MW',
         'ML', 'MR', 'MU', 'NA', 'NE', 'NG', 'SN', 'SL', 'SO', 'ZA', 'SD', 'SS',
-        'SZ', 'TZ', 'TG', 'UG', 'ZM', 'ZW'],
+        'SZ', 'TZ', 'TG', 'UG', 'ZM', 'ZW', 'SC'],
     'Asia': [
         'AF', 'BD', 'BT', 'CN', 'IN', 'ID', 'JP', 'KG', 'MY', 'MN', 'NP', 'PK', 'PH',
-        'KR', 'TW', 'VU', 'VN'],
+        'KR', 'TW', 'VU', 'VN', 'MO', 'HK', 'MM', 'KH'],
     'Caribbean': [
         'AG', 'BS', 'BB', 'BZ', 'CU', 'DO', 'GD', 'GY', 'HT', 'JM', 'LC', 'VC',
         'SR', 'TT', 'PR'],
@@ -896,16 +897,18 @@ REGION_COUNTRY_MAP = {
         'AL', 'AM', 'AT', 'BY', 'BE', 'BA', 'BG', 'HR', 'DK', 'EE', 'FI', 'FR',
         'GE', 'DE', 'GR', 'HU', 'IS', 'IE', 'IT', 'KZ', 'LU', 'MK', 'MT', 'MD',
         'ME', 'NL', 'NO', 'PL', 'PT', 'RO', 'RS', 'SK', 'SI', 'ES', 'SE', 'CH',
-        'TR', 'GB', 'B1', 'B2', 'WL', 'SQ', 'EN', 'UK', 'CY'],
+        'TR', 'GB', 'QM', 'QN', 'WL', 'SQ', 'EN', 'UK', 'CY', 'RU', 'GL'],
     'Latin America': [
         'AR', 'BO', 'BR', 'CL', 'CO', 'CR', 'EC', 'SV', 'GT', 'MX', 'NI', 'PY',
         'PE', 'UY', 'VE'],
     'Middle East': [
-        'EG', 'IL', 'LB', 'MA', 'PS', 'TN'],
+        'EG', 'IL', 'LB', 'MA', 'PS', 'TN', 'JO'],
     'North America': [
         'CA', 'US'],
     'Pacific Islands': [
-        'AU', 'FJ', 'NZ', 'WS', 'SB', 'TO']}
+        'AU', 'FJ', 'NZ', 'WS', 'SB', 'TO'],
+    'Pacific': ['PG']
+    }
 
 
 GROUP_TOPICS_MAP = OrderedDict([
@@ -913,9 +916,10 @@ GROUP_TOPICS_MAP = OrderedDict([
     ('2', [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]),
     ('3', [19, 20, 21, 22, 23, 24, 25, 26, 27]),
     ('4', [28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41]),
-    ('5', [42, 43, 44, 45, 46, 47, 48]),
-    ('6', [49, 50, 51, 52, 53, 54]),
-    ('7', [55])
+    ('5', [42, 43, 44, 45, 46, 47]),
+    ('6', [48, 49, 50]),
+    ('7', [51, 52, 53, 54, 55, 56, 57]),
+    ('8', [58])
 ])
 
 TOPIC_GROUPS = {
@@ -923,9 +927,10 @@ TOPIC_GROUPS = {
     8: 2, 9: 2, 10: 2, 11: 2, 12: 2, 13: 2, 14: 2, 15: 2, 16: 2, 17: 2, 18: 2,
     19: 3, 20: 3, 21: 3, 22: 3, 23: 3, 24: 3, 25: 3, 26: 3, 27: 3,
     28: 4, 29: 4, 30: 4, 31: 4, 32: 4, 33: 4, 34: 4, 35: 4, 36: 4, 37: 4, 38: 4, 39: 4, 40: 4, 41: 4,
-    42: 5, 43: 5, 44: 5, 45: 5, 46: 5, 47: 5, 48: 5,
-    49: 6, 50: 6, 51: 6, 52: 6, 53: 6, 54: 6,
-    55: 7
+    42: 5, 43: 5, 44: 5, 45: 5, 46: 5, 47: 5, 
+    48: 4, 49: 6, 50: 6,
+    51: 7, 52: 7, 53: 7, 54: 7, 55: 7, 56: 7, 57: 7,
+    58: 8
 }
 
 MAJOR_TOPICS = (
@@ -934,8 +939,9 @@ MAJOR_TOPICS = (
     (3, 'Science and Health'),
     (4, 'Social and Legal'),
     (5, 'Crime and Violence'),
-    (6, 'Celebrity, Arts and Media, Sports'),
-    (7, 'Other')
+    (6, 'Gender & Related'),
+    (7, 'Celebrity, Arts and Media, Sports'),
+    (8, 'Other')
 )
 
 # Topic recodes for women focus areas

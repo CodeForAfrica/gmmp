@@ -14,6 +14,7 @@ tail -n 0 -f /app/logs/*.log &
 # Start Gunicorn processes
 echo Starting Gunicorn.
 exec gunicorn \
+  --timeout=60\
   --bind=0.0.0.0:8000 \
   --workers=3 \
   --worker-class=gevent \
