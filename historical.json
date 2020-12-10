@@ -1260,16 +1260,6 @@
         }
       },
       "2015": {
-        "": {
-          "africa": 230,
-          "asia": 537,
-          "caribbean": 231,
-          "europe": 3668,
-          "latin america": 1578,
-          "middle east": 139,
-          "north america": 400,
-          "pacific islands": 264
-        },
         "internet": {
           "africa": 0.443478260869565,
           "asia": 0.858472998137803,
@@ -1280,7 +1270,17 @@
           "north america": 0.6375,
           "pacific islands": 0.295454545454545
         },
-        "n": {
+        "n_digital": {
+          "africa": 230,
+          "asia": 537,
+          "caribbean": 231,
+          "europe": 3668,
+          "latin america": 1578,
+          "middle east": 139,
+          "north america": 400,
+          "pacific islands": 264
+        },
+        "n_traditional": {
           "africa": 1519,
           "asia": 4347,
           "caribbean": 413,

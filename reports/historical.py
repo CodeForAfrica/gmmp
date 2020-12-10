@@ -70,7 +70,6 @@ class Historical(BaseImport):
             # find matching sheet name
             import_class = import_classes[year]
             ws = import_class.get_work_sheet(wb, old_sheet, year)
-            import pdb; pdb.set_trace()
             if not ws:
                 self.log.warn("Couldn't find historical sheet %s; only have these sheets available: %s" % (old_sheet,
                             ', '.join(sorted(wb.sheetnames))))

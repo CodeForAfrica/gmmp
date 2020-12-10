@@ -62,6 +62,8 @@ class BaseImport(object):
         """
         for icol in range(col_start, col_end + 1):
             col_heading = canon(ws.cell(column=icol, row=col_heading_row).value)
+            if not col_heading:
+                continue
             col_data = {}
             data[col_heading] = col_data
 
