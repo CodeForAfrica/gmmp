@@ -76,7 +76,7 @@ class Historical(BaseImport):
                 continue
 
             self.log.info("Importing sheet %s" % old_sheet)
-            data = getattr(import_classes[year], 'import_%s' % old_sheet)(ws, new_sheet)
+            data = import_class.generate_data(ws, old_sheet, new_sheet)
             self.all_data.setdefault(key, {})[old_sheet][year] = data
             self.log.info("Imported sheet %s" % old_sheet)
 

@@ -15,13 +15,16 @@ class Import2015(BaseImport):
                 break
         return ws
 
-    def import_1F(self, ws, sheet_info):
+    def generate_data(self, ws, old_sheet, new_sheet):
+        return getattr(self, 'import_%s' % work_sheet_mapper[old_sheet])(ws, new_sheet)
+
+    def import_1(self, ws, sheet_info):
         data = {}
         self.slurp_table(ws, data, col_start=3, col_end=10, row_end=14)
 
         return data
 
-    def import_9aF(self, ws, sheet_info):
+    def import_5(self, ws, sheet_info):
         all_data = {}
         col_start, col_end, row_end, row_start, col_heading_row, row_heading_col, publication_row = 3, 5, 14, 8, 6, 2, 5
 

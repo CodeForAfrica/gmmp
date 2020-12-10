@@ -13,6 +13,9 @@ class Import2010(BaseImport):
                 ws = wb[name]
         return ws
 
+    def generate_data(self, ws, old_sheet, new_sheet):
+        return getattr(self, 'import_%s' % old_sheet)(ws, new_sheet)
+
     def import_1F(self, ws, sheet_info):
         year = 2010
         data = {}
