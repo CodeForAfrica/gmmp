@@ -6,14 +6,14 @@ class Import2010(BaseImport):
     """
         Holds the methods that handles importing 2010 data files
     """
-    def get_work_sheet(self, wb, old_sheet):
+    def get_work_sheet(self, wb, old_sheet, new_sheet, year):
         ws = None
         for name in wb.sheetnames:
             if name == old_sheet or name.startswith(old_sheet + ' '):
                 ws = wb[name]
         return ws
 
-    def generate_data(self, ws, old_sheet, new_sheet):
+    def import_data(self, ws, old_sheet, new_sheet):
         return getattr(self, 'import_%s' % old_sheet)(ws, new_sheet)
 
     def import_1F(self, ws, sheet_info):

@@ -1,22 +1,21 @@
 from .base import BaseImport
 
 from reports.utils.canon import canon
-from reports.utils.work_sheet_mapper import mapper as work_sheet_mapper
 
 class Import2015(BaseImport):
     """
         Holds the methods that handles importing 2015 data files
     """
-    def get_work_sheet(self, wb, old_sheet, year):
+    def get_work_sheet(self, wb, old_sheet, new_sheet, year):
         ws = None
         for name in wb.sheetnames:
-            if name == work_sheet_mapper[old_sheet] or name.startswith(old_sheet + ' '):
+            if name == new_sheet['2015'] or name.startswith(old_sheet + ' '):
                 ws = wb[name]
                 break
         return ws
 
-    def generate_data(self, ws, old_sheet, new_sheet):
-        return getattr(self, 'import_%s' % work_sheet_mapper[old_sheet])(ws, new_sheet)
+    def import_data(self, ws, old_sheet, new_sheet):
+        return getattr(self, 'import_%s' % new_sheet['2015'])(ws, new_sheet)
 
     def import_1(self, ws, sheet_info):
         data = {}

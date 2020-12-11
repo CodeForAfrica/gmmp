@@ -92,6 +92,8 @@ WS_INFO = {
     # },
     'ws_05': {
         'name': '5',
+        '2015': '5',
+        '2010': '9aF',
         'title': 'Summary of women in the news, by GMMP year',
         'desc': 'Overall presence of women in news',
         'reports': ['global', 'region', 'country'],

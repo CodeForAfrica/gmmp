@@ -51,8 +51,6 @@ class Historical(BaseImport):
         return self.all_data[key][sheet['historical']]
 
     def import_from_file(self, fname, coverage, region=None, country=None, year=None):
-        from reports.utils.work_sheet_mapper import mapper as work_sheet_mapper
-
         wb = openpyxl.load_workbook(fname, read_only=True, data_only=True)
 
         key = coverage
@@ -69,14 +67,14 @@ class Historical(BaseImport):
         for old_sheet, new_sheet in self.historical_sheets(coverage):
             # find matching sheet name
             import_class = import_classes[year]
-            ws = import_class.get_work_sheet(wb, old_sheet, year)
+            ws = import_class.get_work_sheet(wb, old_sheet, new_sheet, year)
             if not ws:
                 self.log.warn("Couldn't find historical sheet %s; only have these sheets available: %s" % (old_sheet,
                             ', '.join(sorted(wb.sheetnames))))
                 continue
 
             self.log.info("Importing sheet %s" % old_sheet)
-            data = import_class.generate_data(ws, old_sheet, new_sheet)
+            data = import_class.import_data(ws, old_sheet, new_sheet)
             self.all_data.setdefault(key, {})[old_sheet][year] = data
             self.log.info("Imported sheet %s" % old_sheet)
 
