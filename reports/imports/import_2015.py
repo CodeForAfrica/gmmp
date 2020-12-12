@@ -8,14 +8,15 @@ class Import2015(BaseImport):
     """
     def get_work_sheet(self, wb, old_sheet, new_sheet, year):
         ws = None
+        sheet_name = new_sheet.get('2015').get('work_sheet') if new_sheet.get('2015') else None
         for name in wb.sheetnames:
-            if name == new_sheet.get('2015') or name.startswith(old_sheet + ' '):
+            if name == sheet_name or name.startswith(old_sheet + ' '):
                 ws = wb[name]
                 break
         return ws
 
     def import_data(self, ws, old_sheet, new_sheet):
-        return getattr(self, 'import_%s' % new_sheet['2015'])(ws, new_sheet)
+        return getattr(self, 'import_%s' % new_sheet.get('2015').get('work_sheet'))(ws, new_sheet)
 
     def import_1(self, ws, sheet_info):
         data = {}
