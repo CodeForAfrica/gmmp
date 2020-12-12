@@ -9,7 +9,7 @@ class Import2015(BaseImport):
     def get_work_sheet(self, wb, old_sheet, new_sheet, year):
         ws = None
         for name in wb.sheetnames:
-            if name == new_sheet['2015'] or name.startswith(old_sheet + ' '):
+            if name == new_sheet.get('2015') or name.startswith(old_sheet + ' '):
                 ws = wb[name]
                 break
         return ws
