@@ -37,7 +37,7 @@ class Command(BaseCommand):
         filenames = options['filenames']
 
         if not year in ['2010', '2015']:
-            raise CommandError(f"Invalid year: {year}")
+            year = '2015'
 
         if options['global']:
             coverage = 'global'

@@ -6,58 +6,60 @@ class Import2010(BaseImport):
     """
         Holds the methods that handles importing 2010 data files
     """
-    def get_work_sheet(self, wb, old_sheet, new_sheet, year):
-        ws = None
+    def __init__(self):
+        self.ws = None
+
+    def get_work_sheet(self, wb, old_sheet, new_sheet):
         for name in wb.sheetnames:
             if name == old_sheet or name.startswith(old_sheet + ' '):
-                ws = wb[name]
-        return ws
+                self.ws = wb[name]
+        return self.ws
 
-    def import_data(self, ws, old_sheet, new_sheet):
-        return getattr(self, 'import_%s' % old_sheet)(ws, new_sheet)
+    def import_sheet(self, old_sheet, new_sheet):
+        return getattr(self, 'import_%s' % old_sheet)(new_sheet)
 
-    def import_1F(self, ws, sheet_info):
+    def import_1F(self, sheet_info):
         year = 2010
         data = {}
         all_data = {year: data}
 
-        self.slurp_table(ws, data, col_start=15, col_end=18, row_end=12)
+        self.slurp_table(self.ws, data, col_start=15, col_end=18, row_end=12)
 
         return all_data
 
-    def import_2aF(self, ws, sheet_info):
+    def import_2aF(self, sheet_info):
         year = 2010
         data = {}
         all_data = {year: data}
 
-        self.slurp_table(ws, data, col_start=15, col_end=17, row_start=5, row_end=12)
+        self.slurp_table(self.ws, data, col_start=15, col_end=17, row_start=5, row_end=12)
 
         return all_data
 
-    def import_2F(self, ws, sheet_info):
+    def import_2F(self, sheet_info):
         year = 2010
         data = {}
         all_data = {year: data}
 
-        self.slurp_table(ws, data, col_start=15, col_end=18, row_start=6, row_end=114)
+        self.slurp_table(self.ws, data, col_start=15, col_end=18, row_start=6, row_end=114)
 
         return all_data
 
-    def import_3aF(self, ws, sheet_info):
+    def import_3aF(self, sheet_info):
         year = 2010
         data = {}
         all_data = {year: data}
 
-        self.slurp_table(ws, data, col_start=6, col_end=13, row_end=11, col_heading_row=3)
+        self.slurp_table(self.ws, data, col_start=6, col_end=13, row_end=11, col_heading_row=3)
 
         return all_data
 
-    def import_3bF(self, ws, sheet_info):
+    def import_3bF(self, sheet_info):
         all_data = {}
 
         for icol in [6, 11, 16, 21, 26, 31, 36, 41]:
             data = {}
-            self.slurp_year_grouped_table(ws, data, col_start=icol, cols=1, cols_per_group=5, year_heading_row=3, col_heading_row=2, row_start=4, row_end=11,
+            self.slurp_year_grouped_table(self.ws, data, col_start=icol, cols=1, cols_per_group=5, year_heading_row=3, col_heading_row=2, row_start=4, row_end=11,
                                         skip_years=[1995, 2000, 2005])
 
             year = list(data.keys())[0]
@@ -79,22 +81,22 @@ class Import2010(BaseImport):
 
         return all_data
 
-    def import_9aF(self, ws, sheet_info):
+    def import_9aF(self, sheet_info):
         all_data = {}
-        self.slurp_year_grouped_table(ws, all_data, col_start=6, cols=1, cols_per_group=5, year_heading_row=4, col_heading_row=3, row_start=5, row_end=12)
+        self.slurp_year_grouped_table(self.ws, all_data, col_start=6, cols=1, cols_per_group=5, year_heading_row=4, col_heading_row=3, row_start=5, row_end=12)
         return all_data
 
-    def import_9bF(self, ws, sheet_info):
+    def import_9bF(self, sheet_info):
         data = {}
-        self.slurp_year_grouped_table(ws, data, col_start=6, cols=3, cols_per_group=5, year_heading_row=3, col_heading_row=2, row_start=4, row_end=5)
+        self.slurp_year_grouped_table(self.ws, data, col_start=6, cols=3, cols_per_group=5, year_heading_row=3, col_heading_row=2, row_start=4, row_end=5)
         return data
 
-    def import_9cF(self, ws, sheet_info):
+    def import_9cF(self, sheet_info):
         data = {}
-        self.slurp_year_grouped_table(ws, data, col_start=6, cols=1, cols_per_group=5, year_heading_row=3, col_heading_row=2, row_start=5, row_end=8)
+        self.slurp_year_grouped_table(self.ws, data, col_start=6, cols=1, cols_per_group=5, year_heading_row=3, col_heading_row=2, row_start=5, row_end=8)
         return data
 
-    def import_9dF(self, ws, sheet_info):
+    def import_9dF(self, sheet_info):
         data = {}
         all_data = {2010: data}
 
@@ -103,44 +105,44 @@ class Import2010(BaseImport):
         data[col_heading] = col_data
 
         for irow in range(4, 55):
-            row_heading = canon(ws.cell(column=5, row=irow).value)
-            col_data[row_heading] = v(ws.cell(column=8, row=irow).value)
+            row_heading = canon(self.ws.cell(column=5, row=irow).value)
+            col_data[row_heading] = v(self.ws.cell(column=8, row=irow).value)
 
         return all_data
 
-    def import_9eF(self, ws, sheet_info):
+    def import_9eF(self, sheet_info):
         data = {}
-        self.slurp_year_grouped_table(ws, data, col_start=6, cols=1, cols_per_group=5, year_heading_row=3, col_heading_row=2, row_start=5, row_end=30)
+        self.slurp_year_grouped_table(self.ws, data, col_start=6, cols=1, cols_per_group=5, year_heading_row=3, col_heading_row=2, row_start=5, row_end=30)
         return data
 
-    def import_9fF(self, ws, sheet_info):
+    def import_9fF(self, sheet_info):
         data = {}
-        self.slurp_year_grouped_table(ws, data, col_start=6, cols=1, cols_per_group=5, year_heading_row=3, col_heading_row=2, row_start=5, row_end=12)
+        self.slurp_year_grouped_table(self.ws, data, col_start=6, cols=1, cols_per_group=5, year_heading_row=3, col_heading_row=2, row_start=5, row_end=12)
         return data
 
-    def import_9gF(self, ws, sheet_info):
+    def import_9gF(self, sheet_info):
         data = {}
-        self.slurp_year_grouped_table(ws, data, col_start=6, cols=2, cols_per_group=5, year_heading_row=3, col_heading_row=2, row_start=5, row_end=12)
+        self.slurp_year_grouped_table(self.ws, data, col_start=6, cols=2, cols_per_group=5, year_heading_row=3, col_heading_row=2, row_start=5, row_end=12)
         return data
 
-    def import_9hF(self, ws, sheet_info):
+    def import_9hF(self, sheet_info):
         data = {}
         for col_start, cols_per_group in [(6, 4), (11, 2)]:
-            self.slurp_year_grouped_table(ws, data, col_start=col_start, cols=1, cols_per_group=cols_per_group, year_heading_row=3, col_heading_row=2, row_start=4, row_end=5, row_heading_col=5)
+            self.slurp_year_grouped_table(self.ws, data, col_start=col_start, cols=1, cols_per_group=cols_per_group, year_heading_row=3, col_heading_row=2, row_start=4, row_end=5, row_heading_col=5)
         return data
 
-    def import_9kF(self, ws, sheet_info):
+    def import_9kF(self, sheet_info):
         data = {}
         all_data = {2010: data}
-        self.slurp_secondary_col_table(ws, data, col_start=17, cols_per_group=3, cols=2, row_start=6, row_end=7, major_col_heading_row=4, row_heading_col=4)
+        self.slurp_secondary_col_table(self.ws, data, col_start=17, cols_per_group=3, cols=2, row_start=6, row_end=7, major_col_heading_row=4, row_heading_col=4)
         return all_data
 
-    def import_10bF(self, ws, sheet_info):
+    def import_10bF(self, sheet_info):
         all_data = {}
-        self.slurp_year_grouped_table(ws, all_data, col_start=6, cols=1, cols_per_group=5, year_heading_row=3, col_heading_row=2, row_start=4, row_end=11)
+        self.slurp_year_grouped_table(self.ws, all_data, col_start=6, cols=1, cols_per_group=5, year_heading_row=3, col_heading_row=2, row_start=4, row_end=11)
         return all_data
 
-    def import_12dF(self, ws, sheet_info):
+    def import_12dF(self, sheet_info):
         data = {}
         all_data = {2010: data}
 
@@ -149,87 +151,87 @@ class Import2010(BaseImport):
         data[col_heading] = col_data
 
         for irow in range(4, 55):
-            row_heading = canon(ws.cell(column=5, row=irow).value)
-            col_data[row_heading] = v(ws.cell(column=9, row=irow).value)
+            row_heading = canon(self.ws.cell(column=5, row=irow).value)
+            col_data[row_heading] = v(self.ws.cell(column=9, row=irow).value)
 
         return all_data
 
-    def import_13bF(self, ws, sheet_info):
+    def import_13bF(self, sheet_info):
         data = {}
-        self.slurp_year_grouped_table(ws, data, col_start=6, cols=1, cols_per_group=4, year_heading_row=3, col_heading_row=2, row_start=5, row_end=9,
+        self.slurp_year_grouped_table(self.ws, data, col_start=6, cols=1, cols_per_group=4, year_heading_row=3, col_heading_row=2, row_start=5, row_end=9,
                                     skip_years=[1995])
         return data
 
-    def import_14F(self, ws, sheet_info):
+    def import_14F(self, sheet_info):
         all_data = {}
 
         data = {}
-        self.slurp_year_grouped_table(ws, data, col_start=6, cols=1, cols_per_group=5, year_heading_row=3, col_heading_row=2, row_start=5, row_end=11,
+        self.slurp_year_grouped_table(self.ws, data, col_start=6, cols=1, cols_per_group=5, year_heading_row=3, col_heading_row=2, row_start=5, row_end=11,
                                     skip_years=[1995, 2000])
         for k, v in data.items():
             all_data.setdefault(k, {})[canon('Anchor, announcer or presenter: Usually in the television studio')] = v
 
         data = {}
-        self.slurp_year_grouped_table(ws, data, col_start=6, cols=1, cols_per_group=5, year_heading_row=23, col_heading_row=22, row_start=25, row_end=31,
+        self.slurp_year_grouped_table(self.ws, data, col_start=6, cols=1, cols_per_group=5, year_heading_row=23, col_heading_row=22, row_start=25, row_end=31,
                                     skip_years=[1995, 2000])
         for k, v in data.items():
             all_data.setdefault(k, {})[canon('Reporter: Usually outside the studio. Include reporters who do not appear on screen, but whose voice is heard (e.g. as voice-over).')] = v
 
         return all_data
 
-    def import_15aF(self, ws, sheet_info):
+    def import_15aF(self, sheet_info):
         data = {}
 
-        self.slurp_year_grouped_table(ws, data, col_start=6, cols=2, cols_per_group=5, year_heading_row=5, col_heading_row=4, row_start=7, row_end=8,
+        self.slurp_year_grouped_table(self.ws, data, col_start=6, cols=2, cols_per_group=5, year_heading_row=5, col_heading_row=4, row_start=7, row_end=8,
                                     skip_years=[1995, 2000])
 
         return data
 
-    def import_15bF(self, ws, sheet_info):
+    def import_15bF(self, sheet_info):
         data = {}
-        self.slurp_year_grouped_table(ws, data, col_start=6, cols=1, cols_per_group=5, year_heading_row=4, col_heading_row=3, row_start=5, row_end=56, skip_years=[1995, 2000, 2005])
+        self.slurp_year_grouped_table(, data, col_start=6, cols=1, cols_per_group=5, year_heading_row=4, col_heading_row=3, row_start=5, row_end=56, skip_years=[1995, 2000, 2005])
         return data
 
-    def import_15cF(self, ws, sheet_info):
+    def import_15cF(self, sheet_info):
         data = {}
-        self.slurp_year_grouped_table(ws, data, col_start=6, cols=8, cols_per_group=5, year_heading_row=3, col_heading_row=2, row_start=4, row_end=55,
+        self.slurp_year_grouped_table(self.ws, data, col_start=6, cols=8, cols_per_group=5, year_heading_row=3, col_heading_row=2, row_start=4, row_end=55,
                                     skip_years=[1995, 2000, 2005])
         return data
 
-    def import_16cF(self, ws, sheet_info):
+    def import_16cF(self, sheet_info):
         data = {}
-        self.slurp_year_grouped_table(ws, data, col_start=6, cols=2, cols_per_group=5, year_heading_row=3, col_heading_row=2, row_start=4, row_end=11, skip_years=[1995, 2000, 2005])
+        self.slurp_year_grouped_table(self.ws, data, col_start=6, cols=2, cols_per_group=5, year_heading_row=3, col_heading_row=2, row_start=4, row_end=11, skip_years=[1995, 2000, 2005])
         return data
 
-    def import_16dF(self, ws, sheet_info):
+    def import_16dF(self, sheet_info):
         data = {}
-        self.slurp_year_grouped_table(ws, data, col_start=6, cols=2, cols_per_group=5, year_heading_row=3, col_heading_row=2, row_start=4, row_end=11,
+        self.slurp_year_grouped_table(self.ws, data, col_start=6, cols=2, cols_per_group=5, year_heading_row=3, col_heading_row=2, row_start=4, row_end=11,
                                     skip_years=[1995, 2000, 2005])
         return data
 
-    def import_16eF(self, ws, sheet_info):
+    def import_16eF(self, sheet_info):
         data = {}
         for col_start, cols_per_group, skip_years in [(6, 5, [1995, 2000, 2005]), (11, 2, [])]:
-            self.slurp_year_grouped_table(ws, data, col_start=col_start, cols=1, cols_per_group=cols_per_group, year_heading_row=3, col_heading_row=2, row_start=4, row_end=55, row_heading_col=5, skip_years=skip_years)
+            self.slurp_year_grouped_table(self.ws, data, col_start=col_start, cols=1, cols_per_group=cols_per_group, year_heading_row=3, col_heading_row=2, row_start=4, row_end=55, row_heading_col=5, skip_years=skip_years)
         return data
 
-    def import_18cF(self, ws, sheet_info):
+    def import_18cF(self, sheet_info):
         all_data = {}
 
         for year, col_start, col_end in [(2005, 10, 11), (2010, 12, 14)]:
             data = {}
             all_data[year] = data
-            self.slurp_table(ws, data, col_start=col_start, col_end=col_end, row_start=6, row_end=11, col_heading_row=4)
+            self.slurp_table(self.ws, data, col_start=col_start, col_end=col_end, row_start=6, row_end=11, col_heading_row=4)
 
         return all_data
 
-    def import_18dF(self, ws, sheet_info):
+    def import_18dF(self, sheet_info):
         all_data = {}
 
         col_heading = canon('radio')
         col_data = {}
         all_data[2010] = {col_heading: col_data}
-        self.slurp_table(ws, col_data, col_start=12, col_end=13, col_heading_row=4, row_start=6, row_end=11)
+        self.slurp_table(self.ws, col_data, col_start=12, col_end=13, col_heading_row=4, row_start=6, row_end=11)
 
         col_heading = canon('television')
         for year, col_start, col_end in [(2005, 18, 19), (2010, 20, 22)]:
@@ -240,60 +242,60 @@ class Import2010(BaseImport):
             else:
                 all_data[year] = {col_heading: col_data}
 
-            self.slurp_table(ws, col_data, col_start=col_start, col_end=col_end, col_heading_row=4, row_start=6, row_end=11)
+            self.slurp_table(self.ws, col_data, col_start=col_start, col_end=col_end, col_heading_row=4, row_start=6, row_end=11)
 
         return all_data
 
-    def import_20aF(self, ws, sheet_info):
+    def import_20aF(self, sheet_info):
         year = 2010
         data = {}
         all_data = {year: data}
 
-        self.slurp_secondary_col_table(ws, data, col_start=48, cols=7, cols_per_group=2, major_col_heading_row=3, row_start=7, row_end=31)
+        self.slurp_secondary_col_table(self.ws, data, col_start=48, cols=7, cols_per_group=2, major_col_heading_row=3, row_start=7, row_end=31)
         return all_data
 
-    def import_20bF(self, ws, sheet_info):
+    def import_20bF(self, sheet_info):
         year = 2010
         data = {}
         all_data = {year: data}
 
-        self.slurp_secondary_col_table(ws, data, col_start=42, cols=6, cols_per_group=2, major_col_heading_row=3, row_start=6, row_end=11)
+        self.slurp_secondary_col_table(self.ws, data, col_start=42, cols=6, cols_per_group=2, major_col_heading_row=3, row_start=6, row_end=11)
         return all_data
 
-    def import_20fF(self, ws, sheet_info):
+    def import_20fF(self, sheet_info):
         year = 2010
         data = {}
         all_data = {year: data}
 
-        self.slurp_secondary_col_table(ws, data, col_start=48, cols=7, cols_per_group=2, major_col_heading_row=3, row_start=7, row_end=31)
+        self.slurp_secondary_col_table(self.ws, data, col_start=48, cols=7, cols_per_group=2, major_col_heading_row=3, row_start=7, row_end=31)
         return all_data
 
-    def import_19bF(self, ws, sheet_info):
+    def import_19bF(self, sheet_info):
         all_data = {}
 
         for year, col_start, col_end in [(2005, 10, 11), (2010, 12, 14)]:
             data = {}
             all_data[year] = data
-            self.slurp_table(ws, data, col_start=col_start, col_end=col_end, row_start=6, row_end=13, col_heading_row=4)
+            self.slurp_table(self.ws, data, col_start=col_start, col_end=col_end, row_start=6, row_end=13, col_heading_row=4)
 
         return all_data
 
-    def import_20gF(self, ws, sheet_info):
+    def import_20gF(self, sheet_info):
         all_data = {}
 
         for year, col_start, col_end in [(2000, 8, 9), (2005, 10, 11), (2010, 12, 13)]:
             data = {}
             all_data[year] = data
-            self.slurp_table(ws, data, col_start=col_start, col_end=col_end, row_start=7, row_end=7, col_heading_row=4)
+            self.slurp_table(self.ws, data, col_start=col_start, col_end=col_end, row_start=7, row_end=7, col_heading_row=4)
 
         return all_data
 
-    def import_20hF(self, ws, sheet_info):
+    def import_20hF(self, sheet_info):
         all_data = {}
 
         for year, col_start, col_end in [(2000, 8, 9), (2005, 10, 11), (2010, 12, 14)]:
             data = {}
             all_data[year] = data
-            self.slurp_table(ws, data, col_start=col_start, col_end=col_end, row_start=6, row_end=7, col_heading_row=4)
+            self.slurp_table(self.ws, data, col_start=col_start, col_end=col_end, row_start=6, row_end=7, col_heading_row=4)
 
         return all_data

@@ -60,24 +60,28 @@ class Historical(BaseImport):
         elif country:
             self.log.info("Importing for country %s" % country)
             key = canon(country)
-        import_classes = {  # instantiate the classes we need for our imports
-            "2010": Import2010(),
-            "2015": Import2015(),
+        report_importer_by_year = {
+            "2010": Import2010,
+            "2015": Import2015,
         }
-        for old_sheet, new_sheet in self.historical_sheets(coverage):
+        for old_sheet, new_sheet in self.historical_sheets(coverage, year):
             # find matching sheet name
-            import_class = import_classes[year]
-            ws = import_class.get_work_sheet(wb, old_sheet, new_sheet, year)
+            report_importer = report_importer_by_year[year]()
+            ws = report_importer.get_work_sheet(wb, old_sheet, new_sheet)
             if not ws:
                 self.log.warn("Couldn't find historical sheet %s; only have these sheets available: %s" % (old_sheet,
                             ', '.join(sorted(wb.sheetnames))))
                 continue
 
             self.log.info("Importing sheet %s" % old_sheet)
-            data = import_class.import_data(ws, old_sheet, new_sheet)
+            data = report_importer.import_sheet(ws, old_sheet, new_sheet)
             self.all_data.setdefault(key, {})[old_sheet][year] = data
             self.log.info("Imported sheet %s" % old_sheet)
 
-    def historical_sheets(self, coverage):
-        return [(sheet['historical'], sheet) for sheet in WS_INFO.values()
-                if 'historical' in sheet and coverage in sheet['reports']]
+    def historical_sheets(self, coverage, year):
+        sheets = []
+        for sheet_by_year in WS_INFO.values():
+            sheet = sheet_by_year.get(year)
+            if sheet and ('historical' in sheet and coverage in sheet['reports']):
+                sheets.append((sheet['historical'], sheet))
+        return sheets
