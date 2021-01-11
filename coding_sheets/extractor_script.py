@@ -3,7 +3,6 @@ import json
 from django.conf import settings
 import coding_sheets.coding_info as coding_info
 
-pd.set_option("display.max_colwidth", 100)
 
 # read coding sheets
 def read_coding_sheet(filename):
@@ -293,7 +292,7 @@ def get_sheet(coding_dict):
         dict_copy[key] = dict_copy[key].filter(regex="^(?![0-9])(?![z])", axis=1)
 
         # dropna
-        dict_copy[key].dropna(subset=["covid19"], inplace=True)
+        # dict_copy[key].dropna(subset=["covid19"], inplace=True)        
 
     coding_data = format_coding_data(dict_copy)
     return coding_data
