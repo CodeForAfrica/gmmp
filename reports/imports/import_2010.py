@@ -89,10 +89,30 @@ class Import2010(BaseImport):
 
         return all_data
 
-    def import_9aF(self, sheet_info):
-        all_data = {}
-        self.slurp_year_grouped_table(self.ws, all_data, col_start=6, cols=1, cols_per_group=5, year_heading_row=4,
-                                      col_heading_row=3, row_start=5, row_end=12)
+    def import_9aF(self, sheet_info, all_data=None, **kwargs):
+        # grab information needed to retrieve data from correct cells in work sheet
+        col_heading_row = 3 if 'col_heading_row' not in kwargs else kwargs['col_heading_row']
+        row_start = 5 if 'row_start' not in kwargs else kwargs['row_start']
+        row_end = 12 if 'row_end' not in kwargs else kwargs['row_end']
+        col_start = 6 if 'col_start' not in kwargs else kwargs['col_start']
+        row_heading_col = 5 if 'row_heading_col' not in kwargs else kwargs['row_heading_col']
+
+        # setup dict for data
+        all_data = dict() if not all_data else all_data
+
+        self.slurp_year_grouped_table(
+            self.ws,
+            all_data,
+            col_start=col_start,
+            cols=1,
+            cols_per_group=5,
+            year_heading_row=4,
+            col_heading_row=col_heading_row,
+            row_start=row_start,
+            row_end=row_end,
+            row_heading_col=row_heading_col
+        )
+
         return all_data
 
     def import_9bF(self, sheet_info):

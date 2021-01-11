@@ -1,5 +1,6 @@
 from reports.utils.recodes import recode
 
+
 def canon(key):
     if key:
         key = key.replace(u'\u2026', '')
