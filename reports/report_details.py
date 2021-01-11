@@ -104,13 +104,13 @@ WS_INFO = {
         },
     },
     'ws_05': {
-        '2015': {
-            'name': '5',
-            'historical': '9aF',
-            'title': 'Summary of women in the news, by GMMP year',
-            'desc': 'Overall presence of women in news',
-            'reports': ['global', 'region', 'country'],
-        },
+        # '2015': {
+        #     'name': '5',
+        #     'historical': '9aF',
+        #     'title': 'Summary of women in the news, by GMMP year',
+        #     'desc': 'Overall presence of women in news',
+        #     'reports': ['global', 'region', 'country'],
+        # },
         '2010': {
             'name': '5',
             'historical': '9aF',

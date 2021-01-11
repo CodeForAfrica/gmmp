@@ -173,7 +173,7 @@ class XLSXReportBuilder:
             sheets = list(WS_INFO.keys())
 
         # choose only those suitable for this report type
-        sheets = [s for s in sheets if self.report_type in WS_INFO[s]['reports']]
+        sheets = [s for s in sheets if self.report_type in WS_INFO['2015'][s]['reports']]
         sheets.sort()
 
         self.write_key_sheet(workbook, sheets)

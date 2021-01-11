@@ -73,10 +73,10 @@ class Historical(BaseImport):
                             ', '.join(sorted(wb.sheetnames))))
                 continue
 
-            self.log.info("Importing sheet %s" % old_sheet)
-            data = report_importer.import_sheet(ws, old_sheet, new_sheet)
-            self.all_data.setdefault(key, {})[old_sheet][year] = data
-            self.log.info("Imported sheet %s" % old_sheet)
+            self.log.info("Importing sheet %s" % new_sheet['name'])
+            data = report_importer.import_sheet(old_sheet, new_sheet)
+            self.all_data.setdefault(key, {})[new_sheet['name']] = data
+            self.log.info("Imported sheet %s" % new_sheet['name'])
 
     def historical_sheets(self, coverage, year):
         sheets = []

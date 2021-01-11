@@ -1,6 +1,8 @@
 from .base import BaseImport
 
 from reports.utils.canon import canon
+from .import_2010 import Import2010
+
 
 class Import2015(BaseImport):
     """
@@ -8,22 +10,40 @@ class Import2015(BaseImport):
     """
     def __init__(self):
         self.ws = None
+        self.old_sheet = None
+        self.new_sheet = None
+        self.import_2010 = Import2010()
 
     def get_work_sheet(self, wb, old_sheet, new_sheet):
         for name in wb.sheetnames:
             if name == new_sheet.get('name') or name.startswith(old_sheet + ' '):
                 self.ws = wb[name]
                 break
+        self.import_2010.ws = self.ws
         return self.ws
 
-    def import_sheet(self, old_sheet, new_sheet):
-        return getattr(self, 'import_%s' % new_sheet.get('name'))(new_sheet)
+    def import_sheet(self, old_sheet, new_sheet, all_data=None):
+        self.old_sheet, self.new_sheet = old_sheet, new_sheet
+        return getattr(self, 'import_%s' % new_sheet.get('name'))(new_sheet, all_data=all_data)
 
-    def import_1(self, sheet_info):
+    def import_1(self, sheet_info, all_data=None):
+        # setup dict for data
         data = {}
+        all_data = dict() if not all_data else all_data
+        all_data[2015] = data
+
+        # import current year's data
         self.slurp_table(self.ws, data, col_start=3, col_end=10, row_end=14)
 
-        return data
+        # import previous year's data too
+        self.import_2010.import_sheet(
+            self.old_sheet,
+            self.new_sheet,
+            all_data=all_data,
+            col_start=13,
+            col_end=16,
+        )
+        return all_data
 
     def import_5(self, sheet_info):
         all_data = {}
