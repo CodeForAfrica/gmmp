@@ -36,7 +36,7 @@ class Command(BaseCommand):
         year = options['year']
         filenames = options['filenames']
 
-        if not year in ['2010', '2015']:
+        if year not in ['2010', '2015']:
             year = '2015'
 
         if options['global']:

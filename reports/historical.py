@@ -64,24 +64,24 @@ class Historical(BaseImport):
             "2010": Import2010,
             "2015": Import2015,
         }
-        for old_sheet, new_sheet in self.historical_sheets(coverage, year):
+        for sheet in self.historical_sheets(coverage, year):
             # find matching sheet name
             report_importer = report_importer_by_year[year]()
-            ws = report_importer.get_work_sheet(wb, old_sheet, new_sheet)
+            ws = report_importer.get_work_sheet(wb, sheet)
             if not ws:
-                self.log.warn("Couldn't find historical sheet %s; only have these sheets available: %s" % (old_sheet,
-                            ', '.join(sorted(wb.sheetnames))))
+                self.log.warn("Couldn't find historical sheet %s; only have these sheets available: %s" % (
+                    sheet.get('historical'), ', '.join(sorted(wb.sheetnames))))
                 continue
 
-            self.log.info("Importing sheet %s" % new_sheet['name'])
-            data = report_importer.import_sheet(old_sheet, new_sheet)
-            self.all_data.setdefault(key, {})[new_sheet['name']] = data
-            self.log.info("Imported sheet %s" % new_sheet['name'])
+            self.log.info("Importing sheet %s" % sheet.get('historical'))
+            data = report_importer.import_sheet(sheet)
+            self.all_data.setdefault(key, {})[sheet.get('historical')] = data
+            self.log.info("Imported sheet %s" % sheet.get('historical'))
 
     def historical_sheets(self, coverage, year):
         sheets = []
         for sheet_by_year in WS_INFO.values():
             sheet = sheet_by_year.get(year)
             if sheet and ('historical' in sheet and coverage in sheet['reports']):
-                sheets.append((sheet['historical'], sheet))
+                sheets.append(sheet)
         return sheets

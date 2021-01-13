@@ -63,10 +63,11 @@ WS_INFO = {
     'ws_01': {
         '2015': {
             'name': '1',
-            'historical': '1F',
+            'historical': '1',
             'title': 'Participating Countries',
             'desc': 'Breakdown of all media by region',
             'reports': ['global'],
+            'previous_year_key': '1F',
         },
         '2010': {
             'name': '1',
@@ -106,10 +107,11 @@ WS_INFO = {
     'ws_05': {
         '2015': {
             'name': '5',
-            'historical': '9aF',
+            'historical': '5',
             'title': 'Summary of women in the news, by GMMP year',
             'desc': 'Overall presence of women in news',
             'reports': ['global', 'region', 'country'],
+            'previous_year_key': '9aF',
         },
         '2010': {
             'name': '5',

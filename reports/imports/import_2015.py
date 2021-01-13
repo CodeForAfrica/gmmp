@@ -10,21 +10,21 @@ class Import2015(BaseImport):
     """
     def __init__(self):
         self.ws = None
-        self.old_sheet = None
+        self.old_sheet = dict()
         self.new_sheet = None
         self.import_2010 = Import2010()
 
-    def get_work_sheet(self, wb, old_sheet, new_sheet):
+    def get_work_sheet(self, wb, sheet):
         for name in wb.sheetnames:
-            if name == new_sheet.get('name') or name.startswith(old_sheet + ' '):
+            if name == sheet.get('historical'):
                 self.ws = wb[name]
                 break
         self.import_2010.ws = self.ws
         return self.ws
 
-    def import_sheet(self, old_sheet, new_sheet, all_data=None):
-        self.old_sheet, self.new_sheet = old_sheet, new_sheet
-        return getattr(self, 'import_%s' % new_sheet.get('name'))(new_sheet, all_data=all_data)
+    def import_sheet(self, sheet, all_data=None):
+        self.old_sheet['historical'], self.new_sheet = sheet.get('previous_year_key'), sheet
+        return getattr(self, 'import_%s' % sheet.get('historical'))(sheet, all_data=all_data)
 
     def import_1(self, sheet_info, all_data=None):
         # setup dict for data
@@ -38,7 +38,6 @@ class Import2015(BaseImport):
         # import previous year's data too
         self.import_2010.import_sheet(
             self.old_sheet,
-            self.new_sheet,
             all_data=all_data,
             col_start=13,
             col_end=16,
@@ -66,7 +65,6 @@ class Import2015(BaseImport):
         # import previous year's data too
         self.import_2010.import_sheet(
             self.old_sheet,
-            self.new_sheet,
             all_data=all_data,
             col_heading_row=6,
             row_start=8,

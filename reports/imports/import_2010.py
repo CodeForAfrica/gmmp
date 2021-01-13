@@ -10,14 +10,15 @@ class Import2010(BaseImport):
     def __init__(self):
         self.ws = None
 
-    def get_work_sheet(self, wb, old_sheet, new_sheet):
+    def get_work_sheet(self, wb, sheet):
         for name in wb.sheetnames:
-            if name == old_sheet or name.startswith(old_sheet + ' '):
+            if name == sheet.get('historical'):
                 self.ws = wb[name]
         return self.ws
 
-    def import_sheet(self, old_sheet, new_sheet, all_data=None, **kwargs):
-        return getattr(self, 'import_%s' % old_sheet)(new_sheet, all_data=all_data, **kwargs)
+    def import_sheet(self, sheet, all_data=None, **kwargs):
+        return getattr(
+            self, 'import_%s' % sheet.get('historical'))(sheet, all_data=all_data, **kwargs)
 
     def import_1F(self, sheet_info, all_data=None, **kwargs):
         # grab information needed to retrieve data from correct cells in work sheet
