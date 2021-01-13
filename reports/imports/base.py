@@ -102,3 +102,20 @@ class BaseImport(object):
                     for irow in range(row_start, row_end + 1):
                         row_heading = canon(ws.cell(column=row_heading_col, row=irow).value)
                         col_data[row_heading] = v(ws.cell(column=iyear, row=irow).value)
+
+    def import_sheet_1(self, ws, data, col_start, col_end, row_end):
+        self.slurp_table(ws, data, col_start=col_start, col_end=col_end, row_end=row_end)
+
+    def import_sheet_5(self, ws, data, col_start, col_heading_row, row_start, row_end, row_heading_col):
+        self.slurp_year_grouped_table(
+            ws,
+            data,
+            col_start=col_start,
+            cols=1,
+            cols_per_group=5,
+            year_heading_row=4,
+            col_heading_row=col_heading_row,
+            row_start=row_start,
+            row_end=row_end,
+            row_heading_col=row_heading_col
+        )

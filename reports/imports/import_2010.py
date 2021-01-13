@@ -16,23 +16,16 @@ class Import2010(BaseImport):
                 self.ws = wb[name]
         return self.ws
 
-    def import_sheet(self, sheet, all_data=None, **kwargs):
+    def import_sheet(self, sheet):
         return getattr(
-            self, 'import_%s' % sheet.get('historical'))(sheet, all_data=all_data, **kwargs)
+            self, 'import_%s' % sheet.get('historical'))(sheet)
 
-    def import_1F(self, sheet_info, all_data=None, **kwargs):
-        # grab information needed to retrieve data from correct cells in work sheet
-        col_start = 15 if 'col_start' not in kwargs else kwargs['col_start']
-        col_end = 18 if 'col_end' not in kwargs else kwargs['col_end']
-        row_end = 12 if 'row_end' not in kwargs else kwargs['row_end']
-
-        # setup dict for data
+    def import_1F(self, sheet_info):
+        year = 2010
         data = {}
-        all_data = dict() if not all_data else all_data
-        all_data[2010] = data
+        all_data = {year: data}
 
-        # import data
-        self.slurp_table(self.ws, data, col_start=col_start, col_end=col_end, row_end=row_end)
+        self.import_sheet_1(self.ws, data, col_start=15, col_end=18, row_end=12)
 
         return all_data
 
@@ -90,31 +83,19 @@ class Import2010(BaseImport):
 
         return all_data
 
-    def import_9aF(self, sheet_info, all_data=None, **kwargs):
-        # grab information needed to retrieve data from correct cells in work sheet
-        col_heading_row = 3 if 'col_heading_row' not in kwargs else kwargs['col_heading_row']
-        row_start = 5 if 'row_start' not in kwargs else kwargs['row_start']
-        row_end = 12 if 'row_end' not in kwargs else kwargs['row_end']
-        col_start = 6 if 'col_start' not in kwargs else kwargs['col_start']
-        row_heading_col = 5 if 'row_heading_col' not in kwargs else kwargs['row_heading_col']
-
-        # setup dict for data
-        all_data = dict() if not all_data else all_data
-
-        self.slurp_year_grouped_table(
+    def import_9aF(self, sheet_info):
+        data = dict()
+        self.import_sheet_5(
             self.ws,
-            all_data,
-            col_start=col_start,
-            cols=1,
-            cols_per_group=5,
-            year_heading_row=4,
-            col_heading_row=col_heading_row,
-            row_start=row_start,
-            row_end=row_end,
-            row_heading_col=row_heading_col
+            data,
+            col_start=6,
+            col_heading_row=3,
+            row_start=4,
+            row_end=12,
+            row_heading_col=5
         )
 
-        return all_data
+        return data
 
     def import_9bF(self, sheet_info):
         data = {}

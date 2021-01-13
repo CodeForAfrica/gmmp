@@ -67,7 +67,6 @@ WS_INFO = {
             'title': 'Participating Countries',
             'desc': 'Breakdown of all media by region',
             'reports': ['global'],
-            'previous_year_key': '1F',
         },
         '2010': {
             'name': '1',
@@ -111,7 +110,6 @@ WS_INFO = {
             'title': 'Summary of women in the news, by GMMP year',
             'desc': 'Overall presence of women in news',
             'reports': ['global', 'region', 'country'],
-            'previous_year_key': '9aF',
         },
         '2010': {
             'name': '5',
