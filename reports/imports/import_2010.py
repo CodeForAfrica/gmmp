@@ -25,7 +25,7 @@ class Import2010(BaseImport):
         data = {}
         all_data = {year: data}
 
-        self.import_sheet_1(self.ws, data, col_start=15, col_end=18, row_end=12)
+        self.slurp_table(self.ws, data, col_start=15, col_end=18, row_end=12)
 
         return all_data
 
@@ -85,10 +85,13 @@ class Import2010(BaseImport):
 
     def import_9aF(self, sheet_info):
         data = dict()
-        self.import_sheet_5(
+        self.slurp_year_grouped_table(
             self.ws,
             data,
             col_start=6,
+            cols=1,
+            cols_per_group=5,
+            year_heading_row=4,
             col_heading_row=3,
             row_start=4,
             row_end=12,

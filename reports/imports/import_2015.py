@@ -28,7 +28,7 @@ class Import2015(BaseImport):
         all_data[2010] = data_for_2010
 
         self.slurp_table(self.ws, data_for_2015, col_start=3, col_end=10, row_end=14)
-        self.import_sheet_1(self.ws, data_for_2010, col_start=13, col_end=16, row_end=12)
+        self.slurp_table(self.ws, data_for_2010, col_start=13, col_end=16, row_end=12)
 
         return all_data
 
@@ -45,14 +45,18 @@ class Import2015(BaseImport):
 
             self.slurp_table(self.ws, data, col_start, col_end, row_end, row_start, col_heading_row, row_heading_col)
             col_start, col_end = 7, 9
-        self.import_sheet_5(
+
+        self.slurp_year_grouped_table(
             self.ws,
             all_data,
             col_start=12,
+            cols=1,
+            cols_per_group=5,
+            year_heading_row=4,
             col_heading_row=6,
             row_start=8,
             row_end=14,
-            row_heading_col=11,
+            row_heading_col=11
         )
 
         return all_data
