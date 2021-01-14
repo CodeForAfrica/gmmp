@@ -22,20 +22,22 @@ class GMMP2015ReportImporter(BaseReportImporter):
         return getattr(self, "import_%s" % sheet.get("historical"))(sheet)
 
     def import_1(self, sheet_info):
-        data_for_2015 = {}
-        data_for_2010 = {}
-        all_data = dict()
-        all_data[2015] = data_for_2015
-        all_data[2010] = data_for_2010
-
-        self.slurp_table(self.ws, data_for_2015, col_start=3, col_end=10, row_end=14)
-        self.slurp_table(self.ws, data_for_2010, col_start=13, col_end=16, row_end=12)
+        all_data = {}
+        for year, col_start, col_end, row_end in [
+            (2015, 3, 10, 14),
+            (2010, 13, 16, 12),
+        ]:
+            data = {}
+            all_data[year] = data
+            self.slurp_table(
+                self.ws, data, col_start=col_start, col_end=col_end, row_end=row_end
+            )
 
         return all_data
 
     def import_5(self, sheet_info):
         data_for_2015 = {}
-        all_data = dict()
+        all_data = {}
         all_data[2015] = data_for_2015
         (
             col_start,
