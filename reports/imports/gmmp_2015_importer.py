@@ -3,7 +3,7 @@ from reports.utils.canon import canon
 from .base import BaseReportImporter
 
 
-class Import2015(BaseReportImporter):
+class GMMP2015ReportImporter(BaseReportImporter):
     """
     Holds the methods that handles importing 2015 data files
     """
