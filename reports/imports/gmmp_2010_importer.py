@@ -3,7 +3,7 @@ from reports.utils.canon import canon
 from .base import BaseReportImporter, v
 
 
-class Import2010(BaseReportImporter):
+class GMMP2010ReportImporter(BaseReportImporter):
     """
     Holds the methods that handles importing 2010 data files
     """
