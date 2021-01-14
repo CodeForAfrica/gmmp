@@ -32,7 +32,7 @@ def v(v):
     return v
 
 
-class BaseImport(object):
+class BaseReportImporter(object):
     def slurp_secondary_col_table(
         self,
         ws,
