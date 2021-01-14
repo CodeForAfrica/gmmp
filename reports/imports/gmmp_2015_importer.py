@@ -1,6 +1,6 @@
 from reports.utils.canon import canon
 
-from .base import BaseReportImporter
+from .base_importer import BaseReportImporter
 
 
 class GMMP2015ReportImporter(BaseReportImporter):
