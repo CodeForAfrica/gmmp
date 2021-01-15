@@ -92,9 +92,9 @@ class BaseReportImporter(object):
         col_start,
         col_end,
         row_end,
-        row_start=7,
-        col_heading_row=5,
-        row_heading_col=2,
+        row_start,
+        col_heading_row,
+        row_heading_col,
     ):
         """
         Grab values from a simple table with column and row titles.
@@ -157,9 +157,6 @@ class BaseReportImporter(object):
                     col_data = data.setdefault(effective_col_heading, {})
 
                     for irow in range(row_start, row_end + 1):
-                        print("\n\n\n\n")
-                        print(f"{year} {ws.cell(column=row_heading_col, row=irow).value}")
-                        print("\n\n\n\n")
                         row_heading = canon(
                             ws.cell(column=row_heading_col, row=irow).value
                         )

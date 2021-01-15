@@ -10,6 +10,28 @@ class GMMP2010ReportImporter(BaseReportImporter):
     def __init__(self):
         BaseReportImporter.__init__(self)
 
+    def slurp_table(
+        self,
+        ws,
+        data,
+        col_start,
+        col_end,
+        row_end,
+        row_start=5,
+        col_heading_row=4,
+        row_heading_col=5,
+    ):
+        return super(GMMP2010ReportImporter, self).slurp_table(
+            ws,
+            data,
+            col_start,
+            col_end,
+            row_end,
+            row_start,
+            col_heading_row,
+            row_heading_col,
+        )
+
     def import_1F(self, sheet_info):
         year = 2010
         data = {}
