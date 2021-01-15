@@ -5,9 +5,9 @@ import logging
 import datetime
 
 # Django
+from django.conf import settings
 from django.db import connection
 from django.db.models import Count, FieldDoesNotExist
-from django.conf import settings
 
 # 3rd Party
 import xlsxwriter
@@ -134,7 +134,8 @@ class XLSXReportBuilder:
         self.female_ids = [id for id, value in self.female]
         self.yes = [(id, value) for id, value in YESNO if id == 'Y']
 
-        self.gmmp_year = '2020'
+        self.current_year = settings.REPORTS_CURRENT_YEAR
+        self.historical_year = settings.REPORTS_HISTORICAL_YEAR
 
         self.historical = Historical()
 
@@ -173,19 +174,25 @@ class XLSXReportBuilder:
             sheets = list(WS_INFO.keys())
 
         # choose only those suitable for this report type
-        sheets = [s for s in sheets if self.report_type in WS_INFO['2015'][s]['reports']]
-        sheets.sort()
+        report_type_sheets = []
+        for sheet in sheets:
+            sheet_info = WS_INFO[sheet].get(self.historical_year)
+            if sheet_info and ("reports" in sheet_info and self.report_type in sheet_info["reports"]):
+                report_type_sheets.append(sheet)
+                
+        sheets = report_type_sheets.sort()
 
         self.write_key_sheet(workbook, sheets)
 
         self.write_aggregate_sheet(workbook)
 
         for sheet in sheets:
-            ws = workbook.add_worksheet(WS_INFO[sheet]['name'])
-            self.write_headers(ws, WS_INFO[sheet]['title'], WS_INFO[sheet]['desc'])
-            self.log.info("Building sheet %s" % sheet)
+            sheet_info = WS_INFO[sheet][self.historical_year]
+            ws = workbook.add_worksheet(sheet_info['name'])
+            self.write_headers(ws, sheet_info['title'], sheet_info['desc'])
+            self.log.info("Building sheet %s", sheet)
             getattr(self, sheet)(ws)
-            self.log.info("Completed sheet %s" % sheet)
+            self.log.info("Completed sheet %s", sheet)
 
         if not settings.DEBUG:
             self.write_raw_data_sheets(workbook)
@@ -211,10 +218,11 @@ class XLSXReportBuilder:
         ws.write(5, 3, 'Description', self.col_heading)
 
         for i, sheet in enumerate(sheets):
-            ws.write(6 + i, 0, WS_INFO[sheet]['name'])
-            ws.write(6 + i, 1, WS_INFO[sheet]['title'])
-            ws.write(6 + i, 1, WS_INFO[sheet].get('historical', ''))
-            ws.write(6 + i, 2, WS_INFO[sheet]['desc'])
+            sheet_info = WS_INFO[sheet][self.historical_year]
+            ws.write(6 + i, 0, sheet_info['name'])
+            ws.write(6 + i, 1, sheet_info['title'])
+            ws.write(6 + i, 1, sheet_info.get('historical', ''))
+            ws.write(6 + i, 2, sheet_info['desc'])
 
 
     def write_aggregate_sheet(self, workbook):
@@ -4214,7 +4222,7 @@ class XLSXReportBuilder:
         """
         ws.write(0, 0, title, self.heading)
         ws.write(1, 0, description, self.heading)
-        ws.write(3, 2, self.gmmp_year, self.heading)
+        ws.write(3, 2, self.current_year, self.heading)
 
     def write_col_headings(self, ws, cols, c=2, r=4, show_N=False):
         """
