@@ -16,14 +16,7 @@ class Historical(object):
 
     def __init__(self, historical_file="historical.json"):
         self.fname = historical_file
-        self.load()
-
-    def load(self):
-        if os.path.exists(self.fname):
-            with open(self.fname, "r") as f:
-                self.all_data = json.load(f)
-        else:
-            self.all_data = {}
+        self.all_data = {}
 
     def save(self):
         with open(self.fname, "w") as f:
