@@ -180,7 +180,7 @@ class XLSXReportBuilder:
             if sheet_info and ("reports" in sheet_info and self.report_type in sheet_info["reports"]):
                 report_type_sheets.append(sheet)
                 
-        sheets = report_type_sheets.sort()
+        sheets = sorted(report_type_sheets)
 
         self.write_key_sheet(workbook, sheets)
 
