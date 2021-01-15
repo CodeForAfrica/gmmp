@@ -9,6 +9,7 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
     def __init__(self):
         BaseReportImporter.__init__(self)
+        self.year = 2015
 
     def slurp_table(
         self,
@@ -49,7 +50,7 @@ class GMMP2015ReportImporter(BaseReportImporter):
     def import_5(self, sheet_info):
         data_for_2015 = {}
         all_data = {}
-        all_data[2015] = data_for_2015
+        all_data[self.year] = data_for_2015
         (
             col_start,
             col_end,

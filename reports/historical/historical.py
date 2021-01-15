@@ -81,12 +81,12 @@ class Historical(object):
                 continue
 
             self.log.info(
-                "Importing sheet %s of %s report", sheet.get("historical"), year
+                "Importing sheet %s of the %s report", sheet.get("historical"), year
             )
             data = report_importer.import_sheet(sheet)
             self.all_data.setdefault(key, {})[sheet.get("historical")] = data
             self.log.info(
-                "Imported sheet %s of %s report", sheet.get("historical"), year
+                "Imported sheet %s of the %s report", sheet.get("historical"), year
             )
 
     def historical_sheets(self, coverage, year):

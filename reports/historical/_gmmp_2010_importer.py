@@ -9,6 +9,7 @@ class GMMP2010ReportImporter(BaseReportImporter):
 
     def __init__(self):
         BaseReportImporter.__init__(self)
+        self.year = 2010
 
     def slurp_table(
         self,
@@ -33,18 +34,16 @@ class GMMP2010ReportImporter(BaseReportImporter):
         )
 
     def import_1F(self, sheet_info):
-        year = 2010
         data = {}
-        all_data = {year: data}
+        all_data = {self.year: data}
 
         self.slurp_table(self.ws, data, col_start=15, col_end=18, row_end=12)
 
         return all_data
 
     def import_2aF(self, sheet_info):
-        year = 2010
         data = {}
-        all_data = {year: data}
+        all_data = {self.year: data}
 
         self.slurp_table(
             self.ws, data, col_start=15, col_end=17, row_start=5, row_end=12
@@ -53,9 +52,8 @@ class GMMP2010ReportImporter(BaseReportImporter):
         return all_data
 
     def import_2F(self, sheet_info):
-        year = 2010
         data = {}
-        all_data = {year: data}
+        all_data = {self.year: data}
 
         self.slurp_table(
             self.ws, data, col_start=15, col_end=18, row_start=6, row_end=114
@@ -64,9 +62,8 @@ class GMMP2010ReportImporter(BaseReportImporter):
         return all_data
 
     def import_3aF(self, sheet_info):
-        year = 2010
         data = {}
-        all_data = {year: data}
+        all_data = {self.year: data}
 
         self.slurp_table(
             self.ws, data, col_start=6, col_end=13, row_end=11, col_heading_row=3
@@ -160,7 +157,7 @@ class GMMP2010ReportImporter(BaseReportImporter):
 
     def import_9dF(self, sheet_info):
         data = {}
-        all_data = {2010: data}
+        all_data = {self.year: data}
 
         col_heading = canon("Female")
         col_data = {}
@@ -236,7 +233,7 @@ class GMMP2010ReportImporter(BaseReportImporter):
 
     def import_9kF(self, sheet_info):
         data = {}
-        all_data = {2010: data}
+        all_data = {self.year: data}
         self.slurp_secondary_col_table(
             self.ws,
             data,
@@ -267,7 +264,7 @@ class GMMP2010ReportImporter(BaseReportImporter):
 
     def import_12dF(self, sheet_info):
         data = {}
-        all_data = {2010: data}
+        all_data = {self.year: data}
 
         col_heading = canon("Female")
         col_data = {}
@@ -469,7 +466,7 @@ class GMMP2010ReportImporter(BaseReportImporter):
 
         col_heading = canon("radio")
         col_data = {}
-        all_data[2010] = {col_heading: col_data}
+        all_data[self.year] = {col_heading: col_data}
         self.slurp_table(
             self.ws,
             col_data,
@@ -502,9 +499,8 @@ class GMMP2010ReportImporter(BaseReportImporter):
         return all_data
 
     def import_20aF(self, sheet_info):
-        year = 2010
         data = {}
-        all_data = {year: data}
+        all_data = {self.year: data}
 
         self.slurp_secondary_col_table(
             self.ws,
@@ -519,9 +515,8 @@ class GMMP2010ReportImporter(BaseReportImporter):
         return all_data
 
     def import_20bF(self, sheet_info):
-        year = 2010
         data = {}
-        all_data = {year: data}
+        all_data = {self.year: data}
 
         self.slurp_secondary_col_table(
             self.ws,
@@ -536,9 +531,8 @@ class GMMP2010ReportImporter(BaseReportImporter):
         return all_data
 
     def import_20fF(self, sheet_info):
-        year = 2010
         data = {}
-        all_data = {year: data}
+        all_data = {self.year: data}
 
         self.slurp_secondary_col_table(
             self.ws,
