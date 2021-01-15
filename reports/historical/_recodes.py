@@ -1,12 +1,12 @@
 RECODES = {
     # country + region
-    'Pacific': 'Pacific Islands',
-    'Congo, Rep (Brazzaville)': 'Congo',
-    'Congo, Dem Rep': 'Congo (the Democratic Republic of the)',
-    'Bosnia & Herzegovina': 'Bosnia and Herzegovina',
-    'St Lucia': 'Saint Lucia',
-    'St. Vincent and The Grenadines': 'Saint Vincent and the Grenadines',
-    'Trinidad & Tobago': 'Trinidad and Tobago',
+    "Pacific": "Pacific Islands",
+    "Congo, Rep (Brazzaville)": "Congo",
+    "Congo, Dem Rep": "Congo (the Democratic Republic of the)",
+    "Bosnia & Herzegovina": "Bosnia and Herzegovina",
+    "St Lucia": "Saint Lucia",
+    "St. Vincent and The Grenadines": "Saint Vincent and the Grenadines",
+    "Trinidad & Tobago": "Trinidad and Tobago",
     # women topics
     "Arts, entertainment, leisure, cinema, theatre, books, dance": "Arts, entertainment, leisure, cinema, books, dance",
     "Beauty contests, models, fashion, beauty aids, cosmetic surgery": "Beauty contests, models, fashion, cosmetic surgery",
@@ -90,18 +90,13 @@ RECODES = {
     # sex
     "%F": "Female",
     "%M": "Male",
-    'Female  %F': 'Female',
-    "Female %": 'Female',
-    "Male %F": "Male",
-    "Male %f": "Male",
-    "Male %M": "Male",
     "Female %": "Female",
-    'Female  %F"': "Female",
+    "Female  %F": "Female",
     "Male %": "Male",
+    "Male %M": "Male",
     "Other: transgender, transsexual": "Other (transgender, etc.)",
     # survivor_of
     "Survivor of an accident, natural disaster, poverty, disease, illness": "Survivor of an accident, natural disaster, poverty",
-    "Survivor of domestic violence (by husband/wife/partner/other family member), psychological violence, physical assault, marital rape, murder": "Survivor of domestic violence, rape, murder, etc.",
     "Survivor of domestic violence (by husband/wife/partner/other family member), psychological violence, physical assault, marital rape, murder": "Survivor of domestic violence, rape, murder, etc.",
     "Survivor of non-domestic sexual violence or abuse, sexual harassment, rape, trafficking": "Survivor of non-domestic sexual violence, rape, assault, etc. (sexual violence only)",
     "Survivor of other crime, robbery, assault, murder": "Survivor of other non-domestic crime, robbery, etc.",
@@ -122,19 +117,20 @@ RECODES = {
     "No, women are not central": "No",
     "Yes, women are central": "Yes",
     # region weirdness
-    'Africa Female  %F': 'Africa',
-    'Asia Female  %F': 'Asia',
-    'Caribbean Female  %F': 'Caribbean',
-    'Europe Female  %F': 'Europe',
-    'Latin America Female  %F': 'Latin America',
-    'Middle East Female  %F': 'Middle East',
-    'North America Female  %F': 'North America',
-    'Pacific Female  %F': 'Pacific Islands',
+    "Africa Female  %F": "Africa",
+    "Asia Female  %F": "Asia",
+    "Caribbean Female  %F": "Caribbean",
+    "Europe Female  %F": "Europe",
+    "Latin America Female  %F": "Latin America",
+    "Middle East Female  %F": "Middle East",
+    "North America Female  %F": "North America",
+    "Pacific Female  %F": "Pacific Islands",
     "Do not know: (e.g., the person may not be seen clearly)": "Do not know",
     # countries
     "United Kingdom (incl Northern Ireland, Scotland, Wales)": "United Kingdom - England, Ireland, Scotland and Wales",
     "Belgium": "Belgium - French and Flemish",
 }
+
 
 def recode(v):
     return RECODES.get(v, v)

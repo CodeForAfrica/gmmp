@@ -1,31 +1,20 @@
-from reports.utils.canon import canon
-
-from .base_importer import BaseReportImporter
+from .canon import canon
+from ._base_importer import BaseReportImporter
 
 
 class GMMP2015ReportImporter(BaseReportImporter):
     """
-    Holds the methods that handles importing 2015 data files
+    Holds the methods that handles importing the GMMP 2015 final report
     """
 
     def __init__(self):
-        self.ws = None
-
-    def get_work_sheet(self, wb, sheet):
-        for name in wb.sheetnames:
-            if name == sheet.get("historical"):
-                self.ws = wb[name]
-                break
-        return self.ws
-
-    def import_sheet(self, sheet):
-        return getattr(self, "import_%s" % sheet.get("historical"))(sheet)
+        BaseReportImporter.__init__(self)
 
     def import_1(self, sheet_info):
         all_data = {}
         for year, col_start, col_end, row_end in [
             (2015, 3, 10, 14),
-            (2010, 13, 16, 12),
+            (2010, 13, 16, 14),
         ]:
             data = {}
             all_data[year] = data

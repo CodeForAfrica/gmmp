@@ -4,7 +4,7 @@ common to all year import classes. It also holds utility functions
 """
 import re
 
-from reports.utils.canon import canon
+from .canon import canon
 
 
 def v(v):
@@ -33,6 +33,18 @@ def v(v):
 
 
 class BaseReportImporter(object):
+    def __init__(self):
+        self.ws = None
+
+    def get_work_sheet(self, wb, sheet):
+        for name in wb.sheetnames:
+            if name == sheet.get("historical"):
+                self.ws = wb[name]
+        return self.ws
+
+    def import_sheet(self, sheet):
+        return getattr(self, "import_%s" % sheet.get("historical"))(sheet)
+
     def slurp_secondary_col_table(
         self,
         ws,
@@ -145,6 +157,9 @@ class BaseReportImporter(object):
                     col_data = data.setdefault(effective_col_heading, {})
 
                     for irow in range(row_start, row_end + 1):
+                        print("\n\n\n\n")
+                        print(f"{year} {ws.cell(column=row_heading_col, row=irow).value}")
+                        print("\n\n\n\n")
                         row_heading = canon(
                             ws.cell(column=row_heading_col, row=irow).value
                         )
