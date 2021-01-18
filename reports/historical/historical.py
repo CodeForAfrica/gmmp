@@ -16,14 +16,12 @@ class Historical(object):
 
     def __init__(self, historical_file="historical.json"):
         self.fname = historical_file
-        self.load()
+        self.all_data = {}
 
     def load(self):
         if os.path.exists(self.fname):
             with open(self.fname, 'r') as f:
-                self.all_data = json.load(f)
-        else:
-            self.all_data = {}
+                self.all_data = json.load(f)            
 
     def save(self):
         with open(self.fname, "w") as f:
@@ -39,7 +37,7 @@ class Historical(object):
         else:
             raise ValueError("Unknown coverage %s" % coverage)
 
-        sheet = WS_INFO["ws_" + new_ws][str(year)]
+        sheet = WS_INFO["ws_" + new_ws][year]
 
         if "historical" not in sheet:
             raise KeyError(

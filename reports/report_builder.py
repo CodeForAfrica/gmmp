@@ -138,6 +138,7 @@ class XLSXReportBuilder:
         self.historical_year = settings.REPORTS_HISTORICAL_YEAR
 
         self.historical = Historical()
+        self.historical.load()
 
     def recode_countries(self):
         # squash recoded countries
