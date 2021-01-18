@@ -18,11 +18,16 @@ class Historical(object):
         self.fname = historical_file
         self.all_data = {}
 
+    def load(self):
+        if os.path.exists(self.fname):
+            with open(self.fname, 'r') as f:
+                self.all_data = json.load(f)            
+
     def save(self):
         with open(self.fname, "w") as f:
             json.dump(self.all_data, f, indent=2, sort_keys=True)
 
-    def get(self, new_ws, coverage, region=None, country=None):
+    def get(self, new_ws, coverage, year, region=None, country=None):
         if coverage == "region":
             key = canon(region)
         elif coverage == "country":
@@ -32,7 +37,7 @@ class Historical(object):
         else:
             raise ValueError("Unknown coverage %s" % coverage)
 
-        sheet = WS_INFO["ws_" + new_ws]
+        sheet = WS_INFO["ws_" + new_ws][year]
 
         if "historical" not in sheet:
             raise KeyError(
