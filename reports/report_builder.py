@@ -4429,7 +4429,7 @@ class XLSXReportBuilder:
             country = self.country_list[0]
             region = self.region_list[0]
 
-            historical_data = self.historical.get(current_ws, self.report_type,
+            historical_data = self.historical.get(current_ws, self.report_type, year=self.historical_year,
                                                   region=region, country=country)
         except KeyError as e:
             if self.report_type == 'global':
