@@ -93,6 +93,13 @@ WS_INFO = {
             'reports': ['global'],
             'historical': '2aF'
         },
+        '2015': {
+            'name': '3',
+            'title': 'Counts of media monitored',
+            'desc': 'Total number of distinct media monitored',
+            'reports': ['global'],
+            'historical': '3'
+        },
     },
     'ws_04': {
         '2010': {

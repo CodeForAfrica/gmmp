@@ -116,6 +116,92 @@
         }
       }
     },
+    "3": {
+      "2010": {
+        "print": {
+          "africa": 77,
+          "asia": 96,
+          "caribbean": 28,
+          "europe": 186,
+          "latin america": 65,
+          "middle east": 26,
+          "north america": 21,
+          "pacific islands": 20
+        },
+        "radio": {
+          "africa": 57,
+          "asia": 64,
+          "caribbean": 35,
+          "europe": 157,
+          "latin america": 40,
+          "middle east": 34,
+          "north america": 5,
+          "pacific islands": 21
+        },
+        "television": {
+          "africa": 41,
+          "asia": 69,
+          "caribbean": 24,
+          "europe": 132,
+          "latin america": 41,
+          "middle east": 21,
+          "north america": 7,
+          "pacific islands": 14
+        }
+      },
+      "2015": {
+        "internet": {
+          "africa": 21,
+          "asia": 32,
+          "caribbean": 19,
+          "europe": 149,
+          "latin america": 53,
+          "middle east": 13,
+          "north america": 12,
+          "pacific islands": 7
+        },
+        "print": {
+          "africa": 142,
+          "asia": 75,
+          "caribbean": 56,
+          "europe": 211,
+          "latin america": 98,
+          "middle east": 30,
+          "north america": 28,
+          "pacific islands": 22
+        },
+        "radio": {
+          "africa": 98,
+          "asia": 30,
+          "caribbean": 41,
+          "europe": 117,
+          "latin america": 68,
+          "middle east": 21,
+          "north america": 3,
+          "pacific islands": 14
+        },
+        "television": {
+          "africa": 63,
+          "asia": 52,
+          "caribbean": 29,
+          "europe": 122,
+          "latin america": 66,
+          "middle east": 24,
+          "north america": 13,
+          "pacific islands": 11
+        },
+        "twitter": {
+          "africa": 9,
+          "asia": 5,
+          "caribbean": 20,
+          "europe": 145,
+          "latin america": 81,
+          "middle east": 0,
+          "north america": 10,
+          "pacific islands": 15
+        }
+      }
+    },
     "5": {
       "1995": {
         "female": {
