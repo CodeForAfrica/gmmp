@@ -47,6 +47,39 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         return all_data
 
+    def import_2(self, sheet_info):
+        all_data = dict()
+        for year, col_start, col_end in [
+            (2015, 3, 10),
+            (2010, 13, 16)
+        ]:
+            data = dict()
+            all_data[year] = data
+            continents = {
+                'Africa': (7, 38),
+                'Asia': (41, 51),
+                'Caribbean': (54, 68),
+                'Europe': (71, 100),
+                'Latin America': (103, 116),
+                'Middle East': (119, 124),
+                'North America': (127, 128),
+                'Pacific Island': (131, 134),
+            }
+            for continent in continents.keys():
+                row_start, row_end = continents[continent]
+                continental_data = dict()
+                data[continent] = continental_data
+
+                self.slurp_table(
+                    self.ws,
+                    continental_data,
+                    col_start=col_start,
+                    col_end=col_end,
+                    row_start=row_start,
+                    row_end=row_end,
+                )
+        return all_data
+
     def import_3(self, sheet_info):
         all_data = {}
         for year, col_start, col_end, row_end in [

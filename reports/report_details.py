@@ -84,6 +84,13 @@ WS_INFO = {
             'reports': ['global', 'region'],
             'historical': '2F',
         },
+        '2015': {
+            'name': '2',
+            'title': 'Participating Countries in each Region',
+            'desc': 'Breakdown of all media by country',
+            'reports': ['global', 'region'],
+            'historical': '2',
+        },
     },
     'ws_03': {
         '2010': {
