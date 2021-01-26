@@ -584,6 +584,13 @@ WS_INFO = {
         },
     },
     'ws_47': {
+        '2015': {
+            'name': '47',
+            'title': 'Story clearly challenges gender stereotypes by major topic',
+            'desc': 'Stories where stereotypes are challenged/ supported by topic',
+            'reports': ['global', 'region', 'country'],
+            'historical': '47',
+        },
         '2010': {
             'name': '47',
             'title': 'Story clearly challenges gender stereotypes by major topic',
