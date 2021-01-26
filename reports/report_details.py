@@ -607,6 +607,13 @@ WS_INFO = {
         },
     },
     'ws_49': {
+        '2015': {
+            'name': '49',
+            'title': 'Internet - Main topics by region',
+            'desc': 'Internet - Main topics by region',
+            'reports': ['global', 'region', 'country'],
+            'historical': '49',
+        },
         '2010': {
             'name': '49',
             'title': 'Internet - Main topics by region',
