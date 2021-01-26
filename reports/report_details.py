@@ -454,6 +454,8 @@ WS_INFO = {
             'name': '27',
             'title': 'News subjects photographed, by sex',
             'desc': 'Breakdown of news subjects photographed, by sex',
+            'title': 'Breakdown of News subjects photographed, by sex',
+            'desc': 'News subjects photographed, by sex',
             'reports': ['global', 'region', 'country'],
             'historical': '27',
         },
