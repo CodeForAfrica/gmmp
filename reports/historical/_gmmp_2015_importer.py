@@ -729,4 +729,3 @@ class GMMP2015ReportImporter(BaseReportImporter):
         )
 
         return all_data
-
