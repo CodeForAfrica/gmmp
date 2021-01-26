@@ -143,6 +143,13 @@ WS_INFO = {
         },
     },
     'ws_07': {
+        '2015': {
+            'name': '7',
+            'title': 'Women in the news (sources) by medium',
+            'desc': 'Breakdown by sex of all mediums',
+            'reports': ['global', 'region', 'country'],
+            'historical': '7',
+        },
         '2010': {
             'name': '7',
             'title': 'Women in the news (sources) by medium',
