@@ -175,6 +175,13 @@ WS_INFO = {
         },
     },
     'ws_09': {
+        '2015': {
+            'name': '9',
+            'title': 'Sex of news subjects in different story topics',
+            'desc': 'Breakdown of topic by sex',
+            'reports': ['global', 'region'],
+            'historical': '9',
+        },
         '2010': {
             'name': '9',
             'title': 'Sex of news subjects in different story topics',
