@@ -77,13 +77,6 @@ WS_INFO = {
         },
     },
     'ws_02': {
-        '2010': {
-            'name': '2',
-            'title': 'Participating Countries in each Region',
-            'desc': 'Breakdown of all media by country',
-            'reports': ['global', 'region'],
-            'historical': '2F',
-        },
         '2015': {
             'name': '2',
             'title': 'Participating Countries in each Region',
@@ -91,21 +84,28 @@ WS_INFO = {
             'reports': ['global', 'region'],
             'historical': '2',
         },
+        '2010': {
+            'name': '2',
+            'title': 'Participating Countries in each Region',
+            'desc': 'Breakdown of all media by country',
+            'reports': ['global', 'region'],
+            'historical': '2F',
+        },
     },
     'ws_03': {
-        '2010': {
-            'name': '3',
-            'title': 'Counts of media monitored',
-            'desc': 'Total number of distinct media monitored',
-            'reports': ['global'],
-            'historical': '2aF'
-        },
         '2015': {
             'name': '3',
             'title': 'Counts of media monitored',
             'desc': 'Total number of distinct media monitored',
             'reports': ['global'],
             'historical': '3'
+        },
+        '2010': {
+            'name': '3',
+            'title': 'Counts of media monitored',
+            'desc': 'Total number of distinct media monitored',
+            'reports': ['global'],
+            'historical': '2aF'
         },
     },
     'ws_04': {

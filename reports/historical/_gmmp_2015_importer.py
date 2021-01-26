@@ -53,9 +53,9 @@ class GMMP2015ReportImporter(BaseReportImporter):
             (2015, 3, 10),
             (2010, 13, 16)
         ]:
-            data = dict()
+            data = {}
             all_data[year] = data
-            continents = {
+            regions = {
                 'Africa': (7, 38),
                 'Asia': (41, 51),
                 'Caribbean': (54, 68),
@@ -65,14 +65,13 @@ class GMMP2015ReportImporter(BaseReportImporter):
                 'North America': (127, 128),
                 'Pacific Island': (131, 134),
             }
-            for continent in continents.keys():
-                row_start, row_end = continents[continent]
-                continental_data = dict()
-                data[continent] = continental_data
+            for region, (row_start, row_end) in regions.items():
+                regional_data = dict()
+                data[region] = regional_data
 
                 self.slurp_table(
                     self.ws,
-                    continental_data,
+                    regional_data,
                     col_start=col_start,
                     col_end=col_end,
                     row_start=row_start,
