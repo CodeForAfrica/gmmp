@@ -364,6 +364,13 @@ WS_INFO = {
         },
     },
     'ws_26': {
+        '2015': {
+            'name': '26',
+            'title': 'Breakdown of  news subjects quoted, by sex',
+            'desc': 'News subjects quoted, by sex',
+            'reports': ['global', 'region', 'country'],
+            'historical': '26',
+        },
         '2010': {
             'name': '26',
             'title': 'Breakdown of  news subjects quoted, by sex',
