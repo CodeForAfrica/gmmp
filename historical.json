@@ -2900,6 +2900,90 @@
         }
       }
     },
+    "49": {
+      "2015": {
+        "celebrity, arts and media, sports": {
+          "africa": 0.00980392156862745,
+          "asia": 0.182608695652174,
+          "caribbean": 0.121212121212121,
+          "europe": 0.0930232558139535,
+          "latin america": 0.166666666666667,
+          "middle east": 0.1,
+          "north america": 0.0354330708661417,
+          "pacific islands": 0.10126582278481
+        },
+        "crime and violence": {
+          "africa": 0.0882352941176471,
+          "asia": 0.154347826086957,
+          "caribbean": 0.151515151515152,
+          "europe": 0.156976744186047,
+          "latin america": 0.179924242424242,
+          "middle east": 0.171428571428571,
+          "north america": 0.37007874015748,
+          "pacific islands": 0.265822784810127
+        },
+        "economy": {
+          "africa": 0.0784313725490196,
+          "asia": 0.0978260869565217,
+          "caribbean": 0.212121212121212,
+          "europe": 0.120348837209302,
+          "latin america": 0.100378787878788,
+          "middle east": 0.0714285714285714,
+          "north america": 0.0433070866141732,
+          "pacific islands": 0.113924050632911
+        },
+        "n": {
+          "africa": 102,
+          "asia": 460,
+          "caribbean": 33,
+          "europe": 1720,
+          "latin america": 528,
+          "middle east": 140,
+          "north america": 254,
+          "pacific islands": 79
+        },
+        "other": {
+          "africa": 0.0196078431372549,
+          "asia": 0,
+          "caribbean": 0,
+          "europe": 0.0104651162790698,
+          "latin america": 0,
+          "middle east": 0.0214285714285714,
+          "north america": 0,
+          "pacific islands": 0.0126582278481013
+        },
+        "politics and government": {
+          "africa": 0.57843137254902,
+          "asia": 0.221739130434783,
+          "caribbean": 0.212121212121212,
+          "europe": 0.261627906976744,
+          "latin america": 0.225378787878788,
+          "middle east": 0.435714285714286,
+          "north america": 0.251968503937008,
+          "pacific islands": 0.164556962025316
+        },
+        "science and health": {
+          "africa": 0.0490196078431373,
+          "asia": 0.0391304347826087,
+          "caribbean": 0.121212121212121,
+          "europe": 0.0546511627906977,
+          "latin america": 0.0625,
+          "middle east": 0.0714285714285714,
+          "north america": 0.094488188976378,
+          "pacific islands": 0.113924050632911
+        },
+        "social and legal": {
+          "africa": 0.176470588235294,
+          "asia": 0.304347826086957,
+          "caribbean": 0.181818181818182,
+          "europe": 0.302906976744186,
+          "latin america": 0.265151515151515,
+          "middle east": 0.128571428571429,
+          "north america": 0.204724409448819,
+          "pacific islands": 0.227848101265823
+        }
+      }
+    },
     "5": {
       "1995": {
         "female": {
