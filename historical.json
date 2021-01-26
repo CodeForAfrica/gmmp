@@ -2785,6 +2785,72 @@
         }
       }
     },
+    "45": {
+      "2010": {
+        "female": {
+          "africa": 0.36,
+          "asia": 0.44,
+          "caribbean": 0.32,
+          "europe": 0.47,
+          "latin america": 0.4,
+          "middle east": 0.71,
+          "north america": 0.46,
+          "pacific islands": 0.46
+        },
+        "male": {
+          "africa": 0.64,
+          "asia": 0.56,
+          "caribbean": 0.68,
+          "europe": 0.53,
+          "latin america": 0.6,
+          "middle east": 0.29,
+          "north america": 0.54,
+          "pacific islands": 0.54
+        },
+        "n": {
+          "africa": 75,
+          "asia": 114,
+          "caribbean": 111,
+          "europe": 248,
+          "latin america": 203,
+          "middle east": 15,
+          "north america": 42,
+          "pacific islands": 11
+        }
+      },
+      "2015": {
+        "female": {
+          "africa": 0.332661290322581,
+          "asia": 0.350415512465374,
+          "caribbean": 0.321167883211679,
+          "europe": 0.334653465346535,
+          "latin america": 0.451754385964912,
+          "middle east": 0.356164383561644,
+          "north america": 0.371134020618557,
+          "pacific islands": 0.392857142857143
+        },
+        "male": {
+          "africa": 0.667338709677419,
+          "asia": 0.649584487534626,
+          "caribbean": 0.678832116788321,
+          "europe": 0.665346534653465,
+          "latin america": 0.548245614035088,
+          "middle east": 0.643835616438356,
+          "north america": 0.628865979381443,
+          "pacific islands": 0.607142857142857
+        },
+        "n": {
+          "africa": 496,
+          "asia": 722,
+          "caribbean": 137,
+          "europe": 505,
+          "latin america": 228,
+          "middle east": 73,
+          "north america": 291,
+          "pacific islands": 28
+        }
+      }
+    },
     "5": {
       "1995": {
         "female": {
