@@ -116,6 +116,55 @@
         }
       }
     },
+    "10": {
+      "2015": {
+        "full page": {
+          "celebrity, arts and media, sports": 0.123234916559692,
+          "crime and violence": 0.123234916559692,
+          "economy": 0.123234916559692,
+          "other": 0.00770218228498074,
+          "politics and government": 0.165596919127086,
+          "science and health": 0.0885750962772786,
+          "social and legal": 0.368421052631579
+        },
+        "half page": {
+          "celebrity, arts and media, sports": 0.097629009762901,
+          "crime and violence": 0.105299860529986,
+          "economy": 0.163877266387727,
+          "other": 0.00627615062761506,
+          "politics and government": 0.261506276150628,
+          "science and health": 0.097629009762901,
+          "social and legal": 0.267782426778243
+        },
+        "less than quarter page": {
+          "celebrity, arts and media, sports": 0.0939520730315709,
+          "crime and violence": 0.130087485736021,
+          "economy": 0.138836059338151,
+          "other": 0.0121719284899201,
+          "politics and government": 0.289463674400913,
+          "science and health": 0.098896918980601,
+          "social and legal": 0.236591860022822
+        },
+        "one third page": {
+          "celebrity, arts and media, sports": 0.0705190989226249,
+          "crime and violence": 0.0969637610186092,
+          "economy": 0.129285014691479,
+          "other": 0.0137120470127326,
+          "politics and government": 0.27130264446621,
+          "science and health": 0.10871694417238,
+          "social and legal": 0.309500489715965
+        },
+        "quarter page": {
+          "celebrity, arts and media, sports": 0.0630372492836676,
+          "crime and violence": 0.117478510028653,
+          "economy": 0.154727793696275,
+          "other": 0.0329512893982808,
+          "politics and government": 0.267908309455587,
+          "science and health": 0.0651862464183381,
+          "social and legal": 0.298710601719198
+        }
+      }
+    },
     "2": {
       "2010": {
         "Africa": {

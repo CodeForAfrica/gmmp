@@ -191,6 +191,13 @@ WS_INFO = {
         },
     },
     'ws_10': {
+        '2015': {
+            'name': '10',
+            'title': 'Space allocated to major topics in Newspapers',
+            'desc': 'Breakdown by major topic by space (q.4) in newspapers',
+            'reports': ['global', 'region', 'country'],
+            'historical': '10',
+        },
         '2010': {
             'name': '10',
             'title': 'Space allocated to major topics in Newspapers',
