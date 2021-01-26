@@ -287,6 +287,13 @@ WS_INFO = {
         },
     },
     'ws_18': {
+        '2015': {
+            'name': '18',
+            'title': 'Age of news subjects by print, by sex',
+            'desc': 'B.down of  Age of news subjects by print, by sex',
+            'reports': ['global', 'region', 'country'],
+            'historical': '18',
+        },
         '2010': {
             'name': '18',
             'title': 'Age of news subjects by print, by sex',
