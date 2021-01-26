@@ -501,6 +501,13 @@ WS_INFO = {
         },
     },
     'ws_39': {
+        '2015': {
+            'name': '39',
+            'title': 'Breakdown of Stories with Women as a central Focus by minor topic',
+            'desc': 'Stories with Women as a central Focus by minor topic',
+            'reports': ['global'],
+            'historical': '39',
+        },
         '2010': {
             'name': '39',
             'title': 'Breakdown of Stories with Women as a central Focus by minor topic',
