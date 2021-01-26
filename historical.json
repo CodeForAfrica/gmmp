@@ -165,6 +165,37 @@
         }
       }
     },
+    "11": {
+      "2015": {
+        "n": {
+          "celebrity, arts and media, sports": 1717,
+          "crime and violence": 2011,
+          "economy": 2151,
+          "other": 306,
+          "politics and government": 3629,
+          "science and health": 1239,
+          "social and legal": 4149
+        },
+        "no": {
+          "celebrity, arts and media, sports": 0.952242283051835,
+          "crime and violence": 0.898060666335157,
+          "economy": 0.928405392840539,
+          "other": 0.944444444444444,
+          "politics and government": 0.920639294571507,
+          "science and health": 0.910411622276029,
+          "social and legal": 0.880453121234032
+        },
+        "yes": {
+          "celebrity, arts and media, sports": 0.0477577169481654,
+          "crime and violence": 0.101939333664843,
+          "economy": 0.0715946071594607,
+          "other": 0.0555555555555556,
+          "politics and government": 0.0793607054284927,
+          "science and health": 0.0895883777239709,
+          "social and legal": 0.119546878765968
+        }
+      }
+    },
     "2": {
       "2010": {
         "Africa": {

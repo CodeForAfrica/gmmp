@@ -206,6 +206,13 @@ WS_INFO = {
         },
     },
     'ws_11': {
+        '2015': {
+            'name': '11',
+            'title': 'Stories making reference to issues of gender equality/inequality, legislation, policy by major topic',
+            'desc': 'Breakdown by major topic by reference to gender equality/human rights/policy',
+            'reports': ['global', 'region', 'country'],
+            'historical': '11',
+        },
         '2010': {
             'name': '11',
             'title': 'Stories making reference to issues of gender equality/inequality, legislation, policy by major topic',
