@@ -237,6 +237,13 @@ WS_INFO = {
         },
     },
     'ws_14': {
+        '2015': {
+            'name': '14',
+            'title': 'Position or occupation of news sources, by sex',
+            'desc': 'Breakdown of new sources by occupation and sex',
+            'reports': ['global', 'region', 'country'],
+            'historical': '14',
+        },
         '2010': {
             'name': '14',
             'title': 'Position or occupation of news sources, by sex',
