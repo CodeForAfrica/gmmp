@@ -421,6 +421,13 @@ WS_INFO = {
         },
     },
     'ws_31': {
+        '2015': {
+            'name': '31',
+            'title': 'Breakdown of Reporters, by sex on different topics - Detail',
+            'desc': 'Rporters, by sex on different topics - Detail',
+            'reports': ['global'],
+            'historical': '31',
+        },
         '2010': {
             'name': '31',
             'title': 'Breakdown of Reporters, by sex on different topics - Detail',
@@ -438,6 +445,13 @@ WS_INFO = {
         },
     },
     'ws_34': {
+        '2015': {
+            'name': '34',
+            'title': 'Breakdown of News Subject (sex of source) selection by female & male reporters',
+            'desc': 'Selection of News Subject (sex of source, in rows) by female & male reporters (in columns)',
+            'reports': ['global', 'region', 'country'],
+            'historical': '34',
+        },
         '2010': {
             'name': '34',
             'title': 'Breakdown of News Subject (sex of source) selection by female & male reporters',
