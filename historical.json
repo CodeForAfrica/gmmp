@@ -116,6 +116,470 @@
         }
       }
     },
+    "10": {
+      "2015": {
+        "full page": {
+          "celebrity, arts and media, sports": 0.123234916559692,
+          "crime and violence": 0.123234916559692,
+          "economy": 0.123234916559692,
+          "other": 0.00770218228498074,
+          "politics and government": 0.165596919127086,
+          "science and health": 0.0885750962772786,
+          "social and legal": 0.368421052631579
+        },
+        "half page": {
+          "celebrity, arts and media, sports": 0.097629009762901,
+          "crime and violence": 0.105299860529986,
+          "economy": 0.163877266387727,
+          "other": 0.00627615062761506,
+          "politics and government": 0.261506276150628,
+          "science and health": 0.097629009762901,
+          "social and legal": 0.267782426778243
+        },
+        "less than quarter page": {
+          "celebrity, arts and media, sports": 0.0939520730315709,
+          "crime and violence": 0.130087485736021,
+          "economy": 0.138836059338151,
+          "other": 0.0121719284899201,
+          "politics and government": 0.289463674400913,
+          "science and health": 0.098896918980601,
+          "social and legal": 0.236591860022822
+        },
+        "one third page": {
+          "celebrity, arts and media, sports": 0.0705190989226249,
+          "crime and violence": 0.0969637610186092,
+          "economy": 0.129285014691479,
+          "other": 0.0137120470127326,
+          "politics and government": 0.27130264446621,
+          "science and health": 0.10871694417238,
+          "social and legal": 0.309500489715965
+        },
+        "quarter page": {
+          "celebrity, arts and media, sports": 0.0630372492836676,
+          "crime and violence": 0.117478510028653,
+          "economy": 0.154727793696275,
+          "other": 0.0329512893982808,
+          "politics and government": 0.267908309455587,
+          "science and health": 0.0651862464183381,
+          "social and legal": 0.298710601719198
+        }
+      }
+    },
+    "11": {
+      "2015": {
+        "n": {
+          "celebrity, arts and media, sports": 1717,
+          "crime and violence": 2011,
+          "economy": 2151,
+          "other": 306,
+          "politics and government": 3629,
+          "science and health": 1239,
+          "social and legal": 4149
+        },
+        "no": {
+          "celebrity, arts and media, sports": 0.952242283051835,
+          "crime and violence": 0.898060666335157,
+          "economy": 0.928405392840539,
+          "other": 0.944444444444444,
+          "politics and government": 0.920639294571507,
+          "science and health": 0.910411622276029,
+          "social and legal": 0.880453121234032
+        },
+        "yes": {
+          "celebrity, arts and media, sports": 0.0477577169481654,
+          "crime and violence": 0.101939333664843,
+          "economy": 0.0715946071594607,
+          "other": 0.0555555555555556,
+          "politics and government": 0.0793607054284927,
+          "science and health": 0.0895883777239709,
+          "social and legal": 0.119546878765968
+        }
+      }
+    },
+    "14": {
+      "1995": {
+        "female": {
+          "academic expert, lecturer, teacher": "n/a",
+          "activist or worker in civil society org., ngo, trade union": 0,
+          "agriculture, mining, fishing, forestry": 0,
+          "business person, exec, manager, stock broker...": 0,
+          "celebrity, artist, actor, writer, singer, tv personality": 0,
+          "child, young person no other occupation given": 0,
+          "criminal, suspect no other occupation given": 0,
+          "doctor, dentist, health specialist": "n/a",
+          "government employee, public servant, etc.": 0,
+          "government, politician, minister, spokesperson...": 0,
+          "health worker, social worker, childcare worker": "n/a",
+          "homemaker, parent (male or female)) only if no other occupation is given e.g. doctor/mother=code 6": 0,
+          "lawyer, judge, magistrate, legal advocate, etc.": 0,
+          "media professional, journalist, film-maker, etc.": 0,
+          "not stated": "n/a",
+          "office or service worker, non-management worker": 0,
+          "other only as last resort & explain": 0,
+          "police, military, para-military, militia, fire officer": 0,
+          "religious figure, priest, monk, rabbi, mullah, nun": 0,
+          "retired person, pensioner no other occupation given": 0,
+          "royalty, monarch, deposed monarch, etc.": "n/a",
+          "science/ technology professional, engineer, etc.": 0,
+          "sex worker": 0,
+          "sportsperson, athlete, player, coach, referee": 0,
+          "student, pupil, schoolchild": 0,
+          "tradesperson, artisan, labourer, truck driver, etc.": 0,
+          "unemployed no other occupation given": 0,
+          "villager or resident no other occupation given": 0
+        }
+      },
+      "2000": {
+        "female": {
+          "academic expert, lecturer, teacher": "n/a",
+          "activist or worker in civil society org., ngo, trade union": 0.24,
+          "agriculture, mining, fishing, forestry": 0.15,
+          "business person, exec, manager, stock broker...": "n/a",
+          "celebrity, artist, actor, writer, singer, tv personality": 0.45,
+          "child, young person no other occupation given": "n/a",
+          "criminal, suspect no other occupation given": 0.07,
+          "doctor, dentist, health specialist": "n/a",
+          "government employee, public servant, etc.": 0.12,
+          "government, politician, minister, spokesperson...": 0.1,
+          "health worker, social worker, childcare worker": "n/a",
+          "homemaker, parent (male or female)) only if no other occupation is given e.g. doctor/mother=code 6": 0.81,
+          "lawyer, judge, magistrate, legal advocate, etc.": "n/a",
+          "media professional, journalist, film-maker, etc.": "n/a",
+          "not stated": "n/a",
+          "office or service worker, non-management worker": 0.35,
+          "other only as last resort & explain": 0.44,
+          "police, military, para-military, militia, fire officer": 0.04,
+          "religious figure, priest, monk, rabbi, mullah, nun": 0.09,
+          "retired person, pensioner no other occupation given": 0.35,
+          "royalty, monarch, deposed monarch, etc.": "n/a",
+          "science/ technology professional, engineer, etc.": 0.12,
+          "sex worker": "n/a",
+          "sportsperson, athlete, player, coach, referee": 0.09,
+          "student, pupil, schoolchild": 0.46,
+          "tradesperson, artisan, labourer, truck driver, etc.": 0.15,
+          "unemployed no other occupation given": 0.33,
+          "villager or resident no other occupation given": "n/a"
+        }
+      },
+      "2005": {
+        "female": {
+          "academic expert, lecturer, teacher": "n/a",
+          "activist or worker in civil society org., ngo, trade union": 0.23,
+          "agriculture, mining, fishing, forestry": 0.13,
+          "business person, exec, manager, stock broker...": 0.12,
+          "celebrity, artist, actor, writer, singer, tv personality": 0.42,
+          "child, young person no other occupation given": 0.44,
+          "criminal, suspect no other occupation given": 0.09,
+          "doctor, dentist, health specialist": "n/a",
+          "government employee, public servant, etc.": 0.17,
+          "government, politician, minister, spokesperson...": 0.12,
+          "health worker, social worker, childcare worker": "n/a",
+          "homemaker, parent (male or female)) only if no other occupation is given e.g. doctor/mother=code 6": 0.75,
+          "lawyer, judge, magistrate, legal advocate, etc.": 0.18,
+          "media professional, journalist, film-maker, etc.": 0.36,
+          "not stated": "n/a",
+          "office or service worker, non-management worker": 0.4,
+          "other only as last resort & explain": 0.42,
+          "police, military, para-military, militia, fire officer": 0.05,
+          "religious figure, priest, monk, rabbi, mullah, nun": 0.21,
+          "retired person, pensioner no other occupation given": 0.33,
+          "royalty, monarch, deposed monarch, etc.": 0.33,
+          "science/ technology professional, engineer, etc.": 0.1,
+          "sex worker": "n/a",
+          "sportsperson, athlete, player, coach, referee": 0.16,
+          "student, pupil, schoolchild": 0.51,
+          "tradesperson, artisan, labourer, truck driver, etc.": 0.23,
+          "unemployed no other occupation given": 0.19,
+          "villager or resident no other occupation given": 0.39
+        }
+      },
+      "2010": {
+        "female": {
+          "academic expert, lecturer, teacher": "n/a",
+          "activist or worker in civil society org., ngo, trade union": 0.34,
+          "agriculture, mining, fishing, forestry": 0.13,
+          "business person, exec, manager, stock broker...": 0.14,
+          "celebrity, artist, actor, writer, singer, tv personality": 0.41,
+          "child, young person no other occupation given": 0.46,
+          "criminal, suspect no other occupation given": 0.08,
+          "doctor, dentist, health specialist": "n/a",
+          "government employee, public servant, etc.": 0.17,
+          "government, politician, minister, spokesperson...": 0.17,
+          "health worker, social worker, childcare worker": "n/a",
+          "homemaker, parent (male or female)) only if no other occupation is given e.g. doctor/mother=code 6": 0.72,
+          "lawyer, judge, magistrate, legal advocate, etc.": 0.17,
+          "media professional, journalist, film-maker, etc.": 0.29,
+          "not stated": "n/a",
+          "office or service worker, non-management worker": 0.45,
+          "other only as last resort & explain": 0.41,
+          "police, military, para-military, militia, fire officer": 0.07,
+          "religious figure, priest, monk, rabbi, mullah, nun": 0.13,
+          "retired person, pensioner no other occupation given": 0.35,
+          "royalty, monarch, deposed monarch, etc.": 0.31,
+          "science/ technology professional, engineer, etc.": 0.1,
+          "sex worker": 0.39,
+          "sportsperson, athlete, player, coach, referee": 0.11,
+          "student, pupil, schoolchild": 0.54,
+          "tradesperson, artisan, labourer, truck driver, etc.": 0.22,
+          "unemployed no other occupation given": 0.35,
+          "villager or resident no other occupation given": 0.39
+        },
+        "n": {
+          "academic expert, lecturer, teacher": "n/a",
+          "activist or worker in civil society org., ngo, trade union": 307,
+          "agriculture, mining, fishing, forestry": 36,
+          "business person, exec, manager, stock broker...": 283,
+          "celebrity, artist, actor, writer, singer, tv personality": 387,
+          "child, young person no other occupation given": 190,
+          "criminal, suspect no other occupation given": 79,
+          "doctor, dentist, health specialist": "n/a",
+          "government employee, public servant, etc.": 430,
+          "government, politician, minister, spokesperson...": 1907,
+          "health worker, social worker, childcare worker": "n/a",
+          "homemaker, parent (male or female)) only if no other occupation is given e.g. doctor/mother=code 6": 385,
+          "lawyer, judge, magistrate, legal advocate, etc.": 234,
+          "media professional, journalist, film-maker, etc.": 196,
+          "not stated": "n/a",
+          "office or service worker, non-management worker": 167,
+          "other only as last resort & explain": 114,
+          "police, military, para-military, militia, fire officer": 139,
+          "religious figure, priest, monk, rabbi, mullah, nun": 27,
+          "retired person, pensioner no other occupation given": 67,
+          "royalty, monarch, deposed monarch, etc.": 98,
+          "science/ technology professional, engineer, etc.": 47,
+          "sex worker": 22,
+          "sportsperson, athlete, player, coach, referee": 125,
+          "student, pupil, schoolchild": 282,
+          "tradesperson, artisan, labourer, truck driver, etc.": 137,
+          "unemployed no other occupation given": 39,
+          "villager or resident no other occupation given": 254
+        }
+      },
+      "2015": {
+        "female": {
+          "academic expert, lecturer, teacher": 0.232664233576642,
+          "activist or worker in civil society org., ngo, trade union": 0.326409495548961,
+          "agriculture, mining, fishing, forestry": 0.144486692015209,
+          "business person, exec, manager, stock broker...": 0.160280970625798,
+          "celebrity, artist, actor, writer, singer, tv personality": 0.334894613583138,
+          "child, young person no other occupation given": 0.338926174496644,
+          "criminal, suspect no other occupation given": 0.123456790123457,
+          "doctor, dentist, health specialist": 0.301724137931034,
+          "government employee, public servant, etc.": 0.1980252331322,
+          "government, politician, minister, spokesperson...": 0.184896810506567,
+          "health worker, social worker, childcare worker": 0.47027027027027,
+          "homemaker, parent (male or female)) only if no other occupation is given e.g. doctor/mother=code 6": 0.667976424361493,
+          "lawyer, judge, magistrate, legal advocate, etc.": 0.221896383186706,
+          "media professional, journalist, film-maker, etc.": 0.207109737248841,
+          "not stated": 0.446957100099767,
+          "office or service worker, non-management worker": 0.348648648648649,
+          "other only as last resort & explain": 0.375478927203065,
+          "police, military, para-military, militia, fire officer": 0.0845556514236411,
+          "religious figure, priest, monk, rabbi, mullah, nun": 0.047008547008547,
+          "retired person, pensioner no other occupation given": 0.349514563106796,
+          "royalty, monarch, deposed monarch, etc.": 0.221343873517787,
+          "science/ technology professional, engineer, etc.": 0.102517985611511,
+          "sex worker": 0.5,
+          "sportsperson, athlete, player, coach, referee": 0.068904593639576,
+          "student, pupil, schoolchild": 0.591895803183792,
+          "tradesperson, artisan, labourer, truck driver, etc.": 0.20631970260223,
+          "unemployed no other occupation given": 0.343283582089552,
+          "villager or resident no other occupation given": 0.387096774193548
+        },
+        "n": {
+          "academic expert, lecturer, teacher": 1096,
+          "activist or worker in civil society org., ngo, trade union": 1011,
+          "agriculture, mining, fishing, forestry": 263,
+          "business person, exec, manager, stock broker...": 1566,
+          "celebrity, artist, actor, writer, singer, tv personality": 1281,
+          "child, young person no other occupation given": 298,
+          "criminal, suspect no other occupation given": 567,
+          "doctor, dentist, health specialist": 464,
+          "government employee, public servant, etc.": 1823,
+          "government, politician, minister, spokesperson...": 10660,
+          "health worker, social worker, childcare worker": 185,
+          "homemaker, parent (male or female)) only if no other occupation is given e.g. doctor/mother=code 6": 509,
+          "lawyer, judge, magistrate, legal advocate, etc.": 1023,
+          "media professional, journalist, film-maker, etc.": 647,
+          "not stated": 3007,
+          "office or service worker, non-management worker": 370,
+          "other only as last resort & explain": 261,
+          "police, military, para-military, militia, fire officer": 1159,
+          "religious figure, priest, monk, rabbi, mullah, nun": 234,
+          "retired person, pensioner no other occupation given": 103,
+          "royalty, monarch, deposed monarch, etc.": 253,
+          "science/ technology professional, engineer, etc.": 556,
+          "sex worker": 18,
+          "sportsperson, athlete, player, coach, referee": 1132,
+          "student, pupil, schoolchild": 691,
+          "tradesperson, artisan, labourer, truck driver, etc.": 538,
+          "unemployed no other occupation given": 67,
+          "villager or resident no other occupation given": 651
+        }
+      }
+    },
+    "15": {
+      "1995": {
+        "female": {
+          "do not know": "n/a",
+          "expert or commentator": 0,
+          "eye witness": 0,
+          "other": 0,
+          "personal experience": 0,
+          "popular opinion": 0,
+          "spokesperson": 0,
+          "subject": 0
+        }
+      },
+      "2000": {
+        "female": {
+          "do not know": "n/a",
+          "expert or commentator": 0,
+          "eye witness": 0,
+          "other": 0,
+          "personal experience": 0,
+          "popular opinion": 0,
+          "spokesperson": 0,
+          "subject": 0
+        }
+      },
+      "2005": {
+        "female": {
+          "do not know": "n/a",
+          "expert or commentator": 0.17,
+          "eye witness": 0.3,
+          "other": "n/a",
+          "personal experience": 0.31,
+          "popular opinion": 0.34,
+          "spokesperson": 0.14,
+          "subject": 0.23
+        }
+      },
+      "2010": {
+        "female": {
+          "do not know": "n/a",
+          "expert or commentator": 0.2,
+          "eye witness": 0.29,
+          "other": 0.21,
+          "personal experience": 0.36,
+          "popular opinion": 0.44,
+          "spokesperson": 0.19,
+          "subject": 0.23
+        },
+        "n": {
+          "do not know": "n/a",
+          "expert or commentator": 1017,
+          "eye witness": 311,
+          "other": 132,
+          "personal experience": 964,
+          "popular opinion": 365,
+          "spokesperson": 1552,
+          "subject": 3176
+        }
+      },
+      "2015": {
+        "female": {
+          "do not know": 0.209677419354839,
+          "expert or commentator": 0.189478478706445,
+          "eye witness": 0.296259842519685,
+          "other": 0.315261044176707,
+          "personal experience": 0.377127028096557,
+          "popular opinion": 0.369120654396728,
+          "spokesperson": 0.196740532301559,
+          "subject": 0.256346269684192
+        },
+        "n": {
+          "do not know": 868,
+          "expert or commentator": 4391,
+          "eye witness": 1016,
+          "other": 498,
+          "personal experience": 2527,
+          "popular opinion": 978,
+          "spokesperson": 8529,
+          "subject": 11621
+        }
+      }
+    },
+    "18": {
+      "2005": {
+        "female": {
+          "12 and under": 0.21,
+          "13-18": 0.58,
+          "19-34": 0.44,
+          "35-49": 0.42,
+          "50-64": 0.37,
+          "65 years or more": 0.24,
+          "do not know": "n/a"
+        },
+        "male": {
+          "12 and under": 0.79,
+          "13-18": 0.42,
+          "19-34": 0.56,
+          "35-49": 0.58,
+          "50-64": 0.63,
+          "65 years or more": 0.76,
+          "do not know": "n/a"
+        },
+        "n": {
+          "12 and under": 170,
+          "13-18": 211,
+          "19-34": 691,
+          "35-49": 549,
+          "50-64": 421,
+          "65 years or more": 280,
+          "do not know": "n/a"
+        }
+      },
+      "2010": {
+        "female": {
+          "12 and under": 0.41,
+          "13-18": 0.38,
+          "19-34": 0.36,
+          "35-49": 0.33,
+          "50-64": 0.22,
+          "65 years or more": 0.43,
+          "do not know": "n/a"
+        },
+        "male": {
+          "12 and under": 0.59,
+          "13-18": 0.62,
+          "19-34": 0.64,
+          "35-49": 0.67,
+          "50-64": 0.78,
+          "65 years or more": 0.57,
+          "do not know": "n/a"
+        }
+      },
+      "2015": {
+        "female": {
+          "12 and under": 0.41304347826087,
+          "13-18": 0.526530612244898,
+          "19-34": 0.451785714285714,
+          "35-49": 0.445923460898502,
+          "50-64": 0.233480176211454,
+          "65 years or more": 0.422110552763819,
+          "do not know": 0.233562177082596
+        },
+        "male": {
+          "12 and under": 0.58695652173913,
+          "13-18": 0.473469387755102,
+          "19-34": 0.548214285714286,
+          "35-49": 0.554076539101497,
+          "50-64": 0.766519823788546,
+          "65 years or more": 0.577889447236181,
+          "do not know": 0.766437822917404
+        },
+        "n": {
+          "12 and under": 138,
+          "13-18": 245,
+          "19-34": 560,
+          "35-49": 601,
+          "50-64": 454,
+          "65 years or more": 199,
+          "do not know": 14129
+        }
+      }
+    },
     "2": {
       "2010": {
         "Africa": {
@@ -1584,6 +2048,88 @@
         }
       }
     },
+    "24": {
+      "1995": {
+        "female": {
+          "no": 0,
+          "yes": 0
+        }
+      },
+      "2000": {
+        "female": {
+          "no": 0,
+          "yes": 0
+        }
+      },
+      "2005": {
+        "female": {
+          "no": 0.83,
+          "yes": 0.17
+        },
+        "male": {
+          "no": "XXX",
+          "yes": "XXX"
+        }
+      },
+      "2010": {
+        "female": {
+          "no": 0.82,
+          "yes": 0.18
+        },
+        "male": {
+          "no": 0.95,
+          "yes": 0.05
+        }
+      },
+      "2015": {
+        "female": {
+          "no": 0.813969106783076,
+          "yes": 0.186030893216924
+        },
+        "male": {
+          "no": 0.9456190724789,
+          "yes": 0.0543809275210998
+        }
+      }
+    },
+    "26": {
+      "2000": {
+        "female": {
+          "no": "n/a",
+          "yes": 0.33
+        }
+      },
+      "2005": {
+        "female": {
+          "no": "n/a",
+          "yes": 0.5
+        },
+        "male": {
+          "no": "n/a",
+          "yes": 0.35
+        }
+      },
+      "2010": {
+        "female": {
+          "no": "n/a",
+          "yes": 0.52
+        },
+        "male": {
+          "no": "n/a",
+          "yes": 0.5
+        }
+      },
+      "2015": {
+        "female": {
+          "no": 0.388226882745472,
+          "yes": 0.611773117254528
+        },
+        "male": {
+          "no": 0.391211146838156,
+          "yes": 0.608788853161844
+        }
+      }
+    },
     "3": {
       "2010": {
         "print": {
@@ -1782,6 +2328,285 @@
             "science and health": 1968,
             "social and legal": 9713
           }
+        }
+      }
+    },
+    "7": {
+      "2005": {
+        "print": {
+          "female": 0.21,
+          "male": 0.79
+        },
+        "radio": {
+          "female": 0.17,
+          "male": 0.83
+        },
+        "television": {
+          "female": 0.22,
+          "male": 0.78
+        }
+      },
+      "2010": {
+        "n": {
+          "female": 2566,
+          "male": 7682
+        },
+        "print": {
+          "female": 0.24,
+          "male": 0.76
+        },
+        "radio": {
+          "female": 0.22,
+          "male": 0.78
+        },
+        "television": {
+          "female": 0.24,
+          "male": 0.76
+        }
+      },
+      "2015": {
+        "print": {
+          "female": 0.257029096477795,
+          "male": 0.742970903522205
+        },
+        "radio": {
+          "female": 0.207209062821833,
+          "male": 0.792790937178167
+        },
+        "television": {
+          "female": 0.242378378378378,
+          "male": 0.757621621621622
+        }
+      }
+    },
+    "8": {
+      "1995": {
+        "female": {
+          "foreign/international": "n/a",
+          "local": 0.22,
+          "national": 0.14,
+          "sub-regional": "n/a"
+        }
+      },
+      "2000": {
+        "female": {
+          "foreign/international": "n/a",
+          "local": 0.23,
+          "national": 0.17,
+          "sub-regional": "n/a"
+        }
+      },
+      "2005": {
+        "female": {
+          "foreign/international": "n/a",
+          "local": 0.27,
+          "national": 0.19,
+          "sub-regional": "n/a"
+        }
+      },
+      "2010": {
+        "female": {
+          "foreign/international": "n/a",
+          "local": 0.26,
+          "national": 0.23,
+          "sub-regional": "n/a"
+        },
+        "n": {
+          "foreign/international": "n/a",
+          "local": 38,
+          "national": 1874,
+          "sub-regional": "n/a"
+        }
+      },
+      "2015": {
+        "female": {
+          "foreign/international": 0.240675763482781,
+          "local": 0.26508120649652,
+          "national": 0.234591425430561,
+          "sub-regional": 0.256830601092896
+        },
+        "n": {
+          "foreign/international": 7695,
+          "local": 6896,
+          "national": 13645,
+          "sub-regional": 2196
+        }
+      }
+    },
+    "9": {
+      "2010": {
+        "female": {
+          "arts, entertainment, leisure, cinema, books, dance": 0.28,
+          "beauty contests, models, fashion, cosmetic surgery": 0.43,
+          "birth control, fertility, sterilization, termination...": 0.47,
+          "celebrity news, births, marriages, royalty, etc.": 0.39,
+          "changing gender relations (outside the home)": 0.51,
+          "child abuse, sexual violence against children, neglect": 0.34,
+          "climate change, global warming": "n/a",
+          "consumer issues, consumer protection, fraud...": 0.27,
+          "disaster, accident, famine, flood, plane crash, etc.": 0.28,
+          "ebola, treatment, response...": "n/a",
+          "economic crisis, state bailouts of companies, company takeovers and mergers, etc.": 0.18,
+          "economic policies, strategies, modules, indicators, stock markets, etc": "n/a",
+          "education, childcare, nursery, university, literacy": 0.34,
+          "employment": "n/a",
+          "environment, pollution, tourism": 0.22,
+          "family law, family codes, property law, inheritance...": 0.43,
+          "family relations, inter-generational conflict, parents": 0.58,
+          "foreign/international politics, un, peacekeeping": 0.17,
+          "gender violence based on culture, family, inter-personal relations, feminicide, harassment, rape, sexual assault, trafficking, fgm...": 0.4,
+          "gender violence perpetuated by the state": "n/a",
+          "global partnerships": 0.13,
+          "hiv and aids, policy, treatment, etc": 0.42,
+          "human rights, womens rights, rights of sexual minorities, rights of religious minorities, etc.": 0.34,
+          "informal work, street vending, etc.": "n/a",
+          "legal system, judiciary, legislation apart from family": 0.21,
+          "media, (including internet), portrayal of women/men": 0.34,
+          "medicine, health, hygiene, safety, (not ebola or hiv/aids)": 0.33,
+          "migration, refugees, xenophobia, ethnic conflict...": 0.21,
+          "millennium development goals (mdgs), post 2015 agenda, sustainable development goals": "n/a",
+          "national defence, military spending, internal security, etc.": 0.13,
+          "non-violent crime, bribery, theft, drugs, corruption": 0.17,
+          "other (only use as a last resort & explain)": "n/a",
+          "other celebrity/arts/media news (specify in comments)": "n/a",
+          "other crime/violence (specify in comments)": "n/a",
+          "other development issues, sustainability, etc.": 0.25,
+          "other domestic politics, government, etc.": 0.16,
+          "other epidemics, viruses, contagions, influenza, bse, sars": 0.36,
+          "other labour issues (strikes, trade unions, etc.)": 0.24,
+          "other stories on economy (specify in comments)": 0.19,
+          "other stories on politics (specify in comments)": 0.33,
+          "other stories on science (specify in comments)": 0.3,
+          "other stories on social/legal (specify in comments)": 0.33,
+          "peace, negotiations, treaties": 0.21,
+          "poverty, housing, social welfare, aid, etc.": 0.29,
+          "religion, culture, tradition, controversies...": 0.23,
+          "riots, demonstrations, public disorder, etc.": 0.19,
+          "rural economy, agriculture, farming, land rights": 0.12,
+          "science, technology, research, discoveries...": 0.25,
+          "sports, events, players, facilities, training, funding": 0.13,
+          "transport, traffic, roads...": 0.17,
+          "violent crime, murder, abduction, assault, etc.": 0.24,
+          "war, civil war, terrorism, other state-based violence": 0.18,
+          "women politicians, women electoral candidates...": "n/a",
+          "womens movement, activism, demonstrations, etc": 0.37,
+          "womens participation in economic processes": "n/a"
+        }
+      },
+      "2015": {
+        "female": {
+          "arts, entertainment, leisure, cinema, books, dance": 0.296380090497738,
+          "beauty contests, models, fashion, cosmetic surgery": 0.666666666666667,
+          "birth control, fertility, sterilization, termination...": 0.614035087719298,
+          "celebrity news, births, marriages, royalty, etc.": 0.32262996941896,
+          "changing gender relations (outside the home)": 0.470588235294118,
+          "child abuse, sexual violence against children, neglect": 0.323170731707317,
+          "climate change, global warming": 0.242990654205607,
+          "consumer issues, consumer protection, fraud...": 0.193798449612403,
+          "disaster, accident, famine, flood, plane crash, etc.": 0.265202108963093,
+          "ebola, treatment, response...": 0.347826086956522,
+          "economic crisis, state bailouts of companies, company takeovers and mergers, etc.": 0.151724137931034,
+          "economic policies, strategies, modules, indicators, stock markets, etc": 0.198782961460446,
+          "education, childcare, nursery, university, literacy": 0.376484560570071,
+          "employment": 0.344086021505376,
+          "environment, pollution, tourism": 0.268361581920904,
+          "family law, family codes, property law, inheritance...": 0.457627118644068,
+          "family relations, inter-generational conflict, parents": 0.649122807017544,
+          "foreign/international politics, un, peacekeeping": 0.173435784851811,
+          "gender violence based on culture, family, inter-personal relations, feminicide, harassment, rape, sexual assault, trafficking, fgm...": 0.456185567010309,
+          "gender violence perpetuated by the state": 0,
+          "global partnerships": 0.171779141104294,
+          "hiv and aids, policy, treatment, etc": 0.318181818181818,
+          "human rights, womens rights, rights of sexual minorities, rights of religious minorities, etc.": 0.432717678100264,
+          "informal work, street vending, etc.": 0.25,
+          "legal system, judiciary, legislation apart from family": 0.247971145175834,
+          "media, (including internet), portrayal of women/men": 0.2,
+          "medicine, health, hygiene, safety, (not ebola or hiv/aids)": 0.403047091412742,
+          "migration, refugees, xenophobia, ethnic conflict...": 0.208333333333333,
+          "millennium development goals (mdgs), post 2015 agenda, sustainable development goals": 0.193548387096774,
+          "national defence, military spending, internal security, etc.": 0.0827740492170022,
+          "non-violent crime, bribery, theft, drugs, corruption": 0.242043551088777,
+          "other (only use as a last resort & explain)": 0.32520325203252,
+          "other celebrity/arts/media news (specify in comments)": 0.366197183098592,
+          "other crime/violence (specify in comments)": 0.230519480519481,
+          "other development issues, sustainability, etc.": 0.150943396226415,
+          "other domestic politics, government, etc.": 0.141200545702592,
+          "other epidemics, viruses, contagions, influenza, bse, sars": 0.372549019607843,
+          "other labour issues (strikes, trade unions, etc.)": 0.155797101449275,
+          "other stories on economy (specify in comments)": 0.202185792349727,
+          "other stories on politics (specify in comments)": 0.15307582260372,
+          "other stories on science (specify in comments)": 0.49740932642487,
+          "other stories on social/legal (specify in comments)": 0.352216748768473,
+          "peace, negotiations, treaties": 0.142857142857143,
+          "poverty, housing, social welfare, aid, etc.": 0.32484076433121,
+          "religion, culture, tradition, controversies...": 0.224,
+          "riots, demonstrations, public disorder, etc.": 0.268987341772152,
+          "rural economy, agriculture, farming, land rights": 0.195046439628483,
+          "science, technology, research, discoveries...": 0.25,
+          "sports, events, players, facilities, training, funding": 0.125592417061611,
+          "transport, traffic, roads...": 0.179746835443038,
+          "violent crime, murder, abduction, assault, etc.": 0.324271844660194,
+          "war, civil war, terrorism, other state-based violence": 0.154545454545455,
+          "women politicians, women electoral candidates...": 0.541379310344828,
+          "womens movement, activism, demonstrations, etc": 0.461538461538462,
+          "womens participation in economic processes": 0.488888888888889
+        },
+        "n": {
+          "arts, entertainment, leisure, cinema, books, dance": 884,
+          "beauty contests, models, fashion, cosmetic surgery": 78,
+          "birth control, fertility, sterilization, termination...": 57,
+          "celebrity news, births, marriages, royalty, etc.": 654,
+          "changing gender relations (outside the home)": 17,
+          "child abuse, sexual violence against children, neglect": 328,
+          "climate change, global warming": 107,
+          "consumer issues, consumer protection, fraud...": 258,
+          "disaster, accident, famine, flood, plane crash, etc.": 5690,
+          "ebola, treatment, response...": 23,
+          "economic crisis, state bailouts of companies, company takeovers and mergers, etc.": 290,
+          "economic policies, strategies, modules, indicators, stock markets, etc": 986,
+          "education, childcare, nursery, university, literacy": 842,
+          "employment": 186,
+          "environment, pollution, tourism": 354,
+          "family law, family codes, property law, inheritance...": 59,
+          "family relations, inter-generational conflict, parents": 57,
+          "foreign/international politics, un, peacekeeping": 911,
+          "gender violence based on culture, family, inter-personal relations, feminicide, harassment, rape, sexual assault, trafficking, fgm...": 388,
+          "gender violence perpetuated by the state": 11,
+          "global partnerships": 163,
+          "hiv and aids, policy, treatment, etc": 22,
+          "human rights, womens rights, rights of sexual minorities, rights of religious minorities, etc.": 379,
+          "informal work, street vending, etc.": 24,
+          "legal system, judiciary, legislation apart from family": 1109,
+          "media, (including internet), portrayal of women/men": 160,
+          "medicine, health, hygiene, safety, (not ebola or hiv/aids)": 722,
+          "migration, refugees, xenophobia, ethnic conflict...": 168,
+          "millennium development goals (mdgs), post 2015 agenda, sustainable development goals": 31,
+          "national defence, military spending, internal security, etc.": 447,
+          "non-violent crime, bribery, theft, drugs, corruption": 1194,
+          "other (only use as a last resort & explain)": 246,
+          "other celebrity/arts/media news (specify in comments)": 142,
+          "other crime/violence (specify in comments)": 308,
+          "other development issues, sustainability, etc.": 159,
+          "other domestic politics, government, etc.": 4398,
+          "other epidemics, viruses, contagions, influenza, bse, sars": 102,
+          "other labour issues (strikes, trade unions, etc.)": 276,
+          "other stories on economy (specify in comments)": 183,
+          "other stories on politics (specify in comments)": 699,
+          "other stories on science (specify in comments)": 193,
+          "other stories on social/legal (specify in comments)": 406,
+          "peace, negotiations, treaties": 385,
+          "poverty, housing, social welfare, aid, etc.": 314,
+          "religion, culture, tradition, controversies...": 375,
+          "riots, demonstrations, public disorder, etc.": 316,
+          "rural economy, agriculture, farming, land rights": 323,
+          "science, technology, research, discoveries...": 388,
+          "sports, events, players, facilities, training, funding": 1688,
+          "transport, traffic, roads...": 395,
+          "violent crime, murder, abduction, assault, etc.": 1545,
+          "war, civil war, terrorism, other state-based violence": 550,
+          "women politicians, women electoral candidates...": 290,
+          "womens movement, activism, demonstrations, etc": 104,
+          "womens participation in economic processes": 45
         }
       }
     }

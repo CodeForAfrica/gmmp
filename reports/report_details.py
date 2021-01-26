@@ -143,6 +143,13 @@ WS_INFO = {
         },
     },
     'ws_07': {
+        '2015': {
+            'name': '7',
+            'title': 'Women in the news (sources) by medium',
+            'desc': 'Breakdown by sex of all mediums',
+            'reports': ['global', 'region', 'country'],
+            'historical': '7',
+        },
         '2010': {
             'name': '7',
             'title': 'Women in the news (sources) by medium',
@@ -152,6 +159,13 @@ WS_INFO = {
         },
     },
     'ws_08': {
+        '2015': {
+            'name': '8',
+            'title': 'Sex of news subjects (sources) inlocal,national,sub-regional/regional, foreign/intnl news',
+            'desc': 'Breakdown by sex local,national,sub-regional/regional, intnl news',
+            'reports': ['global', 'region', 'country'],
+            'historical': '8',
+        },
         '2010': {
             'name': '8',
             'title': 'Sex of news subjects (sources) inlocal,national,sub-regional/regional, foreign/intnl news',
@@ -161,6 +175,13 @@ WS_INFO = {
         },
     },
     'ws_09': {
+        '2015': {
+            'name': '9',
+            'title': 'Sex of news subjects in different story topics',
+            'desc': 'Breakdown of topic by sex',
+            'reports': ['global', 'region'],
+            'historical': '9',
+        },
         '2010': {
             'name': '9',
             'title': 'Sex of news subjects in different story topics',
@@ -170,6 +191,13 @@ WS_INFO = {
         },
     },
     'ws_10': {
+        '2015': {
+            'name': '10',
+            'title': 'Space allocated to major topics in Newspapers',
+            'desc': 'Breakdown by major topic by space (q.4) in newspapers',
+            'reports': ['global', 'region', 'country'],
+            'historical': '10',
+        },
         '2010': {
             'name': '10',
             'title': 'Space allocated to major topics in Newspapers',
@@ -178,6 +206,13 @@ WS_INFO = {
         },
     },
     'ws_11': {
+        '2015': {
+            'name': '11',
+            'title': 'Stories making reference to issues of gender equality/inequality, legislation, policy by major topic',
+            'desc': 'Breakdown by major topic by reference to gender equality/human rights/policy',
+            'reports': ['global', 'region', 'country'],
+            'historical': '11',
+        },
         '2010': {
             'name': '11',
             'title': 'Stories making reference to issues of gender equality/inequality, legislation, policy by major topic',
@@ -202,6 +237,13 @@ WS_INFO = {
         },
     },
     'ws_14': {
+        '2015': {
+            'name': '14',
+            'title': 'Position or occupation of news sources, by sex',
+            'desc': 'Breakdown of new sources by occupation and sex',
+            'reports': ['global', 'region', 'country'],
+            'historical': '14',
+        },
         '2010': {
             'name': '14',
             'title': 'Position or occupation of news sources, by sex',
@@ -211,6 +253,13 @@ WS_INFO = {
         },
     },
     'ws_15': {
+        '2015': {
+            'name': '15',
+            'title': 'News subject\'s Function in news story, by sex',
+            'desc': 'Breakdown by sex and function',
+            'reports': ['global', 'region', 'country'],
+            'historical': '15',
+        },
         '2010': {
             'name': '15',
             'title': 'News subject\'s Function in news story, by sex',
@@ -238,6 +287,13 @@ WS_INFO = {
         },
     },
     'ws_18': {
+        '2015': {
+            'name': '18',
+            'title': 'Age of news subjects by print, by sex',
+            'desc': 'B.down of  Age of news subjects by print, by sex',
+            'reports': ['global', 'region', 'country'],
+            'historical': '18',
+        },
         '2010': {
             'name': '18',
             'title': 'Age of news subjects by print, by sex',
@@ -283,6 +339,13 @@ WS_INFO = {
         },
     },
     'ws_24': {
+        '2015': {
+            'name': '24',
+            'title': 'Breakdown by family status, by sex.',
+            'desc': 'News subjects who are identified by family status, by sex',
+            'reports': ['global', 'region', 'country'],
+            'historical': '24',
+        },
         '2010': {
             'name': '24',
             'title': 'Breakdown by family status, by sex.',
@@ -301,6 +364,13 @@ WS_INFO = {
         },
     },
     'ws_26': {
+        '2015': {
+            'name': '26',
+            'title': 'Breakdown of  news subjects quoted, by sex',
+            'desc': 'News subjects quoted, by sex',
+            'reports': ['global', 'region', 'country'],
+            'historical': '26',
+        },
         '2010': {
             'name': '26',
             'title': 'Breakdown of  news subjects quoted, by sex',
