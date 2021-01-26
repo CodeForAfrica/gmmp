@@ -48,7 +48,7 @@ class GMMP2015ReportImporter(BaseReportImporter):
         return all_data
 
     def import_2(self, sheet_info):
-        all_data = dict()
+        all_data = {}
         for year, col_start, col_end in [
             (2015, 3, 10),
             (2010, 13, 16)
