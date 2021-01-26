@@ -562,13 +562,8 @@ WS_INFO = {
     'ws_45': {
         '2015': {
             'name': '45',
-<<<<<<< HEAD
             'title': "Stories where issues of gender equality/inequality are raised by sex of 'people in the news' and by region",
             'desc': "B.down of Stories where issues of gender equality/inequality are raised by sex of 'people in the news' and by region",
-=======
-            'title': 'Stories where issues of gender equality/inequality are raised by sex of \'people in the news\' and by region',
-            'desc': 'Stories where issues of gender equality/inequality are raised by sex of \'people in the news\' and by region',
->>>>>>> import sheet 45
             'reports': ['global', 'region'],
             'historical': '45',
         },
