@@ -339,6 +339,13 @@ WS_INFO = {
         },
     },
     'ws_24': {
+        '2015': {
+            'name': '24',
+            'title': 'Breakdown by family status, by sex.',
+            'desc': 'News subjects who are identified by family status, by sex',
+            'reports': ['global', 'region', 'country'],
+            'historical': '24',
+        },
         '2010': {
             'name': '24',
             'title': 'Breakdown by family status, by sex.',
