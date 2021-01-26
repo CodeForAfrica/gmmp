@@ -418,6 +418,88 @@
         }
       }
     },
+    "15": {
+      "1995": {
+        "female": {
+          "do not know": "n/a",
+          "expert or commentator": 0,
+          "eye witness": 0,
+          "other": 0,
+          "personal experience": 0,
+          "popular opinion": 0,
+          "spokesperson": 0,
+          "subject": 0
+        }
+      },
+      "2000": {
+        "female": {
+          "do not know": "n/a",
+          "expert or commentator": 0,
+          "eye witness": 0,
+          "other": 0,
+          "personal experience": 0,
+          "popular opinion": 0,
+          "spokesperson": 0,
+          "subject": 0
+        }
+      },
+      "2005": {
+        "female": {
+          "do not know": "n/a",
+          "expert or commentator": 0.17,
+          "eye witness": 0.3,
+          "other": "n/a",
+          "personal experience": 0.31,
+          "popular opinion": 0.34,
+          "spokesperson": 0.14,
+          "subject": 0.23
+        }
+      },
+      "2010": {
+        "female": {
+          "do not know": "n/a",
+          "expert or commentator": 0.2,
+          "eye witness": 0.29,
+          "other": 0.21,
+          "personal experience": 0.36,
+          "popular opinion": 0.44,
+          "spokesperson": 0.19,
+          "subject": 0.23
+        },
+        "n": {
+          "do not know": "n/a",
+          "expert or commentator": 1017,
+          "eye witness": 311,
+          "other": 132,
+          "personal experience": 964,
+          "popular opinion": 365,
+          "spokesperson": 1552,
+          "subject": 3176
+        }
+      },
+      "2015": {
+        "female": {
+          "do not know": 0.209677419354839,
+          "expert or commentator": 0.189478478706445,
+          "eye witness": 0.296259842519685,
+          "other": 0.315261044176707,
+          "personal experience": 0.377127028096557,
+          "popular opinion": 0.369120654396728,
+          "spokesperson": 0.196740532301559,
+          "subject": 0.256346269684192
+        },
+        "n": {
+          "do not know": 868,
+          "expert or commentator": 4391,
+          "eye witness": 1016,
+          "other": 498,
+          "personal experience": 2527,
+          "popular opinion": 978,
+          "spokesperson": 8529,
+          "subject": 11621
+        }
+      }
+    },
     "2": {
       "2010": {
         "Africa": {

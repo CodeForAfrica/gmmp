@@ -253,6 +253,13 @@ WS_INFO = {
         },
     },
     'ws_15': {
+        '2015': {
+            'name': '15',
+            'title': 'News subject\'s Function in news story, by sex',
+            'desc': 'Breakdown by sex and function',
+            'reports': ['global', 'region', 'country'],
+            'historical': '15',
+        },
         '2010': {
             'name': '15',
             'title': 'News subject\'s Function in news story, by sex',
