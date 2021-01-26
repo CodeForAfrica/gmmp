@@ -637,6 +637,13 @@ WS_INFO = {
         },
     },
     'ws_51': {
+        '2015': {
+            'name': '51',
+            'title': 'Internet - Story shared on Facebook',
+            'desc': 'Internet - Story shared on Facebook',
+            'reports': ['global', 'country'],
+            'historical': '51',
+        },
         '2010': {
             'name': '51',
             'title': 'Internet - Story shared on Facebook',
