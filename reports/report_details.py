@@ -622,6 +622,13 @@ WS_INFO = {
         },
     },
     'ws_50': {
+        '2015': {
+            'name': '50',
+            'title': 'Internet - Story shared on Twitter',
+            'desc': 'Internet - Story shared on Twitter',
+            'reports': ['global', 'country'],
+            'historical': '50',
+        },
         '2010': {
             'name': '50',
             'title': 'Internet - Story shared on Twitter',
