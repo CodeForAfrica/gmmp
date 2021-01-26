@@ -2851,6 +2851,55 @@
         }
       }
     },
+    "47": {
+      "2015": {
+        "agree": {
+          "celebrity, arts and media, sports": 0.0267909143855562,
+          "crime and violence": 0.0407757334659373,
+          "economy": 0.0316132031613203,
+          "other": 0.0065359477124183,
+          "politics and government": 0.0253513364563241,
+          "science and health": 0.0500403551251009,
+          "social and legal": 0.0448300795372379
+        },
+        "disagree": {
+          "celebrity, arts and media, sports": 0.761211415259173,
+          "crime and violence": 0.754848334162108,
+          "economy": 0.727568572756857,
+          "other": 0.735294117647059,
+          "politics and government": 0.715073022871314,
+          "science and health": 0.702986279257466,
+          "social and legal": 0.660882140274765
+        },
+        "do not know": {
+          "celebrity, arts and media, sports": 0.052417006406523,
+          "crime and violence": 0.08652411735455,
+          "economy": 0.0674105067410507,
+          "other": 0.0490196078431373,
+          "politics and government": 0.0551116009920088,
+          "science and health": 0.0451977401129944,
+          "social and legal": 0.0486864304651723
+        },
+        "n": {
+          "celebrity, arts and media, sports": 1717,
+          "crime and violence": 2011,
+          "economy": 2151,
+          "other": 306,
+          "politics and government": 3629,
+          "science and health": 1239,
+          "social and legal": 4149
+        },
+        "neither agree nor disagree": {
+          "celebrity, arts and media, sports": 0.159580663948748,
+          "crime and violence": 0.117851815017404,
+          "economy": 0.173407717340772,
+          "other": 0.209150326797386,
+          "politics and government": 0.204464039680353,
+          "science and health": 0.201775625504439,
+          "social and legal": 0.245601349722825
+        }
+      }
+    },
     "5": {
       "1995": {
         "female": {
