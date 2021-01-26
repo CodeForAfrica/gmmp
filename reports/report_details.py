@@ -470,6 +470,13 @@ WS_INFO = {
         },
     },
     'ws_36': {
+        '2015': {
+            'name': '36',
+            'title': 'Breakdown of Stories with Women as central focus (is this story about a particular woman or women) by sex of reporter',
+            'desc': 'Stories with Women as central focus  by sex of reporter',
+            'reports': ['global', 'region', 'country'],
+            'historical': '36',
+        },
         '2010': {
             'name': '36',
             'title': 'Breakdown of Stories with Women as central focus (is this story about a particular woman or women) by sex of reporter',
