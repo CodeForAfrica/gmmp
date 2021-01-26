@@ -159,6 +159,13 @@ WS_INFO = {
         },
     },
     'ws_08': {
+        '2015': {
+            'name': '8',
+            'title': 'Sex of news subjects (sources) inlocal,national,sub-regional/regional, foreign/intnl news',
+            'desc': 'Breakdown by sex local,national,sub-regional/regional, intnl news',
+            'reports': ['global', 'region', 'country'],
+            'historical': '8',
+        },
         '2010': {
             'name': '8',
             'title': 'Sex of news subjects (sources) inlocal,national,sub-regional/regional, foreign/intnl news',

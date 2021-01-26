@@ -163,3 +163,25 @@ class GMMP2015ReportImporter(BaseReportImporter):
             )
 
         return all_data
+
+    def import_8(self, sheet_info):
+        all_data = {}
+        for year, col_start, col_end, row_start, row_end in [
+            (2015, 3, 4, 7, 10),
+            (2010, 9, 10, 7, 10),
+            (2005, 8, 8, 7, 10),
+            (2000, 7, 7, 7, 10),
+            (1995, 6, 6, 7, 10),
+        ]:
+            data = {}
+            all_data[year] = data
+            self.slurp_table(
+                self.ws,
+                data,
+                col_start=col_start,
+                col_end=col_end,
+                row_start=row_start,
+                row_end=row_end
+            )
+
+        return all_data

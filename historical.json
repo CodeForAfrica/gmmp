@@ -1832,6 +1832,60 @@
           "male": 0.757621621621622
         }
       }
+    },
+    "8": {
+      "1995": {
+        "female": {
+          "foreign/international": "n/a",
+          "local": 0.22,
+          "national": 0.14,
+          "sub-regional": "n/a"
+        }
+      },
+      "2000": {
+        "female": {
+          "foreign/international": "n/a",
+          "local": 0.23,
+          "national": 0.17,
+          "sub-regional": "n/a"
+        }
+      },
+      "2005": {
+        "female": {
+          "foreign/international": "n/a",
+          "local": 0.27,
+          "national": 0.19,
+          "sub-regional": "n/a"
+        }
+      },
+      "2010": {
+        "female": {
+          "foreign/international": "n/a",
+          "local": 0.26,
+          "national": 0.23,
+          "sub-regional": "n/a"
+        },
+        "n": {
+          "foreign/international": "n/a",
+          "local": 38,
+          "national": 1874,
+          "sub-regional": "n/a"
+        }
+      },
+      "2015": {
+        "female": {
+          "foreign/international": 0.240675763482781,
+          "local": 0.26508120649652,
+          "national": 0.234591425430561,
+          "sub-regional": 0.256830601092896
+        },
+        "n": {
+          "foreign/international": 7695,
+          "local": 6896,
+          "national": 13645,
+          "sub-regional": 2196
+        }
+      }
     }
   }
 }
