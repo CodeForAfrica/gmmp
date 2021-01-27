@@ -1270,6 +1270,13 @@ WS_INFO = {
         },
     },
     'ws_s26': {
+        '2015': {
+            'name': 's26',
+            'title': 'Internet, Twitter - Topics in stories where women are central to the news',
+            'desc': 'Internet, Twitter - Topics in stories where women are central to the news',
+            'reports': ['global'],
+            'historical': 's26',
+        },
         '2010': {
             'name': 's26',
             'title': 'Internet, Twitter - Topics in stories where women are central to the news',
