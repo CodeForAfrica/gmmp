@@ -310,8 +310,6 @@ class GMMP2015ReportImporter(BaseReportImporter):
             row_heading_col=2,
         )
 
-        return all_data
-
     def import_14(self, sheet_info):
         return self.import_grid(
             [
@@ -1058,51 +1056,3 @@ class GMMP2015ReportImporter(BaseReportImporter):
             row_end=15,
             row_heading_col=2,
         )
-
-        return all_data
-
-    def import_49(self, sheet_info):
-        all_data = {}
-        data = {}
-        all_data[2015] = data
-        self.slurp_table(
-            self.ws,
-            data,
-            col_start=3,
-            col_end=10,
-            row_start=7,
-            row_end=14
-        )
-
-        return all_data
-
-    def import_50(self, sheet_info):
-        all_data = {}
-        data = {}
-        all_data[2015] = data
-        self.slurp_table(
-            self.ws,
-            data,
-            col_start=3,
-            col_end=10,
-            row_start=7,
-            row_end=120
-        )
-
-        return all_data
-
-
-    def import_51(self, sheet_info):
-        all_data = {}
-        data = {}
-        all_data[2015] = data
-        self.slurp_table(
-            self.ws,
-            data,
-            col_start=3,
-            col_end=10,
-            row_start=7,
-            row_end=120
-        )
-
-        return all_data
