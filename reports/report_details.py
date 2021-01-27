@@ -730,6 +730,13 @@ WS_INFO = {
         },
     },
     'ws_59': {
+        '2015': {
+            'name': '59',
+            'title': 'Internet - Selection of News Subjects',
+            'desc': 'Internet - Selection of News Subjects by sex of reporter (columns) and sex of subject (rows)',
+            'reports': ['global', 'country'],
+            'historical': '59',
+        },
         '2010': {
             'name': '59',
             'title': 'Internet - Selection of News Subjects',
