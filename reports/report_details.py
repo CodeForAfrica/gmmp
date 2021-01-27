@@ -801,6 +801,13 @@ WS_INFO = {
         },
     },
     'ws_67': {
+        '2015': {
+            'name': '67',
+            'title': 'Twitter - Female reporters & journalists',
+            'desc': 'Twitter - Female reporters & journalists',
+            'reports': ['global', 'region', 'country'],
+            'historical': '67',
+        },
         '2010': {
             'name': '67',
             'title': 'Twitter - Female reporters & journalists',
