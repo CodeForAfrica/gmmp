@@ -698,6 +698,13 @@ WS_INFO = {
         },
     },
     'ws_56': {
+        '2015': {
+            'name': '56',
+            'title': 'Internet - Functions of news subjects',
+            'desc': 'Internet - Functions of news subjects',
+            'reports': ['global', 'region', 'country'],
+            'historical': '56',
+        },
         '2010': {
             'name': '56',
             'title': 'Internet - Functions of news subjects',
