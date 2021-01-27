@@ -733,11 +733,7 @@ WS_INFO = {
         '2015': {
             'name': '59',
             'title': 'Internet - Selection of News Subjects',
-<<<<<<< HEAD
             'desc': 'Internet - Selection of News Subject(sex of source)  by female & male reporters',
-=======
-            'desc': 'Internet - Selection of News Subjects by sex of reporter (columns) and sex of subject (rows)',
->>>>>>> import sheet 59
             'reports': ['global', 'country'],
             'historical': '59',
         },
