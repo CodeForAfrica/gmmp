@@ -1285,6 +1285,13 @@ WS_INFO = {
         },
     },
     'ws_s27': {
+        '2015': {
+            'name': 's27',
+            'title': 'Internet, Twitter - Stories that clearly challenge stereotypes',
+            'desc': 'Internet, Twitter - Stories that clearly challenge stereotypes',
+            'reports': ['global'],
+            'historical': 's27',
+        },
         '2010': {
             'name': 's27',
             'title': 'Internet, Twitter - Stories that clearly challenge stereotypes',
