@@ -13298,6 +13298,87 @@
           "zimbabwe": 0
         }
       }
+    },
+    "sr08": {
+      "2015": {
+        "celebrity, arts and media, sports": {
+          "africa": 25,
+          "asia": 17,
+          "caribbean": 34,
+          "europe": 94,
+          "latin america": 28,
+          "middle east": 15,
+          "north america": 5,
+          "pacific islands": 26,
+          "transnational": 0
+        },
+        "crime and violence": {
+          "africa": 77,
+          "asia": 70,
+          "caribbean": 60,
+          "europe": 109,
+          "latin america": 87,
+          "middle east": 19,
+          "north america": 19,
+          "pacific islands": 24,
+          "transnational": 0
+        },
+        "economy": {
+          "africa": 46,
+          "asia": 6,
+          "caribbean": 16,
+          "europe": 24,
+          "latin america": 29,
+          "middle east": 5,
+          "north america": 8,
+          "pacific islands": 13,
+          "transnational": 0
+        },
+        "other": {
+          "africa": 4,
+          "asia": 2,
+          "caribbean": 1,
+          "europe": 3,
+          "latin america": 1,
+          "middle east": 0,
+          "north america": 0,
+          "pacific islands": 2,
+          "transnational": 0
+        },
+        "politics and government": {
+          "africa": 49,
+          "asia": 28,
+          "caribbean": 37,
+          "europe": 78,
+          "latin america": 40,
+          "middle east": 3,
+          "north america": 7,
+          "pacific islands": 9,
+          "transnational": 0
+        },
+        "science and health": {
+          "africa": 53,
+          "asia": 17,
+          "caribbean": 11,
+          "europe": 66,
+          "latin america": 16,
+          "middle east": 6,
+          "north america": 10,
+          "pacific islands": 7,
+          "transnational": 0
+        },
+        "social and legal": {
+          "africa": 88,
+          "asia": 42,
+          "caribbean": 50,
+          "europe": 97,
+          "latin america": 76,
+          "middle east": 21,
+          "north america": 18,
+          "pacific islands": 16,
+          "transnational": 0
+        }
+      }
     }
   }
 }
