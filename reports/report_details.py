@@ -856,6 +856,13 @@ WS_INFO = {
         },
     },
     'ws_73': {
+        '2015': {
+            'name': '73',
+            'title': 'Key themes, selection of sources by sex of reporter',
+            'desc': 'Key themes, selection of sources by sex of reporter',
+            'reports': ['global', 'region', 'country'],
+            'historical': '73',
+        },
         '2010': {
             'name': '73',
             'title': 'Key themes, selection of sources by sex of reporter',
