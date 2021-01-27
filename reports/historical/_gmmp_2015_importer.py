@@ -199,34 +199,18 @@ class GMMP2015ReportImporter(BaseReportImporter):
         )
 
     def import_10(self, sheet_info):
-        all_data = {}
-        data = {}
-        all_data[2015] = data
-        self.slurp_table(
-            self.ws,
-            data,
-            col_start=3,
-            col_end=7,
-            row_start=7,
-            row_end=13
+        return self.import_grid(
+            [
+                (2015, 3, 7, 7, 13),
+            ]
         )
-
-        return all_data
 
     def import_11(self, sheet_info):
-        all_data = {}
-        data = {}
-        all_data[2015] = data
-        self.slurp_table(
-            self.ws,
-            data,
-            col_start=3,
-            col_end=5,
-            row_start=7,
-            row_end=13
+        return self.import_grid(
+            [
+                (2015, 3, 5, 7, 13),
+            ]
         )
-
-        return all_data
 
     def import_14(self, sheet_info):
         return self.import_grid(
@@ -318,19 +302,11 @@ class GMMP2015ReportImporter(BaseReportImporter):
         )
 
     def import_38(self, sheet_info):
-        all_data = {}
-        data = {}
-        all_data[2015] = data
-        self.slurp_table(
-            self.ws,
-            data,
-            col_start=3,
-            col_end=5,
-            row_start=7,
-            row_end=13
+        return self.import_grid(
+            [
+                (2015, 3, 5, 7, 13),
+            ]
         )
-
-        return all_data
 
     def import_39(self, sheet_info):
         return self.import_grid(
@@ -349,62 +325,29 @@ class GMMP2015ReportImporter(BaseReportImporter):
         )
 
     def import_47(self, sheet_info):
-        all_data = {}
-        data = {}
-        all_data[2015] = data
-        self.slurp_table(
-            self.ws,
-            data,
-            col_start=3,
-            col_end=7,
-            row_start=7,
-            row_end=13
+        return self.import_grid(
+            [
+                (2015, 3, 7, 7, 13),
+            ]
         )
-
-        return all_data
 
     def import_49(self, sheet_info):
-        all_data = {}
-        data = {}
-        all_data[2015] = data
-        self.slurp_table(
-            self.ws,
-            data,
-            col_start=3,
-            col_end=10,
-            row_start=7,
-            row_end=14
+        return self.import_grid(
+            [
+                (2015, 3, 10, 7, 14),
+            ]
         )
-
-        return all_data
 
     def import_50(self, sheet_info):
-        all_data = {}
-        data = {}
-        all_data[2015] = data
-        self.slurp_table(
-            self.ws,
-            data,
-            col_start=3,
-            col_end=10,
-            row_start=7,
-            row_end=120
+        return self.import_grid(
+            [
+                (2015, 3, 10, 7, 120),
+            ]
         )
-
-        return all_data
-
 
     def import_51(self, sheet_info):
-        all_data = {}
-        data = {}
-        all_data[2015] = data
-        self.slurp_table(
-            self.ws,
-            data,
-            col_start=3,
-            col_end=10,
-            row_start=7,
-            row_end=120
+        return self.import_grid(
+            [
+                (2015, 3, 10, 7, 120),
+            ]
         )
-
-        return all_data
