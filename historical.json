@@ -10339,6 +10339,66 @@
         }
       }
     },
+    "7": {
+      "2005": {
+        "print": {
+          "female": 0.21,
+          "male": 0.79
+        },
+        "radio": {
+          "female": 0.17,
+          "male": 0.83
+        },
+        "television": {
+          "female": 0.22,
+          "male": 0.78
+        }
+      },
+      "2010": {
+        "n": {
+          "female": 2566,
+          "male": 7682
+        },
+        "print": {
+          "female": 0.24,
+          "male": 0.76
+        },
+        "radio": {
+          "female": 0.22,
+          "male": 0.78
+        },
+        "television": {
+          "female": 0.24,
+          "male": 0.76
+        }
+      },
+      "2015": {
+        "do not know": {
+          "do not know": 0.0529237601776462,
+          "female": 0.21539600296077,
+          "male": 0.731310140636566,
+          "other (transgender, etc.)": 0.000370096225018505
+        },
+        "female": {
+          "do not know": 0.0455026455026455,
+          "female": 0.303703703703704,
+          "male": 0.65026455026455,
+          "other (transgender, etc.)": 0.000529100529100529
+        },
+        "male": {
+          "do not know": 0.0659217877094972,
+          "female": 0.205214152700186,
+          "male": 0.728491620111732,
+          "other (transgender, etc.)": 0.00037243947858473
+        },
+        "other (transgender, etc.)": {
+          "do not know": 0.0158730158730159,
+          "female": 0.174603174603175,
+          "male": 0.80952380952381,
+          "other (transgender, etc.)": 0
+        }
+      }
+    },
     "67": {
       "2015": {
         "celebrity, arts and media, sports": {
