@@ -1356,6 +1356,13 @@ WS_INFO = {
         },
     },
     'ws_sr08': {
+        '2015': {
+            'name': 'sr08',
+            'title': 'Stories where women are central to the news, by region',
+            'desc': 'Stories where women are central to the news, by region',
+            'reports': ['global'],
+            'historical': 'sr08',
+        },
         '2010': {
             'name': 'sr08',
             'title': 'Stories where women are central to the news, by region',
