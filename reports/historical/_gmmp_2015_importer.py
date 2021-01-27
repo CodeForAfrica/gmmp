@@ -393,3 +393,10 @@ class GMMP2015ReportImporter(BaseReportImporter):
                 (2015, 3, 4, 7, 9),
             ]
         )
+
+    def import_s12(self, sheet_info):
+        return self.import_grid(
+            [
+                (2015, 3, 9, 7, 120),
+            ]
+        )
