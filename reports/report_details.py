@@ -652,6 +652,13 @@ WS_INFO = {
         },
     },
     'ws_52': {
+        '2015': {
+            'name': '52',
+            'title': 'Internet - Reference to gender equality/HR policies',
+            'desc': 'Internet - Reference to gender equality/HR policies',
+            'reports': ['global', 'country'],
+            'historical': '52',
+        },
         '2010': {
             'name': '52',
             'title': 'Internet - Reference to gender equality/HR policies',
