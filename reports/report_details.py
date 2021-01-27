@@ -1151,6 +1151,13 @@ WS_INFO = {
         },
     },
     'ws_s12': {
+        '2015': {
+            'name': 's12',
+            'title': 'Topics in stories where women are central to the news',
+            'desc': 'Topics in stories where women are central to the news',
+            'reports': ['global'],
+            'historical': 's12',
+        },
         '2010': {
             'name': 's12',
             'title': 'Topics in stories where women are central to the news',
