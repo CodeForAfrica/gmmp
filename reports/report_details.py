@@ -388,8 +388,8 @@ WS_INFO = {
     'ws_23': {
         '2015': {
             'name': '23',
-            'title': 'News subjects who are portrayed as survivors, by sex',
-            'desc': 'Breakdown of  female & male news subjects who are survivors',
+            'title': 'Breakdown by survivor type by sex',
+            'desc': 'News subjects who are portrayed as survivors, by sex',
             'reports': ['global', 'region', 'country'],
             'historical': '23',
         },
