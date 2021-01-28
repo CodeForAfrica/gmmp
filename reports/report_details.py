@@ -534,21 +534,21 @@ WS_INFO = {
     #         'historical': '12dF',
     #     },
     # },
-    'ws_32': {
-        '2015': {
-            'name': '32',
-            'title': 'Topics in the news - Detail by medium for female reporters',
-            'desc': 'Topics in the news - Detail by medium for female reporters',
-            'reports': ['global'],
-            'historical': '32',
-        },
-        '2010': {
-            'name': '32',
-            'title': 'Topics in the news - Detail by medium for female reporters',
-            'desc': 'Topics in the news - Detail by medium for female reporters',
-            'reports': ['global'],
-        },
-    },
+    # 'ws_32': {
+    #     '2015': {
+    #         'name': '32',
+    #         'title': 'Topics in the news - Detail by medium for female reporters',
+    #         'desc': 'Topics in the news - Detail by medium for female reporters',
+    #         'reports': ['global'],
+    #         'historical': '32',
+    #     },
+    #     '2010': {
+    #         'name': '32',
+    #         'title': 'Topics in the news - Detail by medium for female reporters',
+    #         'desc': 'Topics in the news - Detail by medium for female reporters',
+    #         'reports': ['global'],
+    #     },
+    # },
     # 'ws_34': {
     #     '2015': {
     #         'name': '34',
@@ -745,14 +745,21 @@ WS_INFO = {
     #         'reports': ['global', 'region', 'country'],
     #     },
     # },
-    # 'ws_48': {
-    #     '2010': {
-    #         'name': '48',
-    #         'title': 'Story clearly challenges gender stereotypes by sex of rep',
-    #         'desc': 'Stories where stereotypes are challenged/ supported by gender of rep',
-    #         'reports': ['global', 'region', 'country'],
-    #     },
-    # },
+    'ws_48': {
+        '2015': {
+            'name': '48',
+            'title': 'Story clearly challenges gender stereotypes by sex of rep',
+            'desc': 'Stories where stereotypes are challenged/ supported by gender of rep',
+            'reports': ['global', 'region', 'country'],
+            'historical': '48',
+        },
+        '2010': {
+            'name': '48',
+            'title': 'Story clearly challenges gender stereotypes by sex of rep',
+            'desc': 'Stories where stereotypes are challenged/ supported by gender of rep',
+            'reports': ['global', 'region', 'country'],
+        },
+    },
     # 'ws_49': {
     #     '2015': {
     #         'name': '49',
