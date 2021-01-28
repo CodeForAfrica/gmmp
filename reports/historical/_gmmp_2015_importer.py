@@ -33,8 +33,8 @@ class GMMP2015ReportImporter(BaseReportImporter):
             row_heading_col,
         )
 
-    def import_grid(self, grid_info):
-        all_data = {}
+    def import_grid(self, grid_info, all_data=None):
+        all_data = {} if not all_data else all_data
         for year, col_start, col_end, row_start, row_end in grid_info:
             data = {}
             all_data[year] = data
@@ -242,6 +242,32 @@ class GMMP2015ReportImporter(BaseReportImporter):
                 (2005, 9, 11, 7, 13),
             ]
         )
+
+    def import_23(self, sheet_info):
+        data = {}
+        all_data = {self.year: data}
+
+        self.slurp_secondary_col_table(
+            self.ws,
+            data,
+            col_start=3,
+            cols=2,
+            cols_per_group=2,
+            major_col_heading_row=5,
+            row_start=7,
+            row_end=16,
+            row_heading_col=2,
+        )
+
+        self.import_grid(
+            [
+                (2005, 9, 10, 7, 16),
+                (2010, 11, 13, 7, 16),
+            ],
+            all_data=all_data
+        )
+
+        return all_data
 
     def import_24(self, sheet_info):
         return self.import_grid(

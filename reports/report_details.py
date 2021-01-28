@@ -329,15 +329,22 @@ WS_INFO = {
     #         'historical': '9gF',
     #     },
     # },
-    # 'ws_23': {
-    #     '2010': {
-    #         'name': '23',
-    #         'title': 'Breakdown by survivor type by sex',
-    #         'desc': 'News subjects who are portrayed as survivors, by sex',
-    #         'reports': ['global', 'region', 'country'],
-    #         'historical': '19bF',
-    #     },
-    # },
+    'ws_23': {
+        '2015': {
+            'name': '23',
+            'title': 'Breakdown by survivor type by sex',
+            'desc': 'News subjects who are portrayed as survivors, by sex',
+            'reports': ['global', 'region', 'country'],
+            'historical': '23',
+        },
+        '2010': {
+            'name': '23',
+            'title': 'Breakdown by survivor type by sex',
+            'desc': 'News subjects who are portrayed as survivors, by sex',
+            'reports': ['global', 'region', 'country'],
+            'historical': '19bF',
+        },
+    },
     # 'ws_24': {
     #     '2015': {
     #         'name': '24',
@@ -354,22 +361,22 @@ WS_INFO = {
     #         'historical': '9hF',
     #     },
     # },
-    'ws_25': {
-        '2015': {
-            'name': '25',
-            'title': 'B.down by sex of subject, family status, by sex of reporter',
-            'desc': 'News subjects who are identified by family status, by sex of news subject, by sex of reporter',
-            'reports': ['global', 'region', 'country'],
-            'historical': '25',
-        },
-        '2010': {
-            'name': '25',
-            'title': 'B.down by sex of subject, family status, by sex of reporter',
-            'desc': 'News subjects who are identified by family status, by sex of news subject, by sex of reporter',
-            'reports': ['global', 'region', 'country'],
-            'historical': '9kF',
-        },
-    },
+    # 'ws_25': {
+    #     '2015': {
+    #         'name': '25',
+    #         'title': 'B.down by sex of subject, family status, by sex of reporter',
+    #         'desc': 'News subjects who are identified by family status, by sex of news subject, by sex of reporter',
+    #         'reports': ['global', 'region', 'country'],
+    #         'historical': '25',
+    #     },
+    #     '2010': {
+    #         'name': '25',
+    #         'title': 'B.down by sex of subject, family status, by sex of reporter',
+    #         'desc': 'News subjects who are identified by family status, by sex of news subject, by sex of reporter',
+    #         'reports': ['global', 'region', 'country'],
+    #         'historical': '9kF',
+    #     },
+    # },
     # 'ws_26': {
     #     '2015': {
     #         'name': '26',
