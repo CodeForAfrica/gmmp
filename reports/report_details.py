@@ -228,14 +228,21 @@ WS_INFO = {
     #         'reports': ['global', 'region'],
     #     },
     # },
-    # 'ws_13': {
-    #     '2010': {
-    #         'name': '13',
-    #         'title': 'Stories making reference to issues of gender equality/inequality, legislation, policy by sex of reporter',
-    #         'desc': 'B.down by major topic by sex of reporter by reference to gender equality/human rights/policy',
-    #         'reports': ['global', 'region',  'country'],
-    #     },
-    # },
+    'ws_13': {
+        '2015': {
+            'name': '13',
+            'title': 'Stories making reference to issues of gender equality/inequality, legislation, policy by sex of reporter',
+            'desc': 'B.down by major topic by sex of reporter by reference to gender equality/human rights/policy',
+            'reports': ['global', 'region',  'country'],
+            'historical': '13',
+        },
+        '2010': {
+            'name': '13',
+            'title': 'Stories making reference to issues of gender equality/inequality, legislation, policy by sex of reporter',
+            'desc': 'B.down by major topic by sex of reporter by reference to gender equality/human rights/policy',
+            'reports': ['global', 'region',  'country'],
+        },
+    },
     # 'ws_14': {
     #     '2015': {
     #         'name': '14',
@@ -268,22 +275,22 @@ WS_INFO = {
     #         'historical': '9fF',
     #     },
     # },
-    'ws_16': {
-        '2015': {
-            'name': '16',
-            'title': 'Function of news subjects by sex - by occupation',
-            'desc': 'Breakdown of  Function of news subjects by sex - by occupation',
-            'reports': ['global', 'region', 'country'],
-            'historical': '16',
-        },
-        '2010': {
-            'name': '16',
-            'title': 'Function of news subjects by sex - by occupation',
-            'desc': 'Breakdown of  Function of news subjects by sex - by occupation',
-            'reports': ['global', 'region', 'country'],
-            'historical': '20aF',
-        },
-    },
+    # 'ws_16': {
+    #     '2015': {
+    #         'name': '16',
+    #         'title': 'Function of news subjects by sex - by occupation',
+    #         'desc': 'Breakdown of  Function of news subjects by sex - by occupation',
+    #         'reports': ['global', 'region', 'country'],
+    #         'historical': '16',
+    #     },
+    #     '2010': {
+    #         'name': '16',
+    #         'title': 'Function of news subjects by sex - by occupation',
+    #         'desc': 'Breakdown of  Function of news subjects by sex - by occupation',
+    #         'reports': ['global', 'region', 'country'],
+    #         'historical': '20aF',
+    #     },
+    # },
     # 'ws_17': {
     #     '2015': {
     #         'name': '17',
