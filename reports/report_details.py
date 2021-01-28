@@ -1206,6 +1206,13 @@ WS_INFO = {
         },
     },
     'ws_s18': {
+        '2015': {
+            'name': 's18',
+            'title': 'Internet, Twitter - News subjects on Internet and Twitter news',
+            'desc': 'Internet, Twitter - News subjects on Internet and Twitter news',
+            'reports': ['global'],
+            'historical': 's18',
+        },
         '2010': {
             'name': 's18',
             'title': 'Internet, Twitter - News subjects on Internet and Twitter news',
