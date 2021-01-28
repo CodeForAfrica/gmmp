@@ -488,29 +488,36 @@ WS_INFO = {
     #         'historical': '10bF',
     #     },
     # },
-    'ws_29': {
-        '2015': {
-            'name': '29',
-            'title': 'Breakdown of female reporters in domestic & foreign stories, by region',
-            'desc': 'Reporters in domestic & foreign stories (scope) , by region, by sex of reporter region',
-            'reports': ['global', 'region', 'country'],
-            'historical': '29',
-        },
-        '2010': {
-            'name': '29',
-            'title': 'Breakdown of female reporters in domestic & foreign stories, by region',
-            'desc': 'Reporters in domestic & foreign stories (scope) , by region, by sex of reporter region',
-            'reports': ['global', 'region', 'country'],
-        },
-    },
-    # 'ws_30': {
+    # 'ws_29': {
+    #     '2015': {
+    #         'name': '29',
+    #         'title': 'Breakdown of female reporters in domestic & foreign stories, by region',
+    #         'desc': 'Reporters in domestic & foreign stories (scope) , by region, by sex of reporter region',
+    #         'reports': ['global', 'region', 'country'],
+    #         'historical': '29',
+    #     },
     #     '2010': {
-    #         'name': '30',
-    #         'title': 'Breakdown of female reporters, by major topic, by region',
-    #         'desc': 'Reporters, by sex on major topics, by region',
+    #         'name': '29',
+    #         'title': 'Breakdown of female reporters in domestic & foreign stories, by region',
+    #         'desc': 'Reporters in domestic & foreign stories (scope) , by region, by sex of reporter region',
     #         'reports': ['global', 'region', 'country'],
     #     },
     # },
+    'ws_30': {
+        '2015': {
+            'name': '30',
+            'title': 'Breakdown of female reporters, by major topic, by region',
+            'desc': 'Reporters, by sex on major topics, by region',
+            'reports': ['global', 'region', 'country'],
+            'historical': '30',
+        },
+        '2010': {
+            'name': '30',
+            'title': 'Breakdown of female reporters, by major topic, by region',
+            'desc': 'Reporters, by sex on major topics, by region',
+            'reports': ['global', 'region', 'country'],
+        },
+    },
     # 'ws_31': {
     #     '2015': {
     #         'name': '31',

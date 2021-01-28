@@ -1,244 +1,340 @@
 {
   "global": {
-    "29": {
+    "30": {
       "2015": {
         "africa": {
           "female": {
             "%": {
-              "foreign/international": 0.082089552238806,
-              "local": 0.283582089552239,
-              "national": 0.574626865671642,
-              "sub-regional": 0.0597014925373134
+              "celebrity, arts and media, sports": 0.0599250936329588,
+              "crime and violence": 0.119850187265918,
+              "economy": 0.217228464419476,
+              "other": 0.00749063670411985,
+              "politics and government": 0.247191011235955,
+              "science and health": 0.127340823970037,
+              "social and legal": 0.220973782771536
             },
             "n": {
-              "foreign/international": 22,
-              "local": 76,
-              "national": 154,
-              "sub-regional": 16
+              "celebrity, arts and media, sports": 16,
+              "crime and violence": 32,
+              "economy": 58,
+              "other": 2,
+              "politics and government": 66,
+              "science and health": 34,
+              "social and legal": 59
             }
           },
           "male": {
             "%": {
-              "foreign/international": 0.0776892430278884,
-              "local": 0.262948207171315,
-              "national": 0.597609561752988,
-              "sub-regional": 0.0617529880478088
+              "celebrity, arts and media, sports": 0.062,
+              "crime and violence": 0.124,
+              "economy": 0.244,
+              "other": 0.004,
+              "politics and government": 0.306,
+              "science and health": 0.076,
+              "social and legal": 0.184
             },
             "n": {
-              "foreign/international": 39,
-              "local": 132,
-              "national": 300,
-              "sub-regional": 31
+              "celebrity, arts and media, sports": 31,
+              "crime and violence": 62,
+              "economy": 122,
+              "other": 2,
+              "politics and government": 153,
+              "science and health": 38,
+              "social and legal": 92
             }
           }
         },
         "asia": {
           "female": {
             "%": {
-              "foreign/international": 0.145584725536993,
-              "local": 0.238663484486873,
-              "national": 0.451073985680191,
-              "sub-regional": 0.164677804295943
+              "celebrity, arts and media, sports": 0.081145584725537,
+              "crime and violence": 0.100238663484487,
+              "economy": 0.124105011933174,
+              "other": 0.0405727923627685,
+              "politics and government": 0.20763723150358,
+              "science and health": 0.186157517899761,
+              "social and legal": 0.260143198090692
             },
             "n": {
-              "foreign/international": 61,
-              "local": 100,
-              "national": 189,
-              "sub-regional": 69
+              "celebrity, arts and media, sports": 34,
+              "crime and violence": 42,
+              "economy": 52,
+              "other": 17,
+              "politics and government": 87,
+              "science and health": 78,
+              "social and legal": 109
             }
           },
           "male": {
             "%": {
-              "foreign/international": 0.255482456140351,
-              "local": 0.212719298245614,
-              "national": 0.456140350877193,
-              "sub-regional": 0.0756578947368421
+              "celebrity, arts and media, sports": 0.164654226125137,
+              "crime and violence": 0.120746432491767,
+              "economy": 0.12403951701427,
+              "other": 0.0197585071350165,
+              "politics and government": 0.215148188803513,
+              "science and health": 0.0724478594950604,
+              "social and legal": 0.283205268935236
             },
             "n": {
-              "foreign/international": 233,
-              "local": 194,
-              "national": 416,
-              "sub-regional": 69
+              "celebrity, arts and media, sports": 150,
+              "crime and violence": 110,
+              "economy": 113,
+              "other": 18,
+              "politics and government": 196,
+              "science and health": 66,
+              "social and legal": 258
             }
           }
         },
         "caribbean": {
           "female": {
             "%": {
-              "foreign/international": 0.0833333333333333,
-              "local": 0.238095238095238,
-              "national": 0.607142857142857,
-              "sub-regional": 0.0714285714285714
+              "celebrity, arts and media, sports": 0.116279069767442,
+              "crime and violence": 0.0813953488372093,
+              "economy": 0.22093023255814,
+              "other": 0.0232558139534884,
+              "politics and government": 0.232558139534884,
+              "science and health": 0.104651162790698,
+              "social and legal": 0.22093023255814
             },
             "n": {
-              "foreign/international": 7,
-              "local": 20,
-              "national": 51,
-              "sub-regional": 6
+              "celebrity, arts and media, sports": 10,
+              "crime and violence": 7,
+              "economy": 19,
+              "other": 2,
+              "politics and government": 20,
+              "science and health": 9,
+              "social and legal": 19
             }
           },
           "male": {
             "%": {
-              "foreign/international": 0.0925925925925926,
-              "local": 0.314814814814815,
-              "national": 0.527777777777778,
-              "sub-regional": 0.0648148148148148
+              "celebrity, arts and media, sports": 0.146788990825688,
+              "crime and violence": 0.165137614678899,
+              "economy": 0.220183486238532,
+              "other": 0.00917431192660551,
+              "politics and government": 0.220183486238532,
+              "science and health": 0.0275229357798165,
+              "social and legal": 0.211009174311927
             },
             "n": {
-              "foreign/international": 10,
-              "local": 34,
-              "national": 57,
-              "sub-regional": 7
+              "celebrity, arts and media, sports": 16,
+              "crime and violence": 18,
+              "economy": 24,
+              "other": 1,
+              "politics and government": 24,
+              "science and health": 3,
+              "social and legal": 23
             }
           }
         },
         "europe": {
           "female": {
             "%": {
-              "foreign/international": 0.351417004048583,
-              "local": 0.136842105263158,
-              "national": 0.467206477732794,
-              "sub-regional": 0.0445344129554656
+              "celebrity, arts and media, sports": 0.115789473684211,
+              "crime and violence": 0.0939271255060729,
+              "economy": 0.140890688259109,
+              "other": 0.0097165991902834,
+              "politics and government": 0.165991902834008,
+              "science and health": 0.0842105263157895,
+              "social and legal": 0.389473684210526
             },
             "n": {
-              "foreign/international": 434,
-              "local": 169,
-              "national": 577,
-              "sub-regional": 55
+              "celebrity, arts and media, sports": 143,
+              "crime and violence": 116,
+              "economy": 174,
+              "other": 12,
+              "politics and government": 205,
+              "science and health": 104,
+              "social and legal": 481
             }
           },
           "male": {
             "%": {
-              "foreign/international": 0.344893111638955,
-              "local": 0.15249406175772,
-              "national": 0.435154394299287,
-              "sub-regional": 0.067458432304038
+              "celebrity, arts and media, sports": 0.0936311787072243,
+              "crime and violence": 0.112642585551331,
+              "economy": 0.111216730038023,
+              "other": 0.00665399239543726,
+              "politics and government": 0.226235741444867,
+              "science and health": 0.0636882129277567,
+              "social and legal": 0.385931558935361
             },
             "n": {
-              "foreign/international": 726,
-              "local": 321,
-              "national": 916,
-              "sub-regional": 142
+              "celebrity, arts and media, sports": 197,
+              "crime and violence": 237,
+              "economy": 234,
+              "other": 14,
+              "politics and government": 476,
+              "science and health": 134,
+              "social and legal": 812
             }
           }
         },
         "latin america": {
           "female": {
             "%": {
-              "foreign/international": 0.160112359550562,
-              "local": 0.323033707865169,
-              "national": 0.452247191011236,
-              "sub-regional": 0.0646067415730337
+              "celebrity, arts and media, sports": 0.050561797752809,
+              "crime and violence": 0.154494382022472,
+              "economy": 0.154494382022472,
+              "other": 0.00561797752808989,
+              "politics and government": 0.185393258426966,
+              "science and health": 0.0730337078651685,
+              "social and legal": 0.376404494382022
             },
             "n": {
-              "foreign/international": 57,
-              "local": 115,
-              "national": 161,
-              "sub-regional": 23
+              "celebrity, arts and media, sports": 18,
+              "crime and violence": 55,
+              "economy": 55,
+              "other": 2,
+              "politics and government": 66,
+              "science and health": 26,
+              "social and legal": 134
             }
           },
           "male": {
             "%": {
-              "foreign/international": 0.151456310679612,
-              "local": 0.337864077669903,
-              "national": 0.456310679611651,
-              "sub-regional": 0.054368932038835
+              "celebrity, arts and media, sports": 0.0836575875486381,
+              "crime and violence": 0.171206225680934,
+              "economy": 0.16147859922179,
+              "other": 0.00194552529182879,
+              "politics and government": 0.182879377431907,
+              "science and health": 0.0622568093385214,
+              "social and legal": 0.336575875486381
             },
             "n": {
-              "foreign/international": 78,
-              "local": 174,
-              "national": 235,
-              "sub-regional": 28
+              "celebrity, arts and media, sports": 43,
+              "crime and violence": 88,
+              "economy": 83,
+              "other": 1,
+              "politics and government": 94,
+              "science and health": 32,
+              "social and legal": 173
             }
           }
         },
         "middle east": {
           "female": {
             "%": {
-              "foreign/international": 0.237623762376238,
-              "local": 0.227722772277228,
-              "national": 0.475247524752475,
-              "sub-regional": 0.0594059405940594
+              "celebrity, arts and media, sports": 0.108910891089109,
+              "crime and violence": 0.108910891089109,
+              "economy": 0.118811881188119,
+              "other": 0,
+              "politics and government": 0.237623762376238,
+              "science and health": 0.0693069306930693,
+              "social and legal": 0.356435643564356
             },
             "n": {
-              "foreign/international": 24,
-              "local": 23,
-              "national": 48,
-              "sub-regional": 6
+              "celebrity, arts and media, sports": 11,
+              "crime and violence": 11,
+              "economy": 12,
+              "other": 0,
+              "politics and government": 24,
+              "science and health": 7,
+              "social and legal": 36
             }
           },
           "male": {
             "%": {
-              "foreign/international": 0.239263803680982,
-              "local": 0.269938650306748,
-              "national": 0.441717791411043,
-              "sub-regional": 0.049079754601227
+              "celebrity, arts and media, sports": 0.0555555555555556,
+              "crime and violence": 0.117283950617284,
+              "economy": 0.160493827160494,
+              "other": 0,
+              "politics and government": 0.401234567901235,
+              "science and health": 0.0617283950617284,
+              "social and legal": 0.203703703703704
             },
             "n": {
-              "foreign/international": 39,
-              "local": 44,
-              "national": 72,
-              "sub-regional": 8
+              "celebrity, arts and media, sports": 9,
+              "crime and violence": 19,
+              "economy": 26,
+              "other": 0,
+              "politics and government": 65,
+              "science and health": 10,
+              "social and legal": 33
             }
           }
         },
         "north america": {
           "female": {
             "%": {
-              "foreign/international": 0.184848484848485,
-              "local": 0.393939393939394,
-              "national": 0.387878787878788,
-              "sub-regional": 0.0333333333333333
+              "celebrity, arts and media, sports": 0.0453172205438066,
+              "crime and violence": 0.13595166163142,
+              "economy": 0.132930513595166,
+              "other": 0,
+              "politics and government": 0.172205438066465,
+              "science and health": 0.202416918429003,
+              "social and legal": 0.311178247734139
             },
             "n": {
-              "foreign/international": 61,
-              "local": 130,
-              "national": 128,
-              "sub-regional": 11
+              "celebrity, arts and media, sports": 15,
+              "crime and violence": 45,
+              "economy": 44,
+              "other": 0,
+              "politics and government": 57,
+              "science and health": 67,
+              "social and legal": 103
             }
           },
           "male": {
             "%": {
-              "foreign/international": 0.284294234592445,
-              "local": 0.345924453280318,
-              "national": 0.296222664015905,
-              "sub-regional": 0.073558648111332
+              "celebrity, arts and media, sports": 0.0634920634920635,
+              "crime and violence": 0.170634920634921,
+              "economy": 0.132936507936508,
+              "other": 0.0178571428571429,
+              "politics and government": 0.28968253968254,
+              "science and health": 0.101190476190476,
+              "social and legal": 0.224206349206349
             },
             "n": {
-              "foreign/international": 143,
-              "local": 174,
-              "national": 149,
-              "sub-regional": 37
+              "celebrity, arts and media, sports": 32,
+              "crime and violence": 86,
+              "economy": 67,
+              "other": 9,
+              "politics and government": 146,
+              "science and health": 51,
+              "social and legal": 113
             }
           }
         },
         "pacific islands": {
           "female": {
             "%": {
-              "foreign/international": 0.247619047619048,
-              "local": 0.285714285714286,
-              "national": 0.304761904761905,
-              "sub-regional": 0.161904761904762
+              "celebrity, arts and media, sports": 0.171428571428571,
+              "crime and violence": 0.152380952380952,
+              "economy": 0.171428571428571,
+              "other": 0.019047619047619,
+              "politics and government": 0.152380952380952,
+              "science and health": 0.104761904761905,
+              "social and legal": 0.228571428571429
             },
             "n": {
-              "foreign/international": 26,
-              "local": 30,
-              "national": 32,
-              "sub-regional": 17
+              "celebrity, arts and media, sports": 18,
+              "crime and violence": 16,
+              "economy": 18,
+              "other": 2,
+              "politics and government": 16,
+              "science and health": 11,
+              "social and legal": 24
             }
           },
           "male": {
             "%": {
-              "foreign/international": 0.265625,
-              "local": 0.21875,
-              "national": 0.3828125,
-              "sub-regional": 0.1328125
+              "celebrity, arts and media, sports": 0.236220472440945,
+              "crime and violence": 0.220472440944882,
+              "economy": 0.133858267716535,
+              "other": 0,
+              "politics and government": 0.181102362204724,
+              "science and health": 0.0236220472440945,
+              "social and legal": 0.204724409448819
             },
             "n": {
-              "foreign/international": 34,
-              "local": 28,
-              "national": 49,
-              "sub-regional": 17
+              "celebrity, arts and media, sports": 30,
+              "crime and violence": 28,
+              "economy": 17,
+              "other": 0,
+              "politics and government": 23,
+              "science and health": 3,
+              "social and legal": 26
             }
           }
         }
