@@ -1379,6 +1379,13 @@ WS_INFO = {
         },
     },
     'ws_sr10': {
+        '2015': {
+            'name': 'sr10',
+            'title': 'Stories that clearly challenge gender stereotypes, by region',
+            'desc': 'Stories that clearly challenge gender stereotypes, by region',
+            'reports': ['global'],
+            'historical': 'sr10'
+        },
         '2010': {
             'name': 'sr10',
             'title': 'Stories that clearly challenge gender stereotypes, by region',
