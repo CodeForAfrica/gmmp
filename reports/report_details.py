@@ -492,7 +492,7 @@ WS_INFO = {
         '2015': {
             'name': '29',
             'title': 'Reporters in domestic & foreign stories (scope) , by region, by sex of reporter',
-            'desc': 'B.down of Reporters in domestic & foreign stories, by sex',
+            'desc': 'Breakdown of Reporters in domestic & foreign stories, by sex',
             'reports': ['global', 'region', 'country'],
             'historical': '29',
         },
@@ -504,6 +504,13 @@ WS_INFO = {
         },
     },
     'ws_30': {
+        '2015': {
+            'name': '30',
+            'title': 'Breakdown of female reporters, by major topic, by region',
+            'desc': 'Reporters, by sex on major topics, by region',
+            'reports': ['global', 'region', 'country'],
+            'historical': '30',
+        },
         '2010': {
             'name': '30',
             'title': 'Breakdown of female reporters, by major topic, by region',
