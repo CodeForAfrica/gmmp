@@ -11834,6 +11834,695 @@
         }
       }
     },
+    "84": {
+      "2015": {
+        "academic expert, lecturer, teacher": {
+          "%": {
+            "africa": 0,
+            "asia": 0.0201342281879195,
+            "caribbean": 0.0357142857142857,
+            "europe": 0.0412465627864345,
+            "latin america": 0.0163265306122449,
+            "middle east": 0.03125,
+            "north america": 0.0523255813953488,
+            "pacific islands": 0.043956043956044,
+            "transnational": 0
+          },
+          "n": {
+            "africa": 0,
+            "asia": 3,
+            "caribbean": 1,
+            "europe": 45,
+            "latin america": 4,
+            "middle east": 1,
+            "north america": 9,
+            "pacific islands": 4,
+            "transnational": 0
+          }
+        },
+        "activist or worker in civil society org., ngo, trade union": {
+          "%": {
+            "africa": 0,
+            "asia": 0.0939597315436242,
+            "caribbean": 0.0357142857142857,
+            "europe": 0.0201649862511457,
+            "latin america": 0.0938775510204082,
+            "middle east": 0.09375,
+            "north america": 0.0232558139534884,
+            "pacific islands": 0.021978021978022,
+            "transnational": 0.102564102564103
+          },
+          "n": {
+            "africa": 0,
+            "asia": 14,
+            "caribbean": 1,
+            "europe": 22,
+            "latin america": 23,
+            "middle east": 3,
+            "north america": 4,
+            "pacific islands": 2,
+            "transnational": 4
+          }
+        },
+        "agriculture, mining, fishing, forestry": {
+          "%": {
+            "africa": 0,
+            "asia": 0,
+            "caribbean": 0,
+            "europe": 0,
+            "latin america": 0,
+            "middle east": 0,
+            "north america": 0,
+            "pacific islands": 0.010989010989011,
+            "transnational": 0
+          },
+          "n": {
+            "africa": 0,
+            "asia": 0,
+            "caribbean": 0,
+            "europe": 0,
+            "latin america": 0,
+            "middle east": 0,
+            "north america": 0,
+            "pacific islands": 1,
+            "transnational": 0
+          }
+        },
+        "business person, exec, manager, stock broker...": {
+          "%": {
+            "africa": 0,
+            "asia": 0,
+            "caribbean": 0.0357142857142857,
+            "europe": 0.0339138405132906,
+            "latin america": 0.0448979591836735,
+            "middle east": 0,
+            "north america": 0.0755813953488372,
+            "pacific islands": 0.0769230769230769,
+            "transnational": 0.0256410256410256
+          },
+          "n": {
+            "africa": 0,
+            "asia": 0,
+            "caribbean": 1,
+            "europe": 37,
+            "latin america": 11,
+            "middle east": 0,
+            "north america": 13,
+            "pacific islands": 7,
+            "transnational": 1
+          }
+        },
+        "celebrity, artist, actor, writer, singer, tv personality": {
+          "%": {
+            "africa": 0,
+            "asia": 0.10738255033557,
+            "caribbean": 0.107142857142857,
+            "europe": 0.0714940421631531,
+            "latin america": 0.110204081632653,
+            "middle east": 0.21875,
+            "north america": 0.0232558139534884,
+            "pacific islands": 0.0989010989010989,
+            "transnational": 0.102564102564103
+          },
+          "n": {
+            "africa": 0,
+            "asia": 16,
+            "caribbean": 3,
+            "europe": 78,
+            "latin america": 27,
+            "middle east": 7,
+            "north america": 4,
+            "pacific islands": 9,
+            "transnational": 4
+          }
+        },
+        "child, young person no other occupation given": {
+          "%": {
+            "africa": 0,
+            "asia": 0.0268456375838926,
+            "caribbean": 0,
+            "europe": 0.0201649862511457,
+            "latin america": 0.00408163265306122,
+            "middle east": 0,
+            "north america": 0.0116279069767442,
+            "pacific islands": 0.010989010989011,
+            "transnational": 0
+          },
+          "n": {
+            "africa": 0,
+            "asia": 4,
+            "caribbean": 0,
+            "europe": 22,
+            "latin america": 1,
+            "middle east": 0,
+            "north america": 2,
+            "pacific islands": 1,
+            "transnational": 0
+          }
+        },
+        "criminal, suspect no other occupation given": {
+          "%": {
+            "africa": 0,
+            "asia": 0,
+            "caribbean": 0,
+            "europe": 0.0192483959670028,
+            "latin america": 0,
+            "middle east": 0,
+            "north america": 0,
+            "pacific islands": 0,
+            "transnational": 0.0256410256410256
+          },
+          "n": {
+            "africa": 0,
+            "asia": 0,
+            "caribbean": 0,
+            "europe": 21,
+            "latin america": 0,
+            "middle east": 0,
+            "north america": 0,
+            "pacific islands": 0,
+            "transnational": 1
+          }
+        },
+        "doctor, dentist, health specialist": {
+          "%": {
+            "africa": 0.0434782608695652,
+            "asia": 0.0134228187919463,
+            "caribbean": 0,
+            "europe": 0.0210815765352887,
+            "latin america": 0.00408163265306122,
+            "middle east": 0.03125,
+            "north america": 0.063953488372093,
+            "pacific islands": 0.010989010989011,
+            "transnational": 0
+          },
+          "n": {
+            "africa": 1,
+            "asia": 2,
+            "caribbean": 0,
+            "europe": 23,
+            "latin america": 1,
+            "middle east": 1,
+            "north america": 11,
+            "pacific islands": 1,
+            "transnational": 0
+          }
+        },
+        "government employee, public servant, etc.": {
+          "%": {
+            "africa": 0.0434782608695652,
+            "asia": 0.00671140939597315,
+            "caribbean": 0.107142857142857,
+            "europe": 0.0403299725022915,
+            "latin america": 0.0408163265306122,
+            "middle east": 0,
+            "north america": 0.0523255813953488,
+            "pacific islands": 0.021978021978022,
+            "transnational": 0
+          },
+          "n": {
+            "africa": 1,
+            "asia": 1,
+            "caribbean": 3,
+            "europe": 44,
+            "latin america": 10,
+            "middle east": 0,
+            "north america": 9,
+            "pacific islands": 2,
+            "transnational": 0
+          }
+        },
+        "government, politician, minister, spokesperson...": {
+          "%": {
+            "africa": 0.260869565217391,
+            "asia": 0.261744966442953,
+            "caribbean": 0.285714285714286,
+            "europe": 0.3006416131989,
+            "latin america": 0.269387755102041,
+            "middle east": 0.25,
+            "north america": 0.116279069767442,
+            "pacific islands": 0.197802197802198,
+            "transnational": 0.487179487179487
+          },
+          "n": {
+            "africa": 6,
+            "asia": 39,
+            "caribbean": 8,
+            "europe": 328,
+            "latin america": 66,
+            "middle east": 8,
+            "north america": 20,
+            "pacific islands": 18,
+            "transnational": 19
+          }
+        },
+        "health worker, social worker, childcare worker": {
+          "%": {
+            "africa": 0,
+            "asia": 0.0402684563758389,
+            "caribbean": 0,
+            "europe": 0.0146654445462878,
+            "latin america": 0.00816326530612245,
+            "middle east": 0,
+            "north america": 0.0232558139534884,
+            "pacific islands": 0.0549450549450549,
+            "transnational": 0
+          },
+          "n": {
+            "africa": 0,
+            "asia": 6,
+            "caribbean": 0,
+            "europe": 16,
+            "latin america": 2,
+            "middle east": 0,
+            "north america": 4,
+            "pacific islands": 5,
+            "transnational": 0
+          }
+        },
+        "homemaker, parent (male or female)) only if no other occupation is given e.g. doctor/mother=code 6": {
+          "%": {
+            "africa": 0.0869565217391304,
+            "asia": 0.0469798657718121,
+            "caribbean": 0,
+            "europe": 0.0375802016498625,
+            "latin america": 0.0408163265306122,
+            "middle east": 0,
+            "north america": 0,
+            "pacific islands": 0.142857142857143,
+            "transnational": 0
+          },
+          "n": {
+            "africa": 2,
+            "asia": 7,
+            "caribbean": 0,
+            "europe": 41,
+            "latin america": 10,
+            "middle east": 0,
+            "north america": 0,
+            "pacific islands": 13,
+            "transnational": 0
+          }
+        },
+        "lawyer, judge, magistrate, legal advocate, etc.": {
+          "%": {
+            "africa": 0,
+            "asia": 0.00671140939597315,
+            "caribbean": 0.0714285714285714,
+            "europe": 0.0366636113657195,
+            "latin america": 0.0285714285714286,
+            "middle east": 0.0625,
+            "north america": 0,
+            "pacific islands": 0.021978021978022,
+            "transnational": 0
+          },
+          "n": {
+            "africa": 0,
+            "asia": 1,
+            "caribbean": 2,
+            "europe": 40,
+            "latin america": 7,
+            "middle east": 2,
+            "north america": 0,
+            "pacific islands": 2,
+            "transnational": 0
+          }
+        },
+        "media professional, journalist, film-maker, etc.": {
+          "%": {
+            "africa": 0,
+            "asia": 0.0201342281879195,
+            "caribbean": 0.0357142857142857,
+            "europe": 0.0302474793767186,
+            "latin america": 0.0693877551020408,
+            "middle east": 0.03125,
+            "north america": 0.0174418604651163,
+            "pacific islands": 0.021978021978022,
+            "transnational": 0.0512820512820513
+          },
+          "n": {
+            "africa": 0,
+            "asia": 3,
+            "caribbean": 1,
+            "europe": 33,
+            "latin america": 17,
+            "middle east": 1,
+            "north america": 3,
+            "pacific islands": 2,
+            "transnational": 2
+          }
+        },
+        "n": {
+          "n": {
+            "africa": 23,
+            "asia": 149,
+            "caribbean": 28,
+            "europe": 1091,
+            "latin america": 245,
+            "middle east": 32,
+            "north america": 172,
+            "pacific islands": 91,
+            "transnational": 39
+          }
+        },
+        "not stated": {
+          "%": {
+            "africa": 0.304347826086957,
+            "asia": 0.087248322147651,
+            "caribbean": 0.178571428571429,
+            "europe": 0.142071494042163,
+            "latin america": 0.155102040816327,
+            "middle east": 0.1875,
+            "north america": 0.290697674418605,
+            "pacific islands": 0.197802197802198,
+            "transnational": 0.0256410256410256
+          },
+          "n": {
+            "africa": 7,
+            "asia": 13,
+            "caribbean": 5,
+            "europe": 155,
+            "latin america": 38,
+            "middle east": 6,
+            "north america": 50,
+            "pacific islands": 18,
+            "transnational": 1
+          }
+        },
+        "office or service worker, non-management worker": {
+          "%": {
+            "africa": 0,
+            "asia": 0,
+            "caribbean": 0.0357142857142857,
+            "europe": 0.0247479376718607,
+            "latin america": 0.0244897959183673,
+            "middle east": 0,
+            "north america": 0,
+            "pacific islands": 0,
+            "transnational": 0
+          },
+          "n": {
+            "africa": 0,
+            "asia": 0,
+            "caribbean": 1,
+            "europe": 27,
+            "latin america": 6,
+            "middle east": 0,
+            "north america": 0,
+            "pacific islands": 0,
+            "transnational": 0
+          }
+        },
+        "other only as last resort & explain": {
+          "%": {
+            "africa": 0.173913043478261,
+            "asia": 0,
+            "caribbean": 0,
+            "europe": 0.0100824931255729,
+            "latin america": 0.00816326530612245,
+            "middle east": 0,
+            "north america": 0,
+            "pacific islands": 0,
+            "transnational": 0.0256410256410256
+          },
+          "n": {
+            "africa": 4,
+            "asia": 0,
+            "caribbean": 0,
+            "europe": 11,
+            "latin america": 2,
+            "middle east": 0,
+            "north america": 0,
+            "pacific islands": 0,
+            "transnational": 1
+          }
+        },
+        "police, military, para-military, militia, fire officer": {
+          "%": {
+            "africa": 0.0869565217391304,
+            "asia": 0.00671140939597315,
+            "caribbean": 0,
+            "europe": 0.0192483959670028,
+            "latin america": 0.0204081632653061,
+            "middle east": 0,
+            "north america": 0,
+            "pacific islands": 0.010989010989011,
+            "transnational": 0.0512820512820513
+          },
+          "n": {
+            "africa": 2,
+            "asia": 1,
+            "caribbean": 0,
+            "europe": 21,
+            "latin america": 5,
+            "middle east": 0,
+            "north america": 0,
+            "pacific islands": 1,
+            "transnational": 2
+          }
+        },
+        "religious figure, priest, monk, rabbi, mullah, nun": {
+          "%": {
+            "africa": 0,
+            "asia": 0,
+            "caribbean": 0,
+            "europe": 0.00183318056828598,
+            "latin america": 0,
+            "middle east": 0,
+            "north america": 0,
+            "pacific islands": 0,
+            "transnational": 0
+          },
+          "n": {
+            "africa": 0,
+            "asia": 0,
+            "caribbean": 0,
+            "europe": 2,
+            "latin america": 0,
+            "middle east": 0,
+            "north america": 0,
+            "pacific islands": 0,
+            "transnational": 0
+          }
+        },
+        "retired person, pensioner no other occupation given": {
+          "%": {
+            "africa": 0,
+            "asia": 0,
+            "caribbean": 0,
+            "europe": 0.00274977085242896,
+            "latin america": 0,
+            "middle east": 0,
+            "north america": 0,
+            "pacific islands": 0,
+            "transnational": 0.0256410256410256
+          },
+          "n": {
+            "africa": 0,
+            "asia": 0,
+            "caribbean": 0,
+            "europe": 3,
+            "latin america": 0,
+            "middle east": 0,
+            "north america": 0,
+            "pacific islands": 0,
+            "transnational": 1
+          }
+        },
+        "royalty, monarch, deposed monarch, etc.": {
+          "%": {
+            "africa": 0,
+            "asia": 0,
+            "caribbean": 0,
+            "europe": 0.00641613198900092,
+            "latin america": 0,
+            "middle east": 0.0625,
+            "north america": 0,
+            "pacific islands": 0,
+            "transnational": 0.0512820512820513
+          },
+          "n": {
+            "africa": 0,
+            "asia": 0,
+            "caribbean": 0,
+            "europe": 7,
+            "latin america": 0,
+            "middle east": 2,
+            "north america": 0,
+            "pacific islands": 0,
+            "transnational": 2
+          }
+        },
+        "science/ technology professional, engineer, etc.": {
+          "%": {
+            "africa": 0,
+            "asia": 0.0134228187919463,
+            "caribbean": 0,
+            "europe": 0.00183318056828598,
+            "latin america": 0.00408163265306122,
+            "middle east": 0,
+            "north america": 0.0523255813953488,
+            "pacific islands": 0,
+            "transnational": 0.0256410256410256
+          },
+          "n": {
+            "africa": 0,
+            "asia": 2,
+            "caribbean": 0,
+            "europe": 2,
+            "latin america": 1,
+            "middle east": 0,
+            "north america": 9,
+            "pacific islands": 0,
+            "transnational": 1
+          }
+        },
+        "sex worker": {
+          "%": {
+            "africa": 0,
+            "asia": 0,
+            "caribbean": 0,
+            "europe": 0.00366636113657195,
+            "latin america": 0.0163265306122449,
+            "middle east": 0,
+            "north america": 0,
+            "pacific islands": 0,
+            "transnational": 0
+          },
+          "n": {
+            "africa": 0,
+            "asia": 0,
+            "caribbean": 0,
+            "europe": 4,
+            "latin america": 4,
+            "middle east": 0,
+            "north america": 0,
+            "pacific islands": 0,
+            "transnational": 0
+          }
+        },
+        "sportsperson, athlete, player, coach, referee": {
+          "%": {
+            "africa": 0,
+            "asia": 0,
+            "caribbean": 0,
+            "europe": 0.0366636113657195,
+            "latin america": 0.0244897959183673,
+            "middle east": 0,
+            "north america": 0,
+            "pacific islands": 0.010989010989011,
+            "transnational": 0
+          },
+          "n": {
+            "africa": 0,
+            "asia": 0,
+            "caribbean": 0,
+            "europe": 40,
+            "latin america": 6,
+            "middle east": 0,
+            "north america": 0,
+            "pacific islands": 1,
+            "transnational": 0
+          }
+        },
+        "student, pupil, schoolchild": {
+          "%": {
+            "africa": 0,
+            "asia": 0.181208053691275,
+            "caribbean": 0.0714285714285714,
+            "europe": 0.0394133822181485,
+            "latin america": 0,
+            "middle east": 0.03125,
+            "north america": 0.145348837209302,
+            "pacific islands": 0.021978021978022,
+            "transnational": 0
+          },
+          "n": {
+            "africa": 0,
+            "asia": 27,
+            "caribbean": 2,
+            "europe": 43,
+            "latin america": 0,
+            "middle east": 1,
+            "north america": 25,
+            "pacific islands": 2,
+            "transnational": 0
+          }
+        },
+        "tradesperson, artisan, labourer, truck driver, etc.": {
+          "%": {
+            "africa": 0,
+            "asia": 0.0469798657718121,
+            "caribbean": 0,
+            "europe": 0.00366636113657195,
+            "latin america": 0.0163265306122449,
+            "middle east": 0,
+            "north america": 0,
+            "pacific islands": 0.010989010989011,
+            "transnational": 0
+          },
+          "n": {
+            "africa": 0,
+            "asia": 7,
+            "caribbean": 0,
+            "europe": 4,
+            "latin america": 4,
+            "middle east": 0,
+            "north america": 0,
+            "pacific islands": 1,
+            "transnational": 0
+          }
+        },
+        "unemployed no other occupation given": {
+          "%": {
+            "africa": 0,
+            "asia": 0,
+            "caribbean": 0,
+            "europe": 0.00824931255728689,
+            "latin america": 0,
+            "middle east": 0,
+            "north america": 0.0523255813953488,
+            "pacific islands": 0,
+            "transnational": 0
+          },
+          "n": {
+            "africa": 0,
+            "asia": 0,
+            "caribbean": 0,
+            "europe": 9,
+            "latin america": 0,
+            "middle east": 0,
+            "north america": 9,
+            "pacific islands": 0,
+            "transnational": 0
+          }
+        },
+        "villager or resident no other occupation given": {
+          "%": {
+            "africa": 0,
+            "asia": 0.0201342281879195,
+            "caribbean": 0,
+            "europe": 0.0119156736938588,
+            "latin america": 0,
+            "middle east": 0,
+            "north america": 0,
+            "pacific islands": 0.010989010989011,
+            "transnational": 0
+          },
+          "n": {
+            "africa": 0,
+            "asia": 3,
+            "caribbean": 0,
+            "europe": 13,
+            "latin america": 0,
+            "middle east": 0,
+            "north america": 0,
+            "pacific islands": 1,
+            "transnational": 0
+          }
+        }
+      }
+    },
     "85": {
       "2015": {
         "do not know": {
