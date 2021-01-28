@@ -22135,67 +22135,271 @@
             "no": 4162,
             "yes": 409
           }
-        }
-      },
-      "2010": {
-        "television": {
+        },
+        "13-18": {
           "female": {
-            "12 and under": 0.25,
-            "13-18": 0.28,
-            "19-34": 0.54,
-            "35-49": 0.37,
-            "50-64": 0.24,
-            "65 years or more": 0.17,
-            "do not know": "n/a"
+            "do not know": "n/a",
+            "expert or commentator": 0.01,
+            "eye witness": 0.05,
+            "other": "n/a",
+            "personal experience": 0.19,
+            "popular opinion": 0.13,
+            "spokesperson": 0.04,
+            "subject": 0.58
           },
           "male": {
-            "12 and under": 0.75,
-            "13-18": 0.72,
-            "19-34": 0.46,
-            "35-49": 0.63,
-            "50-64": 0.76,
-            "65 years or more": 0.83,
-            "do not know": "n/a"
+            "do not know": "n/a",
+            "expert or commentator": 0.02,
+            "eye witness": 0.1,
+            "other": "n/a",
+            "personal experience": 0.15,
+            "popular opinion": 0.02,
+            "spokesperson": 0.02,
+            "subject": 0.7
+          }
+        },
+        "19-34": {
+          "female": {
+            "do not know": "n/a",
+            "expert or commentator": 0.05,
+            "eye witness": 0.04,
+            "other": "n/a",
+            "personal experience": 0.2,
+            "popular opinion": 0.07,
+            "spokesperson": 0.06,
+            "subject": 0.58
           },
-          "n": {
-            "12 and under": 139,
-            "13-18": 175,
-            "19-34": 1674,
-            "35-49": 2899,
-            "50-64": 3074,
-            "65 years or more": 680,
-            "do not know": "n/a"
+          "male": {
+            "do not know": "n/a",
+            "expert or commentator": 0.06,
+            "eye witness": 0.03,
+            "other": "n/a",
+            "personal experience": 0.16,
+            "popular opinion": 0.04,
+            "spokesperson": 0.06,
+            "subject": 0.65
+          }
+        },
+        "35-49": {
+          "female": {
+            "do not know": "n/a",
+            "expert or commentator": 0.13,
+            "eye witness": 0.05,
+            "other": "n/a",
+            "personal experience": 0.14,
+            "popular opinion": 0.06,
+            "spokesperson": 0.17,
+            "subject": 0.45
+          },
+          "male": {
+            "do not know": "n/a",
+            "expert or commentator": 0.16,
+            "eye witness": 0.04,
+            "other": "n/a",
+            "personal experience": 0.08,
+            "popular opinion": 0.04,
+            "spokesperson": 0.24,
+            "subject": 0.44
+          }
+        },
+        "50-64": {
+          "female": {
+            "do not know": "n/a",
+            "expert or commentator": 0.12,
+            "eye witness": 0.03,
+            "other": "n/a",
+            "personal experience": 0.12,
+            "popular opinion": 0.08,
+            "spokesperson": 0.21,
+            "subject": 0.45
+          },
+          "male": {
+            "do not know": "n/a",
+            "expert or commentator": 0.13,
+            "eye witness": 0.02,
+            "other": "n/a",
+            "personal experience": 0.08,
+            "popular opinion": 0.02,
+            "spokesperson": 0.28,
+            "subject": 0.47
+          }
+        },
+        "65 years or more": {
+          "female": {
+            "do not know": "n/a",
+            "expert or commentator": 0.05,
+            "eye witness": 0.07,
+            "other": "n/a",
+            "personal experience": 0.19,
+            "popular opinion": 0.11,
+            "spokesperson": 0.02,
+            "subject": 0.57
+          },
+          "male": {
+            "do not know": "n/a",
+            "expert or commentator": 0.06,
+            "eye witness": 0.06,
+            "other": "n/a",
+            "personal experience": 0.13,
+            "popular opinion": 0.03,
+            "spokesperson": 0.16,
+            "subject": 0.57
           }
         }
       },
       "2015": {
-        "television": {
+        "12 and under": {
           "female": {
-            "12 and under": 0.409638554216867,
-            "13-18": 0.487889273356401,
-            "19-34": 0.306794783802334,
-            "35-49": 0.27953216374269,
-            "50-64": 0.168943685438187,
-            "65 years or more": 0.172566371681416,
-            "do not know": 0.237691001697793
+            "do not know": 0,
+            "expert or commentator": 0.0555555555555556,
+            "eye witness": 0.0222222222222222,
+            "other": 0.0333333333333333,
+            "personal experience": 0.166666666666667,
+            "popular opinion": 0.0222222222222222,
+            "spokesperson": 0.0111111111111111,
+            "subject": 0.688888888888889
           },
           "male": {
-            "12 and under": 0.590361445783133,
-            "13-18": 0.512110726643599,
-            "19-34": 0.693205216197666,
-            "35-49": 0.72046783625731,
-            "50-64": 0.831056314561813,
-            "65 years or more": 0.827433628318584,
-            "do not know": 0.762308998302207
+            "do not know": 0.0232558139534884,
+            "expert or commentator": 0.201550387596899,
+            "eye witness": 0.0155038759689922,
+            "other": 0,
+            "personal experience": 0.147286821705426,
+            "popular opinion": 0.0310077519379845,
+            "spokesperson": 0.0155038759689922,
+            "subject": 0.565891472868217
+          }
+        },
+        "13-18": {
+          "female": {
+            "do not know": 0.0627306273062731,
+            "expert or commentator": 0.0479704797047971,
+            "eye witness": 0.0479704797047971,
+            "other": 0.003690036900369,
+            "personal experience": 0.276752767527675,
+            "popular opinion": 0.0848708487084871,
+            "spokesperson": 0.0479704797047971,
+            "subject": 0.428044280442804
           },
-          "n": {
-            "12 and under": 83,
-            "13-18": 289,
-            "19-34": 1457,
-            "35-49": 2565,
-            "50-64": 3001,
-            "65 years or more": 678,
-            "do not know": 1178
+          "male": {
+            "do not know": 0.0456273764258555,
+            "expert or commentator": 0.0228136882129278,
+            "eye witness": 0.0418250950570342,
+            "other": 0.00380228136882129,
+            "personal experience": 0.288973384030418,
+            "popular opinion": 0.0798479087452472,
+            "spokesperson": 0.11787072243346,
+            "subject": 0.399239543726236
+          }
+        },
+        "19-34": {
+          "female": {
+            "do not know": 0.0242510699001427,
+            "expert or commentator": 0.0570613409415121,
+            "eye witness": 0.0499286733238231,
+            "other": 0.0242510699001427,
+            "personal experience": 0.168330955777461,
+            "popular opinion": 0.146932952924394,
+            "spokesperson": 0.072753209700428,
+            "subject": 0.456490727532097
+          },
+          "male": {
+            "do not know": 0.044039483675019,
+            "expert or commentator": 0.0827638572513288,
+            "eye witness": 0.0425208807896735,
+            "other": 0.00607441154138193,
+            "personal experience": 0.132118451025057,
+            "popular opinion": 0.10250569476082,
+            "spokesperson": 0.0865603644646925,
+            "subject": 0.503416856492027
+          }
+        },
+        "35-49": {
+          "female": {
+            "do not know": 0.0436548223350254,
+            "expert or commentator": 0.0964467005076142,
+            "eye witness": 0.0395939086294416,
+            "other": 0.00913705583756345,
+            "personal experience": 0.198984771573604,
+            "popular opinion": 0.0517766497461929,
+            "spokesperson": 0.208121827411168,
+            "subject": 0.352284263959391
+          },
+          "male": {
+            "do not know": 0.0490600641907382,
+            "expert or commentator": 0.18707015130674,
+            "eye witness": 0.0408069692801467,
+            "other": 0.0128381476386978,
+            "personal experience": 0.0967446125630445,
+            "popular opinion": 0.0527281063732233,
+            "spokesperson": 0.282439248051353,
+            "subject": 0.278312700596057
+          }
+        },
+        "50-64": {
+          "female": {
+            "do not know": 0.0065252854812398,
+            "expert or commentator": 0.102773246329527,
+            "eye witness": 0.0489396411092985,
+            "other": 0.0146818923327896,
+            "personal experience": 0.182707993474715,
+            "popular opinion": 0.0440456769983687,
+            "spokesperson": 0.264274061990212,
+            "subject": 0.33605220228385
+          },
+          "male": {
+            "do not know": 0.0517059444249033,
+            "expert or commentator": 0.164263102356665,
+            "eye witness": 0.036229335209286,
+            "other": 0.00668308125219838,
+            "personal experience": 0.0721069293000352,
+            "popular opinion": 0.0291945128385508,
+            "spokesperson": 0.370383397819205,
+            "subject": 0.269433696799156
+          }
+        },
+        "65 years or more": {
+          "female": {
+            "do not know": 0.0646766169154229,
+            "expert or commentator": 0.0199004975124378,
+            "eye witness": 0.0497512437810945,
+            "other": 0.00497512437810945,
+            "personal experience": 0.278606965174129,
+            "popular opinion": 0.0895522388059701,
+            "spokesperson": 0.0646766169154229,
+            "subject": 0.427860696517413
+          },
+          "male": {
+            "do not know": 0.0310650887573964,
+            "expert or commentator": 0.122781065088757,
+            "eye witness": 0.0355029585798817,
+            "other": 0.0118343195266272,
+            "personal experience": 0.128698224852071,
+            "popular opinion": 0.0399408284023669,
+            "spokesperson": 0.230769230769231,
+            "subject": 0.399408284023669
+          }
+        },
+        "do not know": {
+          "female": {
+            "do not know": 0.0212349818385024,
+            "expert or commentator": 0.141380273819503,
+            "eye witness": 0.0416317407096954,
+            "other": 0.0271025426096675,
+            "personal experience": 0.0849399273540095,
+            "popular opinion": 0.0243084660519698,
+            "spokesperson": 0.27717239452361,
+            "subject": 0.382229673093043
+          },
+          "male": {
+            "do not know": 0.0255798090040928,
+            "expert or commentator": 0.171640518417462,
+            "eye witness": 0.030781036834925,
+            "other": 0.0174795361527967,
+            "personal experience": 0.056531377899045,
+            "popular opinion": 0.0133867667121419,
+            "spokesperson": 0.333219645293315,
+            "subject": 0.351381309686221
           }
         }
       }
