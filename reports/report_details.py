@@ -311,31 +311,38 @@ WS_INFO = {
     #         'historical': '18dF',
     #     },
     # },
-    # 'ws_20': {
-    #     '2010': {
-    #         'name': '20',
-    #         'title': 'Functions and Occupations by sex of news subject',
-    #         'desc': 'B.down of  news subjects\' functions and occupations by sex of news subject',
-    #         'reports': ['global', 'region', 'country'],
-    #         'historical': '20fF',
-    #     },
-    # },
-    'ws_21': {
+    'ws_20': {
         '2015': {
-            'name': '21',
-            'title': 'Breakdown by victim type by sex',
-            'desc': 'News Subjects who are portrayed as victims, by sex',
+            'name': '20',
+            'title': 'Functions and Occupations by sex of news subject',
+            'desc': 'B.down of  news subjects\' functions and occupations by sex of news subject',
             'reports': ['global', 'region', 'country'],
-            'historical': '21',
+            'historical': '20',
         },
         '2010': {
-            'name': '21',
-            'title': 'Breakdown by victim type by sex',
-            'desc': 'News Subjects who are portrayed as victims, by sex',
+            'name': '20',
+            'title': 'Functions and Occupations by sex of news subject',
+            'desc': 'B.down of  news subjects\' functions and occupations by sex of news subject',
             'reports': ['global', 'region', 'country'],
-            'historical': '9gF',
+            'historical': '20fF',
         },
     },
+    # 'ws_21': {
+    #     '2015': {
+    #         'name': '21',
+    #         'title': 'Breakdown by victim type by sex',
+    #         'desc': 'News Subjects who are portrayed as victims, by sex',
+    #         'reports': ['global', 'region', 'country'],
+    #         'historical': '21',
+    #     },
+    #     '2010': {
+    #         'name': '21',
+    #         'title': 'Breakdown by victim type by sex',
+    #         'desc': 'News Subjects who are portrayed as victims, by sex',
+    #         'reports': ['global', 'region', 'country'],
+    #         'historical': '9gF',
+    #     },
+    # },
     # 'ws_23': {
     #     '2015': {
     #         'name': '23',
