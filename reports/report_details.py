@@ -535,6 +535,13 @@ WS_INFO = {
         },
     },
     'ws_32': {
+        '2015': {
+            'name': '32',
+            'title': 'Topics in the news - Detail by medium (ADD INTERNET) for female reporters',
+            'desc': 'Breakdown of news topics by medium by sex of reporter',
+            'reports': ['global'],
+            'historical': '32',
+        },
         '2010': {
             'name': '32',
             'title': 'Topics in the news - Detail by medium for female reporters',
