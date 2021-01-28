@@ -473,6 +473,13 @@ WS_INFO = {
         },
     },
     'ws_28': {
+        '2015': {
+            'name': '28',
+            'title': 'Female reporters, announcers and presenters all media, by region',
+            'desc': 'B.down of female reporters & presenters by region',
+            'reports': ['global', 'region', 'country'],
+            'historical': '28',
+        },
         '2010': {
             'name': '28',
             'title': 'Breakdown of total female reporters & presenters by region by medium ',

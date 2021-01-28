@@ -604,6 +604,50 @@ class GMMP2015ReportImporter(BaseReportImporter):
             ]
         )
 
+    def import_28(self, sheet_info):
+        data_2015 = {}
+        all_data = {2015: data_2015}
+
+        mediums = ['print', 'radio', 'television']
+
+        col_start, end_index = 3, 14
+        while col_start <= end_index:
+            for medium in mediums:
+                medium_data = {}
+                self.slurp_secondary_col_table(
+                    self.ws,
+                    medium_data,
+                    col_start=col_start,
+                    cols=2,
+                    cols_per_group=2,
+                    major_col_heading_row=6,
+                    row_start=8,
+                    row_end=15,
+                    row_heading_col=2,
+                )
+                data_2015[medium] = medium_data
+                col_start += 4
+
+        for year, col_start, col_end, row_start, row_end, col_heading_row in [
+            (1995, 17, 17, 8, 15, 6),
+            (2000, 18, 18, 8, 15, 6),
+            (2005, 19, 19, 8, 15, 6),
+            (2010, 20, 21, 8, 15, 6),
+        ]:
+            data = {}
+            all_data[year] = data
+            self.slurp_table(
+                self.ws,
+                data,
+                col_start=col_start,
+                col_end=col_end,
+                row_start=row_start,
+                row_end=row_end,
+                col_heading_row=col_heading_row,
+            )
+
+        return all_data
+
     def import_31(self, sheet_info):
         return self.import_grid(
             [
