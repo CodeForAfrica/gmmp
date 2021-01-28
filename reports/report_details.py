@@ -472,30 +472,37 @@ WS_INFO = {
     #         'historical': '20hF',
     #     },
     # },
-    'ws_28': {
-        '2015': {
-            'name': '28',
-            'title': 'Breakdown of total female reporters & presenters by region by medium ',
-            'desc': 'Female reporters, announcers and presenters all media, by region',
-            'reports': ['global', 'region', 'country'],
-            'historical': '28',
-        },
-        '2010': {
-            'name': '28',
-            'title': 'Breakdown of total female reporters & presenters by region by medium ',
-            'desc': 'Female reporters, announcers and presenters all media, by region',
-            'reports': ['global', 'region', 'country'],
-            'historical': '10bF',
-        },
-    },
-    # 'ws_29': {
-    #     '2010': {
-    #         'name': '29',
-    #         'title': 'Breakdown of female reporters in domestic & foreign stories, by region',
-    #         'desc': 'Reporters in domestic & foreign stories (scope) , by region, by sex of reporter region',
+    # 'ws_28': {
+    #     '2015': {
+    #         'name': '28',
+    #         'title': 'Breakdown of total female reporters & presenters by region by medium ',
+    #         'desc': 'Female reporters, announcers and presenters all media, by region',
     #         'reports': ['global', 'region', 'country'],
+    #         'historical': '28',
+    #     },
+    #     '2010': {
+    #         'name': '28',
+    #         'title': 'Breakdown of total female reporters & presenters by region by medium ',
+    #         'desc': 'Female reporters, announcers and presenters all media, by region',
+    #         'reports': ['global', 'region', 'country'],
+    #         'historical': '10bF',
     #     },
     # },
+    'ws_29': {
+        '2015': {
+            'name': '29',
+            'title': 'Breakdown of female reporters in domestic & foreign stories, by region',
+            'desc': 'Reporters in domestic & foreign stories (scope) , by region, by sex of reporter region',
+            'reports': ['global', 'region', 'country'],
+            'historical': '29',
+        },
+        '2010': {
+            'name': '29',
+            'title': 'Breakdown of female reporters in domestic & foreign stories, by region',
+            'desc': 'Reporters in domestic & foreign stories (scope) , by region, by sex of reporter region',
+            'reports': ['global', 'region', 'country'],
+        },
+    },
     # 'ws_30': {
     #     '2010': {
     #         'name': '30',

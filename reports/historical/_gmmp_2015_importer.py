@@ -633,8 +633,6 @@ class GMMP2015ReportImporter(BaseReportImporter):
                 data_2015[medium] = medium_data
                 col_start += 4
 
-        # data = {}
-        # all_data[2010] = data_2010
         for year, col_start, col_end, row_start, row_end, col_heading_row in [
             (1995, 17, 17, 8, 15, 6),
             (2000, 18, 18, 8, 15, 6),
@@ -652,6 +650,30 @@ class GMMP2015ReportImporter(BaseReportImporter):
                 row_end=row_end,
                 col_heading_row=col_heading_row,
             )
+
+        return all_data
+
+    def import_29(self, sheet_info):
+        data_2015 = {}
+        all_data = {2015: data_2015}
+
+        col_start, end_index = 3, 34
+        while col_start < end_index:
+            for continent in CONTINENTS:
+                continental_data = {}
+                self.slurp_secondary_col_table(
+                    self.ws,
+                    continental_data,
+                    col_start=col_start,
+                    cols=2,
+                    cols_per_group=2,
+                    major_col_heading_row=6,
+                    row_start=8,
+                    row_end=11,
+                    row_heading_col=2,
+                )
+                data_2015[continent] = continental_data
+                col_start += 4
 
         return all_data
 
