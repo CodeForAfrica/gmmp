@@ -71,6 +71,8 @@ class BaseReportImporter(object):
             major_col_heading = canon(
                 ws.cell(column=icol, row=major_col_heading_row).value
             )
+            if not major_col_heading:
+                continue
             major_col_data = {}
             data[major_col_heading] = major_col_data
 
