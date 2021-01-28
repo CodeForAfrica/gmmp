@@ -225,6 +225,37 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         return all_data
 
+    def import_6(self, sheet_data):
+        data_2015 = {}
+        all_data = {2015: data_2015}
+
+        for medium in ['print, radio, television', 'internet, twitter']:
+            medium_data = {}
+            medium_data[medium] = {}
+            # col_start, end_index = 3, 18
+            col_start, end_index = 3, 36
+            while col_start < end_index:
+                for continent in REGIONS:
+                    continental_data = {}
+                    self.slurp_secondary_col_table(
+                        self.ws,
+                        continental_data,
+                        col_start=col_start,
+                        cols=8,
+                        cols_per_group=2,
+                        major_col_heading_row=7,
+                        row_start=9,
+                        row_end=15,
+                        row_heading_col=2,
+                    )
+                    medium_data[medium][continent] = continental_data
+                    col_start += 2
+                # col_start, end_index = 21, 36
+                col_start = 21 if col_start <= 21 else 36
+            data_2015[medium] = medium_data[medium]
+
+        return all_data
+
     def import_7(self, sheet_info):
         all_data = {}
         for year, col_start, col_end, row_end in [

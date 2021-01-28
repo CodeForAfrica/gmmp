@@ -111,9 +111,9 @@ WS_INFO = {
     'ws_04': {
         '2015': {
             'name': '4',
-            'title': 'Topics in the news by region 1995-2015',
-            'desc': 'Breakdown of news topics cluster areas by region by media type',
-            'reports': ['global', 'region', 'country'],
+            'title': 'Topics in the news by region',
+            'desc': 'Breakdown of major news topics by region by medium',
+            'reports': ['global', 'region'],
             'historical': '4',
         },
         '2010': {
@@ -128,8 +128,8 @@ WS_INFO = {
         '2015': {
             'name': '5',
             'historical': '5',
-            'title': 'Overall presence of women in news',
-            'desc': 'Summary of news subjects, by sex, by GMMP year',
+            'title': 'Summary of women in the news, by GMMP year',
+            'desc': 'Overall presence of women in news',
             'reports': ['global', 'region', 'country'],
         },
         '2010': {
@@ -141,6 +141,13 @@ WS_INFO = {
         },
     },
     'ws_06': {
+        '2015': {
+            'name': '6',
+            'title': 'Women in the news (sources) in major news topics by region',
+            'desc': '',
+            'reports': ['global', 'region'],
+            'historical': '6',
+        },
         '2010': {
             'name': '6',
             'title': 'Breakdown of women in the news in major topics by region',
