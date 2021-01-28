@@ -13379,6 +13379,119 @@
           "transnational": 0
         }
       }
+    },
+    "sr10": {
+      "2015": {
+        "agree": {
+          "%": {
+            "africa": 0.0551984877126654,
+            "asia": 0.0283070223189984,
+            "caribbean": 0.0729646697388633,
+            "europe": 0.0251232310383209,
+            "latin america": 0.0502933780385583,
+            "middle east": 0.0188857412653447,
+            "north america": 0.0685579196217494,
+            "pacific islands": 0.017921146953405,
+            "transnational": 0
+          },
+          "n": {
+            "africa": 146,
+            "asia": 52,
+            "caribbean": 95,
+            "europe": 158,
+            "latin america": 120,
+            "middle east": 20,
+            "north america": 29,
+            "pacific islands": 10,
+            "transnational": 0
+          }
+        },
+        "disagree": {
+          "%": {
+            "africa": 0.828733459357278,
+            "asia": 0.716929776810016,
+            "caribbean": 0.838709677419355,
+            "europe": 0.754650977897917,
+            "latin america": 0.852053646269908,
+            "middle east": 0.879131255901794,
+            "north america": 0.728132387706856,
+            "pacific islands": 0.967741935483871,
+            "transnational": 0
+          },
+          "n": {
+            "africa": 2192,
+            "asia": 1317,
+            "caribbean": 1092,
+            "europe": 4746,
+            "latin america": 2033,
+            "middle east": 931,
+            "north america": 308,
+            "pacific islands": 540,
+            "transnational": 0
+          }
+        },
+        "do not know": {
+          "%": {
+            "africa": 0.0404536862003781,
+            "asia": 0.0511703864997278,
+            "caribbean": 0.0291858678955453,
+            "europe": 0.0302114803625378,
+            "latin america": 0.0259849119865884,
+            "middle east": 0.0915958451369216,
+            "north america": 0.125295508274232,
+            "pacific islands": 0.0017921146953405,
+            "transnational": 0
+          },
+          "n": {
+            "africa": 107,
+            "asia": 94,
+            "caribbean": 38,
+            "europe": 190,
+            "latin america": 62,
+            "middle east": 97,
+            "north america": 53,
+            "pacific islands": 1,
+            "transnational": 0
+          }
+        },
+        "n": {
+          "n": {
+            "africa": 2645,
+            "asia": 1837,
+            "caribbean": 1302,
+            "europe": 6289,
+            "latin america": 2386,
+            "middle east": 1059,
+            "north america": 423,
+            "pacific islands": 558,
+            "transnational": 0
+          }
+        },
+        "neither agree nor disagree": {
+          "%": {
+            "africa": 0.0756143667296786,
+            "asia": 0.203592814371257,
+            "caribbean": 0.0591397849462366,
+            "europe": 0.190014310701224,
+            "latin america": 0.0716680637049455,
+            "middle east": 0.0103871576959396,
+            "north america": 0.0780141843971631,
+            "pacific islands": 0.0125448028673835,
+            "transnational": 0
+          },
+          "n": {
+            "africa": 200,
+            "asia": 374,
+            "caribbean": 77,
+            "europe": 1195,
+            "latin america": 171,
+            "middle east": 11,
+            "north america": 33,
+            "pacific islands": 7,
+            "transnational": 0
+          }
+        }
+      }
     }
   }
 }
