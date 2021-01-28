@@ -422,6 +422,33 @@ class GMMP2015ReportImporter(BaseReportImporter):
             ]
         )
 
+    def import_s18(self, sheet_info):
+        data = {}
+        all_data = {self.year: data}
+
+        mediums = {
+            'internet': (3, 2),
+            'twitter': (10, 9),
+        }
+
+        for medium, (col_start, row_heading_col) in mediums.items():
+            medium_data = {}
+            data[medium] = medium_data
+
+            self.slurp_secondary_col_table(
+                self.ws,
+                medium_data,
+                col_start=col_start,
+                cols=7,
+                cols_per_group=2,
+                major_col_heading_row=6,
+                row_start=8,
+                row_end=121,
+                row_heading_col=row_heading_col,
+            )
+
+        return all_data
+
     def import_sr09(self, sheet_info):
         data = {}
         all_data = {self.year: data}
