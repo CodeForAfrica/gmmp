@@ -316,6 +316,24 @@ class GMMP2015ReportImporter(BaseReportImporter):
             ]
         )
 
+    def import_42(self, sheet_info):
+        data = {}
+        all_data = {self.year: data}
+
+        self.slurp_secondary_col_table(
+            self.ws,
+            data,
+            col_start=3,
+            cols=8,
+            cols_per_group=3,
+            major_col_heading_row=5,
+            row_start=8,
+            row_end=62,
+            row_heading_col=2,
+        )
+
+        return all_data
+
     def import_43(self, sheet_info):
         data = {}
         all_data = {self.year: data}
