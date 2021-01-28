@@ -22510,62 +22510,236 @@
         }
       },
       "2015": {
-        "female": {
+        "africa": {
           "n": {
-            "celebrity, arts and media, sports": 767,
-            "crime and violence": 890,
-            "economy": 945,
-            "other": 142,
-            "politics and government": 1447,
-            "science and health": 600,
-            "social and legal": 2006
+            "celebrity, arts and media, sports": 123,
+            "crime and violence": 198,
+            "economy": 334,
+            "other": 11,
+            "politics and government": 418,
+            "science and health": 145,
+            "social and legal": 289
           },
           "no": {
-            "celebrity, arts and media, sports": 0.966101694915254,
-            "crime and violence": 0.910112359550562,
-            "economy": 0.928042328042328,
-            "other": 0.992957746478873,
-            "politics and government": 0.911541119557706,
-            "science and health": 0.94,
-            "social and legal": 0.876869391824526
+            "celebrity, arts and media, sports": 0.902439024390244,
+            "crime and violence": 0.792929292929293,
+            "economy": 0.820359281437126,
+            "other": 0.909090909090909,
+            "politics and government": 0.803827751196172,
+            "science and health": 0.806896551724138,
+            "social and legal": 0.754325259515571
           },
           "yes": {
-            "celebrity, arts and media, sports": 0.0338983050847458,
-            "crime and violence": 0.0898876404494382,
-            "economy": 0.071957671957672,
-            "other": 0.00704225352112676,
-            "politics and government": 0.0884588804422944,
-            "science and health": 0.06,
-            "social and legal": 0.123130608175474
+            "celebrity, arts and media, sports": 0.0975609756097561,
+            "crime and violence": 0.207070707070707,
+            "economy": 0.179640718562874,
+            "other": 0.0909090909090909,
+            "politics and government": 0.196172248803828,
+            "science and health": 0.193103448275862,
+            "social and legal": 0.245674740484429
           }
         },
-        "male": {
+        "asia": {
           "n": {
-            "celebrity, arts and media, sports": 1058,
-            "crime and violence": 1186,
-            "economy": 1212,
-            "other": 136,
-            "politics and government": 1984,
-            "science and health": 613,
-            "social and legal": 2763
+            "celebrity, arts and media, sports": 602,
+            "crime and violence": 469,
+            "economy": 434,
+            "other": 186,
+            "politics and government": 1233,
+            "science and health": 384,
+            "social and legal": 1040
           },
           "no": {
-            "celebrity, arts and media, sports": 0.964083175803403,
-            "crime and violence": 0.926644182124789,
-            "economy": 0.93976897689769,
-            "other": 0.977941176470588,
-            "politics and government": 0.902721774193548,
-            "science and health": 0.947797716150082,
-            "social and legal": 0.902642055736518
+            "celebrity, arts and media, sports": 0.92358803986711,
+            "crime and violence": 0.876332622601279,
+            "economy": 0.93778801843318,
+            "other": 0.935483870967742,
+            "politics and government": 0.967558799675588,
+            "science and health": 0.919270833333333,
+            "social and legal": 0.875961538461538
           },
           "yes": {
-            "celebrity, arts and media, sports": 0.0359168241965974,
-            "crime and violence": 0.0733558178752108,
-            "economy": 0.0602310231023102,
-            "other": 0.0220588235294118,
-            "politics and government": 0.0972782258064516,
-            "science and health": 0.0522022838499184,
-            "social and legal": 0.0973579442634817
+            "celebrity, arts and media, sports": 0.0764119601328904,
+            "crime and violence": 0.123667377398721,
+            "economy": 0.0622119815668203,
+            "other": 0.0645161290322581,
+            "politics and government": 0.032441200324412,
+            "science and health": 0.0807291666666667,
+            "social and legal": 0.124038461538462
+          }
+        },
+        "caribbean": {
+          "n": {
+            "celebrity, arts and media, sports": 56,
+            "crime and violence": 58,
+            "economy": 83,
+            "other": 4,
+            "politics and government": 86,
+            "science and health": 37,
+            "social and legal": 90
+          },
+          "no": {
+            "celebrity, arts and media, sports": 0.946428571428571,
+            "crime and violence": 0.775862068965517,
+            "economy": 0.91566265060241,
+            "other": 1,
+            "politics and government": 0.837209302325581,
+            "science and health": 0.837837837837838,
+            "social and legal": 0.622222222222222
+          },
+          "yes": {
+            "celebrity, arts and media, sports": 0.0535714285714286,
+            "crime and violence": 0.224137931034483,
+            "economy": 0.0843373493975904,
+            "other": 0,
+            "politics and government": 0.162790697674419,
+            "science and health": 0.162162162162162,
+            "social and legal": 0.377777777777778
+          }
+        },
+        "europe": {
+          "n": {
+            "celebrity, arts and media, sports": 555,
+            "crime and violence": 616,
+            "economy": 688,
+            "other": 66,
+            "politics and government": 1045,
+            "science and health": 358,
+            "social and legal": 1647
+          },
+          "no": {
+            "celebrity, arts and media, sports": 0.98018018018018,
+            "crime and violence": 0.925324675324675,
+            "economy": 0.973837209302326,
+            "other": 1,
+            "politics and government": 0.926315789473684,
+            "science and health": 0.949720670391061,
+            "social and legal": 0.947783849423194
+          },
+          "yes": {
+            "celebrity, arts and media, sports": 0.0198198198198198,
+            "crime and violence": 0.0746753246753247,
+            "economy": 0.0261627906976744,
+            "other": 0,
+            "politics and government": 0.0736842105263158,
+            "science and health": 0.0502793296089385,
+            "social and legal": 0.0522161505768063
+          }
+        },
+        "latin america": {
+          "n": {
+            "celebrity, arts and media, sports": 157,
+            "crime and violence": 260,
+            "economy": 276,
+            "other": 9,
+            "politics and government": 349,
+            "science and health": 113,
+            "social and legal": 561
+          },
+          "no": {
+            "celebrity, arts and media, sports": 0.993630573248408,
+            "crime and violence": 0.926923076923077,
+            "economy": 0.945652173913043,
+            "other": 1,
+            "politics and government": 0.951289398280802,
+            "science and health": 0.884955752212389,
+            "social and legal": 0.882352941176471
+          },
+          "yes": {
+            "celebrity, arts and media, sports": 0.00636942675159236,
+            "crime and violence": 0.0730769230769231,
+            "economy": 0.0543478260869565,
+            "other": 0,
+            "politics and government": 0.0487106017191977,
+            "science and health": 0.115044247787611,
+            "social and legal": 0.117647058823529
+          }
+        },
+        "middle east": {
+          "n": {
+            "celebrity, arts and media, sports": 40,
+            "crime and violence": 86,
+            "economy": 126,
+            "other": 4,
+            "politics and government": 191,
+            "science and health": 36,
+            "social and legal": 158
+          },
+          "no": {
+            "celebrity, arts and media, sports": 1,
+            "crime and violence": 0.976744186046512,
+            "economy": 0.984126984126984,
+            "other": 1,
+            "politics and government": 0.910994764397906,
+            "science and health": 0.972222222222222,
+            "social and legal": 0.886075949367089
+          },
+          "yes": {
+            "celebrity, arts and media, sports": 0,
+            "crime and violence": 0.0232558139534884,
+            "economy": 0.0158730158730159,
+            "other": 0,
+            "politics and government": 0.0890052356020942,
+            "science and health": 0.0277777777777778,
+            "social and legal": 0.113924050632911
+          }
+        },
+        "north america": {
+          "n": {
+            "celebrity, arts and media, sports": 91,
+            "crime and violence": 253,
+            "economy": 163,
+            "other": 15,
+            "politics and government": 258,
+            "science and health": 148,
+            "social and legal": 294
+          },
+          "no": {
+            "celebrity, arts and media, sports": 0.901098901098901,
+            "crime and violence": 0.901185770750988,
+            "economy": 0.858895705521472,
+            "other": 0.8,
+            "politics and government": 0.848837209302326,
+            "science and health": 0.905405405405405,
+            "social and legal": 0.693877551020408
+          },
+          "yes": {
+            "celebrity, arts and media, sports": 0.0989010989010989,
+            "crime and violence": 0.0988142292490119,
+            "economy": 0.141104294478528,
+            "other": 0.2,
+            "politics and government": 0.151162790697674,
+            "science and health": 0.0945945945945946,
+            "social and legal": 0.306122448979592
+          }
+        },
+        "pacific islands": {
+          "n": {
+            "celebrity, arts and media, sports": 93,
+            "crime and violence": 70,
+            "economy": 45,
+            "other": 10,
+            "politics and government": 51,
+            "science and health": 18,
+            "social and legal": 72
+          },
+          "no": {
+            "celebrity, arts and media, sports": 1,
+            "crime and violence": 1,
+            "economy": 0.977777777777778,
+            "other": 1,
+            "politics and government": 0.96078431372549,
+            "science and health": 1,
+            "social and legal": 0.972222222222222
+          },
+          "yes": {
+            "celebrity, arts and media, sports": 0,
+            "crime and violence": 0,
+            "economy": 0.0222222222222222,
+            "other": 0,
+            "politics and government": 0.0392156862745098,
+            "science and health": 0,
+            "social and legal": 0.0277777777777778
           }
         }
       }
