@@ -1371,6 +1371,13 @@ WS_INFO = {
         }
     },
     'ws_sr09': {
+        '2015': {
+            'name': 'sr09',
+            'title': 'Stories where issues of gender (in)equality are raised, by region',
+            'desc': 'Stories where issues of gender (in)equality are raised, by region',
+            'reports': ['global'],
+            'historical': 'sr09',
+        },
         '2010': {
             'name': 'sr09',
             'title': 'Stories where issues of gender (in)equality are raised, by region',
