@@ -2785,6 +2785,106 @@
         }
       }
     },
+    "44": {
+      "2010": {
+        "female": {
+          "africa": 0.04,
+          "asia": 0.17,
+          "caribbean": 0.03,
+          "europe": 0.49,
+          "latin america": 0.18,
+          "middle east": 0.01,
+          "north america": 0.08,
+          "pacific islands": 0.01
+        },
+        "male": {
+          "africa": 0.05,
+          "asia": 0.31,
+          "caribbean": 0.04,
+          "europe": 0.3,
+          "latin america": 0.18,
+          "middle east": 0.01,
+          "north america": 0.1,
+          "pacific islands": 0
+        },
+        "n": {
+          "africa": 57,
+          "asia": 71,
+          "caribbean": 67,
+          "europe": 128,
+          "latin america": 40,
+          "middle east": 5,
+          "north america": 19,
+          "pacific islands": 6
+        }
+      },
+      "2015": {
+        "female": {
+          "n": {
+            "africa": 268,
+            "asia": 419,
+            "caribbean": 85,
+            "europe": 1235,
+            "latin america": 356,
+            "middle east": 101,
+            "north america": 330,
+            "pacific islands": 105
+          },
+          "no": {
+            "africa": 0.772388059701492,
+            "asia": 0.892601431980907,
+            "caribbean": 0.858823529411765,
+            "europe": 0.945748987854251,
+            "latin america": 0.938202247191011,
+            "middle east": 0.891089108910891,
+            "north america": 0.751515151515151,
+            "pacific islands": 0.971428571428571
+          },
+          "yes": {
+            "africa": 0.227611940298507,
+            "asia": 0.107398568019093,
+            "caribbean": 0.141176470588235,
+            "europe": 0.054251012145749,
+            "latin america": 0.0617977528089888,
+            "middle east": 0.108910891089109,
+            "north america": 0.248484848484848,
+            "pacific islands": 0.0285714285714286
+          }
+        },
+        "male": {
+          "n": {
+            "africa": 501,
+            "asia": 911,
+            "caribbean": 107,
+            "europe": 2105,
+            "latin america": 513,
+            "middle east": 163,
+            "north america": 503,
+            "pacific islands": 127
+          },
+          "no": {
+            "africa": 0.802395209580838,
+            "asia": 0.871569703622393,
+            "caribbean": 0.850467289719626,
+            "europe": 0.94916864608076,
+            "latin america": 0.94541910331384,
+            "middle east": 0.94478527607362,
+            "north america": 0.904572564612326,
+            "pacific islands": 0.984251968503937
+          },
+          "yes": {
+            "africa": 0.197604790419162,
+            "asia": 0.128430296377607,
+            "caribbean": 0.149532710280374,
+            "europe": 0.0508313539192399,
+            "latin america": 0.0545808966861598,
+            "middle east": 0.0552147239263804,
+            "north america": 0.095427435387674,
+            "pacific islands": 0.015748031496063
+          }
+        }
+      }
+    },
     "45": {
       "2010": {
         "female": {
