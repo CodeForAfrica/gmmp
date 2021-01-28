@@ -387,18 +387,18 @@ WS_INFO = {
     },
     'ws_23': {
         '2015': {
-            'name': '23',
-            'title': 'Breakdown by survivor type by sex',
-            'desc': 'News subjects who are portrayed as survivors, by sex',
+            'name': '21',
+            'title': 'Breakdown by victim type by sex',
+            'desc': 'News Subjects who are portrayed as victims, by sex',
             'reports': ['global', 'region', 'country'],
-            'historical': '23',
+            'historical': '21',
         },
         '2010': {
-            'name': '23',
-            'title': 'Breakdown by survivor type by sex',
-            'desc': 'News subjects who are portrayed as survivors, by sex',
+            'name': '21',
+            'title': 'Breakdown by victim type by sex',
+            'desc': 'News Subjects who are portrayed as victims, by sex',
             'reports': ['global', 'region', 'country'],
-            'historical': '19bF',
+            'historical': '9gF',
         },
     },
     'ws_24': {
