@@ -1190,6 +1190,13 @@ WS_INFO = {
         },
     },
     'ws_s16': {
+        '2015': {
+            'name': 's16',
+            'title': 'Stories that mention human rights or equality legislation and policies',
+            'desc': 'Stories that mention human rights or equality legislation and policies',
+            'reports': ['global'],
+            'historical': 's16',
+        },
         '2010': {
             'name': 's16',
             'title': 'Stories that mention human rights or equality legislation and policies',
