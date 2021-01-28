@@ -350,11 +350,16 @@ WS_INFO = {
             'name': '24',
             'title': 'Breakdown by family status, by sex.',
             'desc': 'News subjects who are identified by family status, by sex',
-            'reports': ['global', 'region', 'country'],
-            'historical': '9hF',
         },
     },
     'ws_25': {
+        '2015': {
+            'name': '25',
+            'title': 'B.down by sex of subject, family status, by sex of reporter',
+            'desc': 'News subjects who are identified by family status, by sex of news subject, by sex of reporter',
+            'reports': ['global', 'region', 'country'],
+            'historical': '25',
+        },
         '2010': {
             'name': '25',
             'title': 'B.down by sex of subject, family status, by sex of reporter',
