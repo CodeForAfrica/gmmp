@@ -302,31 +302,38 @@ WS_INFO = {
     #         'historical': '18cF',
     #     },
     # },
-    # 'ws_19': {
-    #     '2010': {
-    #         'name': '19',
-    #         'title': 'Age of Television news subjects, by sex',
-    #         'desc': 'B.down of  Age of Television news subjects, by sex (age captured for Television only)',
-    #         'reports': ['global', 'region', 'country'],
-    #         'historical': '18dF',
-    #     },
-    # },
-    'ws_20': {
+    'ws_19': {
         '2015': {
-            'name': '20',
-            'title': 'Functions and Occupations by sex of news subject',
-            'desc': 'B.down of  news subjects\' functions and occupations by sex of news subject',
+            'name': '19',
+            'title': 'Age of Television news subjects, by sex',
+            'desc': 'B.down of  Age of Television news subjects, by sex (age captured for Television only)',
             'reports': ['global', 'region', 'country'],
-            'historical': '20',
+            'historical': '19',
         },
         '2010': {
-            'name': '20',
-            'title': 'Functions and Occupations by sex of news subject',
-            'desc': 'B.down of  news subjects\' functions and occupations by sex of news subject',
+            'name': '19',
+            'title': 'Age of Television news subjects, by sex',
+            'desc': 'B.down of  Age of Television news subjects, by sex (age captured for Television only)',
             'reports': ['global', 'region', 'country'],
-            'historical': '20fF',
+            'historical': '18dF',
         },
     },
+    # 'ws_20': {
+    #     '2015': {
+    #         'name': '20',
+    #         'title': 'Functions and Occupations by sex of news subject',
+    #         'desc': 'B.down of  news subjects\' functions and occupations by sex of news subject',
+    #         'reports': ['global', 'region', 'country'],
+    #         'historical': '20',
+    #     },
+    #     '2010': {
+    #         'name': '20',
+    #         'title': 'Functions and Occupations by sex of news subject',
+    #         'desc': 'B.down of  news subjects\' functions and occupations by sex of news subject',
+    #         'reports': ['global', 'region', 'country'],
+    #         'historical': '20fF',
+    #     },
+    # },
     # 'ws_21': {
     #     '2015': {
     #         'name': '21',
