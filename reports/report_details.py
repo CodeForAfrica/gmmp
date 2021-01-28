@@ -543,6 +543,13 @@ WS_INFO = {
         },
     },
     'ws_43': {
+        '2015': {
+            'name': '43',
+            'title': 'Breakdown of Stories where issues of gender equality/inequality are raised by sex of reporter',
+            'desc': 'Stories where issues of gender equality/inequality are raised by sex of reporter',
+            'reports': ['global', 'region', 'country'],
+            'historical': '43',
+        },
         '2010': {
             'name': '43',
             'title': 'Breakdown of Stories where issues of gender equality/inequality are raised by sex of reporter',
