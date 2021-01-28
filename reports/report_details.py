@@ -959,6 +959,13 @@ WS_INFO = {
         },
     },
     'ws_85': {
+        '2015': {
+            'name': '85',
+            'title': 'Internet - Functions of news subjects',
+            'desc': 'Internet - Functions of news subjects',
+            'reports': ['global'],
+            'historical': '85',
+        },
         '2010': {
             'name': '85',
             'title': 'Internet - Functions of news subjects',
