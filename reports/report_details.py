@@ -746,6 +746,13 @@ WS_INFO = {
         },
     },
     'ws_48': {
+        '2015': {
+            'name': '48',
+            'title': 'Story clearly challenges gender stereotypes by sex of rep',
+            'desc': 'Stories where stereotypes are challenged/ supported by gender of rep',
+            'reports': ['global', 'region', 'country'],
+            'historical': '48',
+        },
         '2010': {
             'name': '48',
             'title': 'Story clearly challenges gender stereotypes by sex of rep',
