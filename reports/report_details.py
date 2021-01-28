@@ -503,21 +503,21 @@ WS_INFO = {
     #         'reports': ['global', 'region', 'country'],
     #     },
     # },
-    'ws_30': {
-        '2015': {
-            'name': '30',
-            'title': 'Breakdown of female reporters, by major topic, by region',
-            'desc': 'Reporters, by sex on major topics, by region',
-            'reports': ['global', 'region', 'country'],
-            'historical': '30',
-        },
-        '2010': {
-            'name': '30',
-            'title': 'Breakdown of female reporters, by major topic, by region',
-            'desc': 'Reporters, by sex on major topics, by region',
-            'reports': ['global', 'region', 'country'],
-        },
-    },
+    # 'ws_30': {
+    #     '2015': {
+    #         'name': '30',
+    #         'title': 'Breakdown of female reporters, by major topic, by region',
+    #         'desc': 'Reporters, by sex on major topics, by region',
+    #         'reports': ['global', 'region', 'country'],
+    #         'historical': '30',
+    #     },
+    #     '2010': {
+    #         'name': '30',
+    #         'title': 'Breakdown of female reporters, by major topic, by region',
+    #         'desc': 'Reporters, by sex on major topics, by region',
+    #         'reports': ['global', 'region', 'country'],
+    #     },
+    # },
     # 'ws_31': {
     #     '2015': {
     #         'name': '31',
@@ -534,14 +534,21 @@ WS_INFO = {
     #         'historical': '12dF',
     #     },
     # },
-    # 'ws_32': {
-    #     '2010': {
-    #         'name': '32',
-    #         'title': 'Topics in the news - Detail by medium for female reporters',
-    #         'desc': 'Topics in the news - Detail by medium for female reporters',
-    #         'reports': ['global'],
-    #     },
-    # },
+    'ws_32': {
+        '2015': {
+            'name': '32',
+            'title': 'Topics in the news - Detail by medium for female reporters',
+            'desc': 'Topics in the news - Detail by medium for female reporters',
+            'reports': ['global'],
+            'historical': '32',
+        },
+        '2010': {
+            'name': '32',
+            'title': 'Topics in the news - Detail by medium for female reporters',
+            'desc': 'Topics in the news - Detail by medium for female reporters',
+            'reports': ['global'],
+        },
+    },
     # 'ws_34': {
     #     '2015': {
     #         'name': '34',
