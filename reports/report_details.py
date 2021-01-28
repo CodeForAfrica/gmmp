@@ -108,15 +108,22 @@ WS_INFO = {
     #         'historical': '2aF'
     #     },
     # },
-    # 'ws_04': {
-    #     '2010': {
-    #         'name': '4',
-    #         'title': 'Topics in the news by region',
-    #         'desc': 'Breakdown of major news topics by region by medium',
-    #         'reports': ['global', 'region'],
-    #         'historical': '3aF'
-    #     },
-    # },
+    'ws_04': {
+        '2015': {
+            'name': '4',
+            'title': 'Topics in the news by region',
+            'desc': 'Breakdown of major news topics by region by medium',
+            'reports': ['global', 'region'],
+            'historical': '4',
+        },
+        '2010': {
+            'name': '4',
+            'title': 'Topics in the news by region',
+            'desc': 'Breakdown of major news topics by region by medium',
+            'reports': ['global', 'region'],
+            'historical': '3aF'
+        },
+    },
     # 'ws_05': {
     #     '2015': {
     #         'name': '5',
@@ -220,21 +227,21 @@ WS_INFO = {
     #         'reports': ['global', 'region', 'country'],
     #     },
     # },
-    'ws_12': {
-        '2015': {
-            'name': '12',
-            'title': 'Stories making reference to issues of gender equality/inequality, legislation, policy by region',
-            'desc': 'Breakdown by major topic by region by reference to gender equality/human rights/policy',
-            'reports': ['global', 'region'],
-            'historical': '12',
-        },
-        '2010': {
-            'name': '12',
-            'title': 'Stories making reference to issues of gender equality/inequality, legislation, policy by region',
-            'desc': 'Breakdown by major topic by region by reference to gender equality/human rights/policy',
-            'reports': ['global', 'region'],
-        },
-    },
+    # 'ws_12': {
+    #     '2015': {
+    #         'name': '12',
+    #         'title': 'Stories making reference to issues of gender equality/inequality, legislation, policy by region',
+    #         'desc': 'Breakdown by major topic by region by reference to gender equality/human rights/policy',
+    #         'reports': ['global', 'region'],
+    #         'historical': '12',
+    #     },
+    #     '2010': {
+    #         'name': '12',
+    #         'title': 'Stories making reference to issues of gender equality/inequality, legislation, policy by region',
+    #         'desc': 'Breakdown by major topic by region by reference to gender equality/human rights/policy',
+    #         'reports': ['global', 'region'],
+    #     },
+    # },
     # 'ws_13': {
     #     '2015': {
     #         'name': '13',
