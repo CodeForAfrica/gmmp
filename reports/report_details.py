@@ -517,6 +517,13 @@ WS_INFO = {
         },
     },
     'ws_40': {
+        '2015': {
+            'name': '40',
+            'title': 'Breakdown of Stories with Women as a central Focus by topic and region',
+            'desc': 'Stories with Women as a central Focus by topic and region',
+            'reports': ['global'],
+            'historical': '40',
+        },
         '2010': {
             'name': '40',
             'title': 'Breakdown of Stories with Women as a central Focus by topic and region',
