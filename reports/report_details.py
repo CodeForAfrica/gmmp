@@ -277,15 +277,22 @@ WS_INFO = {
     #         'historical': '20aF',
     #     },
     # },
-    # 'ws_17': {
-    #     '2010': {
-    #         'name': '17',
-    #         'title': 'Function of news subjects by sex - by age',
-    #         'desc': 'Breakdown of  Function of news subjects by sex - by age',
-    #         'reports': ['global', 'region', 'country'],
-    #         'historical': '20bF',
-    #     },
-    # },
+    'ws_17': {
+        '2015': {
+            'name': '17',
+            'title': 'Function of news subjects by sex - by age',
+            'desc': 'Breakdown of  Function of news subjects by sex - by age',
+            'reports': ['global', 'region', 'country'],
+            'historical': '17',
+        },
+        '2010': {
+            'name': '17',
+            'title': 'Function of news subjects by sex - by age',
+            'desc': 'Breakdown of  Function of news subjects by sex - by age',
+            'reports': ['global', 'region', 'country'],
+            'historical': '20bF',
+        },
+    },
     # 'ws_18': {
     #     '2015': {
     #         'name': '18',
@@ -302,22 +309,22 @@ WS_INFO = {
     #         'historical': '18cF',
     #     },
     # },
-    'ws_19': {
-        '2015': {
-            'name': '19',
-            'title': 'Age of Television news subjects, by sex',
-            'desc': 'B.down of  Age of Television news subjects, by sex (age captured for Television only)',
-            'reports': ['global', 'region', 'country'],
-            'historical': '19',
-        },
-        '2010': {
-            'name': '19',
-            'title': 'Age of Television news subjects, by sex',
-            'desc': 'B.down of  Age of Television news subjects, by sex (age captured for Television only)',
-            'reports': ['global', 'region', 'country'],
-            'historical': '18dF',
-        },
-    },
+    # 'ws_19': {
+    #     '2015': {
+    #         'name': '19',
+    #         'title': 'Age of Television news subjects, by sex',
+    #         'desc': 'B.down of  Age of Television news subjects, by sex (age captured for Television only)',
+    #         'reports': ['global', 'region', 'country'],
+    #         'historical': '19',
+    #     },
+    #     '2010': {
+    #         'name': '19',
+    #         'title': 'Age of Television news subjects, by sex',
+    #         'desc': 'B.down of  Age of Television news subjects, by sex (age captured for Television only)',
+    #         'reports': ['global', 'region', 'country'],
+    #         'historical': '18dF',
+    #     },
+    # },
     # 'ws_20': {
     #     '2015': {
     #         'name': '20',
