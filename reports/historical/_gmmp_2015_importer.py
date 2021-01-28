@@ -2,6 +2,7 @@ from .canon import canon
 from ._base_importer import BaseReportImporter
 from reports.report_details import get_regions
 
+
 # The continents in the sheet do not include 'pacific' but the get_regions()
 # function returns a list of which include 'pacific' so we're excluding that from
 # the list to be consistent with the sheet data
