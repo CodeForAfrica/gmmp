@@ -1,6 +1,17 @@
 from .canon import canon
 from ._base_importer import BaseReportImporter
 
+CONTINENTS = [
+    'africa',
+    'asia',
+    'caribbean',
+    'europe',
+    'latin america',
+    'middle east',
+    'north america',
+    'pacific islands'
+]
+
 
 class GMMP2015ReportImporter(BaseReportImporter):
     """
@@ -108,6 +119,64 @@ class GMMP2015ReportImporter(BaseReportImporter):
                 col_start=col_start,
                 col_end=col_end,
                 row_end=row_end
+            )
+
+        return all_data
+
+    def import_4(self, sheet_data):
+        data_2015 = {}
+        all_data = {2015: data_2015}
+
+        col_start, end_index = 3, 50
+        while col_start < end_index:
+            for continent in CONTINENTS:
+                continental_data = {}
+                self.slurp_secondary_col_table(
+                    self.ws,
+                    continental_data,
+                    col_start=col_start,
+                    cols=3,
+                    cols_per_group=2,
+                    major_col_heading_row=6,
+                    row_start=8,
+                    row_end=14,
+                    row_heading_col=2,
+                )
+                data_2015[continent] = continental_data
+                col_start += 6
+
+        col_start, end_index = 53, 84
+        while col_start < end_index:
+            for continent in CONTINENTS:
+                for medium in ['internet', 'twitter']:
+                    medium_data = {}
+                    self.slurp_secondary_col_table(
+                        self.ws,
+                        medium_data,
+                        col_start=col_start,
+                        cols=1,
+                        cols_per_group=2,
+                        major_col_heading_row=6,
+                        row_start=8,
+                        row_end=14,
+                        row_heading_col=2,
+                    )
+                    data_2015[continent][medium] = medium_data[medium]
+                    col_start += 2
+
+        data_2010 = {}
+        all_data[2010] = data_2010
+        for col_start, col_end, row_start, row_end, col_heading_row in [
+            (87, 94, 8, 14, 6),
+        ]:
+            self.slurp_table(
+                self.ws,
+                data_2010,
+                col_start=col_start,
+                col_end=col_end,
+                row_start=row_start,
+                row_end=row_end,
+                col_heading_row=col_heading_row,
             )
 
         return all_data
