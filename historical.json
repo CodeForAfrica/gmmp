@@ -1,538 +1,200 @@
 {
   "global": {
-    "6": {
+    "28": {
+      "1995": {
+        "female": {
+          "africa": 0.33,
+          "asia": 0.36,
+          "caribbean": 0,
+          "europe": 0,
+          "latin america": 0,
+          "middle east": 0,
+          "north america": 0,
+          "pacific islands": 0
+        }
+      },
+      "2000": {
+        "female": {
+          "africa": 0.36,
+          "asia": 0.42,
+          "caribbean": 0.41,
+          "europe": 0.4,
+          "latin america": 0.28,
+          "middle east": 0.47,
+          "north america": 0.46,
+          "pacific islands": 0.49
+        }
+      },
+      "2005": {
+        "female": {
+          "africa": 0.41,
+          "asia": 0.49,
+          "caribbean": 0.41,
+          "europe": 0.42,
+          "latin america": 0.38,
+          "middle east": 0.41,
+          "north america": 0.48,
+          "pacific islands": 0.5
+        }
+      },
       "2010": {
-        "africa": {
-          "female": {
-            "%": {
-              "celebrity, arts and media, sports": 0.17,
-              "crime and violence": 0.4,
-              "economy": 0.34,
-              "other": 0.22,
-              "politics and government": 0.32,
-              "science and health": 0.46,
-              "social and legal": 0.33
-            },
-            "n": {
-              "celebrity, arts and media, sports": 7,
-              "crime and violence": 38,
-              "economy": 34,
-              "other": 1,
-              "politics and government": 53,
-              "science and health": 22,
-              "social and legal": 41
-            }
-          }
+        "female": {
+          "africa": 0.34,
+          "asia": 0.44,
+          "caribbean": 0.34,
+          "europe": 0.41,
+          "latin america": 0.38,
+          "middle east": 0.46,
+          "north america": 0.35,
+          "pacific islands": 0.35
         },
-        "asia": {
-          "female": {
-            "%": {
-              "celebrity, arts and media, sports": 0.45,
-              "crime and violence": 0.44,
-              "economy": 0.45,
-              "other": 0.37,
-              "politics and government": 0.43,
-              "science and health": 0.49,
-              "social and legal": 0.45
-            },
-            "n": {
-              "celebrity, arts and media, sports": 109,
-              "crime and violence": 195,
-              "economy": 188,
-              "other": 17,
-              "politics and government": 186,
-              "science and health": 70,
-              "social and legal": 87
-            }
-          }
-        },
-        "caribbean": {
-          "female": {
-            "%": {
-              "celebrity, arts and media, sports": 0.35,
-              "crime and violence": 0.37,
-              "economy": 0.47,
-              "other": 0.64,
-              "politics and government": 0.24,
-              "science and health": 0.43,
-              "social and legal": 0.28
-            },
-            "n": {
-              "celebrity, arts and media, sports": 5,
-              "crime and violence": 20,
-              "economy": 25,
-              "other": 3,
-              "politics and government": 16,
-              "science and health": 16,
-              "social and legal": 26
-            }
-          }
-        },
-        "europe": {
-          "female": {
-            "%": {
-              "celebrity, arts and media, sports": 0.44,
-              "crime and violence": 0.42,
-              "economy": 0.43,
-              "other": 0.37,
-              "politics and government": 0.32,
-              "science and health": 0.51,
-              "social and legal": 0.48
-            },
-            "n": {
-              "celebrity, arts and media, sports": 182,
-              "crime and violence": 284,
-              "economy": 227,
-              "other": 29,
-              "politics and government": 272,
-              "science and health": 196,
-              "social and legal": 180
-            }
-          }
-        },
-        "latin america": {
-          "female": {
-            "%": {
-              "celebrity, arts and media, sports": 0.24,
-              "crime and violence": 0.34,
-              "economy": 0.34,
-              "other": 0.36,
-              "politics and government": 0.4,
-              "science and health": 0.46,
-              "social and legal": 0.5
-            },
-            "n": {
-              "celebrity, arts and media, sports": 14,
-              "crime and violence": 111,
-              "economy": 117,
-              "other": 7,
-              "politics and government": 136,
-              "science and health": 63,
-              "social and legal": 115
-            }
-          }
-        },
-        "middle east": {
-          "female": {
-            "%": {
-              "celebrity, arts and media, sports": 0.58,
-              "crime and violence": 0.47,
-              "economy": 0.42,
-              "other": 0.35,
-              "politics and government": 0.48,
-              "science and health": 0.46,
-              "social and legal": 0.34
-            },
-            "n": {
-              "celebrity, arts and media, sports": 6,
-              "crime and violence": 2,
-              "economy": 8,
-              "other": 0,
-              "politics and government": 101,
-              "science and health": 8,
-              "social and legal": 7
-            }
-          }
-        },
-        "north america": {
-          "female": {
-            "%": {
-              "celebrity, arts and media, sports": 0.49,
-              "crime and violence": 0.39,
-              "economy": 0.33,
-              "other": 0.13,
-              "politics and government": 0.27,
-              "science and health": 0.34,
-              "social and legal": 0.33
-            },
-            "n": {
-              "celebrity, arts and media, sports": 0,
-              "crime and violence": 0,
-              "economy": 0,
-              "other": 0,
-              "politics and government": 0,
-              "science and health": 0,
-              "social and legal": 0
-            }
-          }
-        },
-        "pacific islands": {
-          "female": {
-            "%": {
-              "celebrity, arts and media, sports": 0.19,
-              "crime and violence": 0.42,
-              "economy": 0.36,
-              "other": 0.24,
-              "politics and government": 0.37,
-              "science and health": 0.43,
-              "social and legal": 0.44
-            },
-            "n": {
-              "celebrity, arts and media, sports": 7,
-              "crime and violence": 8,
-              "economy": 1,
-              "other": 1,
-              "politics and government": 9,
-              "science and health": 3,
-              "social and legal": 7
-            }
-          }
+        "n": {
+          "africa": 544,
+          "asia": 1741,
+          "caribbean": 340,
+          "europe": 3066,
+          "latin america": 880,
+          "middle east": 455,
+          "north america": 154,
+          "pacific islands": 292
         }
       },
       "2015": {
-        "internet, twitter": {
-          "africa": {
-            "female": {
-              "%": {
-                "celebrity, arts and media, sports": 0,
-                "crime and violence": 0.4,
-                "economy": 0.1875,
-                "other": 0,
-                "politics and government": 0.283018867924528,
-                "science and health": 0.277777777777778,
-                "social and legal": 0.1
-              },
-              "n": {
-                "celebrity, arts and media, sports": 0,
-                "crime and violence": 8,
-                "economy": 3,
-                "other": 0,
-                "politics and government": 30,
-                "science and health": 5,
-                "social and legal": 4
-              }
+        "print": {
+          "female": {
+            "%": {
+              "africa": 0.315789473684211,
+              "asia": 0.299625468164794,
+              "caribbean": 0.395348837209302,
+              "europe": 0.344717182497332,
+              "latin america": 0.470588235294118,
+              "middle east": 0.328767123287671,
+              "north america": 0.40405616224649,
+              "pacific islands": 0.474074074074074
+            },
+            "n": {
+              "africa": 120,
+              "asia": 240,
+              "caribbean": 51,
+              "europe": 646,
+              "latin america": 104,
+              "middle east": 48,
+              "north america": 259,
+              "pacific islands": 64
             }
           },
-          "asia": {
-            "female": {
-              "%": {
-                "celebrity, arts and media, sports": 0.243589743589744,
-                "crime and violence": 0.388429752066116,
-                "economy": 0.0930232558139535,
-                "other": 0,
-                "politics and government": 0.195121951219512,
-                "science and health": 0.315789473684211,
-                "social and legal": 0.294797687861272
-              },
-              "n": {
-                "celebrity, arts and media, sports": 19,
-                "crime and violence": 47,
-                "economy": 4,
-                "other": 0,
-                "politics and government": 32,
-                "science and health": 6,
-                "social and legal": 51
-              }
-            }
-          },
-          "caribbean": {
-            "female": {
-              "%": {
-                "celebrity, arts and media, sports": 0.390243902439024,
-                "crime and violence": 0.166666666666667,
-                "economy": 0.285714285714286,
-                "other": 0,
-                "politics and government": 0.212765957446809,
-                "science and health": 0.5,
-                "social and legal": 0.342105263157895
-              },
-              "n": {
-                "celebrity, arts and media, sports": 16,
-                "crime and violence": 6,
-                "economy": 8,
-                "other": 0,
-                "politics and government": 10,
-                "science and health": 3,
-                "social and legal": 13
-              }
-            }
-          },
-          "europe": {
-            "female": {
-              "%": {
-                "celebrity, arts and media, sports": 0.256544502617801,
-                "crime and violence": 0.247830279652845,
-                "economy": 0.266509433962264,
-                "other": 0.270833333333333,
-                "politics and government": 0.169336384439359,
-                "science and health": 0.377659574468085,
-                "social and legal": 0.292218104817364
-              },
-              "n": {
-                "celebrity, arts and media, sports": 196,
-                "crime and violence": 257,
-                "economy": 113,
-                "other": 13,
-                "politics and government": 222,
-                "science and health": 71,
-                "social and legal": 552
-              }
-            }
-          },
-          "latin america": {
-            "female": {
-              "%": {
-                "celebrity, arts and media, sports": 0.274760383386581,
-                "crime and violence": 0.298412698412698,
-                "economy": 0.192,
-                "other": 0.454545454545455,
-                "politics and government": 0.240579710144928,
-                "science and health": 0.462686567164179,
-                "social and legal": 0.330708661417323
-              },
-              "n": {
-                "celebrity, arts and media, sports": 86,
-                "crime and violence": 94,
-                "economy": 24,
-                "other": 5,
-                "politics and government": 83,
-                "science and health": 31,
-                "social and legal": 126
-              }
-            }
-          },
-          "middle east": {
-            "female": {
-              "%": {
-                "celebrity, arts and media, sports": 0.470588235294118,
-                "crime and violence": 0.2,
-                "economy": 0,
-                "other": 0.111111111111111,
-                "politics and government": 0.102564102564103,
-                "science and health": 0,
-                "social and legal": 0.222222222222222
-              },
-              "n": {
-                "celebrity, arts and media, sports": 8,
-                "crime and violence": 9,
-                "economy": 0,
-                "other": 1,
-                "politics and government": 8,
-                "science and health": 0,
-                "social and legal": 6
-              }
-            }
-          },
-          "north america": {
-            "female": {
-              "%": {
-                "celebrity, arts and media, sports": 0.305555555555556,
-                "crime and violence": 0.477777777777778,
-                "economy": 0.4,
-                "other": 1,
-                "politics and government": 0.165467625899281,
-                "science and health": 0.714285714285714,
-                "social and legal": 0.415929203539823
-              },
-              "n": {
-                "celebrity, arts and media, sports": 11,
-                "crime and violence": 86,
-                "economy": 10,
-                "other": 1,
-                "politics and government": 23,
-                "science and health": 35,
-                "social and legal": 47
-              }
-            }
-          },
-          "pacific islands": {
-            "female": {
-              "%": {
-                "celebrity, arts and media, sports": 0.225352112676056,
-                "crime and violence": 0.212962962962963,
-                "economy": 0.151515151515152,
-                "other": 0.5,
-                "politics and government": 0.179487179487179,
-                "science and health": 0.4,
-                "social and legal": 0.266187050359712
-              },
-              "n": {
-                "celebrity, arts and media, sports": 16,
-                "crime and violence": 23,
-                "economy": 5,
-                "other": 1,
-                "politics and government": 14,
-                "science and health": 14,
-                "social and legal": 37
-              }
+          "male": {
+            "%": {
+              "africa": 0.684210526315789,
+              "asia": 0.700374531835206,
+              "caribbean": 0.604651162790698,
+              "europe": 0.655282817502668,
+              "latin america": 0.529411764705882,
+              "middle east": 0.671232876712329,
+              "north america": 0.59594383775351,
+              "pacific islands": 0.525925925925926
+            },
+            "n": {
+              "africa": 260,
+              "asia": 561,
+              "caribbean": 78,
+              "europe": 1228,
+              "latin america": 117,
+              "middle east": 98,
+              "north america": 382,
+              "pacific islands": 71
             }
           }
         },
-        "print, radio, television": {
-          "africa": {
-            "female": {
-              "%": {
-                "celebrity, arts and media, sports": 0.151785714285714,
-                "crime and violence": 0.276422764227642,
-                "economy": 0.189922480620155,
-                "other": 0.222222222222222,
-                "politics and government": 0.15802781289507,
-                "science and health": 0.365638766519824,
-                "social and legal": 0.259109311740891
-              },
-              "n": {
-                "celebrity, arts and media, sports": 34,
-                "crime and violence": 102,
-                "economy": 98,
-                "other": 2,
-                "politics and government": 125,
-                "science and health": 83,
-                "social and legal": 128
-              }
+        "radio": {
+          "female": {
+            "%": {
+              "africa": 0.44404973357016,
+              "asia": 0.558962264150943,
+              "caribbean": 0.445454545454545,
+              "europe": 0.403409090909091,
+              "latin america": 0.35546875,
+              "middle east": 0.495614035087719,
+              "north america": 0.260869565217391,
+              "pacific islands": 0.605633802816901
+            },
+            "n": {
+              "africa": 250,
+              "asia": 237,
+              "caribbean": 49,
+              "europe": 781,
+              "latin america": 364,
+              "middle east": 113,
+              "north america": 18,
+              "pacific islands": 43
             }
           },
-          "asia": {
-            "female": {
-              "%": {
-                "celebrity, arts and media, sports": 0.197792869269949,
-                "crime and violence": 0.271728271728272,
-                "economy": 0.146757679180887,
-                "other": 0.307692307692308,
-                "politics and government": 0.0739644970414201,
-                "science and health": 0.282101167315175,
-                "social and legal": 0.267819706498952
-              },
-              "n": {
-                "celebrity, arts and media, sports": 233,
-                "crime and violence": 272,
-                "economy": 86,
-                "other": 40,
-                "politics and government": 150,
-                "science and health": 145,
-                "social and legal": 511
-              }
+          "male": {
+            "%": {
+              "africa": 0.55595026642984,
+              "asia": 0.441037735849057,
+              "caribbean": 0.554545454545455,
+              "europe": 0.596590909090909,
+              "latin america": 0.64453125,
+              "middle east": 0.504385964912281,
+              "north america": 0.739130434782609,
+              "pacific islands": 0.394366197183099
+            },
+            "n": {
+              "africa": 313,
+              "asia": 187,
+              "caribbean": 61,
+              "europe": 1155,
+              "latin america": 660,
+              "middle east": 115,
+              "north america": 51,
+              "pacific islands": 28
+            }
+          }
+        },
+        "television": {
+          "female": {
+            "%": {
+              "africa": 0.466292134831461,
+              "asia": 0.517989417989418,
+              "caribbean": 0.530864197530864,
+              "europe": 0.482440737489025,
+              "latin america": 0.495019920318725,
+              "middle east": 0.585507246376812,
+              "north america": 0.363486842105263,
+              "pacific islands": 0.46031746031746
+            },
+            "n": {
+              "africa": 249,
+              "asia": 979,
+              "caribbean": 43,
+              "europe": 1099,
+              "latin america": 497,
+              "middle east": 202,
+              "north america": 221,
+              "pacific islands": 116
             }
           },
-          "caribbean": {
-            "female": {
-              "%": {
-                "celebrity, arts and media, sports": 0.286885245901639,
-                "crime and violence": 0.385135135135135,
-                "economy": 0.257142857142857,
-                "other": 0.2,
-                "politics and government": 0.190954773869347,
-                "science and health": 0.333333333333333,
-                "social and legal": 0.316831683168317
-              },
-              "n": {
-                "celebrity, arts and media, sports": 35,
-                "crime and violence": 57,
-                "economy": 36,
-                "other": 2,
-                "politics and government": 38,
-                "science and health": 17,
-                "social and legal": 64
-              }
-            }
-          },
-          "europe": {
-            "female": {
-              "%": {
-                "celebrity, arts and media, sports": 0.258657243816254,
-                "crime and violence": 0.270107238605898,
-                "economy": 0.205985915492958,
-                "other": 0.370967741935484,
-                "politics and government": 0.192377495462795,
-                "science and health": 0.373511904761905,
-                "social and legal": 0.269340974212034
-              },
-              "n": {
-                "celebrity, arts and media, sports": 366,
-                "crime and violence": 403,
-                "economy": 234,
-                "other": 23,
-                "politics and government": 530,
-                "science and health": 251,
-                "social and legal": 1316
-              }
-            }
-          },
-          "latin america": {
-            "female": {
-              "%": {
-                "celebrity, arts and media, sports": 0.232758620689655,
-                "crime and violence": 0.30514096185738,
-                "economy": 0.238095238095238,
-                "other": 0.285714285714286,
-                "politics and government": 0.24785100286533,
-                "science and health": 0.340136054421769,
-                "social and legal": 0.342569269521411
-              },
-              "n": {
-                "celebrity, arts and media, sports": 54,
-                "crime and violence": 184,
-                "economy": 110,
-                "other": 4,
-                "politics and government": 173,
-                "science and health": 50,
-                "social and legal": 408
-              }
-            }
-          },
-          "middle east": {
-            "female": {
-              "%": {
-                "celebrity, arts and media, sports": 0.223404255319149,
-                "crime and violence": 0.176100628930818,
-                "economy": 0.181208053691275,
-                "other": 0,
-                "politics and government": 0.0931034482758621,
-                "science and health": 0.207547169811321,
-                "social and legal": 0.246376811594203
-              },
-              "n": {
-                "celebrity, arts and media, sports": 21,
-                "crime and violence": 28,
-                "economy": 27,
-                "other": 0,
-                "politics and government": 27,
-                "science and health": 11,
-                "social and legal": 85
-              }
-            }
-          },
-          "north america": {
-            "female": {
-              "%": {
-                "celebrity, arts and media, sports": 0.291139240506329,
-                "crime and violence": 0.37940379403794,
-                "economy": 0.408839779005525,
-                "other": 0.333333333333333,
-                "politics and government": 0.229166666666667,
-                "science and health": 0.433333333333333,
-                "social and legal": 0.392156862745098
-              },
-              "n": {
-                "celebrity, arts and media, sports": 23,
-                "crime and violence": 140,
-                "economy": 74,
-                "other": 6,
-                "politics and government": 77,
-                "science and health": 117,
-                "social and legal": 180
-              }
-            }
-          },
-          "pacific islands": {
-            "female": {
-              "%": {
-                "celebrity, arts and media, sports": 0.212927756653992,
-                "crime and violence": 0.236263736263736,
-                "economy": 0.285714285714286,
-                "other": 1,
-                "politics and government": 0.215384615384615,
-                "science and health": 0.542857142857143,
-                "social and legal": 0.305309734513274
-              },
-              "n": {
-                "celebrity, arts and media, sports": 56,
-                "crime and violence": 43,
-                "economy": 32,
-                "other": 2,
-                "politics and government": 42,
-                "science and health": 19,
-                "social and legal": 69
-              }
+          "male": {
+            "%": {
+              "africa": 0.533707865168539,
+              "asia": 0.482010582010582,
+              "caribbean": 0.469135802469136,
+              "europe": 0.517559262510975,
+              "latin america": 0.504980079681275,
+              "middle east": 0.414492753623188,
+              "north america": 0.636513157894737,
+              "pacific islands": 0.53968253968254
+            },
+            "n": {
+              "africa": 285,
+              "asia": 911,
+              "caribbean": 38,
+              "europe": 1179,
+              "latin america": 507,
+              "middle east": 143,
+              "north america": 387,
+              "pacific islands": 136
             }
           }
         }

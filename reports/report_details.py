@@ -140,22 +140,22 @@ WS_INFO = {
     #         'reports': ['global', 'region', 'country'],
     #     },
     # },
-    'ws_06': {
-        '2015': {
-            'name': '6',
-            'title': 'Breakdown of women in the news in major topics by region',
-            'desc': 'Women in the news (sources) in major news topics by region ',
-            'reports': ['global', 'region'],
-            'historical': '6',
-        },
-        '2010': {
-            'name': '6',
-            'title': 'Breakdown of women in the news in major topics by region',
-            'desc': 'Women in the news (sources) in major news topics by region ',
-            'reports': ['global', 'region'],
-            'historical': '3bF',
-        },
-    },
+    # 'ws_06': {
+    #     '2015': {
+    #         'name': '6',
+    #         'title': 'Breakdown of women in the news in major topics by region',
+    #         'desc': 'Women in the news (sources) in major news topics by region ',
+    #         'reports': ['global', 'region'],
+    #         'historical': '6',
+    #     },
+    #     '2010': {
+    #         'name': '6',
+    #         'title': 'Breakdown of women in the news in major topics by region',
+    #         'desc': 'Women in the news (sources) in major news topics by region ',
+    #         'reports': ['global', 'region'],
+    #         'historical': '3bF',
+    #     },
+    # },
     # 'ws_07': {
     #     '2015': {
     #         'name': '7',
@@ -472,15 +472,22 @@ WS_INFO = {
     #         'historical': '20hF',
     #     },
     # },
-    # 'ws_28': {
-    #     '2010': {
-    #         'name': '28',
-    #         'title': 'Breakdown of total female reporters & presenters by region by medium ',
-    #         'desc': 'Female reporters, announcers and presenters all media, by region',
-    #         'reports': ['global', 'region', 'country'],
-    #         'historical': '10bF',
-    #     },
-    # },
+    'ws_28': {
+        '2015': {
+            'name': '28',
+            'title': 'Breakdown of total female reporters & presenters by region by medium ',
+            'desc': 'Female reporters, announcers and presenters all media, by region',
+            'reports': ['global', 'region', 'country'],
+            'historical': '28',
+        },
+        '2010': {
+            'name': '28',
+            'title': 'Breakdown of total female reporters & presenters by region by medium ',
+            'desc': 'Female reporters, announcers and presenters all media, by region',
+            'reports': ['global', 'region', 'country'],
+            'historical': '10bF',
+        },
+    },
     # 'ws_29': {
     #     '2010': {
     #         'name': '29',
