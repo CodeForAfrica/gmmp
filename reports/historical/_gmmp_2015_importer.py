@@ -309,6 +309,7 @@ class GMMP2015ReportImporter(BaseReportImporter):
             row_end=14,
             row_heading_col=2,
         )
+        return all_data
 
     def import_14(self, sheet_info):
         return self.import_grid(
