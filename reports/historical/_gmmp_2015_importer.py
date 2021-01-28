@@ -229,6 +229,71 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         return all_data
 
+    def import_6(self, sheet_data):
+        data_2015 = {}
+        all_data = {2015: data_2015}
+
+        for medium in ['print, radio, television', 'internet, twitter']:
+            medium_data = {}
+            medium_data[medium] = {}
+            # col_start, end_index = 3, 18
+            col_start, end_index = 3, 36
+            while col_start < end_index:
+                for continent in CONTINENTS:
+                    continental_data = {}
+                    self.slurp_secondary_col_table(
+                        self.ws,
+                        continental_data,
+                        col_start=col_start,
+                        cols=8,
+                        cols_per_group=2,
+                        major_col_heading_row=7,
+                        row_start=9,
+                        row_end=15,
+                        row_heading_col=2,
+                    )
+                    medium_data[medium][continent] = continental_data
+                    col_start += 2
+                # col_start, end_index = 21, 36
+                col_start = 21 if col_start <= 21 else 36
+            data_2015[medium] = medium_data[medium]
+
+        # col_start, end_index = 53, 84
+        # while col_start < end_index:
+        #     for continent in CONTINENTS:
+        #         for medium in ['internet', 'twitter']:
+        #             medium_data = {}
+        #             self.slurp_secondary_col_table(
+        #                 self.ws,
+        #                 medium_data,
+        #                 col_start=col_start,
+        #                 cols=1,
+        #                 cols_per_group=2,
+        #                 major_col_heading_row=6,
+        #                 row_start=8,
+        #                 row_end=14,
+        #                 row_heading_col=2,
+        #             )
+        #             data_2015[continent][medium] = medium_data[medium]
+        #             col_start += 2
+        #
+        # data_2010 = {}
+        # all_data[2010] = data_2010
+        # for col_start, col_end, row_start, row_end, col_heading_row in [
+        #     (87, 94, 8, 14, 6),
+        # ]:
+        #     self.slurp_table(
+        #         self.ws,
+        #         data_2010,
+        #         col_start=col_start,
+        #         col_end=col_end,
+        #         row_start=row_start,
+        #         row_end=row_end,
+        #         col_heading_row=col_heading_row,
+        #     )
+
+        return all_data
+
     def import_7(self, sheet_info):
         all_data = {}
         for year, col_start, col_end, row_end in [
