@@ -675,6 +675,13 @@ WS_INFO = {
         },
     },
     'ws_54': {
+        '2015': {
+            'name': '54',
+            'title': 'Internet - Overall presence of women',
+            'desc': 'Internet - Overall presence of women',
+            'reports': ['global', 'region', 'country'],
+            'historical': '54',
+        },
         '2010': {
             'name': '54',
             'title': 'Internet - Overall presence of women',
