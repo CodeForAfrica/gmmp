@@ -185,7 +185,7 @@ WS_INFO = {
         '2015': {
             'name': '9',
             'title': 'Sex of news subjects in different story topics by GMMP year',
-            'desc': 'Breakdown by sex & topic by GMMP year',
+            'desc': 'Breakdown by sex & topic by GMMP year',\
             'reports': ['global', 'region'],
             'historical': '9',
         },
@@ -389,7 +389,7 @@ WS_INFO = {
         '2015': {
             'name': '23',
             'title': 'News subjects who are portrayed as survivors, by sex',
-            'desc': 'Breakdown of  female & male news subjects who are survivors',
+            'desc': 'Breakdown of female & male news subjects who are survivors',
             'reports': ['global', 'region', 'country'],
             'historical': '23',
         },
@@ -421,7 +421,7 @@ WS_INFO = {
         '2015': {
             'name': '25',
             'title': 'News subjects who are identified by family status, by sex of news subject, by sex of reporter',
-            'desc': 'Breakdown by sex of subject, family status, by sex of reporter show N & %',
+            'desc': 'Breakdown by sex of subject, family status, by sex of reporter',
             'reports': ['global', 'region', 'country'],
             'historical': '25',
         },
@@ -454,8 +454,6 @@ WS_INFO = {
             'name': '27',
             'title': 'News subjects photographed, by sex',
             'desc': 'Breakdown of news subjects photographed, by sex',
-            'title': 'Breakdown of News subjects photographed, by sex',
-            'desc': 'News subjects photographed, by sex',
             'reports': ['global', 'region', 'country'],
             'historical': '27',
         },
@@ -520,7 +518,7 @@ WS_INFO = {
         '2015': {
             'name': '34',
             'title': 'Selection of News Subject(sex of source)  by female & male reporters',
-            'desc': 'Breakdown of News Subject(sex of source) selection  by female & male reporters',
+            'desc': 'Breakdown of News Subject (sex of source) selection  by female & male reporters',
             'reports': ['global', 'region', 'country'],
             'historical': '34',
         },
