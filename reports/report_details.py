@@ -951,6 +951,13 @@ WS_INFO = {
         },
     },
     'ws_84': {
+        '2015': {
+            'name': '84',
+            'title': 'Internet - Occupation of Female news subjects',
+            'desc': 'Internet - Occupation of Female news subjects',
+            'reports': ['global'],
+            'historical': '84',
+        },
         '2010': {
             'name': '84',
             'title': 'Internet - Occupation of Female news subjects',
