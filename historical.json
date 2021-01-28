@@ -1,6 +1,32 @@
 {
   "global": {
-    "25": {
+    "23": {
+      "2005": {
+        "female": {
+          "do not know, cannot decide": "n/a",
+          "not applicable (the story identifies the person only as a victim)": "n/a",
+          "other survivor (specify in comments)": 0.5,
+          "survivor of an accident, natural disaster, poverty": 0.32,
+          "survivor of discrimination based on gender, race, ethnicity, age, religion, ability, etc.": 0,
+          "survivor of domestic violence, rape, murder, etc.": 0.48,
+          "survivor of non-domestic sexual violence, rape, assault, etc. (sexual violence only)": 0.68,
+          "survivor of other non-domestic crime, robbery, etc.": 0.4,
+          "survivor of violation based on religion, tradition...": "n/a",
+          "survivor of war, terrorism, vigilantism, state violence...": 0.27
+        },
+        "male": {
+          "do not know, cannot decide": "n/a",
+          "not applicable (the story identifies the person only as a victim)": "n/a",
+          "other survivor (specify in comments)": 0.5,
+          "survivor of an accident, natural disaster, poverty": 0.68,
+          "survivor of discrimination based on gender, race, ethnicity, age, religion, ability, etc.": 0,
+          "survivor of domestic violence, rape, murder, etc.": 0.52,
+          "survivor of non-domestic sexual violence, rape, assault, etc. (sexual violence only)": 0.42,
+          "survivor of other non-domestic crime, robbery, etc.": 0.6,
+          "survivor of violation based on religion, tradition...": "n/a",
+          "survivor of war, terrorism, vigilantism, state violence...": 0.73
+        }
+      },
       "2010": {
         "n": {
           "africa": 217,
@@ -8870,6 +8896,7 @@
       },
       "2000": {
         "female": {
+<<<<<<< HEAD
           "celebrity, arts and media, sports": 0.23,
           "crime and violence": 0.18,
           "economy": 0.18,
@@ -21935,41 +21962,95 @@
             "no": 4162,
             "yes": 409
           }
+=======
+          "do not know, cannot decide": "n/a",
+          "not applicable (the story identifies the person only as a victim)": "n/a",
+          "other survivor (specify in comments)": 0.37,
+          "survivor of an accident, natural disaster, poverty": 0.34,
+          "survivor of discrimination based on gender, race, ethnicity, age, religion, ability, etc.": 0.3,
+          "survivor of domestic violence, rape, murder, etc.": 0.66,
+          "survivor of non-domestic sexual violence, rape, assault, etc. (sexual violence only)": 0.86,
+          "survivor of other non-domestic crime, robbery, etc.": 0.31,
+          "survivor of violation based on religion, tradition...": 0.11,
+          "survivor of war, terrorism, vigilantism, state violence...": 0.24
+>>>>>>> import sheet 23
         },
         "male": {
-          "female": {
-            "no": 0.84,
-            "yes": 0.16
-          },
-          "male": {
-            "no": 0.96,
-            "yes": 0.04
-          },
-          "n": {
-            "no": 7803,
-            "yes": 650
-          }
+          "do not know, cannot decide": "n/a",
+          "not applicable (the story identifies the person only as a victim)": "n/a",
+          "other survivor (specify in comments)": 0.63,
+          "survivor of an accident, natural disaster, poverty": 0.66,
+          "survivor of discrimination based on gender, race, ethnicity, age, religion, ability, etc.": 0.7,
+          "survivor of domestic violence, rape, murder, etc.": 0.34,
+          "survivor of non-domestic sexual violence, rape, assault, etc. (sexual violence only)": 0.14,
+          "survivor of other non-domestic crime, robbery, etc.": 0.69,
+          "survivor of violation based on religion, tradition...": 0.89,
+          "survivor of war, terrorism, vigilantism, state violence...": 0.76
+        },
+        "n": {
+          "do not know, cannot decide": "n/a",
+          "not applicable (the story identifies the person only as a victim)": "n/a",
+          "other survivor (specify in comments)": 142,
+          "survivor of an accident, natural disaster, poverty": 521,
+          "survivor of discrimination based on gender, race, ethnicity, age, religion, ability, etc.": 66,
+          "survivor of domestic violence, rape, murder, etc.": 104,
+          "survivor of non-domestic sexual violence, rape, assault, etc. (sexual violence only)": 60,
+          "survivor of other non-domestic crime, robbery, etc.": 203,
+          "survivor of violation based on religion, tradition...": 22,
+          "survivor of war, terrorism, vigilantism, state violence...": 182
         }
       },
       "2015": {
         "female": {
-          "female": {
-            "no": 0.836123795027905,
-            "yes": 0.163876204972095
+          "%": {
+            "do not know, cannot decide": 0.0130030959752322,
+            "not applicable (the story identifies the person only as a victim)": 0.639009287925697,
+            "other survivor (specify in comments)": 0.0390092879256966,
+            "survivor of an accident, natural disaster, poverty": 0.126934984520124,
+            "survivor of discrimination based on gender, race, ethnicity, age, religion, ability, etc.": 0.0284829721362229,
+            "survivor of domestic violence, rape, murder, etc.": 0.0928792569659443,
+            "survivor of non-domestic sexual violence, rape, assault, etc. (sexual violence only)": 0.0154798761609907,
+            "survivor of other non-domestic crime, robbery, etc.": 0.026625386996904,
+            "survivor of violation based on religion, tradition...": 0.000619195046439629,
+            "survivor of war, terrorism, vigilantism, state violence...": 0.0179566563467492
           },
-          "male": {
-            "no": 0.942188760419468,
-            "yes": 0.0578112395805324
+          "n": {
+            "do not know, cannot decide": 21,
+            "not applicable (the story identifies the person only as a victim)": 1032,
+            "other survivor (specify in comments)": 63,
+            "survivor of an accident, natural disaster, poverty": 205,
+            "survivor of discrimination based on gender, race, ethnicity, age, religion, ability, etc.": 46,
+            "survivor of domestic violence, rape, murder, etc.": 150,
+            "survivor of non-domestic sexual violence, rape, assault, etc. (sexual violence only)": 25,
+            "survivor of other non-domestic crime, robbery, etc.": 43,
+            "survivor of violation based on religion, tradition...": 1,
+            "survivor of war, terrorism, vigilantism, state violence...": 29
           }
         },
         "male": {
-          "female": {
-            "no": 0.784943181818182,
-            "yes": 0.215056818181818
+          "%": {
+            "do not know, cannot decide": 0.0159824506424318,
+            "not applicable (the story identifies the person only as a victim)": 0.736446255092448,
+            "other survivor (specify in comments)": 0.0256972735819492,
+            "survivor of an accident, natural disaster, poverty": 0.0582889376371044,
+            "survivor of discrimination based on gender, race, ethnicity, age, religion, ability, etc.": 0.00783453462864306,
+            "survivor of domestic violence, rape, murder, etc.": 0.0962080852397368,
+            "survivor of non-domestic sexual violence, rape, assault, etc. (sexual violence only)": 0.00658100908806017,
+            "survivor of other non-domestic crime, robbery, etc.": 0.0197430272641805,
+            "survivor of violation based on religion, tradition...": 0.00219366969602006,
+            "survivor of war, terrorism, vigilantism, state violence...": 0.0310247571294265
           },
-          "male": {
-            "no": 0.915768380320619,
-            "yes": 0.0842316196793809
+          "n": {
+            "do not know, cannot decide": 51,
+            "not applicable (the story identifies the person only as a victim)": 2350,
+            "other survivor (specify in comments)": 82,
+            "survivor of an accident, natural disaster, poverty": 186,
+            "survivor of discrimination based on gender, race, ethnicity, age, religion, ability, etc.": 25,
+            "survivor of domestic violence, rape, murder, etc.": 307,
+            "survivor of non-domestic sexual violence, rape, assault, etc. (sexual violence only)": 21,
+            "survivor of other non-domestic crime, robbery, etc.": 63,
+            "survivor of violation based on religion, tradition...": 7,
+            "survivor of war, terrorism, vigilantism, state violence...": 99
           }
         }
       }
