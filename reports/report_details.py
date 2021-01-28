@@ -1174,6 +1174,13 @@ WS_INFO = {
         }
     },
     'ws_s14': {
+        '2015': {
+            'name': 's14',
+            'title': 'Stories that clearly challenge stereotypes',
+            'desc': 'Stories that clearly challenge stereotypes',
+            'reports': ['global'],
+            'historical': 's14',
+        },
         '2010': {
             'name': 's14',
             'title': 'Stories that clearly challenge stereotypes',
