@@ -667,6 +667,13 @@ WS_INFO = {
         },
     },
     'ws_53': {
+        '2015': {
+            'name': '53',
+            'title': 'Internet - Female reporters in main stories',
+            'desc': 'Internet - Female reporters in main stories',
+            'reports': ['global', 'region', 'country'],
+            'historical': '53',
+        },
         '2010': {
             'name': '53',
             'title': 'Internet - Female reporters in main stories',
