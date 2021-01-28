@@ -268,31 +268,38 @@ WS_INFO = {
     #         'historical': '9fF',
     #     },
     # },
-    # 'ws_16': {
-    #     '2010': {
-    #         'name': '16',
-    #         'title': 'Function of news subjects by sex - by occupation',
-    #         'desc': 'Breakdown of  Function of news subjects by sex - by occupation',
-    #         'reports': ['global', 'region', 'country'],
-    #         'historical': '20aF',
-    #     },
-    # },
-    'ws_17': {
+    'ws_16': {
         '2015': {
-            'name': '17',
-            'title': 'Function of news subjects by sex - by age',
-            'desc': 'Breakdown of  Function of news subjects by sex - by age',
+            'name': '16',
+            'title': 'Function of news subjects by sex - by occupation',
+            'desc': 'Breakdown of  Function of news subjects by sex - by occupation',
             'reports': ['global', 'region', 'country'],
-            'historical': '17',
+            'historical': '16',
         },
         '2010': {
-            'name': '17',
-            'title': 'Function of news subjects by sex - by age',
-            'desc': 'Breakdown of  Function of news subjects by sex - by age',
+            'name': '16',
+            'title': 'Function of news subjects by sex - by occupation',
+            'desc': 'Breakdown of  Function of news subjects by sex - by occupation',
             'reports': ['global', 'region', 'country'],
-            'historical': '20bF',
+            'historical': '20aF',
         },
     },
+    # 'ws_17': {
+    #     '2015': {
+    #         'name': '17',
+    #         'title': 'Function of news subjects by sex - by age',
+    #         'desc': 'Breakdown of  Function of news subjects by sex - by age',
+    #         'reports': ['global', 'region', 'country'],
+    #         'historical': '17',
+    #     },
+    #     '2010': {
+    #         'name': '17',
+    #         'title': 'Function of news subjects by sex - by age',
+    #         'desc': 'Breakdown of  Function of news subjects by sex - by age',
+    #         'reports': ['global', 'region', 'country'],
+    #         'historical': '20bF',
+    #     },
+    # },
     # 'ws_18': {
     #     '2015': {
     #         'name': '18',
