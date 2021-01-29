@@ -881,6 +881,13 @@ WS_INFO = {
         },
     },
     'ws_57': {
+        '2015': {
+            'name': '57',
+            'title': 'Internet - News subjects who are identified by family status',
+            'desc': 'Internet - News subjects who are identified by family status',
+            'reports': ['global', 'country'],
+            'historical': '57',
+        },
         '2010': {
             'name': '57',
             'title': 'Internet - News subjects who are identified by family status',

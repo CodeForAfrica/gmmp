@@ -1,169 +1,2513 @@
 {
   "global": {
-    "48": {
+    "57": {
       "2015": {
-        "female": {
-          "agree": {
-            "%": {
-              "celebrity, arts and media, sports": 0.0490566037735849,
-              "crime and violence": 0.0619195046439628,
-              "economy": 0.069284064665127,
-              "other": 0.0263157894736842,
-              "politics and government": 0.0202952029520295,
-              "science and health": 0.0505952380952381,
-              "social and legal": 0.0746887966804979
-            },
-            "n": {
-              "celebrity, arts and media, sports": 13,
-              "crime and violence": 20,
-              "economy": 30,
-              "other": 1,
-              "politics and government": 11,
-              "science and health": 17,
-              "social and legal": 72
-            }
-          },
-          "disagree": {
-            "%": {
-              "celebrity, arts and media, sports": 0.716981132075472,
-              "crime and violence": 0.671826625386997,
-              "economy": 0.711316397228637,
-              "other": 0.684210526315789,
-              "politics and government": 0.760147601476015,
-              "science and health": 0.732142857142857,
-              "social and legal": 0.688796680497925
-            },
-            "n": {
-              "celebrity, arts and media, sports": 190,
-              "crime and violence": 217,
-              "economy": 308,
-              "other": 26,
-              "politics and government": 412,
-              "science and health": 246,
-              "social and legal": 664
-            }
-          },
+        "Afghanistan": {
           "do not know": {
-            "%": {
-              "celebrity, arts and media, sports": 0.0716981132075472,
-              "crime and violence": 0.0526315789473684,
-              "economy": 0.0277136258660508,
-              "other": 0.0789473684210526,
-              "politics and government": 0.040590405904059,
-              "science and health": 0.0357142857142857,
-              "social and legal": 0.0321576763485477
-            },
-            "n": {
-              "celebrity, arts and media, sports": 19,
-              "crime and violence": 17,
-              "economy": 12,
-              "other": 3,
-              "politics and government": 22,
-              "science and health": 12,
-              "social and legal": 31
-            }
+            "no": 0,
+            "yes": 0
           },
-          "neither agree nor disagree": {
-            "%": {
-              "celebrity, arts and media, sports": 0.162264150943396,
-              "crime and violence": 0.213622291021672,
-              "economy": 0.191685912240185,
-              "other": 0.210526315789474,
-              "politics and government": 0.178966789667897,
-              "science and health": 0.181547619047619,
-              "social and legal": 0.204356846473029
-            },
-            "n": {
-              "celebrity, arts and media, sports": 43,
-              "crime and violence": 69,
-              "economy": 83,
-              "other": 8,
-              "politics and government": 97,
-              "science and health": 61,
-              "social and legal": 197
-            }
+          "female": {
+            "no": 0,
+            "yes": 0
+          },
+          "male": {
+            "no": 0,
+            "yes": 0
+          },
+          "n": {
+            "no": 0,
+            "yes": 0
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
           }
         },
-        "male": {
-          "agree": {
-            "%": {
-              "celebrity, arts and media, sports": 0.0195694716242661,
-              "crime and violence": 0.0463678516228748,
-              "economy": 0.024745269286754,
-              "other": 0.0222222222222222,
-              "politics and government": 0.0365335598980459,
-              "science and health": 0.0473372781065089,
-              "social and legal": 0.0287581699346405
-            },
-            "n": {
-              "celebrity, arts and media, sports": 10,
-              "crime and violence": 30,
-              "economy": 17,
-              "other": 1,
-              "politics and government": 43,
-              "science and health": 16,
-              "social and legal": 44
-            }
-          },
-          "disagree": {
-            "%": {
-              "celebrity, arts and media, sports": 0.794520547945205,
-              "crime and violence": 0.771251931993818,
-              "economy": 0.818049490538573,
-              "other": 0.755555555555556,
-              "politics and government": 0.78249787595582,
-              "science and health": 0.769230769230769,
-              "social and legal": 0.700653594771242
-            },
-            "n": {
-              "celebrity, arts and media, sports": 406,
-              "crime and violence": 499,
-              "economy": 562,
-              "other": 34,
-              "politics and government": 921,
-              "science and health": 260,
-              "social and legal": 1072
-            }
-          },
+        "Antigua and Barbuda": {
           "do not know": {
-            "%": {
-              "celebrity, arts and media, sports": 0.0234833659491194,
-              "crime and violence": 0.089644513137558,
-              "economy": 0.0203784570596798,
-              "other": 0.0666666666666667,
-              "politics and government": 0.0407816482582838,
-              "science and health": 0.0266272189349112,
-              "social and legal": 0.0215686274509804
-            },
-            "n": {
-              "celebrity, arts and media, sports": 12,
-              "crime and violence": 58,
-              "economy": 14,
-              "other": 3,
-              "politics and government": 48,
-              "science and health": 9,
-              "social and legal": 33
-            }
+            "no": 0,
+            "yes": 0
           },
-          "neither agree nor disagree": {
-            "%": {
-              "celebrity, arts and media, sports": 0.162426614481409,
-              "crime and violence": 0.0927357032457496,
-              "economy": 0.136826783114993,
-              "other": 0.155555555555556,
-              "politics and government": 0.14018691588785,
-              "science and health": 0.156804733727811,
-              "social and legal": 0.249019607843137
-            },
-            "n": {
-              "celebrity, arts and media, sports": 83,
-              "crime and violence": 60,
-              "economy": 94,
-              "other": 7,
-              "politics and government": 165,
-              "science and health": 53,
-              "social and legal": 381
-            }
+          "female": {
+            "no": 0,
+            "yes": 0
+          },
+          "male": {
+            "no": 0,
+            "yes": 0
+          },
+          "n": {
+            "no": 0,
+            "yes": 0
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Argentina": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0.202797202797203,
+            "yes": 0.5
+          },
+          "male": {
+            "no": 0.797202797202797,
+            "yes": 0.5
+          },
+          "n": {
+            "no": 143,
+            "yes": 18
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Australia": {
+          "do not know": {
+            "no": 0.0769230769230769,
+            "yes": 0.0985915492957746
+          },
+          "female": {
+            "no": 0.201465201465201,
+            "yes": 0.352112676056338
+          },
+          "male": {
+            "no": 0.721611721611722,
+            "yes": 0.549295774647887
+          },
+          "n": {
+            "no": 273,
+            "yes": 71
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Austria": {
+          "do not know": {
+            "no": 0.0134228187919463,
+            "yes": 0
+          },
+          "female": {
+            "no": 0.147651006711409,
+            "yes": 0.4
+          },
+          "male": {
+            "no": 0.838926174496644,
+            "yes": 0.6
+          },
+          "n": {
+            "no": 149,
+            "yes": 5
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Bahamas": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0.333333333333333,
+            "yes": 0
+          },
+          "male": {
+            "no": 0.666666666666667,
+            "yes": 0
+          },
+          "n": {
+            "no": 6,
+            "yes": 0
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Bangladesh": {
+          "do not know": {
+            "no": 0.0169491525423729,
+            "yes": 0
+          },
+          "female": {
+            "no": 0.23728813559322,
+            "yes": 0.545454545454545
+          },
+          "male": {
+            "no": 0.745762711864407,
+            "yes": 0.454545454545455
+          },
+          "n": {
+            "no": 59,
+            "yes": 11
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Barbados": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0,
+            "yes": 0
+          },
+          "male": {
+            "no": 1,
+            "yes": 0
+          },
+          "n": {
+            "no": 1,
+            "yes": 0
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Belarus": {
+          "do not know": {
+            "no": 0.0153846153846154,
+            "yes": 0
+          },
+          "female": {
+            "no": 0.230769230769231,
+            "yes": 0.333333333333333
+          },
+          "male": {
+            "no": 0.753846153846154,
+            "yes": 0.666666666666667
+          },
+          "n": {
+            "no": 65,
+            "yes": 3
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Belgium - French and Flemish": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0,
+            "yes": 0
+          },
+          "male": {
+            "no": 0,
+            "yes": 0
+          },
+          "n": {
+            "no": 0,
+            "yes": 0
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Belize": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0,
+            "yes": 0
+          },
+          "male": {
+            "no": 1,
+            "yes": 0
+          },
+          "n": {
+            "no": 3,
+            "yes": 0
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Benin": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0,
+            "yes": 0
+          },
+          "male": {
+            "no": 0,
+            "yes": 0
+          },
+          "n": {
+            "no": 0,
+            "yes": 0
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Bhutan": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0,
+            "yes": 0
+          },
+          "male": {
+            "no": 0,
+            "yes": 0
+          },
+          "n": {
+            "no": 0,
+            "yes": 0
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Bolivia": {
+          "do not know": {
+            "no": 0.0204081632653061,
+            "yes": 0
+          },
+          "female": {
+            "no": 0.244897959183673,
+            "yes": 0
+          },
+          "male": {
+            "no": 0.73469387755102,
+            "yes": 0
+          },
+          "n": {
+            "no": 49,
+            "yes": 0
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Bosnia and Herzegovina": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0.4,
+            "yes": 0
+          },
+          "male": {
+            "no": 0.6,
+            "yes": 0
+          },
+          "n": {
+            "no": 10,
+            "yes": 0
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Bulgaria": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0,
+            "yes": 0
+          },
+          "male": {
+            "no": 0,
+            "yes": 0
+          },
+          "n": {
+            "no": 0,
+            "yes": 0
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Burkina Faso": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0,
+            "yes": 0
+          },
+          "male": {
+            "no": 0,
+            "yes": 0
+          },
+          "n": {
+            "no": 0,
+            "yes": 0
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Burundi": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0,
+            "yes": 0
+          },
+          "male": {
+            "no": 0,
+            "yes": 0
+          },
+          "n": {
+            "no": 0,
+            "yes": 0
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Cabo Verde": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0,
+            "yes": 0
+          },
+          "male": {
+            "no": 1,
+            "yes": 0
+          },
+          "n": {
+            "no": 3,
+            "yes": 0
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Cameroon": {
+          "do not know": {
+            "no": 0.25,
+            "yes": 0
+          },
+          "female": {
+            "no": 0,
+            "yes": 0
+          },
+          "male": {
+            "no": 0.75,
+            "yes": 0
+          },
+          "n": {
+            "no": 4,
+            "yes": 0
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Canada": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0.232558139534884,
+            "yes": 0.6
+          },
+          "male": {
+            "no": 0.767441860465116,
+            "yes": 0.4
+          },
+          "n": {
+            "no": 86,
+            "yes": 15
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Chad": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0,
+            "yes": 0
+          },
+          "male": {
+            "no": 0,
+            "yes": 0
+          },
+          "n": {
+            "no": 0,
+            "yes": 0
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Chile": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0.25,
+            "yes": 0.142857142857143
+          },
+          "male": {
+            "no": 0.75,
+            "yes": 0.857142857142857
+          },
+          "n": {
+            "no": 96,
+            "yes": 7
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Colombia": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0.464788732394366,
+            "yes": 0.875
+          },
+          "male": {
+            "no": 0.535211267605634,
+            "yes": 0.125
+          },
+          "n": {
+            "no": 71,
+            "yes": 8
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Congo": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0.5,
+            "yes": 0
+          },
+          "male": {
+            "no": 0.5,
+            "yes": 0
+          },
+          "n": {
+            "no": 2,
+            "yes": 0
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Congo (the Democratic Republic of the)": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0,
+            "yes": 0
+          },
+          "male": {
+            "no": 0,
+            "yes": 0
+          },
+          "n": {
+            "no": 0,
+            "yes": 0
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Costa Rica": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0.4,
+            "yes": 0.6
+          },
+          "male": {
+            "no": 0.6,
+            "yes": 0.4
+          },
+          "n": {
+            "no": 35,
+            "yes": 5
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Croatia": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0.2,
+            "yes": 0
+          },
+          "male": {
+            "no": 0.8,
+            "yes": 0
+          },
+          "n": {
+            "no": 5,
+            "yes": 0
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Cuba": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0.15,
+            "yes": 0
+          },
+          "male": {
+            "no": 0.85,
+            "yes": 0
+          },
+          "n": {
+            "no": 20,
+            "yes": 0
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Cyprus": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0.166666666666667,
+            "yes": 0
+          },
+          "male": {
+            "no": 0.833333333333333,
+            "yes": 0
+          },
+          "n": {
+            "no": 6,
+            "yes": 0
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Denmark": {
+          "do not know": {
+            "no": 0.369426751592357,
+            "yes": 0
+          },
+          "female": {
+            "no": 0.114649681528662,
+            "yes": 0.538461538461538
+          },
+          "male": {
+            "no": 0.515923566878981,
+            "yes": 0.461538461538462
+          },
+          "n": {
+            "no": 157,
+            "yes": 13
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Dominican Republic": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0,
+            "yes": 0
+          },
+          "male": {
+            "no": 0,
+            "yes": 0
+          },
+          "n": {
+            "no": 0,
+            "yes": 0
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Ecuador": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0.222222222222222,
+            "yes": 0.666666666666667
+          },
+          "male": {
+            "no": 0.777777777777778,
+            "yes": 0.333333333333333
+          },
+          "n": {
+            "no": 45,
+            "yes": 3
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Egypt": {
+          "do not know": {
+            "no": 0.0925925925925926,
+            "yes": 0
+          },
+          "female": {
+            "no": 0.185185185185185,
+            "yes": 0
+          },
+          "male": {
+            "no": 0.722222222222222,
+            "yes": 1
+          },
+          "n": {
+            "no": 54,
+            "yes": 5
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "El Salvador": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0.470588235294118,
+            "yes": 0.333333333333333
+          },
+          "male": {
+            "no": 0.529411764705882,
+            "yes": 0.666666666666667
+          },
+          "n": {
+            "no": 17,
+            "yes": 3
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Equatorial Guinea": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0,
+            "yes": 0
+          },
+          "male": {
+            "no": 0,
+            "yes": 0
+          },
+          "n": {
+            "no": 0,
+            "yes": 0
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Estonia": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0.24,
+            "yes": 0.5
+          },
+          "male": {
+            "no": 0.76,
+            "yes": 0.5
+          },
+          "n": {
+            "no": 25,
+            "yes": 4
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Ethiopia": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0,
+            "yes": 0
+          },
+          "male": {
+            "no": 0,
+            "yes": 0
+          },
+          "n": {
+            "no": 0,
+            "yes": 0
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Fiji": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0,
+            "yes": 0
+          },
+          "male": {
+            "no": 1,
+            "yes": 0
+          },
+          "n": {
+            "no": 1,
+            "yes": 0
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Finland": {
+          "do not know": {
+            "no": 0.0235294117647059,
+            "yes": 0.0909090909090909
+          },
+          "female": {
+            "no": 0.235294117647059,
+            "yes": 0.363636363636364
+          },
+          "male": {
+            "no": 0.741176470588235,
+            "yes": 0.545454545454545
+          },
+          "n": {
+            "no": 85,
+            "yes": 11
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "France": {
+          "do not know": {
+            "no": 0.00464037122969838,
+            "yes": 0
+          },
+          "female": {
+            "no": 0.244779582366589,
+            "yes": 0.583333333333333
+          },
+          "male": {
+            "no": 0.750580046403712,
+            "yes": 0.416666666666667
+          },
+          "n": {
+            "no": 862,
+            "yes": 48
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Gabon": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0,
+            "yes": 0
+          },
+          "male": {
+            "no": 0,
+            "yes": 0
+          },
+          "n": {
+            "no": 0,
+            "yes": 0
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Georgia": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0.142857142857143,
+            "yes": 0
+          },
+          "male": {
+            "no": 0.857142857142857,
+            "yes": 0
+          },
+          "n": {
+            "no": 14,
+            "yes": 0
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Germany": {
+          "do not know": {
+            "no": 0.0102880658436214,
+            "yes": 0.0909090909090909
+          },
+          "female": {
+            "no": 0.195473251028807,
+            "yes": 0.409090909090909
+          },
+          "male": {
+            "no": 0.794238683127572,
+            "yes": 0.5
+          },
+          "n": {
+            "no": 486,
+            "yes": 22
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Ghana": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0,
+            "yes": 0
+          },
+          "male": {
+            "no": 0,
+            "yes": 0
+          },
+          "n": {
+            "no": 0,
+            "yes": 0
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Grenada": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0,
+            "yes": 0
+          },
+          "male": {
+            "no": 0,
+            "yes": 0
+          },
+          "n": {
+            "no": 0,
+            "yes": 0
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Guatemala": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0,
+            "yes": 0
+          },
+          "male": {
+            "no": 1,
+            "yes": 0
+          },
+          "n": {
+            "no": 8,
+            "yes": 0
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Guyana": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0,
+            "yes": 0
+          },
+          "male": {
+            "no": 0,
+            "yes": 0
+          },
+          "n": {
+            "no": 0,
+            "yes": 0
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Haiti": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0,
+            "yes": 0
+          },
+          "male": {
+            "no": 0,
+            "yes": 0
+          },
+          "n": {
+            "no": 0,
+            "yes": 0
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Hungary": {
+          "do not know": {
+            "no": 0.146341463414634,
+            "yes": 0
+          },
+          "female": {
+            "no": 0.219512195121951,
+            "yes": 0.5
+          },
+          "male": {
+            "no": 0.634146341463415,
+            "yes": 0.5
+          },
+          "n": {
+            "no": 41,
+            "yes": 2
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Iceland": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0.181818181818182,
+            "yes": 0.5
+          },
+          "male": {
+            "no": 0.818181818181818,
+            "yes": 0.5
+          },
+          "n": {
+            "no": 11,
+            "yes": 2
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "India": {
+          "do not know": {
+            "no": 0.0217391304347826,
+            "yes": 0
+          },
+          "female": {
+            "no": 0.271739130434783,
+            "yes": 0.66
+          },
+          "male": {
+            "no": 0.706521739130435,
+            "yes": 0.34
+          },
+          "n": {
+            "no": 184,
+            "yes": 50
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Indonesia": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0,
+            "yes": 0
+          },
+          "male": {
+            "no": 0,
+            "yes": 0
+          },
+          "n": {
+            "no": 0,
+            "yes": 0
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Israel": {
+          "do not know": {
+            "no": 0.0131578947368421,
+            "yes": 0
+          },
+          "female": {
+            "no": 0.118421052631579,
+            "yes": 0.333333333333333
+          },
+          "male": {
+            "no": 0.868421052631579,
+            "yes": 0.666666666666667
+          },
+          "n": {
+            "no": 76,
+            "yes": 9
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Italy": {
+          "do not know": {
+            "no": 0.0295275590551181,
+            "yes": 0.0416666666666667
+          },
+          "female": {
+            "no": 0.27755905511811,
+            "yes": 0.333333333333333
+          },
+          "male": {
+            "no": 0.692913385826772,
+            "yes": 0.625
+          },
+          "n": {
+            "no": 508,
+            "yes": 72
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Jamaica": {
+          "do not know": {
+            "no": 0.105263157894737,
+            "yes": 0
+          },
+          "female": {
+            "no": 0.263157894736842,
+            "yes": 0.6
+          },
+          "male": {
+            "no": 0.631578947368421,
+            "yes": 0.4
+          },
+          "n": {
+            "no": 19,
+            "yes": 5
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Japan": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0,
+            "yes": 0
+          },
+          "male": {
+            "no": 0,
+            "yes": 0
+          },
+          "n": {
+            "no": 0,
+            "yes": 0
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Kenya": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0,
+            "yes": 0
+          },
+          "male": {
+            "no": 0,
+            "yes": 0
+          },
+          "n": {
+            "no": 0,
+            "yes": 0
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Lebanon": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0,
+            "yes": 0
+          },
+          "male": {
+            "no": 0,
+            "yes": 0
+          },
+          "n": {
+            "no": 0,
+            "yes": 0
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Lesotho": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0,
+            "yes": 0
+          },
+          "male": {
+            "no": 0,
+            "yes": 0
+          },
+          "n": {
+            "no": 0,
+            "yes": 0
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Luxembourg": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0.222222222222222,
+            "yes": 0
+          },
+          "male": {
+            "no": 0.777777777777778,
+            "yes": 1
+          },
+          "n": {
+            "no": 36,
+            "yes": 1
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Madagascar": {
+          "do not know": {
+            "no": 0.25,
+            "yes": 0
+          },
+          "female": {
+            "no": 0,
+            "yes": 0
+          },
+          "male": {
+            "no": 0.75,
+            "yes": 0
+          },
+          "n": {
+            "no": 4,
+            "yes": 0
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Malawi": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0,
+            "yes": 0
+          },
+          "male": {
+            "no": 0,
+            "yes": 0
+          },
+          "n": {
+            "no": 0,
+            "yes": 0
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Malaysia": {
+          "do not know": {
+            "no": 0.05,
+            "yes": 0
+          },
+          "female": {
+            "no": 0.05,
+            "yes": 0
+          },
+          "male": {
+            "no": 0.9,
+            "yes": 0
+          },
+          "n": {
+            "no": 20,
+            "yes": 0
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Mali": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0,
+            "yes": 0
+          },
+          "male": {
+            "no": 0,
+            "yes": 0
+          },
+          "n": {
+            "no": 0,
+            "yes": 0
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Malta": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0,
+            "yes": 0
+          },
+          "male": {
+            "no": 0,
+            "yes": 0
+          },
+          "n": {
+            "no": 0,
+            "yes": 0
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Mauritania": {
+          "do not know": {
+            "no": 0.5,
+            "yes": 0
+          },
+          "female": {
+            "no": 0,
+            "yes": 0
+          },
+          "male": {
+            "no": 0.5,
+            "yes": 0
+          },
+          "n": {
+            "no": 2,
+            "yes": 0
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Mauritius": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0,
+            "yes": 0
+          },
+          "male": {
+            "no": 0,
+            "yes": 0
+          },
+          "n": {
+            "no": 0,
+            "yes": 0
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Mexico": {
+          "do not know": {
+            "no": 0.0134228187919463,
+            "yes": 0
+          },
+          "female": {
+            "no": 0.241610738255034,
+            "yes": 0.6
+          },
+          "male": {
+            "no": 0.74496644295302,
+            "yes": 0.4
+          },
+          "n": {
+            "no": 149,
+            "yes": 25
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Mongolia": {
+          "do not know": {
+            "no": 0.166666666666667,
+            "yes": 0
+          },
+          "female": {
+            "no": 0,
+            "yes": 0
+          },
+          "male": {
+            "no": 0.833333333333333,
+            "yes": 0
+          },
+          "n": {
+            "no": 6,
+            "yes": 0
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Montenegro": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0.25,
+            "yes": 0
+          },
+          "male": {
+            "no": 0.75,
+            "yes": 0
+          },
+          "n": {
+            "no": 4,
+            "yes": 0
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Morocco": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0,
+            "yes": 0
+          },
+          "male": {
+            "no": 0,
+            "yes": 0
+          },
+          "n": {
+            "no": 0,
+            "yes": 0
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Nepal": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0.134615384615385,
+            "yes": 1
+          },
+          "male": {
+            "no": 0.865384615384615,
+            "yes": 0
+          },
+          "n": {
+            "no": 52,
+            "yes": 1
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Netherlands": {
+          "do not know": {
+            "no": 0.0973782771535581,
+            "yes": 0
+          },
+          "female": {
+            "no": 0.0636704119850187,
+            "yes": 0.62962962962963
+          },
+          "male": {
+            "no": 0.838951310861423,
+            "yes": 0.37037037037037
+          },
+          "n": {
+            "no": 267,
+            "yes": 27
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "New Zealand": {
+          "do not know": {
+            "no": 0.0294117647058824,
+            "yes": 0
+          },
+          "female": {
+            "no": 0.264705882352941,
+            "yes": 0.5
+          },
+          "male": {
+            "no": 0.705882352941177,
+            "yes": 0.5
+          },
+          "n": {
+            "no": 34,
+            "yes": 4
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Nicaragua": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0,
+            "yes": 0
+          },
+          "male": {
+            "no": 0,
+            "yes": 0
+          },
+          "n": {
+            "no": 0,
+            "yes": 0
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Niger": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0,
+            "yes": 0
+          },
+          "male": {
+            "no": 0,
+            "yes": 0
+          },
+          "n": {
+            "no": 0,
+            "yes": 0
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Nigeria": {
+          "do not know": {
+            "no": 0.0714285714285714,
+            "yes": 0
+          },
+          "female": {
+            "no": 0.267857142857143,
+            "yes": 0.5
+          },
+          "male": {
+            "no": 0.660714285714286,
+            "yes": 0.25
+          },
+          "n": {
+            "no": 56,
+            "yes": 8
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0.25
+          }
+        },
+        "Norway": {
+          "do not know": {
+            "no": 0.0617283950617284,
+            "yes": 0
+          },
+          "female": {
+            "no": 0.222222222222222,
+            "yes": 0.6
+          },
+          "male": {
+            "no": 0.716049382716049,
+            "yes": 0.4
+          },
+          "n": {
+            "no": 81,
+            "yes": 10
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Pakistan": {
+          "do not know": {
+            "no": 0.555555555555556,
+            "yes": 1
+          },
+          "female": {
+            "no": 0.222222222222222,
+            "yes": 0
+          },
+          "male": {
+            "no": 0.222222222222222,
+            "yes": 0
+          },
+          "n": {
+            "no": 9,
+            "yes": 1
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Palestine, State of": {
+          "do not know": {
+            "no": 0.0303030303030303,
+            "yes": 0
+          },
+          "female": {
+            "no": 0.121212121212121,
+            "yes": 0
+          },
+          "male": {
+            "no": 0.848484848484849,
+            "yes": 0
+          },
+          "n": {
+            "no": 33,
+            "yes": 0
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Paraguay": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0,
+            "yes": 0
+          },
+          "male": {
+            "no": 1,
+            "yes": 0
+          },
+          "n": {
+            "no": 2,
+            "yes": 0
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Peru": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0.357142857142857,
+            "yes": 0.466666666666667
+          },
+          "male": {
+            "no": 0.642857142857143,
+            "yes": 0.533333333333333
+          },
+          "n": {
+            "no": 56,
+            "yes": 15
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Poland": {
+          "do not know": {
+            "no": 0.0189873417721519,
+            "yes": 0.125
+          },
+          "female": {
+            "no": 0.10126582278481,
+            "yes": 0.375
+          },
+          "male": {
+            "no": 0.879746835443038,
+            "yes": 0.5
+          },
+          "n": {
+            "no": 158,
+            "yes": 8
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Portugal": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0.227272727272727,
+            "yes": 0.5
+          },
+          "male": {
+            "no": 0.772727272727273,
+            "yes": 0.5
+          },
+          "n": {
+            "no": 22,
+            "yes": 2
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Puerto Rico": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0.291666666666667,
+            "yes": 0
+          },
+          "male": {
+            "no": 0.708333333333333,
+            "yes": 1
+          },
+          "n": {
+            "no": 24,
+            "yes": 1
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Romania": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0.171428571428571,
+            "yes": 0.833333333333333
+          },
+          "male": {
+            "no": 0.828571428571429,
+            "yes": 0.166666666666667
+          },
+          "n": {
+            "no": 35,
+            "yes": 6
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Saint Lucia": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0,
+            "yes": 0
+          },
+          "male": {
+            "no": 0,
+            "yes": 0
+          },
+          "n": {
+            "no": 0,
+            "yes": 0
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Saint Vincent and the Grenadines": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0,
+            "yes": 0
+          },
+          "male": {
+            "no": 0,
+            "yes": 0
+          },
+          "n": {
+            "no": 0,
+            "yes": 0
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Senegal": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0.0232558139534884,
+            "yes": 0
+          },
+          "male": {
+            "no": 0.976744186046512,
+            "yes": 1
+          },
+          "n": {
+            "no": 43,
+            "yes": 1
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Serbia": {
+          "do not know": {
+            "no": 0.0476190476190476,
+            "yes": 0
+          },
+          "female": {
+            "no": 0.142857142857143,
+            "yes": 1
+          },
+          "male": {
+            "no": 0.80952380952381,
+            "yes": 0
+          },
+          "n": {
+            "no": 21,
+            "yes": 2
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Sierra Leone": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0,
+            "yes": 0
+          },
+          "male": {
+            "no": 0,
+            "yes": 0
+          },
+          "n": {
+            "no": 0,
+            "yes": 0
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Solomon Islands": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0,
+            "yes": 0
+          },
+          "male": {
+            "no": 0,
+            "yes": 0
+          },
+          "n": {
+            "no": 0,
+            "yes": 0
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "South Africa": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0,
+            "yes": 0
+          },
+          "male": {
+            "no": 0,
+            "yes": 0
+          },
+          "n": {
+            "no": 0,
+            "yes": 0
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "South Sudan": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0,
+            "yes": 0
+          },
+          "male": {
+            "no": 0,
+            "yes": 0
+          },
+          "n": {
+            "no": 0,
+            "yes": 0
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Spain": {
+          "do not know": {
+            "no": 0.00884955752212389,
+            "yes": 0
+          },
+          "female": {
+            "no": 0.286135693215339,
+            "yes": 0.625
+          },
+          "male": {
+            "no": 0.705014749262537,
+            "yes": 0.375
+          },
+          "n": {
+            "no": 339,
+            "yes": 16
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Sudan": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0,
+            "yes": 0
+          },
+          "male": {
+            "no": 0,
+            "yes": 0
+          },
+          "n": {
+            "no": 0,
+            "yes": 0
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Suriname": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0.5,
+            "yes": 0
+          },
+          "male": {
+            "no": 0.5,
+            "yes": 0
+          },
+          "n": {
+            "no": 2,
+            "yes": 0
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Swaziland": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0,
+            "yes": 0
+          },
+          "male": {
+            "no": 0,
+            "yes": 0
+          },
+          "n": {
+            "no": 0,
+            "yes": 0
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Sweden": {
+          "do not know": {
+            "no": 0.0333333333333333,
+            "yes": 0
+          },
+          "female": {
+            "no": 0.216666666666667,
+            "yes": 0.8
+          },
+          "male": {
+            "no": 0.75,
+            "yes": 0.2
+          },
+          "n": {
+            "no": 60,
+            "yes": 5
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Switzerland": {
+          "do not know": {
+            "no": 0.0816326530612245,
+            "yes": 0
+          },
+          "female": {
+            "no": 0.285714285714286,
+            "yes": 0.25
+          },
+          "male": {
+            "no": 0.63265306122449,
+            "yes": 0.75
+          },
+          "n": {
+            "no": 49,
+            "yes": 4
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Tanzania": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0,
+            "yes": 0
+          },
+          "male": {
+            "no": 0,
+            "yes": 0
+          },
+          "n": {
+            "no": 0,
+            "yes": 0
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Togo": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0,
+            "yes": 0
+          },
+          "male": {
+            "no": 0,
+            "yes": 0
+          },
+          "n": {
+            "no": 0,
+            "yes": 0
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Trinidad and Tobago": {
+          "do not know": {
+            "no": 0.0869565217391304,
+            "yes": 0
+          },
+          "female": {
+            "no": 0.304347826086957,
+            "yes": 0.5
+          },
+          "male": {
+            "no": 0.608695652173913,
+            "yes": 0.5
+          },
+          "n": {
+            "no": 23,
+            "yes": 2
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Tunisia": {
+          "do not know": {
+            "no": 0.0555555555555556,
+            "yes": 0
+          },
+          "female": {
+            "no": 0.222222222222222,
+            "yes": 0
+          },
+          "male": {
+            "no": 0.722222222222222,
+            "yes": 1
+          },
+          "n": {
+            "no": 18,
+            "yes": 1
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Turkey": {
+          "do not know": {
+            "no": 0.141025641025641,
+            "yes": 0
+          },
+          "female": {
+            "no": 0.141025641025641,
+            "yes": 0.39622641509434
+          },
+          "male": {
+            "no": 0.717948717948718,
+            "yes": 0.60377358490566
+          },
+          "n": {
+            "no": 78,
+            "yes": 53
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Uganda": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0,
+            "yes": 0
+          },
+          "male": {
+            "no": 0,
+            "yes": 0
+          },
+          "n": {
+            "no": 0,
+            "yes": 0
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "United Kingdom - England, Ireland, Scotland and Wales": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0,
+            "yes": 0
+          },
+          "male": {
+            "no": 0,
+            "yes": 0
+          },
+          "n": {
+            "no": 0,
+            "yes": 0
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "United States": {
+          "do not know": {
+            "no": 0.169278996865204,
+            "yes": 0
+          },
+          "female": {
+            "no": 0.310344827586207,
+            "yes": 0.671641791044776
+          },
+          "male": {
+            "no": 0.520376175548589,
+            "yes": 0.328358208955224
+          },
+          "n": {
+            "no": 319,
+            "yes": 67
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Uruguay": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 1,
+            "yes": 0
+          },
+          "male": {
+            "no": 0,
+            "yes": 0
+          },
+          "n": {
+            "no": 1,
+            "yes": 0
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Venezuela": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0.147540983606557,
+            "yes": 1
+          },
+          "male": {
+            "no": 0.852459016393443,
+            "yes": 0
+          },
+          "n": {
+            "no": 61,
+            "yes": 2
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Vietnam": {
+          "do not know": {
+            "no": 0.0617283950617284,
+            "yes": 0
+          },
+          "female": {
+            "no": 0.123456790123457,
+            "yes": 0.461538461538462
+          },
+          "male": {
+            "no": 0.814814814814815,
+            "yes": 0.538461538461538
+          },
+          "n": {
+            "no": 162,
+            "yes": 26
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Zambia": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0,
+            "yes": 0
+          },
+          "male": {
+            "no": 0,
+            "yes": 0
+          },
+          "n": {
+            "no": 0,
+            "yes": 0
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
+          }
+        },
+        "Zimbabwe": {
+          "do not know": {
+            "no": 0,
+            "yes": 0
+          },
+          "female": {
+            "no": 0,
+            "yes": 0
+          },
+          "male": {
+            "no": 0,
+            "yes": 0
+          },
+          "n": {
+            "no": 0,
+            "yes": 0
+          },
+          "other (transgender, etc.)": {
+            "no": 0,
+            "yes": 0
           }
         }
       }
