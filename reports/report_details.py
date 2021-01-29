@@ -1496,29 +1496,36 @@ WS_INFO = {
     #         'reports': ['global'],
     #     },
     # },
-    'ws_s08': {
-        '2015': {
-            'name': 's08',
-            'title': 'News subjects quoted in newspapers',
-            'desc': 'News subjects quoted in newspapers',
-            'reports': ['global'],
-            'historical': 's08',
-        },
-        '2010': {
-            'name': 's08',
-            'title': 'News subjects quoted in newspapers',
-            'desc': 'News subjects quoted in newspapers',
-            'reports': ['global'],
-        },
-    },
-    # 'ws_s09': {
+    # 'ws_s08': {
+    #     '2015': {
+    #         'name': 's08',
+    #         'title': 'News subjects quoted in newspapers',
+    #         'desc': 'News subjects quoted in newspapers',
+    #         'reports': ['global'],
+    #         'historical': 's08',
+    #     },
     #     '2010': {
-    #         'name': 's09',
-    #         'title': 'Print only - News subjects appearing in newspaper photographs',
-    #         'desc': 'Print only - News subjects appearing in newspaper photographs',
+    #         'name': 's08',
+    #         'title': 'News subjects quoted in newspapers',
+    #         'desc': 'News subjects quoted in newspapers',
     #         'reports': ['global'],
     #     },
     # },
+    'ws_s09': {
+        '2015': {
+            'name': 's09',
+            'title': 'Print only - News subjects appearing in newspaper photographs',
+            'desc': 'Print only - News subjects appearing in newspaper photographs',
+            'reports': ['global'],
+            'historical': 's09',
+        },
+        '2010': {
+            'name': 's09',
+            'title': 'Print only - News subjects appearing in newspaper photographs',
+            'desc': 'Print only - News subjects appearing in newspaper photographs',
+            'reports': ['global'],
+        },
+    },
     # 'ws_s10': {
     #     '2010': {
     #         'name': 's10',
