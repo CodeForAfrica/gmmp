@@ -995,21 +995,21 @@ WS_INFO = {
     #         'reports': ['global', 'region', 'country'],
     #     },
     # },
-    'ws_66': {
-        '2015': {
-            'name': '66',
-            'title': 'Twitter - Overall presence of women',
-            'desc': 'Twitter - Overall presence of women',
-            'reports': ['global', 'region', 'country'],
-            'historical': '66',
-        },
-        '2010': {
-            'name': '66',
-            'title': 'Twitter - Overall presence of women',
-            'desc': 'Twitter - Overall presence of women',
-            'reports': ['global', 'region', 'country'],
-        },
-    },
+    # 'ws_66': {
+    #     '2015': {
+    #         'name': '66',
+    #         'title': 'Twitter - Overall presence of women',
+    #         'desc': 'Twitter - Overall presence of women',
+    #         'reports': ['global', 'region', 'country'],
+    #         'historical': '66',
+    #     },
+    #     '2010': {
+    #         'name': '66',
+    #         'title': 'Twitter - Overall presence of women',
+    #         'desc': 'Twitter - Overall presence of women',
+    #         'reports': ['global', 'region', 'country'],
+    #     },
+    # },
     # 'ws_67': {
     #     '2015': {
     #         'name': '67',
@@ -1025,14 +1025,21 @@ WS_INFO = {
     #         'reports': ['global', 'region', 'country'],
     #     },
     # },
-    # 'ws_68': {
-    #     '2010': {
-    #         'name': '68',
-    #         'title': 'Twitter - Women\'s centrality',
-    #         'desc': 'Twitter - Women\'s centrality',
-    #         'reports': ['global', 'region', 'country'],
-    #     },
-    # },
+    'ws_68': {
+        '2015': {
+            'name': '68',
+            'title': 'Twitter - Women\'s centrality',
+            'desc': 'Twitter - Women\'s centrality',
+            'reports': ['global', 'region', 'country'],
+            'historical': '68',
+        },
+        '2010': {
+            'name': '68',
+            'title': 'Twitter - Women\'s centrality',
+            'desc': 'Twitter - Women\'s centrality',
+            'reports': ['global', 'region', 'country'],
+        },
+    },
     # 'ws_68b': {
     #     '2010': {
     #         'name': '68b',
