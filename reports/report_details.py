@@ -996,6 +996,13 @@ WS_INFO = {
         },
     },
     'ws_66': {
+        '2015': {
+            'name': '66',
+            'title': 'Twitter - Overall presence of women',
+            'desc': 'Twitter - Overall presence of women',
+            'reports': ['global', 'region', 'country'],
+            'historical': '66',
+        },
         '2010': {
             'name': '66',
             'title': 'Twitter - Overall presence of women',

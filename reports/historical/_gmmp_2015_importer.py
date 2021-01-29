@@ -1151,6 +1151,29 @@ class GMMP2015ReportImporter(BaseReportImporter):
                 )
         return all_data
 
+    def import_66(self, sheet_info):
+        from .utils.countries.countries_for_66 import COUNTRIES
+        all_data = {}
+        for year, col_start, col_end in [
+            (2015, 3, 10),
+        ]:
+            data = {}
+            all_data[year] = data
+
+            for country, (row_start, row_end) in COUNTRIES.items():
+                country_data = {}
+                data[country] = country_data
+
+                self.slurp_table(
+                    self.ws,
+                    country_data,
+                    col_start=col_start,
+                    col_end=col_end,
+                    row_start=row_start,
+                    row_end=row_end,
+                )
+        return all_data
+
     def import_67(self, sheet_info):
         return self.import_grid(
             [
