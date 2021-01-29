@@ -1026,6 +1026,13 @@ WS_INFO = {
         },
     },
     'ws_68': {
+        '2015': {
+            'name': '68',
+            'title': 'Twitter - Women\'s centrality',
+            'desc': 'Twitter - Women\'s centrality',
+            'reports': ['global', 'region', 'country'],
+            'historical': '68',
+        },
         '2010': {
             'name': '68',
             'title': 'Twitter - Women\'s centrality',
