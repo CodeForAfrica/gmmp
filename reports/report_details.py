@@ -880,30 +880,37 @@ WS_INFO = {
     #         'reports': ['global', 'region', 'country'],
     #     },
     # },
-    'ws_57': {
-        '2015': {
-            'name': '57',
-            'title': 'Internet - News subjects who are identified by family status',
-            'desc': 'Internet - News subjects who are identified by family status',
-            'reports': ['global', 'country'],
-            'historical': '57',
-        },
-        '2010': {
-            'name': '57',
-            'title': 'Internet - News subjects who are identified by family status',
-            'desc': 'Internet - News subjects who are identified by family status',
-            'reports': ['global', 'country'],
-
-        },
-    },
-    # 'ws_58': {
-    #     '2010': {
-    #         'name': '58',
-    #         'title': 'Internet - News subjects in multimedia web components',
-    #         'desc': 'Internet - News subjects in multimedia web components',
+    # 'ws_57': {
+    #     '2015': {
+    #         'name': '57',
+    #         'title': 'Internet - News subjects who are identified by family status',
+    #         'desc': 'Internet - News subjects who are identified by family status',
     #         'reports': ['global', 'country'],
+    #         'historical': '57',
+    #     },
+    #     '2010': {
+    #         'name': '57',
+    #         'title': 'Internet - News subjects who are identified by family status',
+    #         'desc': 'Internet - News subjects who are identified by family status',
+    #         'reports': ['global', 'country'],
+    #
     #     },
     # },
+    'ws_58': {
+        '2015': {
+            'name': '58',
+            'title': 'Internet - News subjects in multimedia web components',
+            'desc': 'Internet - News subjects in multimedia web components',
+            'reports': ['global', 'country'],
+            'historical': '58',
+        },
+        '2010': {
+            'name': '58',
+            'title': 'Internet - News subjects in multimedia web components',
+            'desc': 'Internet - News subjects in multimedia web components',
+            'reports': ['global', 'country'],
+        },
+    },
     # 'ws_59': {
     #     '2015': {
     #         'name': '59',
