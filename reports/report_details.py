@@ -1313,21 +1313,21 @@ WS_INFO = {
     #         'reports': ['global'],
     #     },
     # },
-    'ws_90': {
-        '2015': {
-            'name': '90',
-            'title': 'Internet - News subjects who are directly quoted',
-            'desc': 'Internet - News subjects who are directly quoted',
-            'reports': ['global'],
-            'historical': '90',
-        },
-        '2010': {
-            'name': '90',
-            'title': 'Internet - News subjects who are directly quoted',
-            'desc': 'Internet - News subjects who are directly quoted',
-            'reports': ['global'],
-        },
-    },
+    # 'ws_90': {
+    #     '2015': {
+    #         'name': '90',
+    #         'title': 'Internet - News subjects who are directly quoted',
+    #         'desc': 'Internet - News subjects who are directly quoted',
+    #         'reports': ['global'],
+    #         'historical': '90',
+    #     },
+    #     '2010': {
+    #         'name': '90',
+    #         'title': 'Internet - News subjects who are directly quoted',
+    #         'desc': 'Internet - News subjects who are directly quoted',
+    #         'reports': ['global'],
+    #     },
+    # },
     # 'ws_91': {
     #     '2010': {
     #         'name': '91',
@@ -1352,14 +1352,21 @@ WS_INFO = {
     #         'reports': ['global'],
     #     },
     # },
-    # 'ws_94': {
-    #     '2010': {
-    #         'name': '94',
-    #         'title': 'Twitter - Original tweet or retweet',
-    #         'desc': 'Twitter - Original tweet or retweet',
-    #         'reports': ['global'],
-    #     },
-    # },
+    'ws_94': {
+        '2015': {
+            'name': '94',
+            'title': 'Twitter - Original tweet or retweet',
+            'desc': 'Twitter - Original tweet or retweet',
+            'reports': ['global'],
+            'historical': '94',
+        },
+        '2010': {
+            'name': '94',
+            'title': 'Twitter - Original tweet or retweet',
+            'desc': 'Twitter - Original tweet or retweet',
+            'reports': ['global'],
+        },
+    },
     # 'ws_95': {
     #     '2010': {
     #         'name': '95',

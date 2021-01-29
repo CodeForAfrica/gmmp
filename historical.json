@@ -1,104 +1,291 @@
 {
   "global": {
-    "90": {
+    "94": {
       "2015": {
-        "female": {
-          "no": {
-            "%": {
-              "africa": 0.1796875,
-              "asia": 0.564322469982847,
-              "caribbean": 0.522935779816514,
-              "europe": 0.468562874251497,
-              "latin america": 0.400244798041616,
-              "middle east": 0.505102040816326,
-              "north america": 0.394250513347023,
-              "pacific islands": 0.501305483028721,
-              "transnational": 0.444444444444444
-            },
+        "celebrity, arts and media, sports": {
+          "n": {
             "n": {
-              "africa": 23,
-              "asia": 329,
-              "caribbean": 57,
-              "europe": 2191,
-              "latin america": 327,
-              "middle east": 99,
-              "north america": 192,
-              "pacific islands": 192,
-              "transnational": 120
+              "africa": 10,
+              "asia": 11,
+              "caribbean": 41,
+              "europe": 387,
+              "latin america": 220,
+              "middle east": 0,
+              "north america": 26,
+              "pacific islands": 68,
+              "transnational": 8
             }
           },
-          "yes": {
+          "retweet": {
             "%": {
-              "africa": 0.8203125,
-              "asia": 0.435677530017153,
-              "caribbean": 0.477064220183486,
-              "europe": 0.531437125748503,
-              "latin america": 0.599755201958384,
-              "middle east": 0.494897959183673,
-              "north america": 0.605749486652977,
-              "pacific islands": 0.498694516971279,
-              "transnational": 0.555555555555556
-            },
-            "n": {
-              "africa": 105,
-              "asia": 254,
-              "caribbean": 52,
-              "europe": 2485,
-              "latin america": 490,
-              "middle east": 97,
-              "north america": 295,
-              "pacific islands": 191,
-              "transnational": 150
+              "africa": 0,
+              "asia": 0,
+              "caribbean": 0,
+              "europe": 0.124031007751938,
+              "latin america": 0.0863636363636364,
+              "middle east": 0,
+              "north america": 0.230769230769231,
+              "pacific islands": 0.161764705882353,
+              "transnational": 0
+            }
+          },
+          "tweet": {
+            "%": {
+              "africa": 1,
+              "asia": 1,
+              "caribbean": 1,
+              "europe": 0.875968992248062,
+              "latin america": 0.913636363636364,
+              "middle east": 0,
+              "north america": 0.769230769230769,
+              "pacific islands": 0.838235294117647,
+              "transnational": 1
             }
           }
         },
-        "male": {
-          "no": {
-            "%": {
-              "africa": 0.1796875,
-              "asia": 0.564322469982847,
-              "caribbean": 0.522935779816514,
-              "europe": 0.468562874251497,
-              "latin america": 0.400244798041616,
-              "middle east": 0.505102040816326,
-              "north america": 0.394250513347023,
-              "pacific islands": 0.501305483028721,
-              "transnational": 0.444444444444444
-            },
+        "crime and violence": {
+          "n": {
             "n": {
-              "africa": 23,
-              "asia": 329,
-              "caribbean": 57,
-              "europe": 2191,
-              "latin america": 327,
-              "middle east": 99,
-              "north america": 192,
-              "pacific islands": 192,
-              "transnational": 120
+              "africa": 25,
+              "asia": 7,
+              "caribbean": 24,
+              "europe": 270,
+              "latin america": 164,
+              "middle east": 0,
+              "north america": 24,
+              "pacific islands": 19,
+              "transnational": 6
             }
           },
-          "yes": {
+          "retweet": {
             "%": {
-              "africa": 0.8203125,
-              "asia": 0.435677530017153,
-              "caribbean": 0.477064220183486,
-              "europe": 0.531437125748503,
-              "latin america": 0.599755201958384,
-              "middle east": 0.494897959183673,
-              "north america": 0.605749486652977,
-              "pacific islands": 0.498694516971279,
-              "transnational": 0.555555555555556
-            },
+              "africa": 0.16,
+              "asia": 0,
+              "caribbean": 0,
+              "europe": 0.0111111111111111,
+              "latin america": 0.0304878048780488,
+              "middle east": 0,
+              "north america": 0.0416666666666667,
+              "pacific islands": 0.0526315789473684,
+              "transnational": 0.166666666666667
+            }
+          },
+          "tweet": {
+            "%": {
+              "africa": 0.84,
+              "asia": 1,
+              "caribbean": 1,
+              "europe": 0.988888888888889,
+              "latin america": 0.969512195121951,
+              "middle east": 0,
+              "north america": 0.958333333333333,
+              "pacific islands": 0.947368421052632,
+              "transnational": 0.833333333333333
+            }
+          }
+        },
+        "economy": {
+          "n": {
             "n": {
-              "africa": 105,
-              "asia": 254,
-              "caribbean": 52,
-              "europe": 2485,
-              "latin america": 490,
-              "middle east": 97,
-              "north america": 295,
-              "pacific islands": 191,
-              "transnational": 150
+              "africa": 12,
+              "asia": 13,
+              "caribbean": 32,
+              "europe": 224,
+              "latin america": 130,
+              "middle east": 0,
+              "north america": 19,
+              "pacific islands": 18,
+              "transnational": 7
+            }
+          },
+          "retweet": {
+            "%": {
+              "africa": 0,
+              "asia": 0,
+              "caribbean": 0.03125,
+              "europe": 0.0580357142857143,
+              "latin america": 0.0384615384615385,
+              "middle east": 0,
+              "north america": 0.105263157894737,
+              "pacific islands": 0.0555555555555556,
+              "transnational": 0
+            }
+          },
+          "tweet": {
+            "%": {
+              "africa": 1,
+              "asia": 1,
+              "caribbean": 0.96875,
+              "europe": 0.941964285714286,
+              "latin america": 0.961538461538462,
+              "middle east": 0,
+              "north america": 0.894736842105263,
+              "pacific islands": 0.944444444444444,
+              "transnational": 1
+            }
+          }
+        },
+        "other": {
+          "n": {
+            "n": {
+              "africa": 0,
+              "asia": 0,
+              "caribbean": 1,
+              "europe": 39,
+              "latin america": 10,
+              "middle east": 0,
+              "north america": 2,
+              "pacific islands": 2,
+              "transnational": 1
+            }
+          },
+          "retweet": {
+            "%": {
+              "africa": 0,
+              "asia": 0,
+              "caribbean": 0,
+              "europe": 0.102564102564103,
+              "latin america": 0.2,
+              "middle east": 0,
+              "north america": 0.5,
+              "pacific islands": 0,
+              "transnational": 0
+            }
+          },
+          "tweet": {
+            "%": {
+              "africa": 0,
+              "asia": 0,
+              "caribbean": 1,
+              "europe": 0.897435897435897,
+              "latin america": 0.8,
+              "middle east": 0,
+              "north america": 0.5,
+              "pacific islands": 1,
+              "transnational": 1
+            }
+          }
+        },
+        "politics and government": {
+          "n": {
+            "n": {
+              "africa": 45,
+              "asia": 24,
+              "caribbean": 44,
+              "europe": 338,
+              "latin america": 187,
+              "middle east": 0,
+              "north america": 24,
+              "pacific islands": 38,
+              "transnational": 21
+            }
+          },
+          "retweet": {
+            "%": {
+              "africa": 0,
+              "asia": 0.0833333333333333,
+              "caribbean": 0,
+              "europe": 0.0562130177514793,
+              "latin america": 0.0106951871657754,
+              "middle east": 0,
+              "north america": 0.0416666666666667,
+              "pacific islands": 0.131578947368421,
+              "transnational": 0
+            }
+          },
+          "tweet": {
+            "%": {
+              "africa": 1,
+              "asia": 0.916666666666667,
+              "caribbean": 1,
+              "europe": 0.943786982248521,
+              "latin america": 0.989304812834225,
+              "middle east": 0,
+              "north america": 0.958333333333333,
+              "pacific islands": 0.868421052631579,
+              "transnational": 1
+            }
+          }
+        },
+        "science and health": {
+          "n": {
+            "n": {
+              "africa": 11,
+              "asia": 8,
+              "caribbean": 9,
+              "europe": 121,
+              "latin america": 81,
+              "middle east": 0,
+              "north america": 10,
+              "pacific islands": 7,
+              "transnational": 2
+            }
+          },
+          "retweet": {
+            "%": {
+              "africa": 0,
+              "asia": 0,
+              "caribbean": 0,
+              "europe": 0.0661157024793388,
+              "latin america": 0.0246913580246914,
+              "middle east": 0,
+              "north america": 0.1,
+              "pacific islands": 0.142857142857143,
+              "transnational": 0
+            }
+          },
+          "tweet": {
+            "%": {
+              "africa": 1,
+              "asia": 1,
+              "caribbean": 1,
+              "europe": 0.933884297520661,
+              "latin america": 0.975308641975309,
+              "middle east": 0,
+              "north america": 0.9,
+              "pacific islands": 0.857142857142857,
+              "transnational": 1
+            }
+          }
+        },
+        "social and legal": {
+          "n": {
+            "n": {
+              "africa": 25,
+              "asia": 13,
+              "caribbean": 47,
+              "europe": 570,
+              "latin america": 257,
+              "middle east": 0,
+              "north america": 40,
+              "pacific islands": 34,
+              "transnational": 15
+            }
+          },
+          "retweet": {
+            "%": {
+              "africa": 0,
+              "asia": 0.0769230769230769,
+              "caribbean": 0,
+              "europe": 0.0526315789473684,
+              "latin america": 0.0389105058365759,
+              "middle east": 0,
+              "north america": 0.175,
+              "pacific islands": 0.0588235294117647,
+              "transnational": 0
+            }
+          },
+          "tweet": {
+            "%": {
+              "africa": 1,
+              "asia": 0.923076923076923,
+              "caribbean": 1,
+              "europe": 0.947368421052632,
+              "latin america": 0.961089494163424,
+              "middle east": 0,
+              "north america": 0.825,
+              "pacific islands": 0.941176470588235,
+              "transnational": 1
             }
           }
         }
