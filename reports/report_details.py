@@ -1405,29 +1405,36 @@ WS_INFO = {
     #         'reports': ['global'],
     #     },
     # },
-    'ws_s01': {
-        '2015': {
-            'name': 's01',
-            'title': 'Sex of presenters, reporters and news subjects',
-            'desc': 'Sex of presenters, reporters and news subjects',
-            'reports': ['global'],
-            'historical': 's01',
-        },
-        '2010': {
-            'name': 's01',
-            'title': 'Sex of presenters, reporters and news subjects',
-            'desc': 'Sex of presenters, reporters and news subjects',
-            'reports': ['global'],
-        },
-    },
-    # 'ws_s02': {
+    # 'ws_s01': {
+    #     '2015': {
+    #         'name': 's01',
+    #         'title': 'Sex of presenters, reporters and news subjects',
+    #         'desc': 'Sex of presenters, reporters and news subjects',
+    #         'reports': ['global'],
+    #         'historical': 's01',
+    #     },
     #     '2010': {
-    #         'name': 's02',
-    #         'title': 'News subjects in television, radio and newspapers',
-    #         'desc': 'News subjects in television, radio and newspapers',
+    #         'name': 's01',
+    #         'title': 'Sex of presenters, reporters and news subjects',
+    #         'desc': 'Sex of presenters, reporters and news subjects',
     #         'reports': ['global'],
     #     },
     # },
+    'ws_s02': {
+        '2015': {
+            'name': 's02',
+            'title': 'News subjects in television, radio and newspapers',
+            'desc': 'News subjects in television, radio and newspapers',
+            'reports': ['global'],
+            'historical': 's02',
+        },
+        '2010': {
+            'name': 's02',
+            'title': 'News subjects in television, radio and newspapers',
+            'desc': 'News subjects in television, radio and newspapers',
+            'reports': ['global'],
+        },
+    },
     # 'ws_s03': {
     #     '2010': {
     #         'name': 's03',
