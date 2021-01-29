@@ -1268,29 +1268,36 @@ WS_INFO = {
     #         'reports': ['global'],
     #     },
     # },
-    'ws_87': {
+    # 'ws_87': {
+    #     '2015': {
+    #         'name': '87',
+    #         'title': 'Internet - News subjects in multimedia web components',
+    #         'desc': 'Internet - News subjects in multimedia web components',
+    #         'reports': ['global'],
+    #         'historical': '87',
+    #     },
+    #     '2010': {
+    #         'name': '87',
+    #         'title': 'Internet - News subjects in multimedia web components',
+    #         'desc': 'Internet - News subjects in multimedia web components',
+    #         'reports': ['global'],
+    #     },
+    # },
+    'ws_88': {
         '2015': {
-            'name': '87',
-            'title': 'Internet - News subjects in multimedia web components',
-            'desc': 'Internet - News subjects in multimedia web components',
+            'name': '88',
+            'title': 'Internet - Selection of News Subjects',
+            'desc': 'Internet - Selection of News Subjects',
             'reports': ['global'],
-            'historical': '87',
+            'historical': '88',
         },
         '2010': {
-            'name': '87',
-            'title': 'Internet - News subjects in multimedia web components',
-            'desc': 'Internet - News subjects in multimedia web components',
+            'name': '88',
+            'title': 'Internet - Selection of News Subjects',
+            'desc': 'Internet - Selection of News Subjects',
             'reports': ['global'],
-        },
+        }
     },
-    # 'ws_88': {
-    #     '2010': {
-    #         'name': '88',
-    #         'title': 'Internet - Selection of News Subjects',
-    #         'desc': 'Internet - Selection of News Subjects',
-    #         'reports': ['global'],
-    #     }
-    # },
     # 'ws_89': {
     #     '2010': {
     #         'name': '89',
