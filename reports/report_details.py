@@ -1352,21 +1352,21 @@ WS_INFO = {
     #         'reports': ['global'],
     #     },
     # },
-    'ws_94': {
-        '2015': {
-            'name': '94',
-            'title': 'Twitter - Original tweet or retweet',
-            'desc': 'Twitter - Original tweet or retweet',
-            'reports': ['global'],
-            'historical': '94',
-        },
-        '2010': {
-            'name': '94',
-            'title': 'Twitter - Original tweet or retweet',
-            'desc': 'Twitter - Original tweet or retweet',
-            'reports': ['global'],
-        },
-    },
+    # 'ws_94': {
+    #     '2015': {
+    #         'name': '94',
+    #         'title': 'Twitter - Original tweet or retweet',
+    #         'desc': 'Twitter - Original tweet or retweet',
+    #         'reports': ['global'],
+    #         'historical': '94',
+    #     },
+    #     '2010': {
+    #         'name': '94',
+    #         'title': 'Twitter - Original tweet or retweet',
+    #         'desc': 'Twitter - Original tweet or retweet',
+    #         'reports': ['global'],
+    #     },
+    # },
     # 'ws_95': {
     #     '2010': {
     #         'name': '95',
@@ -1375,14 +1375,21 @@ WS_INFO = {
     #         'reports': ['global'],
     #     },
     # },
-    # 'ws_96': {
-    #     '2010': {
-    #         'name': '96',
-    #         'title': 'Twitter - Women\'s centrality',
-    #         'desc': 'Twitter - Women\'s centrality',
-    #         'reports': ['global'],
-    #     },
-    # },
+    'ws_96': {
+        '2015': {
+            'name': '96',
+            'title': 'Twitter - Women\'s centrality',
+            'desc': 'Twitter - Women\'s centrality',
+            'reports': ['global'],
+            'historical': '96',
+        },
+        '2010': {
+            'name': '96',
+            'title': 'Twitter - Women\'s centrality',
+            'desc': 'Twitter - Women\'s centrality',
+            'reports': ['global'],
+        },
+    },
     # 'ws_97': {
     #     '2010': {
     #         'name': '97',
