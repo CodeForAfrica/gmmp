@@ -1826,6 +1826,32 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         return all_data
 
+    def import_s08(self, sheet_data):
+        data_2015 = {}
+        all_data = {2015: data_2015}
+
+        options = ['yes', 'no']
+
+        col_start, end_index = 3, 10
+        while col_start < end_index:
+            for option in options:
+                option_data = {}
+                self.slurp_secondary_col_table(
+                    self.ws,
+                    option_data,
+                    col_start=col_start,
+                    cols=2,
+                    cols_per_group=2,
+                    major_col_heading_row=6,
+                    row_start=8,
+                    row_end=121,
+                    row_heading_col=2,
+                )
+                data_2015[option] = option_data
+                col_start += 4
+
+        return all_data
+
     def import_s12(self, sheet_info):
         return self.import_grid(
             [

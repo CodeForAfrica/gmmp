@@ -1481,29 +1481,36 @@ WS_INFO = {
     #         'reports': ['global'],
     #     },
     # },
-    'ws_s07': {
-        '2015': {
-            'name': 's07',
-            'title': 'News subjects mentioned by family status',
-            'desc': 'News subjects mentioned by family status',
-            'reports': ['global'],
-            'historical': 's07',
-        },
-        '2010': {
-            'name': 's07',
-            'title': 'News subjects mentioned by family status',
-            'desc': 'News subjects mentioned by family status',
-            'reports': ['global'],
-        },
-    },
-    # 'ws_s08': {
+    # 'ws_s07': {
+    #     '2015': {
+    #         'name': 's07',
+    #         'title': 'News subjects mentioned by family status',
+    #         'desc': 'News subjects mentioned by family status',
+    #         'reports': ['global'],
+    #         'historical': 's07',
+    #     },
     #     '2010': {
-    #         'name': 's08',
-    #         'title': 'News subjects quoted in newspapers',
-    #         'desc': 'News subjects quoted in newspapers',
+    #         'name': 's07',
+    #         'title': 'News subjects mentioned by family status',
+    #         'desc': 'News subjects mentioned by family status',
     #         'reports': ['global'],
     #     },
     # },
+    'ws_s08': {
+        '2015': {
+            'name': 's08',
+            'title': 'News subjects quoted in newspapers',
+            'desc': 'News subjects quoted in newspapers',
+            'reports': ['global'],
+            'historical': 's08',
+        },
+        '2010': {
+            'name': 's08',
+            'title': 'News subjects quoted in newspapers',
+            'desc': 'News subjects quoted in newspapers',
+            'reports': ['global'],
+        },
+    },
     # 'ws_s09': {
     #     '2010': {
     #         'name': 's09',
