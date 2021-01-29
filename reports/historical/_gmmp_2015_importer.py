@@ -1473,6 +1473,32 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         return all_data
 
+    def import_86(self, sheet_data):
+        data_2015 = {}
+        all_data = {2015: data_2015}
+
+        genders = ['female', 'male']
+
+        col_start, end_index = 3, 10
+        while col_start < end_index:
+            for gender in genders:
+                gender_data = {}
+                self.slurp_secondary_col_table(
+                    self.ws,
+                    gender_data,
+                    col_start=col_start,
+                    cols=2,
+                    cols_per_group=2,
+                    major_col_heading_row=6,
+                    row_start=8,
+                    row_end=16,
+                    row_heading_col=2,
+                )
+                data_2015[gender] = gender_data
+                col_start += 2
+
+        return all_data
+
     def import_s12(self, sheet_info):
         return self.import_grid(
             [

@@ -1208,21 +1208,21 @@ WS_INFO = {
     #         'reports': ['global'],
     #     },
     # },
-    'ws_83': {
-        '2015': {
-            'name': '83',
-            'title': 'Internet - reporters in main stories',
-            'desc': 'Internet - reporters in main stories',
-            'reports': ['global'],
-            'historical': '83',
-        },
-        '2010': {
-            'name': '83',
-            'title': 'Internet - reporters in main stories',
-            'desc': 'Internet - reporters in main stories',
-            'reports': ['global'],
-        },
-    },
+    # 'ws_83': {
+    #     '2015': {
+    #         'name': '83',
+    #         'title': 'Internet - reporters in main stories',
+    #         'desc': 'Internet - reporters in main stories',
+    #         'reports': ['global'],
+    #         'historical': '83',
+    #     },
+    #     '2010': {
+    #         'name': '83',
+    #         'title': 'Internet - reporters in main stories',
+    #         'desc': 'Internet - reporters in main stories',
+    #         'reports': ['global'],
+    #     },
+    # },
     # 'ws_84': {
     #     '2015': {
     #         'name': '84',
@@ -1253,14 +1253,21 @@ WS_INFO = {
     #         'reports': ['global'],
     #     },
     # },
-    # 'ws_86': {
-    #     '2010': {
-    #         'name': '86',
-    #         'title': 'Internet - News subjects who are identified by family status',
-    #         'desc': 'Internet - News subjects who are identified by family status',
-    #         'reports': ['global'],
-    #     },
-    # },
+    'ws_86': {
+        '2015': {
+            'name': '86',
+            'title': 'Internet - News subjects who are identified by family status',
+            'desc': 'Internet - News subjects who are identified by family status',
+            'reports': ['global'],
+            'historical': '86',
+        },
+        '2010': {
+            'name': '86',
+            'title': 'Internet - News subjects who are identified by family status',
+            'desc': 'Internet - News subjects who are identified by family status',
+            'reports': ['global'],
+        },
+    },
     # 'ws_87': {
     #     '2010': {
     #         'name': '87',
