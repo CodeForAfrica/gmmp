@@ -1063,29 +1063,36 @@ WS_INFO = {
     #         'reports': ['global'],
     #     },
     # },
-    'ws_71': {
-        '2015': {
-            'name': '71',
-            'title': 'Key themes, women\'s overall presence',
-            'desc': 'Key themes, women\'s overall presence',
-            'reports': ['global', 'region', 'country'],
-            'historical': '71',
-        },
-        '2010': {
-            'name': '71',
-            'title': 'Key themes, women\'s overall presence',
-            'desc': 'Key themes, women\'s overall presence',
-            'reports': ['global', 'region', 'country'],
-        },
-    },
-    # 'ws_72': {
+    # 'ws_71': {
+    #     '2015': {
+    #         'name': '71',
+    #         'title': 'Key themes, women\'s overall presence',
+    #         'desc': 'Key themes, women\'s overall presence',
+    #         'reports': ['global', 'region', 'country'],
+    #         'historical': '71',
+    #     },
     #     '2010': {
-    #         'name': '72',
-    #         'title': 'Key themes, female reporters',
-    #         'desc': 'Key themes, female reporters',
+    #         'name': '71',
+    #         'title': 'Key themes, women\'s overall presence',
+    #         'desc': 'Key themes, women\'s overall presence',
     #         'reports': ['global', 'region', 'country'],
     #     },
     # },
+    'ws_72': {
+        '2015': {
+            'name': '72',
+            'title': 'Key themes, female reporters',
+            'desc': 'Key themes, female reporters',
+            'reports': ['global', 'region', 'country'],
+            'historical': '72',
+        },
+        '2010': {
+            'name': '72',
+            'title': 'Key themes, female reporters',
+            'desc': 'Key themes, female reporters',
+            'reports': ['global', 'region', 'country'],
+        },
+    },
     # 'ws_73': {
     #     '2015': {
     #         'name': '73',
