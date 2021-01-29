@@ -745,21 +745,21 @@ WS_INFO = {
     #         'reports': ['global', 'region', 'country'],
     #     },
     # },
-    'ws_48': {
-        '2015': {
-            'name': '48',
-            'title': 'Story clearly challenges gender stereotypes by sex of rep',
-            'desc': 'Stories where stereotypes are challenged/ supported by gender of rep',
-            'reports': ['global', 'region', 'country'],
-            'historical': '48',
-        },
-        '2010': {
-            'name': '48',
-            'title': 'Story clearly challenges gender stereotypes by sex of rep',
-            'desc': 'Stories where stereotypes are challenged/ supported by gender of rep',
-            'reports': ['global', 'region', 'country'],
-        },
-    },
+    # 'ws_48': {
+    #     '2015': {
+    #         'name': '48',
+    #         'title': 'Story clearly challenges gender stereotypes by sex of rep',
+    #         'desc': 'Stories where stereotypes are challenged/ supported by gender of rep',
+    #         'reports': ['global', 'region', 'country'],
+    #         'historical': '48',
+    #     },
+    #     '2010': {
+    #         'name': '48',
+    #         'title': 'Story clearly challenges gender stereotypes by sex of rep',
+    #         'desc': 'Stories where stereotypes are challenged/ supported by gender of rep',
+    #         'reports': ['global', 'region', 'country'],
+    #     },
+    # },
     # 'ws_49': {
     #     '2015': {
     #         'name': '49',
@@ -880,15 +880,22 @@ WS_INFO = {
     #         'reports': ['global', 'region', 'country'],
     #     },
     # },
-    # 'ws_57': {
-    #     '2010': {
-    #         'name': '57',
-    #         'title': 'Internet - News subjects who are identified by family status',
-    #         'desc': 'Internet - News subjects who are identified by family status',
-    #         'reports': ['global', 'country'],
-    #
-    #     },
-    # },
+    'ws_57': {
+        '2015': {
+            'name': '57',
+            'title': 'Internet - News subjects who are identified by family status',
+            'desc': 'Internet - News subjects who are identified by family status',
+            'reports': ['global', 'country'],
+            'historical': '57',
+        },
+        '2010': {
+            'name': '57',
+            'title': 'Internet - News subjects who are identified by family status',
+            'desc': 'Internet - News subjects who are identified by family status',
+            'reports': ['global', 'country'],
+
+        },
+    },
     # 'ws_58': {
     #     '2010': {
     #         'name': '58',
