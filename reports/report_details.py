@@ -1283,29 +1283,36 @@ WS_INFO = {
     #         'reports': ['global'],
     #     },
     # },
-    'ws_88': {
+    # 'ws_88': {
+    #     '2015': {
+    #         'name': '88',
+    #         'title': 'Internet - Selection of News Subjects',
+    #         'desc': 'Internet - Selection of News Subjects',
+    #         'reports': ['global'],
+    #         'historical': '88',
+    #     },
+    #     '2010': {
+    #         'name': '88',
+    #         'title': 'Internet - Selection of News Subjects',
+    #         'desc': 'Internet - Selection of News Subjects',
+    #         'reports': ['global'],
+    #     }
+    # },
+    'ws_89': {
         '2015': {
-            'name': '88',
-            'title': 'Internet - Selection of News Subjects',
-            'desc': 'Internet - Selection of News Subjects',
+            'name': '89',
+            'title': 'Internet - Age of news subjects',
+            'desc': 'Internet - Age of news subjects',
             'reports': ['global'],
-            'historical': '88',
+            'historical': '89',
         },
         '2010': {
-            'name': '88',
-            'title': 'Internet - Selection of News Subjects',
-            'desc': 'Internet - Selection of News Subjects',
+            'name': '89',
+            'title': 'Internet - Age of news subjects',
+            'desc': 'Internet - Age of news subjects',
             'reports': ['global'],
-        }
+        },
     },
-    # 'ws_89': {
-    #     '2010': {
-    #         'name': '89',
-    #         'title': 'Internet - Age of news subjects',
-    #         'desc': 'Internet - Age of news subjects',
-    #         'reports': ['global'],
-    #     },
-    # },
     # 'ws_90': {
     #     '2010': {
     #         'name': '90',
