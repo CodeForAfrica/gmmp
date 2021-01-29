@@ -1420,29 +1420,36 @@ WS_INFO = {
     #         'reports': ['global'],
     #     },
     # },
-    'ws_s02': {
-        '2015': {
-            'name': 's02',
-            'title': 'News subjects in television, radio and newspapers',
-            'desc': 'News subjects in television, radio and newspapers',
-            'reports': ['global'],
-            'historical': 's02',
-        },
-        '2010': {
-            'name': 's02',
-            'title': 'News subjects in television, radio and newspapers',
-            'desc': 'News subjects in television, radio and newspapers',
-            'reports': ['global'],
-        },
-    },
-    # 'ws_s03': {
+    # 'ws_s02': {
+    #     '2015': {
+    #         'name': 's02',
+    #         'title': 'News subjects in television, radio and newspapers',
+    #         'desc': 'News subjects in television, radio and newspapers',
+    #         'reports': ['global'],
+    #         'historical': 's02',
+    #     },
     #     '2010': {
-    #         'name': 's03',
-    #         'title': 'News subjects in major topic areas',
-    #         'desc': 'News subjects in major topic areas',
+    #         'name': 's02',
+    #         'title': 'News subjects in television, radio and newspapers',
+    #         'desc': 'News subjects in television, radio and newspapers',
     #         'reports': ['global'],
     #     },
     # },
+    'ws_s03': {
+        '2015': {
+            'name': 's03',
+            'title': 'News subjects in major topic areas',
+            'desc': 'News subjects in major topic areas',
+            'reports': ['global'],
+            'historical': 's03',
+        },
+        '2010': {
+            'name': 's03',
+            'title': 'News subjects in major topic areas',
+            'desc': 'News subjects in major topic areas',
+            'reports': ['global'],
+        },
+    },
     # 'ws_s04': {
     #     '2010': {
     #         'name': 's04',
