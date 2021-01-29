@@ -1458,21 +1458,21 @@ WS_INFO = {
     #         'reports': ['global'],
     #     },
     # },
-    'ws_s05': {
-        '2015': {
-            'name': 's05',
-            'title': 'Function of news subjects',
-            'desc': 'Function of news subjects',
-            'reports': ['global'],
-            'historical': 's05',
-        },
-        '2010': {
-            'name': 's05',
-            'title': 'Function of news subjects',
-            'desc': 'Function of news subjects',
-            'reports': ['global'],
-        },
-    },
+    # 'ws_s05': {
+    #     '2015': {
+    #         'name': 's05',
+    #         'title': 'Function of news subjects',
+    #         'desc': 'Function of news subjects',
+    #         'reports': ['global'],
+    #         'historical': 's05',
+    #     },
+    #     '2010': {
+    #         'name': 's05',
+    #         'title': 'Function of news subjects',
+    #         'desc': 'Function of news subjects',
+    #         'reports': ['global'],
+    #     },
+    # },
     # 'ws_s06': {
     #     '2010': {
     #         'name': 's06',
@@ -1481,14 +1481,21 @@ WS_INFO = {
     #         'reports': ['global'],
     #     },
     # },
-    # 'ws_s07': {
-    #     '2010': {
-    #         'name': 's07',
-    #         'title': 'News subjects mentioned by family status',
-    #         'desc': 'News subjects mentioned by family status',
-    #         'reports': ['global'],
-    #     },
-    # },
+    'ws_s07': {
+        '2015': {
+            'name': 's07',
+            'title': 'News subjects mentioned by family status',
+            'desc': 'News subjects mentioned by family status',
+            'reports': ['global'],
+            'historical': 's07',
+        },
+        '2010': {
+            'name': 's07',
+            'title': 'News subjects mentioned by family status',
+            'desc': 'News subjects mentioned by family status',
+            'reports': ['global'],
+        },
+    },
     # 'ws_s08': {
     #     '2010': {
     #         'name': 's08',
