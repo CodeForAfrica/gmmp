@@ -1138,21 +1138,21 @@ WS_INFO = {
     #         'reports': ['global', 'region', 'country'],
     #     },
     # },
-    'ws_76': {
-        '2015': {
-            'name': '76',
-            'title': 'Key themes, reference to gender equality/HR policies',
-            'desc': 'Key themes, reference to gender equality/HR policies',
-            'reports': ['global', 'region', 'country'],
-            'historical': '76',
-        },
-        '2010': {
-            'name': '76',
-            'title': 'Key themes, reference to gender equality/HR policies',
-            'desc': 'Key themes, reference to gender equality/HR policies',
-            'reports': ['global', 'region', 'country'],
-        },
-    },
+    # 'ws_76': {
+    #     '2015': {
+    #         'name': '76',
+    #         'title': 'Key themes, reference to gender equality/HR policies',
+    #         'desc': 'Key themes, reference to gender equality/HR policies',
+    #         'reports': ['global', 'region', 'country'],
+    #         'historical': '76',
+    #     },
+    #     '2010': {
+    #         'name': '76',
+    #         'title': 'Key themes, reference to gender equality/HR policies',
+    #         'desc': 'Key themes, reference to gender equality/HR policies',
+    #         'reports': ['global', 'region', 'country'],
+    #     },
+    # },
     # 'ws_77': {
     #     '2010': {
     #         'name': '77',
@@ -1169,14 +1169,21 @@ WS_INFO = {
     #         'reports': ['global', 'region', 'country'],
     #     },
     # },
-    # 'ws_79': {
-    #     '2010': {
-    #         'name': '79',
-    #         'title': 'Internet - Main topics by region',
-    #         'desc': 'Internet - Main topics by region',
-    #         'reports': ['global'],
-    #     },
-    # },
+    'ws_79': {
+        '2015': {
+            'name': '79',
+            'title': 'Internet - Main topics by region',
+            'desc': 'Internet - Main topics by region',
+            'reports': ['global'],
+            'historical': '79',
+        },
+        '2010': {
+            'name': '79',
+            'title': 'Internet - Main topics by region',
+            'desc': 'Internet - Main topics by region',
+            'reports': ['global'],
+        },
+    },
     # 'ws_80': {
     #     '2010': {
     #         'name': '80',

@@ -1379,6 +1379,35 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         return all_data
 
+    def import_79(self, sheet_data):
+        data_2015 = {}
+        all_data = {2015: data_2015}
+
+        groups = [
+            'politics and government', 'economy', 'science and health', 'social and legal', 'crime and violence',
+            'celebrity, arts and media, sports', 'other'
+        ]
+
+        col_start, end_index = 3, 37
+        while col_start < end_index:
+            for group in groups:
+                group_data = {}
+                self.slurp_secondary_col_table(
+                    self.ws,
+                    group_data,
+                    col_start=col_start,
+                    cols=5,
+                    cols_per_group=1,
+                    major_col_heading_row=6,
+                    row_start=8,
+                    row_end=16,
+                    row_heading_col=2,
+                )
+                data_2015[group] = group_data
+                col_start += 5
+
+        return all_data
+
     def import_84(self, sheet_info):
         data = {}
         all_data = {self.year: data}
