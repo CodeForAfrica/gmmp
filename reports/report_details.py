@@ -1169,21 +1169,21 @@ WS_INFO = {
     #         'reports': ['global', 'region', 'country'],
     #     },
     # },
-    'ws_79': {
-        '2015': {
-            'name': '79',
-            'title': 'Internet - Main topics by region',
-            'desc': 'Internet - Main topics by region',
-            'reports': ['global'],
-            'historical': '79',
-        },
-        '2010': {
-            'name': '79',
-            'title': 'Internet - Main topics by region',
-            'desc': 'Internet - Main topics by region',
-            'reports': ['global'],
-        },
-    },
+    # 'ws_79': {
+    #     '2015': {
+    #         'name': '79',
+    #         'title': 'Internet - Main topics by region',
+    #         'desc': 'Internet - Main topics by region',
+    #         'reports': ['global'],
+    #         'historical': '79',
+    #     },
+    #     '2010': {
+    #         'name': '79',
+    #         'title': 'Internet - Main topics by region',
+    #         'desc': 'Internet - Main topics by region',
+    #         'reports': ['global'],
+    #     },
+    # },
     # 'ws_80': {
     #     '2010': {
     #         'name': '80',
@@ -1208,14 +1208,21 @@ WS_INFO = {
     #         'reports': ['global'],
     #     },
     # },
-    # 'ws_83': {
-    #     '2010': {
-    #         'name': '83',
-    #         'title': 'Internet - reporters in main stories',
-    #         'desc': 'Internet - reporters in main stories',
-    #         'reports': ['global'],
-    #     },
-    # },
+    'ws_83': {
+        '2015': {
+            'name': '83',
+            'title': 'Internet - reporters in main stories',
+            'desc': 'Internet - reporters in main stories',
+            'reports': ['global'],
+            'historical': '83',
+        },
+        '2010': {
+            'name': '83',
+            'title': 'Internet - reporters in main stories',
+            'desc': 'Internet - reporters in main stories',
+            'reports': ['global'],
+        },
+    },
     # 'ws_84': {
     #     '2015': {
     #         'name': '84',
