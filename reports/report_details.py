@@ -981,6 +981,13 @@ WS_INFO = {
         },
     },
     'ws_65': {
+        '2015': {
+            'name': '65',
+            'title': 'Twitter - Original tweet or retweet',
+            'desc': '',
+            'reports': ['global', 'region', 'country'],
+            'historical': '65',
+        },
         '2010': {
             'name': '65',
             'title': 'Twitter - Original tweet or retweet',
