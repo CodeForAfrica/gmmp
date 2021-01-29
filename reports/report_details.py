@@ -143,8 +143,8 @@ WS_INFO = {
     'ws_06': {
         '2015': {
             'name': '6',
-            'title': 'Women in the news (sources) in major news topics by region',
-            'desc': '',
+            'title': 'Breakdown of women in the news in major topics by region',
+            'desc': 'Women in the news (sources) in major news topics by region ',
             'reports': ['global', 'region'],
             'historical': '6',
         },
@@ -192,7 +192,7 @@ WS_INFO = {
         '2015': {
             'name': '9',
             'title': 'Sex of news subjects in different story topics by GMMP year',
-            'desc': 'Breakdown by sex & topic by GMMP year',\
+            'desc': 'Breakdown by sex & topic by GMMP year',
             'reports': ['global', 'region'],
             'historical': '9',
         },
@@ -1041,6 +1041,13 @@ WS_INFO = {
         },
     },
     'ws_68b': {
+        '2015': {
+            'name': '68b',
+            'title': 'Twitter - Challenging Stereotypes',
+            'desc': 'Twitter - Challenging Stereotypes',
+            'reports': ['global', 'region', 'country'],
+            'historical': '68b',
+        },
         '2010': {
             'name': '68b',
             'title': 'Twitter - Challenging Stereotypes',
