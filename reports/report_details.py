@@ -942,6 +942,13 @@ WS_INFO = {
         },
     },
     'ws_61': {
+        '2015': {
+            'name': '61',
+            'title': 'Internet - News subjects who are directly quoted',
+            'desc': 'Internet - News subjects who are directly quoted',
+            'reports': ['global', 'country'],
+            'historical': '61',
+        },
         '2010': {
             'name': '61',
             'title': 'Internet - News subjects who are directly quoted',
