@@ -926,29 +926,36 @@ WS_INFO = {
     #         'reports': ['global', 'country'],
     #     },
     # },
-    'ws_60': {
-        '2015': {
-            'name': '60',
-            'title': 'Internet - Age of news subjects',
-            'desc': 'Internet - Age of news subjects',
-            'reports': ['global', 'country'],
-            'historical': '60',
-        },
-        '2010': {
-            'name': '60',
-            'title': 'Internet - Age of news subjects',
-            'desc': 'Internet - Age of news subjects',
-            'reports': ['global', 'country'],
-        },
-    },
-    # 'ws_61': {
+    # 'ws_60': {
+    #     '2015': {
+    #         'name': '60',
+    #         'title': 'Internet - Age of news subjects',
+    #         'desc': 'Internet - Age of news subjects',
+    #         'reports': ['global', 'country'],
+    #         'historical': '60',
+    #     },
     #     '2010': {
-    #         'name': '61',
-    #         'title': 'Internet - News subjects who are directly quoted',
-    #         'desc': 'Internet - News subjects who are directly quoted',
+    #         'name': '60',
+    #         'title': 'Internet - Age of news subjects',
+    #         'desc': 'Internet - Age of news subjects',
     #         'reports': ['global', 'country'],
     #     },
     # },
+    'ws_61': {
+        '2015': {
+            'name': '61',
+            'title': 'Internet - News subjects who are directly quoted',
+            'desc': 'Internet - News subjects who are directly quoted',
+            'reports': ['global', 'country'],
+            'historical': '61',
+        },
+        '2010': {
+            'name': '61',
+            'title': 'Internet - News subjects who are directly quoted',
+            'desc': 'Internet - News subjects who are directly quoted',
+            'reports': ['global', 'country'],
+        },
+    },
     # 'ws_62': {
     #     '2010': {
     #         'name': '62',
