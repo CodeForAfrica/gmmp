@@ -941,21 +941,21 @@ WS_INFO = {
     #         'reports': ['global', 'country'],
     #     },
     # },
-    'ws_61': {
-        '2015': {
-            'name': '61',
-            'title': 'Internet - News subjects who are directly quoted',
-            'desc': 'Internet - News subjects who are directly quoted',
-            'reports': ['global', 'country'],
-            'historical': '61',
-        },
-        '2010': {
-            'name': '61',
-            'title': 'Internet - News subjects who are directly quoted',
-            'desc': 'Internet - News subjects who are directly quoted',
-            'reports': ['global', 'country'],
-        },
-    },
+    # 'ws_61': {
+    #     '2015': {
+    #         'name': '61',
+    #         'title': 'Internet - News subjects who are directly quoted',
+    #         'desc': 'Internet - News subjects who are directly quoted',
+    #         'reports': ['global', 'country'],
+    #         'historical': '61',
+    #     },
+    #     '2010': {
+    #         'name': '61',
+    #         'title': 'Internet - News subjects who are directly quoted',
+    #         'desc': 'Internet - News subjects who are directly quoted',
+    #         'reports': ['global', 'country'],
+    #     },
+    # },
     # 'ws_62': {
     #     '2010': {
     #         'name': '62',
@@ -980,14 +980,21 @@ WS_INFO = {
     #         'reports': ['global', 'region', 'country'],
     #     },
     # },
-    # 'ws_65': {
-    #     '2010': {
-    #         'name': '65',
-    #         'title': 'Twitter - Original tweet or retweet',
-    #         'desc': 'Twitter - Original tweet or retweet',
-    #         'reports': ['global', 'region', 'country'],
-    #     },
-    # },
+    'ws_65': {
+        '2015': {
+            'name': '65',
+            'title': 'Twitter - Original tweet or retweet',
+            'desc': 'Twitter - Original tweet or retweet',
+            'reports': ['global', 'region', 'country'],
+            'historical': '65',
+        },
+        '2010': {
+            'name': '65',
+            'title': 'Twitter - Original tweet or retweet',
+            'desc': 'Twitter - Original tweet or retweet',
+            'reports': ['global', 'region', 'country'],
+        },
+    },
     # 'ws_66': {
     #     '2010': {
     #         'name': '66',
