@@ -1298,29 +1298,36 @@ WS_INFO = {
     #         'reports': ['global'],
     #     }
     # },
-    'ws_89': {
-        '2015': {
-            'name': '89',
-            'title': 'Internet - Age of news subjects',
-            'desc': 'Internet - Age of news subjects',
-            'reports': ['global'],
-            'historical': '89',
-        },
-        '2010': {
-            'name': '89',
-            'title': 'Internet - Age of news subjects',
-            'desc': 'Internet - Age of news subjects',
-            'reports': ['global'],
-        },
-    },
-    # 'ws_90': {
+    # 'ws_89': {
+    #     '2015': {
+    #         'name': '89',
+    #         'title': 'Internet - Age of news subjects',
+    #         'desc': 'Internet - Age of news subjects',
+    #         'reports': ['global'],
+    #         'historical': '89',
+    #     },
     #     '2010': {
-    #         'name': '90',
-    #         'title': 'Internet - News subjects who are directly quoted',
-    #         'desc': 'Internet - News subjects who are directly quoted',
+    #         'name': '89',
+    #         'title': 'Internet - Age of news subjects',
+    #         'desc': 'Internet - Age of news subjects',
     #         'reports': ['global'],
     #     },
     # },
+    'ws_90': {
+        '2015': {
+            'name': '90',
+            'title': 'Internet - News subjects who are directly quoted',
+            'desc': 'Internet - News subjects who are directly quoted',
+            'reports': ['global'],
+            'historical': '90',
+        },
+        '2010': {
+            'name': '90',
+            'title': 'Internet - News subjects who are directly quoted',
+            'desc': 'Internet - News subjects who are directly quoted',
+            'reports': ['global'],
+        },
+    },
     # 'ws_91': {
     #     '2010': {
     #         'name': '91',
