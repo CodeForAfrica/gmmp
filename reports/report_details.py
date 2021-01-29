@@ -1078,21 +1078,21 @@ WS_INFO = {
     #         'reports': ['global', 'region', 'country'],
     #     },
     # },
-    'ws_72': {
-        '2015': {
-            'name': '72',
-            'title': 'Key themes, female reporters',
-            'desc': 'Key themes, female reporters',
-            'reports': ['global', 'region', 'country'],
-            'historical': '72',
-        },
-        '2010': {
-            'name': '72',
-            'title': 'Key themes, female reporters',
-            'desc': 'Key themes, female reporters',
-            'reports': ['global', 'region', 'country'],
-        },
-    },
+    # 'ws_72': {
+    #     '2015': {
+    #         'name': '72',
+    #         'title': 'Key themes, female reporters',
+    #         'desc': 'Key themes, female reporters',
+    #         'reports': ['global', 'region', 'country'],
+    #         'historical': '72',
+    #     },
+    #     '2010': {
+    #         'name': '72',
+    #         'title': 'Key themes, female reporters',
+    #         'desc': 'Key themes, female reporters',
+    #         'reports': ['global', 'region', 'country'],
+    #     },
+    # },
     # 'ws_73': {
     #     '2015': {
     #         'name': '73',
@@ -1108,14 +1108,21 @@ WS_INFO = {
     #         'reports': ['global', 'region', 'country'],
     #     },
     # },
-    # 'ws_74': {
-    #     '2010': {
-    #         'name': '74',
-    #         'title': 'Key themes, women\'s centrality',
-    #         'desc': 'Stories with Women as a central focus, by women centrality topic',
-    #         'reports': ['global', 'region', 'country'],
-    #     },
-    # },
+    'ws_74': {
+        '2015': {
+            'name': '74',
+            'title': 'Key themes, women\'s centrality',
+            'desc': 'Stories with Women as a central focus, by women centrality topic',
+            'reports': ['global', 'region', 'country'],
+            'historical': '74',
+        },
+        '2010': {
+            'name': '74',
+            'title': 'Key themes, women\'s centrality',
+            'desc': 'Stories with Women as a central focus, by women centrality topic',
+            'reports': ['global', 'region', 'country'],
+        },
+    },
     # 'ws_75': {
     #     '2010': {
     #         'name': '75',
