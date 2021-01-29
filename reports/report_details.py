@@ -1435,21 +1435,21 @@ WS_INFO = {
     #         'reports': ['global'],
     #     },
     # },
-    'ws_s03': {
-        '2015': {
-            'name': 's03',
-            'title': 'News subjects in major topic areas',
-            'desc': 'News subjects in major topic areas',
-            'reports': ['global'],
-            'historical': 's03',
-        },
-        '2010': {
-            'name': 's03',
-            'title': 'News subjects in major topic areas',
-            'desc': 'News subjects in major topic areas',
-            'reports': ['global'],
-        },
-    },
+    # 'ws_s03': {
+    #     '2015': {
+    #         'name': 's03',
+    #         'title': 'News subjects in major topic areas',
+    #         'desc': 'News subjects in major topic areas',
+    #         'reports': ['global'],
+    #         'historical': 's03',
+    #     },
+    #     '2010': {
+    #         'name': 's03',
+    #         'title': 'News subjects in major topic areas',
+    #         'desc': 'News subjects in major topic areas',
+    #         'reports': ['global'],
+    #     },
+    # },
     # 'ws_s04': {
     #     '2010': {
     #         'name': 's04',
@@ -1458,14 +1458,21 @@ WS_INFO = {
     #         'reports': ['global'],
     #     },
     # },
-    # 'ws_s05': {
-    #     '2010': {
-    #         'name': 's05',
-    #         'title': 'Function of news subjects',
-    #         'desc': 'Function of news subjects',
-    #         'reports': ['global'],
-    #     },
-    # },
+    'ws_s05': {
+        '2015': {
+            'name': 's05',
+            'title': 'Function of news subjects',
+            'desc': 'Function of news subjects',
+            'reports': ['global'],
+            'historical': 's05',
+        },
+        '2010': {
+            'name': 's05',
+            'title': 'Function of news subjects',
+            'desc': 'Function of news subjects',
+            'reports': ['global'],
+        },
+    },
     # 'ws_s06': {
     #     '2010': {
     #         'name': 's06',
