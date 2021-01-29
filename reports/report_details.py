@@ -927,6 +927,13 @@ WS_INFO = {
         },
     },
     'ws_60': {
+        '2015': {
+            'name': '60',
+            'title': 'Internet - Age of news subjects',
+            'desc': 'Internet - Age of news subjects by sex',
+            'reports': ['global', 'country'],
+            'historical': '60',
+        },
         '2010': {
             'name': '60',
             'title': 'Internet - Age of news subjects',
