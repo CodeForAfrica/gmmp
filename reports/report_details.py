@@ -1108,29 +1108,36 @@ WS_INFO = {
     #         'reports': ['global', 'region', 'country'],
     #     },
     # },
-    'ws_74': {
-        '2015': {
-            'name': '74',
-            'title': 'Key themes, women\'s centrality',
-            'desc': 'Stories with Women as a central focus, by women centrality topic',
-            'reports': ['global', 'region', 'country'],
-            'historical': '74',
-        },
-        '2010': {
-            'name': '74',
-            'title': 'Key themes, women\'s centrality',
-            'desc': 'Stories with Women as a central focus, by women centrality topic',
-            'reports': ['global', 'region', 'country'],
-        },
-    },
-    # 'ws_75': {
+    # 'ws_74': {
+    #     '2015': {
+    #         'name': '74',
+    #         'title': 'Key themes, women\'s centrality',
+    #         'desc': 'Stories with Women as a central focus, by women centrality topic',
+    #         'reports': ['global', 'region', 'country'],
+    #         'historical': '74',
+    #     },
     #     '2010': {
-    #         'name': '75',
-    #         'title': 'Key themes, challenging stereotypes',
-    #         'desc': 'Key themes, challenging stereotypes',
+    #         'name': '74',
+    #         'title': 'Key themes, women\'s centrality',
+    #         'desc': 'Stories with Women as a central focus, by women centrality topic',
     #         'reports': ['global', 'region', 'country'],
     #     },
     # },
+    'ws_75': {
+        '2015': {
+            'name': '75',
+            'title': 'Key themes, challenging stereotypes',
+            'desc': 'Key themes, challenging stereotypes',
+            'reports': ['global', 'region', 'country'],
+            'historical': '75',
+        },
+        '2010': {
+            'name': '75',
+            'title': 'Key themes, challenging stereotypes',
+            'desc': 'Key themes, challenging stereotypes',
+            'reports': ['global', 'region', 'country'],
+        },
+    },
     # 'ws_76': {
     #     '2010': {
     #         'name': '76',

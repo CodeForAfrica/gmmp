@@ -1291,7 +1291,7 @@ class GMMP2015ReportImporter(BaseReportImporter):
             ]
         )
 
-    def _sheet_74_secondary_import(self, data, medium, col_start, end_index):
+    def _sheet_74_secondary_import(self, data, medium, col_start, end_index, cols_per_group):
         groups = ['political participation', 'peace and security', 'economic participation']
         medium_data = {}
         medium_data[medium] = {}
@@ -1303,14 +1303,14 @@ class GMMP2015ReportImporter(BaseReportImporter):
                     group_data,
                     col_start=col_start,
                     cols=3,
-                    cols_per_group=3,
+                    cols_per_group=cols_per_group,
                     major_col_heading_row=6,
                     row_start=9,
                     row_end=122,
                     row_heading_col=2,
                 )
                 medium_data[medium][group] = group_data[group]
-                col_start += 3
+                col_start += cols_per_group
             data[medium] = medium_data[medium]
 
     def import_74(self, sheet_data):
@@ -1321,13 +1321,39 @@ class GMMP2015ReportImporter(BaseReportImporter):
             data=data_2015,
             medium='print, radio, television',
             col_start=3,
-            end_index=11,)
+            end_index=11,
+            cols_per_group=3,
+        )
 
         self._sheet_74_secondary_import(
             data=data_2015,
             medium='internet, twitter',
             col_start=14,
-            end_index=22,)
+            end_index=22,
+            cols_per_group=3,
+        )
+
+        return all_data
+
+    def import_75(self, sheet_data):
+        data_2015 = {}
+        all_data = {2015: data_2015}
+
+        self._sheet_74_secondary_import(
+            data=data_2015,
+            medium='print, radio, television',
+            col_start=3,
+            end_index=17,
+            cols_per_group=5,
+        )
+
+        self._sheet_74_secondary_import(
+            data=data_2015,
+            medium='internet, twitter',
+            col_start=20,
+            end_index=34,
+            cols_per_group=5,
+        )
 
         return all_data
 
