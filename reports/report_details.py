@@ -896,21 +896,21 @@ WS_INFO = {
     #
     #     },
     # },
-    'ws_58': {
-        '2015': {
-            'name': '58',
-            'title': 'Internet - News subjects in multimedia web components',
-            'desc': 'Internet - News subjects in multimedia web components',
-            'reports': ['global', 'country'],
-            'historical': '58',
-        },
-        '2010': {
-            'name': '58',
-            'title': 'Internet - News subjects in multimedia web components',
-            'desc': 'Internet - News subjects in multimedia web components',
-            'reports': ['global', 'country'],
-        },
-    },
+    # 'ws_58': {
+    #     '2015': {
+    #         'name': '58',
+    #         'title': 'Internet - News subjects in multimedia web components',
+    #         'desc': 'Internet - News subjects in multimedia web components',
+    #         'reports': ['global', 'country'],
+    #         'historical': '58',
+    #     },
+    #     '2010': {
+    #         'name': '58',
+    #         'title': 'Internet - News subjects in multimedia web components',
+    #         'desc': 'Internet - News subjects in multimedia web components',
+    #         'reports': ['global', 'country'],
+    #     },
+    # },
     # 'ws_59': {
     #     '2015': {
     #         'name': '59',
@@ -926,14 +926,21 @@ WS_INFO = {
     #         'reports': ['global', 'country'],
     #     },
     # },
-    # 'ws_60': {
-    #     '2010': {
-    #         'name': '60',
-    #         'title': 'Internet - Age of news subjects',
-    #         'desc': 'Internet - Age of news subjects',
-    #         'reports': ['global', 'country'],
-    #     },
-    # },
+    'ws_60': {
+        '2015': {
+            'name': '60',
+            'title': 'Internet - Age of news subjects',
+            'desc': 'Internet - Age of news subjects',
+            'reports': ['global', 'country'],
+            'historical': '60',
+        },
+        '2010': {
+            'name': '60',
+            'title': 'Internet - Age of news subjects',
+            'desc': 'Internet - Age of news subjects',
+            'reports': ['global', 'country'],
+        },
+    },
     # 'ws_61': {
     #     '2010': {
     #         'name': '61',

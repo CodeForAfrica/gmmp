@@ -1,3063 +1,5363 @@
 {
   "global": {
-    "58": {
+    "60": {
       "2015": {
         "Afghanistan": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "male": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "n": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Antigua and Barbuda": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "male": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "n": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Argentina": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0.209302325581395,
-            "yes": 0.428571428571429
+            "12 and under": 1,
+            "13-18": 0,
+            "19-34": 0.307692307692308,
+            "35-49": 0.111111111111111,
+            "50-64": 0.266666666666667,
+            "65 years or more": 0.75,
+            "do not know": 0.210084033613445
           },
           "male": {
-            "do not know": 1,
-            "no": 0.790697674418605,
-            "yes": 0.571428571428571
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0.692307692307692,
+            "35-49": 0.888888888888889,
+            "50-64": 0.733333333333333,
+            "65 years or more": 0.25,
+            "do not know": 0.789915966386555
           },
           "n": {
-            "do not know": 5,
-            "no": 129,
-            "yes": 28
+            "12 and under": 1,
+            "13-18": 0,
+            "19-34": 13,
+            "35-49": 9,
+            "50-64": 15,
+            "65 years or more": 4,
+            "do not know": 119
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Australia": {
           "do not know": {
-            "do not know": 0,
-            "no": 0.108108108108108,
-            "yes": 0
+            "12 and under": 1,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.0853242320819113
           },
           "female": {
-            "do not know": 0,
-            "no": 0.223938223938224,
-            "yes": 0.261904761904762
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0.416666666666667,
+            "35-49": 0.4,
+            "50-64": 0,
+            "65 years or more": 1,
+            "do not know": 0.232081911262799
           },
           "male": {
-            "do not know": 1,
-            "no": 0.667953667953668,
-            "yes": 0.738095238095238
+            "12 and under": 0,
+            "13-18": 1,
+            "19-34": 0.583333333333333,
+            "35-49": 0.6,
+            "50-64": 1,
+            "65 years or more": 0,
+            "do not know": 0.68259385665529
           },
           "n": {
-            "do not know": 1,
-            "no": 259,
-            "yes": 84
+            "12 and under": 4,
+            "13-18": 17,
+            "19-34": 12,
+            "35-49": 10,
+            "50-64": 5,
+            "65 years or more": 4,
+            "do not know": 293
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Austria": {
           "do not know": {
-            "do not know": 0,
-            "no": 0.0161290322580645,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.0140845070422535
           },
           "female": {
-            "do not know": 0,
-            "no": 0.161290322580645,
-            "yes": 0.137931034482759
+            "12 and under": 0,
+            "13-18": 0.5,
+            "19-34": 0.8,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.140845070422535
           },
           "male": {
-            "do not know": 1,
-            "no": 0.82258064516129,
-            "yes": 0.862068965517241
+            "12 and under": 1,
+            "13-18": 0.5,
+            "19-34": 0.2,
+            "35-49": 1,
+            "50-64": 1,
+            "65 years or more": 0,
+            "do not know": 0.845070422535211
           },
           "n": {
-            "do not know": 1,
-            "no": 124,
-            "yes": 29
+            "12 and under": 1,
+            "13-18": 2,
+            "19-34": 5,
+            "35-49": 3,
+            "50-64": 1,
+            "65 years or more": 0,
+            "do not know": 142
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Bahamas": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0.333333333333333,
-            "yes": 0.333333333333333
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.428571428571429
           },
           "male": {
-            "do not know": 0,
-            "no": 0.666666666666667,
-            "yes": 0.666666666666667
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.571428571428571
           },
           "n": {
-            "do not know": 0,
-            "no": 3,
-            "yes": 3
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 7
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Bangladesh": {
           "do not know": {
-            "do not know": 0,
-            "no": 0.0188679245283019,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.0161290322580645
           },
           "female": {
-            "do not know": 0.333333333333333,
-            "no": 0.283018867924528,
-            "yes": 0.266666666666667
+            "12 and under": 0.666666666666667,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0.5,
+            "do not know": 0.258064516129032
           },
           "male": {
-            "do not know": 0.666666666666667,
-            "no": 0.69811320754717,
-            "yes": 0.733333333333333
+            "12 and under": 0.333333333333333,
+            "13-18": 0,
+            "19-34": 1,
+            "35-49": 0,
+            "50-64": 1,
+            "65 years or more": 0.5,
+            "do not know": 0.725806451612903
           },
           "n": {
-            "do not know": 3,
-            "no": 53,
-            "yes": 15
+            "12 and under": 6,
+            "13-18": 0,
+            "19-34": 1,
+            "35-49": 0,
+            "50-64": 1,
+            "65 years or more": 2,
+            "do not know": 62
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Barbados": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.5
           },
           "male": {
-            "do not know": 0,
-            "no": 1,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.5
           },
           "n": {
-            "do not know": 0,
-            "no": 1,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 2
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Belarus": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0.0555555555555556
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.0151515151515152
           },
           "female": {
-            "do not know": 0.2,
-            "no": 0.181818181818182,
-            "yes": 0.333333333333333
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.227272727272727
           },
           "male": {
-            "do not know": 0.8,
-            "no": 0.818181818181818,
-            "yes": 0.611111111111111
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 1,
+            "35-49": 0,
+            "50-64": 1,
+            "65 years or more": 0,
+            "do not know": 0.757575757575758
           },
           "n": {
-            "do not know": 5,
-            "no": 44,
-            "yes": 18
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 1,
+            "35-49": 0,
+            "50-64": 1,
+            "65 years or more": 0,
+            "do not know": 66
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Belgium - French and Flemish": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "male": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "n": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Belize": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "male": {
-            "do not know": 0,
-            "no": 1,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 1,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "n": {
-            "do not know": 0,
-            "no": 3,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 2,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Benin": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "male": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "n": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Bhutan": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "male": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "n": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Bolivia": {
           "do not know": {
-            "do not know": 0,
-            "no": 0.03125,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.0476190476190476
           },
           "female": {
-            "do not know": 0,
-            "no": 0.21875,
-            "yes": 0.266666666666667
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0.666666666666667,
+            "35-49": 0.166666666666667,
+            "50-64": 0.272727272727273,
+            "65 years or more": 0.5,
+            "do not know": 0.238095238095238
           },
           "male": {
-            "do not know": 0,
-            "no": 0.75,
-            "yes": 0.733333333333333
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0.333333333333333,
+            "35-49": 0.833333333333333,
+            "50-64": 0.727272727272727,
+            "65 years or more": 0.5,
+            "do not know": 0.714285714285714
           },
           "n": {
-            "do not know": 0,
-            "no": 32,
-            "yes": 15
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 3,
+            "35-49": 12,
+            "50-64": 11,
+            "65 years or more": 2,
+            "do not know": 21
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Bosnia and Herzegovina": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 1,
-            "no": 0.25,
-            "yes": 0.4
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.333333333333333
           },
           "male": {
-            "do not know": 0,
-            "no": 0.75,
-            "yes": 0.6
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.666666666666667
           },
           "n": {
-            "do not know": 1,
-            "no": 4,
-            "yes": 5
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 9
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Bulgaria": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "male": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "n": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Burkina Faso": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "male": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "n": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Burundi": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "male": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "n": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Cabo Verde": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "male": {
-            "do not know": 0,
-            "no": 1,
-            "yes": 1
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 1,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 1
           },
           "n": {
-            "do not know": 0,
-            "no": 2,
-            "yes": 1
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 1,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 2
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Cameroon": {
           "do not know": {
-            "do not know": 0,
-            "no": 0.333333333333333,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.5
           },
           "female": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "male": {
-            "do not know": 1,
-            "no": 0.666666666666667,
-            "yes": 1
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 1,
+            "50-64": 1,
+            "65 years or more": 1,
+            "do not know": 0.5
           },
           "n": {
-            "do not know": 1,
-            "no": 3,
-            "yes": 1
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 1,
+            "50-64": 1,
+            "65 years or more": 1,
+            "do not know": 2
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Canada": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0.181818181818182,
-            "no": 0.239130434782609,
-            "yes": 0.377777777777778
+            "12 and under": 0.5,
+            "13-18": 1,
+            "19-34": 0,
+            "35-49": 1,
+            "50-64": 0.6,
+            "65 years or more": 0,
+            "do not know": 0.209302325581395
           },
           "male": {
-            "do not know": 0.818181818181818,
-            "no": 0.760869565217391,
-            "yes": 0.622222222222222
+            "12 and under": 0.5,
+            "13-18": 0,
+            "19-34": 1,
+            "35-49": 0,
+            "50-64": 0.4,
+            "65 years or more": 0,
+            "do not know": 0.790697674418605
           },
           "n": {
-            "do not know": 11,
-            "no": 46,
-            "yes": 45
+            "12 and under": 4,
+            "13-18": 2,
+            "19-34": 2,
+            "35-49": 5,
+            "50-64": 5,
+            "65 years or more": 0,
+            "do not know": 86
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Chad": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "male": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "n": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Chile": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0.228915662650602,
-            "yes": 0.315789473684211
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 1,
+            "35-49": 0.666666666666667,
+            "50-64": 0.222222222222222,
+            "65 years or more": 0,
+            "do not know": 0.206896551724138
           },
           "male": {
-            "do not know": 0,
-            "no": 0.771084337349398,
-            "yes": 0.684210526315789
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0.333333333333333,
+            "50-64": 0.777777777777778,
+            "65 years or more": 0,
+            "do not know": 0.793103448275862
           },
           "n": {
-            "do not know": 0,
-            "no": 83,
-            "yes": 19
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 3,
+            "35-49": 3,
+            "50-64": 9,
+            "65 years or more": 0,
+            "do not know": 87
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Colombia": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0.558823529411765,
-            "yes": 0.454545454545455
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0.916666666666667,
+            "35-49": 0.318181818181818,
+            "50-64": 0.384615384615385,
+            "65 years or more": 0,
+            "do not know": 0.533333333333333
           },
           "male": {
-            "do not know": 0,
-            "no": 0.441176470588235,
-            "yes": 0.545454545454545
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0.0833333333333333,
+            "35-49": 0.681818181818182,
+            "50-64": 0.615384615384615,
+            "65 years or more": 1,
+            "do not know": 0.466666666666667
           },
           "n": {
-            "do not know": 0,
-            "no": 34,
-            "yes": 44
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 12,
+            "35-49": 22,
+            "50-64": 13,
+            "65 years or more": 1,
+            "do not know": 30
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Congo": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0.5
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.5
           },
           "male": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0.5
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.5
           },
           "n": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 2
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 2
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Congo (the Democratic Republic of the)": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "male": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "n": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Costa Rica": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0.451612903225806,
-            "yes": 0.25
+            "12 and under": 1,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.428571428571429
           },
           "male": {
-            "do not know": 0,
-            "no": 0.548387096774194,
-            "yes": 0.75
+            "12 and under": 0,
+            "13-18": 1,
+            "19-34": 1,
+            "35-49": 1,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.571428571428571
           },
           "n": {
-            "do not know": 0,
-            "no": 31,
-            "yes": 8
+            "12 and under": 1,
+            "13-18": 1,
+            "19-34": 1,
+            "35-49": 1,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 35
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Croatia": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "male": {
-            "do not know": 0,
-            "no": 1,
-            "yes": 1
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 1,
+            "50-64": 1,
+            "65 years or more": 0,
+            "do not know": 1
           },
           "n": {
-            "do not know": 0,
-            "no": 3,
-            "yes": 1
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 1,
+            "50-64": 1,
+            "65 years or more": 0,
+            "do not know": 2
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Cuba": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0.2,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.166666666666667
           },
           "male": {
-            "do not know": 0,
-            "no": 0.8,
-            "yes": 1
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 1,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.833333333333333
           },
           "n": {
-            "do not know": 0,
-            "no": 20,
-            "yes": 2
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 2,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 18
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Cyprus": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0.25,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.2
           },
           "male": {
-            "do not know": 0,
-            "no": 0.75,
-            "yes": 1
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 1,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.8
           },
           "n": {
-            "do not know": 0,
-            "no": 4,
-            "yes": 1
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 1,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 5
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Denmark": {
           "do not know": {
-            "do not know": 0.333333333333333,
-            "no": 0.395833333333333,
-            "yes": 0.04
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.360248447204969
           },
           "female": {
-            "do not know": 0.333333333333333,
-            "no": 0.138888888888889,
-            "yes": 0.16
+            "12 and under": 0.5,
+            "13-18": 0.5,
+            "19-34": 0.333333333333333,
+            "35-49": 1,
+            "50-64": 0,
+            "65 years or more": 0.5,
+            "do not know": 0.130434782608696
           },
           "male": {
-            "do not know": 0.333333333333333,
-            "no": 0.465277777777778,
-            "yes": 0.8
+            "12 and under": 0.5,
+            "13-18": 0.5,
+            "19-34": 0.666666666666667,
+            "35-49": 0,
+            "50-64": 1,
+            "65 years or more": 0.5,
+            "do not know": 0.509316770186335
           },
           "n": {
-            "do not know": 3,
-            "no": 144,
-            "yes": 25
+            "12 and under": 2,
+            "13-18": 2,
+            "19-34": 3,
+            "35-49": 2,
+            "50-64": 2,
+            "65 years or more": 2,
+            "do not know": 161
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Dominican Republic": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "male": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "n": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Ecuador": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0.27906976744186,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0.333333333333333,
+            "19-34": 0,
+            "35-49": 0.5,
+            "50-64": 0,
+            "65 years or more": 0.5,
+            "do not know": 0.230769230769231
           },
           "male": {
-            "do not know": 0,
-            "no": 0.720930232558139,
-            "yes": 1
+            "12 and under": 0,
+            "13-18": 0.666666666666667,
+            "19-34": 1,
+            "35-49": 0.5,
+            "50-64": 1,
+            "65 years or more": 0.5,
+            "do not know": 0.769230769230769
           },
           "n": {
-            "do not know": 0,
-            "no": 43,
-            "yes": 5
+            "12 and under": 0,
+            "13-18": 3,
+            "19-34": 1,
+            "35-49": 2,
+            "50-64": 1,
+            "65 years or more": 2,
+            "do not know": 39
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Egypt": {
           "do not know": {
-            "do not know": 1,
-            "no": 0.153846153846154,
-            "yes": 0.0425531914893617
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.0847457627118644
           },
           "female": {
-            "do not know": 0,
-            "no": 0.153846153846154,
-            "yes": 0.191489361702128
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.169491525423729
           },
           "male": {
-            "do not know": 0,
-            "no": 0.692307692307692,
-            "yes": 0.765957446808511
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.745762711864407
           },
           "n": {
-            "do not know": 2,
-            "no": 13,
-            "yes": 47
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 59
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "El Salvador": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0.666666666666667,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 1,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.533333333333333
           },
           "male": {
-            "do not know": 1,
-            "no": 0.333333333333333,
-            "yes": 1
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 1,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.466666666666667
           },
           "n": {
-            "do not know": 4,
-            "no": 12,
-            "yes": 3
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 1,
+            "35-49": 2,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 15
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Equatorial Guinea": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "male": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "n": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Estonia": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0.222222222222222,
-            "yes": 0.272727272727273
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0.5,
+            "35-49": 0.25,
+            "50-64": 0.125,
+            "65 years or more": 1,
+            "do not know": 0.307692307692308
           },
           "male": {
-            "do not know": 0,
-            "no": 0.777777777777778,
-            "yes": 0.727272727272727
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0.5,
+            "35-49": 0.75,
+            "50-64": 0.875,
+            "65 years or more": 0,
+            "do not know": 0.692307692307692
           },
           "n": {
-            "do not know": 0,
-            "no": 18,
-            "yes": 11
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 4,
+            "35-49": 4,
+            "50-64": 8,
+            "65 years or more": 1,
+            "do not know": 13
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Ethiopia": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "male": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "n": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Fiji": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "male": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 1
           },
           "n": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 1
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Finland": {
           "do not know": {
-            "do not know": 0,
-            "no": 0.0526315789473684,
-            "yes": 0
+            "12 and under": 0.5,
+            "13-18": 0,
+            "19-34": 0.2,
+            "35-49": 0.25,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.0123456790123457
           },
           "female": {
-            "do not know": 0,
-            "no": 0.280701754385965,
-            "yes": 0.225
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0.4,
+            "35-49": 0.25,
+            "50-64": 0,
+            "65 years or more": 1,
+            "do not know": 0.246913580246914
           },
           "male": {
-            "do not know": 0,
-            "no": 0.666666666666667,
-            "yes": 0.775
+            "12 and under": 0.5,
+            "13-18": 0,
+            "19-34": 0.4,
+            "35-49": 0.5,
+            "50-64": 1,
+            "65 years or more": 0,
+            "do not know": 0.740740740740741
           },
           "n": {
-            "do not know": 0,
-            "no": 57,
-            "yes": 40
+            "12 and under": 2,
+            "13-18": 0,
+            "19-34": 5,
+            "35-49": 4,
+            "50-64": 4,
+            "65 years or more": 1,
+            "do not know": 81
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "France": {
           "do not know": {
-            "do not know": 0,
-            "no": 0.0061633281972265,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.00683760683760684
           },
           "female": {
-            "do not know": 0.347826086956522,
-            "no": 0.238828967642527,
-            "yes": 0.316279069767442
+            "12 and under": 1,
+            "13-18": 0.833333333333333,
+            "19-34": 0.424242424242424,
+            "35-49": 0.378378378378378,
+            "50-64": 0.237762237762238,
+            "65 years or more": 0.357142857142857,
+            "do not know": 0.217094017094017
           },
           "male": {
-            "do not know": 0.652173913043478,
-            "no": 0.755007704160247,
-            "yes": 0.683720930232558
+            "12 and under": 0,
+            "13-18": 0.166666666666667,
+            "19-34": 0.575757575757576,
+            "35-49": 0.621621621621622,
+            "50-64": 0.762237762237762,
+            "65 years or more": 0.642857142857143,
+            "do not know": 0.776068376068376
           },
           "n": {
-            "do not know": 46,
-            "no": 649,
-            "yes": 215
+            "12 and under": 2,
+            "13-18": 12,
+            "19-34": 66,
+            "35-49": 74,
+            "50-64": 143,
+            "65 years or more": 28,
+            "do not know": 585
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Gabon": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "male": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "n": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Georgia": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0.125,
-            "yes": 0.166666666666667
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 1,
+            "65 years or more": 0,
+            "do not know": 0.0909090909090909
           },
           "male": {
-            "do not know": 0,
-            "no": 0.875,
-            "yes": 0.833333333333333
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 1,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.909090909090909
           },
           "n": {
-            "do not know": 0,
-            "no": 8,
-            "yes": 6
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 1,
+            "50-64": 1,
+            "65 years or more": 0,
+            "do not know": 11
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Germany": {
           "do not know": {
-            "do not know": 0,
-            "no": 0.0226537216828479,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.014344262295082
           },
           "female": {
-            "do not know": 0.203703703703704,
-            "no": 0.13915857605178,
-            "yes": 0.344827586206897
+            "12 and under": 0,
+            "13-18": 0.714285714285714,
+            "19-34": 1,
+            "35-49": 1,
+            "50-64": 0.714285714285714,
+            "65 years or more": 0,
+            "do not know": 0.186475409836066
           },
           "male": {
-            "do not know": 0.796296296296296,
-            "no": 0.838187702265372,
-            "yes": 0.655172413793103
+            "12 and under": 1,
+            "13-18": 0.285714285714286,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0.285714285714286,
+            "65 years or more": 0,
+            "do not know": 0.799180327868853
           },
           "n": {
-            "do not know": 54,
-            "no": 309,
-            "yes": 145
+            "12 and under": 2,
+            "13-18": 7,
+            "19-34": 2,
+            "35-49": 2,
+            "50-64": 7,
+            "65 years or more": 0,
+            "do not know": 488
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Ghana": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "male": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "n": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Grenada": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "male": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "n": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Guatemala": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "male": {
-            "do not know": 1,
-            "no": 1,
-            "yes": 1
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 1
           },
           "n": {
-            "do not know": 2,
-            "no": 1,
-            "yes": 5
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 8
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Guyana": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "male": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "n": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Haiti": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "male": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "n": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Hungary": {
           "do not know": {
-            "do not know": 0,
-            "no": 0.230769230769231,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.214285714285714
           },
           "female": {
-            "do not know": 0,
-            "no": 0.307692307692308,
-            "yes": 0.176470588235294
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0.333333333333333,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.321428571428571
           },
           "male": {
-            "do not know": 0,
-            "no": 0.461538461538462,
-            "yes": 0.823529411764706
+            "12 and under": 0,
+            "13-18": 1,
+            "19-34": 0.666666666666667,
+            "35-49": 1,
+            "50-64": 1,
+            "65 years or more": 0,
+            "do not know": 0.464285714285714
           },
           "n": {
-            "do not know": 0,
-            "no": 26,
-            "yes": 17
+            "12 and under": 0,
+            "13-18": 1,
+            "19-34": 3,
+            "35-49": 2,
+            "50-64": 8,
+            "65 years or more": 0,
+            "do not know": 28
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Iceland": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0.285714285714286,
-            "yes": 0.166666666666667
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0.4,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "male": {
-            "do not know": 0,
-            "no": 0.714285714285714,
-            "yes": 0.833333333333333
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 1,
+            "35-49": 0.6,
+            "50-64": 1,
+            "65 years or more": 0,
+            "do not know": 1
           },
           "n": {
-            "do not know": 0,
-            "no": 7,
-            "yes": 6
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 1,
+            "35-49": 5,
+            "50-64": 3,
+            "65 years or more": 0,
+            "do not know": 2
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "India": {
           "do not know": {
-            "do not know": 0.16,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.0476190476190476
           },
           "female": {
-            "do not know": 0.52,
-            "no": 0.329545454545455,
-            "yes": 0.347107438016529
+            "12 and under": 0,
+            "13-18": 0.333333333333333,
+            "19-34": 0.686567164179104,
+            "35-49": 0.26984126984127,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.202380952380952
           },
           "male": {
-            "do not know": 0.32,
-            "no": 0.670454545454545,
-            "yes": 0.652892561983471
+            "12 and under": 0,
+            "13-18": 0.666666666666667,
+            "19-34": 0.313432835820896,
+            "35-49": 0.73015873015873,
+            "50-64": 0,
+            "65 years or more": 1,
+            "do not know": 0.75
           },
           "n": {
-            "do not know": 25,
-            "no": 88,
-            "yes": 121
+            "12 and under": 0,
+            "13-18": 12,
+            "19-34": 67,
+            "35-49": 63,
+            "50-64": 0,
+            "65 years or more": 8,
+            "do not know": 84
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Indonesia": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "male": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "n": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Israel": {
           "do not know": {
-            "do not know": 0,
-            "no": 0.0178571428571429,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.0212765957446809
           },
           "female": {
-            "do not know": 0,
-            "no": 0.142857142857143,
-            "yes": 0.137931034482759
+            "12 and under": 1,
+            "13-18": 0.4,
+            "19-34": 0,
+            "35-49": 0.222222222222222,
+            "50-64": 0.111111111111111,
+            "65 years or more": 0.0666666666666667,
+            "do not know": 0.127659574468085
           },
           "male": {
-            "do not know": 0,
-            "no": 0.839285714285714,
-            "yes": 0.862068965517241
+            "12 and under": 0,
+            "13-18": 0.6,
+            "19-34": 1,
+            "35-49": 0.777777777777778,
+            "50-64": 0.888888888888889,
+            "65 years or more": 0.933333333333333,
+            "do not know": 0.851063829787234
           },
           "n": {
-            "do not know": 0,
-            "no": 56,
-            "yes": 29
+            "12 and under": 1,
+            "13-18": 5,
+            "19-34": 1,
+            "35-49": 9,
+            "50-64": 9,
+            "65 years or more": 15,
+            "do not know": 47
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Italy": {
           "do not know": {
-            "do not know": 0,
-            "no": 0.0378947368421053,
-            "yes": 0
+            "12 and under": 0.6,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.0307377049180328
           },
           "female": {
-            "do not know": 0.888888888888889,
-            "no": 0.231578947368421,
-            "yes": 0.443181818181818
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0.340909090909091,
+            "35-49": 0.277777777777778,
+            "50-64": 0.25,
+            "65 years or more": 0.230769230769231,
+            "do not know": 0.288934426229508
           },
           "male": {
-            "do not know": 0.111111111111111,
-            "no": 0.730526315789474,
-            "yes": 0.556818181818182
+            "12 and under": 0.4,
+            "13-18": 1,
+            "19-34": 0.659090909090909,
+            "35-49": 0.722222222222222,
+            "50-64": 0.75,
+            "65 years or more": 0.769230769230769,
+            "do not know": 0.680327868852459
           },
           "n": {
-            "do not know": 18,
-            "no": 475,
-            "yes": 88
+            "12 and under": 5,
+            "13-18": 5,
+            "19-34": 44,
+            "35-49": 18,
+            "50-64": 8,
+            "65 years or more": 13,
+            "do not know": 488
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Jamaica": {
-          "do not know": {},
-          "female": {},
-          "male": {},
-          "n": {},
-          "other (transgender, etc.)": {}
+          "do not know": {
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.0869565217391304
+          },
+          "female": {
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.347826086956522
+          },
+          "male": {
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 1,
+            "do not know": 0.565217391304348
+          },
+          "n": {
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 1,
+            "do not know": 23
+          },
+          "other (transgender, etc.)": {
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
+          }
         },
         "Japan": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "male": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "n": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Kenya": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "male": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "n": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Lebanon": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "male": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "n": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Lesotho": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "male": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "n": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Luxembourg": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0.333333333333333,
-            "no": 0.222222222222222,
-            "yes": 0.285714285714286
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.235294117647059
           },
           "male": {
-            "do not know": 0.666666666666667,
-            "no": 0.777777777777778,
-            "yes": 0.714285714285714
+            "12 and under": 0,
+            "13-18": 1,
+            "19-34": 1,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.764705882352941
           },
           "n": {
-            "do not know": 3,
-            "no": 27,
-            "yes": 7
+            "12 and under": 0,
+            "13-18": 1,
+            "19-34": 1,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 34
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Madagascar": {
           "do not know": {
-            "do not know": 0,
-            "no": 0.25,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.25
           },
           "female": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "male": {
-            "do not know": 0,
-            "no": 0.75,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.75
           },
           "n": {
-            "do not know": 0,
-            "no": 4,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 4
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Malawi": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "male": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "n": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Malaysia": {
           "do not know": {
-            "do not know": 0,
-            "no": 0.111111111111111,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.125
           },
           "female": {
-            "do not know": 0,
-            "no": 0.111111111111111,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.125
           },
           "male": {
-            "do not know": 0,
-            "no": 0.777777777777778,
-            "yes": 1
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 1,
+            "35-49": 1,
+            "50-64": 1,
+            "65 years or more": 0,
+            "do not know": 0.75
           },
           "n": {
-            "do not know": 0,
-            "no": 9,
-            "yes": 11
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 1,
+            "35-49": 6,
+            "50-64": 4,
+            "65 years or more": 0,
+            "do not know": 8
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Mali": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "male": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "n": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Malta": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "male": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "n": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Mauritania": {
           "do not know": {
-            "do not know": 0,
-            "no": 0.5,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.5
           },
           "female": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "male": {
-            "do not know": 0,
-            "no": 0.5,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.5
           },
           "n": {
-            "do not know": 0,
-            "no": 2,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 2
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Mauritius": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "male": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "n": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Mexico": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0.025
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0.0952380952380952,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0.367816091954023,
-            "yes": 0.2375
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0.285714285714286,
+            "50-64": 0.333333333333333,
+            "65 years or more": 0,
+            "do not know": 0.302158273381295
           },
           "male": {
-            "do not know": 1,
-            "no": 0.632183908045977,
-            "yes": 0.7375
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 1,
+            "35-49": 0.619047619047619,
+            "50-64": 0.666666666666667,
+            "65 years or more": 0,
+            "do not know": 0.697841726618705
           },
           "n": {
-            "do not know": 6,
-            "no": 87,
-            "yes": 80
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 2,
+            "35-49": 21,
+            "50-64": 12,
+            "65 years or more": 0,
+            "do not know": 139
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Mongolia": {
           "do not know": {
-            "do not know": 0,
-            "no": 0.2,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.166666666666667
           },
           "female": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "male": {
-            "do not know": 0,
-            "no": 0.8,
-            "yes": 1
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.833333333333333
           },
           "n": {
-            "do not know": 0,
-            "no": 5,
-            "yes": 1
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 6
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Montenegro": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0.5
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.25
           },
           "male": {
-            "do not know": 0,
-            "no": 1,
-            "yes": 0.5
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.75
           },
           "n": {
-            "do not know": 0,
-            "no": 1,
-            "yes": 2
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 4
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Morocco": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "male": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "n": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Nepal": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0.155555555555556,
-            "yes": 0.2
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.150943396226415
           },
           "male": {
-            "do not know": 0,
-            "no": 0.844444444444444,
-            "yes": 0.8
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.849056603773585
           },
           "n": {
-            "do not know": 0,
-            "no": 45,
-            "yes": 10
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 53
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Netherlands": {
           "do not know": {
-            "do not know": 0,
-            "no": 0.0862944162436548,
-            "yes": 0.0927835051546392
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.161490683229814
           },
           "female": {
-            "do not know": 0,
-            "no": 0.137055837563452,
-            "yes": 0.0824742268041237
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0.0923076923076923,
+            "35-49": 0.2,
+            "50-64": 0.0487804878048781,
+            "65 years or more": 0,
+            "do not know": 0.136645962732919
           },
           "male": {
-            "do not know": 0,
-            "no": 0.776649746192893,
-            "yes": 0.824742268041237
+            "12 and under": 0,
+            "13-18": 1,
+            "19-34": 0.907692307692308,
+            "35-49": 0.8,
+            "50-64": 0.951219512195122,
+            "65 years or more": 1,
+            "do not know": 0.701863354037267
           },
           "n": {
-            "do not know": 0,
-            "no": 197,
-            "yes": 97
+            "12 and under": 0,
+            "13-18": 1,
+            "19-34": 65,
+            "35-49": 20,
+            "50-64": 41,
+            "65 years or more": 4,
+            "do not know": 161
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "New Zealand": {
           "do not know": {
-            "do not know": 0,
-            "no": 0.032258064516129,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.0303030303030303
           },
           "female": {
-            "do not know": 0,
-            "no": 0.32258064516129,
-            "yes": 0.142857142857143
+            "12 and under": 1,
+            "13-18": 0.333333333333333,
+            "19-34": 0,
+            "35-49": 0.5,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.272727272727273
           },
           "male": {
-            "do not know": 0,
-            "no": 0.645161290322581,
-            "yes": 0.857142857142857
+            "12 and under": 0,
+            "13-18": 0.666666666666667,
+            "19-34": 1,
+            "35-49": 0.5,
+            "50-64": 1,
+            "65 years or more": 0,
+            "do not know": 0.696969696969697
           },
           "n": {
-            "do not know": 0,
-            "no": 31,
-            "yes": 7
+            "12 and under": 1,
+            "13-18": 3,
+            "19-34": 1,
+            "35-49": 2,
+            "50-64": 1,
+            "65 years or more": 0,
+            "do not know": 33
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Nicaragua": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "male": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "n": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Niger": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "male": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "n": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Nigeria": {
           "do not know": {
-            "do not know": 1,
-            "no": 0.0363636363636364,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.0655737704918033
           },
           "female": {
-            "do not know": 0,
-            "no": 0.363636363636364,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.327868852459016
           },
           "male": {
-            "do not know": 0,
-            "no": 0.563636363636364,
-            "yes": 1
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 1,
+            "do not know": 0.60655737704918
           },
           "n": {
-            "do not know": 2,
-            "no": 55,
-            "yes": 9
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 2,
+            "50-64": 0,
+            "65 years or more": 2,
+            "do not know": 61
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0.0363636363636364,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 1,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Norway": {
           "do not know": {
-            "do not know": 0,
-            "no": 0.0961538461538462,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.15625
           },
           "female": {
-            "do not know": 0,
-            "no": 0.230769230769231,
-            "yes": 0.307692307692308
+            "12 and under": 0,
+            "13-18": 0.75,
+            "19-34": 0.4,
+            "35-49": 0.333333333333333,
+            "50-64": 0.291666666666667,
+            "65 years or more": 0,
+            "do not know": 0.15625
           },
           "male": {
-            "do not know": 0,
-            "no": 0.673076923076923,
-            "yes": 0.692307692307692
+            "12 and under": 0,
+            "13-18": 0.25,
+            "19-34": 0.6,
+            "35-49": 0.666666666666667,
+            "50-64": 0.708333333333333,
+            "65 years or more": 1,
+            "do not know": 0.6875
           },
           "n": {
-            "do not know": 0,
-            "no": 52,
-            "yes": 39
+            "12 and under": 0,
+            "13-18": 4,
+            "19-34": 10,
+            "35-49": 18,
+            "50-64": 24,
+            "65 years or more": 4,
+            "do not know": 32
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Pakistan": {
           "do not know": {
-            "do not know": 0,
-            "no": 0.666666666666667,
-            "yes": 0.5
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.857142857142857
           },
           "female": {
-            "do not know": 0,
-            "no": 0.166666666666667,
-            "yes": 0.25
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 1,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.142857142857143
           },
           "male": {
-            "do not know": 0,
-            "no": 0.166666666666667,
-            "yes": 0.25
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 1,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "n": {
-            "do not know": 0,
-            "no": 6,
-            "yes": 4
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 2,
+            "35-49": 1,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 7
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Palestine, State of": {
           "do not know": {
-            "do not know": 0,
-            "no": 0.0384615384615385,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.0384615384615385
           },
           "female": {
-            "do not know": 0,
-            "no": 0.153846153846154,
-            "yes": 0.125
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.153846153846154
           },
           "male": {
-            "do not know": 0,
-            "no": 0.807692307692308,
-            "yes": 0.875
+            "12 and under": 0,
+            "13-18": 1,
+            "19-34": 1,
+            "35-49": 1,
+            "50-64": 1,
+            "65 years or more": 0,
+            "do not know": 0.807692307692308
           },
           "n": {
-            "do not know": 0,
-            "no": 26,
-            "yes": 8
+            "12 and under": 0,
+            "13-18": 3,
+            "19-34": 2,
+            "35-49": 1,
+            "50-64": 1,
+            "65 years or more": 0,
+            "do not know": 26
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Paraguay": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "male": {
-            "do not know": 0,
-            "no": 1,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 1
           },
           "n": {
-            "do not know": 0,
-            "no": 2,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 2
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Peru": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0.344827586206897,
-            "yes": 0.4
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0.625,
+            "35-49": 0.481481481481481,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.363636363636364
           },
           "male": {
-            "do not know": 1,
-            "no": 0.655172413793103,
-            "yes": 0.6
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0.375,
+            "35-49": 0.518518518518518,
+            "50-64": 1,
+            "65 years or more": 1,
+            "do not know": 0.636363636363636
           },
           "n": {
-            "do not know": 1,
-            "no": 29,
-            "yes": 40
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 16,
+            "35-49": 27,
+            "50-64": 13,
+            "65 years or more": 4,
+            "do not know": 11
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Poland": {
           "do not know": {
-            "do not know": 0,
-            "no": 0.0303030303030303,
-            "yes": 0
+            "12 and under": 1,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.0241935483870968
           },
           "female": {
-            "do not know": 0,
-            "no": 0.121212121212121,
-            "yes": 0.0909090909090909
+            "12 and under": 0,
+            "13-18": 1,
+            "19-34": 0,
+            "35-49": 0.0625,
+            "50-64": 0.0526315789473684,
+            "65 years or more": 0,
+            "do not know": 0.120967741935484
           },
           "male": {
-            "do not know": 1,
-            "no": 0.848484848484849,
-            "yes": 0.909090909090909
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 1,
+            "35-49": 0.9375,
+            "50-64": 0.947368421052632,
+            "65 years or more": 1,
+            "do not know": 0.854838709677419
           },
           "n": {
-            "do not know": 1,
-            "no": 132,
-            "yes": 33
+            "12 and under": 1,
+            "13-18": 1,
+            "19-34": 1,
+            "35-49": 16,
+            "50-64": 19,
+            "65 years or more": 3,
+            "do not know": 124
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Portugal": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0.266666666666667,
-            "yes": 0.142857142857143
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 1,
+            "35-49": 0.333333333333333,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.235294117647059
           },
           "male": {
-            "do not know": 0,
-            "no": 0.733333333333333,
-            "yes": 0.857142857142857
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0.666666666666667,
+            "50-64": 1,
+            "65 years or more": 1,
+            "do not know": 0.764705882352941
           },
           "n": {
-            "do not know": 0,
-            "no": 15,
-            "yes": 7
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 1,
+            "35-49": 3,
+            "50-64": 1,
+            "65 years or more": 1,
+            "do not know": 17
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Puerto Rico": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0.3125,
-            "yes": 0.25
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.3
           },
           "male": {
-            "do not know": 1,
-            "no": 0.6875,
-            "yes": 0.75
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 1,
+            "35-49": 1,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.7
           },
           "n": {
-            "do not know": 1,
-            "no": 16,
-            "yes": 8
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 3,
+            "35-49": 1,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 20
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Romania": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0.25,
-            "no": 0.173913043478261,
-            "yes": 0.428571428571429
+            "12 and under": 0,
+            "13-18": 1,
+            "19-34": 0,
+            "35-49": 1,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.194444444444444
           },
           "male": {
-            "do not know": 0.75,
-            "no": 0.826086956521739,
-            "yes": 0.571428571428571
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 1,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.805555555555556
           },
           "n": {
-            "do not know": 4,
-            "no": 23,
-            "yes": 14
+            "12 and under": 0,
+            "13-18": 3,
+            "19-34": 1,
+            "35-49": 1,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 36
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Saint Lucia": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "male": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "n": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Saint Vincent and the Grenadines": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "male": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "n": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Senegal": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0.032258064516129,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.0227272727272727
           },
           "male": {
-            "do not know": 1,
-            "no": 0.967741935483871,
-            "yes": 1
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.977272727272727
           },
           "n": {
-            "do not know": 3,
-            "no": 31,
-            "yes": 10
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 44
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Serbia": {
           "do not know": {
-            "do not know": 0,
-            "no": 0.1,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.0434782608695652
           },
           "female": {
-            "do not know": 0,
-            "no": 0.2,
-            "yes": 0.25
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.217391304347826
           },
           "male": {
-            "do not know": 1,
-            "no": 0.7,
-            "yes": 0.75
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.739130434782609
           },
           "n": {
-            "do not know": 1,
-            "no": 10,
-            "yes": 12
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 23
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Sierra Leone": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "male": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "n": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Solomon Islands": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "male": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "n": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "South Africa": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "male": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "n": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "South Sudan": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "male": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "n": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Spain": {
           "do not know": {
-            "do not know": 0.103448275862069,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.00967741935483871
           },
           "female": {
-            "do not know": 0.172413793103448,
-            "no": 0.294354838709677,
-            "yes": 0.371794871794872
+            "12 and under": 0.5,
+            "13-18": 0,
+            "19-34": 0.384615384615385,
+            "35-49": 0.727272727272727,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.296774193548387
           },
           "male": {
-            "do not know": 0.724137931034483,
-            "no": 0.705645161290323,
-            "yes": 0.628205128205128
+            "12 and under": 0.5,
+            "13-18": 0,
+            "19-34": 0.615384615384615,
+            "35-49": 0.272727272727273,
+            "50-64": 1,
+            "65 years or more": 1,
+            "do not know": 0.693548387096774
           },
           "n": {
-            "do not know": 29,
-            "no": 248,
-            "yes": 78
+            "12 and under": 4,
+            "13-18": 0,
+            "19-34": 13,
+            "35-49": 11,
+            "50-64": 16,
+            "65 years or more": 2,
+            "do not know": 310
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Sudan": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "male": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "n": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Suriname": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0.5,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.5
           },
           "male": {
-            "do not know": 0,
-            "no": 0.5,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.5
           },
           "n": {
-            "do not know": 0,
-            "no": 2,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 2
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Swaziland": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "male": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "n": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Sweden": {
           "do not know": {
-            "do not know": 0,
-            "no": 0.0232558139534884,
-            "yes": 0.0869565217391304
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0.2,
+            "65 years or more": 0,
+            "do not know": 0.0454545454545455
           },
           "female": {
-            "do not know": 0,
-            "no": 0.27906976744186,
-            "yes": 0.217391304347826
+            "12 and under": 1,
+            "13-18": 0.5,
+            "19-34": 0.307692307692308,
+            "35-49": 1,
+            "50-64": 0.2,
+            "65 years or more": 0,
+            "do not know": 0.204545454545455
           },
           "male": {
-            "do not know": 0,
-            "no": 0.697674418604651,
-            "yes": 0.695652173913043
+            "12 and under": 0,
+            "13-18": 0.5,
+            "19-34": 0.692307692307692,
+            "35-49": 0,
+            "50-64": 0.6,
+            "65 years or more": 0,
+            "do not know": 0.75
           },
           "n": {
-            "do not know": 0,
-            "no": 43,
-            "yes": 23
+            "12 and under": 1,
+            "13-18": 4,
+            "19-34": 13,
+            "35-49": 1,
+            "50-64": 5,
+            "65 years or more": 0,
+            "do not know": 44
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Switzerland": {
           "do not know": {
-            "do not know": 0,
-            "no": 0.0930232558139535,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0.333333333333333,
+            "do not know": 0.0975609756097561
           },
           "female": {
-            "do not know": 0,
-            "no": 0.27906976744186,
-            "yes": 0.333333333333333
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0.2,
+            "35-49": 0.5,
+            "50-64": 0.333333333333333,
+            "65 years or more": 0.333333333333333,
+            "do not know": 0.292682926829268
           },
           "male": {
-            "do not know": 0,
-            "no": 0.627906976744186,
-            "yes": 0.666666666666667
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0.8,
+            "35-49": 0.5,
+            "50-64": 0.666666666666667,
+            "65 years or more": 0.333333333333333,
+            "do not know": 0.609756097560976
           },
           "n": {
-            "do not know": 0,
-            "no": 43,
-            "yes": 9
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 5,
+            "35-49": 2,
+            "50-64": 3,
+            "65 years or more": 3,
+            "do not know": 41
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Tanzania": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "male": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "n": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Togo": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "male": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "n": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Trinidad and Tobago": {
           "do not know": {
-            "do not know": 0,
-            "no": 0.0869565217391304,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.0909090909090909
           },
           "female": {
-            "do not know": 0,
-            "no": 0.304347826086957,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 1,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.318181818181818
           },
           "male": {
-            "do not know": 0,
-            "no": 0.608695652173913,
-            "yes": 1
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 1,
+            "50-64": 1,
+            "65 years or more": 0,
+            "do not know": 0.590909090909091
           },
           "n": {
-            "do not know": 0,
-            "no": 23,
-            "yes": 2
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 1,
+            "35-49": 1,
+            "50-64": 1,
+            "65 years or more": 0,
+            "do not know": 22
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Tunisia": {
           "do not know": {
-            "do not know": 0,
-            "no": 0.0909090909090909,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.0833333333333333
           },
           "female": {
-            "do not know": 0,
-            "no": 0.272727272727273,
-            "yes": 0.125
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0.333333333333333,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.333333333333333
           },
           "male": {
-            "do not know": 0,
-            "no": 0.636363636363636,
-            "yes": 0.875
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 1,
+            "35-49": 0.666666666666667,
+            "50-64": 0,
+            "65 years or more": 1,
+            "do not know": 0.583333333333333
           },
           "n": {
-            "do not know": 0,
-            "no": 11,
-            "yes": 8
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 2,
+            "35-49": 3,
+            "50-64": 0,
+            "65 years or more": 3,
+            "do not know": 12
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Turkey": {
           "do not know": {
-            "do not know": 0,
-            "no": 0.150684931506849,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.135802469135802
           },
           "female": {
-            "do not know": 0.263157894736842,
-            "no": 0.287671232876712,
-            "yes": 0.157894736842105
+            "12 and under": 1,
+            "13-18": 0.4,
+            "19-34": 0.5,
+            "35-49": 0.272727272727273,
+            "50-64": 0.272727272727273,
+            "65 years or more": 1,
+            "do not know": 0.135802469135802
           },
           "male": {
-            "do not know": 0.736842105263158,
-            "no": 0.561643835616438,
-            "yes": 0.842105263157895
+            "12 and under": 0,
+            "13-18": 0.6,
+            "19-34": 0.5,
+            "35-49": 0.727272727272727,
+            "50-64": 0.727272727272727,
+            "65 years or more": 0,
+            "do not know": 0.728395061728395
           },
           "n": {
-            "do not know": 19,
-            "no": 73,
-            "yes": 38
+            "12 and under": 2,
+            "13-18": 5,
+            "19-34": 20,
+            "35-49": 11,
+            "50-64": 11,
+            "65 years or more": 2,
+            "do not know": 81
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Uganda": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "male": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "n": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "United Kingdom - England, Ireland, Scotland and Wales": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "male": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "n": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "United States": {
           "do not know": {
-            "do not know": 0,
-            "no": 0.182156133828996,
-            "yes": 0.0344827586206897
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.245454545454545
           },
           "female": {
-            "do not know": 0,
-            "no": 0.368029739776952,
-            "yes": 0.387931034482759
+            "12 and under": 0,
+            "13-18": 0.590909090909091,
+            "19-34": 0.425531914893617,
+            "35-49": 0.692307692307692,
+            "50-64": 0.371428571428571,
+            "65 years or more": 0,
+            "do not know": 0.304545454545455
           },
           "male": {
-            "do not know": 0,
-            "no": 0.449814126394052,
-            "yes": 0.577586206896552
+            "12 and under": 0,
+            "13-18": 0.409090909090909,
+            "19-34": 0.574468085106383,
+            "35-49": 0.307692307692308,
+            "50-64": 0.628571428571429,
+            "65 years or more": 0,
+            "do not know": 0.45
           },
           "n": {
-            "do not know": 0,
-            "no": 269,
-            "yes": 116
+            "12 and under": 0,
+            "13-18": 22,
+            "19-34": 94,
+            "35-49": 13,
+            "50-64": 35,
+            "65 years or more": 0,
+            "do not know": 220
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Uruguay": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 1
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 1,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "male": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "n": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 1
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 1,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Venezuela": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0.25,
-            "no": 0.114285714285714,
-            "yes": 0.25
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.174603174603175
           },
           "male": {
-            "do not know": 0.75,
-            "no": 0.885714285714286,
-            "yes": 0.75
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.825396825396825
           },
           "n": {
-            "do not know": 4,
-            "no": 35,
-            "yes": 24
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 63
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Vietnam": {
           "do not know": {
-            "do not know": 0,
-            "no": 0.05,
-            "yes": 0.072463768115942
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.0740740740740741
           },
           "female": {
-            "do not know": 0.105263157894737,
-            "no": 0.14,
-            "yes": 0.246376811594203
+            "12 and under": 1,
+            "13-18": 0,
+            "19-34": 0.0909090909090909,
+            "35-49": 0.466666666666667,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0.162962962962963
           },
           "male": {
-            "do not know": 0.894736842105263,
-            "no": 0.81,
-            "yes": 0.681159420289855
+            "12 and under": 0,
+            "13-18": 1,
+            "19-34": 0.909090909090909,
+            "35-49": 0.533333333333333,
+            "50-64": 1,
+            "65 years or more": 1,
+            "do not know": 0.762962962962963
           },
           "n": {
-            "do not know": 19,
-            "no": 100,
-            "yes": 69
+            "12 and under": 2,
+            "13-18": 7,
+            "19-34": 22,
+            "35-49": 15,
+            "50-64": 2,
+            "65 years or more": 5,
+            "do not know": 135
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Zambia": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "male": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "n": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         },
         "Zimbabwe": {
           "do not know": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "female": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "male": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "n": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           },
           "other (transgender, etc.)": {
-            "do not know": 0,
-            "no": 0,
-            "yes": 0
+            "12 and under": 0,
+            "13-18": 0,
+            "19-34": 0,
+            "35-49": 0,
+            "50-64": 0,
+            "65 years or more": 0,
+            "do not know": 0
           }
         }
       }
