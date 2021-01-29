@@ -897,6 +897,13 @@ WS_INFO = {
         },
     },
     'ws_58': {
+        '2015': {
+            'name': '58',
+            'title': 'Internet - News subjects in multimedia web components',
+            'desc': 'Internet - Sex of news subjects in multimedia components and photographs',
+            'reports': ['global', 'country'],
+            'historical': '58',
+        },
         '2010': {
             'name': '58',
             'title': 'Internet - News subjects in multimedia web components',
