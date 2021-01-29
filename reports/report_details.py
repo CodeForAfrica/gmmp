@@ -1123,29 +1123,36 @@ WS_INFO = {
     #         'reports': ['global', 'region', 'country'],
     #     },
     # },
-    'ws_75': {
-        '2015': {
-            'name': '75',
-            'title': 'Key themes, challenging stereotypes',
-            'desc': 'Key themes, challenging stereotypes',
-            'reports': ['global', 'region', 'country'],
-            'historical': '75',
-        },
-        '2010': {
-            'name': '75',
-            'title': 'Key themes, challenging stereotypes',
-            'desc': 'Key themes, challenging stereotypes',
-            'reports': ['global', 'region', 'country'],
-        },
-    },
-    # 'ws_76': {
+    # 'ws_75': {
+    #     '2015': {
+    #         'name': '75',
+    #         'title': 'Key themes, challenging stereotypes',
+    #         'desc': 'Key themes, challenging stereotypes',
+    #         'reports': ['global', 'region', 'country'],
+    #         'historical': '75',
+    #     },
     #     '2010': {
-    #         'name': '76',
-    #         'title': 'Key themes, reference to gender equality/HR policies',
-    #         'desc': 'Key themes, reference to gender equality/HR policies',
+    #         'name': '75',
+    #         'title': 'Key themes, challenging stereotypes',
+    #         'desc': 'Key themes, challenging stereotypes',
     #         'reports': ['global', 'region', 'country'],
     #     },
     # },
+    'ws_76': {
+        '2015': {
+            'name': '76',
+            'title': 'Key themes, reference to gender equality/HR policies',
+            'desc': 'Key themes, reference to gender equality/HR policies',
+            'reports': ['global', 'region', 'country'],
+            'historical': '76',
+        },
+        '2010': {
+            'name': '76',
+            'title': 'Key themes, reference to gender equality/HR policies',
+            'desc': 'Key themes, reference to gender equality/HR policies',
+            'reports': ['global', 'region', 'country'],
+        },
+    },
     # 'ws_77': {
     #     '2010': {
     #         'name': '77',

@@ -1357,6 +1357,28 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         return all_data
 
+    def import_76(self, sheet_data):
+        data_2015 = {}
+        all_data = {2015: data_2015}
+
+        self._sheet_74_secondary_import(
+            data=data_2015,
+            medium='print, radio, television',
+            col_start=3,
+            end_index=11,
+            cols_per_group=3,
+        )
+
+        self._sheet_74_secondary_import(
+            data=data_2015,
+            medium='internet, twitter',
+            col_start=14,
+            end_index=22,
+            cols_per_group=3,
+        )
+
+        return all_data
+
     def import_84(self, sheet_info):
         data = {}
         all_data = {self.year: data}
