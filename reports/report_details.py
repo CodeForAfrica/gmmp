@@ -1511,21 +1511,21 @@ WS_INFO = {
     #         'reports': ['global'],
     #     },
     # },
-    'ws_s09': {
-        '2015': {
-            'name': 's09',
-            'title': 'Print only - News subjects appearing in newspaper photographs',
-            'desc': 'Print only - News subjects appearing in newspaper photographs',
-            'reports': ['global'],
-            'historical': 's09',
-        },
-        '2010': {
-            'name': 's09',
-            'title': 'Print only - News subjects appearing in newspaper photographs',
-            'desc': 'Print only - News subjects appearing in newspaper photographs',
-            'reports': ['global'],
-        },
-    },
+    # 'ws_s09': {
+    #     '2015': {
+    #         'name': 's09',
+    #         'title': 'Print only - News subjects appearing in newspaper photographs',
+    #         'desc': 'Print only - News subjects appearing in newspaper photographs',
+    #         'reports': ['global'],
+    #         'historical': 's09',
+    #     },
+    #     '2010': {
+    #         'name': 's09',
+    #         'title': 'Print only - News subjects appearing in newspaper photographs',
+    #         'desc': 'Print only - News subjects appearing in newspaper photographs',
+    #         'reports': ['global'],
+    #     },
+    # },
     # 'ws_s10': {
     #     '2010': {
     #         'name': 's10',
@@ -1534,14 +1534,21 @@ WS_INFO = {
     #         'reports': ['global'],
     #     },
     # },
-    # 'ws_s11': {
-    #     '2010': {
-    #         'name': 's11',
-    #         'title': 'Reporters in major topic areas',
-    #         'desc': 'Reporters in major topic areas',
-    #         'reports': ['global'],
-    #     },
-    # },
+    'ws_s11': {
+        '2015': {
+            'name': 's11',
+            'title': 'Reporters in major topic areas',
+            'desc': 'Reporters in major topic areas',
+            'reports': ['global'],
+            'historical': 's11',
+        },
+        '2010': {
+            'name': 's11',
+            'title': 'Reporters in major topic areas',
+            'desc': 'Reporters in major topic areas',
+            'reports': ['global'],
+        },
+    },
     # 'ws_s12': {
     #     '2015': {
     #         'name': 's12',
