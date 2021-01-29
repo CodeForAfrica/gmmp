@@ -1253,29 +1253,36 @@ WS_INFO = {
     #         'reports': ['global'],
     #     },
     # },
-    'ws_86': {
-        '2015': {
-            'name': '86',
-            'title': 'Internet - News subjects who are identified by family status',
-            'desc': 'Internet - News subjects who are identified by family status',
-            'reports': ['global'],
-            'historical': '86',
-        },
-        '2010': {
-            'name': '86',
-            'title': 'Internet - News subjects who are identified by family status',
-            'desc': 'Internet - News subjects who are identified by family status',
-            'reports': ['global'],
-        },
-    },
-    # 'ws_87': {
+    # 'ws_86': {
+    #     '2015': {
+    #         'name': '86',
+    #         'title': 'Internet - News subjects who are identified by family status',
+    #         'desc': 'Internet - News subjects who are identified by family status',
+    #         'reports': ['global'],
+    #         'historical': '86',
+    #     },
     #     '2010': {
-    #         'name': '87',
-    #         'title': 'Internet - News subjects in multimedia web components',
-    #         'desc': 'Internet - News subjects in multimedia web components',
+    #         'name': '86',
+    #         'title': 'Internet - News subjects who are identified by family status',
+    #         'desc': 'Internet - News subjects who are identified by family status',
     #         'reports': ['global'],
     #     },
     # },
+    'ws_87': {
+        '2015': {
+            'name': '87',
+            'title': 'Internet - News subjects in multimedia web components',
+            'desc': 'Internet - News subjects in multimedia web components',
+            'reports': ['global'],
+            'historical': '87',
+        },
+        '2010': {
+            'name': '87',
+            'title': 'Internet - News subjects in multimedia web components',
+            'desc': 'Internet - News subjects in multimedia web components',
+            'reports': ['global'],
+        },
+    },
     # 'ws_88': {
     #     '2010': {
     #         'name': '88',
