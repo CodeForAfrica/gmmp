@@ -1564,21 +1564,21 @@ WS_INFO = {
     #         'reports': ['global'],
     #     },
     # },
-    'ws_s13': {
-        '2015': {
-            'name': 's13',
-            'title': 'Sex of reporter in stories with female and male news subjects',
-            'desc': 'Sex of reporter in stories with female and male news subjects',
-            'reports': ['global'],
-            'historical': 's13',
-        },
-        '2010': {
-            'name': 's13',
-            'title': 'Sex of reporter in stories with female and male news subjects',
-            'desc': 'Sex of reporter in stories with female and male news subjects',
-            'reports': ['global'],
-        }
-    },
+    # 'ws_s13': {
+    #     '2015': {
+    #         'name': 's13',
+    #         'title': 'Sex of reporter in stories with female and male news subjects',
+    #         'desc': 'Sex of reporter in stories with female and male news subjects',
+    #         'reports': ['global'],
+    #         'historical': 's13',
+    #     },
+    #     '2010': {
+    #         'name': 's13',
+    #         'title': 'Sex of reporter in stories with female and male news subjects',
+    #         'desc': 'Sex of reporter in stories with female and male news subjects',
+    #         'reports': ['global'],
+    #     }
+    # },
     # 'ws_s14': {
     #     '2015': {
     #         'name': 's14',

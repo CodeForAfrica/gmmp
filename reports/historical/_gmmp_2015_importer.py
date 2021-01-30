@@ -1939,62 +1939,7 @@ class GMMP2015ReportImporter(BaseReportImporter):
                 col_start += 4
 
         return all_data
-
-    def import_s26(self, sheet_info):
-        data = {}
-        all_data = {self.year: data}
-
-        mediums = {
-            'internet': (3, 9),
-            'twitter': (12, 18),
-        }
-
-        for medium, (col_start, col_end) in mediums.items():
-            medium_data = {}
-            data[medium] = medium_data
-            self.slurp_table(
-                self.ws,
-                medium_data,
-                col_start=col_start,
-                col_end=col_end,
-                row_start=8,
-                row_end=121,
-                col_heading_row=6
-            )
-
-        return all_data
-
-    def import_s27(self, sheet_info):
-        data = {}
-        all_data = {self.year: data}
-
-        mediums = {
-            'internet': (3, 6),
-            'twitter': (9, 12),
-        }
-
-        for medium, (col_start, col_end) in mediums.items():
-            medium_data = {}
-            data[medium] = medium_data
-            self.slurp_table(
-                self.ws,
-                medium_data,
-                col_start=col_start,
-                col_end=col_end,
-                row_start=8,
-                row_end=121,
-                col_heading_row=6
-            )
-
-        return all_data
-
-    def import_sr08(self, sheet_info):
-        return self.import_grid(
-            [
-                (2015, 3, 9, 7, 15),
-            ]
-        )
-
+    
     def import_s14(self, sheet_info):
         data = {}
         all_data = {self.year: data}
@@ -2075,6 +2020,61 @@ class GMMP2015ReportImporter(BaseReportImporter):
             )
 
         return all_data
+
+    def import_s26(self, sheet_info):
+        data = {}
+        all_data = {self.year: data}
+
+        mediums = {
+            'internet': (3, 9),
+            'twitter': (12, 18),
+        }
+
+        for medium, (col_start, col_end) in mediums.items():
+            medium_data = {}
+            data[medium] = medium_data
+            self.slurp_table(
+                self.ws,
+                medium_data,
+                col_start=col_start,
+                col_end=col_end,
+                row_start=8,
+                row_end=121,
+                col_heading_row=6
+            )
+
+        return all_data
+
+    def import_s27(self, sheet_info):
+        data = {}
+        all_data = {self.year: data}
+
+        mediums = {
+            'internet': (3, 6),
+            'twitter': (9, 12),
+        }
+
+        for medium, (col_start, col_end) in mediums.items():
+            medium_data = {}
+            data[medium] = medium_data
+            self.slurp_table(
+                self.ws,
+                medium_data,
+                col_start=col_start,
+                col_end=col_end,
+                row_start=8,
+                row_end=121,
+                col_heading_row=6
+            )
+
+        return all_data
+
+    def import_sr08(self, sheet_info):
+        return self.import_grid(
+            [
+                (2015, 3, 9, 7, 15),
+            ]
+        )
 
     def import_sr09(self, sheet_info):
         data = {}
