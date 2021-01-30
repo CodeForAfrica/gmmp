@@ -1534,21 +1534,21 @@ WS_INFO = {
     #         'reports': ['global'],
     #     },
     # },
-    'ws_s11': {
-        '2015': {
-            'name': 's11',
-            'title': 'Reporters in major topic areas',
-            'desc': 'Reporters in major topic areas',
-            'reports': ['global'],
-            'historical': 's11',
-        },
-        '2010': {
-            'name': 's11',
-            'title': 'Reporters in major topic areas',
-            'desc': 'Reporters in major topic areas',
-            'reports': ['global'],
-        },
-    },
+    # 'ws_s11': {
+    #     '2015': {
+    #         'name': 's11',
+    #         'title': 'Reporters in major topic areas',
+    #         'desc': 'Reporters in major topic areas',
+    #         'reports': ['global'],
+    #         'historical': 's11',
+    #     },
+    #     '2010': {
+    #         'name': 's11',
+    #         'title': 'Reporters in major topic areas',
+    #         'desc': 'Reporters in major topic areas',
+    #         'reports': ['global'],
+    #     },
+    # },
     # 'ws_s12': {
     #     '2015': {
     #         'name': 's12',
@@ -1564,14 +1564,21 @@ WS_INFO = {
     #         'reports': ['global'],
     #     },
     # },
-    # 'ws_s13': {
-    #     '2010': {
-    #         'name': 's13',
-    #         'title': 'Sex of reporter in stories with female and male news subjects',
-    #         'desc': 'Sex of reporter in stories with female and male news subjects',
-    #         'reports': ['global'],
-    #     }
-    # },
+    'ws_s13': {
+        '2015': {
+            'name': 's13',
+            'title': 'Sex of reporter in stories with female and male news subjects',
+            'desc': 'Sex of reporter in stories with female and male news subjects',
+            'reports': ['global'],
+            'historical': 's13',
+        },
+        '2010': {
+            'name': 's13',
+            'title': 'Sex of reporter in stories with female and male news subjects',
+            'desc': 'Sex of reporter in stories with female and male news subjects',
+            'reports': ['global'],
+        }
+    },
     # 'ws_s14': {
     #     '2015': {
     #         'name': 's14',
