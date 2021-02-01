@@ -143,8 +143,8 @@ WS_INFO = {
     'ws_06': {
         '2015': {
             'name': '6',
-            'title': 'Breakdown of women in the news in major topics by region',
-            'desc': 'Women in the news (sources) in major news topics by region ',
+            'title': 'Women in the news (sources) in major news topics by region',
+            'desc': '',
             'reports': ['global', 'region'],
             'historical': '6',
         },
@@ -506,8 +506,8 @@ WS_INFO = {
     'ws_30': {
         '2015': {
             'name': '30',
-            'title': 'Breakdown of female reporters, by major topic, by region',
-            'desc': 'Reporters, by sex on major topics, by region',
+            'title': 'Reporters, by sex on major topics, by region',
+            'desc': 'Breakdown of Reporters, by sex on major topics',
             'reports': ['global', 'region', 'country'],
             'historical': '30',
         },
@@ -748,8 +748,8 @@ WS_INFO = {
     'ws_48': {
         '2015': {
             'name': '48',
-            'title': 'Story clearly challenges gender stereotypes by sex of rep',
-            'desc': 'Stories where stereotypes are challenged/ supported by gender of rep',
+            'title': 'Stories where stereotypes are challenged/ supported by gender of rep',
+            'desc': 'Breakdown of  Stories where stereotypes are challenged/ supported by gender of rep',
             'reports': ['global', 'region', 'country'],
             'historical': '48',
         },
@@ -884,7 +884,7 @@ WS_INFO = {
         '2015': {
             'name': '57',
             'title': 'Internet - News subjects who are identified by family status',
-            'desc': 'Internet - News subjects who are identified by family status',
+            'desc': 'Internet - News subjects, by sex, who are identified by family status',
             'reports': ['global', 'country'],
             'historical': '57',
         },
@@ -945,7 +945,7 @@ WS_INFO = {
         '2015': {
             'name': '61',
             'title': 'Internet - News subjects who are directly quoted',
-            'desc': 'Internet - News subjects who are directly quoted',
+            'desc': 'Internet - News subjects directly quoted by sex',
             'reports': ['global', 'country'],
             'historical': '61',
         },
@@ -999,7 +999,7 @@ WS_INFO = {
         '2015': {
             'name': '66',
             'title': 'Twitter - Overall presence of women',
-            'desc': 'Twitter - Overall presence of women',
+            'desc': '',
             'reports': ['global', 'region', 'country'],
             'historical': '66',
         },
@@ -1029,7 +1029,7 @@ WS_INFO = {
         '2015': {
             'name': '68',
             'title': 'Twitter - Women\'s centrality',
-            'desc': 'Twitter - Women\'s centrality',
+            'desc': '',
             'reports': ['global', 'region', 'country'],
             'historical': '68',
         },
@@ -1044,7 +1044,7 @@ WS_INFO = {
         '2015': {
             'name': '68b',
             'title': 'Twitter - Challenging Stereotypes',
-            'desc': 'Twitter - Challenging Stereotypes',
+            'desc': '',
             'reports': ['global', 'region', 'country'],
             'historical': '68b',
         },
