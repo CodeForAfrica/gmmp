@@ -143,8 +143,8 @@ WS_INFO = {
     'ws_06': {
         '2015': {
             'name': '6',
-            'title': 'Breakdown of women in the news in major topics by region',
-            'desc': 'Women in the news (sources) in major news topics by region ',
+            'title': 'Women in the news (sources) in major news topics by region',
+            'desc': '',
             'reports': ['global', 'region'],
             'historical': '6',
         },
@@ -475,8 +475,8 @@ WS_INFO = {
     'ws_28': {
         '2015': {
             'name': '28',
-            'title': 'Breakdown of total female reporters & presenters by region by medium ',
-            'desc': 'Female reporters, announcers and presenters all media, by region',
+            'title': 'Female reporters, announcers and presenters all media, by region',
+            'desc': 'B.down of female reporters & presenters by region',
             'reports': ['global', 'region', 'country'],
             'historical': '28',
         },
@@ -491,8 +491,8 @@ WS_INFO = {
     'ws_29': {
         '2015': {
             'name': '29',
-            'title': 'Breakdown of female reporters in domestic & foreign stories, by region',
-            'desc': 'Reporters in domestic & foreign stories (scope) , by region, by sex of reporter region',
+            'title': 'Reporters in domestic & foreign stories (scope) , by region, by sex of reporter',
+            'desc': 'B.down of Reporters in domestic & foreign stories, by sex',
             'reports': ['global', 'region', 'country'],
             'historical': '29',
         },
@@ -506,8 +506,8 @@ WS_INFO = {
     'ws_30': {
         '2015': {
             'name': '30',
-            'title': 'Breakdown of female reporters, by major topic, by region',
-            'desc': 'Reporters, by sex on major topics, by region',
+            'title': 'Reporters, by sex on major topics, by region',
+            'desc': 'B.down of Reporters, by sex on major topics',
             'reports': ['global', 'region', 'country'],
             'historical': '30',
         },
@@ -537,8 +537,8 @@ WS_INFO = {
     'ws_32': {
         '2015': {
             'name': '32',
-            'title': 'Topics in the news - Detail by medium for female reporters',
-            'desc': 'Topics in the news - Detail by medium for female reporters',
+            'title': 'Topics in the news - Detail by medium (ADD INTERNET) for female reporters',
+            'desc': 'Breakdown of news topics by medium by sex of reporter',
             'reports': ['global'],
             'historical': '32',
         },
@@ -748,8 +748,8 @@ WS_INFO = {
     'ws_48': {
         '2015': {
             'name': '48',
-            'title': 'Story clearly challenges gender stereotypes by sex of rep',
-            'desc': 'Stories where stereotypes are challenged/ supported by gender of rep',
+            'title': 'Stories where stereotypes are challenged/ supported by gender of rep',
+            'desc': 'B.down of  Stories where stereotypes are challenged/ supported by gender of rep',
             'reports': ['global', 'region', 'country'],
             'historical': '48',
         },
@@ -884,7 +884,7 @@ WS_INFO = {
         '2015': {
             'name': '57',
             'title': 'Internet - News subjects who are identified by family status',
-            'desc': 'Internet - News subjects who are identified by family status',
+            'desc': 'Internet - News subjects, by sex, who are identified by family status',
             'reports': ['global', 'country'],
             'historical': '57',
         },
@@ -900,7 +900,7 @@ WS_INFO = {
         '2015': {
             'name': '58',
             'title': 'Internet - News subjects in multimedia web components',
-            'desc': 'Internet - News subjects in multimedia web components',
+            'desc': 'Internet - Sex of news subjects in multimedia components and photographs',
             'reports': ['global', 'country'],
             'historical': '58',
         },
@@ -930,7 +930,7 @@ WS_INFO = {
         '2015': {
             'name': '60',
             'title': 'Internet - Age of news subjects',
-            'desc': 'Internet - Age of news subjects',
+            'desc': 'Internet - Age of news subjects by sex',
             'reports': ['global', 'country'],
             'historical': '60',
         },
@@ -945,7 +945,7 @@ WS_INFO = {
         '2015': {
             'name': '61',
             'title': 'Internet - News subjects who are directly quoted',
-            'desc': 'Internet - News subjects who are directly quoted',
+            'desc': 'Internet - News subjects directly quoted by sex',
             'reports': ['global', 'country'],
             'historical': '61',
         },
@@ -984,7 +984,7 @@ WS_INFO = {
         '2015': {
             'name': '65',
             'title': 'Twitter - Original tweet or retweet',
-            'desc': 'Twitter - Original tweet or retweet',
+            'desc': '',
             'reports': ['global', 'region', 'country'],
             'historical': '65',
         },
@@ -999,7 +999,7 @@ WS_INFO = {
         '2015': {
             'name': '66',
             'title': 'Twitter - Overall presence of women',
-            'desc': 'Twitter - Overall presence of women',
+            'desc': '',
             'reports': ['global', 'region', 'country'],
             'historical': '66',
         },
@@ -1029,7 +1029,7 @@ WS_INFO = {
         '2015': {
             'name': '68',
             'title': 'Twitter - Women\'s centrality',
-            'desc': 'Twitter - Women\'s centrality',
+            'desc': '',
             'reports': ['global', 'region', 'country'],
             'historical': '68',
         },
@@ -1044,7 +1044,7 @@ WS_INFO = {
         '2015': {
             'name': '68b',
             'title': 'Twitter - Challenging Stereotypes',
-            'desc': 'Twitter - Challenging Stereotypes',
+            'desc': '',
             'reports': ['global', 'region', 'country'],
             'historical': '68b',
         },
