@@ -1067,7 +1067,7 @@ WS_INFO = {
         '2015': {
             'name': '71',
             'title': 'Key themes, women\'s overall presence',
-            'desc': 'Key themes, women\'s overall presence',
+            'desc': '',
             'reports': ['global', 'region', 'country'],
             'historical': '71',
         },
@@ -1082,7 +1082,7 @@ WS_INFO = {
         '2015': {
             'name': '72',
             'title': 'Key themes, female reporters',
-            'desc': 'Key themes, female reporters',
+            'desc': '',
             'reports': ['global', 'region', 'country'],
             'historical': '72',
         },
@@ -1111,8 +1111,8 @@ WS_INFO = {
     'ws_74': {
         '2015': {
             'name': '74',
-            'title': 'Key themes, women\'s centrality',
-            'desc': 'Stories with Women as a central focus, by women centrality topic',
+            'title': "Key themes, women's centrality",
+            'desc': '',
             'reports': ['global', 'region', 'country'],
             'historical': '74',
         },
@@ -1127,7 +1127,7 @@ WS_INFO = {
         '2015': {
             'name': '75',
             'title': 'Key themes, challenging stereotypes',
-            'desc': 'Key themes, challenging stereotypes',
+            'desc': '',
             'reports': ['global', 'region', 'country'],
             'historical': '75',
         },
@@ -1142,7 +1142,7 @@ WS_INFO = {
         '2015': {
             'name': '76',
             'title': 'Key themes, reference to gender equality/HR policies',
-            'desc': 'Key themes, reference to gender equality/HR policies',
+            'desc': '',
             'reports': ['global', 'region', 'country'],
             'historical': '76',
         },
