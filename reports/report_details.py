@@ -111,8 +111,8 @@ WS_INFO = {
     'ws_04': {
         '2015': {
             'name': '4',
-            'title': 'Topics in the news by region',
-            'desc': 'Breakdown of major news topics by region by medium',
+            'title': 'Topics in the news by region 1995-2015',
+            'desc': 'Breakdown of news topics cluster areas by region by media type',
             'reports': ['global', 'region'],
             'historical': '4',
         },
@@ -231,7 +231,7 @@ WS_INFO = {
         '2015': {
             'name': '12',
             'title': 'Stories making reference to issues of gender equality/inequality, legislation, policy by region',
-            'desc': 'Breakdown by major topic by region by reference to gender equality/human rights/policy',
+            'desc': '',
             'reports': ['global', 'region'],
             'historical': '12',
         },
@@ -246,7 +246,7 @@ WS_INFO = {
         '2015': {
             'name': '13',
             'title': 'Stories making reference to issues of gender equality/inequality, legislation, policy by sex of reporter',
-            'desc': 'B.down by major topic by sex of reporter by reference to gender equality/human rights/policy',
+            'desc': '',
             'reports': ['global', 'region',  'country'],
             'historical': '13',
         },
@@ -293,7 +293,7 @@ WS_INFO = {
         '2015': {
             'name': '16',
             'title': 'Function of news subjects by sex - by occupation',
-            'desc': 'Breakdown of  Function of news subjects by sex - by occupation',
+            'desc': 'B.down of  Function of news subjects by sex - by occupation',
             'reports': ['global', 'region', 'country'],
             'historical': '16',
         },
@@ -309,7 +309,7 @@ WS_INFO = {
         '2015': {
             'name': '17',
             'title': 'Function of news subjects by sex - by age',
-            'desc': 'Breakdown of  Function of news subjects by sex - by age',
+            'desc': 'B.down of  Function of news subjects by sex - by age',
             'reports': ['global', 'region', 'country'],
             'historical': '17',
         },
@@ -340,8 +340,8 @@ WS_INFO = {
     'ws_19': {
         '2015': {
             'name': '19',
-            'title': 'Age of Television news subjects, by sex',
-            'desc': 'B.down of  Age of Television news subjects, by sex (age captured for Television only)',
+            'title': 'Age of news subjects by broadcast, by sex',
+            'desc': 'B.down of  Age of news subjects by broadcast, by sex',
             'reports': ['global', 'region', 'country'],
             'historical': '19',
         },
@@ -356,8 +356,8 @@ WS_INFO = {
     'ws_20': {
         '2015': {
             'name': '20',
-            'title': 'Functions and Occupations by sex of news subject',
-            'desc': 'B.down of  news subjects\' functions and occupations by sex of news subject',
+            'title': 'Functions (top 5) and Occupations by sex of news subject',
+            'desc': 'B.down of  news subjects\' functions (top 5) and occupations by sex of news subject',
             'reports': ['global', 'region', 'country'],
             'historical': '20',
         },
@@ -372,8 +372,8 @@ WS_INFO = {
     'ws_21': {
         '2015': {
             'name': '21',
-            'title': 'Breakdown by victim type by sex',
-            'desc': 'News Subjects who are portrayed as victims, by sex',
+            'title': 'News Subjects who are portrayed as victims, by sex',
+            'desc': 'B.down by victim type by sex, show N & %',
             'reports': ['global', 'region', 'country'],
             'historical': '21',
         },
@@ -388,8 +388,8 @@ WS_INFO = {
     'ws_23': {
         '2015': {
             'name': '23',
-            'title': 'Breakdown by survivor type by sex',
-            'desc': 'News subjects who are portrayed as survivors, by sex',
+            'title': 'News subjects who are portrayed as survivors, by sex',
+            'desc': 'B.down of  female & male news subjects who are survivors',
             'reports': ['global', 'region', 'country'],
             'historical': '23',
         },
@@ -420,8 +420,8 @@ WS_INFO = {
     'ws_25': {
         '2015': {
             'name': '25',
-            'title': 'B.down by sex of subject, family status, by sex of reporter',
-            'desc': 'News subjects who are identified by family status, by sex of news subject, by sex of reporter',
+            'title': 'News subjects who are identified by family status, by sex of news subject, by sex of reporter',
+            'desc': 'B.down by sex of subject, family status, by sex of reporter show N & %',
             'reports': ['global', 'region', 'country'],
             'historical': '25',
         },
@@ -589,8 +589,8 @@ WS_INFO = {
     'ws_40': {
         '2015': {
             'name': '40',
-            'title': 'Breakdown of Stories with Women as a central Focus by topic and region',
-            'desc': 'Stories with Women as a central Focus by topic and region',
+            'title': 'Stories with Women as a central Focus by topic and region',
+            'desc': 'B.down of Stories with Women as a central Focus by topic and region',
             'reports': ['global'],
             'historical': '40',
         },
@@ -605,8 +605,8 @@ WS_INFO = {
     'ws_41': {
         '2015': {
             'name': '41',
-            'title': 'Breakdown of Stories where issues of gender equality/inequality are raised by topic',
-            'desc': 'Stories where issues of gender equality/inequality are raised by topic',
+            'title': 'Stories where issues of gender equality/inequality are raised by topic',
+            'desc': 'B.down of  Stories where issues of gender equality/inequality are raised by topic',
             'reports': ['global', 'region', 'country'],
             'historical': '41',
         },
