@@ -537,8 +537,8 @@ WS_INFO = {
     'ws_42': {
         '2015': {
             'name': '42',
-            'title': 'Breakdown of Stories where issues of gender equality/inequality are raised by region',
-            'desc': 'Stories where issues of gender equality/inequality are raised by region',
+            'title': 'Stories where issues of gender equality/inequality are raised by region',
+            'desc': '',
             'reports': ['global'],
             'historical': '42',
         },
@@ -552,8 +552,8 @@ WS_INFO = {
     'ws_43': {
         '2015': {
             'name': '43',
-            'title': 'Breakdown of Stories where issues of gender equality/inequality are raised by sex of reporter',
-            'desc': 'Stories where issues of gender equality/inequality are raised by sex of reporter',
+            'title': 'Stories where issues of gender equality/inequality are raised by sex of reporter',
+            'desc': '',
             'reports': ['global', 'region', 'country'],
             'historical': '43',
         },
@@ -568,7 +568,7 @@ WS_INFO = {
         '2015': {
             'name': '44',
             'title': 'Stories where issues of gender equality/inequality are raised by sex of reporter and by region',
-            'desc': 'Stories where issues of gender equality/inequality are raised by sex of reporter and by region',
+            'desc': 'B.down of Stories where issues of gender equality/inequality are raised by sex of reporter and by region',
             'reports': ['global', 'region'],
             'historical': '44',
         },
@@ -599,8 +599,8 @@ WS_INFO = {
     'ws_46': {
         '2015': {
             'name': '46',
-            'title': 'Story clearly challenges gender stereotypes by region by major news topic',
-            'desc': 'Stories where stereotypes are challenged/ supported by news topic',
+            'title': 'Stories where stereotypes are challenged/ supported by news topic',
+            'desc': 'B.down of  Stories where stereotypes are challenged/ supported by news topic',
             'reports': ['global'],
             'historical': '46',
         },
@@ -698,7 +698,7 @@ WS_INFO = {
         '2015': {
             'name': '53',
             'title': 'Internet - Female reporters in main stories',
-            'desc': 'Internet - Female reporters in main stories',
+            'desc': 'Internet - Sex of reporters in main stories',
             'reports': ['global', 'region', 'country'],
             'historical': '53',
         },
@@ -713,7 +713,7 @@ WS_INFO = {
         '2015': {
             'name': '54',
             'title': 'Internet - Overall presence of women',
-            'desc': 'Internet - Overall presence of women',
+            'desc': '',
             'reports': ['global', 'region', 'country'],
             'historical': '54',
         },
