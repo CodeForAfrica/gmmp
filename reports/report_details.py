@@ -655,7 +655,7 @@ WS_INFO = {
         '2015': {
             'name': '52',
             'title': 'Internet - Reference to gender equality/HR policies',
-            'desc': 'Internet - Reference to gender equality/HR policies',
+            'desc': '',
             'reports': ['global', 'country'],
             'historical': '52',
         },
@@ -686,7 +686,7 @@ WS_INFO = {
         '2015': {
             'name': '55',
             'title': 'Internet - Occupation of Female news subjects',
-            'desc': 'Internet - Occupation of Female news subjects',
+            'desc': 'B.down Internet - Occupation and function by sex of News Subjects',
             'reports': ['global'],
             'historical': '55',
         },
@@ -733,7 +733,7 @@ WS_INFO = {
         '2015': {
             'name': '59',
             'title': 'Internet - Selection of News Subjects',
-            'desc': 'Internet - Selection of News Subjects by sex of reporter (columns) and sex of subject (rows)',
+            'desc': 'Internet - Selection of News Subject(sex of source)  by female & male reporters',
             'reports': ['global', 'country'],
             'historical': '59',
         },
@@ -804,7 +804,7 @@ WS_INFO = {
         '2015': {
             'name': '67',
             'title': 'Twitter - Female reporters & journalists',
-            'desc': 'Twitter - Female reporters & journalists',
+            'desc': '',
             'reports': ['global', 'region', 'country'],
             'historical': '67',
         },
@@ -859,7 +859,7 @@ WS_INFO = {
         '2015': {
             'name': '73',
             'title': 'Key themes, selection of sources by sex of reporter',
-            'desc': 'Key themes, selection of sources by sex of reporter',
+            'desc': '',
             'reports': ['global', 'region', 'country'],
             'historical': '73',
         },
