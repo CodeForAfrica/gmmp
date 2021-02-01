@@ -1291,8 +1291,8 @@ class GMMP2015ReportImporter(BaseReportImporter):
             ]
         )
 
-    def _sheet_74_secondary_import(self, data, medium, col_start, end_index, cols_per_group):
-        groups = ['political participation', 'peace and security', 'economic participation']
+    def _sheet_74_secondary_import(self, data, groups, medium, col_start, end_index, cols_per_group, multiplier):
+        # groups = ['political participation', 'peace and security', 'economic participation']
         medium_data = {}
         medium_data[medium] = {}
         while col_start < end_index:
@@ -1310,7 +1310,7 @@ class GMMP2015ReportImporter(BaseReportImporter):
                     row_heading_col=2,
                 )
                 medium_data[medium][group] = group_data[group]
-                col_start += cols_per_group
+                col_start += multiplier
             data[medium] = medium_data[medium]
 
     def import_74(self, sheet_data):
@@ -1319,18 +1319,22 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         self._sheet_74_secondary_import(
             data=data_2015,
+            groups=['political participation', 'peace and security', 'economic participation'],
             medium='print, radio, television',
             col_start=3,
             end_index=11,
             cols_per_group=3,
+            multiplier=3,
         )
 
         self._sheet_74_secondary_import(
             data=data_2015,
             medium='internet, twitter',
+            groups=['political participation', 'peace and security', 'economic participation'],
             col_start=14,
             end_index=22,
             cols_per_group=3,
+            multiplier=3
         )
 
         return all_data
@@ -1341,18 +1345,22 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         self._sheet_74_secondary_import(
             data=data_2015,
+            groups=['political participation', 'peace and security', 'economic participation'],
             medium='print, radio, television',
             col_start=3,
             end_index=17,
             cols_per_group=5,
+            multiplier=5
         )
 
         self._sheet_74_secondary_import(
             data=data_2015,
+            groups=['political participation', 'peace and security', 'economic participation'],
             medium='internet, twitter',
             col_start=20,
             end_index=34,
             cols_per_group=5,
+            multiplier=5
         )
 
         return all_data
@@ -1363,18 +1371,22 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         self._sheet_74_secondary_import(
             data=data_2015,
+            groups=['political participation', 'peace and security', 'economic participation'],
             medium='print, radio, television',
             col_start=3,
             end_index=11,
             cols_per_group=3,
+            multiplier=3
         )
 
         self._sheet_74_secondary_import(
             data=data_2015,
+            groups=['political participation', 'peace and security', 'economic participation'],
             medium='internet, twitter',
             col_start=14,
             end_index=22,
             cols_per_group=3,
+            multiplier=3
         )
 
         return all_data
@@ -1990,6 +2002,63 @@ class GMMP2015ReportImporter(BaseReportImporter):
             row_start=7,
             row_end=120,
             row_heading_col=2,
+        )
+
+        return all_data
+
+    def _secondary_import_s17(self, data, medium, col_start, end_index):
+        groups = ['reporter', 'subjects']
+        medium_data = {}
+        medium_data[medium] = {}
+        while col_start < end_index:
+            for group in groups:
+                group_data = {}
+                self.slurp_secondary_col_table(
+                    self.ws,
+                    group_data,
+                    col_start=col_start,
+                    cols=2,
+                    cols_per_group=2,
+                    major_col_heading_row=7,
+                    row_start=9,
+                    row_end=122,
+                    row_heading_col=2,
+                )
+                medium_data[medium][group] = group_data
+                col_start += 4
+            data[medium] = medium_data[medium]
+
+    def import_s17(self, sheet_data):
+        data_2015 = {}
+        all_data = {2015: data_2015}
+
+        self._secondary_import_s17(
+            data=data_2015,
+            medium='internet',
+            col_start=3,
+            end_index=11,
+        )
+
+        n_data_2015 = {}
+        data_2015['internet']['n'] = n_data_2015
+        for col_start, col_end, row_start, row_end, col_heading_row in [
+            (11, 11, 9, 122, 7),
+        ]:
+            self.slurp_table(
+                self.ws,
+                n_data_2015,
+                col_start=col_start,
+                col_end=col_end,
+                row_start=row_start,
+                row_end=row_end,
+                col_heading_row=col_heading_row,
+            )
+
+        self._secondary_import_s17(
+            data=data_2015,
+            medium='twitter',
+            col_start=23,
+            end_index=30,
         )
 
         return all_data

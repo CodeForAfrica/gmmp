@@ -1624,14 +1624,21 @@ WS_INFO = {
     #         'reports': ['global'],
     #     },
     # },
-    # 'ws_s17': {
-    #     '2010': {
-    #         'name': 's17',
-    #         'title': 'Internet, Twitter - Sex of reporters and news subjects',
-    #         'desc': 'Internet, Twitter - Sex of reporters and news subjects',
-    #         'reports': ['global'],
-    #     },
-    # },
+    'ws_s17': {
+        '2015': {
+            'name': 's17',
+            'title': 'Internet, Twitter - Sex of reporters and news subjects',
+            'desc': 'Internet, Twitter - Sex of reporters and news subjects',
+            'reports': ['global'],
+            'historical': 's17',
+        },
+        '2010': {
+            'name': 's17',
+            'title': 'Internet, Twitter - Sex of reporters and news subjects',
+            'desc': 'Internet, Twitter - Sex of reporters and news subjects',
+            'reports': ['global'],
+        },
+    },
     # 'ws_s18': {
     #     '2015': {
     #         'name': 's18',
