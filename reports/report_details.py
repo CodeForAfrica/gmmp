@@ -447,8 +447,8 @@ WS_INFO = {
     'ws_34': {
         '2015': {
             'name': '34',
-            'title': 'Breakdown of News Subject (sex of source) selection by female & male reporters',
-            'desc': 'Selection of News Subject (sex of source, in rows) by female & male reporters (in columns)',
+            'title': 'Selection of News Subject (sex of source, in rows) by female & male reporters (in columns)',
+            'desc': 'Breakdown of News Subject (sex of source) selection by female & male reporters',
             'reports': ['global', 'region', 'country'],
             'historical': '34',
         },
