@@ -1624,21 +1624,21 @@ WS_INFO = {
     #         'reports': ['global'],
     #     },
     # },
-    'ws_s17': {
-        '2015': {
-            'name': 's17',
-            'title': 'Internet, Twitter - Sex of reporters and news subjects',
-            'desc': 'Internet, Twitter - Sex of reporters and news subjects',
-            'reports': ['global'],
-            'historical': 's17',
-        },
-        '2010': {
-            'name': 's17',
-            'title': 'Internet, Twitter - Sex of reporters and news subjects',
-            'desc': 'Internet, Twitter - Sex of reporters and news subjects',
-            'reports': ['global'],
-        },
-    },
+    # 'ws_s17': {
+    #     '2015': {
+    #         'name': 's17',
+    #         'title': 'Internet, Twitter - Sex of reporters and news subjects',
+    #         'desc': 'Internet, Twitter - Sex of reporters and news subjects',
+    #         'reports': ['global'],
+    #         'historical': 's17',
+    #     },
+    #     '2010': {
+    #         'name': 's17',
+    #         'title': 'Internet, Twitter - Sex of reporters and news subjects',
+    #         'desc': 'Internet, Twitter - Sex of reporters and news subjects',
+    #         'reports': ['global'],
+    #     },
+    # },
     # 'ws_s18': {
     #     '2015': {
     #         'name': 's18',
@@ -1654,14 +1654,21 @@ WS_INFO = {
     #         'reports': ['global'],
     #     },
     # },
-    # 'ws_s19': {
-    #     '2010': {
-    #         'name': 's19',
-    #         'title': 'Internet, Twitter - News subjects in major topic areas',
-    #         'desc': 'Internet, Twitter - News subjects in major topic areas',
-    #         'reports': ['global'],
-    #     },
-    # },
+    'ws_s19': {
+        '2015': {
+            'name': 's19',
+            'title': 'Internet, Twitter - News subjects in major topic areas',
+            'desc': 'Internet, Twitter - News subjects in major topic areas',
+            'reports': ['global'],
+            'historical': 's19',
+        },
+        '2010': {
+            'name': 's19',
+            'title': 'Internet, Twitter - News subjects in major topic areas',
+            'desc': 'Internet, Twitter - News subjects in major topic areas',
+            'reports': ['global'],
+        },
+    },
     # 'ws_s20': {
     #     '2010': {
     #         'name': 's20',
