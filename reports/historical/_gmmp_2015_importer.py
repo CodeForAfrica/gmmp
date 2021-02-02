@@ -199,34 +199,18 @@ class GMMP2015ReportImporter(BaseReportImporter):
         )
 
     def import_10(self, sheet_info):
-        all_data = {}
-        data = {}
-        all_data[2015] = data
-        self.slurp_table(
-            self.ws,
-            data,
-            col_start=3,
-            col_end=7,
-            row_start=7,
-            row_end=13
+        return self.import_grid(
+            [
+                (2015, 3, 7, 7, 13),
+            ]
         )
-
-        return all_data
 
     def import_11(self, sheet_info):
-        all_data = {}
-        data = {}
-        all_data[2015] = data
-        self.slurp_table(
-            self.ws,
-            data,
-            col_start=3,
-            col_end=5,
-            row_start=7,
-            row_end=13
+        return self.import_grid(
+            [
+                (2015, 3, 5, 7, 13),
+            ]
         )
-
-        return all_data
 
     def import_14(self, sheet_info):
         return self.import_grid(
@@ -274,8 +258,96 @@ class GMMP2015ReportImporter(BaseReportImporter):
         return self.import_grid(
             [
                 (2015, 3, 4, 7, 8),
-                (2010, 9, 10, 7, 8),
-                (2005, 7, 8, 7, 8),
-                (2000, 5, 6, 7, 8),
+                (2010, 10, 11, 7, 8),
+                (2005, 8, 9, 7, 8),
+                (2000, 6, 7, 7, 8),
+            ]
+        )
+
+    def import_27(self, sheet_info):
+        return self.import_grid(
+            [
+                (2015, 3, 4, 7, 9),
+                (2010, 10, 12, 7, 9),
+                (2005, 8, 9, 7, 9),
+                (2000, 6, 7, 7, 9),
+            ]
+        )
+
+    def import_31(self, sheet_info):
+        return self.import_grid(
+            [
+                (2015, 3, 4, 7, 61),
+                (2010, 6, 6, 7, 61),
+            ]
+        )
+
+    def import_34(self, sheet_info):
+        return self.import_grid(
+            [
+                (2015, 3, 5, 7, 10),
+                (2010, 9, 9, 7, 10),
+                (2005, 8, 8, 7, 10),
+                (2000, 7, 7, 7, 10),
+            ]
+        )
+
+    def import_36(self, sheet_info):
+        return self.import_grid(
+            [
+                (2015, 3, 4, 7, 8),
+                (2010, 8, 10, 7, 8),
+                (2005, 6, 7, 7, 8),
+            ]
+        )
+
+    def import_38(self, sheet_info):
+        return self.import_grid(
+            [
+                (2015, 3, 5, 7, 13),
+            ]
+        )
+
+    def import_39(self, sheet_info):
+        return self.import_grid(
+            [
+                (2015, 3, 4, 7, 61),
+                (2010, 6, 7, 7, 61),
+            ]
+        )
+
+    def import_45(self, sheet_info):
+        return self.import_grid(
+            [
+                (2015, 3, 5, 7, 14),
+                (2010, 6, 9, 7, 14),
+            ]
+        )
+
+    def import_47(self, sheet_info):
+        return self.import_grid(
+            [
+                (2015, 3, 7, 7, 13),
+            ]
+        )
+
+    def import_49(self, sheet_info):
+        return self.import_grid(
+            [
+                (2015, 3, 10, 7, 14),
+            ]
+        )
+
+    def import_50(self, sheet_info):
+        return self.import_grid(
+            [
+                (2015, 3, 10, 7, 120),
+            ]
+        )
+
+    def import_51(self, sheet_info):
+        return self.import_grid(
+            [
+                (2015, 3, 10, 7, 120),
             ]
         )

@@ -80,7 +80,7 @@ WS_INFO = {
         '2015': {
             'name': '2',
             'title': 'Participating Countries in each Region',
-            'desc': 'Breakdown of all media by country',
+            'desc': 'Breakdown of all media by region by country',
             'reports': ['global', 'region'],
             'historical': '2',
         },
@@ -95,8 +95,8 @@ WS_INFO = {
     'ws_03': {
         '2015': {
             'name': '3',
-            'title': 'Counts of media monitored',
-            'desc': 'Total number of distinct media monitored',
+            'title': 'Increase in media monitored 1995 - 2015',
+            'desc': 'Percentage change in media monitored since the 1st GMMP',
             'reports': ['global'],
             'historical': '3'
         },
@@ -121,8 +121,8 @@ WS_INFO = {
         '2015': {
             'name': '5',
             'historical': '5',
-            'title': 'Summary of women in the news, by GMMP year',
-            'desc': 'Overall presence of women in news',
+            'title': 'Overall presence of women in news 1995-2015',
+            'desc': 'Summary of news subjects, by sex, by GMMP year',
             'reports': ['global', 'region', 'country'],
         },
         '2010': {
@@ -162,7 +162,7 @@ WS_INFO = {
         '2015': {
             'name': '8',
             'title': 'Sex of news subjects (sources) inlocal,national,sub-regional/regional, foreign/intnl news',
-            'desc': 'Breakdown by sex local,national,sub-regional/regional, intnl news',
+            'desc': 'B.down by sex local,national,intnl etc',
             'reports': ['global', 'region', 'country'],
             'historical': '8',
         },
@@ -177,8 +177,8 @@ WS_INFO = {
     'ws_09': {
         '2015': {
             'name': '9',
-            'title': 'Sex of news subjects in different story topics',
-            'desc': 'Breakdown of topic by sex',
+            'title': 'Sex of news subjects in different story topics by GMMP year',
+            'desc': 'B.down by sex & topic by GMMP year',
             'reports': ['global', 'region'],
             'historical': '9',
         },
@@ -194,7 +194,7 @@ WS_INFO = {
         '2015': {
             'name': '10',
             'title': 'Space allocated to major topics in Newspapers',
-            'desc': 'Breakdown by major topic by space (q.4) in newspapers',
+            'desc': '',
             'reports': ['global', 'region', 'country'],
             'historical': '10',
         },
@@ -209,7 +209,7 @@ WS_INFO = {
         '2015': {
             'name': '11',
             'title': 'Stories making reference to issues of gender equality/inequality, legislation, policy by major topic',
-            'desc': 'Breakdown by major topic by reference to gender equality/human rights/policy',
+            'desc': 'Reference to gender equality/women\'s rights policy/legislation by topic',
             'reports': ['global', 'region', 'country'],
             'historical': '11',
         },
@@ -239,8 +239,8 @@ WS_INFO = {
     'ws_14': {
         '2015': {
             'name': '14',
-            'title': 'Position or occupation of news sources, by sex',
-            'desc': 'Breakdown of new sources by occupation and sex',
+            'title': 'Position or Occupation of News Subjects, by sex',
+            'desc': 'B.down by sex and occupation',
             'reports': ['global', 'region', 'country'],
             'historical': '14',
         },
@@ -256,7 +256,7 @@ WS_INFO = {
         '2015': {
             'name': '15',
             'title': 'News subject\'s Function in news story, by sex',
-            'desc': 'Breakdown by sex and function',
+            'desc': 'B.down by sex and function',
             'reports': ['global', 'region', 'country'],
             'historical': '15',
         },
@@ -341,8 +341,8 @@ WS_INFO = {
     'ws_24': {
         '2015': {
             'name': '24',
-            'title': 'Breakdown by family status, by sex.',
-            'desc': 'News subjects who are identified by family status, by sex',
+            'title': 'News subjects who are identified by family status, by sex',
+            'desc': 'B.down by sex, family status',
             'reports': ['global', 'region', 'country'],
             'historical': '24',
         },
@@ -366,8 +366,8 @@ WS_INFO = {
     'ws_26': {
         '2015': {
             'name': '26',
-            'title': 'Breakdown of  news subjects quoted, by sex',
-            'desc': 'News subjects quoted, by sex',
+            'title': 'News subjects quoted, by sex',
+            'desc': 'B.down of  news subjects quoted, by sex',
             'reports': ['global', 'region', 'country'],
             'historical': '26',
         },
@@ -380,6 +380,13 @@ WS_INFO = {
         },
     },
     'ws_27': {
+        '2015': {
+            'name': '27',
+            'title': 'News subjects photographed, by sex',
+            'desc': 'B.down of News subjects photographed, by sex',
+            'reports': ['global', 'region', 'country'],
+            'historical': '27',
+        },
         '2010': {
             'name': '27',
             'title': 'Breakdown of News subjects photographed, by sex',
@@ -414,6 +421,13 @@ WS_INFO = {
         },
     },
     'ws_31': {
+        '2015': {
+            'name': '31',
+            'title': 'Reporters, by sex on different topics - Detail',
+            'desc': 'B.down of Reporters, by sex on different topics - Detail',
+            'reports': ['global'],
+            'historical': '31',
+        },
         '2010': {
             'name': '31',
             'title': 'Breakdown of Reporters, by sex on different topics - Detail',
@@ -431,6 +445,13 @@ WS_INFO = {
         },
     },
     'ws_34': {
+        '2015': {
+            'name': '34',
+            'title': 'Selection of News Subject (sex of source, in rows) by female & male reporters (in columns)',
+            'desc': 'Breakdown of News Subject (sex of source) selection by female & male reporters',
+            'reports': ['global', 'region', 'country'],
+            'historical': '34',
+        },
         '2010': {
             'name': '34',
             'title': 'Breakdown of News Subject (sex of source) selection by female & male reporters',
@@ -449,6 +470,13 @@ WS_INFO = {
         },
     },
     'ws_36': {
+        '2015': {
+            'name': '36',
+            'title': 'Stories with Women as central focus  by sex of reporter',
+            'desc': 'B.down of Stories with Women as central focus  by sex of reporter',
+            'reports': ['global', 'region', 'country'],
+            'historical': '36',
+        },
         '2010': {
             'name': '36',
             'title': 'Breakdown of Stories with Women as central focus (is this story about a particular woman or women) by sex of reporter',
@@ -458,6 +486,13 @@ WS_INFO = {
         },
     },
     'ws_38': {
+        '2015': {
+            'name': '38',
+            'title': 'Stories with Women as a central Focus by major topic',
+            'desc': 'B.down of Stories with Women as a central Focus by topic',
+            'reports': ['global', 'region', 'country'],
+            'historical': '38',
+        },
         '2010': {
             'name': '38',
             'title': 'Breakdown of Stories with Women as a central Focus by major topic',
@@ -466,6 +501,13 @@ WS_INFO = {
         },
     },
     'ws_39': {
+        '2015': {
+            'name': '39',
+            'title': 'Stories with Women as a central Focus by minor topic',
+            'desc': 'B.down of Stories with Women as a central Focus by topic - details',
+            'reports': ['global'],
+            'historical': '39',
+        },
         '2010': {
             'name': '39',
             'title': 'Breakdown of Stories with Women as a central Focus by minor topic',
@@ -518,6 +560,13 @@ WS_INFO = {
         },
     },
     'ws_45': {
+        '2015': {
+            'name': '45',
+            'title': "Stories where issues of gender equality/inequality are raised by sex of 'people in the news' and by region",
+            'desc': "B.down of Stories where issues of gender equality/inequality are raised by sex of 'people in the news' and by region",
+            'reports': ['global', 'region'],
+            'historical': '45',
+        },
         '2010': {
             'name': '45',
             'title': 'Stories where issues of gender equality/inequality are raised by sex of \'people in the news\' and by region',
@@ -535,6 +584,13 @@ WS_INFO = {
         },
     },
     'ws_47': {
+        '2015': {
+            'name': '47',
+            'title': 'Stories where stereotypes are challenged/ supported by region',
+            'desc': 'B.down of  Stories where stereotypes are challenged/ supported by region',
+            'reports': ['global', 'region', 'country'],
+            'historical': '47',
+        },
         '2010': {
             'name': '47',
             'title': 'Story clearly challenges gender stereotypes by major topic',
@@ -551,6 +607,13 @@ WS_INFO = {
         },
     },
     'ws_49': {
+        '2015': {
+            'name': '49',
+            'title': 'Internet - Main topics by region',
+            'desc': 'B.down of main topics in internet news by sex of news subjects',
+            'reports': ['global', 'region'],
+            'historical': '49',
+        },
         '2010': {
             'name': '49',
             'title': 'Internet - Main topics by region',
@@ -559,6 +622,13 @@ WS_INFO = {
         },
     },
     'ws_50': {
+        '2015': {
+            'name': '50',
+            'title': 'Internet - Story shared on Twitter',
+            'desc': '',
+            'reports': ['global', 'country'],
+            'historical': '50',
+        },
         '2010': {
             'name': '50',
             'title': 'Internet - Story shared on Twitter',
@@ -567,6 +637,13 @@ WS_INFO = {
         },
     },
     'ws_51': {
+        '2015': {
+            'name': '51',
+            'title': 'Internet - Story shared on Facebook',
+            'desc': '',
+            'reports': ['global', 'country'],
+            'historical': '51',
+        },
         '2010': {
             'name': '51',
             'title': 'Internet - Story shared on Facebook',
