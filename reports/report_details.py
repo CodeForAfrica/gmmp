@@ -383,7 +383,7 @@ WS_INFO = {
         '2015': {
             'name': '27',
             'title': 'News subjects photographed, by sex',
-            'desc': 'B.down of  News subjects photographed, by sex',
+            'desc': 'B.down of News subjects photographed, by sex',
             'reports': ['global', 'region', 'country'],
             'historical': '27',
         },
