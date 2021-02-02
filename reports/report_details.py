@@ -342,7 +342,7 @@ WS_INFO = {
         '2015': {
             'name': '24',
             'title': 'News subjects who are identified by family status, by sex',
-            'desc': 'B.down by sex, family status, show N & %',
+            'desc': 'B.down by sex, family status,
             'reports': ['global', 'region', 'country'],
             'historical': '24',
         },
