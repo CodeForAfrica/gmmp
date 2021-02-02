@@ -611,7 +611,7 @@ WS_INFO = {
             'name': '49',
             'title': 'Internet - Main topics by region',
             'desc': 'B.down of main topics in internet news by sex of news subjects',
-            'reports': ['global', 'region', 'country'],
+            'reports': ['global', 'region'],
             'historical': '49',
         },
         '2010': {
