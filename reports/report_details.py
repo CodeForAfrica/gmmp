@@ -687,7 +687,7 @@ WS_INFO = {
             'name': '55',
             'title': 'Internet - Occupation of Female news subjects',
             'desc': 'B.down Internet - Occupation and function by sex of News Subjects',
-            'reports': ['global'],
+            'reports': ['global', 'region', 'country'],
             'historical': '55',
         },
         '2010': {
