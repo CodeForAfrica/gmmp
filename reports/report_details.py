@@ -1669,29 +1669,36 @@ WS_INFO = {
     #         'reports': ['global'],
     #     },
     # },
-    'ws_s20': {
-        '2015': {
-            'name': 's20',
-            'title': 'Internet - News subjects in major occupational groups',
-            'desc': 'Internet - News subjects in major occupational groups',
-            'reports': ['global'],
-            'historical': 's20',
-        },
-        '2010': {
-            'name': 's20',
-            'title': 'Internet - News subjects in major occupational groups',
-            'desc': 'Internet - News subjects in major occupational groups',
-            'reports': ['global'],
-        },
-    },
-    # 'ws_s21': {
+    # 'ws_s20': {
+    #     '2015': {
+    #         'name': 's20',
+    #         'title': 'Internet - News subjects in major occupational groups',
+    #         'desc': 'Internet - News subjects in major occupational groups',
+    #         'reports': ['global'],
+    #         'historical': 's20',
+    #     },
     #     '2010': {
-    #         'name': 's21',
-    #         'title': 'Internet - Function of news subjects',
-    #         'desc': 'Internet - Function of news subjects',
+    #         'name': 's20',
+    #         'title': 'Internet - News subjects in major occupational groups',
+    #         'desc': 'Internet - News subjects in major occupational groups',
     #         'reports': ['global'],
     #     },
     # },
+    'ws_s21': {
+        '2015': {
+            'name': 's21',
+            'title': 'Internet - Function of news subjects',
+            'desc': 'Internet - Function of news subjects',
+            'reports': ['global'],
+            'historical': 's21',
+        },
+        '2010': {
+            'name': 's21',
+            'title': 'Internet - Function of news subjects',
+            'desc': 'Internet - Function of news subjects',
+            'reports': ['global'],
+        },
+    },
     # 'ws_s22': {
     #     '2010': {
     #         'name': 's22',
