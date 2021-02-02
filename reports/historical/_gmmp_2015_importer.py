@@ -2139,6 +2139,48 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         return all_data
 
+    def import_s20(self, sheet_data):
+        data_2015 = {}
+        all_data = {2015: data_2015}
+
+        groups = [
+            'not stated', 'royalty, monarch, deposed monarch, etc.',
+            'government, politician, minister, spokesperson...', 'government employee, public servant, etc.',
+            'police, military, para-military, militia, fire officer', 'academic expert, lecturer, teacher',
+            'doctor, dentist, health specialist', 'health worker, social worker, childcare worker',
+            'science/technology professional, engineer, etc.', 'media professional, journalist, film-maker, etc.',
+            'lawyer, judge, magistrate, legal advocate, etc.', 'business person, exec, manager, stock broker...',
+            'office or service worker, non-management worker', 'tradesperson, artisan, labourer, truck driver, etc.',
+            'agriculture, mining, fishing, forestry', 'religious figure, priest, monk, rabbi, mullah, nun',
+            'activist or worker in civil society org., ngo, trade union', 'sex worker',
+            'celebrity, artist, actor, writer, singer, tv personality', 'sportsperson, athlete, player, coach, referee',
+            'student, pupil, schoolchild', ') only if no other occupation is given e.g. doctor/mother=code 6',
+            'child, young person no other occupation given', 'villager or resident no other occupation given',
+            'retired person, pensioner no other occupation given', 'criminal, suspect no other occupation given',
+            'unemployed no other occupation given', 'other only as last resort & explain',
+        ]
+
+        data_2015['internet'] = {}
+        col_start, end_index = 3, 114
+        while col_start < end_index:
+            for group in groups:
+                group_data = {}
+                self.slurp_secondary_col_table(
+                    self.ws,
+                    group_data,
+                    col_start=col_start,
+                    cols=2,
+                    cols_per_group=2,
+                    major_col_heading_row=7,
+                    row_start=9,
+                    row_end=122,
+                    row_heading_col=2,
+                )
+                data_2015['internet'][group] = group_data
+                col_start += 4
+
+        return all_data
+
     def import_s26(self, sheet_info):
         data = {}
         all_data = {self.year: data}

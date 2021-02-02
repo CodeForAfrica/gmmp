@@ -1654,29 +1654,36 @@ WS_INFO = {
     #         'reports': ['global'],
     #     },
     # },
-    'ws_s19': {
-        '2015': {
-            'name': 's19',
-            'title': 'Internet, Twitter - News subjects in major topic areas',
-            'desc': 'Internet, Twitter - News subjects in major topic areas',
-            'reports': ['global'],
-            'historical': 's19',
-        },
-        '2010': {
-            'name': 's19',
-            'title': 'Internet, Twitter - News subjects in major topic areas',
-            'desc': 'Internet, Twitter - News subjects in major topic areas',
-            'reports': ['global'],
-        },
-    },
-    # 'ws_s20': {
+    # 'ws_s19': {
+    #     '2015': {
+    #         'name': 's19',
+    #         'title': 'Internet, Twitter - News subjects in major topic areas',
+    #         'desc': 'Internet, Twitter - News subjects in major topic areas',
+    #         'reports': ['global'],
+    #         'historical': 's19',
+    #     },
     #     '2010': {
-    #         'name': 's20',
-    #         'title': 'Internet - News subjects in major occupational groups',
-    #         'desc': 'Internet - News subjects in major occupational groups',
+    #         'name': 's19',
+    #         'title': 'Internet, Twitter - News subjects in major topic areas',
+    #         'desc': 'Internet, Twitter - News subjects in major topic areas',
     #         'reports': ['global'],
     #     },
     # },
+    'ws_s20': {
+        '2015': {
+            'name': 's20',
+            'title': 'Internet - News subjects in major occupational groups',
+            'desc': 'Internet - News subjects in major occupational groups',
+            'reports': ['global'],
+            'historical': 's20',
+        },
+        '2010': {
+            'name': 's20',
+            'title': 'Internet - News subjects in major occupational groups',
+            'desc': 'Internet - News subjects in major occupational groups',
+            'reports': ['global'],
+        },
+    },
     # 'ws_s21': {
     #     '2010': {
     #         'name': 's21',
