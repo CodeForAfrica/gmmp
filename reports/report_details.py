@@ -240,7 +240,7 @@ WS_INFO = {
         '2015': {
             'name': '14',
             'title': 'Position or Occupation of News Subjects, by sex',
-            'desc': 'B.down by sex and occupation, show N &%',
+            'desc': 'B.down by sex and occupation',
             'reports': ['global', 'region', 'country'],
             'historical': '14',
         },
