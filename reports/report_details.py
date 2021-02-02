@@ -146,7 +146,7 @@ WS_INFO = {
         '2015': {
             'name': '7',
             'title': 'Women in the news (sources) by medium',
-            'desc': 'Breakdown by sex of all 3 mediums (ADD INTERNET AND TWITTER)',
+            'desc': 'Breakdown by sex of all mediums',
             'reports': ['global', 'region', 'country'],
             'historical': '7',
         },
