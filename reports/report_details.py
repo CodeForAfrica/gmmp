@@ -652,6 +652,13 @@ WS_INFO = {
         },
     },
     'ws_52': {
+        '2015': {
+            'name': '52',
+            'title': 'Internet - Reference to gender equality/HR policies',
+            'desc': '',
+            'reports': ['global', 'country'],
+            'historical': '52',
+        },
         '2010': {
             'name': '52',
             'title': 'Internet - Reference to gender equality/HR policies',
@@ -676,6 +683,13 @@ WS_INFO = {
         },
     },
     'ws_55': {
+        '2015': {
+            'name': '55',
+            'title': 'Internet - Occupation of Female news subjects',
+            'desc': 'B.down Internet - Occupation and function by sex of News Subjects',
+            'reports': ['global', 'region', 'country'],
+            'historical': '55',
+        },
         '2010': {
             'name': '55',
             'title': 'Internet - Occupation of Female news subjects',
@@ -684,6 +698,13 @@ WS_INFO = {
         },
     },
     'ws_56': {
+        '2015': {
+            'name': '56',
+            'title': 'Internet - Functions of news subjects',
+            'desc': 'Internet - Functions of news subjects',
+            'reports': ['global', 'region', 'country'],
+            'historical': '56',
+        },
         '2010': {
             'name': '56',
             'title': 'Internet - Functions of news subjects',
@@ -709,6 +730,13 @@ WS_INFO = {
         },
     },
     'ws_59': {
+        '2015': {
+            'name': '59',
+            'title': 'Internet - Selection of News Subjects',
+            'desc': 'Internet - Selection of News Subject(sex of source)  by female & male reporters',
+            'reports': ['global', 'country'],
+            'historical': '59',
+        },
         '2010': {
             'name': '59',
             'title': 'Internet - Selection of News Subjects',
@@ -773,6 +801,13 @@ WS_INFO = {
         },
     },
     'ws_67': {
+        '2015': {
+            'name': '67',
+            'title': 'Twitter - Female reporters & journalists',
+            'desc': '',
+            'reports': ['global', 'region', 'country'],
+            'historical': '67',
+        },
         '2010': {
             'name': '67',
             'title': 'Twitter - Female reporters & journalists',
@@ -821,6 +856,13 @@ WS_INFO = {
         },
     },
     'ws_73': {
+        '2015': {
+            'name': '73',
+            'title': 'Key themes, selection of sources by sex of reporter',
+            'desc': '',
+            'reports': ['global', 'region', 'country'],
+            'historical': '73',
+        },
         '2010': {
             'name': '73',
             'title': 'Key themes, selection of sources by sex of reporter',
@@ -1109,6 +1151,13 @@ WS_INFO = {
         },
     },
     'ws_s12': {
+        '2015': {
+            'name': 's12',
+            'title': 'Topics in stories where women are central to the news',
+            'desc': 'Topics in stories where women are central to the news',
+            'reports': ['global'],
+            'historical': 's12',
+        },
         '2010': {
             'name': 's12',
             'title': 'Topics in stories where women are central to the news',
@@ -1221,6 +1270,13 @@ WS_INFO = {
         },
     },
     'ws_s26': {
+        '2015': {
+            'name': 's26',
+            'title': 'Internet, Twitter - Topics in stories where women are central to the news',
+            'desc': 'Internet, Twitter - Topics in stories where women are central to the news',
+            'reports': ['global'],
+            'historical': 's26',
+        },
         '2010': {
             'name': 's26',
             'title': 'Internet, Twitter - Topics in stories where women are central to the news',
@@ -1229,6 +1285,13 @@ WS_INFO = {
         },
     },
     'ws_s27': {
+        '2015': {
+            'name': 's27',
+            'title': 'Internet, Twitter - Stories that clearly challenge stereotypes',
+            'desc': 'Internet, Twitter - Stories that clearly challenge stereotypes',
+            'reports': ['global'],
+            'historical': 's27',
+        },
         '2010': {
             'name': 's27',
             'title': 'Internet, Twitter - Stories that clearly challenge stereotypes',
@@ -1293,6 +1356,13 @@ WS_INFO = {
         },
     },
     'ws_sr08': {
+        '2015': {
+            'name': 'sr08',
+            'title': 'Stories where women are central to the news, by region',
+            'desc': 'Stories where women are central to the news, by region',
+            'reports': ['global'],
+            'historical': 'sr08',
+        },
         '2010': {
             'name': 'sr08',
             'title': 'Stories where women are central to the news, by region',

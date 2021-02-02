@@ -351,3 +351,73 @@ class GMMP2015ReportImporter(BaseReportImporter):
                 (2015, 3, 10, 7, 120),
             ]
         )
+
+    def import_52(self, sheet_info):
+        return self.import_grid(
+            [
+                (2015, 3, 10, 7, 120),
+            ]
+        )
+
+    def import_55(self, sheet_info):
+        return self.import_grid(
+            [
+                (2015, 3, 31, 7, 120),
+            ]
+        )
+
+    def import_56(self, sheet_info):
+        return self.import_grid(
+            [
+                (2015, 3, 11, 7, 120),
+            ]
+        )
+
+    def import_59(self, sheet_info):
+        return self.import_grid(
+            [
+                (2015, 3, 6, 7, 10),
+            ]
+        )
+
+    def import_67(self, sheet_info):
+        return self.import_grid(
+            [
+                (2015, 3, 10, 7, 120),
+            ]
+        )
+
+    def import_73(self, sheet_info):
+        return self.import_grid(
+            [
+                (2015, 3, 4, 7, 9),
+            ]
+        )
+
+    def import_s12(self, sheet_info):
+        return self.import_grid(
+            [
+                (2015, 3, 9, 7, 120),
+            ]
+        )
+
+    def import_s26(self, sheet_info):
+        return self.import_grid(
+            [
+                (2015, 3, 18, 8, 121),
+            ]
+        )
+
+    def import_s27(self, sheet_info):
+        return self.import_grid(
+            [
+                (2015, 3, 12, 8, 121),
+            ]
+        )
+
+    def import_sr08(self, sheet_info):
+        return self.import_grid(
+            [
+                (2015, 3, 9, 7, 15),
+            ]
+        )
