@@ -535,6 +535,13 @@ WS_INFO = {
         },
     },
     'ws_42': {
+        '2015': {
+            'name': '42',
+            'title': 'Stories where issues of gender equality/inequality are raised by region',
+            'desc': '',
+            'reports': ['global'],
+            'historical': '42',
+        },
         '2010': {
             'name': '42',
             'title': 'Breakdown of Stories where issues of gender equality/inequality are raised by region',
@@ -543,6 +550,13 @@ WS_INFO = {
         },
     },
     'ws_43': {
+        '2015': {
+            'name': '43',
+            'title': 'Stories where issues of gender equality/inequality are raised by sex of reporter',
+            'desc': '',
+            'reports': ['global', 'region', 'country'],
+            'historical': '43',
+        },
         '2010': {
             'name': '43',
             'title': 'Breakdown of Stories where issues of gender equality/inequality are raised by sex of reporter',
@@ -551,6 +565,13 @@ WS_INFO = {
         },
     },
     'ws_44': {
+        '2015': {
+            'name': '44',
+            'title': 'Stories where issues of gender equality/inequality are raised by sex of reporter and by region',
+            'desc': 'B.down of Stories where issues of gender equality/inequality are raised by sex of reporter and by region',
+            'reports': ['global', 'region'],
+            'historical': '44',
+        },
         '2010': {
             'name': '44',
             'title': 'Stories where issues of gender equality/inequality are raised by sex of reporter and by region',
@@ -576,6 +597,13 @@ WS_INFO = {
         },
     },
     'ws_46': {
+        '2015': {
+            'name': '46',
+            'title': 'Stories where stereotypes are challenged/ supported by news topic',
+            'desc': 'B.down of  Stories where stereotypes are challenged/ supported by news topic',
+            'reports': ['global'],
+            'historical': '46',
+        },
         '2010': {
             'name': '46',
             'title': 'Story clearly challenges gender stereotypes by region by major news topic',
@@ -667,6 +695,13 @@ WS_INFO = {
         },
     },
     'ws_53': {
+        '2015': {
+            'name': '53',
+            'title': 'Internet - Sex of reporters in main stories',
+            'desc': 'Internet - Sex of reporters in main stories',
+            'reports': ['global', 'region', 'country'],
+            'historical': '53',
+        },
         '2010': {
             'name': '53',
             'title': 'Internet - Female reporters in main stories',
@@ -675,6 +710,13 @@ WS_INFO = {
         },
     },
     'ws_54': {
+        '2015': {
+            'name': '54',
+            'title': 'Internet - Overall presence of women',
+            'desc': '',
+            'reports': ['global', 'region', 'country'],
+            'historical': '54',
+        },
         '2010': {
             'name': '54',
             'title': 'Internet - Overall presence of women',
@@ -951,6 +993,13 @@ WS_INFO = {
         },
     },
     'ws_84': {
+        '2015': {
+            'name': '84',
+            'title': 'Internet - Occupation of Female news subjects',
+            'desc': '',
+            'reports': ['global'],
+            'historical': '84',
+        },
         '2010': {
             'name': '84',
             'title': 'Internet - Occupation of Female news subjects',
@@ -959,6 +1008,13 @@ WS_INFO = {
         },
     },
     'ws_85': {
+        '2015': {
+            'name': '85',
+            'title': 'Internet - Functions of news subjects',
+            'desc': '',
+            'reports': ['global'],
+            'historical': '85',
+        },
         '2010': {
             'name': '85',
             'title': 'Internet - Functions of news subjects',
@@ -1174,6 +1230,13 @@ WS_INFO = {
         }
     },
     'ws_s14': {
+        '2015': {
+            'name': 's14',
+            'title': 'Stories that clearly challenge stereotypes',
+            'desc': 'Stories that clearly challenge stereotypes',
+            'reports': ['global'],
+            'historical': 's14',
+        },
         '2010': {
             'name': 's14',
             'title': 'Stories that clearly challenge stereotypes',
@@ -1182,6 +1245,13 @@ WS_INFO = {
         },
     },
     'ws_s15': {
+        '2015': {
+            'name': 's15',
+            'title': 'Stories that highlight gender equality or inequality',
+            'desc': 'Stories that highlight gender equality or inequality',
+            'reports': ['global'],
+            'historical': 's15',
+        },
         '2010': {
             'name': 's15',
             'title': 'Stories that highlight gender equality or inequality',
@@ -1190,6 +1260,13 @@ WS_INFO = {
         },
     },
     'ws_s16': {
+        '2015': {
+            'name': 's16',
+            'title': 'Stories that mention human rights or equality legislation and policies',
+            'desc': 'Stories that mention human rights or equality legislation and policies',
+            'reports': ['global'],
+            'historical': 's16',
+        },
         '2010': {
             'name': 's16',
             'title': 'Stories that mention human rights or equality legislation and policies',
@@ -1206,6 +1283,13 @@ WS_INFO = {
         },
     },
     'ws_s18': {
+        '2015': {
+            'name': 's18',
+            'title': 'Internet, Twitter - News subjects on Internet and Twitter news',
+            'desc': 'Internet, Twitter - News subjects on Internet and Twitter news',
+            'reports': ['global'],
+            'historical': 's18',
+        },
         '2010': {
             'name': 's18',
             'title': 'Internet, Twitter - News subjects on Internet and Twitter news',
@@ -1371,6 +1455,13 @@ WS_INFO = {
         }
     },
     'ws_sr09': {
+        '2015': {
+            'name': 'sr09',
+            'title': 'Stories where issues of gender (in)equality are raised, by region',
+            'desc': 'Stories where issues of gender (in)equality are raised, by region',
+            'reports': ['global'],
+            'historical': 'sr09',
+        },
         '2010': {
             'name': 'sr09',
             'title': 'Stories where issues of gender (in)equality are raised, by region',
@@ -1379,6 +1470,13 @@ WS_INFO = {
         },
     },
     'ws_sr10': {
+        '2015': {
+            'name': 'sr10',
+            'title': 'Stories that clearly challenge gender stereotypes, by region',
+            'desc': 'Stories that clearly challenge gender stereotypes, by region',
+            'reports': ['global'],
+            'historical': 'sr10'
+        },
         '2010': {
             'name': 'sr10',
             'title': 'Stories that clearly challenge gender stereotypes, by region',
