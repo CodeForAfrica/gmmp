@@ -996,7 +996,7 @@ WS_INFO = {
         '2015': {
             'name': '84',
             'title': 'Internet - Occupation of Female news subjects',
-            'desc': 'Internet - Occupation of Female news subjects',
+            'desc': '',
             'reports': ['global'],
             'historical': '84',
         },
