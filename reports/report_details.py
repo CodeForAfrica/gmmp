@@ -1011,7 +1011,7 @@ WS_INFO = {
         '2015': {
             'name': '85',
             'title': 'Internet - Functions of news subjects',
-            'desc': 'Internet - Functions of news subjects',
+            'desc': '',
             'reports': ['global'],
             'historical': '85',
         },
