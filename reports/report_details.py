@@ -113,7 +113,7 @@ WS_INFO = {
             'name': '4',
             'title': 'Topics in the news by region 1995-2015',
             'desc': 'Breakdown of news topics cluster areas by region by media type',
-            'reports': ['global', 'region'],
+            'reports': ['global', 'region', 'country'],
             'historical': '4',
         },
         '2010': {
