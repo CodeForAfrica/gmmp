@@ -1,16 +1,11 @@
 from .canon import canon
 from ._base_importer import BaseReportImporter
+from reports.report_details import get_regions
 
-CONTINENTS = [
-    'africa',
-    'asia',
-    'caribbean',
-    'europe',
-    'latin america',
-    'middle east',
-    'north america',
-    'pacific islands'
-]
+# The continents in the sheet do not include 'pacific' but the get_regions()
+# function returns a list of which include 'pacific' so we're excluding that from
+# the list to be consistent with the sheet data
+REGIONS = [region.lower() for _, region in get_regions() if region.lower() != 'pacific']
 
 
 class GMMP2015ReportImporter(BaseReportImporter):
@@ -129,7 +124,7 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         col_start, end_index = 3, 50
         while col_start < end_index:
-            for continent in CONTINENTS:
+            for continent in REGIONS:
                 continental_data = {}
                 self.slurp_secondary_col_table(
                     self.ws,
@@ -147,7 +142,7 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         col_start, end_index = 53, 84
         while col_start < end_index:
-            for continent in CONTINENTS:
+            for continent in REGIONS:
                 for medium in ['internet', 'twitter']:
                     medium_data = {}
                     self.slurp_secondary_col_table(
