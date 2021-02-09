@@ -2,6 +2,7 @@ from .canon import canon
 from ._base_importer import BaseReportImporter
 from reports.report_details import get_regions
 
+
 # The continents in the sheet do not include 'pacific' but the get_regions()
 # function returns a list of which include 'pacific' so we're excluding that from
 # the list to be consistent with the sheet data
@@ -224,6 +225,66 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         return all_data
 
+    def _sheet_6_secondary_import(self, data, medium, col_start, end_index):
+        medium_data = {}
+        medium_data[medium] = {}
+        while col_start < end_index:
+            for continent in REGIONS:
+                continental_data = {}
+                self.slurp_secondary_col_table(
+                    self.ws,
+                    continental_data,
+                    col_start=col_start,
+                    cols=1,
+                    cols_per_group=2,
+                    major_col_heading_row=7,
+                    row_start=9,
+                    row_end=15,
+                    row_heading_col=2,
+                )
+                medium_data[medium][continent] = continental_data
+                col_start += 2
+            data[medium] = medium_data[medium]
+
+    def import_6(self, sheet_data):
+        data_2015 = {}
+        all_data = {2015: data_2015}
+
+        self._sheet_6_secondary_import(
+            data=data_2015,
+            medium='print, radio, television',
+            col_start=3,
+            end_index=18,
+        )
+        self._sheet_6_secondary_import(
+            data=data_2015,
+            medium='internet, twitter',
+            col_start=21,
+            end_index=36,
+        )
+
+        data_2010 = {}
+        all_data[2010] = data_2010
+        col_start, end_index = 39, 54
+        while col_start < end_index:
+            for continent in REGIONS:
+                continental_data = {}
+                self.slurp_secondary_col_table(
+                    self.ws,
+                    continental_data,
+                    col_start=col_start,
+                    cols=1,
+                    cols_per_group=2,
+                    major_col_heading_row=7,
+                    row_start=9,
+                    row_end=15,
+                    row_heading_col=2,
+                )
+                data_2010[continent] = continental_data
+                col_start += 2
+
+        return all_data
+
     def import_7(self, sheet_info):
         all_data = {}
         for year, col_start, col_end, row_end in [
@@ -309,7 +370,6 @@ class GMMP2015ReportImporter(BaseReportImporter):
             row_end=14,
             row_heading_col=2,
         )
-
         return all_data
 
     def import_14(self, sheet_info):
@@ -544,6 +604,98 @@ class GMMP2015ReportImporter(BaseReportImporter):
             ]
         )
 
+    def import_28(self, sheet_info):
+        data_2015 = {}
+        all_data = {2015: data_2015}
+
+        mediums = ['print', 'radio', 'television']
+
+        col_start, end_index = 3, 14
+        while col_start <= end_index:
+            for medium in mediums:
+                medium_data = {}
+                self.slurp_secondary_col_table(
+                    self.ws,
+                    medium_data,
+                    col_start=col_start,
+                    cols=2,
+                    cols_per_group=2,
+                    major_col_heading_row=6,
+                    row_start=8,
+                    row_end=15,
+                    row_heading_col=2,
+                )
+                data_2015[medium] = medium_data
+                col_start += 4
+
+        for year, col_start, col_end, row_start, row_end, col_heading_row in [
+            (1995, 17, 17, 8, 15, 6),
+            (2000, 18, 18, 8, 15, 6),
+            (2005, 19, 19, 8, 15, 6),
+            (2010, 20, 21, 8, 15, 6),
+        ]:
+            data = {}
+            all_data[year] = data
+            self.slurp_table(
+                self.ws,
+                data,
+                col_start=col_start,
+                col_end=col_end,
+                row_start=row_start,
+                row_end=row_end,
+                col_heading_row=col_heading_row,
+            )
+
+        return all_data
+
+    def import_29(self, sheet_info):
+        data_2015 = {}
+        all_data = {2015: data_2015}
+
+        col_start, end_index = 3, 34
+        while col_start < end_index:
+            for continent in REGIONS:
+                continental_data = {}
+                self.slurp_secondary_col_table(
+                    self.ws,
+                    continental_data,
+                    col_start=col_start,
+                    cols=2,
+                    cols_per_group=2,
+                    major_col_heading_row=6,
+                    row_start=8,
+                    row_end=11,
+                    row_heading_col=2,
+                )
+                data_2015[continent] = continental_data
+                col_start += 4
+
+        return all_data
+
+    def import_30(self, sheet_info):
+        data_2015 = {}
+        all_data = {2015: data_2015}
+
+        col_start, end_index = 3, 34
+        while col_start < end_index:
+            for continent in REGIONS:
+                continental_data = {}
+                self.slurp_secondary_col_table(
+                    self.ws,
+                    continental_data,
+                    col_start=col_start,
+                    cols=2,
+                    cols_per_group=2,
+                    major_col_heading_row=6,
+                    row_start=8,
+                    row_end=14,
+                    row_heading_col=2,
+                )
+                data_2015[continent] = continental_data
+                col_start += 4
+
+        return all_data
+
     def import_31(self, sheet_info):
         return self.import_grid(
             [
@@ -551,6 +703,32 @@ class GMMP2015ReportImporter(BaseReportImporter):
                 (2010, 6, 6, 7, 61),
             ]
         )
+
+    def import_32(self, sheet_info):
+        data_2015 = {}
+        all_data = {2015: data_2015}
+
+        mediums = ['print', 'radio', 'television']
+
+        col_start, end_index = 3, 14
+        while col_start < end_index:
+            for medium in mediums:
+                medium_data = {}
+                self.slurp_secondary_col_table(
+                    self.ws,
+                    medium_data,
+                    col_start=col_start,
+                    cols=2,
+                    cols_per_group=2,
+                    major_col_heading_row=6,
+                    row_start=8,
+                    row_end=62,
+                    row_heading_col=2,
+                )
+                data_2015[medium] = medium_data
+                col_start += 4
+
+        return all_data
 
     def import_34(self, sheet_info):
         return self.import_grid(
@@ -747,6 +925,32 @@ class GMMP2015ReportImporter(BaseReportImporter):
             ]
         )
 
+    def import_48(self, sheet_info):
+        data_2015 = {}
+        all_data = {2015: data_2015}
+
+        genders = ['female', 'male']
+
+        col_start, end_index = 3, 18
+        while col_start < end_index:
+            for gender in genders:
+                gender_data = {}
+                self.slurp_secondary_col_table(
+                    self.ws,
+                    gender_data,
+                    col_start=col_start,
+                    cols=4,
+                    cols_per_group=2,
+                    major_col_heading_row=6,
+                    row_start=8,
+                    row_end=14,
+                    row_heading_col=2,
+                )
+                data_2015[gender] = gender_data
+                col_start += 8
+
+        return all_data
+
     def import_49(self, sheet_info):
         return self.import_grid(
             [
@@ -825,6 +1029,52 @@ class GMMP2015ReportImporter(BaseReportImporter):
             ]
         )
 
+    def import_57(self, sheet_info):
+        from .utils.countries.countries_for_57 import COUNTRIES
+        all_data = {}
+        for year, col_start, col_end in [
+            (2015, 3, 7),
+        ]:
+            data = {}
+            all_data[year] = data
+
+            for country, (row_start, row_end) in COUNTRIES.items():
+                country_data = {}
+                data[country] = country_data
+
+                self.slurp_table(
+                    self.ws,
+                    country_data,
+                    col_start=col_start,
+                    col_end=col_end,
+                    row_start=row_start,
+                    row_end=row_end,
+                )
+        return all_data
+
+    def import_58(self, sheet_info):
+        from .utils.countries.countries_for_58 import COUNTRIES
+        all_data = {}
+        for year, col_start, col_end in [
+            (2015, 3, 7),
+        ]:
+            data = {}
+            all_data[year] = data
+
+            for country, (row_start, row_end) in COUNTRIES.items():
+                country_data = {}
+                data[country] = country_data
+
+                self.slurp_table(
+                    self.ws,
+                    country_data,
+                    col_start=col_start,
+                    col_end=col_end,
+                    row_start=row_start,
+                    row_end=row_end,
+                )
+        return all_data
+
     def import_59(self, sheet_info):
         return self.import_grid(
             [
@@ -832,12 +1082,150 @@ class GMMP2015ReportImporter(BaseReportImporter):
             ]
         )
 
+    def import_60(self, sheet_info):
+        from .utils.countries.countries_for_60 import COUNTRIES
+        all_data = {}
+        for year, col_start, col_end in [
+            (2015, 3, 7),
+        ]:
+            data = {}
+            all_data[year] = data
+
+            for country, (row_start, row_end) in COUNTRIES.items():
+                country_data = {}
+                data[country] = country_data
+
+                self.slurp_table(
+                    self.ws,
+                    country_data,
+                    col_start=col_start,
+                    col_end=col_end,
+                    row_start=row_start,
+                    row_end=row_end,
+                )
+        return all_data
+
+    def import_61(self, sheet_info):
+        from .utils.countries.countries_for_57 import COUNTRIES
+        all_data = {}
+        for year, col_start, col_end in [
+            (2015, 3, 7),
+        ]:
+            data = {}
+            all_data[year] = data
+
+            for country, (row_start, row_end) in COUNTRIES.items():
+                country_data = {}
+                data[country] = country_data
+
+                self.slurp_table(
+                    self.ws,
+                    country_data,
+                    col_start=col_start,
+                    col_end=col_end,
+                    row_start=row_start,
+                    row_end=row_end,
+                )
+        return all_data
+
+    def import_65(self, sheet_info):
+        from .utils.countries.countries_for_57 import COUNTRIES
+        all_data = {}
+        for year, col_start, col_end in [
+            (2015, 3, 9),
+        ]:
+            data = {}
+            all_data[year] = data
+
+            for country, (row_start, row_end) in COUNTRIES.items():
+                country_data = {}
+                data[country] = country_data
+
+                self.slurp_table(
+                    self.ws,
+                    country_data,
+                    col_start=col_start,
+                    col_end=col_end,
+                    row_start=row_start,
+                    row_end=row_end,
+                )
+        return all_data
+
+    def import_66(self, sheet_info):
+        from .utils.countries.countries_for_66 import COUNTRIES
+        all_data = {}
+        for year, col_start, col_end in [
+            (2015, 3, 10),
+        ]:
+            data = {}
+            all_data[year] = data
+
+            for country, (row_start, row_end) in COUNTRIES.items():
+                country_data = {}
+                data[country] = country_data
+
+                self.slurp_table(
+                    self.ws,
+                    country_data,
+                    col_start=col_start,
+                    col_end=col_end,
+                    row_start=row_start,
+                    row_end=row_end,
+                )
+        return all_data
+
     def import_67(self, sheet_info):
         return self.import_grid(
             [
                 (2015, 3, 10, 7, 120),
             ]
         )
+
+    def import_68(self, sheet_info):
+        from .utils.countries.countries_for_57 import COUNTRIES
+        all_data = {}
+        for year, col_start, col_end in [
+            (2015, 3, 9),
+        ]:
+            data = {}
+            all_data[year] = data
+
+            for country, (row_start, row_end) in COUNTRIES.items():
+                country_data = {}
+                data[country] = country_data
+
+                self.slurp_table(
+                    self.ws,
+                    country_data,
+                    col_start=col_start,
+                    col_end=col_end,
+                    row_start=row_start,
+                    row_end=row_end,
+                )
+        return all_data
+
+    def import_68b(self, sheet_info):
+        from .utils.countries.countries_for_66 import COUNTRIES
+        all_data = {}
+        for year, col_start, col_end in [
+            (2015, 3, 10),
+        ]:
+            data = {}
+            all_data[year] = data
+
+            for country, (row_start, row_end) in COUNTRIES.items():
+                country_data = {}
+                data[country] = country_data
+
+                self.slurp_table(
+                    self.ws,
+                    country_data,
+                    col_start=col_start,
+                    col_end=col_end,
+                    row_start=row_start,
+                    row_end=row_end,
+                )
+        return all_data
 
     def import_73(self, sheet_info):
         return self.import_grid(
@@ -1058,5 +1446,3 @@ class GMMP2015ReportImporter(BaseReportImporter):
             row_end=15,
             row_heading_col=2,
         )
-
-        return all_data
