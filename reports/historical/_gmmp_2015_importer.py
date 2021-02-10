@@ -3,12 +3,6 @@ from ._base_importer import BaseReportImporter
 from reports.report_details import get_regions
 
 
-# The continents in the sheet do not include 'pacific' but the get_regions()
-# function returns a list of which include 'pacific' so we're excluding that from
-# the list to be consistent with the sheet data
-REGIONS = [region.lower() for _, region in get_regions() if region.lower() != 'pacific']
-
-
 class GMMP2015ReportImporter(BaseReportImporter):
     """
     Holds the methods that handles importing the GMMP 2015 final report
@@ -17,6 +11,10 @@ class GMMP2015ReportImporter(BaseReportImporter):
     def __init__(self):
         BaseReportImporter.__init__(self)
         self.year = 2015
+        # The continents in the sheet do not include 'pacific' but the get_regions()
+        # function returns a list of which include 'pacific' so we're excluding that from
+        # the list to be consistent with the sheet data
+        self.REGIONS = [region.lower() for _, region in get_regions() if region.lower() != 'pacific']
 
     def slurp_table(
         self,
@@ -125,7 +123,7 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         col_start, end_index = 3, 50
         while col_start < end_index:
-            for continent in REGIONS:
+            for continent in self.REGIONS:
                 continental_data = {}
                 self.slurp_secondary_col_table(
                     self.ws,
@@ -143,7 +141,7 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         col_start, end_index = 53, 84
         while col_start < end_index:
-            for continent in REGIONS:
+            for continent in self.REGIONS:
                 for medium in ['internet', 'twitter']:
                     medium_data = {}
                     self.slurp_secondary_col_table(
@@ -229,7 +227,7 @@ class GMMP2015ReportImporter(BaseReportImporter):
         medium_data = {}
         medium_data[medium] = {}
         while col_start < end_index:
-            for continent in REGIONS:
+            for continent in self.REGIONS:
                 continental_data = {}
                 self.slurp_secondary_col_table(
                     self.ws,
@@ -267,7 +265,7 @@ class GMMP2015ReportImporter(BaseReportImporter):
         all_data[2010] = data_2010
         col_start, end_index = 39, 54
         while col_start < end_index:
-            for continent in REGIONS:
+            for continent in self.REGIONS:
                 continental_data = {}
                 self.slurp_secondary_col_table(
                     self.ws,
@@ -654,7 +652,7 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         col_start, end_index = 3, 34
         while col_start < end_index:
-            for continent in REGIONS:
+            for continent in self.REGIONS:
                 continental_data = {}
                 self.slurp_secondary_col_table(
                     self.ws,
@@ -678,7 +676,7 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         col_start, end_index = 3, 34
         while col_start < end_index:
-            for continent in REGIONS:
+            for continent in self.REGIONS:
                 continental_data = {}
                 self.slurp_secondary_col_table(
                     self.ws,
