@@ -1111,7 +1111,7 @@ WS_INFO = {
     'ws_74': {
         '2015': {
             'name': '74',
-            'title': "Key themes, women's centrality",
+            'title': "Key themes, women\'s centrality",
             'desc': '',
             'reports': ['global', 'region', 'country'],
             'historical': '74',
@@ -1173,7 +1173,7 @@ WS_INFO = {
         '2015': {
             'name': '79',
             'title': 'Internet - Main topics by region',
-            'desc': 'Internet - Main topics by region',
+            'desc': 'Breakdown by sex of news subjects',
             'reports': ['global'],
             'historical': '79',
         },
@@ -1211,8 +1211,8 @@ WS_INFO = {
     'ws_83': {
         '2015': {
             'name': '83',
-            'title': 'Internet - reporters in main stories',
-            'desc': 'Internet - reporters in main stories',
+            'title': 'Internet - reporters in main stories, by sex',
+            'desc': 'Breakdown by major topic',
             'reports': ['global'],
             'historical': '83',
         },
@@ -1257,7 +1257,7 @@ WS_INFO = {
         '2015': {
             'name': '86',
             'title': 'Internet - News subjects who are identified by family status',
-            'desc': 'Internet - News subjects who are identified by family status',
+            'desc': '',
             'reports': ['global'],
             'historical': '86',
         },
@@ -1272,7 +1272,7 @@ WS_INFO = {
         '2015': {
             'name': '87',
             'title': 'Internet - News subjects in multimedia web components',
-            'desc': 'Internet - News subjects in multimedia web components',
+            'desc': '',
             'reports': ['global'],
             'historical': '87',
         },
@@ -1287,7 +1287,7 @@ WS_INFO = {
         '2015': {
             'name': '88',
             'title': 'Internet - Selection of News Subjects',
-            'desc': 'Internet - Selection of News Subjects',
+            'desc': 'Breakdown by sex of reporter',
             'reports': ['global'],
             'historical': '88',
         },
@@ -1302,7 +1302,7 @@ WS_INFO = {
         '2015': {
             'name': '89',
             'title': 'Internet - Age of news subjects',
-            'desc': 'Internet - Age of news subjects',
+            'desc': 'Breakdown by sex',
             'reports': ['global'],
             'historical': '89',
         },
@@ -1317,7 +1317,7 @@ WS_INFO = {
         '2015': {
             'name': '90',
             'title': 'Internet - News subjects who are directly quoted',
-            'desc': 'Internet - News subjects who are directly quoted',
+            'desc': 'Breakdown by sex',
             'reports': ['global'],
             'historical': '90',
         },
@@ -1356,7 +1356,7 @@ WS_INFO = {
         '2015': {
             'name': '94',
             'title': 'Twitter - Original tweet or retweet',
-            'desc': 'Twitter - Original tweet or retweet',
+            'desc': 'Breakdown by major topic',
             'reports': ['global'],
             'historical': '94',
         },
@@ -1379,7 +1379,7 @@ WS_INFO = {
         '2015': {
             'name': '96',
             'title': 'Twitter - Women\'s centrality',
-            'desc': 'Twitter - Women\'s centrality',
+            'desc': 'Breakdown by major topic',
             'reports': ['global'],
             'historical': '96',
         },
@@ -1394,7 +1394,7 @@ WS_INFO = {
         '2015': {
             'name': '97',
             'title': 'Twitter - Challenging Stereotypes',
-            'desc': 'Twitter - Challenging Stereotypes',
+            'desc': 'Breakdown by major topic',
             'reports': ['global'],
             'historical': '97',
         },
