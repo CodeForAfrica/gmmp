@@ -1064,6 +1064,13 @@ WS_INFO = {
         },
     },
     'ws_71': {
+        '2015': {
+            'name': '71',
+            'title': 'Key themes, women\'s overall presence',
+            'desc': '',
+            'reports': ['global', 'region', 'country'],
+            'historical': '71',
+        },
         '2010': {
             'name': '71',
             'title': 'Key themes, women\'s overall presence',
@@ -1072,6 +1079,13 @@ WS_INFO = {
         },
     },
     'ws_72': {
+        '2015': {
+            'name': '72',
+            'title': 'Key themes, female reporters',
+            'desc': '',
+            'reports': ['global', 'region', 'country'],
+            'historical': '72',
+        },
         '2010': {
             'name': '72',
             'title': 'Key themes, female reporters',
@@ -1095,6 +1109,13 @@ WS_INFO = {
         },
     },
     'ws_74': {
+        '2015': {
+            'name': '74',
+            'title': "Key themes, women\'s centrality",
+            'desc': '',
+            'reports': ['global', 'region', 'country'],
+            'historical': '74',
+        },
         '2010': {
             'name': '74',
             'title': 'Key themes, women\'s centrality',
@@ -1103,6 +1124,13 @@ WS_INFO = {
         },
     },
     'ws_75': {
+        '2015': {
+            'name': '75',
+            'title': 'Key themes, challenging stereotypes',
+            'desc': '',
+            'reports': ['global', 'region', 'country'],
+            'historical': '75',
+        },
         '2010': {
             'name': '75',
             'title': 'Key themes, challenging stereotypes',
@@ -1111,6 +1139,13 @@ WS_INFO = {
         },
     },
     'ws_76': {
+        '2015': {
+            'name': '76',
+            'title': 'Key themes, reference to gender equality/HR policies',
+            'desc': '',
+            'reports': ['global', 'region', 'country'],
+            'historical': '76',
+        },
         '2010': {
             'name': '76',
             'title': 'Key themes, reference to gender equality/HR policies',
@@ -1135,6 +1170,13 @@ WS_INFO = {
         },
     },
     'ws_79': {
+        '2015': {
+            'name': '79',
+            'title': 'Internet - Main topics by region',
+            'desc': 'Breakdown by sex of news subjects',
+            'reports': ['global'],
+            'historical': '79',
+        },
         '2010': {
             'name': '79',
             'title': 'Internet - Main topics by region',
@@ -1167,6 +1209,13 @@ WS_INFO = {
         },
     },
     'ws_83': {
+        '2015': {
+            'name': '83',
+            'title': 'Internet - reporters in main stories, by sex',
+            'desc': 'Breakdown by major topic',
+            'reports': ['global'],
+            'historical': '83',
+        },
         '2010': {
             'name': '83',
             'title': 'Internet - reporters in main stories',
@@ -1205,6 +1254,13 @@ WS_INFO = {
         },
     },
     'ws_86': {
+        '2015': {
+            'name': '86',
+            'title': 'Internet - News subjects who are identified by family status',
+            'desc': '',
+            'reports': ['global'],
+            'historical': '86',
+        },
         '2010': {
             'name': '86',
             'title': 'Internet - News subjects who are identified by family status',
@@ -1213,6 +1269,13 @@ WS_INFO = {
         },
     },
     'ws_87': {
+        '2015': {
+            'name': '87',
+            'title': 'Internet - News subjects in multimedia web components',
+            'desc': '',
+            'reports': ['global'],
+            'historical': '87',
+        },
         '2010': {
             'name': '87',
             'title': 'Internet - News subjects in multimedia web components',
@@ -1221,6 +1284,13 @@ WS_INFO = {
         },
     },
     'ws_88': {
+        '2015': {
+            'name': '88',
+            'title': 'Internet - Selection of News Subjects',
+            'desc': 'Breakdown by sex of reporter',
+            'reports': ['global'],
+            'historical': '88',
+        },
         '2010': {
             'name': '88',
             'title': 'Internet - Selection of News Subjects',
@@ -1229,6 +1299,13 @@ WS_INFO = {
         }
     },
     'ws_89': {
+        '2015': {
+            'name': '89',
+            'title': 'Internet - Age of news subjects',
+            'desc': 'Breakdown by sex',
+            'reports': ['global'],
+            'historical': '89',
+        },
         '2010': {
             'name': '89',
             'title': 'Internet - Age of news subjects',
@@ -1237,6 +1314,13 @@ WS_INFO = {
         },
     },
     'ws_90': {
+        '2015': {
+            'name': '90',
+            'title': 'Internet - News subjects who are directly quoted',
+            'desc': 'Breakdown by sex',
+            'reports': ['global'],
+            'historical': '90',
+        },
         '2010': {
             'name': '90',
             'title': 'Internet - News subjects who are directly quoted',
@@ -1269,6 +1353,13 @@ WS_INFO = {
         },
     },
     'ws_94': {
+        '2015': {
+            'name': '94',
+            'title': 'Twitter - Original tweet or retweet',
+            'desc': 'Breakdown by major topic',
+            'reports': ['global'],
+            'historical': '94',
+        },
         '2010': {
             'name': '94',
             'title': 'Twitter - Original tweet or retweet',
@@ -1285,6 +1376,13 @@ WS_INFO = {
         },
     },
     'ws_96': {
+        '2015': {
+            'name': '96',
+            'title': 'Twitter - Women\'s centrality',
+            'desc': 'Breakdown by major topic',
+            'reports': ['global'],
+            'historical': '96',
+        },
         '2010': {
             'name': '96',
             'title': 'Twitter - Women\'s centrality',
@@ -1293,6 +1391,13 @@ WS_INFO = {
         },
     },
     'ws_97': {
+        '2015': {
+            'name': '97',
+            'title': 'Twitter - Challenging Stereotypes',
+            'desc': 'Breakdown by major topic',
+            'reports': ['global'],
+            'historical': '97',
+        },
         '2010': {
             'name': '97',
             'title': 'Twitter - Challenging Stereotypes',
