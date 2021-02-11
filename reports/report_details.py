@@ -963,51 +963,51 @@ WS_INFO = {
     #         'reports': ['global', 'country'],
     #     },
     # },
-    'ws_62': {
-        '2015': {
-            'name': '62',
-            'title': 'Internet - Stories where issues of gender equality/inequality are raised by topic',
-            'desc': 'Internet - Stories where issues of gender equality/inequality are raised by topic',
-            'reports': ['global', 'region', 'country'],
-            'historical': '62',
-        },
-        '2010': {
-            'name': '62',
-            'title': 'Internet - Stories where issues of gender equality/inequality are raised by topic',
-            'desc': 'Internet - Stories where issues of gender equality/inequality are raised by topic',
-            'reports': ['global', 'region', 'country'],
-        },
-    },
-    'ws_63': {
-        '2015': {
-            'name': '63',
-            'title': 'Internet -Stories where stereotypes are clearly challenged',
-            'desc': 'Internet -Stories where stereotypes are clearly challenged',
-            'reports': ['global', 'region', 'country'],
-            'historical': '63',
-        },
-        '2010': {
-            'name': '63',
-            'title': 'Internet -Stories where stereotypes are clearly challenged',
-            'desc': 'Internet -Stories where stereotypes are clearly challenged',
-            'reports': ['global', 'region', 'country'],
-        },
-    },
-    'ws_64': {
-        '2015': {
-            'name': '64',
-            'title': 'Internet -Stories with Women as a central Focus',
-            'desc': 'Internet -Stories with Women as a central Focus',
-            'reports': ['global', 'region', 'country'],
-            'historical': '64',
-        },
-        '2010': {
-            'name': '64',
-            'title': 'Internet -Stories with Women as a central Focus',
-            'desc': 'Internet -Stories with Women as a central Focus',
-            'reports': ['global', 'region', 'country'],
-        },
-    },
+    # 'ws_62': {
+    #     '2015': {
+    #         'name': '62',
+    #         'title': 'Internet - Stories where issues of gender equality/inequality are raised by topic',
+    #         'desc': 'Internet - Stories where issues of gender equality/inequality are raised by topic',
+    #         'reports': ['global', 'region', 'country'],
+    #         'historical': '62',
+    #     },
+    #     '2010': {
+    #         'name': '62',
+    #         'title': 'Internet - Stories where issues of gender equality/inequality are raised by topic',
+    #         'desc': 'Internet - Stories where issues of gender equality/inequality are raised by topic',
+    #         'reports': ['global', 'region', 'country'],
+    #     },
+    # },
+    # 'ws_63': {
+    #     '2015': {
+    #         'name': '63',
+    #         'title': 'Internet -Stories where stereotypes are clearly challenged',
+    #         'desc': 'Internet -Stories where stereotypes are clearly challenged',
+    #         'reports': ['global', 'region', 'country'],
+    #         'historical': '63',
+    #     },
+    #     '2010': {
+    #         'name': '63',
+    #         'title': 'Internet -Stories where stereotypes are clearly challenged',
+    #         'desc': 'Internet -Stories where stereotypes are clearly challenged',
+    #         'reports': ['global', 'region', 'country'],
+    #     },
+    # },
+    # 'ws_64': {
+    #     '2015': {
+    #         'name': '64',
+    #         'title': 'Internet -Stories with Women as a central Focus',
+    #         'desc': 'Internet -Stories with Women as a central Focus',
+    #         'reports': ['global', 'region', 'country'],
+    #         'historical': '64',
+    #     },
+    #     '2010': {
+    #         'name': '64',
+    #         'title': 'Internet -Stories with Women as a central Focus',
+    #         'desc': 'Internet -Stories with Women as a central Focus',
+    #         'reports': ['global', 'region', 'country'],
+    #     },
+    # },
     # 'ws_65': {
     #     '2015': {
     #         'name': '65',
@@ -1181,14 +1181,21 @@ WS_INFO = {
     #         'reports': ['global', 'region', 'country'],
     #     },
     # },
-    # 'ws_77': {
-    #     '2010': {
-    #         'name': '77',
-    #         'title': 'Key themes, portrayal as victims',
-    #         'desc': 'Key themes, portrayal as victims',
-    #         'reports': ['global', 'region', 'country'],
-    #     },
-    # },
+    'ws_77': {
+        '2015': {
+            'name': '77',
+            'title': 'Key themes, portrayal as victims',
+            'desc': 'Key themes, portrayal as victims',
+            'reports': ['global', 'region', 'country'],
+            'historical': '77',
+        },
+        '2010': {
+            'name': '77',
+            'title': 'Key themes, portrayal as victims',
+            'desc': 'Key themes, portrayal as victims',
+            'reports': ['global', 'region', 'country'],
+        },
+    },
     # 'ws_78': {
     #     '2010': {
     #         'name': '78',
