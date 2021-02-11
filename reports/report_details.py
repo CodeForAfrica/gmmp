@@ -566,6 +566,13 @@ WS_INFO = {
         },
     },
     'ws_35': {
+        '2015': {
+            'name': '35',
+            'title': 'Breakdown of television Announcers & Reporters, by age, by sex',
+            'desc': 'Age of television Announcers & Reporters, by sex',
+            'reports': ['global', 'region', 'country'],
+            'historical': '35',
+        },
         '2010': {
             'name': '35',
             'title': 'Breakdown of television Announcers & Reporters, by age, by sex',
@@ -957,6 +964,13 @@ WS_INFO = {
         },
     },
     'ws_62': {
+        '2015': {
+            'name': '62',
+            'title': 'Internet - Stories where issues of gender equality/inequality are raised by topic',
+            'desc': 'Internet - Stories where issues of gender equality/inequality are raised by topic',
+            'reports': ['global', 'region', 'country'],
+            'historical': '62',
+        },
         '2010': {
             'name': '62',
             'title': 'Internet - Stories where issues of gender equality/inequality are raised by topic',
@@ -965,6 +979,13 @@ WS_INFO = {
         },
     },
     'ws_63': {
+        '2015': {
+            'name': '63',
+            'title': 'Internet -Stories where stereotypes are clearly challenged',
+            'desc': 'Internet -Stories where stereotypes are clearly challenged',
+            'reports': ['global', 'region', 'country'],
+            'historical': '63',
+        },
         '2010': {
             'name': '63',
             'title': 'Internet -Stories where stereotypes are clearly challenged',
@@ -973,6 +994,13 @@ WS_INFO = {
         },
     },
     'ws_64': {
+        '2015': {
+            'name': '64',
+            'title': 'Internet -Stories with Women as a central Focus',
+            'desc': 'Internet -Stories with Women as a central Focus',
+            'reports': ['global', 'region', 'country'],
+            'historical': '64',
+        },
         '2010': {
             'name': '64',
             'title': 'Internet -Stories with Women as a central Focus',
@@ -1111,7 +1139,7 @@ WS_INFO = {
     'ws_74': {
         '2015': {
             'name': '74',
-            'title': "Key themes, women\'s centrality",
+            'title': 'Key themes, women\'s centrality',
             'desc': '',
             'reports': ['global', 'region', 'country'],
             'historical': '74',
@@ -1154,6 +1182,13 @@ WS_INFO = {
         },
     },
     'ws_77': {
+        '2015': {
+            'name': '77',
+            'title': 'Key themes, portrayal as victims',
+            'desc': '',
+            'reports': ['global', 'region', 'country'],
+            'historical': '77',
+        },
         '2010': {
             'name': '77',
             'title': 'Key themes, portrayal as victims',
@@ -1162,6 +1197,13 @@ WS_INFO = {
         },
     },
     'ws_78': {
+        '2015': {
+            'name': '78',
+            'title': 'Key themes, portrayal as survivors',
+            'desc': '',
+            'reports': ['global', 'region', 'country'],
+            'historical': '78',
+        },
         '2010': {
             'name': '78',
             'title': 'Key themes, portrayal as survivors',
@@ -1211,7 +1253,7 @@ WS_INFO = {
     'ws_83': {
         '2015': {
             'name': '83',
-            'title': 'Internet - reporters in main stories, by sex',
+            'title': 'Internet - reporters in main stories',
             'desc': 'Breakdown by major topic',
             'reports': ['global'],
             'historical': '83',
@@ -1406,6 +1448,13 @@ WS_INFO = {
         },
     },
     'ws_s01': {
+        '2015': {
+            'name': 's01',
+            'title': 'Sex of presenters, reporters and news subjects',
+            'desc': 'Sex of presenters, reporters and news subjects',
+            'reports': ['global'],
+            'historical': 's01',
+        },
         '2010': {
             'name': 's01',
             'title': 'Sex of presenters, reporters and news subjects',
@@ -1414,6 +1463,13 @@ WS_INFO = {
         },
     },
     'ws_s02': {
+        '2015': {
+            'name': 's02',
+            'title': 'News subjects in television, radio and newspapers',
+            'desc': 'News subjects in television, radio and newspapers',
+            'reports': ['global'],
+            'historical': 's02',
+        },
         '2010': {
             'name': 's02',
             'title': 'News subjects in television, radio and newspapers',
@@ -1422,6 +1478,13 @@ WS_INFO = {
         },
     },
     'ws_s03': {
+        '2015': {
+            'name': 's03',
+            'title': 'News subjects in major topic areas',
+            'desc': 'News subjects in major topic areas',
+            'reports': ['global'],
+            'historical': 's03',
+        },
         '2010': {
             'name': 's03',
             'title': 'News subjects in major topic areas',
@@ -1430,6 +1493,13 @@ WS_INFO = {
         },
     },
     'ws_s04': {
+        '2015': {
+            'name': 's04',
+            'title': 'News subjects in major occupational groups',
+            'desc': 'News subjects in major occupational groups',
+            'reports': ['global'],
+            'historical': 's04',
+        },
         '2010': {
             'name': 's04',
             'title': 'News subjects in major occupational groups',
@@ -1438,6 +1508,13 @@ WS_INFO = {
         },
     },
     'ws_s05': {
+        '2015': {
+            'name': 's05',
+            'title': 'Function of news subjects',
+            'desc': 'Function of news subjects',
+            'reports': ['global'],
+            'historical': 's05',
+        },
         '2010': {
             'name': 's05',
             'title': 'Function of news subjects',
@@ -1454,6 +1531,13 @@ WS_INFO = {
         },
     },
     'ws_s07': {
+        '2015': {
+            'name': 's07',
+            'title': 'News subjects mentioned by family status',
+            'desc': 'News subjects mentioned by family status',
+            'reports': ['global'],
+            'historical': 's07',
+        },
         '2010': {
             'name': 's07',
             'title': 'News subjects mentioned by family status',
@@ -1462,6 +1546,13 @@ WS_INFO = {
         },
     },
     'ws_s08': {
+        '2015': {
+            'name': 's08',
+            'title': 'News subjects quoted in newspapers',
+            'desc': 'News subjects quoted in newspapers',
+            'reports': ['global'],
+            'historical': 's08',
+        },
         '2010': {
             'name': 's08',
             'title': 'News subjects quoted in newspapers',
@@ -1470,6 +1561,13 @@ WS_INFO = {
         },
     },
     'ws_s09': {
+        '2015': {
+            'name': 's09',
+            'title': 'Print only - News subjects appearing in newspaper photographs',
+            'desc': 'Print only - News subjects appearing in newspaper photographs',
+            'reports': ['global'],
+            'historical': 's09',
+        },
         '2010': {
             'name': 's09',
             'title': 'Print only - News subjects appearing in newspaper photographs',
@@ -1486,6 +1584,13 @@ WS_INFO = {
         },
     },
     'ws_s11': {
+        '2015': {
+            'name': 's11',
+            'title': 'Reporters in major topic areas',
+            'desc': 'Reporters in major topic areas',
+            'reports': ['global'],
+            'historical': 's11',
+        },
         '2010': {
             'name': 's11',
             'title': 'Reporters in major topic areas',
@@ -1509,6 +1614,13 @@ WS_INFO = {
         },
     },
     'ws_s13': {
+        '2015': {
+            'name': 's13',
+            'title': 'Sex of reporter in stories with female and male news subjects',
+            'desc': 'Sex of reporter in stories with female and male news subjects',
+            'reports': ['global'],
+            'historical': 's13',
+        },
         '2010': {
             'name': 's13',
             'title': 'Sex of reporter in stories with female and male news subjects',
@@ -1562,6 +1674,13 @@ WS_INFO = {
         },
     },
     'ws_s17': {
+        '2015': {
+            'name': 's17',
+            'title': 'Internet, Twitter - Sex of reporters and news subjects',
+            'desc': 'Internet, Twitter - Sex of reporters and news subjects',
+            'reports': ['global'],
+            'historical': 's17',
+        },
         '2010': {
             'name': 's17',
             'title': 'Internet, Twitter - Sex of reporters and news subjects',
@@ -1585,6 +1704,13 @@ WS_INFO = {
         },
     },
     'ws_s19': {
+        '2015': {
+            'name': 's19',
+            'title': 'Internet, Twitter - News subjects in major topic areas',
+            'desc': 'Internet, Twitter - News subjects in major topic areas',
+            'reports': ['global'],
+            'historical': 's19',
+        },
         '2010': {
             'name': 's19',
             'title': 'Internet, Twitter - News subjects in major topic areas',
@@ -1593,6 +1719,13 @@ WS_INFO = {
         },
     },
     'ws_s20': {
+        '2015': {
+            'name': 's20',
+            'title': 'Internet - News subjects in major occupational groups',
+            'desc': 'Internet - News subjects in major occupational groups',
+            'reports': ['global'],
+            'historical': 's20',
+        },
         '2010': {
             'name': 's20',
             'title': 'Internet - News subjects in major occupational groups',
@@ -1601,6 +1734,13 @@ WS_INFO = {
         },
     },
     'ws_s21': {
+        '2015': {
+            'name': 's21',
+            'title': 'Internet - Function of news subjects',
+            'desc': 'Internet - Function of news subjects',
+            'reports': ['global'],
+            'historical': 's21',
+        },
         '2010': {
             'name': 's21',
             'title': 'Internet - Function of news subjects',
@@ -1609,6 +1749,13 @@ WS_INFO = {
         },
     },
     'ws_s22': {
+        '2015': {
+            'name': 's22',
+            'title': 'Internet - News subjects who are victims',
+            'desc': 'Internet - News subjects who are victims',
+            'reports': ['global'],
+            'historical': 's22',
+        },
         '2010': {
             'name': 's22',
             'title': 'Internet - News subjects who are victims',
@@ -1617,6 +1764,13 @@ WS_INFO = {
         },
     },
     'ws_s23': {
+        '2015': {
+            'name': 's23',
+            'title': 'Internet - News subjects quoted',
+            'desc': 'Internet - News subjects quoted',
+            'reports': ['global'],
+            'historical': 's23',
+        },
         '2010': {
             'name': 's23',
             'title': 'Internet - News subjects quoted',
@@ -1625,6 +1779,13 @@ WS_INFO = {
         },
     },
     'ws_s24': {
+        '2015': {
+            'name': 's24',
+            'title': 'Internet, Twitter - News subjects appearing in images and video plug-ins',
+            'desc': 'Internet, Twitter - News subjects appearing in images and video plug-ins',
+            'reports': ['global'],
+            'historical': 's24',
+        },
         '2010': {
             'name': 's24',
             'title': 'Internet, Twitter - News subjects appearing in images and video plug-ins',
@@ -1633,6 +1794,13 @@ WS_INFO = {
         },
     },
     'ws_s25': {
+        '2015': {
+            'name': 's25',
+            'title': 'Internet, Twitter - Reporters in major topic areas',
+            'desc': 'Internet, Twitter - Reporters in major topic areas',
+            'reports': ['global'],
+            'historical': 's25',
+        },
         '2010': {
             'name': 's25',
             'title': 'Internet, Twitter - Reporters in major topic areas',
@@ -1671,6 +1839,13 @@ WS_INFO = {
         },
     },
     'ws_sr01': {
+        '2015': {
+            'name': 'rs01',
+            'title': 'Sex of presenters, reporters and news subjects by region',
+            'desc': 'Sex of presenters, reporters and news subjects by region',
+            'reports': ['global'],
+            'historical': 'rs01',
+        },
         '2010': {
             'name': 'rs01',
             'title': 'Sex of presenters, reporters and news subjects by region',
@@ -1679,6 +1854,13 @@ WS_INFO = {
         },
     },
     'ws_sr02': {
+        '2015': {
+            'name': 'sr02',
+            'title': 'News subjects in main topic areas by region',
+            'desc': 'News subjects in main topic areas by region',
+            'reports': ['global'],
+            'historical': 'sr02',
+        },
         '2010': {
             'name': 'sr02',
             'title': 'News subjects in main topic areas by region',
@@ -1687,6 +1869,13 @@ WS_INFO = {
         },
     },
     'ws_sr03': {
+        '2015': {
+            'name': 'sr03',
+            'title': 'Function of news subjects by region',
+            'desc': 'Function of news subjects by region',
+            'reports': ['global'],
+            'historical': 'sr03',
+        },
         '2010': {
             'name': 'sr03',
             'title': 'Function of news subjects by region',
@@ -1695,6 +1884,13 @@ WS_INFO = {
         },
     },
     'ws_sr04': {
+        '2015': {
+            'name': 'sr04',
+            'title': 'Print only - News subjects in photographs by region',
+            'desc': 'Print only - News subjects in photographs by region',
+            'reports': ['global'],
+            'historical': 'sr04',
+        },
         '2010': {
             'name': 'sr04',
             'title': 'Print only - News subjects in photographs by region',
@@ -1711,6 +1907,13 @@ WS_INFO = {
         },
     },
     'ws_sr06': {
+        '2015': {
+            'name': 'sr06',
+            'title': 'Reporters in major topic areas, by region',
+            'desc': 'Reporters in major topic areas, by region',
+            'reports': ['global'],
+            'historical': 'sr06',
+        },
         '2010': {
             'name': 'sr06',
             'title': 'Reporters in major topic areas, by region',
@@ -1719,6 +1922,13 @@ WS_INFO = {
         }
     },
     'ws_sr07': {
+        '2015': {
+            'name': 'sr07',
+            'title': 'Reporters and sex of news subject, by region',
+            'desc': 'Reporters and sex of news subject, by region',
+            'reports': ['global'],
+            'historical': 'sr07',
+        },
         '2010': {
             'name': 'sr07',
             'title': 'Reporters and sex of news subject, by region',

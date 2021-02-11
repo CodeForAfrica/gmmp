@@ -368,6 +368,7 @@ class GMMP2015ReportImporter(BaseReportImporter):
             row_end=14,
             row_heading_col=2,
         )
+
         return all_data
 
     def import_14(self, sheet_info):
@@ -725,6 +726,75 @@ class GMMP2015ReportImporter(BaseReportImporter):
                 )
                 data_2015[medium] = medium_data
                 col_start += 4
+
+        return all_data
+
+    def import_35(self, sheet_info):
+        data_2015 = {}
+        all_data = {2015: data_2015}
+
+        mediums = [
+            'Anchor, announcer or presenter: Usually in the television studio',
+            'Reporter: Usually outside the studio. Include reporters who do not appear on screen, but whose voice is heard (e.g. as voice-over).',
+        ]
+
+        col_start, end_index = 3, 10
+        while col_start < end_index:
+            for medium in mediums:
+                medium_data = {}
+                self.slurp_secondary_col_table(
+                    self.ws,
+                    medium_data,
+                    col_start=col_start,
+                    cols=2,
+                    cols_per_group=2,
+                    major_col_heading_row=6,
+                    row_start=8,
+                    row_end=14,
+                    row_heading_col=2,
+                )
+                data_2015[medium] = medium_data
+                col_start += 4
+
+        data_2005 = {}
+        all_data[2005] = data_2005
+        col_start, end_index = 12, 13
+        while col_start < end_index:
+            for medium in mediums:
+                medium_data = {}
+                self.slurp_secondary_col_table(
+                    self.ws,
+                    medium_data,
+                    col_start=col_start,
+                    cols=1,
+                    cols_per_group=1,
+                    major_col_heading_row=6,
+                    row_start=8,
+                    row_end=14,
+                    row_heading_col=2,
+                )
+                data_2005[medium] = medium_data
+                col_start += 1
+
+        data_2010 = {}
+        all_data[2010] = data_2010
+        col_start, end_index = 14, 17
+        while col_start < end_index:
+            for medium in mediums:
+                medium_data = {}
+                self.slurp_secondary_col_table(
+                    self.ws,
+                    medium_data,
+                    col_start=col_start,
+                    cols=2,
+                    cols_per_group=1,
+                    major_col_heading_row=6,
+                    row_start=8,
+                    row_end=14,
+                    row_heading_col=2,
+                )
+                data_2010[medium] = medium_data
+                col_start += 2
 
         return all_data
 
@@ -1126,6 +1196,75 @@ class GMMP2015ReportImporter(BaseReportImporter):
                 )
         return all_data
 
+    def import_62(self, sheet_info):
+        from .utils.countries.countries_for_57 import COUNTRIES
+        all_data = {}
+        for year, col_start, col_end in [
+            (2015, 3, 58),
+        ]:
+            data = {}
+            all_data[year] = data
+
+            for country, (row_start, row_end) in COUNTRIES.items():
+                country_data = {}
+                data[country] = country_data
+
+                self.slurp_table(
+                    self.ws,
+                    country_data,
+                    col_start=col_start,
+                    col_end=col_end,
+                    row_start=row_start,
+                    row_end=row_end,
+                )
+        return all_data
+
+    def import_63(self, sheet_info):
+        from .utils.countries.countries_for_66 import COUNTRIES
+        all_data = {}
+        for year, col_start, col_end in [
+            (2015, 3, 58),
+        ]:
+            data = {}
+            all_data[year] = data
+
+            for country, (row_start, row_end) in COUNTRIES.items():
+                country_data = {}
+                data[country] = country_data
+
+                self.slurp_table(
+                    self.ws,
+                    country_data,
+                    col_start=col_start,
+                    col_end=col_end,
+                    row_start=row_start,
+                    row_end=row_end,
+                )
+        return all_data
+
+    def import_64(self, sheet_info):
+        from .utils.countries.countries_for_57 import COUNTRIES
+        all_data = {}
+        for year, col_start, col_end in [
+            (2015, 3, 58),
+        ]:
+            data = {}
+            all_data[year] = data
+
+            for country, (row_start, row_end) in COUNTRIES.items():
+                country_data = {}
+                data[country] = country_data
+
+                self.slurp_table(
+                    self.ws,
+                    country_data,
+                    col_start=col_start,
+                    col_end=col_end,
+                    row_start=row_start,
+                    row_end=row_end,
+                )
+        return all_data
+
     def import_65(self, sheet_info):
         from .utils.countries.countries_for_57 import COUNTRIES
         all_data = {}
@@ -1284,8 +1423,8 @@ class GMMP2015ReportImporter(BaseReportImporter):
             ]
         )
 
-    def _sheet_74_secondary_import(self, data, medium, col_start, end_index, cols_per_group):
-        groups = ['political participation', 'peace and security', 'economic participation']
+    def _sheet_74_secondary_import(self, data, groups, medium, col_start, end_index, cols_per_group, multiplier):
+        # groups = ['political participation', 'peace and security', 'economic participation']
         medium_data = {}
         medium_data[medium] = {}
         while col_start < end_index:
@@ -1303,7 +1442,7 @@ class GMMP2015ReportImporter(BaseReportImporter):
                     row_heading_col=2,
                 )
                 medium_data[medium][group] = group_data[group]
-                col_start += cols_per_group
+                col_start += multiplier
             data[medium] = medium_data[medium]
 
     def import_74(self, sheet_data):
@@ -1312,18 +1451,22 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         self._sheet_74_secondary_import(
             data=data_2015,
+            groups=['political participation', 'peace and security', 'economic participation'],
             medium='print, radio, television',
             col_start=3,
             end_index=11,
             cols_per_group=3,
+            multiplier=3,
         )
 
         self._sheet_74_secondary_import(
             data=data_2015,
             medium='internet, twitter',
+            groups=['political participation', 'peace and security', 'economic participation'],
             col_start=14,
             end_index=22,
             cols_per_group=3,
+            multiplier=3
         )
 
         return all_data
@@ -1334,18 +1477,22 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         self._sheet_74_secondary_import(
             data=data_2015,
+            groups=['political participation', 'peace and security', 'economic participation'],
             medium='print, radio, television',
             col_start=3,
             end_index=17,
             cols_per_group=5,
+            multiplier=5
         )
 
         self._sheet_74_secondary_import(
             data=data_2015,
+            groups=['political participation', 'peace and security', 'economic participation'],
             medium='internet, twitter',
             col_start=20,
             end_index=34,
             cols_per_group=5,
+            multiplier=5
         )
 
         return all_data
@@ -1356,19 +1503,119 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         self._sheet_74_secondary_import(
             data=data_2015,
+            groups=['political participation', 'peace and security', 'economic participation'],
             medium='print, radio, television',
             col_start=3,
             end_index=11,
             cols_per_group=3,
+            multiplier=3
         )
 
         self._sheet_74_secondary_import(
             data=data_2015,
+            groups=['political participation', 'peace and security', 'economic participation'],
             medium='internet, twitter',
             col_start=14,
             end_index=22,
             cols_per_group=3,
+            multiplier=3
         )
+
+        return all_data
+
+    def import_77(self, sheet_data):
+        data_2015 = {}
+        all_data = {2015: data_2015}
+
+        groups = ['political participation', 'peace and security', 'economic participation']
+
+        first_data = {}
+        data_2015['Print, Radio, Television'] = first_data
+        col_start, end_index = 3, 35
+        while col_start < end_index:
+            for group in groups:
+                group_data = {}
+                self.slurp_secondary_col_table(
+                    self.ws,
+                    group_data,
+                    col_start=col_start,
+                    cols=11,
+                    cols_per_group=1,
+                    major_col_heading_row=7,
+                    row_start=9,
+                    row_end=122,
+                    row_heading_col=2,
+                )
+                first_data[group] = group_data
+                col_start += 11
+
+        second_data = {}
+        data_2015['Internet, Twitter'] = second_data
+        col_start, end_index = 38, 70
+        while col_start < end_index:
+            for group in groups:
+                group_data = {}
+                self.slurp_secondary_col_table(
+                    self.ws,
+                    group_data,
+                    col_start=col_start,
+                    cols=11,
+                    cols_per_group=1,
+                    major_col_heading_row=7,
+                    row_start=9,
+                    row_end=122,
+                    row_heading_col=2,
+                )
+                second_data[group] = group_data
+                col_start += 11
+
+        return all_data
+
+    def import_78(self, sheet_data):
+        data_2015 = {}
+        all_data = {2015: data_2015}
+
+        groups = ['political participation', 'peace and security', 'economic participation']
+
+        first_data = {}
+        data_2015['Print, Radio, Television'] = first_data
+        col_start, end_index = 3, 35
+        while col_start < end_index:
+            for group in groups:
+                group_data = {}
+                self.slurp_secondary_col_table(
+                    self.ws,
+                    group_data,
+                    col_start=col_start,
+                    cols=11,
+                    cols_per_group=1,
+                    major_col_heading_row=7,
+                    row_start=9,
+                    row_end=122,
+                    row_heading_col=2,
+                )
+                first_data[group] = group_data
+                col_start += 11
+
+        second_data = {}
+        data_2015['Internet, Twitter'] = second_data
+        col_start, end_index = 38, 70
+        while col_start < end_index:
+            for group in groups:
+                group_data = {}
+                self.slurp_secondary_col_table(
+                    self.ws,
+                    group_data,
+                    col_start=col_start,
+                    cols=11,
+                    cols_per_group=1,
+                    major_col_heading_row=7,
+                    row_start=9,
+                    row_end=122,
+                    row_heading_col=2,
+                )
+                second_data[group] = group_data
+                col_start += 11
 
         return all_data
 
@@ -1683,6 +1930,264 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         return all_data
 
+    def import_s01(self, sheet_data):
+        data_2015 = {}
+        all_data = {2015: data_2015}
+
+        categories = ['presenter', 'reporter', 'subjects']
+
+        col_start, end_index = 3, 14
+        while col_start < end_index:
+            for category in categories:
+                category_data = {}
+                self.slurp_secondary_col_table(
+                    self.ws,
+                    category_data,
+                    col_start=col_start,
+                    cols=2,
+                    cols_per_group=2,
+                    major_col_heading_row=6,
+                    row_start=8,
+                    row_end=121,
+                    row_heading_col=2,
+                )
+                data_2015[category] = category_data
+                col_start += 4
+
+        return all_data
+
+    def import_s02(self, sheet_data):
+        data_2015 = {}
+        all_data = {2015: data_2015}
+
+        mediums = ['print', 'radio', 'television']
+
+        col_start, end_index = 3, 14
+        while col_start < end_index:
+            for medium in mediums:
+                medium_data = {}
+                self.slurp_secondary_col_table(
+                    self.ws,
+                    medium_data,
+                    col_start=col_start,
+                    cols=2,
+                    cols_per_group=2,
+                    major_col_heading_row=6,
+                    row_start=8,
+                    row_end=121,
+                    row_heading_col=2,
+                )
+                data_2015[medium] = medium_data
+                col_start += 4
+
+        return all_data
+
+    def import_s03(self, sheet_data):
+        data_2015 = {}
+        all_data = {2015: data_2015}
+
+        groups = [
+            'politics and government', 'economy', 'science and health', 'social and legal', 'crime and violence',
+            'celebrity, arts and media, sports', 'other'
+        ]
+
+        col_start, end_index = 3, 30
+        while col_start < end_index:
+            for group in groups:
+                group_data = {}
+                self.slurp_secondary_col_table(
+                    self.ws,
+                    group_data,
+                    col_start=col_start,
+                    cols=2,
+                    cols_per_group=2,
+                    major_col_heading_row=6,
+                    row_start=8,
+                    row_end=121,
+                    row_heading_col=2,
+                )
+                data_2015[group] = group_data
+                col_start += 4
+
+        return all_data
+
+    def import_s04(self, sheet_data):
+        data_2015 = {}
+        all_data = {2015: data_2015}
+
+        groups = [
+            'not stated', 'royalty, monarch, deposed monarch, etc.',
+            'government, politician, minister, spokesperson...', 'government employee, public servant, etc.',
+            'police, military, para-military, militia, fire officer', 'academic expert, lecturer, teacher',
+            'doctor, dentist, health specialist', 'health worker, social worker, childcare worker',
+            'science/technology professional, engineer, etc.', 'media professional, journalist, film-maker, etc.',
+            'lawyer, judge, magistrate, legal advocate, etc.', 'business person, exec, manager, stock broker...',
+            'office or service worker, non-management worker', 'tradesperson, artisan, labourer, truck driver, etc.',
+            'agriculture, mining, fishing, forestry', 'religious figure, priest, monk, rabbi, mullah, nun',
+            'activist or worker in civil society org., ngo, trade union', 'sex worker',
+            'celebrity, artist, actor, writer, singer, tv personality', 'sportsperson, athlete, player, coach, referee',
+            'student, pupil, schoolchild', ') only if no other occupation is given e.g. doctor/mother=code 6',
+            'child, young person no other occupation given', 'villager or resident no other occupation given',
+            'retired person, pensioner no other occupation given', 'criminal, suspect no other occupation given',
+            'unemployed no other occupation given', 'other only as last resort & explain',
+        ]
+
+        col_start, end_index = 3, 114
+        while col_start < end_index:
+            for group in groups:
+                group_data = {}
+                self.slurp_secondary_col_table(
+                    self.ws,
+                    group_data,
+                    col_start=col_start,
+                    cols=2,
+                    cols_per_group=2,
+                    major_col_heading_row=6,
+                    row_start=8,
+                    row_end=121,
+                    row_heading_col=2,
+                )
+                data_2015[group] = group_data
+                col_start += 4
+
+        return all_data
+
+    def import_s05(self, sheet_data):
+        data_2015 = {}
+        all_data = {2015: data_2015}
+
+        groups = [
+            'do not know', 'subject', 'spokesperson', 'expert or commentator', 'personal experience',
+            'eye witness', 'personal opinion', 'other'
+        ]
+
+        col_start, end_index = 3, 34
+        while col_start < end_index:
+            for group in groups:
+                group_data = {}
+                self.slurp_secondary_col_table(
+                    self.ws,
+                    group_data,
+                    col_start=col_start,
+                    cols=2,
+                    cols_per_group=2,
+                    major_col_heading_row=6,
+                    row_start=8,
+                    row_end=121,
+                    row_heading_col=2,
+                )
+                data_2015[group] = group_data
+                col_start += 4
+
+        return all_data
+
+    def import_s07(self, sheet_data):
+        data_2015 = {}
+        all_data = {2015: data_2015}
+
+        options = ['yes', 'no']
+
+        col_start, end_index = 3, 10
+        while col_start < end_index:
+            for option in options:
+                option_data = {}
+                self.slurp_secondary_col_table(
+                    self.ws,
+                    option_data,
+                    col_start=col_start,
+                    cols=2,
+                    cols_per_group=2,
+                    major_col_heading_row=6,
+                    row_start=8,
+                    row_end=121,
+                    row_heading_col=2,
+                )
+                data_2015[option] = option_data
+                col_start += 4
+
+        return all_data
+
+    def import_s08(self, sheet_data):
+        data_2015 = {}
+        all_data = {2015: data_2015}
+
+        options = ['yes', 'no']
+
+        col_start, end_index = 3, 10
+        while col_start < end_index:
+            for option in options:
+                option_data = {}
+                self.slurp_secondary_col_table(
+                    self.ws,
+                    option_data,
+                    col_start=col_start,
+                    cols=2,
+                    cols_per_group=2,
+                    major_col_heading_row=6,
+                    row_start=8,
+                    row_end=121,
+                    row_heading_col=2,
+                )
+                data_2015[option] = option_data
+                col_start += 4
+
+        return all_data
+
+    def import_s09(self, sheet_data):
+        data_2015 = {}
+        all_data = {2015: data_2015}
+
+        options = ['yes', 'no', 'do not know']
+
+        col_start, end_index = 3, 14
+        while col_start < end_index:
+            for option in options:
+                option_data = {}
+                self.slurp_secondary_col_table(
+                    self.ws,
+                    option_data,
+                    col_start=col_start,
+                    cols=2,
+                    cols_per_group=2,
+                    major_col_heading_row=6,
+                    row_start=8,
+                    row_end=121,
+                    row_heading_col=2,
+                )
+                data_2015[option] = option_data
+                col_start += 4
+
+        return all_data
+
+    def import_s11(self, sheet_data):
+        data_2015 = {}
+        all_data = {2015: data_2015}
+
+        groups = [
+            'politics and government', 'economy', 'science and health', 'social and legal', 'crime and violence',
+            'celebrity, arts and media, sports', 'other'
+        ]
+
+        col_start, end_index = 3, 30
+        while col_start < end_index:
+            for group in groups:
+                group_data = {}
+                self.slurp_secondary_col_table(
+                    self.ws,
+                    group_data,
+                    col_start=col_start,
+                    cols=2,
+                    cols_per_group=2,
+                    major_col_heading_row=6,
+                    row_start=8,
+                    row_end=121,
+                    row_heading_col=2,
+                )
+                data_2015[group] = group_data
+                col_start += 4
+
+        return all_data
+
     def import_s12(self, sheet_info):
         return self.import_grid(
             [
@@ -1690,61 +2195,32 @@ class GMMP2015ReportImporter(BaseReportImporter):
             ]
         )
 
-    def import_s26(self, sheet_info):
-        data = {}
-        all_data = {self.year: data}
+    def import_s13(self, sheet_data):
+        data_2015 = {}
+        all_data = {2015: data_2015}
 
-        mediums = {
-            'internet': (3, 9),
-            'twitter': (12, 18),
-        }
+        genders = ['female', 'male']
 
-        for medium, (col_start, col_end) in mediums.items():
-            medium_data = {}
-            data[medium] = medium_data
-            self.slurp_table(
-                self.ws,
-                medium_data,
-                col_start=col_start,
-                col_end=col_end,
-                row_start=8,
-                row_end=121,
-                col_heading_row=6
-            )
-
-        return all_data
-
-    def import_s27(self, sheet_info):
-        data = {}
-        all_data = {self.year: data}
-
-        mediums = {
-            'internet': (3, 6),
-            'twitter': (9, 12),
-        }
-
-        for medium, (col_start, col_end) in mediums.items():
-            medium_data = {}
-            data[medium] = medium_data
-            self.slurp_table(
-                self.ws,
-                medium_data,
-                col_start=col_start,
-                col_end=col_end,
-                row_start=8,
-                row_end=121,
-                col_heading_row=6
-            )
+        col_start, end_index = 3, 10
+        while col_start < end_index:
+            for gender in genders:
+                gender_data = {}
+                self.slurp_secondary_col_table(
+                    self.ws,
+                    gender_data,
+                    col_start=col_start,
+                    cols=2,
+                    cols_per_group=2,
+                    major_col_heading_row=6,
+                    row_start=8,
+                    row_end=16,
+                    row_heading_col=2,
+                )
+                data_2015[gender] = gender_data
+                col_start += 4
 
         return all_data
-
-    def import_sr08(self, sheet_info):
-        return self.import_grid(
-            [
-                (2015, 3, 9, 7, 15),
-            ]
-        )
-
+    
     def import_s14(self, sheet_info):
         data = {}
         all_data = {self.year: data}
@@ -1799,6 +2275,63 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         return all_data
 
+    def _secondary_import_s17(self, data, medium, col_start, end_index):
+        groups = ['reporter', 'subjects']
+        medium_data = {}
+        medium_data[medium] = {}
+        while col_start < end_index:
+            for group in groups:
+                group_data = {}
+                self.slurp_secondary_col_table(
+                    self.ws,
+                    group_data,
+                    col_start=col_start,
+                    cols=2,
+                    cols_per_group=2,
+                    major_col_heading_row=7,
+                    row_start=9,
+                    row_end=122,
+                    row_heading_col=2,
+                )
+                medium_data[medium][group] = group_data
+                col_start += 4
+            data[medium] = medium_data[medium]
+
+    def import_s17(self, sheet_data):
+        data_2015 = {}
+        all_data = {2015: data_2015}
+
+        self._secondary_import_s17(
+            data=data_2015,
+            medium='internet',
+            col_start=3,
+            end_index=11,
+        )
+
+        n_data_2015 = {}
+        data_2015['internet']['n'] = n_data_2015
+        for col_start, col_end, row_start, row_end, col_heading_row in [
+            (11, 11, 9, 122, 7),
+        ]:
+            self.slurp_table(
+                self.ws,
+                n_data_2015,
+                col_start=col_start,
+                col_end=col_end,
+                row_start=row_start,
+                row_end=row_end,
+                col_heading_row=col_heading_row,
+            )
+
+        self._secondary_import_s17(
+            data=data_2015,
+            medium='twitter',
+            col_start=23,
+            end_index=30,
+        )
+
+        return all_data
+
     def import_s18(self, sheet_info):
         data = {}
         all_data = {self.year: data}
@@ -1825,6 +2358,500 @@ class GMMP2015ReportImporter(BaseReportImporter):
             )
 
         return all_data
+
+    def import_s19(self, sheet_data):
+        data_2015 = {}
+        all_data = {2015: data_2015}
+
+        groups = [
+            'politics and government', 'economy', 'science and health', 'social and legal', 'crime and violence',
+            'celebrity, arts and media, sports', 'other'
+        ]
+
+        data_2015['internet'] = {}
+        col_start, end_index = 3, 30
+        while col_start < end_index:
+            for group in groups:
+                group_data = {}
+                self.slurp_secondary_col_table(
+                    self.ws,
+                    group_data,
+                    col_start=col_start,
+                    cols=2,
+                    cols_per_group=2,
+                    major_col_heading_row=7,
+                    row_start=9,
+                    row_end=122,
+                    row_heading_col=2,
+                )
+                data_2015['internet'][group] = group_data
+                col_start += 4
+
+        data_2015['twitter'] = {}
+        col_start, end_index = 33, 60
+        while col_start < end_index:
+            for group in groups:
+                group_data = {}
+                self.slurp_secondary_col_table(
+                    self.ws,
+                    group_data,
+                    col_start=col_start,
+                    cols=2,
+                    cols_per_group=2,
+                    major_col_heading_row=7,
+                    row_start=9,
+                    row_end=122,
+                    row_heading_col=2,
+                )
+                data_2015['twitter'][group] = group_data
+                col_start += 4
+
+        return all_data
+
+    def import_s20(self, sheet_data):
+        data_2015 = {}
+        all_data = {2015: data_2015}
+
+        groups = [
+            'not stated', 'royalty, monarch, deposed monarch, etc.',
+            'government, politician, minister, spokesperson...', 'government employee, public servant, etc.',
+            'police, military, para-military, militia, fire officer', 'academic expert, lecturer, teacher',
+            'doctor, dentist, health specialist', 'health worker, social worker, childcare worker',
+            'science/technology professional, engineer, etc.', 'media professional, journalist, film-maker, etc.',
+            'lawyer, judge, magistrate, legal advocate, etc.', 'business person, exec, manager, stock broker...',
+            'office or service worker, non-management worker', 'tradesperson, artisan, labourer, truck driver, etc.',
+            'agriculture, mining, fishing, forestry', 'religious figure, priest, monk, rabbi, mullah, nun',
+            'activist or worker in civil society org., ngo, trade union', 'sex worker',
+            'celebrity, artist, actor, writer, singer, tv personality', 'sportsperson, athlete, player, coach, referee',
+            'student, pupil, schoolchild', ') only if no other occupation is given e.g. doctor/mother=code 6',
+            'child, young person no other occupation given', 'villager or resident no other occupation given',
+            'retired person, pensioner no other occupation given', 'criminal, suspect no other occupation given',
+            'unemployed no other occupation given', 'other only as last resort & explain',
+        ]
+
+        data_2015['internet'] = {}
+        col_start, end_index = 3, 114
+        while col_start < end_index:
+            for group in groups:
+                group_data = {}
+                self.slurp_secondary_col_table(
+                    self.ws,
+                    group_data,
+                    col_start=col_start,
+                    cols=2,
+                    cols_per_group=2,
+                    major_col_heading_row=7,
+                    row_start=9,
+                    row_end=122,
+                    row_heading_col=2,
+                )
+                data_2015['internet'][group] = group_data
+                col_start += 4
+
+        return all_data
+
+    def import_s21(self, sheet_data):
+        data_2015 = {}
+        all_data = {2015: data_2015}
+
+        groups = [
+            'do not know', 'subject', 'spokesperson', 'expert or commentator', 'personal experience',
+            'eye witness', 'personal opinion', 'other'
+        ]
+
+        data_2015['internet'] = {}
+        col_start, end_index = 3, 34
+        while col_start < end_index:
+            for group in groups:
+                group_data = {}
+                self.slurp_secondary_col_table(
+                    self.ws,
+                    group_data,
+                    col_start=col_start,
+                    cols=2,
+                    cols_per_group=2,
+                    major_col_heading_row=7,
+                    row_start=9,
+                    row_end=122,
+                    row_heading_col=2,
+                )
+                data_2015['internet'][group] = group_data
+                col_start += 4
+
+        return all_data
+
+    def import_s22(self, sheet_data):
+        data_2015 = {}
+        all_data = {2015: data_2015}
+
+        groups = [
+            'victim', 'not a victim',
+        ]
+
+        data_2015['internet'] = {}
+        col_start, end_index = 3, 10
+        while col_start < end_index:
+            for group in groups:
+                group_data = {}
+                self.slurp_secondary_col_table(
+                    self.ws,
+                    group_data,
+                    col_start=col_start,
+                    cols=2,
+                    cols_per_group=2,
+                    major_col_heading_row=7,
+                    row_start=9,
+                    row_end=122,
+                    row_heading_col=2,
+                )
+                data_2015['internet'][group] = group_data
+                col_start += 4
+
+        return all_data
+
+    def import_s23(self, sheet_data):
+        data_2015 = {}
+        all_data = {2015: data_2015}
+
+        groups = [
+            'yes', 'no',
+        ]
+
+        data_2015['internet'] = {}
+        col_start, end_index = 3, 10
+        while col_start < end_index:
+            for group in groups:
+                group_data = {}
+                self.slurp_secondary_col_table(
+                    self.ws,
+                    group_data,
+                    col_start=col_start,
+                    cols=2,
+                    cols_per_group=2,
+                    major_col_heading_row=7,
+                    row_start=9,
+                    row_end=122,
+                    row_heading_col=2,
+                )
+                data_2015['internet'][group] = group_data
+                col_start += 4
+
+        return all_data
+
+    def import_s24(self, sheet_data):
+        data_2015 = {}
+        all_data = {2015: data_2015}
+
+        options = ['yes', 'no', 'do not know']
+
+        data_2015['internet'] = {}
+        col_start, end_index = 3, 14
+        while col_start < end_index:
+            for option in options:
+                option_data = {}
+                self.slurp_secondary_col_table(
+                    self.ws,
+                    option_data,
+                    col_start=col_start,
+                    cols=2,
+                    cols_per_group=2,
+                    major_col_heading_row=7,
+                    row_start=9,
+                    row_end=122,
+                    row_heading_col=2,
+                )
+                data_2015['internet'][option] = option_data
+                col_start += 4
+
+        data_2015['twitter'] = {}
+        col_start, end_index = 17, 28
+        while col_start < end_index:
+            for option in options:
+                option_data = {}
+                self.slurp_secondary_col_table(
+                    self.ws,
+                    option_data,
+                    col_start=col_start,
+                    cols=2,
+                    cols_per_group=2,
+                    major_col_heading_row=7,
+                    row_start=9,
+                    row_end=122,
+                    row_heading_col=2,
+                )
+                data_2015['twitter'][option] = option_data
+                col_start += 4
+
+        return all_data
+
+    def import_s25(self, sheet_data):
+        data_2015 = {}
+        all_data = {2015: data_2015}
+
+        groups = [
+            'politics and government', 'economy', 'science and health', 'social and legal', 'crime and violence',
+            'celebrity, arts and media, sports', 'other'
+        ]
+
+        data_2015['internet'] = {}
+        col_start, end_index = 3, 30
+        while col_start < end_index:
+            for group in groups:
+                group_data = {}
+                self.slurp_secondary_col_table(
+                    self.ws,
+                    group_data,
+                    col_start=col_start,
+                    cols=2,
+                    cols_per_group=2,
+                    major_col_heading_row=7,
+                    row_start=9,
+                    row_end=122,
+                    row_heading_col=2,
+                )
+                data_2015['internet'][group] = group_data
+                col_start += 4
+
+        data_2015['twitter'] = {}
+        col_start, end_index = 33, 60
+        while col_start < end_index:
+            for group in groups:
+                group_data = {}
+                self.slurp_secondary_col_table(
+                    self.ws,
+                    group_data,
+                    col_start=col_start,
+                    cols=2,
+                    cols_per_group=2,
+                    major_col_heading_row=7,
+                    row_start=9,
+                    row_end=122,
+                    row_heading_col=2,
+                )
+                data_2015['twitter'][group] = group_data
+                col_start += 4
+
+        return all_data
+
+    def import_s26(self, sheet_info):
+        data = {}
+        all_data = {self.year: data}
+
+        mediums = {
+            'internet': (3, 9),
+            'twitter': (12, 18),
+        }
+
+        for medium, (col_start, col_end) in mediums.items():
+            medium_data = {}
+            data[medium] = medium_data
+            self.slurp_table(
+                self.ws,
+                medium_data,
+                col_start=col_start,
+                col_end=col_end,
+                row_start=8,
+                row_end=121,
+                col_heading_row=6
+            )
+
+        return all_data
+
+    def import_s27(self, sheet_info):
+        data = {}
+        all_data = {self.year: data}
+
+        mediums = {
+            'internet': (3, 6),
+            'twitter': (9, 12),
+        }
+
+        for medium, (col_start, col_end) in mediums.items():
+            medium_data = {}
+            data[medium] = medium_data
+            self.slurp_table(
+                self.ws,
+                medium_data,
+                col_start=col_start,
+                col_end=col_end,
+                row_start=8,
+                row_end=121,
+                col_heading_row=6
+            )
+
+        return all_data
+
+    def import_rs01(self, sheet_data):
+        data_2015 = {}
+        all_data = {2015: data_2015}
+
+        categories = ['presenter', 'reporter', 'subjects']
+
+        col_start, end_index = 3, 14
+        while col_start < end_index:
+            for category in categories:
+                category_data = {}
+                self.slurp_secondary_col_table(
+                    self.ws,
+                    category_data,
+                    col_start=col_start,
+                    cols=2,
+                    cols_per_group=2,
+                    major_col_heading_row=6,
+                    row_start=8,
+                    row_end=16,
+                    row_heading_col=2,
+                )
+                data_2015[category] = category_data
+                col_start += 4
+
+        return all_data
+
+    def import_sr02(self, sheet_data):
+        data_2015 = {}
+        all_data = {2015: data_2015}
+
+        groups = [
+            'politics and government', 'economy', 'science and health', 'social and legal', 'crime and violence',
+            'celebrity, arts and media, sports', 'other'
+        ]
+
+        col_start, end_index = 3, 30
+        while col_start < end_index:
+            for group in groups:
+                group_data = {}
+                self.slurp_secondary_col_table(
+                    self.ws,
+                    group_data,
+                    col_start=col_start,
+                    cols=2,
+                    cols_per_group=2,
+                    major_col_heading_row=6,
+                    row_start=8,
+                    row_end=16,
+                    row_heading_col=2,
+                )
+                data_2015[group] = group_data
+                col_start += 4
+
+        return all_data
+
+    def import_sr03(self, sheet_data):
+        data_2015 = {}
+        all_data = {2015: data_2015}
+
+        groups = [
+            'do not know', 'subject', 'spokesperson', 'expert or commentator', 'personal experience',
+            'eye witness', 'personal opinion', 'other'
+        ]
+
+        col_start, end_index = 3, 34
+        while col_start < end_index:
+            for group in groups:
+                group_data = {}
+                self.slurp_secondary_col_table(
+                    self.ws,
+                    group_data,
+                    col_start=col_start,
+                    cols=2,
+                    cols_per_group=2,
+                    major_col_heading_row=6,
+                    row_start=8,
+                    row_end=16,
+                    row_heading_col=2,
+                )
+                data_2015[group] = group_data
+                col_start += 4
+
+        return all_data
+
+    def import_sr04(self, sheet_data):
+        data_2015 = {}
+        all_data = {2015: data_2015}
+
+        options = ['yes', 'no', 'do not know']
+
+        col_start, end_index = 3, 14
+        while col_start < end_index:
+            for option in options:
+                option_data = {}
+                self.slurp_secondary_col_table(
+                    self.ws,
+                    option_data,
+                    col_start=col_start,
+                    cols=2,
+                    cols_per_group=2,
+                    major_col_heading_row=6,
+                    row_start=8,
+                    row_end=16,
+                    row_heading_col=2,
+                )
+                data_2015[option] = option_data
+                col_start += 4
+
+        return all_data
+
+    def import_sr06(self, sheet_data):
+        data_2015 = {}
+        all_data = {2015: data_2015}
+
+        groups = [
+            'politics and government', 'economy', 'science and health', 'social and legal', 'crime and violence',
+            'celebrity, arts and media, sports', 'other'
+        ]
+
+        col_start, end_index = 3, 30
+        while col_start < end_index:
+            for group in groups:
+                group_data = {}
+                self.slurp_secondary_col_table(
+                    self.ws,
+                    group_data,
+                    col_start=col_start,
+                    cols=2,
+                    cols_per_group=2,
+                    major_col_heading_row=6,
+                    row_start=8,
+                    row_end=16,
+                    row_heading_col=2,
+                )
+                data_2015[group] = group_data
+                col_start += 4
+
+        return all_data
+
+    def import_sr07(self, sheet_data):
+        data_2015 = {}
+        all_data = {2015: data_2015}
+
+        genders = ['female', 'male']
+
+        col_start, end_index = 3, 10
+        while col_start < end_index:
+            for gender in genders:
+                gender_data = {}
+                self.slurp_secondary_col_table(
+                    self.ws,
+                    gender_data,
+                    col_start=col_start,
+                    cols=2,
+                    cols_per_group=2,
+                    major_col_heading_row=6,
+                    row_start=8,
+                    row_end=16,
+                    row_heading_col=2,
+                )
+                data_2015[gender] = gender_data
+                col_start += 4
+
+        return all_data
+
+    def import_sr08(self, sheet_info):
+        return self.import_grid(
+            [
+                (2015, 3, 9, 7, 15),
+            ]
+        )
 
     def import_sr09(self, sheet_info):
         data = {}
