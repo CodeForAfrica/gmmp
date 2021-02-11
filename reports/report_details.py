@@ -566,6 +566,13 @@ WS_INFO = {
         },
     },
     'ws_35': {
+        '2015': {
+            'name': '35',
+            'title': 'Breakdown of television Announcers & Reporters, by age, by sex',
+            'desc': 'Age of television Announcers & Reporters, by sex',
+            'reports': ['global', 'region', 'country'],
+            'historical': '35',
+        },
         '2010': {
             'name': '35',
             'title': 'Breakdown of television Announcers & Reporters, by age, by sex',

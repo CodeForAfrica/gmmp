@@ -729,6 +729,75 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         return all_data
 
+    def import_35(self, sheet_info):
+        data_2015 = {}
+        all_data = {2015: data_2015}
+
+        mediums = [
+            'Anchor, announcer or presenter: Usually in the television studio',
+            'Reporter: Usually outside the studio. Include reporters who do not appear on screen, but whose voice is heard (e.g. as voice-over).',
+        ]
+
+        col_start, end_index = 3, 10
+        while col_start < end_index:
+            for medium in mediums:
+                medium_data = {}
+                self.slurp_secondary_col_table(
+                    self.ws,
+                    medium_data,
+                    col_start=col_start,
+                    cols=2,
+                    cols_per_group=2,
+                    major_col_heading_row=6,
+                    row_start=8,
+                    row_end=14,
+                    row_heading_col=2,
+                )
+                data_2015[medium] = medium_data
+                col_start += 4
+
+        data_2005 = {}
+        all_data[2005] = data_2005
+        col_start, end_index = 12, 13
+        while col_start < end_index:
+            for medium in mediums:
+                medium_data = {}
+                self.slurp_secondary_col_table(
+                    self.ws,
+                    medium_data,
+                    col_start=col_start,
+                    cols=1,
+                    cols_per_group=1,
+                    major_col_heading_row=6,
+                    row_start=8,
+                    row_end=14,
+                    row_heading_col=2,
+                )
+                data_2005[medium] = medium_data
+                col_start += 1
+
+        data_2010 = {}
+        all_data[2010] = data_2010
+        col_start, end_index = 14, 17
+        while col_start < end_index:
+            for medium in mediums:
+                medium_data = {}
+                self.slurp_secondary_col_table(
+                    self.ws,
+                    medium_data,
+                    col_start=col_start,
+                    cols=2,
+                    cols_per_group=1,
+                    major_col_heading_row=6,
+                    row_start=8,
+                    row_end=14,
+                    row_heading_col=2,
+                )
+                data_2010[medium] = medium_data
+                col_start += 2
+
+        return all_data
+
     def import_34(self, sheet_info):
         return self.import_grid(
             [
