@@ -53,7 +53,7 @@ class Historical(object):
         return self.all_data[key][sheet["historical"]]
 
     def import_from_file(self, fname, coverage, region=None, country=None, year=None):
-        wb = openpyxl.load_workbook(fname, read_only=True, data_only=True)
+        wb = openpyxl.load_workbook(fname, data_only=True)
 
         key = coverage
         if region:
