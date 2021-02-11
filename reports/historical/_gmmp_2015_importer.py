@@ -1571,6 +1571,54 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         return all_data
 
+    def import_78(self, sheet_data):
+        data_2015 = {}
+        all_data = {2015: data_2015}
+
+        groups = ['political participation', 'peace and security', 'economic participation']
+
+        first_data = {}
+        data_2015['Print, Radio, Television'] = first_data
+        col_start, end_index = 3, 35
+        while col_start < end_index:
+            for group in groups:
+                group_data = {}
+                self.slurp_secondary_col_table(
+                    self.ws,
+                    group_data,
+                    col_start=col_start,
+                    cols=11,
+                    cols_per_group=1,
+                    major_col_heading_row=7,
+                    row_start=9,
+                    row_end=122,
+                    row_heading_col=2,
+                )
+                first_data[group] = group_data
+                col_start += 11
+
+        second_data = {}
+        data_2015['Internet, Twitter'] = second_data
+        col_start, end_index = 38, 70
+        while col_start < end_index:
+            for group in groups:
+                group_data = {}
+                self.slurp_secondary_col_table(
+                    self.ws,
+                    group_data,
+                    col_start=col_start,
+                    cols=11,
+                    cols_per_group=1,
+                    major_col_heading_row=7,
+                    row_start=9,
+                    row_end=122,
+                    row_heading_col=2,
+                )
+                second_data[group] = group_data
+                col_start += 11
+
+        return all_data
+
     def import_79(self, sheet_data):
         data_2015 = {}
         all_data = {2015: data_2015}
