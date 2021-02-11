@@ -66,9 +66,9 @@ class Historical(object):
             "2010": GMMP2010ReportImporter,
             "2015": GMMP2015ReportImporter,
         }
-        report_importer = report_importer_by_year[year]()
         for sheet in self.historical_sheets(coverage, year):
             # find matching sheet name
+            report_importer = report_importer_by_year[year]()
             ws = report_importer.get_work_sheet(wb, sheet)
             if not ws:
                 self.log.warn(
