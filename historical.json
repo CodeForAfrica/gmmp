@@ -1,275 +1,401 @@
 {
   "global": {
-    "91": {
+    "92": {
       "2015": {
         "Africa": {
           "celebrity, arts and media, sports": {
-            "no": 0.0175438596491228,
-            "yes": 0
+            "agree": 0,
+            "disagree": 0.0113636363636364,
+            "do not know": 0,
+            "neither agree nor disagree": 0
           },
           "crime and violence": {
-            "no": 0.0526315789473684,
-            "yes": 0.133333333333333
+            "agree": 0.363636363636364,
+            "disagree": 0.0454545454545455,
+            "do not know": 0,
+            "neither agree nor disagree": 0
           },
           "economy": {
-            "no": 0.12280701754386,
-            "yes": 0.0222222222222222
+            "agree": 0.181818181818182,
+            "disagree": 0.0681818181818182,
+            "do not know": 0,
+            "neither agree nor disagree": 0
           },
           "other": {
-            "no": 0,
-            "yes": 0.0222222222222222
+            "agree": 0,
+            "disagree": 0.0227272727272727,
+            "do not know": 0,
+            "neither agree nor disagree": 0
           },
           "politics and government": {
-            "no": 0.56140350877193,
-            "yes": 0.6
+            "agree": 0.454545454545455,
+            "disagree": 0.613636363636364,
+            "do not know": 1,
+            "neither agree nor disagree": 0
           },
           "science and health": {
-            "no": 0.087719298245614,
-            "yes": 0
+            "agree": 0,
+            "disagree": 0.0568181818181818,
+            "do not know": 0,
+            "neither agree nor disagree": 0
           },
           "social and legal": {
-            "no": 0.157894736842105,
-            "yes": 0.222222222222222
+            "agree": 0,
+            "disagree": 0.181818181818182,
+            "do not know": 0,
+            "neither agree nor disagree": 1
           }
         },
         "Asia": {
           "celebrity, arts and media, sports": {
-            "no": 0.18546365914787,
-            "yes": 0.0666666666666667
+            "agree": 0.0918367346938776,
+            "disagree": 0.164044943820225,
+            "do not know": 0,
+            "neither agree nor disagree": 0.166666666666667
           },
           "crime and violence": {
-            "no": 0.105263157894737,
-            "yes": 0.23030303030303
+            "agree": 0.295918367346939,
+            "disagree": 0.10561797752809,
+            "do not know": 0.5,
+            "neither agree nor disagree": 0.111111111111111
           },
           "economy": {
-            "no": 0.130325814536341,
-            "yes": 0.0121212121212121
+            "agree": 0.0204081632653061,
+            "disagree": 0.101123595505618,
+            "do not know": 0,
+            "neither agree nor disagree": 0.333333333333333
           },
           "other": {
-            "no": 0,
-            "yes": 0.00606060606060606
+            "agree": 0,
+            "disagree": 0.00449438202247191,
+            "do not know": 0,
+            "neither agree nor disagree": 0
           },
           "politics and government": {
-            "no": 0.303258145363409,
-            "yes": 0.242424242424242
+            "agree": 0.13265306122449,
+            "disagree": 0.330337078651685,
+            "do not know": 0.25,
+            "neither agree nor disagree": 0.0555555555555556
           },
           "science and health": {
-            "no": 0.0401002506265664,
-            "yes": 0.0484848484848485
+            "agree": 0.0408163265306122,
+            "disagree": 0.0404494382022472,
+            "do not know": 0,
+            "neither agree nor disagree": 0.111111111111111
           },
           "social and legal": {
-            "no": 0.235588972431078,
-            "yes": 0.393939393939394
+            "agree": 0.418367346938776,
+            "disagree": 0.253932584269663,
+            "do not know": 0.25,
+            "neither agree nor disagree": 0.222222222222222
           }
         },
         "Caribbean": {
           "celebrity, arts and media, sports": {
-            "no": 0.181818181818182,
-            "yes": 0.0710059171597633
+            "agree": 0.0980392156862745,
+            "disagree": 0.161702127659574,
+            "do not know": 0,
+            "neither agree nor disagree": 0.15
           },
           "crime and violence": {
-            "no": 0.10955710955711,
-            "yes": 0.224852071005917
+            "agree": 0.303921568627451,
+            "disagree": 0.106382978723404,
+            "do not know": 0.5,
+            "neither agree nor disagree": 0.1
           },
           "economy": {
-            "no": 0.137529137529138,
-            "yes": 0.0118343195266272
+            "agree": 0.0294117647058824,
+            "disagree": 0.108510638297872,
+            "do not know": 0,
+            "neither agree nor disagree": 0.35
           },
           "other": {
-            "no": 0,
-            "yes": 0.0118343195266272
+            "agree": 0,
+            "disagree": 0.00425531914893617,
+            "do not know": 0,
+            "neither agree nor disagree": 0
           },
           "politics and government": {
-            "no": 0.296037296037296,
-            "yes": 0.242603550295858
+            "agree": 0.127450980392157,
+            "disagree": 0.323404255319149,
+            "do not know": 0.25,
+            "neither agree nor disagree": 0.05
           },
           "science and health": {
-            "no": 0.0442890442890443,
-            "yes": 0.0473372781065089
+            "agree": 0.0392156862745098,
+            "disagree": 0.0446808510638298,
+            "do not know": 0,
+            "neither agree nor disagree": 0.1
           },
           "social and legal": {
-            "no": 0.230769230769231,
-            "yes": 0.390532544378698
+            "agree": 0.401960784313726,
+            "disagree": 0.251063829787234,
+            "do not know": 0.25,
+            "neither agree nor disagree": 0.25
           }
         },
         "Europe": {
           "celebrity, arts and media, sports": {
-            "no": 0.111328125,
-            "yes": 0.082089552238806
+            "agree": 0.170731707317073,
+            "disagree": 0.115711854792967,
+            "do not know": 0.0408163265306122,
+            "neither agree nor disagree": 0.0413793103448276
           },
           "crime and violence": {
-            "no": 0.14404296875,
-            "yes": 0.220149253731343
+            "agree": 0.231707317073171,
+            "disagree": 0.153715258082813,
+            "do not know": 0.122448979591837,
+            "neither agree nor disagree": 0.113793103448276
           },
           "economy": {
-            "no": 0.1259765625,
-            "yes": 0.0335820895522388
+            "agree": 0.0426829268292683,
+            "disagree": 0.116279069767442,
+            "do not know": 0.0714285714285714,
+            "neither agree nor disagree": 0.16551724137931
           },
           "other": {
-            "no": 0.0087890625,
-            "yes": 0.00746268656716418
+            "agree": 0.00609756097560976,
+            "disagree": 0.00510493477027794,
+            "do not know": 0.0510204081632653,
+            "neither agree nor disagree": 0.0172413793103448
           },
           "politics and government": {
-            "no": 0.2705078125,
-            "yes": 0.238805970149254
+            "agree": 0.176829268292683,
+            "disagree": 0.284741917186614,
+            "do not know": 0.23469387755102,
+            "neither agree nor disagree": 0.220689655172414
           },
           "science and health": {
-            "no": 0.0537109375,
-            "yes": 0.041044776119403
+            "agree": 0.0487804878048781,
+            "disagree": 0.053885422575156,
+            "do not know": 0.0408163265306122,
+            "neither agree nor disagree": 0.0517241379310345
           },
           "social and legal": {
-            "no": 0.28564453125,
-            "yes": 0.376865671641791
+            "agree": 0.323170731707317,
+            "disagree": 0.270561542824731,
+            "do not know": 0.438775510204082,
+            "neither agree nor disagree": 0.389655172413793
           }
         },
         "Latin America": {
           "celebrity, arts and media, sports": {
-            "no": 0.123131392604249,
-            "yes": 0.0792079207920792
+            "agree": 0.185567010309278,
+            "disagree": 0.122641509433962,
+            "do not know": 0.0576923076923077,
+            "neither agree nor disagree": 0.0823529411764706
           },
           "crime and violence": {
-            "no": 0.149881982690795,
-            "yes": 0.224422442244224
+            "agree": 0.211340206185567,
+            "disagree": 0.155660377358491,
+            "do not know": 0.125,
+            "neither agree nor disagree": 0.152941176470588
           },
           "economy": {
-            "no": 0.12234461054288,
-            "yes": 0.033003300330033
+            "agree": 0.0360824742268041,
+            "disagree": 0.116981132075472,
+            "do not know": 0.0769230769230769,
+            "neither agree nor disagree": 0.131764705882353
           },
           "other": {
-            "no": 0.00708103855232101,
-            "yes": 0.0066006600660066
+            "agree": 0.00515463917525773,
+            "disagree": 0.00424528301886792,
+            "do not know": 0.0480769230769231,
+            "neither agree nor disagree": 0.0117647058823529
           },
           "politics and government": {
-            "no": 0.261605035405193,
-            "yes": 0.240924092409241
+            "agree": 0.180412371134021,
+            "disagree": 0.27877358490566,
+            "do not know": 0.221153846153846,
+            "neither agree nor disagree": 0.207058823529412
           },
           "science and health": {
-            "no": 0.0558615263571991,
-            "yes": 0.0396039603960396
+            "agree": 0.0515463917525773,
+            "disagree": 0.0561320754716981,
+            "do not know": 0.0384615384615385,
+            "neither agree nor disagree": 0.0517647058823529
           },
           "social and legal": {
-            "no": 0.280094413847364,
-            "yes": 0.376237623762376
+            "agree": 0.329896907216495,
+            "disagree": 0.265566037735849,
+            "do not know": 0.432692307692308,
+            "neither agree nor disagree": 0.362352941176471
           }
         },
         "Middle East": {
           "celebrity, arts and media, sports": {
-            "no": 0.122014925373134,
-            "yes": 0.0786885245901639
+            "agree": 0.18407960199005,
+            "disagree": 0.121171770972037,
+            "do not know": 0.0576923076923077,
+            "neither agree nor disagree": 0.0823529411764706
           },
           "crime and violence": {
-            "no": 0.150746268656716,
-            "yes": 0.226229508196721
+            "agree": 0.223880597014925,
+            "disagree": 0.155348424323125,
+            "do not know": 0.125,
+            "neither agree nor disagree": 0.152941176470588
           },
           "economy": {
-            "no": 0.119402985074627,
-            "yes": 0.0327868852459016
+            "agree": 0.0348258706467662,
+            "disagree": 0.114513981358189,
+            "do not know": 0.0769230769230769,
+            "neither agree nor disagree": 0.131764705882353
           },
           "other": {
-            "no": 0.00783582089552239,
-            "yes": 0.00655737704918033
+            "agree": 0.00497512437810945,
+            "disagree": 0.00532623169107856,
+            "do not know": 0.0480769230769231,
+            "neither agree nor disagree": 0.0117647058823529
           },
           "politics and government": {
-            "no": 0.27089552238806,
-            "yes": 0.239344262295082
+            "agree": 0.174129353233831,
+            "disagree": 0.288948069241012,
+            "do not know": 0.221153846153846,
+            "neither agree nor disagree": 0.207058823529412
           },
           "science and health": {
-            "no": 0.057089552238806,
-            "yes": 0.039344262295082
+            "agree": 0.0497512437810945,
+            "disagree": 0.0572569906790945,
+            "do not know": 0.0384615384615385,
+            "neither agree nor disagree": 0.0517647058823529
           },
           "social and legal": {
-            "no": 0.272014925373134,
-            "yes": 0.377049180327869
+            "agree": 0.328358208955224,
+            "disagree": 0.257434531735464,
+            "do not know": 0.432692307692308,
+            "neither agree nor disagree": 0.362352941176471
           }
         },
         "North America": {
           "celebrity, arts and media, sports": {
-            "no": 0.114911080711354,
-            "yes": 0.0761904761904762
+            "agree": 0.179723502304147,
+            "disagree": 0.114002478314746,
+            "do not know": 0.0555555555555556,
+            "neither agree nor disagree": 0.0808080808080808
           },
           "crime and violence": {
-            "no": 0.168946648426813,
-            "yes": 0.231746031746032
+            "agree": 0.235023041474654,
+            "disagree": 0.167699297810822,
+            "do not know": 0.157407407407407,
+            "neither agree nor disagree": 0.18989898989899
           },
           "economy": {
-            "no": 0.113201094391245,
-            "yes": 0.0317460317460317
+            "agree": 0.032258064516129,
+            "disagree": 0.111111111111111,
+            "do not know": 0.0740740740740741,
+            "neither agree nor disagree": 0.113131313131313
           },
           "other": {
-            "no": 0.00718194254445964,
-            "yes": 0.00634920634920635
+            "agree": 0.00460829493087558,
+            "disagree": 0.00495662949194548,
+            "do not know": 0.0462962962962963,
+            "neither agree nor disagree": 0.0101010101010101
           },
           "politics and government": {
-            "no": 0.269493844049248,
-            "yes": 0.234920634920635
+            "agree": 0.179723502304147,
+            "disagree": 0.288723667905824,
+            "do not know": 0.212962962962963,
+            "neither agree nor disagree": 0.206060606060606
           },
           "science and health": {
-            "no": 0.0605335157318741,
-            "yes": 0.0380952380952381
+            "agree": 0.0460829493087558,
+            "disagree": 0.0578273440726972,
+            "do not know": 0.037037037037037,
+            "neither agree nor disagree": 0.0707070707070707
           },
           "social and legal": {
-            "no": 0.265731874145007,
-            "yes": 0.380952380952381
+            "agree": 0.32258064516129,
+            "disagree": 0.255679471292854,
+            "do not know": 0.416666666666667,
+            "neither agree nor disagree": 0.329292929292929
           }
         },
         "Pacific Island": {
           "celebrity, arts and media, sports": {
-            "no": 0.114666666666667,
-            "yes": 0.0757097791798107
+            "agree": 0.177272727272727,
+            "disagree": 0.113873295910184,
+            "do not know": 0.0555555555555556,
+            "neither agree nor disagree": 0.0808080808080808
           },
           "crime and violence": {
-            "no": 0.171666666666667,
-            "yes": 0.230283911671924
+            "agree": 0.240909090909091,
+            "disagree": 0.170008019246191,
+            "do not know": 0.157407407407407,
+            "neither agree nor disagree": 0.18989898989899
           },
           "economy": {
-            "no": 0.113333333333333,
-            "yes": 0.0315457413249211
+            "agree": 0.0318181818181818,
+            "disagree": 0.111066559743384,
+            "do not know": 0.0740740740740741,
+            "neither agree nor disagree": 0.113131313131313
           },
           "other": {
-            "no": 0.007,
-            "yes": 0.00630914826498423
+            "agree": 0.00454545454545455,
+            "disagree": 0.00481154771451484,
+            "do not know": 0.0462962962962963,
+            "neither agree nor disagree": 0.0101010101010101
           },
           "politics and government": {
-            "no": 0.267,
-            "yes": 0.233438485804416
+            "agree": 0.177272727272727,
+            "disagree": 0.285485164394547,
+            "do not know": 0.212962962962963,
+            "neither agree nor disagree": 0.206060606060606
           },
           "science and health": {
-            "no": 0.0616666666666667,
-            "yes": 0.0410094637223975
+            "agree": 0.0454545454545455,
+            "disagree": 0.0597433841218925,
+            "do not know": 0.037037037037037,
+            "neither agree nor disagree": 0.0707070707070707
           },
           "social and legal": {
-            "no": 0.264666666666667,
-            "yes": 0.381703470031546
+            "agree": 0.322727272727273,
+            "disagree": 0.255012028869286,
+            "do not know": 0.416666666666667,
+            "neither agree nor disagree": 0.329292929292929
           }
         },
         "Transnational": {
           "celebrity, arts and media, sports": {
-            "no": 0.114695340501792,
-            "yes": 0.0745341614906832
+            "agree": 0.174887892376682,
+            "disagree": 0.112896903175225,
+            "do not know": 0.0555555555555556,
+            "neither agree nor disagree": 0.0864440078585462
           },
           "crime and violence": {
-            "no": 0.173346366894754,
-            "yes": 0.232919254658385
+            "agree": 0.237668161434978,
+            "disagree": 0.172873382987064,
+            "do not know": 0.157407407407407,
+            "neither agree nor disagree": 0.18860510805501
           },
           "economy": {
-            "no": 0.111111111111111,
-            "yes": 0.031055900621118
+            "agree": 0.031390134529148,
+            "disagree": 0.108976871814975,
+            "do not know": 0.0740740740740741,
+            "neither agree nor disagree": 0.110019646365422
           },
           "other": {
-            "no": 0.00684261974584555,
-            "yes": 0.0062111801242236
+            "agree": 0.00448430493273543,
+            "disagree": 0.00470403763230106,
+            "do not know": 0.0462962962962963,
+            "neither agree nor disagree": 0.00982318271119843
           },
           "politics and government": {
-            "no": 0.267513848159009,
-            "yes": 0.236024844720497
+            "agree": 0.183856502242152,
+            "disagree": 0.284986279890239,
+            "do not know": 0.212962962962963,
+            "neither agree nor disagree": 0.210216110019646
           },
           "science and health": {
-            "no": 0.0619094167481264,
-            "yes": 0.0403726708074534
+            "agree": 0.0448430493273543,
+            "disagree": 0.0599764798118385,
+            "do not know": 0.037037037037037,
+            "neither agree nor disagree": 0.0707269155206287
           },
           "social and legal": {
-            "no": 0.264581296839361,
-            "yes": 0.37888198757764
+            "agree": 0.322869955156951,
+            "disagree": 0.255586044688357,
+            "do not know": 0.416666666666667,
+            "neither agree nor disagree": 0.324165029469548
           }
         }
       }

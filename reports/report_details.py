@@ -1391,29 +1391,36 @@ WS_INFO = {
     #         'reports': ['global'],
     #     },
     # },
-    'ws_91': {
-        '2015': {
-            'name': '91',
-            'title': 'Internet - Stories where issues of gender equality/inequality are raised by topic',
-            'desc': 'Internet - Stories where issues of gender equality/inequality are raised by topic',
-            'reports': ['global'],
-            'historical': '91',
-        },
-        '2010': {
-            'name': '91',
-            'title': 'Internet - Stories where issues of gender equality/inequality are raised by topic',
-            'desc': 'Internet - Stories where issues of gender equality/inequality are raised by topic',
-            'reports': ['global'],
-        },
-    },
-    # 'ws_92': {
+    # 'ws_91': {
+    #     '2015': {
+    #         'name': '91',
+    #         'title': 'Internet - Stories where issues of gender equality/inequality are raised by topic',
+    #         'desc': 'Internet - Stories where issues of gender equality/inequality are raised by topic',
+    #         'reports': ['global'],
+    #         'historical': '91',
+    #     },
     #     '2010': {
-    #         'name': '92',
-    #         'title': 'Internet -Stories where stereotypes are clearly challenged',
-    #         'desc': 'Internet -Stories where stereotypes are clearly challenged',
+    #         'name': '91',
+    #         'title': 'Internet - Stories where issues of gender equality/inequality are raised by topic',
+    #         'desc': 'Internet - Stories where issues of gender equality/inequality are raised by topic',
     #         'reports': ['global'],
     #     },
     # },
+    'ws_92': {
+        '2015': {
+            'name': '92',
+            'title': 'Internet -Stories where stereotypes are clearly challenged',
+            'desc': 'Internet -Stories where stereotypes are clearly challenged',
+            'reports': ['global'],
+            'historical': '92',
+        },
+        '2010': {
+            'name': '92',
+            'title': 'Internet -Stories where stereotypes are clearly challenged',
+            'desc': 'Internet -Stories where stereotypes are clearly challenged',
+            'reports': ['global'],
+        },
+    },
     # 'ws_93': {
     #     '2010': {
     #         'name': '93',
