@@ -1226,29 +1226,36 @@ WS_INFO = {
     #         'reports': ['global'],
     #     },
     # },
-    'ws_80': {
+    # 'ws_80': {
+    #     '2015': {
+    #         'name': '80',
+    #         'title': 'Internet - Story shared on Twitter',
+    #         'desc': 'Internet - Story shared on Twitter',
+    #         'reports': ['global'],
+    #         'historical': '80',
+    #     },
+    #     '2010': {
+    #         'name': '80',
+    #         'title': 'Internet - Story shared on Twitter',
+    #         'desc': 'Internet - Story shared on Twitter',
+    #         'reports': ['global'],
+    #     }
+    # },
+    'ws_81': {
         '2015': {
-            'name': '80',
-            'title': 'Internet - Story shared on Twitter',
-            'desc': 'Internet - Story shared on Twitter',
+            'name': '81',
+            'title': 'Internet - Story shared on Facebook',
+            'desc': 'Internet - Story shared on Facebook',
             'reports': ['global'],
-            'historical': '80',
+            'historical': '81',
         },
         '2010': {
-            'name': '80',
-            'title': 'Internet - Story shared on Twitter',
-            'desc': 'Internet - Story shared on Twitter',
+            'name': '81',
+            'title': 'Internet - Story shared on Facebook',
+            'desc': 'Internet - Story shared on Facebook',
             'reports': ['global'],
-        }
+        },
     },
-    # 'ws_81': {
-    #     '2010': {
-    #         'name': '81',
-    #         'title': 'Internet - Story shared on Facebook',
-    #         'desc': 'Internet - Story shared on Facebook',
-    #         'reports': ['global'],
-    #     },
-    # },
     # 'ws_82': {
     #     '2010': {
     #         'name': '82',
