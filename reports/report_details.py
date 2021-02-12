@@ -1421,21 +1421,21 @@ WS_INFO = {
     #         'reports': ['global'],
     #     },
     # },
-    'ws_93': {
-        '2015': {
-            'name': '93',
-            'title': 'Internet -Stories with Women as a central Focus',
-            'desc': 'Internet -Stories with Women as a central Focus',
-            'reports': ['global'],
-            'historical': '93',
-        },
-        '2010': {
-            'name': '93',
-            'title': 'Internet -Stories with Women as a central Focus',
-            'desc': 'Internet -Stories with Women as a central Focus',
-            'reports': ['global'],
-        },
-    },
+    # 'ws_93': {
+    #     '2015': {
+    #         'name': '93',
+    #         'title': 'Internet -Stories with Women as a central Focus',
+    #         'desc': 'Internet -Stories with Women as a central Focus',
+    #         'reports': ['global'],
+    #         'historical': '93',
+    #     },
+    #     '2010': {
+    #         'name': '93',
+    #         'title': 'Internet -Stories with Women as a central Focus',
+    #         'desc': 'Internet -Stories with Women as a central Focus',
+    #         'reports': ['global'],
+    #     },
+    # },
     # 'ws_94': {
     #     '2015': {
     #         'name': '94',
@@ -1451,14 +1451,21 @@ WS_INFO = {
     #         'reports': ['global'],
     #     },
     # },
-    # 'ws_95': {
-    #     '2010': {
-    #         'name': '95',
-    #         'title': 'Twitter - Female reporters',
-    #         'desc': 'Twitter - Female reporters',
-    #         'reports': ['global'],
-    #     },
-    # },
+    'ws_95': {
+        '2015': {
+            'name': '95',
+            'title': 'Twitter - Female reporters',
+            'desc': 'Twitter - Female reporters',
+            'reports': ['global'],
+            'historical': '95',
+        },
+        '2010': {
+            'name': '95',
+            'title': 'Twitter - Female reporters',
+            'desc': 'Twitter - Female reporters',
+            'reports': ['global'],
+        },
+    },
     # 'ws_96': {
     #     '2015': {
     #         'name': '96',
