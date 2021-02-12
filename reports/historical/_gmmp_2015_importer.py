@@ -3403,6 +3403,44 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         return all_data
 
+    def import_sr05(self, sheet_data):
+        data_2015 = {}
+        all_data = {2015: data_2015}
+
+        self._sheet_80_secondary_import(
+            data=data_2015,
+            groups=[
+                'Reporter',
+            ],
+            medium='Print',
+            col_start=3,
+            end_index=6,
+        )
+
+        self._sheet_80_secondary_import(
+            data=data_2015,
+            groups=[
+                'Presenter',
+                'Reporter',
+            ],
+            medium='Radio',
+            col_start=7,
+            end_index=14,
+        )
+
+        self._sheet_80_secondary_import(
+            data=data_2015,
+            groups=[
+                'Presenter',
+                'Reporter',
+            ],
+            medium='Television',
+            col_start=15,
+            end_index=22,
+        )
+
+        return all_data
+
     def import_sr06(self, sheet_data):
         data_2015 = {}
         all_data = {2015: data_2015}

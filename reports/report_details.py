@@ -1451,21 +1451,21 @@ WS_INFO = {
     #         'reports': ['global'],
     #     },
     # },
-    'ws_95': {
-        '2015': {
-            'name': '95',
-            'title': 'Twitter - Female reporters',
-            'desc': 'Twitter - Female reporters',
-            'reports': ['global'],
-            'historical': '95',
-        },
-        '2010': {
-            'name': '95',
-            'title': 'Twitter - Female reporters',
-            'desc': 'Twitter - Female reporters',
-            'reports': ['global'],
-        },
-    },
+    # 'ws_95': {
+    #     '2015': {
+    #         'name': '95',
+    #         'title': 'Twitter - Female reporters',
+    #         'desc': 'Twitter - Female reporters',
+    #         'reports': ['global'],
+    #         'historical': '95',
+    #     },
+    #     '2010': {
+    #         'name': '95',
+    #         'title': 'Twitter - Female reporters',
+    #         'desc': 'Twitter - Female reporters',
+    #         'reports': ['global'],
+    #     },
+    # },
     # 'ws_96': {
     #     '2015': {
     #         'name': '96',
@@ -1947,14 +1947,21 @@ WS_INFO = {
     #         'reports': ['global'],
     #     },
     # },
-    # 'ws_sr05': {
-    #     '2010': {
-    #         'name': 'sr05',
-    #         'title': 'Presenters and reporters, by region, by medium',
-    #         'desc': 'Presenters and reporters, by region, by medium',
-    #         'reports': ['global'],
-    #     },
-    # },
+    'ws_sr05': {
+        '2015': {
+            'name': 'sr05',
+            'title': 'Presenters and reporters, by region, by medium',
+            'desc': 'Presenters and reporters, by region, by medium',
+            'reports': ['global'],
+            'historical': 'sr05',
+        },
+        '2010': {
+            'name': 'sr05',
+            'title': 'Presenters and reporters, by region, by medium',
+            'desc': 'Presenters and reporters, by region, by medium',
+            'reports': ['global'],
+        },
+    },
     # 'ws_sr06': {
     #     '2015': {
     #         'name': 'sr06',
