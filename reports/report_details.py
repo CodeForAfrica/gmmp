@@ -1256,21 +1256,21 @@ WS_INFO = {
     #         'reports': ['global'],
     #     },
     # },
-    'ws_82': {
-        '2015': {
-            'name': '82',
-            'title': 'Internet - Reference to gender equality/HR policies',
-            'desc': 'Internet - Reference to gender equality/HR policies',
-            'reports': ['global'],
-            'historical': '82',
-        },
-        '2010': {
-            'name': '82',
-            'title': 'Internet - Reference to gender equality/HR policies',
-            'desc': 'Internet - Reference to gender equality/HR policies',
-            'reports': ['global'],
-        },
-    },
+    # 'ws_82': {
+    #     '2015': {
+    #         'name': '82',
+    #         'title': 'Internet - Reference to gender equality/HR policies',
+    #         'desc': 'Internet - Reference to gender equality/HR policies',
+    #         'reports': ['global'],
+    #         'historical': '82',
+    #     },
+    #     '2010': {
+    #         'name': '82',
+    #         'title': 'Internet - Reference to gender equality/HR policies',
+    #         'desc': 'Internet - Reference to gender equality/HR policies',
+    #         'reports': ['global'],
+    #     },
+    # },
     # 'ws_83': {
     #     '2015': {
     #         'name': '83',
@@ -1391,14 +1391,21 @@ WS_INFO = {
     #         'reports': ['global'],
     #     },
     # },
-    # 'ws_91': {
-    #     '2010': {
-    #         'name': '91',
-    #         'title': 'Internet - Stories where issues of gender equality/inequality are raised by topic',
-    #         'desc': 'Internet - Stories where issues of gender equality/inequality are raised by topic',
-    #         'reports': ['global'],
-    #     },
-    # },
+    'ws_91': {
+        '2015': {
+            'name': '91',
+            'title': 'Internet - Stories where issues of gender equality/inequality are raised by topic',
+            'desc': 'Internet - Stories where issues of gender equality/inequality are raised by topic',
+            'reports': ['global'],
+            'historical': '91',
+        },
+        '2010': {
+            'name': '91',
+            'title': 'Internet - Stories where issues of gender equality/inequality are raised by topic',
+            'desc': 'Internet - Stories where issues of gender equality/inequality are raised by topic',
+            'reports': ['global'],
+        },
+    },
     # 'ws_92': {
     #     '2010': {
     #         'name': '92',

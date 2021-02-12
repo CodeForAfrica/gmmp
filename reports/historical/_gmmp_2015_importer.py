@@ -2235,6 +2235,38 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         return all_data
 
+    def import_91(self, sheet_info):
+        all_data = {}
+        for year, col_start, col_end in [
+            (2015, 3, 10),
+        ]:
+            data = {}
+            all_data[year] = data
+            regions = {
+                'Africa': (7, 8),
+                'Asia': (9, 10),
+                'Caribbean': (11, 12),
+                'Europe': (13, 14),
+                'Latin America': (15, 16),
+                'Middle East': (17, 18),
+                'North America': (19, 20),
+                'Pacific Island': (21, 22),
+                'Transnational': (23, 24),
+            }
+            for region, (row_start, row_end) in regions.items():
+                regional_data = dict()
+                data[region] = regional_data
+
+                self.slurp_table(
+                    self.ws,
+                    regional_data,
+                    col_start=col_start,
+                    col_end=col_end,
+                    row_start=row_start,
+                    row_end=row_end,
+                )
+        return all_data
+
     def import_94(self, sheet_data):
         data_2015 = {}
         all_data = {2015: data_2015}
