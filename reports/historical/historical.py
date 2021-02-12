@@ -88,9 +88,12 @@ class Historical(object):
             )
 
     def historical_sheets(self, coverage, year):
+        suppressed_sheets = ['42', '45', '53', '54', '66', '67', '68', '71', '72', '73', '74', '75', '76', '77', '78']
         sheets = []
         for sheets_by_year in WS_INFO.values():
             sheet = sheets_by_year.get(year)
-            if sheet and ("historical" in sheet and coverage in sheet["reports"]):
+            if sheet \
+               and ("historical" in sheet and coverage in sheet["reports"])\
+               and sheet["historical"] not in suppressed_sheets:
                 sheets.append(sheet)
         return sheets
