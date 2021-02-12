@@ -1406,29 +1406,36 @@ WS_INFO = {
     #         'reports': ['global'],
     #     },
     # },
-    'ws_92': {
-        '2015': {
-            'name': '92',
-            'title': 'Internet -Stories where stereotypes are clearly challenged',
-            'desc': 'Internet -Stories where stereotypes are clearly challenged',
-            'reports': ['global'],
-            'historical': '92',
-        },
-        '2010': {
-            'name': '92',
-            'title': 'Internet -Stories where stereotypes are clearly challenged',
-            'desc': 'Internet -Stories where stereotypes are clearly challenged',
-            'reports': ['global'],
-        },
-    },
-    # 'ws_93': {
+    # 'ws_92': {
+    #     '2015': {
+    #         'name': '92',
+    #         'title': 'Internet -Stories where stereotypes are clearly challenged',
+    #         'desc': 'Internet -Stories where stereotypes are clearly challenged',
+    #         'reports': ['global'],
+    #         'historical': '92',
+    #     },
     #     '2010': {
-    #         'name': '93',
-    #         'title': 'Internet -Stories with Women as a central Focus',
-    #         'desc': 'Internet -Stories with Women as a central Focus',
+    #         'name': '92',
+    #         'title': 'Internet -Stories where stereotypes are clearly challenged',
+    #         'desc': 'Internet -Stories where stereotypes are clearly challenged',
     #         'reports': ['global'],
     #     },
     # },
+    'ws_93': {
+        '2015': {
+            'name': '93',
+            'title': 'Internet -Stories with Women as a central Focus',
+            'desc': 'Internet -Stories with Women as a central Focus',
+            'reports': ['global'],
+            'historical': '93',
+        },
+        '2010': {
+            'name': '93',
+            'title': 'Internet -Stories with Women as a central Focus',
+            'desc': 'Internet -Stories with Women as a central Focus',
+            'reports': ['global'],
+        },
+    },
     # 'ws_94': {
     #     '2015': {
     #         'name': '94',
