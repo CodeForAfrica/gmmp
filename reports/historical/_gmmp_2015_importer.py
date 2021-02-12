@@ -1648,7 +1648,7 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         return all_data
 
-    def _sheet_80_secondary_import(self, data, groups, medium, col_start, end_index):
+    def _sheet_80_secondary_import(self, data, groups, medium, col_start, end_index, row_end=17):
         local_data = {}
         data[medium] = local_data
         while col_start < end_index:
@@ -1662,7 +1662,7 @@ class GMMP2015ReportImporter(BaseReportImporter):
                     cols_per_group=2,
                     major_col_heading_row=7,
                     row_start=9,
-                    row_end=17,
+                    row_end=row_end,
                     row_heading_col=2,
                 )
                 local_data[group] = group_data
@@ -2768,6 +2768,47 @@ class GMMP2015ReportImporter(BaseReportImporter):
                 )
                 data_2015[option] = option_data
                 col_start += 4
+
+        return all_data
+
+    def import_s10(self, sheet_data):
+        data_2015 = {}
+        all_data = {2015: data_2015}
+
+        self._sheet_80_secondary_import(
+            data=data_2015,
+            groups=[
+                'Reporter',
+            ],
+            medium='Print',
+            col_start=3,
+            end_index=6,
+            row_end=122,
+        )
+
+        self._sheet_80_secondary_import(
+            data=data_2015,
+            groups=[
+                'Presenter',
+                'Reporter',
+            ],
+            medium='Radio',
+            col_start=7,
+            end_index=14,
+            row_end=122,
+        )
+
+        self._sheet_80_secondary_import(
+            data=data_2015,
+            groups=[
+                'Presenter',
+                'Reporter',
+            ],
+            medium='Television',
+            col_start=15,
+            end_index=22,
+            row_end=122,
+        )
 
         return all_data
 

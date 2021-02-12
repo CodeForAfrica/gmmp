@@ -1624,14 +1624,21 @@ WS_INFO = {
     #         'reports': ['global'],
     #     },
     # },
-    # 'ws_s10': {
-    #     '2010': {
-    #         'name': 's10',
-    #         'title': 'Presenters and reporters in television, radio and newspapers',
-    #         'desc': 'Presenters and reporters in television, radio and newspapers',
-    #         'reports': ['global'],
-    #     },
-    # },
+    'ws_s10': {
+        '2015': {
+            'name': 's10',
+            'title': 'Presenters and reporters in television, radio and newspapers',
+            'desc': 'Presenters and reporters in television, radio and newspapers',
+            'reports': ['global'],
+            'historical': 's10',
+        },
+        '2010': {
+            'name': 's10',
+            'title': 'Presenters and reporters in television, radio and newspapers',
+            'desc': 'Presenters and reporters in television, radio and newspapers',
+            'reports': ['global'],
+        },
+    },
     # 'ws_s11': {
     #     '2015': {
     #         'name': 's11',
@@ -1947,21 +1954,21 @@ WS_INFO = {
     #         'reports': ['global'],
     #     },
     # },
-    'ws_sr05': {
-        '2015': {
-            'name': 'sr05',
-            'title': 'Presenters and reporters, by region, by medium',
-            'desc': 'Presenters and reporters, by region, by medium',
-            'reports': ['global'],
-            'historical': 'sr05',
-        },
-        '2010': {
-            'name': 'sr05',
-            'title': 'Presenters and reporters, by region, by medium',
-            'desc': 'Presenters and reporters, by region, by medium',
-            'reports': ['global'],
-        },
-    },
+    # 'ws_sr05': {
+    #     '2015': {
+    #         'name': 'sr05',
+    #         'title': 'Presenters and reporters, by region, by medium',
+    #         'desc': 'Presenters and reporters, by region, by medium',
+    #         'reports': ['global'],
+    #         'historical': 'sr05',
+    #     },
+    #     '2010': {
+    #         'name': 'sr05',
+    #         'title': 'Presenters and reporters, by region, by medium',
+    #         'desc': 'Presenters and reporters, by region, by medium',
+    #         'reports': ['global'],
+    #     },
+    # },
     # 'ws_sr06': {
     #     '2015': {
     #         'name': 'sr06',
