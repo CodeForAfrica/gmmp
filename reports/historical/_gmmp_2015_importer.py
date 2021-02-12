@@ -2693,6 +2693,34 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         return all_data
 
+    def import_s06(self, sheet_data):
+        data_2015 = {}
+        all_data = {2015: data_2015}
+
+        groups = [
+            'Victim', 'Not a victim',
+        ]
+
+        col_start, end_index = 3, 10
+        while col_start < end_index:
+            for group in groups:
+                group_data = {}
+                self.slurp_secondary_col_table(
+                    self.ws,
+                    group_data,
+                    col_start=col_start,
+                    cols=2,
+                    cols_per_group=2,
+                    major_col_heading_row=6,
+                    row_start=8,
+                    row_end=121,
+                    row_heading_col=2,
+                )
+                data_2015[group] = group_data
+                col_start += 4
+
+        return all_data
+
     def import_s07(self, sheet_data):
         data_2015 = {}
         all_data = {2015: data_2015}
