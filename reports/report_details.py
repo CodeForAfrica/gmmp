@@ -1241,29 +1241,36 @@ WS_INFO = {
     #         'reports': ['global'],
     #     }
     # },
-    'ws_81': {
-        '2015': {
-            'name': '81',
-            'title': 'Internet - Story shared on Facebook',
-            'desc': 'Internet - Story shared on Facebook',
-            'reports': ['global'],
-            'historical': '81',
-        },
-        '2010': {
-            'name': '81',
-            'title': 'Internet - Story shared on Facebook',
-            'desc': 'Internet - Story shared on Facebook',
-            'reports': ['global'],
-        },
-    },
-    # 'ws_82': {
+    # 'ws_81': {
+    #     '2015': {
+    #         'name': '81',
+    #         'title': 'Internet - Story shared on Facebook',
+    #         'desc': 'Internet - Story shared on Facebook',
+    #         'reports': ['global'],
+    #         'historical': '81',
+    #     },
     #     '2010': {
-    #         'name': '82',
-    #         'title': 'Internet - Reference to gender equality/HR policies',
-    #         'desc': 'Internet - Reference to gender equality/HR policies',
+    #         'name': '81',
+    #         'title': 'Internet - Story shared on Facebook',
+    #         'desc': 'Internet - Story shared on Facebook',
     #         'reports': ['global'],
     #     },
     # },
+    'ws_82': {
+        '2015': {
+            'name': '82',
+            'title': 'Internet - Reference to gender equality/HR policies',
+            'desc': 'Internet - Reference to gender equality/HR policies',
+            'reports': ['global'],
+            'historical': '82',
+        },
+        '2010': {
+            'name': '82',
+            'title': 'Internet - Reference to gender equality/HR policies',
+            'desc': 'Internet - Reference to gender equality/HR policies',
+            'reports': ['global'],
+        },
+    },
     # 'ws_83': {
     #     '2015': {
     #         'name': '83',
