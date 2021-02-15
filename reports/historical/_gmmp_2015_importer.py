@@ -1648,6 +1648,398 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         return all_data
 
+    def _sheet_80_secondary_import(self, data, groups, medium, col_start, end_index, row_end=17):
+        local_data = {}
+        data[medium] = local_data
+        while col_start < end_index:
+            for group in groups:
+                group_data = {}
+                self.slurp_secondary_col_table(
+                    self.ws,
+                    group_data,
+                    col_start=col_start,
+                    cols=2,
+                    cols_per_group=2,
+                    major_col_heading_row=7,
+                    row_start=9,
+                    row_end=row_end,
+                    row_heading_col=2,
+                )
+                local_data[group] = group_data
+                col_start += 4
+
+    def import_80(self, sheet_data):
+        data_2015 = {}
+        all_data = {2015: data_2015}
+
+        self._sheet_80_secondary_import(
+            data=data_2015,
+            groups=[
+                'Women politicians, women electoral candidates...',
+                'Peace, negotiations, treaties',
+                'Other domestic politics, government, etc.',
+                'Global partnerships',
+                'Foreign/international politics, UN, peacekeeping',
+                'National defence, military spending, internal security, etc.',
+                'Other stories on politics (specify in comments)',
+            ],
+            medium='Politics and Government',
+            col_start=3,
+            end_index=30,
+        )
+
+        self._sheet_80_secondary_import(
+            data=data_2015,
+            groups=[
+                'Economic policies, strategies, modules, indicators, stock markets, etc',
+                'Economic crisis, state bailouts of companies, company takeovers and mergers, etc.',
+                'Poverty, housing, social welfare, aid, etc.',
+                'Womens participation in economic processes',
+                'Employment',
+                'Informal work, street vending, etc.',
+                'Other labour issues (strikes, trade unions, etc.)',
+                'Rural economy, agriculture, farming, land rights',
+                'Consumer issues, consumer protection, fraud...',
+                'Transport, traffic, roads...',
+                'Other stories on economy (specify in comments)'
+            ],
+            medium='Economy',
+            col_start=31,
+            end_index=74,
+        )
+
+        self._sheet_80_secondary_import(
+            data=data_2015,
+            groups=[
+                'Science, technology, research, discoveries...',
+                'Medicine, health, hygiene, safety, (not EBOLA or HIV/AIDS)',
+                'EBOLA, treatment, response...',
+                'HIV and AIDS, policy, treatment, etc',
+                'Other epidemics, viruses, contagions, Influenza, BSE, SARS',
+                'Birth control, fertility, sterilization, termination...',
+                'Climate change, global warming',
+                'Environment, pollution, tourism',
+                'Other stories on science (specify in comments)',
+            ],
+            medium='Science and Health',
+            col_start=75,
+            end_index=110,
+        )
+
+        self._sheet_80_secondary_import(
+            data=data_2015,
+            groups=[
+                'Millennium Development Goals (MDGs), Post 2015 agenda, Sustainable Development Goals',
+                'Family relations, inter-generational conflict, parents',
+                'Human rights, womens rights, rights of sexual minorities, rights of religious minorities, etc.',
+                'Religion, culture, tradition, controversies...',
+                'Migration, refugees, xenophobia, ethnic conflict...',
+                'Other development issues, sustainability, etc.',
+                'Education, childcare, nursery, university, literacy',
+                'Womens movement, activism, demonstrations, etc',
+                'Changing gender relations (outside the home)',
+                'Family law, family codes, property law, inheritance...',
+                'Legal system, judiciary, legislation apart from family',
+                'Disaster, accident, famine, flood, plane crash, etc.',
+                'Riots, demonstrations, public disorder, etc.',
+                'Other stories on social/legal (specify in comments)'
+            ],
+            medium='Social and Legal',
+            col_start=111,
+            end_index=166,
+        )
+
+        self._sheet_80_secondary_import(
+            data=data_2015,
+            groups=[
+                'Non-violent crime, bribery, theft, drugs, corruption',
+                'Violent crime, murder, abduction, assault, etc.',
+                'Gender violence based on culture, family, inter-personal relations, feminicide, harassment, rape, sexual assault, trafficking, FGM...',
+                'Gender violence perpetuated by the State',
+                'Child abuse, sexual violence against children, neglect',
+                'War, civil war, terrorism, other state-based violence',
+                'Other crime/violence (specify in comments)'
+            ],
+            medium='Crime and Violence',
+            col_start=167,
+            end_index=194,
+        )
+
+        self._sheet_80_secondary_import(
+            data=data_2015,
+            groups=[
+                'Celebrity news, births, marriages, royalty, etc.',
+                'Arts, entertainment, leisure, cinema, books, dance',
+                'Media, (including internet), portrayal of women/men',
+                'Beauty contests, models, fashion, cosmetic surgery',
+                'Sports, events, players, facilities, training, funding',
+                'Other celebrity/arts/media news (specify in comments)',
+            ],
+            medium='Celebrity, Arts and Media, Sports',
+            col_start=195,
+            end_index=218,
+        )
+
+        self._sheet_80_secondary_import(
+            data=data_2015,
+            groups=[
+                'Other (only use as a last resort & explain)',
+            ],
+            medium='Other',
+            col_start=219,
+            end_index=222,
+        )
+
+        return all_data
+
+    def import_81(self, sheet_data):
+        data_2015 = {}
+        all_data = {2015: data_2015}
+
+        self._sheet_80_secondary_import(
+            data=data_2015,
+            groups=[
+                'Women politicians, women electoral candidates...',
+                'Peace, negotiations, treaties',
+                'Other domestic politics, government, etc.',
+                'Global partnerships',
+                'Foreign/international politics, UN, peacekeeping',
+                'National defence, military spending, internal security, etc.',
+                'Other stories on politics (specify in comments)',
+            ],
+            medium='Politics and Government',
+            col_start=3,
+            end_index=30,
+        )
+
+        self._sheet_80_secondary_import(
+            data=data_2015,
+            groups=[
+                'Economic policies, strategies, modules, indicators, stock markets, etc',
+                'Economic crisis, state bailouts of companies, company takeovers and mergers, etc.',
+                'Poverty, housing, social welfare, aid, etc.',
+                'Womens participation in economic processes',
+                'Employment',
+                'Informal work, street vending, etc.',
+                'Other labour issues (strikes, trade unions, etc.)',
+                'Rural economy, agriculture, farming, land rights',
+                'Consumer issues, consumer protection, fraud...',
+                'Transport, traffic, roads...',
+                'Other stories on economy (specify in comments)'
+            ],
+            medium='Economy',
+            col_start=31,
+            end_index=74,
+        )
+
+        self._sheet_80_secondary_import(
+            data=data_2015,
+            groups=[
+                'Science, technology, research, discoveries...',
+                'Medicine, health, hygiene, safety, (not EBOLA or HIV/AIDS)',
+                'EBOLA, treatment, response...',
+                'HIV and AIDS, policy, treatment, etc',
+                'Other epidemics, viruses, contagions, Influenza, BSE, SARS',
+                'Birth control, fertility, sterilization, termination...',
+                'Climate change, global warming',
+                'Environment, pollution, tourism',
+                'Other stories on science (specify in comments)',
+            ],
+            medium='Science and Health',
+            col_start=75,
+            end_index=110,
+        )
+
+        self._sheet_80_secondary_import(
+            data=data_2015,
+            groups=[
+                'Millennium Development Goals (MDGs), Post 2015 agenda, Sustainable Development Goals',
+                'Family relations, inter-generational conflict, parents',
+                'Human rights, womens rights, rights of sexual minorities, rights of religious minorities, etc.',
+                'Religion, culture, tradition, controversies...',
+                'Migration, refugees, xenophobia, ethnic conflict...',
+                'Other development issues, sustainability, etc.',
+                'Education, childcare, nursery, university, literacy',
+                'Womens movement, activism, demonstrations, etc',
+                'Changing gender relations (outside the home)',
+                'Family law, family codes, property law, inheritance...',
+                'Legal system, judiciary, legislation apart from family',
+                'Disaster, accident, famine, flood, plane crash, etc.',
+                'Riots, demonstrations, public disorder, etc.',
+                'Other stories on social/legal (specify in comments)'
+            ],
+            medium='Social and Legal',
+            col_start=111,
+            end_index=166,
+        )
+
+        self._sheet_80_secondary_import(
+            data=data_2015,
+            groups=[
+                'Non-violent crime, bribery, theft, drugs, corruption',
+                'Violent crime, murder, abduction, assault, etc.',
+                'Gender violence based on culture, family, inter-personal relations, feminicide, harassment, rape, sexual assault, trafficking, FGM...',
+                'Gender violence perpetuated by the State',
+                'Child abuse, sexual violence against children, neglect',
+                'War, civil war, terrorism, other state-based violence',
+                'Other crime/violence (specify in comments)'
+            ],
+            medium='Crime and Violence',
+            col_start=167,
+            end_index=194,
+        )
+
+        self._sheet_80_secondary_import(
+            data=data_2015,
+            groups=[
+                'Celebrity news, births, marriages, royalty, etc.',
+                'Arts, entertainment, leisure, cinema, books, dance',
+                'Media, (including internet), portrayal of women/men',
+                'Beauty contests, models, fashion, cosmetic surgery',
+                'Sports, events, players, facilities, training, funding',
+                'Other celebrity/arts/media news (specify in comments)',
+            ],
+            medium='Celebrity, Arts and Media, Sports',
+            col_start=195,
+            end_index=218,
+        )
+
+        self._sheet_80_secondary_import(
+            data=data_2015,
+            groups=[
+                'Other (only use as a last resort & explain)',
+            ],
+            medium='Other',
+            col_start=219,
+            end_index=222,
+        )
+
+        return all_data
+
+    def import_82(self, sheet_data):
+        data_2015 = {}
+        all_data = {2015: data_2015}
+
+        self._sheet_80_secondary_import(
+            data=data_2015,
+            groups=[
+                'Women politicians, women electoral candidates...',
+                'Peace, negotiations, treaties',
+                'Other domestic politics, government, etc.',
+                'Global partnerships',
+                'Foreign/international politics, UN, peacekeeping',
+                'National defence, military spending, internal security, etc.',
+                'Other stories on politics (specify in comments)',
+            ],
+            medium='Politics and Government',
+            col_start=3,
+            end_index=30,
+        )
+
+        self._sheet_80_secondary_import(
+            data=data_2015,
+            groups=[
+                'Economic policies, strategies, modules, indicators, stock markets, etc',
+                'Economic crisis, state bailouts of companies, company takeovers and mergers, etc.',
+                'Poverty, housing, social welfare, aid, etc.',
+                'Womens participation in economic processes',
+                'Employment',
+                'Informal work, street vending, etc.',
+                'Other labour issues (strikes, trade unions, etc.)',
+                'Rural economy, agriculture, farming, land rights',
+                'Consumer issues, consumer protection, fraud...',
+                'Transport, traffic, roads...',
+                'Other stories on economy (specify in comments)'
+            ],
+            medium='Economy',
+            col_start=31,
+            end_index=74,
+        )
+
+        self._sheet_80_secondary_import(
+            data=data_2015,
+            groups=[
+                'Science, technology, research, discoveries...',
+                'Medicine, health, hygiene, safety, (not EBOLA or HIV/AIDS)',
+                'EBOLA, treatment, response...',
+                'HIV and AIDS, policy, treatment, etc',
+                'Other epidemics, viruses, contagions, Influenza, BSE, SARS',
+                'Birth control, fertility, sterilization, termination...',
+                'Climate change, global warming',
+                'Environment, pollution, tourism',
+                'Other stories on science (specify in comments)',
+            ],
+            medium='Science and Health',
+            col_start=75,
+            end_index=110,
+        )
+
+        self._sheet_80_secondary_import(
+            data=data_2015,
+            groups=[
+                'Millennium Development Goals (MDGs), Post 2015 agenda, Sustainable Development Goals',
+                'Family relations, inter-generational conflict, parents',
+                'Human rights, womens rights, rights of sexual minorities, rights of religious minorities, etc.',
+                'Religion, culture, tradition, controversies...',
+                'Migration, refugees, xenophobia, ethnic conflict...',
+                'Other development issues, sustainability, etc.',
+                'Education, childcare, nursery, university, literacy',
+                'Womens movement, activism, demonstrations, etc',
+                'Changing gender relations (outside the home)',
+                'Family law, family codes, property law, inheritance...',
+                'Legal system, judiciary, legislation apart from family',
+                'Disaster, accident, famine, flood, plane crash, etc.',
+                'Riots, demonstrations, public disorder, etc.',
+                'Other stories on social/legal (specify in comments)'
+            ],
+            medium='Social and Legal',
+            col_start=111,
+            end_index=166,
+        )
+
+        self._sheet_80_secondary_import(
+            data=data_2015,
+            groups=[
+                'Non-violent crime, bribery, theft, drugs, corruption',
+                'Violent crime, murder, abduction, assault, etc.',
+                'Gender violence based on culture, family, inter-personal relations, feminicide, harassment, rape, sexual assault, trafficking, FGM...',
+                'Gender violence perpetuated by the State',
+                'Child abuse, sexual violence against children, neglect',
+                'War, civil war, terrorism, other state-based violence',
+                'Other crime/violence (specify in comments)'
+            ],
+            medium='Crime and Violence',
+            col_start=167,
+            end_index=194,
+        )
+
+        self._sheet_80_secondary_import(
+            data=data_2015,
+            groups=[
+                'Celebrity news, births, marriages, royalty, etc.',
+                'Arts, entertainment, leisure, cinema, books, dance',
+                'Media, (including internet), portrayal of women/men',
+                'Beauty contests, models, fashion, cosmetic surgery',
+                'Sports, events, players, facilities, training, funding',
+                'Other celebrity/arts/media news (specify in comments)',
+            ],
+            medium='Celebrity, Arts and Media, Sports',
+            col_start=195,
+            end_index=218,
+        )
+
+        self._sheet_80_secondary_import(
+            data=data_2015,
+            groups=[
+                'Other (only use as a last resort & explain)',
+            ],
+            medium='Other',
+            col_start=219,
+            end_index=222,
+        )
+
+        return all_data
+
     def import_83(self, sheet_data):
         data_2015 = {}
         all_data = {2015: data_2015}
@@ -1843,6 +2235,102 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         return all_data
 
+    def import_91(self, sheet_info):
+        all_data = {}
+        for year, col_start, col_end in [
+            (2015, 3, 10),
+        ]:
+            data = {}
+            all_data[year] = data
+            regions = {
+                'Africa': (7, 8),
+                'Asia': (9, 10),
+                'Caribbean': (11, 12),
+                'Europe': (13, 14),
+                'Latin America': (15, 16),
+                'Middle East': (17, 18),
+                'North America': (19, 20),
+                'Pacific Island': (21, 22),
+                'Transnational': (23, 24),
+            }
+            for region, (row_start, row_end) in regions.items():
+                regional_data = dict()
+                data[region] = regional_data
+
+                self.slurp_table(
+                    self.ws,
+                    regional_data,
+                    col_start=col_start,
+                    col_end=col_end,
+                    row_start=row_start,
+                    row_end=row_end,
+                )
+        return all_data
+
+    def import_92(self, sheet_info):
+        all_data = {}
+        for year, col_start, col_end in [
+            (2015, 3, 10),
+        ]:
+            data = {}
+            all_data[year] = data
+            regions = {
+                'Africa': (7, 10),
+                'Asia': (11, 14),
+                'Caribbean': (15, 18),
+                'Europe': (19, 22),
+                'Latin America': (23, 26),
+                'Middle East': (27, 30),
+                'North America': (31, 34),
+                'Pacific Island': (35, 38),
+                'Transnational': (39, 42),
+            }
+            for region, (row_start, row_end) in regions.items():
+                regional_data = dict()
+                data[region] = regional_data
+
+                self.slurp_table(
+                    self.ws,
+                    regional_data,
+                    col_start=col_start,
+                    col_end=col_end,
+                    row_start=row_start,
+                    row_end=row_end,
+                )
+        return all_data
+
+    def import_93(self, sheet_info):
+        all_data = {}
+        for year, col_start, col_end in [
+            (2015, 3, 10),
+        ]:
+            data = {}
+            all_data[year] = data
+            regions = {
+                'Africa': (7, 8),
+                'Asia': (9, 10),
+                'Caribbean': (11, 12),
+                'Europe': (13, 14),
+                'Latin America': (15, 16),
+                'Middle East': (17, 18),
+                'North America': (19, 20),
+                'Pacific Island': (21, 22),
+                'Transnational': (23, 24),
+            }
+            for region, (row_start, row_end) in regions.items():
+                regional_data = dict()
+                data[region] = regional_data
+
+                self.slurp_table(
+                    self.ws,
+                    regional_data,
+                    col_start=col_start,
+                    col_end=col_end,
+                    row_start=row_start,
+                    row_end=row_end,
+                )
+        return all_data
+
     def import_94(self, sheet_data):
         data_2015 = {}
         all_data = {2015: data_2015}
@@ -1869,6 +2357,130 @@ class GMMP2015ReportImporter(BaseReportImporter):
                 )
                 data_2015[group] = group_data
                 col_start += 3
+
+        return all_data
+
+    def import_95(self, sheet_data):
+        data_2015 = {}
+        all_data = {2015: data_2015}
+
+        self._sheet_80_secondary_import(
+            data=data_2015,
+            groups=[
+                'Women politicians, women electoral candidates...',
+                'Peace, negotiations, treaties',
+                'Other domestic politics, government, etc.',
+                'Global partnerships',
+                'Foreign/international politics, UN, peacekeeping',
+                'National defence, military spending, internal security, etc.',
+                'Other stories on politics (specify in comments)',
+            ],
+            medium='Politics and Government',
+            col_start=3,
+            end_index=30,
+        )
+
+        self._sheet_80_secondary_import(
+            data=data_2015,
+            groups=[
+                'Economic policies, strategies, modules, indicators, stock markets, etc',
+                'Economic crisis, state bailouts of companies, company takeovers and mergers, etc.',
+                'Poverty, housing, social welfare, aid, etc.',
+                'Womens participation in economic processes',
+                'Employment',
+                'Informal work, street vending, etc.',
+                'Other labour issues (strikes, trade unions, etc.)',
+                'Rural economy, agriculture, farming, land rights',
+                'Consumer issues, consumer protection, fraud...',
+                'Transport, traffic, roads...',
+                'Other stories on economy (specify in comments)'
+            ],
+            medium='Economy',
+            col_start=31,
+            end_index=74,
+        )
+
+        self._sheet_80_secondary_import(
+            data=data_2015,
+            groups=[
+                'Science, technology, research, discoveries...',
+                'Medicine, health, hygiene, safety, (not EBOLA or HIV/AIDS)',
+                'EBOLA, treatment, response...',
+                'HIV and AIDS, policy, treatment, etc',
+                'Other epidemics, viruses, contagions, Influenza, BSE, SARS',
+                'Birth control, fertility, sterilization, termination...',
+                'Climate change, global warming',
+                'Environment, pollution, tourism',
+                'Other stories on science (specify in comments)',
+            ],
+            medium='Science and Health',
+            col_start=75,
+            end_index=110,
+        )
+
+        self._sheet_80_secondary_import(
+            data=data_2015,
+            groups=[
+                'Millennium Development Goals (MDGs), Post 2015 agenda, Sustainable Development Goals',
+                'Family relations, inter-generational conflict, parents',
+                'Human rights, womens rights, rights of sexual minorities, rights of religious minorities, etc.',
+                'Religion, culture, tradition, controversies...',
+                'Migration, refugees, xenophobia, ethnic conflict...',
+                'Other development issues, sustainability, etc.',
+                'Education, childcare, nursery, university, literacy',
+                'Womens movement, activism, demonstrations, etc',
+                'Changing gender relations (outside the home)',
+                'Family law, family codes, property law, inheritance...',
+                'Legal system, judiciary, legislation apart from family',
+                'Disaster, accident, famine, flood, plane crash, etc.',
+                'Riots, demonstrations, public disorder, etc.',
+                'Other stories on social/legal (specify in comments)'
+            ],
+            medium='Social and Legal',
+            col_start=111,
+            end_index=166,
+        )
+
+        self._sheet_80_secondary_import(
+            data=data_2015,
+            groups=[
+                'Non-violent crime, bribery, theft, drugs, corruption',
+                'Violent crime, murder, abduction, assault, etc.',
+                'Gender violence based on culture, family, inter-personal relations, feminicide, harassment, rape, sexual assault, trafficking, FGM...',
+                'Gender violence perpetuated by the State',
+                'Child abuse, sexual violence against children, neglect',
+                'War, civil war, terrorism, other state-based violence',
+                'Other crime/violence (specify in comments)'
+            ],
+            medium='Crime and Violence',
+            col_start=167,
+            end_index=194,
+        )
+
+        self._sheet_80_secondary_import(
+            data=data_2015,
+            groups=[
+                'Celebrity news, births, marriages, royalty, etc.',
+                'Arts, entertainment, leisure, cinema, books, dance',
+                'Media, (including internet), portrayal of women/men',
+                'Beauty contests, models, fashion, cosmetic surgery',
+                'Sports, events, players, facilities, training, funding',
+                'Other celebrity/arts/media news (specify in comments)',
+            ],
+            medium='Celebrity, Arts and Media, Sports',
+            col_start=195,
+            end_index=218,
+        )
+
+        self._sheet_80_secondary_import(
+            data=data_2015,
+            groups=[
+                'Other (only use as a last resort & explain)',
+            ],
+            medium='Other',
+            col_start=219,
+            end_index=222,
+        )
 
         return all_data
 
@@ -2081,6 +2693,34 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         return all_data
 
+    def import_s06(self, sheet_data):
+        data_2015 = {}
+        all_data = {2015: data_2015}
+
+        groups = [
+            'Victim', 'Not a victim',
+        ]
+
+        col_start, end_index = 3, 10
+        while col_start < end_index:
+            for group in groups:
+                group_data = {}
+                self.slurp_secondary_col_table(
+                    self.ws,
+                    group_data,
+                    col_start=col_start,
+                    cols=2,
+                    cols_per_group=2,
+                    major_col_heading_row=6,
+                    row_start=8,
+                    row_end=121,
+                    row_heading_col=2,
+                )
+                data_2015[group] = group_data
+                col_start += 4
+
+        return all_data
+
     def import_s07(self, sheet_data):
         data_2015 = {}
         all_data = {2015: data_2015}
@@ -2156,6 +2796,47 @@ class GMMP2015ReportImporter(BaseReportImporter):
                 )
                 data_2015[option] = option_data
                 col_start += 4
+
+        return all_data
+
+    def import_s10(self, sheet_data):
+        data_2015 = {}
+        all_data = {2015: data_2015}
+
+        self._sheet_80_secondary_import(
+            data=data_2015,
+            groups=[
+                'Reporter',
+            ],
+            medium='Print',
+            col_start=3,
+            end_index=6,
+            row_end=122,
+        )
+
+        self._sheet_80_secondary_import(
+            data=data_2015,
+            groups=[
+                'Presenter',
+                'Reporter',
+            ],
+            medium='Radio',
+            col_start=7,
+            end_index=14,
+            row_end=122,
+        )
+
+        self._sheet_80_secondary_import(
+            data=data_2015,
+            groups=[
+                'Presenter',
+                'Reporter',
+            ],
+            medium='Television',
+            col_start=15,
+            end_index=22,
+            row_end=122,
+        )
 
         return all_data
 
@@ -2788,6 +3469,44 @@ class GMMP2015ReportImporter(BaseReportImporter):
                 )
                 data_2015[option] = option_data
                 col_start += 4
+
+        return all_data
+
+    def import_sr05(self, sheet_data):
+        data_2015 = {}
+        all_data = {2015: data_2015}
+
+        self._sheet_80_secondary_import(
+            data=data_2015,
+            groups=[
+                'Reporter',
+            ],
+            medium='Print',
+            col_start=3,
+            end_index=6,
+        )
+
+        self._sheet_80_secondary_import(
+            data=data_2015,
+            groups=[
+                'Presenter',
+                'Reporter',
+            ],
+            medium='Radio',
+            col_start=7,
+            end_index=14,
+        )
+
+        self._sheet_80_secondary_import(
+            data=data_2015,
+            groups=[
+                'Presenter',
+                'Reporter',
+            ],
+            medium='Television',
+            col_start=15,
+            end_index=22,
+        )
 
         return all_data
 

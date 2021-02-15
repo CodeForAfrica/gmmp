@@ -1215,7 +1215,7 @@ WS_INFO = {
         '2015': {
             'name': '79',
             'title': 'Internet - Main topics by region',
-            'desc': 'Breakdown by sex of news subjects',
+            'desc': 'Internet - Main topics by region',
             'reports': ['global'],
             'historical': '79',
         },
@@ -1227,6 +1227,13 @@ WS_INFO = {
         },
     },
     'ws_80': {
+        '2015': {
+            'name': '80',
+            'title': 'Internet - Story shared on Twitter',
+            'desc': 'Breakdown by major and minor topics',
+            'reports': ['global'],
+            'historical': '80',
+        },
         '2010': {
             'name': '80',
             'title': 'Internet - Story shared on Twitter',
@@ -1235,6 +1242,13 @@ WS_INFO = {
         }
     },
     'ws_81': {
+        '2015': {
+            'name': '81',
+            'title': 'Internet - Story shared on Facebook',
+            'desc': 'Breakdown by major and minor topics',
+            'reports': ['global'],
+            'historical': '81',
+        },
         '2010': {
             'name': '81',
             'title': 'Internet - Story shared on Facebook',
@@ -1243,6 +1257,13 @@ WS_INFO = {
         },
     },
     'ws_82': {
+        '2015': {
+            'name': '82',
+            'title': 'Internet - Reference to gender equality/HR policies',
+            'desc': 'Breakdown by major and minor topics',
+            'reports': ['global'],
+            'historical': '82',
+        },
         '2010': {
             'name': '82',
             'title': 'Internet - Reference to gender equality/HR policies',
@@ -1371,6 +1392,13 @@ WS_INFO = {
         },
     },
     'ws_91': {
+        '2015': {
+            'name': '91',
+            'title': 'Internet - Stories where issues of gender equality/inequality are raised by topic',
+            'desc': '',
+            'reports': ['global'],
+            'historical': '91',
+        },
         '2010': {
             'name': '91',
             'title': 'Internet - Stories where issues of gender equality/inequality are raised by topic',
@@ -1379,6 +1407,13 @@ WS_INFO = {
         },
     },
     'ws_92': {
+        '2015': {
+            'name': '92',
+            'title': 'Internet -Stories where stereotypes are clearly challenged',
+            'desc': 'Breakdown by major topic',
+            'reports': ['global'],
+            'historical': '92',
+        },
         '2010': {
             'name': '92',
             'title': 'Internet -Stories where stereotypes are clearly challenged',
@@ -1387,6 +1422,13 @@ WS_INFO = {
         },
     },
     'ws_93': {
+        '2015': {
+            'name': '93',
+            'title': 'Internet -Stories with Women as a central Focus',
+            'desc': 'Breakdown by major topic',
+            'reports': ['global'],
+            'historical': '93',
+        },
         '2010': {
             'name': '93',
             'title': 'Internet -Stories with Women as a central Focus',
@@ -1410,6 +1452,13 @@ WS_INFO = {
         },
     },
     'ws_95': {
+        '2015': {
+            'name': '95',
+            'title': 'Twitter - Female reporters',
+            'desc': 'Breakdown by major topic',
+            'reports': ['global'],
+            'historical': '95',
+        },
         '2010': {
             'name': '95',
             'title': 'Twitter - Female reporters',
@@ -1523,6 +1572,13 @@ WS_INFO = {
         },
     },
     'ws_s06': {
+        '2015': {
+            'name': 's06',
+            'title': 'News subjects who are victims',
+            'desc': '',
+            'reports': ['global'],
+            'historical': 's06',
+        },
         '2010': {
             'name': 's06',
             'title': 'News subjects who are victims',
@@ -1576,6 +1632,13 @@ WS_INFO = {
         },
     },
     'ws_s10': {
+        '2015': {
+            'name': 's10',
+            'title': 'Presenters and reporters in television, radio and newspapers',
+            'desc': '',
+            'reports': ['global'],
+            'historical': 's10',
+        },
         '2010': {
             'name': 's10',
             'title': 'Presenters and reporters in television, radio and newspapers',
@@ -1899,6 +1962,13 @@ WS_INFO = {
         },
     },
     'ws_sr05': {
+        '2015': {
+            'name': 'sr05',
+            'title': 'Presenters and reporters, by region, by medium',
+            'desc': '',
+            'reports': ['global'],
+            'historical': 'sr05',
+        },
         '2010': {
             'name': 'sr05',
             'title': 'Presenters and reporters, by region, by medium',
