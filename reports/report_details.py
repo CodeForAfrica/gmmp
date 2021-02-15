@@ -1095,7 +1095,7 @@ WS_INFO = {
         '2015': {
             'name': '71',
             'title': 'Key themes, women\'s overall presence',
-            'desc': 'Key themes, women\'s overall presence',
+            'desc': '',
             'reports': ['global', 'region', 'country'],
             'historical': '71',
         },
@@ -1110,7 +1110,7 @@ WS_INFO = {
         '2015': {
             'name': '72',
             'title': 'Key themes, female reporters',
-            'desc': 'Key themes, female reporters',
+            'desc': '',
             'reports': ['global', 'region', 'country'],
             'historical': '72',
         },
@@ -1140,7 +1140,7 @@ WS_INFO = {
         '2015': {
             'name': '74',
             'title': 'Key themes, women\'s centrality',
-            'desc': 'Stories with Women as a central focus, by women centrality topic',
+            'desc': '',
             'reports': ['global', 'region', 'country'],
             'historical': '74',
         },
@@ -1155,7 +1155,7 @@ WS_INFO = {
         '2015': {
             'name': '75',
             'title': 'Key themes, challenging stereotypes',
-            'desc': 'Key themes, challenging stereotypes',
+            'desc': '',
             'reports': ['global', 'region', 'country'],
             'historical': '75',
         },
@@ -1170,7 +1170,7 @@ WS_INFO = {
         '2015': {
             'name': '76',
             'title': 'Key themes, reference to gender equality/HR policies',
-            'desc': 'Key themes, reference to gender equality/HR policies',
+            'desc': '',
             'reports': ['global', 'region', 'country'],
             'historical': '76',
         },
@@ -1185,7 +1185,7 @@ WS_INFO = {
         '2015': {
             'name': '77',
             'title': 'Key themes, portrayal as victims',
-            'desc': 'Key themes, portrayal as victims',
+            'desc': '',
             'reports': ['global', 'region', 'country'],
             'historical': '77',
         },
@@ -1200,7 +1200,7 @@ WS_INFO = {
         '2015': {
             'name': '78',
             'title': 'Key themes, portrayal as survivors',
-            'desc': 'Key themes, portrayal as survivors',
+            'desc': '',
             'reports': ['global', 'region', 'country'],
             'historical': '78',
         },
@@ -1230,7 +1230,7 @@ WS_INFO = {
         '2015': {
             'name': '80',
             'title': 'Internet - Story shared on Twitter',
-            'desc': 'Internet - Story shared on Twitter',
+            'desc': 'Breakdown by major and minor topics',
             'reports': ['global'],
             'historical': '80',
         },
@@ -1245,7 +1245,7 @@ WS_INFO = {
         '2015': {
             'name': '81',
             'title': 'Internet - Story shared on Facebook',
-            'desc': 'Internet - Story shared on Facebook',
+            'desc': 'Breakdown by major and minor topics',
             'reports': ['global'],
             'historical': '81',
         },
@@ -1260,7 +1260,7 @@ WS_INFO = {
         '2015': {
             'name': '82',
             'title': 'Internet - Reference to gender equality/HR policies',
-            'desc': 'Internet - Reference to gender equality/HR policies',
+            'desc': 'Breakdown by major and minor topics',
             'reports': ['global'],
             'historical': '82',
         },
@@ -1275,7 +1275,7 @@ WS_INFO = {
         '2015': {
             'name': '83',
             'title': 'Internet - reporters in main stories',
-            'desc': 'Internet - reporters in main stories',
+            'desc': 'Breakdown by major topic',
             'reports': ['global'],
             'historical': '83',
         },
@@ -1320,7 +1320,7 @@ WS_INFO = {
         '2015': {
             'name': '86',
             'title': 'Internet - News subjects who are identified by family status',
-            'desc': 'Internet - News subjects who are identified by family status',
+            'desc': '',
             'reports': ['global'],
             'historical': '86',
         },
@@ -1335,7 +1335,7 @@ WS_INFO = {
         '2015': {
             'name': '87',
             'title': 'Internet - News subjects in multimedia web components',
-            'desc': 'Internet - News subjects in multimedia web components',
+            'desc': '',
             'reports': ['global'],
             'historical': '87',
         },
@@ -1350,7 +1350,7 @@ WS_INFO = {
         '2015': {
             'name': '88',
             'title': 'Internet - Selection of News Subjects',
-            'desc': 'Internet - Selection of News Subjects',
+            'desc': 'Breakdown by sex of reporter',
             'reports': ['global'],
             'historical': '88',
         },
@@ -1365,7 +1365,7 @@ WS_INFO = {
         '2015': {
             'name': '89',
             'title': 'Internet - Age of news subjects',
-            'desc': 'Internet - Age of news subjects',
+            'desc': 'Breakdown by sex',
             'reports': ['global'],
             'historical': '89',
         },
@@ -1380,7 +1380,7 @@ WS_INFO = {
         '2015': {
             'name': '90',
             'title': 'Internet - News subjects who are directly quoted',
-            'desc': 'Internet - News subjects who are directly quoted',
+            'desc': 'Breakdown by sex',
             'reports': ['global'],
             'historical': '90',
         },
@@ -1395,7 +1395,7 @@ WS_INFO = {
         '2015': {
             'name': '91',
             'title': 'Internet - Stories where issues of gender equality/inequality are raised by topic',
-            'desc': 'Internet - Stories where issues of gender equality/inequality are raised by topic',
+            'desc': '',
             'reports': ['global'],
             'historical': '91',
         },
@@ -1410,7 +1410,7 @@ WS_INFO = {
         '2015': {
             'name': '92',
             'title': 'Internet -Stories where stereotypes are clearly challenged',
-            'desc': 'Internet -Stories where stereotypes are clearly challenged',
+            'desc': 'Breakdown by major topic',
             'reports': ['global'],
             'historical': '92',
         },
@@ -1425,7 +1425,7 @@ WS_INFO = {
         '2015': {
             'name': '93',
             'title': 'Internet -Stories with Women as a central Focus',
-            'desc': 'Internet -Stories with Women as a central Focus',
+            'desc': 'Breakdown by major topic',
             'reports': ['global'],
             'historical': '93',
         },
@@ -1440,7 +1440,7 @@ WS_INFO = {
         '2015': {
             'name': '94',
             'title': 'Twitter - Original tweet or retweet',
-            'desc': 'Twitter - Original tweet or retweet',
+            'desc': 'Breakdown by major topic',
             'reports': ['global'],
             'historical': '94',
         },
@@ -1455,7 +1455,7 @@ WS_INFO = {
         '2015': {
             'name': '95',
             'title': 'Twitter - Female reporters',
-            'desc': 'Twitter - Female reporters',
+            'desc': 'Breakdown by major topic',
             'reports': ['global'],
             'historical': '95',
         },
@@ -1470,7 +1470,7 @@ WS_INFO = {
         '2015': {
             'name': '96',
             'title': 'Twitter - Women\'s centrality',
-            'desc': 'Twitter - Women\'s centrality',
+            'desc': 'Breakdown by major topic',
             'reports': ['global'],
             'historical': '96',
         },
@@ -1485,7 +1485,7 @@ WS_INFO = {
         '2015': {
             'name': '97',
             'title': 'Twitter - Challenging Stereotypes',
-            'desc': 'Twitter - Challenging Stereotypes',
+            'desc': 'Breakdown by major topic',
             'reports': ['global'],
             'historical': '97',
         },
@@ -1575,7 +1575,7 @@ WS_INFO = {
         '2015': {
             'name': 's06',
             'title': 'News subjects who are victims',
-            'desc': 'News subjects who are victims',
+            'desc': '',
             'reports': ['global'],
             'historical': 's06',
         },
@@ -1635,7 +1635,7 @@ WS_INFO = {
         '2015': {
             'name': 's10',
             'title': 'Presenters and reporters in television, radio and newspapers',
-            'desc': 'Presenters and reporters in television, radio and newspapers',
+            'desc': '',
             'reports': ['global'],
             'historical': 's10',
         },
@@ -1965,7 +1965,7 @@ WS_INFO = {
         '2015': {
             'name': 'sr05',
             'title': 'Presenters and reporters, by region, by medium',
-            'desc': 'Presenters and reporters, by region, by medium',
+            'desc': '',
             'reports': ['global'],
             'historical': 'sr05',
         },
