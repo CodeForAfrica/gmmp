@@ -38,6 +38,75 @@ class GMMP2015ReportImporter(BaseReportImporter):
             row_heading_col,
         )
 
+    def _slurp_secondary_table(self,
+                          data,
+                          col_start,
+                          end_index,
+                          options,
+                          cols=3,
+                          cols_per_group=2,
+                          major_col_heading_row=6,
+                          row_start=8,
+                          row_end=14,
+                          row_heading_col=2,
+    ):
+        col_start, end_index = col_start, end_index
+        while col_start < end_index:
+            for option in options:
+                option_data = {}
+                self.slurp_secondary_col_table(
+                    self.ws,
+                    option_data,
+                    col_start=col_start,
+                    cols=cols,
+                    cols_per_group=cols_per_group,
+                    major_col_heading_row=major_col_heading_row,
+                    row_start=row_start,
+                    row_end=row_end,
+                    row_heading_col=row_heading_col,
+                )
+                data[option] = option_data
+                col_start += (cols * cols_per_group)
+
+    def _slurp_tertiary_table(self,
+                              data,
+                              medium,
+                              options,
+                              col_start,
+                              end_index,
+                              cols=1,
+                              cols_per_group=2,
+                              major_col_heading_row=7,
+                              row_start=9,
+                              row_end=15,
+                              row_heading_col=2,
+    ):
+        """
+        Tables with three steps of categorisation:
+        |                          MEDIUM                           |
+        |      OPTION 1     |     OPTION 2      |     OPTION 3      |
+        |  CAT 1  |  CAT 2  |  CAT 1  |  CAT 2  |  CAT 1  |  CAT 2  |
+        """
+        medium_data = {}
+        medium_data[medium] = {}
+        while col_start < end_index:
+            for option in options:
+                option_data = {}
+                self.slurp_secondary_col_table(
+                    self.ws,
+                    option_data,
+                    col_start=col_start,
+                    cols=cols,
+                    cols_per_group=cols_per_group,
+                    major_col_heading_row=major_col_heading_row,
+                    row_start=row_start,
+                    row_end=row_end,
+                    row_heading_col=row_heading_col,
+                )
+                medium_data[medium][option] = option_data
+                col_start += (cols * cols_per_group)
+            data[medium] = medium_data[medium]
+
     def import_grid(self, grid_info, all_data=None):
         all_data = {} if not all_data else all_data
         for year, col_start, col_end, row_start, row_end in grid_info:
@@ -121,42 +190,19 @@ class GMMP2015ReportImporter(BaseReportImporter):
         data_2015 = {}
         all_data = {2015: data_2015}
 
-        col_start, end_index = 3, 50
-        while col_start < end_index:
-            for continent in self.REGIONS:
-                continental_data = {}
-                self.slurp_secondary_col_table(
-                    self.ws,
-                    continental_data,
-                    col_start=col_start,
-                    cols=3,
-                    cols_per_group=2,
-                    major_col_heading_row=6,
-                    row_start=8,
-                    row_end=14,
-                    row_heading_col=2,
-                )
-                data_2015[continent] = continental_data
-                col_start += 6
+        self._slurp_secondary_table(
+            data=data_2015,
+            col_start=3,
+            end_index=50,
+            options=self.REGIONS,
+        )
 
-        col_start, end_index = 53, 84
-        while col_start < end_index:
-            for continent in self.REGIONS:
-                for medium in ['internet', 'twitter']:
-                    medium_data = {}
-                    self.slurp_secondary_col_table(
-                        self.ws,
-                        medium_data,
-                        col_start=col_start,
-                        cols=1,
-                        cols_per_group=2,
-                        major_col_heading_row=6,
-                        row_start=8,
-                        row_end=14,
-                        row_heading_col=2,
-                    )
-                    data_2015[continent][medium] = medium_data[medium]
-                    col_start += 2
+        self._slurp_secondary_table(
+            data=data_2015,
+            col_start=53,
+            end_index=84,
+            options=self.REGIONS,
+        )
 
         data_2010 = {}
         all_data[2010] = data_2010
@@ -223,63 +269,39 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         return all_data
 
-    def _sheet_6_secondary_import(self, data, medium, col_start, end_index):
-        medium_data = {}
-        medium_data[medium] = {}
-        while col_start < end_index:
-            for continent in self.REGIONS:
-                continental_data = {}
-                self.slurp_secondary_col_table(
-                    self.ws,
-                    continental_data,
-                    col_start=col_start,
-                    cols=1,
-                    cols_per_group=2,
-                    major_col_heading_row=7,
-                    row_start=9,
-                    row_end=15,
-                    row_heading_col=2,
-                )
-                medium_data[medium][continent] = continental_data
-                col_start += 2
-            data[medium] = medium_data[medium]
-
     def import_6(self, sheet_data):
         data_2015 = {}
         all_data = {2015: data_2015}
 
-        self._sheet_6_secondary_import(
+        self._slurp_tertiary_table(
             data=data_2015,
             medium='print, radio, television',
+            options=self.REGIONS,
             col_start=3,
             end_index=18,
         )
-        self._sheet_6_secondary_import(
+        self._slurp_tertiary_table(
             data=data_2015,
             medium='internet, twitter',
+            options=self.REGIONS,
             col_start=21,
             end_index=36,
         )
 
         data_2010 = {}
         all_data[2010] = data_2010
-        col_start, end_index = 39, 54
-        while col_start < end_index:
-            for continent in self.REGIONS:
-                continental_data = {}
-                self.slurp_secondary_col_table(
-                    self.ws,
-                    continental_data,
-                    col_start=col_start,
-                    cols=1,
-                    cols_per_group=2,
-                    major_col_heading_row=7,
-                    row_start=9,
-                    row_end=15,
-                    row_heading_col=2,
-                )
-                data_2010[continent] = continental_data
-                col_start += 2
+        self._slurp_secondary_table(
+            data=data_2010,
+            col_start=39,
+            end_index=54,
+            options=self.REGIONS,
+            cols=1,
+            cols_per_group=2,
+            major_col_heading_row=7,
+            row_start=9,
+            row_end=15,
+            row_heading_col=2,
+        )
 
         return all_data
 
@@ -607,25 +629,18 @@ class GMMP2015ReportImporter(BaseReportImporter):
         data_2015 = {}
         all_data = {2015: data_2015}
 
-        mediums = ['print', 'radio', 'television']
-
-        col_start, end_index = 3, 14
-        while col_start <= end_index:
-            for medium in mediums:
-                medium_data = {}
-                self.slurp_secondary_col_table(
-                    self.ws,
-                    medium_data,
-                    col_start=col_start,
-                    cols=2,
-                    cols_per_group=2,
-                    major_col_heading_row=6,
-                    row_start=8,
-                    row_end=15,
-                    row_heading_col=2,
-                )
-                data_2015[medium] = medium_data
-                col_start += 4
+        self._slurp_secondary_table(
+            data=data_2015,
+            col_start=3,
+            end_index=14,
+            options=['print', 'radio', 'television'],
+            cols=2,
+            cols_per_group=2,
+            major_col_heading_row=6,
+            row_start=8,
+            row_end=15,
+            row_heading_col=2,
+        )
 
         for year, col_start, col_end, row_start, row_end, col_heading_row in [
             (1995, 17, 17, 8, 15, 6),
@@ -651,23 +666,18 @@ class GMMP2015ReportImporter(BaseReportImporter):
         data_2015 = {}
         all_data = {2015: data_2015}
 
-        col_start, end_index = 3, 34
-        while col_start < end_index:
-            for continent in self.REGIONS:
-                continental_data = {}
-                self.slurp_secondary_col_table(
-                    self.ws,
-                    continental_data,
-                    col_start=col_start,
-                    cols=2,
-                    cols_per_group=2,
-                    major_col_heading_row=6,
-                    row_start=8,
-                    row_end=11,
-                    row_heading_col=2,
-                )
-                data_2015[continent] = continental_data
-                col_start += 4
+        self._slurp_secondary_table(
+            data=data_2015,
+            col_start=3,
+            end_index=34,
+            options=self.REGIONS,
+            cols=2,
+            cols_per_group=2,
+            major_col_heading_row=6,
+            row_start=8,
+            row_end=11,
+            row_heading_col=2,
+        )
 
         return all_data
 
@@ -675,23 +685,18 @@ class GMMP2015ReportImporter(BaseReportImporter):
         data_2015 = {}
         all_data = {2015: data_2015}
 
-        col_start, end_index = 3, 34
-        while col_start < end_index:
-            for continent in self.REGIONS:
-                continental_data = {}
-                self.slurp_secondary_col_table(
-                    self.ws,
-                    continental_data,
-                    col_start=col_start,
-                    cols=2,
-                    cols_per_group=2,
-                    major_col_heading_row=6,
-                    row_start=8,
-                    row_end=14,
-                    row_heading_col=2,
-                )
-                data_2015[continent] = continental_data
-                col_start += 4
+        self._slurp_secondary_table(
+            data=data_2015,
+            col_start=3,
+            end_index=34,
+            options=self.REGIONS,
+            cols=2,
+            cols_per_group=2,
+            major_col_heading_row=6,
+            row_start=8,
+            row_end=14,
+            row_heading_col=2,
+        )
 
         return all_data
 
@@ -707,25 +712,18 @@ class GMMP2015ReportImporter(BaseReportImporter):
         data_2015 = {}
         all_data = {2015: data_2015}
 
-        mediums = ['print', 'radio', 'television']
-
-        col_start, end_index = 3, 14
-        while col_start < end_index:
-            for medium in mediums:
-                medium_data = {}
-                self.slurp_secondary_col_table(
-                    self.ws,
-                    medium_data,
-                    col_start=col_start,
-                    cols=2,
-                    cols_per_group=2,
-                    major_col_heading_row=6,
-                    row_start=8,
-                    row_end=62,
-                    row_heading_col=2,
-                )
-                data_2015[medium] = medium_data
-                col_start += 4
+        self._slurp_secondary_table(
+            data=data_2015,
+            col_start=3,
+            end_index=34,
+            options=['print', 'radio', 'television'],
+            cols=2,
+            cols_per_group=2,
+            major_col_heading_row=6,
+            row_start=8,
+            row_end=14,
+            row_heading_col=2,
+        )
 
         return all_data
 
@@ -733,68 +731,57 @@ class GMMP2015ReportImporter(BaseReportImporter):
         data_2015 = {}
         all_data = {2015: data_2015}
 
-        mediums = [
-            'Anchor, announcer or presenter: Usually in the television studio',
-            'Reporter: Usually outside the studio. Include reporters who do not appear on screen, but whose voice is heard (e.g. as voice-over).',
-        ]
-
-        col_start, end_index = 3, 10
-        while col_start < end_index:
-            for medium in mediums:
-                medium_data = {}
-                self.slurp_secondary_col_table(
-                    self.ws,
-                    medium_data,
-                    col_start=col_start,
-                    cols=2,
-                    cols_per_group=2,
-                    major_col_heading_row=6,
-                    row_start=8,
-                    row_end=14,
-                    row_heading_col=2,
-                )
-                data_2015[medium] = medium_data
-                col_start += 4
+        self._slurp_secondary_table(
+            data=data_2015,
+            col_start=3,
+            end_index=34,
+            options=[
+                'Anchor, announcer or presenter: Usually in the television studio',
+                'Reporter: Usually outside the studio. Include reporters who do not appear on screen, but whose voice is heard (e.g. as voice-over).',
+            ],
+            cols=2,
+            cols_per_group=2,
+            major_col_heading_row=6,
+            row_start=8,
+            row_end=14,
+            row_heading_col=2,
+        )
 
         data_2005 = {}
         all_data[2005] = data_2005
-        col_start, end_index = 12, 13
-        while col_start < end_index:
-            for medium in mediums:
-                medium_data = {}
-                self.slurp_secondary_col_table(
-                    self.ws,
-                    medium_data,
-                    col_start=col_start,
-                    cols=1,
-                    cols_per_group=1,
-                    major_col_heading_row=6,
-                    row_start=8,
-                    row_end=14,
-                    row_heading_col=2,
-                )
-                data_2005[medium] = medium_data
-                col_start += 1
+        self._slurp_secondary_table(
+            data=data_2005,
+            col_start=12,
+            end_index=13,
+            options=[
+                'Anchor, announcer or presenter: Usually in the television studio',
+                'Reporter: Usually outside the studio. Include reporters who do not appear on screen, but whose voice is heard (e.g. as voice-over).',
+            ],
+            cols=1,
+            cols_per_group=1,
+            major_col_heading_row=6,
+            row_start=8,
+            row_end=14,
+            row_heading_col=2,
+        )
 
         data_2010 = {}
         all_data[2010] = data_2010
-        col_start, end_index = 14, 17
-        while col_start < end_index:
-            for medium in mediums:
-                medium_data = {}
-                self.slurp_secondary_col_table(
-                    self.ws,
-                    medium_data,
-                    col_start=col_start,
-                    cols=2,
-                    cols_per_group=1,
-                    major_col_heading_row=6,
-                    row_start=8,
-                    row_end=14,
-                    row_heading_col=2,
-                )
-                data_2010[medium] = medium_data
-                col_start += 2
+        self._slurp_secondary_table(
+            data=data_2005,
+            col_start=14,
+            end_index=17,
+            options=[
+                'Anchor, announcer or presenter: Usually in the television studio',
+                'Reporter: Usually outside the studio. Include reporters who do not appear on screen, but whose voice is heard (e.g. as voice-over).',
+            ],
+            cols=2,
+            cols_per_group=1,
+            major_col_heading_row=6,
+            row_start=8,
+            row_end=14,
+            row_heading_col=2,
+        )
 
         return all_data
 
@@ -997,25 +984,18 @@ class GMMP2015ReportImporter(BaseReportImporter):
         data_2015 = {}
         all_data = {2015: data_2015}
 
-        genders = ['female', 'male']
-
-        col_start, end_index = 3, 18
-        while col_start < end_index:
-            for gender in genders:
-                gender_data = {}
-                self.slurp_secondary_col_table(
-                    self.ws,
-                    gender_data,
-                    col_start=col_start,
-                    cols=4,
-                    cols_per_group=2,
-                    major_col_heading_row=6,
-                    row_start=8,
-                    row_end=14,
-                    row_heading_col=2,
-                )
-                data_2015[gender] = gender_data
-                col_start += 8
+        self._slurp_secondary_table(
+            data=data_2015,
+            col_start=3,
+            end_index=18,
+            options=['female', 'male'],
+            cols=4,
+            cols_per_group=2,
+            major_col_heading_row=6,
+            row_start=8,
+            row_end=14,
+            row_heading_col=2,
+        )
 
         return all_data
 
@@ -1368,25 +1348,18 @@ class GMMP2015ReportImporter(BaseReportImporter):
         data_2015 = {}
         all_data = {2015: data_2015}
 
-        groups = ['political participation', 'peace and security', 'economic participation']
-
-        col_start, end_index = 3, 17
-        while col_start < end_index:
-            for group in groups:
-                group_data = {}
-                self.slurp_secondary_col_table(
-                    self.ws,
-                    group_data,
-                    col_start=col_start,
-                    cols=5,
-                    cols_per_group=1,
-                    major_col_heading_row=6,
-                    row_start=8,
-                    row_end=121,
-                    row_heading_col=2,
-                )
-                data_2015[group] = group_data
-                col_start += 5
+        self._slurp_secondary_table(
+            data=data_2015,
+            col_start=3,
+            end_index=17,
+            options=['political participation', 'peace and security', 'economic participation'],
+            cols=5,
+            cols_per_group=1,
+            major_col_heading_row=6,
+            row_start=8,
+            row_end=121,
+            row_heading_col=2,
+        )
 
         return all_data
 
@@ -1394,25 +1367,18 @@ class GMMP2015ReportImporter(BaseReportImporter):
         data_2015 = {}
         all_data = {2015: data_2015}
 
-        groups = ['political participation', 'peace and security', 'economic participation']
-
-        col_start, end_index = 3, 17
-        while col_start < end_index:
-            for group in groups:
-                group_data = {}
-                self.slurp_secondary_col_table(
-                    self.ws,
-                    group_data,
-                    col_start=col_start,
-                    cols=5,
-                    cols_per_group=1,
-                    major_col_heading_row=6,
-                    row_start=8,
-                    row_end=121,
-                    row_heading_col=2,
-                )
-                data_2015[group] = group_data
-                col_start += 5
+        self._slurp_secondary_table(
+            data=data_2015,
+            col_start=3,
+            end_index=17,
+            options=['political participation', 'peace and security', 'economic participation'],
+            cols=5,
+            cols_per_group=1,
+            major_col_heading_row=6,
+            row_start=8,
+            row_end=121,
+            row_heading_col=2,
+        )
 
         return all_data
 
@@ -1423,50 +1389,34 @@ class GMMP2015ReportImporter(BaseReportImporter):
             ]
         )
 
-    def _sheet_74_secondary_import(self, data, groups, medium, col_start, end_index, cols_per_group, multiplier):
-        # groups = ['political participation', 'peace and security', 'economic participation']
-        medium_data = {}
-        medium_data[medium] = {}
-        while col_start < end_index:
-            for group in groups:
-                group_data = {}
-                self.slurp_secondary_col_table(
-                    self.ws,
-                    group_data,
-                    col_start=col_start,
-                    cols=3,
-                    cols_per_group=cols_per_group,
-                    major_col_heading_row=6,
-                    row_start=9,
-                    row_end=122,
-                    row_heading_col=2,
-                )
-                medium_data[medium][group] = group_data[group]
-                col_start += multiplier
-            data[medium] = medium_data[medium]
-
     def import_74(self, sheet_data):
         data_2015 = {}
         all_data = {2015: data_2015}
 
-        self._sheet_74_secondary_import(
+        self._slurp_tertiary_table(
             data=data_2015,
-            groups=['political participation', 'peace and security', 'economic participation'],
+            options=['political participation', 'peace and security', 'economic participation'],
             medium='print, radio, television',
+            cols=3,
             col_start=3,
             end_index=11,
             cols_per_group=3,
-            multiplier=3,
+            row_start=9,
+            row_end=122,
+            row_heading_col=2,
         )
 
-        self._sheet_74_secondary_import(
+        self._slurp_tertiary_table(
             data=data_2015,
             medium='internet, twitter',
-            groups=['political participation', 'peace and security', 'economic participation'],
+            options=['political participation', 'peace and security', 'economic participation'],
+            cols=3,
             col_start=14,
             end_index=22,
             cols_per_group=3,
-            multiplier=3
+            row_start=9,
+            row_end=122,
+            row_heading_col=2,
         )
 
         return all_data
@@ -1475,24 +1425,30 @@ class GMMP2015ReportImporter(BaseReportImporter):
         data_2015 = {}
         all_data = {2015: data_2015}
 
-        self._sheet_74_secondary_import(
+        self._slurp_tertiary_table(
             data=data_2015,
-            groups=['political participation', 'peace and security', 'economic participation'],
             medium='print, radio, television',
+            options=['political participation', 'peace and security', 'economic participation'],
+            cols=3,
             col_start=3,
             end_index=17,
             cols_per_group=5,
-            multiplier=5
+            row_start=9,
+            row_end=122,
+            row_heading_col=2,
         )
 
-        self._sheet_74_secondary_import(
+        self._slurp_tertiary_table(
             data=data_2015,
-            groups=['political participation', 'peace and security', 'economic participation'],
             medium='internet, twitter',
+            options=['political participation', 'peace and security', 'economic participation'],
+            cols=3,
             col_start=20,
             end_index=34,
             cols_per_group=5,
-            multiplier=5
+            row_start=9,
+            row_end=122,
+            row_heading_col=2,
         )
 
         return all_data
@@ -1501,24 +1457,29 @@ class GMMP2015ReportImporter(BaseReportImporter):
         data_2015 = {}
         all_data = {2015: data_2015}
 
-        self._sheet_74_secondary_import(
+        self._slurp_tertiary_table(
             data=data_2015,
-            groups=['political participation', 'peace and security', 'economic participation'],
             medium='print, radio, television',
-            col_start=3,
-            end_index=11,
-            cols_per_group=3,
-            multiplier=3
+            options=['political participation', 'peace and security', 'economic participation'],
+            cols=3,
+            col_start=20,
+            end_index=34,
+            cols_per_group=5,
+            row_start=9,
+            row_end=122,
+            row_heading_col=2,
         )
 
-        self._sheet_74_secondary_import(
+        self._slurp_tertiary_table(
             data=data_2015,
-            groups=['political participation', 'peace and security', 'economic participation'],
             medium='internet, twitter',
+            options=['political participation', 'peace and security', 'economic participation'],
             col_start=14,
             end_index=22,
             cols_per_group=3,
-            multiplier=3
+            row_start=9,
+            row_end=122,
+            row_heading_col=2,
         )
 
         return all_data
@@ -1527,47 +1488,35 @@ class GMMP2015ReportImporter(BaseReportImporter):
         data_2015 = {}
         all_data = {2015: data_2015}
 
-        groups = ['political participation', 'peace and security', 'economic participation']
-
         first_data = {}
         data_2015['Print, Radio, Television'] = first_data
-        col_start, end_index = 3, 35
-        while col_start < end_index:
-            for group in groups:
-                group_data = {}
-                self.slurp_secondary_col_table(
-                    self.ws,
-                    group_data,
-                    col_start=col_start,
-                    cols=11,
-                    cols_per_group=1,
-                    major_col_heading_row=7,
-                    row_start=9,
-                    row_end=122,
-                    row_heading_col=2,
-                )
-                first_data[group] = group_data
-                col_start += 11
+        self._slurp_secondary_table(
+            data=first_data,
+            col_start=3,
+            end_index=35,
+            options=['political participation', 'peace and security', 'economic participation'],
+            cols=11,
+            cols_per_group=1,
+            major_col_heading_row=7,
+            row_start=9,
+            row_end=122,
+            row_heading_col=2,
+        )
 
         second_data = {}
         data_2015['Internet, Twitter'] = second_data
-        col_start, end_index = 38, 70
-        while col_start < end_index:
-            for group in groups:
-                group_data = {}
-                self.slurp_secondary_col_table(
-                    self.ws,
-                    group_data,
-                    col_start=col_start,
-                    cols=11,
-                    cols_per_group=1,
-                    major_col_heading_row=7,
-                    row_start=9,
-                    row_end=122,
-                    row_heading_col=2,
-                )
-                second_data[group] = group_data
-                col_start += 11
+        self._slurp_secondary_table(
+            data=second_data,
+            col_start=38,
+            end_index=70,
+            options=['political participation', 'peace and security', 'economic participation'],
+            cols=11,
+            cols_per_group=1,
+            major_col_heading_row=7,
+            row_start=9,
+            row_end=122,
+            row_heading_col=2,
+        )
 
         return all_data
 
@@ -1575,47 +1524,35 @@ class GMMP2015ReportImporter(BaseReportImporter):
         data_2015 = {}
         all_data = {2015: data_2015}
 
-        groups = ['political participation', 'peace and security', 'economic participation']
-
         first_data = {}
         data_2015['Print, Radio, Television'] = first_data
-        col_start, end_index = 3, 35
-        while col_start < end_index:
-            for group in groups:
-                group_data = {}
-                self.slurp_secondary_col_table(
-                    self.ws,
-                    group_data,
-                    col_start=col_start,
-                    cols=11,
-                    cols_per_group=1,
-                    major_col_heading_row=7,
-                    row_start=9,
-                    row_end=122,
-                    row_heading_col=2,
-                )
-                first_data[group] = group_data
-                col_start += 11
+        self._slurp_secondary_table(
+            data=first_data,
+            col_start=3,
+            end_index=35,
+            options=['political participation', 'peace and security', 'economic participation'],
+            cols=11,
+            cols_per_group=1,
+            major_col_heading_row=7,
+            row_start=9,
+            row_end=122,
+            row_heading_col=2,
+        )
 
         second_data = {}
         data_2015['Internet, Twitter'] = second_data
-        col_start, end_index = 38, 70
-        while col_start < end_index:
-            for group in groups:
-                group_data = {}
-                self.slurp_secondary_col_table(
-                    self.ws,
-                    group_data,
-                    col_start=col_start,
-                    cols=11,
-                    cols_per_group=1,
-                    major_col_heading_row=7,
-                    row_start=9,
-                    row_end=122,
-                    row_heading_col=2,
-                )
-                second_data[group] = group_data
-                col_start += 11
+        self._slurp_secondary_table(
+            data=second_data,
+            col_start=38,
+            end_index=70,
+            options=['political participation', 'peace and security', 'economic participation'],
+            cols=11,
+            cols_per_group=1,
+            major_col_heading_row=7,
+            row_start=9,
+            row_end=122,
+            row_heading_col=2,
+        )
 
         return all_data
 
@@ -1623,58 +1560,32 @@ class GMMP2015ReportImporter(BaseReportImporter):
         data_2015 = {}
         all_data = {2015: data_2015}
 
-        groups = [
-            'politics and government', 'economy', 'science and health', 'social and legal', 'crime and violence',
-            'celebrity, arts and media, sports', 'other'
-        ]
-
-        col_start, end_index = 3, 37
-        while col_start < end_index:
-            for group in groups:
-                group_data = {}
-                self.slurp_secondary_col_table(
-                    self.ws,
-                    group_data,
-                    col_start=col_start,
-                    cols=5,
-                    cols_per_group=1,
-                    major_col_heading_row=6,
-                    row_start=8,
-                    row_end=16,
-                    row_heading_col=2,
-                )
-                data_2015[group] = group_data
-                col_start += 5
+        self._slurp_secondary_table(
+            data=data_2015,
+            col_start=3,
+            end_index=37,
+            options=[
+                'politics and government', 'economy', 'science and health', 'social and legal', 'crime and violence',
+                'celebrity, arts and media, sports', 'other'
+            ],
+            cols=5,
+            cols_per_group=1,
+            major_col_heading_row=6,
+            row_start=8,
+            row_end=16,
+            row_heading_col=2,
+        )
 
         return all_data
-
-    def _sheet_80_secondary_import(self, data, groups, medium, col_start, end_index, row_end=17):
-        local_data = {}
-        data[medium] = local_data
-        while col_start < end_index:
-            for group in groups:
-                group_data = {}
-                self.slurp_secondary_col_table(
-                    self.ws,
-                    group_data,
-                    col_start=col_start,
-                    cols=2,
-                    cols_per_group=2,
-                    major_col_heading_row=7,
-                    row_start=9,
-                    row_end=row_end,
-                    row_heading_col=2,
-                )
-                local_data[group] = group_data
-                col_start += 4
 
     def import_80(self, sheet_data):
         data_2015 = {}
         all_data = {2015: data_2015}
 
-        self._sheet_80_secondary_import(
+        self._slurp_tertiary_table(
             data=data_2015,
-            groups=[
+            medium='Politics and Government',
+            options=[
                 'Women politicians, women electoral candidates...',
                 'Peace, negotiations, treaties',
                 'Other domestic politics, government, etc.',
@@ -1683,14 +1594,20 @@ class GMMP2015ReportImporter(BaseReportImporter):
                 'National defence, military spending, internal security, etc.',
                 'Other stories on politics (specify in comments)',
             ],
-            medium='Politics and Government',
             col_start=3,
             end_index=30,
+            cols=2,
+            cols_per_group=2,
+            major_col_heading_row=7,
+            row_start=9,
+            row_end=17,
+            row_heading_col=2,
         )
 
-        self._sheet_80_secondary_import(
+        self._slurp_tertiary_table(
             data=data_2015,
-            groups=[
+            medium='Economy',
+            options=[
                 'Economic policies, strategies, modules, indicators, stock markets, etc',
                 'Economic crisis, state bailouts of companies, company takeovers and mergers, etc.',
                 'Poverty, housing, social welfare, aid, etc.',
@@ -1703,14 +1620,20 @@ class GMMP2015ReportImporter(BaseReportImporter):
                 'Transport, traffic, roads...',
                 'Other stories on economy (specify in comments)'
             ],
-            medium='Economy',
             col_start=31,
             end_index=74,
+            cols=2,
+            cols_per_group=2,
+            major_col_heading_row=7,
+            row_start=9,
+            row_end=17,
+            row_heading_col=2,
         )
 
-        self._sheet_80_secondary_import(
+        self._slurp_tertiary_table(
             data=data_2015,
-            groups=[
+            medium='Science and Health',
+            options=[
                 'Science, technology, research, discoveries...',
                 'Medicine, health, hygiene, safety, (not EBOLA or HIV/AIDS)',
                 'EBOLA, treatment, response...',
@@ -1721,14 +1644,20 @@ class GMMP2015ReportImporter(BaseReportImporter):
                 'Environment, pollution, tourism',
                 'Other stories on science (specify in comments)',
             ],
-            medium='Science and Health',
             col_start=75,
             end_index=110,
+            cols=2,
+            cols_per_group=2,
+            major_col_heading_row=7,
+            row_start=9,
+            row_end=17,
+            row_heading_col=2,
         )
 
-        self._sheet_80_secondary_import(
+        self._slurp_tertiary_table(
             data=data_2015,
-            groups=[
+            medium='Social and Legal',
+            options=[
                 'Millennium Development Goals (MDGs), Post 2015 agenda, Sustainable Development Goals',
                 'Family relations, inter-generational conflict, parents',
                 'Human rights, womens rights, rights of sexual minorities, rights of religious minorities, etc.',
@@ -1744,14 +1673,20 @@ class GMMP2015ReportImporter(BaseReportImporter):
                 'Riots, demonstrations, public disorder, etc.',
                 'Other stories on social/legal (specify in comments)'
             ],
-            medium='Social and Legal',
             col_start=111,
             end_index=166,
+            cols=2,
+            cols_per_group=2,
+            major_col_heading_row=7,
+            row_start=9,
+            row_end=17,
+            row_heading_col=2,
         )
 
-        self._sheet_80_secondary_import(
+        self._slurp_tertiary_table(
             data=data_2015,
-            groups=[
+            medium='Crime and Violence',
+            options=[
                 'Non-violent crime, bribery, theft, drugs, corruption',
                 'Violent crime, murder, abduction, assault, etc.',
                 'Gender violence based on culture, family, inter-personal relations, feminicide, harassment, rape, sexual assault, trafficking, FGM...',
@@ -1760,14 +1695,20 @@ class GMMP2015ReportImporter(BaseReportImporter):
                 'War, civil war, terrorism, other state-based violence',
                 'Other crime/violence (specify in comments)'
             ],
-            medium='Crime and Violence',
             col_start=167,
             end_index=194,
+            cols=2,
+            cols_per_group=2,
+            major_col_heading_row=7,
+            row_start=9,
+            row_end=17,
+            row_heading_col=2,
         )
 
-        self._sheet_80_secondary_import(
+        self._slurp_tertiary_table(
             data=data_2015,
-            groups=[
+            medium='Celebrity, Arts and Media, Sports',
+            options=[
                 'Celebrity news, births, marriages, royalty, etc.',
                 'Arts, entertainment, leisure, cinema, books, dance',
                 'Media, (including internet), portrayal of women/men',
@@ -1775,19 +1716,30 @@ class GMMP2015ReportImporter(BaseReportImporter):
                 'Sports, events, players, facilities, training, funding',
                 'Other celebrity/arts/media news (specify in comments)',
             ],
-            medium='Celebrity, Arts and Media, Sports',
             col_start=195,
             end_index=218,
+            cols=2,
+            cols_per_group=2,
+            major_col_heading_row=7,
+            row_start=9,
+            row_end=17,
+            row_heading_col=2,
         )
 
-        self._sheet_80_secondary_import(
+        self._slurp_tertiary_table(
             data=data_2015,
-            groups=[
+            medium='Other',
+            options=[
                 'Other (only use as a last resort & explain)',
             ],
-            medium='Other',
             col_start=219,
             end_index=222,
+            cols=2,
+            cols_per_group=2,
+            major_col_heading_row=7,
+            row_start=9,
+            row_end=17,
+            row_heading_col=2,
         )
 
         return all_data
@@ -1796,9 +1748,10 @@ class GMMP2015ReportImporter(BaseReportImporter):
         data_2015 = {}
         all_data = {2015: data_2015}
 
-        self._sheet_80_secondary_import(
+        self._slurp_tertiary_table(
             data=data_2015,
-            groups=[
+            medium='Politics and Government',
+            options=[
                 'Women politicians, women electoral candidates...',
                 'Peace, negotiations, treaties',
                 'Other domestic politics, government, etc.',
@@ -1807,14 +1760,20 @@ class GMMP2015ReportImporter(BaseReportImporter):
                 'National defence, military spending, internal security, etc.',
                 'Other stories on politics (specify in comments)',
             ],
-            medium='Politics and Government',
             col_start=3,
             end_index=30,
+            cols=2,
+            cols_per_group=2,
+            major_col_heading_row=7,
+            row_start=9,
+            row_end=17,
+            row_heading_col=2,
         )
 
-        self._sheet_80_secondary_import(
+        self._slurp_tertiary_table(
             data=data_2015,
-            groups=[
+            medium='Economy',
+            options=[
                 'Economic policies, strategies, modules, indicators, stock markets, etc',
                 'Economic crisis, state bailouts of companies, company takeovers and mergers, etc.',
                 'Poverty, housing, social welfare, aid, etc.',
@@ -1827,14 +1786,20 @@ class GMMP2015ReportImporter(BaseReportImporter):
                 'Transport, traffic, roads...',
                 'Other stories on economy (specify in comments)'
             ],
-            medium='Economy',
             col_start=31,
             end_index=74,
+            cols=2,
+            cols_per_group=2,
+            major_col_heading_row=7,
+            row_start=9,
+            row_end=17,
+            row_heading_col=2,
         )
 
-        self._sheet_80_secondary_import(
+        self._slurp_tertiary_table(
             data=data_2015,
-            groups=[
+            medium='Science and Health',
+            options=[
                 'Science, technology, research, discoveries...',
                 'Medicine, health, hygiene, safety, (not EBOLA or HIV/AIDS)',
                 'EBOLA, treatment, response...',
@@ -1845,14 +1810,20 @@ class GMMP2015ReportImporter(BaseReportImporter):
                 'Environment, pollution, tourism',
                 'Other stories on science (specify in comments)',
             ],
-            medium='Science and Health',
             col_start=75,
             end_index=110,
+            cols=2,
+            cols_per_group=2,
+            major_col_heading_row=7,
+            row_start=9,
+            row_end=17,
+            row_heading_col=2,
         )
 
-        self._sheet_80_secondary_import(
+        self._slurp_tertiary_table(
             data=data_2015,
-            groups=[
+            medium='Social and Legal',
+            options=[
                 'Millennium Development Goals (MDGs), Post 2015 agenda, Sustainable Development Goals',
                 'Family relations, inter-generational conflict, parents',
                 'Human rights, womens rights, rights of sexual minorities, rights of religious minorities, etc.',
@@ -1868,14 +1839,20 @@ class GMMP2015ReportImporter(BaseReportImporter):
                 'Riots, demonstrations, public disorder, etc.',
                 'Other stories on social/legal (specify in comments)'
             ],
-            medium='Social and Legal',
             col_start=111,
             end_index=166,
+            cols=2,
+            cols_per_group=2,
+            major_col_heading_row=7,
+            row_start=9,
+            row_end=17,
+            row_heading_col=2,
         )
 
-        self._sheet_80_secondary_import(
+        self._slurp_tertiary_table(
             data=data_2015,
-            groups=[
+            medium='Crime and Violence',
+            options=[
                 'Non-violent crime, bribery, theft, drugs, corruption',
                 'Violent crime, murder, abduction, assault, etc.',
                 'Gender violence based on culture, family, inter-personal relations, feminicide, harassment, rape, sexual assault, trafficking, FGM...',
@@ -1884,14 +1861,20 @@ class GMMP2015ReportImporter(BaseReportImporter):
                 'War, civil war, terrorism, other state-based violence',
                 'Other crime/violence (specify in comments)'
             ],
-            medium='Crime and Violence',
             col_start=167,
             end_index=194,
+            cols=2,
+            cols_per_group=2,
+            major_col_heading_row=7,
+            row_start=9,
+            row_end=17,
+            row_heading_col=2,
         )
 
-        self._sheet_80_secondary_import(
+        self._slurp_tertiary_table(
             data=data_2015,
-            groups=[
+            medium='Celebrity, Arts and Media, Sports',
+            options=[
                 'Celebrity news, births, marriages, royalty, etc.',
                 'Arts, entertainment, leisure, cinema, books, dance',
                 'Media, (including internet), portrayal of women/men',
@@ -1899,19 +1882,30 @@ class GMMP2015ReportImporter(BaseReportImporter):
                 'Sports, events, players, facilities, training, funding',
                 'Other celebrity/arts/media news (specify in comments)',
             ],
-            medium='Celebrity, Arts and Media, Sports',
             col_start=195,
             end_index=218,
+            cols=2,
+            cols_per_group=2,
+            major_col_heading_row=7,
+            row_start=9,
+            row_end=17,
+            row_heading_col=2,
         )
 
-        self._sheet_80_secondary_import(
+        self._slurp_tertiary_table(
             data=data_2015,
-            groups=[
+            medium='Other',
+            options=[
                 'Other (only use as a last resort & explain)',
             ],
-            medium='Other',
             col_start=219,
             end_index=222,
+            cols=2,
+            cols_per_group=2,
+            major_col_heading_row=7,
+            row_start=9,
+            row_end=17,
+            row_heading_col=2,
         )
 
         return all_data
@@ -1920,9 +1914,10 @@ class GMMP2015ReportImporter(BaseReportImporter):
         data_2015 = {}
         all_data = {2015: data_2015}
 
-        self._sheet_80_secondary_import(
+        self._slurp_tertiary_table(
             data=data_2015,
-            groups=[
+            medium='Politics and Government',
+            options=[
                 'Women politicians, women electoral candidates...',
                 'Peace, negotiations, treaties',
                 'Other domestic politics, government, etc.',
@@ -1931,14 +1926,20 @@ class GMMP2015ReportImporter(BaseReportImporter):
                 'National defence, military spending, internal security, etc.',
                 'Other stories on politics (specify in comments)',
             ],
-            medium='Politics and Government',
             col_start=3,
             end_index=30,
+            cols=2,
+            cols_per_group=2,
+            major_col_heading_row=7,
+            row_start=9,
+            row_end=17,
+            row_heading_col=2,
         )
 
-        self._sheet_80_secondary_import(
+        self._slurp_tertiary_table(
             data=data_2015,
-            groups=[
+            medium='Economy',
+            options=[
                 'Economic policies, strategies, modules, indicators, stock markets, etc',
                 'Economic crisis, state bailouts of companies, company takeovers and mergers, etc.',
                 'Poverty, housing, social welfare, aid, etc.',
@@ -1951,14 +1952,20 @@ class GMMP2015ReportImporter(BaseReportImporter):
                 'Transport, traffic, roads...',
                 'Other stories on economy (specify in comments)'
             ],
-            medium='Economy',
             col_start=31,
             end_index=74,
+            cols=2,
+            cols_per_group=2,
+            major_col_heading_row=7,
+            row_start=9,
+            row_end=17,
+            row_heading_col=2,
         )
 
-        self._sheet_80_secondary_import(
+        self._slurp_tertiary_table(
             data=data_2015,
-            groups=[
+            medium='Science and Health',
+            options=[
                 'Science, technology, research, discoveries...',
                 'Medicine, health, hygiene, safety, (not EBOLA or HIV/AIDS)',
                 'EBOLA, treatment, response...',
@@ -1969,14 +1976,20 @@ class GMMP2015ReportImporter(BaseReportImporter):
                 'Environment, pollution, tourism',
                 'Other stories on science (specify in comments)',
             ],
-            medium='Science and Health',
             col_start=75,
             end_index=110,
+            cols=2,
+            cols_per_group=2,
+            major_col_heading_row=7,
+            row_start=9,
+            row_end=17,
+            row_heading_col=2,
         )
 
-        self._sheet_80_secondary_import(
+        self._slurp_tertiary_table(
             data=data_2015,
-            groups=[
+            medium='Social and Legal',
+            options=[
                 'Millennium Development Goals (MDGs), Post 2015 agenda, Sustainable Development Goals',
                 'Family relations, inter-generational conflict, parents',
                 'Human rights, womens rights, rights of sexual minorities, rights of religious minorities, etc.',
@@ -1992,14 +2005,20 @@ class GMMP2015ReportImporter(BaseReportImporter):
                 'Riots, demonstrations, public disorder, etc.',
                 'Other stories on social/legal (specify in comments)'
             ],
-            medium='Social and Legal',
             col_start=111,
             end_index=166,
+            cols=2,
+            cols_per_group=2,
+            major_col_heading_row=7,
+            row_start=9,
+            row_end=17,
+            row_heading_col=2,
         )
 
-        self._sheet_80_secondary_import(
+        self._slurp_tertiary_table(
             data=data_2015,
-            groups=[
+            medium='Crime and Violence',
+            options=[
                 'Non-violent crime, bribery, theft, drugs, corruption',
                 'Violent crime, murder, abduction, assault, etc.',
                 'Gender violence based on culture, family, inter-personal relations, feminicide, harassment, rape, sexual assault, trafficking, FGM...',
@@ -2008,14 +2027,20 @@ class GMMP2015ReportImporter(BaseReportImporter):
                 'War, civil war, terrorism, other state-based violence',
                 'Other crime/violence (specify in comments)'
             ],
-            medium='Crime and Violence',
             col_start=167,
             end_index=194,
+            cols=2,
+            cols_per_group=2,
+            major_col_heading_row=7,
+            row_start=9,
+            row_end=17,
+            row_heading_col=2,
         )
 
-        self._sheet_80_secondary_import(
+        self._slurp_tertiary_table(
             data=data_2015,
-            groups=[
+            medium='Celebrity, Arts and Media, Sports',
+            options=[
                 'Celebrity news, births, marriages, royalty, etc.',
                 'Arts, entertainment, leisure, cinema, books, dance',
                 'Media, (including internet), portrayal of women/men',
@@ -2023,19 +2048,30 @@ class GMMP2015ReportImporter(BaseReportImporter):
                 'Sports, events, players, facilities, training, funding',
                 'Other celebrity/arts/media news (specify in comments)',
             ],
-            medium='Celebrity, Arts and Media, Sports',
             col_start=195,
             end_index=218,
+            cols=2,
+            cols_per_group=2,
+            major_col_heading_row=7,
+            row_start=9,
+            row_end=17,
+            row_heading_col=2,
         )
 
-        self._sheet_80_secondary_import(
+        self._slurp_tertiary_table(
             data=data_2015,
-            groups=[
+            medium='Other',
+            options=[
                 'Other (only use as a last resort & explain)',
             ],
-            medium='Other',
             col_start=219,
             end_index=222,
+            cols=2,
+            cols_per_group=2,
+            major_col_heading_row=7,
+            row_start=9,
+            row_end=17,
+            row_heading_col=2,
         )
 
         return all_data
@@ -2044,28 +2080,21 @@ class GMMP2015ReportImporter(BaseReportImporter):
         data_2015 = {}
         all_data = {2015: data_2015}
 
-        groups = [
-            'politics and government', 'economy', 'science and health', 'social and legal', 'crime and violence',
-            'celebrity, arts and media, sports', 'other'
-        ]
-
-        col_start, end_index = 3, 37
-        while col_start < end_index:
-            for group in groups:
-                group_data = {}
-                self.slurp_secondary_col_table(
-                    self.ws,
-                    group_data,
-                    col_start=col_start,
-                    cols=5,
-                    cols_per_group=1,
-                    major_col_heading_row=6,
-                    row_start=8,
-                    row_end=16,
-                    row_heading_col=2,
-                )
-                data_2015[group] = group_data
-                col_start += 5
+        self._slurp_secondary_table(
+            data=data_2015,
+            col_start=3,
+            end_index=37,
+            options=[
+                'politics and government', 'economy', 'science and health', 'social and legal', 'crime and violence',
+                'celebrity, arts and media, sports', 'other'
+            ],
+            cols=5,
+            cols_per_group=1,
+            major_col_heading_row=6,
+            row_start=8,
+            row_end=16,
+            row_heading_col=2,
+        )
 
         return all_data
 
@@ -2109,25 +2138,18 @@ class GMMP2015ReportImporter(BaseReportImporter):
         data_2015 = {}
         all_data = {2015: data_2015}
 
-        genders = ['female', 'male']
-
-        col_start, end_index = 3, 10
-        while col_start < end_index:
-            for gender in genders:
-                gender_data = {}
-                self.slurp_secondary_col_table(
-                    self.ws,
-                    gender_data,
-                    col_start=col_start,
-                    cols=2,
-                    cols_per_group=2,
-                    major_col_heading_row=6,
-                    row_start=8,
-                    row_end=16,
-                    row_heading_col=2,
-                )
-                data_2015[gender] = gender_data
-                col_start += 2
+        self._slurp_secondary_table(
+            data=data_2015,
+            col_start=3,
+            end_index=10,
+            options=['female', 'male'],
+            cols=2,
+            cols_per_group=2,
+            major_col_heading_row=6,
+            row_start=8,
+            row_end=16,
+            row_heading_col=2,
+        )
 
         return all_data
 
@@ -2135,25 +2157,18 @@ class GMMP2015ReportImporter(BaseReportImporter):
         data_2015 = {}
         all_data = {2015: data_2015}
 
-        genders = ['female', 'male']
-
-        col_start, end_index = 3, 14
-        while col_start < end_index:
-            for gender in genders:
-                gender_data = {}
-                self.slurp_secondary_col_table(
-                    self.ws,
-                    gender_data,
-                    col_start=col_start,
-                    cols=3,
-                    cols_per_group=2,
-                    major_col_heading_row=6,
-                    row_start=8,
-                    row_end=16,
-                    row_heading_col=2,
-                )
-                data_2015[gender] = gender_data
-                col_start += 6
+        self._slurp_secondary_table(
+            data=data_2015,
+            col_start=3,
+            end_index=14,
+            options=['female', 'male'],
+            cols=3,
+            cols_per_group=2,
+            major_col_heading_row=6,
+            row_start=8,
+            row_end=16,
+            row_heading_col=2,
+        )
 
         return all_data
 
@@ -2161,25 +2176,18 @@ class GMMP2015ReportImporter(BaseReportImporter):
         data_2015 = {}
         all_data = {2015: data_2015}
 
-        genders = ['female', 'male']
-
-        col_start, end_index = 3, 10
-        while col_start < end_index:
-            for gender in genders:
-                gender_data = {}
-                self.slurp_secondary_col_table(
-                    self.ws,
-                    gender_data,
-                    col_start=col_start,
-                    cols=2,
-                    cols_per_group=2,
-                    major_col_heading_row=6,
-                    row_start=8,
-                    row_end=16,
-                    row_heading_col=2,
-                )
-                data_2015[gender] = gender_data
-                col_start += 4
+        self._slurp_secondary_table(
+            data=data_2015,
+            col_start=3,
+            end_index=10,
+            options=['female', 'male'],
+            cols=2,
+            cols_per_group=2,
+            major_col_heading_row=6,
+            row_start=8,
+            row_end=16,
+            row_heading_col=2,
+        )
 
         return all_data
 
@@ -2187,25 +2195,18 @@ class GMMP2015ReportImporter(BaseReportImporter):
         data_2015 = {}
         all_data = {2015: data_2015}
 
-        genders = ['female', 'male']
-
-        col_start, end_index = 3, 30
-        while col_start < end_index:
-            for gender in genders:
-                gender_data = {}
-                self.slurp_secondary_col_table(
-                    self.ws,
-                    gender_data,
-                    col_start=col_start,
-                    cols=7,
-                    cols_per_group=2,
-                    major_col_heading_row=6,
-                    row_start=8,
-                    row_end=16,
-                    row_heading_col=2,
-                )
-                data_2015[gender] = gender_data
-                col_start += 14
+        self._slurp_secondary_table(
+            data=data_2015,
+            col_start=3,
+            end_index=30,
+            options=['female', 'male'],
+            cols=7,
+            cols_per_group=2,
+            major_col_heading_row=6,
+            row_start=8,
+            row_end=16,
+            row_heading_col=2,
+        )
 
         return all_data
 
@@ -2213,25 +2214,18 @@ class GMMP2015ReportImporter(BaseReportImporter):
         data_2015 = {}
         all_data = {2015: data_2015}
 
-        genders = ['female', 'male']
-
-        col_start, end_index = 3, 10
-        while col_start < end_index:
-            for gender in genders:
-                gender_data = {}
-                self.slurp_secondary_col_table(
-                    self.ws,
-                    gender_data,
-                    col_start=col_start,
-                    cols=2,
-                    cols_per_group=2,
-                    major_col_heading_row=6,
-                    row_start=8,
-                    row_end=16,
-                    row_heading_col=2,
-                )
-                data_2015[gender] = gender_data
-                col_start += 4
+        self._slurp_secondary_table(
+            data=data_2015,
+            col_start=3,
+            end_index=30,
+            options=['female', 'male'],
+            cols=2,
+            cols_per_group=2,
+            major_col_heading_row=6,
+            row_start=8,
+            row_end=16,
+            row_heading_col=2,
+        )
 
         return all_data
 
@@ -2335,28 +2329,21 @@ class GMMP2015ReportImporter(BaseReportImporter):
         data_2015 = {}
         all_data = {2015: data_2015}
 
-        groups = [
-            'politics and government', 'economy', 'science and health', 'social and legal', 'crime and violence',
-            'celebrity, arts and media, sports', 'other'
-        ]
-
-        col_start, end_index = 3, 23
-        while col_start < end_index:
-            for group in groups:
-                group_data = {}
-                self.slurp_secondary_col_table(
-                    self.ws,
-                    group_data,
-                    col_start=col_start,
-                    cols=3,
-                    cols_per_group=1,
-                    major_col_heading_row=6,
-                    row_start=8,
-                    row_end=16,
-                    row_heading_col=2,
-                )
-                data_2015[group] = group_data
-                col_start += 3
+        self._slurp_secondary_table(
+            data=data_2015,
+            col_start=3,
+            end_index=23,
+            options=[
+                'politics and government', 'economy', 'science and health', 'social and legal', 'crime and violence',
+                'celebrity, arts and media, sports', 'other'
+            ],
+            cols=3,
+            cols_per_group=1,
+            major_col_heading_row=6,
+            row_start=8,
+            row_end=16,
+            row_heading_col=2,
+        )
 
         return all_data
 
@@ -2364,9 +2351,10 @@ class GMMP2015ReportImporter(BaseReportImporter):
         data_2015 = {}
         all_data = {2015: data_2015}
 
-        self._sheet_80_secondary_import(
+        self._slurp_tertiary_table(
             data=data_2015,
-            groups=[
+            medium='Politics and Government',
+            options=[
                 'Women politicians, women electoral candidates...',
                 'Peace, negotiations, treaties',
                 'Other domestic politics, government, etc.',
@@ -2375,14 +2363,20 @@ class GMMP2015ReportImporter(BaseReportImporter):
                 'National defence, military spending, internal security, etc.',
                 'Other stories on politics (specify in comments)',
             ],
-            medium='Politics and Government',
             col_start=3,
             end_index=30,
+            cols=2,
+            cols_per_group=2,
+            major_col_heading_row=7,
+            row_start=9,
+            row_end=17,
+            row_heading_col=2,
         )
 
-        self._sheet_80_secondary_import(
+        self._slurp_tertiary_table(
             data=data_2015,
-            groups=[
+            medium='Economy',
+            options=[
                 'Economic policies, strategies, modules, indicators, stock markets, etc',
                 'Economic crisis, state bailouts of companies, company takeovers and mergers, etc.',
                 'Poverty, housing, social welfare, aid, etc.',
@@ -2395,14 +2389,20 @@ class GMMP2015ReportImporter(BaseReportImporter):
                 'Transport, traffic, roads...',
                 'Other stories on economy (specify in comments)'
             ],
-            medium='Economy',
             col_start=31,
             end_index=74,
+            cols=2,
+            cols_per_group=2,
+            major_col_heading_row=7,
+            row_start=9,
+            row_end=17,
+            row_heading_col=2,
         )
 
-        self._sheet_80_secondary_import(
+        self._slurp_tertiary_table(
             data=data_2015,
-            groups=[
+            medium='Science and Health',
+            options=[
                 'Science, technology, research, discoveries...',
                 'Medicine, health, hygiene, safety, (not EBOLA or HIV/AIDS)',
                 'EBOLA, treatment, response...',
@@ -2413,14 +2413,20 @@ class GMMP2015ReportImporter(BaseReportImporter):
                 'Environment, pollution, tourism',
                 'Other stories on science (specify in comments)',
             ],
-            medium='Science and Health',
             col_start=75,
             end_index=110,
+            cols=2,
+            cols_per_group=2,
+            major_col_heading_row=7,
+            row_start=9,
+            row_end=17,
+            row_heading_col=2,
         )
 
-        self._sheet_80_secondary_import(
+        self._slurp_tertiary_table(
             data=data_2015,
-            groups=[
+            medium='Social and Legal',
+            options=[
                 'Millennium Development Goals (MDGs), Post 2015 agenda, Sustainable Development Goals',
                 'Family relations, inter-generational conflict, parents',
                 'Human rights, womens rights, rights of sexual minorities, rights of religious minorities, etc.',
@@ -2436,14 +2442,20 @@ class GMMP2015ReportImporter(BaseReportImporter):
                 'Riots, demonstrations, public disorder, etc.',
                 'Other stories on social/legal (specify in comments)'
             ],
-            medium='Social and Legal',
             col_start=111,
             end_index=166,
+            cols=2,
+            cols_per_group=2,
+            major_col_heading_row=7,
+            row_start=9,
+            row_end=17,
+            row_heading_col=2,
         )
 
-        self._sheet_80_secondary_import(
+        self._slurp_tertiary_table(
             data=data_2015,
-            groups=[
+            medium='Crime and Violence',
+            options=[
                 'Non-violent crime, bribery, theft, drugs, corruption',
                 'Violent crime, murder, abduction, assault, etc.',
                 'Gender violence based on culture, family, inter-personal relations, feminicide, harassment, rape, sexual assault, trafficking, FGM...',
@@ -2452,14 +2464,20 @@ class GMMP2015ReportImporter(BaseReportImporter):
                 'War, civil war, terrorism, other state-based violence',
                 'Other crime/violence (specify in comments)'
             ],
-            medium='Crime and Violence',
             col_start=167,
             end_index=194,
+            cols=2,
+            cols_per_group=2,
+            major_col_heading_row=7,
+            row_start=9,
+            row_end=17,
+            row_heading_col=2,
         )
 
-        self._sheet_80_secondary_import(
+        self._slurp_tertiary_table(
             data=data_2015,
-            groups=[
+            medium='Celebrity, Arts and Media, Sports',
+            options=[
                 'Celebrity news, births, marriages, royalty, etc.',
                 'Arts, entertainment, leisure, cinema, books, dance',
                 'Media, (including internet), portrayal of women/men',
@@ -2467,19 +2485,30 @@ class GMMP2015ReportImporter(BaseReportImporter):
                 'Sports, events, players, facilities, training, funding',
                 'Other celebrity/arts/media news (specify in comments)',
             ],
-            medium='Celebrity, Arts and Media, Sports',
             col_start=195,
             end_index=218,
+            cols=2,
+            cols_per_group=2,
+            major_col_heading_row=7,
+            row_start=9,
+            row_end=17,
+            row_heading_col=2,
         )
 
-        self._sheet_80_secondary_import(
+        self._slurp_tertiary_table(
             data=data_2015,
-            groups=[
+            medium='Other',
+            options=[
                 'Other (only use as a last resort & explain)',
             ],
-            medium='Other',
             col_start=219,
             end_index=222,
+            cols=2,
+            cols_per_group=2,
+            major_col_heading_row=7,
+            row_start=9,
+            row_end=17,
+            row_heading_col=2,
         )
 
         return all_data
@@ -2488,28 +2517,21 @@ class GMMP2015ReportImporter(BaseReportImporter):
         data_2015 = {}
         all_data = {2015: data_2015}
 
-        groups = [
-            'politics and government', 'economy', 'science and health', 'social and legal', 'crime and violence',
-            'celebrity, arts and media, sports', 'other'
-        ]
-
-        col_start, end_index = 3, 23
-        while col_start < end_index:
-            for group in groups:
-                group_data = {}
-                self.slurp_secondary_col_table(
-                    self.ws,
-                    group_data,
-                    col_start=col_start,
-                    cols=3,
-                    cols_per_group=1,
-                    major_col_heading_row=6,
-                    row_start=8,
-                    row_end=16,
-                    row_heading_col=2,
-                )
-                data_2015[group] = group_data
-                col_start += 3
+        self._slurp_secondary_table(
+            data=data_2015,
+            col_start=3,
+            end_index=23,
+            options=[
+                'politics and government', 'economy', 'science and health', 'social and legal', 'crime and violence',
+                'celebrity, arts and media, sports', 'other'
+            ],
+            cols=3,
+            cols_per_group=1,
+            major_col_heading_row=6,
+            row_start=8,
+            row_end=16,
+            row_heading_col=2,
+        )
 
         return all_data
 
@@ -2517,28 +2539,21 @@ class GMMP2015ReportImporter(BaseReportImporter):
         data_2015 = {}
         all_data = {2015: data_2015}
 
-        groups = [
-            'politics and government', 'economy', 'science and health', 'social and legal', 'crime and violence',
-            'celebrity, arts and media, sports', 'other'
-        ]
-
-        col_start, end_index = 3, 37
-        while col_start < end_index:
-            for group in groups:
-                group_data = {}
-                self.slurp_secondary_col_table(
-                    self.ws,
-                    group_data,
-                    col_start=col_start,
-                    cols=5,
-                    cols_per_group=1,
-                    major_col_heading_row=6,
-                    row_start=8,
-                    row_end=16,
-                    row_heading_col=2,
-                )
-                data_2015[group] = group_data
-                col_start += 5
+        self._slurp_secondary_table(
+            data=data_2015,
+            col_start=3,
+            end_index=37,
+            options=[
+                'politics and government', 'economy', 'science and health', 'social and legal', 'crime and violence',
+                'celebrity, arts and media, sports', 'other'
+            ],
+            cols=5,
+            cols_per_group=1,
+            major_col_heading_row=6,
+            row_start=8,
+            row_end=16,
+            row_heading_col=2,
+        )
 
         return all_data
 
@@ -2546,25 +2561,18 @@ class GMMP2015ReportImporter(BaseReportImporter):
         data_2015 = {}
         all_data = {2015: data_2015}
 
-        categories = ['presenter', 'reporter', 'subjects']
-
-        col_start, end_index = 3, 14
-        while col_start < end_index:
-            for category in categories:
-                category_data = {}
-                self.slurp_secondary_col_table(
-                    self.ws,
-                    category_data,
-                    col_start=col_start,
-                    cols=2,
-                    cols_per_group=2,
-                    major_col_heading_row=6,
-                    row_start=8,
-                    row_end=121,
-                    row_heading_col=2,
-                )
-                data_2015[category] = category_data
-                col_start += 4
+        self._slurp_secondary_table(
+            data=data_2015,
+            col_start=3,
+            end_index=14,
+            options=['presenter', 'reporter', 'subjects'],
+            cols=2,
+            cols_per_group=2,
+            major_col_heading_row=6,
+            row_start=8,
+            row_end=121,
+            row_heading_col=2,
+        )
 
         return all_data
 
@@ -2572,25 +2580,18 @@ class GMMP2015ReportImporter(BaseReportImporter):
         data_2015 = {}
         all_data = {2015: data_2015}
 
-        mediums = ['print', 'radio', 'television']
-
-        col_start, end_index = 3, 14
-        while col_start < end_index:
-            for medium in mediums:
-                medium_data = {}
-                self.slurp_secondary_col_table(
-                    self.ws,
-                    medium_data,
-                    col_start=col_start,
-                    cols=2,
-                    cols_per_group=2,
-                    major_col_heading_row=6,
-                    row_start=8,
-                    row_end=121,
-                    row_heading_col=2,
-                )
-                data_2015[medium] = medium_data
-                col_start += 4
+        self._slurp_secondary_table(
+            data=data_2015,
+            col_start=3,
+            end_index=14,
+            options=['print', 'radio', 'television'],
+            cols=2,
+            cols_per_group=2,
+            major_col_heading_row=6,
+            row_start=8,
+            row_end=121,
+            row_heading_col=2,
+        )
 
         return all_data
 
@@ -2598,28 +2599,21 @@ class GMMP2015ReportImporter(BaseReportImporter):
         data_2015 = {}
         all_data = {2015: data_2015}
 
-        groups = [
-            'politics and government', 'economy', 'science and health', 'social and legal', 'crime and violence',
-            'celebrity, arts and media, sports', 'other'
-        ]
-
-        col_start, end_index = 3, 30
-        while col_start < end_index:
-            for group in groups:
-                group_data = {}
-                self.slurp_secondary_col_table(
-                    self.ws,
-                    group_data,
-                    col_start=col_start,
-                    cols=2,
-                    cols_per_group=2,
-                    major_col_heading_row=6,
-                    row_start=8,
-                    row_end=121,
-                    row_heading_col=2,
-                )
-                data_2015[group] = group_data
-                col_start += 4
+        self._slurp_secondary_table(
+            data=data_2015,
+            col_start=3,
+            end_index=30,
+            options=[
+                'politics and government', 'economy', 'science and health', 'social and legal', 'crime and violence',
+                'celebrity, arts and media, sports', 'other'
+            ],
+            cols=2,
+            cols_per_group=2,
+            major_col_heading_row=6,
+            row_start=8,
+            row_end=121,
+            row_heading_col=2,
+        )
 
         return all_data
 
@@ -2627,40 +2621,33 @@ class GMMP2015ReportImporter(BaseReportImporter):
         data_2015 = {}
         all_data = {2015: data_2015}
 
-        groups = [
-            'not stated', 'royalty, monarch, deposed monarch, etc.',
-            'government, politician, minister, spokesperson...', 'government employee, public servant, etc.',
-            'police, military, para-military, militia, fire officer', 'academic expert, lecturer, teacher',
-            'doctor, dentist, health specialist', 'health worker, social worker, childcare worker',
-            'science/technology professional, engineer, etc.', 'media professional, journalist, film-maker, etc.',
-            'lawyer, judge, magistrate, legal advocate, etc.', 'business person, exec, manager, stock broker...',
-            'office or service worker, non-management worker', 'tradesperson, artisan, labourer, truck driver, etc.',
-            'agriculture, mining, fishing, forestry', 'religious figure, priest, monk, rabbi, mullah, nun',
-            'activist or worker in civil society org., ngo, trade union', 'sex worker',
-            'celebrity, artist, actor, writer, singer, tv personality', 'sportsperson, athlete, player, coach, referee',
-            'student, pupil, schoolchild', ') only if no other occupation is given e.g. doctor/mother=code 6',
-            'child, young person no other occupation given', 'villager or resident no other occupation given',
-            'retired person, pensioner no other occupation given', 'criminal, suspect no other occupation given',
-            'unemployed no other occupation given', 'other only as last resort & explain',
-        ]
-
-        col_start, end_index = 3, 114
-        while col_start < end_index:
-            for group in groups:
-                group_data = {}
-                self.slurp_secondary_col_table(
-                    self.ws,
-                    group_data,
-                    col_start=col_start,
-                    cols=2,
-                    cols_per_group=2,
-                    major_col_heading_row=6,
-                    row_start=8,
-                    row_end=121,
-                    row_heading_col=2,
-                )
-                data_2015[group] = group_data
-                col_start += 4
+        self._slurp_secondary_table(
+            data=data_2015,
+            col_start=3,
+            end_index=114,
+            options=[
+                'not stated', 'royalty, monarch, deposed monarch, etc.',
+                'government, politician, minister, spokesperson...', 'government employee, public servant, etc.',
+                'police, military, para-military, militia, fire officer', 'academic expert, lecturer, teacher',
+                'doctor, dentist, health specialist', 'health worker, social worker, childcare worker',
+                'science/technology professional, engineer, etc.', 'media professional, journalist, film-maker, etc.',
+                'lawyer, judge, magistrate, legal advocate, etc.', 'business person, exec, manager, stock broker...',
+                'office or service worker, non-management worker', 'tradesperson, artisan, labourer, truck driver, etc.',
+                'agriculture, mining, fishing, forestry', 'religious figure, priest, monk, rabbi, mullah, nun',
+                'activist or worker in civil society org., ngo, trade union', 'sex worker',
+                'celebrity, artist, actor, writer, singer, tv personality', 'sportsperson, athlete, player, coach, referee',
+                'student, pupil, schoolchild', ') only if no other occupation is given e.g. doctor/mother=code 6',
+                'child, young person no other occupation given', 'villager or resident no other occupation given',
+                'retired person, pensioner no other occupation given', 'criminal, suspect no other occupation given',
+                'unemployed no other occupation given', 'other only as last resort & explain',
+            ],
+            cols=2,
+            cols_per_group=2,
+            major_col_heading_row=6,
+            row_start=8,
+            row_end=121,
+            row_heading_col=2,
+        )
 
         return all_data
 
@@ -2668,28 +2655,21 @@ class GMMP2015ReportImporter(BaseReportImporter):
         data_2015 = {}
         all_data = {2015: data_2015}
 
-        groups = [
-            'do not know', 'subject', 'spokesperson', 'expert or commentator', 'personal experience',
-            'eye witness', 'personal opinion', 'other'
-        ]
-
-        col_start, end_index = 3, 34
-        while col_start < end_index:
-            for group in groups:
-                group_data = {}
-                self.slurp_secondary_col_table(
-                    self.ws,
-                    group_data,
-                    col_start=col_start,
-                    cols=2,
-                    cols_per_group=2,
-                    major_col_heading_row=6,
-                    row_start=8,
-                    row_end=121,
-                    row_heading_col=2,
-                )
-                data_2015[group] = group_data
-                col_start += 4
+        self._slurp_secondary_table(
+            data=data_2015,
+            col_start=3,
+            end_index=34,
+            options=[
+                'do not know', 'subject', 'spokesperson', 'expert or commentator', 'personal experience',
+                'eye witness', 'personal opinion', 'other'
+            ],
+            cols=2,
+            cols_per_group=2,
+            major_col_heading_row=6,
+            row_start=8,
+            row_end=121,
+            row_heading_col=2,
+        )
 
         return all_data
 
@@ -2697,27 +2677,20 @@ class GMMP2015ReportImporter(BaseReportImporter):
         data_2015 = {}
         all_data = {2015: data_2015}
 
-        groups = [
-            'Victim', 'Not a victim',
-        ]
-
-        col_start, end_index = 3, 10
-        while col_start < end_index:
-            for group in groups:
-                group_data = {}
-                self.slurp_secondary_col_table(
-                    self.ws,
-                    group_data,
-                    col_start=col_start,
-                    cols=2,
-                    cols_per_group=2,
-                    major_col_heading_row=6,
-                    row_start=8,
-                    row_end=121,
-                    row_heading_col=2,
-                )
-                data_2015[group] = group_data
-                col_start += 4
+        self._slurp_secondary_table(
+            data=data_2015,
+            col_start=3,
+            end_index=10,
+            options=[
+                'Victim', 'Not a victim',
+            ],
+            cols=2,
+            cols_per_group=2,
+            major_col_heading_row=6,
+            row_start=8,
+            row_end=121,
+            row_heading_col=2,
+        )
 
         return all_data
 
@@ -2725,25 +2698,18 @@ class GMMP2015ReportImporter(BaseReportImporter):
         data_2015 = {}
         all_data = {2015: data_2015}
 
-        options = ['yes', 'no']
-
-        col_start, end_index = 3, 10
-        while col_start < end_index:
-            for option in options:
-                option_data = {}
-                self.slurp_secondary_col_table(
-                    self.ws,
-                    option_data,
-                    col_start=col_start,
-                    cols=2,
-                    cols_per_group=2,
-                    major_col_heading_row=6,
-                    row_start=8,
-                    row_end=121,
-                    row_heading_col=2,
-                )
-                data_2015[option] = option_data
-                col_start += 4
+        self._slurp_secondary_table(
+            data=data_2015,
+            col_start=3,
+            end_index=10,
+            options=['yes', 'no'],
+            cols=2,
+            cols_per_group=2,
+            major_col_heading_row=6,
+            row_start=8,
+            row_end=121,
+            row_heading_col=2,
+        )
 
         return all_data
 
@@ -2751,25 +2717,18 @@ class GMMP2015ReportImporter(BaseReportImporter):
         data_2015 = {}
         all_data = {2015: data_2015}
 
-        options = ['yes', 'no']
-
-        col_start, end_index = 3, 10
-        while col_start < end_index:
-            for option in options:
-                option_data = {}
-                self.slurp_secondary_col_table(
-                    self.ws,
-                    option_data,
-                    col_start=col_start,
-                    cols=2,
-                    cols_per_group=2,
-                    major_col_heading_row=6,
-                    row_start=8,
-                    row_end=121,
-                    row_heading_col=2,
-                )
-                data_2015[option] = option_data
-                col_start += 4
+        self._slurp_secondary_table(
+            data=data_2015,
+            col_start=3,
+            end_index=10,
+            options=['yes', 'no'],
+            cols=2,
+            cols_per_group=2,
+            major_col_heading_row=6,
+            row_start=8,
+            row_end=121,
+            row_heading_col=2,
+        )
 
         return all_data
 
@@ -2777,25 +2736,18 @@ class GMMP2015ReportImporter(BaseReportImporter):
         data_2015 = {}
         all_data = {2015: data_2015}
 
-        options = ['yes', 'no', 'do not know']
-
-        col_start, end_index = 3, 14
-        while col_start < end_index:
-            for option in options:
-                option_data = {}
-                self.slurp_secondary_col_table(
-                    self.ws,
-                    option_data,
-                    col_start=col_start,
-                    cols=2,
-                    cols_per_group=2,
-                    major_col_heading_row=6,
-                    row_start=8,
-                    row_end=121,
-                    row_heading_col=2,
-                )
-                data_2015[option] = option_data
-                col_start += 4
+        self._slurp_secondary_table(
+            data=data_2015,
+            col_start=3,
+            end_index=14,
+            options=['yes', 'no', 'do not know'],
+            cols=2,
+            cols_per_group=2,
+            major_col_heading_row=6,
+            row_start=8,
+            row_end=121,
+            row_heading_col=2,
+        )
 
         return all_data
 
@@ -2803,39 +2755,54 @@ class GMMP2015ReportImporter(BaseReportImporter):
         data_2015 = {}
         all_data = {2015: data_2015}
 
-        self._sheet_80_secondary_import(
+        self._slurp_tertiary_table(
             data=data_2015,
-            groups=[
+            medium='Print',
+            options=[
                 'Reporter',
             ],
-            medium='Print',
             col_start=3,
             end_index=6,
             row_end=122,
+            cols=2,
+            cols_per_group=2,
+            major_col_heading_row=7,
+            row_start=9,
+            row_heading_col=2,
         )
 
-        self._sheet_80_secondary_import(
+        self._slurp_tertiary_table(
             data=data_2015,
-            groups=[
+            medium='Radio',
+            options=[
                 'Presenter',
                 'Reporter',
             ],
-            medium='Radio',
             col_start=7,
             end_index=14,
             row_end=122,
+            cols=2,
+            cols_per_group=2,
+            major_col_heading_row=7,
+            row_start=9,
+            row_heading_col=2,
         )
 
-        self._sheet_80_secondary_import(
+        self._slurp_tertiary_table(
             data=data_2015,
-            groups=[
+            medium='Television',
+            options=[
                 'Presenter',
                 'Reporter',
             ],
-            medium='Television',
             col_start=15,
             end_index=22,
             row_end=122,
+            cols=2,
+            cols_per_group=2,
+            major_col_heading_row=7,
+            row_start=9,
+            row_heading_col=2,
         )
 
         return all_data
@@ -2844,28 +2811,21 @@ class GMMP2015ReportImporter(BaseReportImporter):
         data_2015 = {}
         all_data = {2015: data_2015}
 
-        groups = [
-            'politics and government', 'economy', 'science and health', 'social and legal', 'crime and violence',
-            'celebrity, arts and media, sports', 'other'
-        ]
-
-        col_start, end_index = 3, 30
-        while col_start < end_index:
-            for group in groups:
-                group_data = {}
-                self.slurp_secondary_col_table(
-                    self.ws,
-                    group_data,
-                    col_start=col_start,
-                    cols=2,
-                    cols_per_group=2,
-                    major_col_heading_row=6,
-                    row_start=8,
-                    row_end=121,
-                    row_heading_col=2,
-                )
-                data_2015[group] = group_data
-                col_start += 4
+        self._slurp_secondary_table(
+            data=data_2015,
+            col_start=3,
+            end_index=30,
+            options=[
+                'politics and government', 'economy', 'science and health', 'social and legal', 'crime and violence',
+                'celebrity, arts and media, sports', 'other'
+            ],
+            cols=2,
+            cols_per_group=2,
+            major_col_heading_row=6,
+            row_start=8,
+            row_end=121,
+            row_heading_col=2,
+        )
 
         return all_data
 
@@ -2880,25 +2840,18 @@ class GMMP2015ReportImporter(BaseReportImporter):
         data_2015 = {}
         all_data = {2015: data_2015}
 
-        genders = ['female', 'male']
-
-        col_start, end_index = 3, 10
-        while col_start < end_index:
-            for gender in genders:
-                gender_data = {}
-                self.slurp_secondary_col_table(
-                    self.ws,
-                    gender_data,
-                    col_start=col_start,
-                    cols=2,
-                    cols_per_group=2,
-                    major_col_heading_row=6,
-                    row_start=8,
-                    row_end=16,
-                    row_heading_col=2,
-                )
-                data_2015[gender] = gender_data
-                col_start += 4
+        self._slurp_secondary_table(
+            data=data_2015,
+            col_start=3,
+            end_index=10,
+            options=['female', 'male'],
+            cols=2,
+            cols_per_group=2,
+            major_col_heading_row=6,
+            row_start=8,
+            row_end=16,
+            row_heading_col=2,
+        )
 
         return all_data
     
@@ -2982,11 +2935,18 @@ class GMMP2015ReportImporter(BaseReportImporter):
         data_2015 = {}
         all_data = {2015: data_2015}
 
-        self._secondary_import_s17(
+        self._slurp_tertiary_table(
             data=data_2015,
             medium='internet',
             col_start=3,
             end_index=11,
+            options=['reporter', 'subjects'],
+            cols=2,
+            cols_per_group=2,
+            major_col_heading_row=7,
+            row_start=9,
+            row_end=122,
+            row_heading_col=2,
         )
 
         n_data_2015 = {}
@@ -3004,11 +2964,18 @@ class GMMP2015ReportImporter(BaseReportImporter):
                 col_heading_row=col_heading_row,
             )
 
-        self._secondary_import_s17(
+        self._slurp_tertiary_table(
             data=data_2015,
             medium='twitter',
             col_start=23,
             end_index=30,
+            options=['reporter', 'subjects'],
+            cols=2,
+            cols_per_group=2,
+            major_col_heading_row=7,
+            row_start=9,
+            row_end=122,
+            row_heading_col=2,
         )
 
         return all_data
@@ -3044,48 +3011,39 @@ class GMMP2015ReportImporter(BaseReportImporter):
         data_2015 = {}
         all_data = {2015: data_2015}
 
-        groups = [
-            'politics and government', 'economy', 'science and health', 'social and legal', 'crime and violence',
-            'celebrity, arts and media, sports', 'other'
-        ]
+        self._slurp_tertiary_table(
+            data=data_2015,
+            medium='internet',
+            col_start=3,
+            end_index=30,
+            options=[
+                'politics and government', 'economy', 'science and health', 'social and legal', 'crime and violence',
+                'celebrity, arts and media, sports', 'other'
+            ],
+            cols=2,
+            cols_per_group=2,
+            major_col_heading_row=7,
+            row_start=9,
+            row_end=122,
+            row_heading_col=2,
+        )
 
-        data_2015['internet'] = {}
-        col_start, end_index = 3, 30
-        while col_start < end_index:
-            for group in groups:
-                group_data = {}
-                self.slurp_secondary_col_table(
-                    self.ws,
-                    group_data,
-                    col_start=col_start,
-                    cols=2,
-                    cols_per_group=2,
-                    major_col_heading_row=7,
-                    row_start=9,
-                    row_end=122,
-                    row_heading_col=2,
-                )
-                data_2015['internet'][group] = group_data
-                col_start += 4
-
-        data_2015['twitter'] = {}
-        col_start, end_index = 33, 60
-        while col_start < end_index:
-            for group in groups:
-                group_data = {}
-                self.slurp_secondary_col_table(
-                    self.ws,
-                    group_data,
-                    col_start=col_start,
-                    cols=2,
-                    cols_per_group=2,
-                    major_col_heading_row=7,
-                    row_start=9,
-                    row_end=122,
-                    row_heading_col=2,
-                )
-                data_2015['twitter'][group] = group_data
-                col_start += 4
+        self._slurp_tertiary_table(
+            data=data_2015,
+            medium='twitter',
+            col_start=33,
+            end_index=60,
+            options=[
+                'politics and government', 'economy', 'science and health', 'social and legal', 'crime and violence',
+                'celebrity, arts and media, sports', 'other'
+            ],
+            cols=2,
+            cols_per_group=2,
+            major_col_heading_row=7,
+            row_start=9,
+            row_end=122,
+            row_heading_col=2,
+        )
 
         return all_data
 
@@ -3110,24 +3068,19 @@ class GMMP2015ReportImporter(BaseReportImporter):
             'unemployed no other occupation given', 'other only as last resort & explain',
         ]
 
-        data_2015['internet'] = {}
-        col_start, end_index = 3, 114
-        while col_start < end_index:
-            for group in groups:
-                group_data = {}
-                self.slurp_secondary_col_table(
-                    self.ws,
-                    group_data,
-                    col_start=col_start,
-                    cols=2,
-                    cols_per_group=2,
-                    major_col_heading_row=7,
-                    row_start=9,
-                    row_end=122,
-                    row_heading_col=2,
-                )
-                data_2015['internet'][group] = group_data
-                col_start += 4
+        self._slurp_tertiary_table(
+            data=data_2015,
+            medium='internet',
+            col_start=3,
+            end_index=114,
+            options=groups,
+            cols=2,
+            cols_per_group=2,
+            major_col_heading_row=7,
+            row_start=9,
+            row_end=122,
+            row_heading_col=2,
+        )
 
         return all_data
 
@@ -3140,24 +3093,19 @@ class GMMP2015ReportImporter(BaseReportImporter):
             'eye witness', 'personal opinion', 'other'
         ]
 
-        data_2015['internet'] = {}
-        col_start, end_index = 3, 34
-        while col_start < end_index:
-            for group in groups:
-                group_data = {}
-                self.slurp_secondary_col_table(
-                    self.ws,
-                    group_data,
-                    col_start=col_start,
-                    cols=2,
-                    cols_per_group=2,
-                    major_col_heading_row=7,
-                    row_start=9,
-                    row_end=122,
-                    row_heading_col=2,
-                )
-                data_2015['internet'][group] = group_data
-                col_start += 4
+        self._slurp_tertiary_table(
+            data=data_2015,
+            medium='internet',
+            col_start=3,
+            end_index=34,
+            options=groups,
+            cols=2,
+            cols_per_group=2,
+            major_col_heading_row=7,
+            row_start=9,
+            row_end=122,
+            row_heading_col=2,
+        )
 
         return all_data
 
@@ -3165,28 +3113,21 @@ class GMMP2015ReportImporter(BaseReportImporter):
         data_2015 = {}
         all_data = {2015: data_2015}
 
-        groups = [
-            'victim', 'not a victim',
-        ]
-
-        data_2015['internet'] = {}
-        col_start, end_index = 3, 10
-        while col_start < end_index:
-            for group in groups:
-                group_data = {}
-                self.slurp_secondary_col_table(
-                    self.ws,
-                    group_data,
-                    col_start=col_start,
-                    cols=2,
-                    cols_per_group=2,
-                    major_col_heading_row=7,
-                    row_start=9,
-                    row_end=122,
-                    row_heading_col=2,
-                )
-                data_2015['internet'][group] = group_data
-                col_start += 4
+        self._slurp_tertiary_table(
+            data=data_2015,
+            medium='internet',
+            col_start=3,
+            end_index=10,
+            options=[
+                'victim', 'not a victim',
+            ],
+            cols=2,
+            cols_per_group=2,
+            major_col_heading_row=7,
+            row_start=9,
+            row_end=122,
+            row_heading_col=2,
+        )
 
         return all_data
 
@@ -3194,28 +3135,21 @@ class GMMP2015ReportImporter(BaseReportImporter):
         data_2015 = {}
         all_data = {2015: data_2015}
 
-        groups = [
-            'yes', 'no',
-        ]
-
-        data_2015['internet'] = {}
-        col_start, end_index = 3, 10
-        while col_start < end_index:
-            for group in groups:
-                group_data = {}
-                self.slurp_secondary_col_table(
-                    self.ws,
-                    group_data,
-                    col_start=col_start,
-                    cols=2,
-                    cols_per_group=2,
-                    major_col_heading_row=7,
-                    row_start=9,
-                    row_end=122,
-                    row_heading_col=2,
-                )
-                data_2015['internet'][group] = group_data
-                col_start += 4
+        self._slurp_tertiary_table(
+            data=data_2015,
+            medium='internet',
+            col_start=3,
+            end_index=10,
+            options=[
+                'yes', 'no',
+            ],
+            cols=2,
+            cols_per_group=2,
+            major_col_heading_row=7,
+            row_start=9,
+            row_end=122,
+            row_heading_col=2,
+        )
 
         return all_data
 
@@ -3225,43 +3159,33 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         options = ['yes', 'no', 'do not know']
 
-        data_2015['internet'] = {}
-        col_start, end_index = 3, 14
-        while col_start < end_index:
-            for option in options:
-                option_data = {}
-                self.slurp_secondary_col_table(
-                    self.ws,
-                    option_data,
-                    col_start=col_start,
-                    cols=2,
-                    cols_per_group=2,
-                    major_col_heading_row=7,
-                    row_start=9,
-                    row_end=122,
-                    row_heading_col=2,
-                )
-                data_2015['internet'][option] = option_data
-                col_start += 4
+        self._slurp_tertiary_table(
+            data=data_2015,
+            medium='internet',
+            col_start=3,
+            end_index=14,
+            options=options,
+            cols=2,
+            cols_per_group=2,
+            major_col_heading_row=7,
+            row_start=9,
+            row_end=122,
+            row_heading_col=2,
+        )
 
-        data_2015['twitter'] = {}
-        col_start, end_index = 17, 28
-        while col_start < end_index:
-            for option in options:
-                option_data = {}
-                self.slurp_secondary_col_table(
-                    self.ws,
-                    option_data,
-                    col_start=col_start,
-                    cols=2,
-                    cols_per_group=2,
-                    major_col_heading_row=7,
-                    row_start=9,
-                    row_end=122,
-                    row_heading_col=2,
-                )
-                data_2015['twitter'][option] = option_data
-                col_start += 4
+        self._slurp_tertiary_table(
+            data=data_2015,
+            medium='twitter',
+            col_start=17,
+            end_index=28,
+            options=options,
+            cols=2,
+            cols_per_group=2,
+            major_col_heading_row=7,
+            row_start=9,
+            row_end=122,
+            row_heading_col=2,
+        )
 
         return all_data
 
@@ -3274,43 +3198,33 @@ class GMMP2015ReportImporter(BaseReportImporter):
             'celebrity, arts and media, sports', 'other'
         ]
 
-        data_2015['internet'] = {}
-        col_start, end_index = 3, 30
-        while col_start < end_index:
-            for group in groups:
-                group_data = {}
-                self.slurp_secondary_col_table(
-                    self.ws,
-                    group_data,
-                    col_start=col_start,
-                    cols=2,
-                    cols_per_group=2,
-                    major_col_heading_row=7,
-                    row_start=9,
-                    row_end=122,
-                    row_heading_col=2,
-                )
-                data_2015['internet'][group] = group_data
-                col_start += 4
+        self._slurp_tertiary_table(
+            data=data_2015,
+            medium='internet',
+            col_start=3,
+            end_index=30,
+            options=groups,
+            cols=2,
+            cols_per_group=2,
+            major_col_heading_row=7,
+            row_start=9,
+            row_end=122,
+            row_heading_col=2,
+        )
 
-        data_2015['twitter'] = {}
-        col_start, end_index = 33, 60
-        while col_start < end_index:
-            for group in groups:
-                group_data = {}
-                self.slurp_secondary_col_table(
-                    self.ws,
-                    group_data,
-                    col_start=col_start,
-                    cols=2,
-                    cols_per_group=2,
-                    major_col_heading_row=7,
-                    row_start=9,
-                    row_end=122,
-                    row_heading_col=2,
-                )
-                data_2015['twitter'][group] = group_data
-                col_start += 4
+        self._slurp_tertiary_table(
+            data=data_2015,
+            medium='twitter',
+            col_start=33,
+            end_index=60,
+            options=groups,
+            cols=2,
+            cols_per_group=2,
+            major_col_heading_row=7,
+            row_start=9,
+            row_end=122,
+            row_heading_col=2,
+        )
 
         return all_data
 
@@ -3366,25 +3280,18 @@ class GMMP2015ReportImporter(BaseReportImporter):
         data_2015 = {}
         all_data = {2015: data_2015}
 
-        categories = ['presenter', 'reporter', 'subjects']
-
-        col_start, end_index = 3, 14
-        while col_start < end_index:
-            for category in categories:
-                category_data = {}
-                self.slurp_secondary_col_table(
-                    self.ws,
-                    category_data,
-                    col_start=col_start,
-                    cols=2,
-                    cols_per_group=2,
-                    major_col_heading_row=6,
-                    row_start=8,
-                    row_end=16,
-                    row_heading_col=2,
-                )
-                data_2015[category] = category_data
-                col_start += 4
+        self._slurp_secondary_table(
+            data=data_2015,
+            col_start=3,
+            end_index=14,
+            options=['presenter', 'reporter', 'subjects'],
+            cols=2,
+            cols_per_group=2,
+            major_col_heading_row=6,
+            row_start=8,
+            row_end=16,
+            row_heading_col=2,
+        )
 
         return all_data
 
@@ -3392,28 +3299,22 @@ class GMMP2015ReportImporter(BaseReportImporter):
         data_2015 = {}
         all_data = {2015: data_2015}
 
-        groups = [
-            'politics and government', 'economy', 'science and health', 'social and legal', 'crime and violence',
-            'celebrity, arts and media, sports', 'other'
-        ]
+        self._slurp_secondary_table(
+            data=data_2015,
+            col_start=3,
+            end_index=30,
+            options=[
+                'politics and government', 'economy', 'science and health', 'social and legal', 'crime and violence',
+                'celebrity, arts and media, sports', 'other'
+            ],
+            cols=2,
+            cols_per_group=2,
+            major_col_heading_row=6,
+            row_start=8,
+            row_end=16,
+            row_heading_col=2,
+        )
 
-        col_start, end_index = 3, 30
-        while col_start < end_index:
-            for group in groups:
-                group_data = {}
-                self.slurp_secondary_col_table(
-                    self.ws,
-                    group_data,
-                    col_start=col_start,
-                    cols=2,
-                    cols_per_group=2,
-                    major_col_heading_row=6,
-                    row_start=8,
-                    row_end=16,
-                    row_heading_col=2,
-                )
-                data_2015[group] = group_data
-                col_start += 4
 
         return all_data
 
@@ -3421,28 +3322,21 @@ class GMMP2015ReportImporter(BaseReportImporter):
         data_2015 = {}
         all_data = {2015: data_2015}
 
-        groups = [
-            'do not know', 'subject', 'spokesperson', 'expert or commentator', 'personal experience',
-            'eye witness', 'personal opinion', 'other'
-        ]
-
-        col_start, end_index = 3, 34
-        while col_start < end_index:
-            for group in groups:
-                group_data = {}
-                self.slurp_secondary_col_table(
-                    self.ws,
-                    group_data,
-                    col_start=col_start,
-                    cols=2,
-                    cols_per_group=2,
-                    major_col_heading_row=6,
-                    row_start=8,
-                    row_end=16,
-                    row_heading_col=2,
-                )
-                data_2015[group] = group_data
-                col_start += 4
+        self._slurp_secondary_table(
+            data=data_2015,
+            col_start=3,
+            end_index=34,
+            options=[
+                'do not know', 'subject', 'spokesperson', 'expert or commentator', 'personal experience',
+                'eye witness', 'personal opinion', 'other'
+            ],
+            cols=2,
+            cols_per_group=2,
+            major_col_heading_row=6,
+            row_start=8,
+            row_end=16,
+            row_heading_col=2,
+        )
 
         return all_data
 
@@ -3450,25 +3344,18 @@ class GMMP2015ReportImporter(BaseReportImporter):
         data_2015 = {}
         all_data = {2015: data_2015}
 
-        options = ['yes', 'no', 'do not know']
-
-        col_start, end_index = 3, 14
-        while col_start < end_index:
-            for option in options:
-                option_data = {}
-                self.slurp_secondary_col_table(
-                    self.ws,
-                    option_data,
-                    col_start=col_start,
-                    cols=2,
-                    cols_per_group=2,
-                    major_col_heading_row=6,
-                    row_start=8,
-                    row_end=16,
-                    row_heading_col=2,
-                )
-                data_2015[option] = option_data
-                col_start += 4
+        self._slurp_secondary_table(
+            data=data_2015,
+            col_start=3,
+            end_index=14,
+            options=['yes', 'no', 'do not know'],
+            cols=2,
+            cols_per_group=2,
+            major_col_heading_row=6,
+            row_start=8,
+            row_end=16,
+            row_heading_col=2,
+        )
 
         return all_data
 
@@ -3476,36 +3363,54 @@ class GMMP2015ReportImporter(BaseReportImporter):
         data_2015 = {}
         all_data = {2015: data_2015}
 
-        self._sheet_80_secondary_import(
+        self._slurp_tertiary_table(
             data=data_2015,
-            groups=[
-                'Reporter',
-            ],
             medium='Print',
             col_start=3,
             end_index=6,
-        )
-
-        self._sheet_80_secondary_import(
-            data=data_2015,
-            groups=[
-                'Presenter',
+            options=[
                 'Reporter',
             ],
+            cols=2,
+            cols_per_group=2,
+            major_col_heading_row=7,
+            row_start=9,
+            row_end=17,
+            row_heading_col=2,
+        )
+
+        self._slurp_tertiary_table(
+            data=data_2015,
             medium='Radio',
             col_start=7,
             end_index=14,
-        )
-
-        self._sheet_80_secondary_import(
-            data=data_2015,
-            groups=[
+            options=[
                 'Presenter',
                 'Reporter',
             ],
+            cols=2,
+            cols_per_group=2,
+            major_col_heading_row=7,
+            row_start=9,
+            row_end=17,
+            row_heading_col=2,
+        )
+
+        self._slurp_tertiary_table(
+            data=data_2015,
             medium='Television',
             col_start=15,
             end_index=22,
+            options=[
+                'Presenter',
+                'Reporter',
+            ],
+            cols=2,
+            cols_per_group=2,
+            major_col_heading_row=7,
+            row_start=9,
+            row_end=17,
+            row_heading_col=2,
         )
 
         return all_data
@@ -3514,28 +3419,21 @@ class GMMP2015ReportImporter(BaseReportImporter):
         data_2015 = {}
         all_data = {2015: data_2015}
 
-        groups = [
-            'politics and government', 'economy', 'science and health', 'social and legal', 'crime and violence',
-            'celebrity, arts and media, sports', 'other'
-        ]
-
-        col_start, end_index = 3, 30
-        while col_start < end_index:
-            for group in groups:
-                group_data = {}
-                self.slurp_secondary_col_table(
-                    self.ws,
-                    group_data,
-                    col_start=col_start,
-                    cols=2,
-                    cols_per_group=2,
-                    major_col_heading_row=6,
-                    row_start=8,
-                    row_end=16,
-                    row_heading_col=2,
-                )
-                data_2015[group] = group_data
-                col_start += 4
+        self._slurp_secondary_table(
+            data=data_2015,
+            col_start=3,
+            end_index=30,
+            options=[
+                'politics and government', 'economy', 'science and health', 'social and legal', 'crime and violence',
+                'celebrity, arts and media, sports', 'other'
+            ],
+            cols=2,
+            cols_per_group=2,
+            major_col_heading_row=6,
+            row_start=8,
+            row_end=16,
+            row_heading_col=2,
+        )
 
         return all_data
 
@@ -3543,25 +3441,18 @@ class GMMP2015ReportImporter(BaseReportImporter):
         data_2015 = {}
         all_data = {2015: data_2015}
 
-        genders = ['female', 'male']
-
-        col_start, end_index = 3, 10
-        while col_start < end_index:
-            for gender in genders:
-                gender_data = {}
-                self.slurp_secondary_col_table(
-                    self.ws,
-                    gender_data,
-                    col_start=col_start,
-                    cols=2,
-                    cols_per_group=2,
-                    major_col_heading_row=6,
-                    row_start=8,
-                    row_end=16,
-                    row_heading_col=2,
-                )
-                data_2015[gender] = gender_data
-                col_start += 4
+        self._slurp_secondary_table(
+            data=data_2015,
+            col_start=3,
+            end_index=10,
+            options=['female', 'male'],
+            cols=2,
+            cols_per_group=2,
+            major_col_heading_row=6,
+            row_start=8,
+            row_end=16,
+            row_heading_col=2,
+        )
 
         return all_data
 
