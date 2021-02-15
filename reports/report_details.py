@@ -665,7 +665,7 @@ WS_INFO = {
             'name': '42',
             'title': 'Stories where issues of gender equality/inequality are raised by region',
             'desc': '',
-            'reports': ['global'],
+            'reports': [],
             'historical': '42',
         },
         '2010': {
@@ -711,7 +711,7 @@ WS_INFO = {
             'name': '45',
             'title': 'Stories where issues of gender equality/inequality are raised by sex of \'people in the news\' and by region',
             'desc': 'Breakdown of Stories where issues of gender equality/inequality are raised by sex of \'people in the news\' and by region',
-            'reports': ['global', 'region'],
+            'reports': [],
             'historical': '45',
         },
         '2010': {
@@ -832,7 +832,7 @@ WS_INFO = {
             'name': '53',
             'title': 'Internet - Female reporters in main stories',
             'desc': 'Internet - Sex of reporters in main stories',
-            'reports': ['global', 'region', 'country'],
+            'reports': [],
             'historical': '53',
         },
         '2010': {
@@ -847,7 +847,7 @@ WS_INFO = {
             'name': '54',
             'title': 'Internet - Overall presence of women',
             'desc': '',
-            'reports': ['global', 'region', 'country'],
+            'reports': [],
             'historical': '54',
         },
         '2010': {
@@ -1028,7 +1028,7 @@ WS_INFO = {
             'name': '66',
             'title': 'Twitter - Overall presence of women',
             'desc': '',
-            'reports': ['global', 'region', 'country'],
+            'reports': [],
             'historical': '66',
         },
         '2010': {
@@ -1043,7 +1043,7 @@ WS_INFO = {
             'name': '67',
             'title': 'Twitter - Female reporters & journalists',
             'desc': '',
-            'reports': ['global', 'region', 'country'],
+            'reports': [],
             'historical': '67',
         },
         '2010': {
@@ -1058,7 +1058,7 @@ WS_INFO = {
             'name': '68',
             'title': 'Twitter - Women\'s centrality',
             'desc': '',
-            'reports': ['global', 'region', 'country'],
+            'reports': [],
             'historical': '68',
         },
         '2010': {
@@ -1096,7 +1096,7 @@ WS_INFO = {
             'name': '71',
             'title': 'Key themes, women\'s overall presence',
             'desc': '',
-            'reports': ['global', 'region', 'country'],
+            'reports': [],
             'historical': '71',
         },
         '2010': {
@@ -1111,7 +1111,7 @@ WS_INFO = {
             'name': '72',
             'title': 'Key themes, female reporters',
             'desc': '',
-            'reports': ['global', 'region', 'country'],
+            'reports': [],
             'historical': '72',
         },
         '2010': {
@@ -1126,7 +1126,7 @@ WS_INFO = {
             'name': '73',
             'title': 'Key themes, selection of sources by sex of reporter',
             'desc': '',
-            'reports': ['global', 'region', 'country'],
+            'reports': [],
             'historical': '73',
         },
         '2010': {
@@ -1141,7 +1141,7 @@ WS_INFO = {
             'name': '74',
             'title': 'Key themes, women\'s centrality',
             'desc': '',
-            'reports': ['global', 'region', 'country'],
+            'reports': [],
             'historical': '74',
         },
         '2010': {
@@ -1156,7 +1156,7 @@ WS_INFO = {
             'name': '75',
             'title': 'Key themes, challenging stereotypes',
             'desc': '',
-            'reports': ['global', 'region', 'country'],
+            'reports': [],
             'historical': '75',
         },
         '2010': {
@@ -1171,7 +1171,7 @@ WS_INFO = {
             'name': '76',
             'title': 'Key themes, reference to gender equality/HR policies',
             'desc': '',
-            'reports': ['global', 'region', 'country'],
+            'reports': [],
             'historical': '76',
         },
         '2010': {
@@ -1186,7 +1186,7 @@ WS_INFO = {
             'name': '77',
             'title': 'Key themes, portrayal as victims',
             'desc': '',
-            'reports': ['global', 'region', 'country'],
+            'reports': [],
             'historical': '77',
         },
         '2010': {
@@ -1201,7 +1201,7 @@ WS_INFO = {
             'name': '78',
             'title': 'Key themes, portrayal as survivors',
             'desc': '',
-            'reports': ['global', 'region', 'country'],
+            'reports': [],
             'historical': '78',
         },
         '2010': {
@@ -1215,7 +1215,7 @@ WS_INFO = {
         '2015': {
             'name': '79',
             'title': 'Internet - Main topics by region',
-            'desc': 'Internet - Main topics by region',
+            'desc': 'Breakdown by sex of news subjects',
             'reports': ['global'],
             'historical': '79',
         },
