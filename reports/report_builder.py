@@ -49,12 +49,12 @@ media_split = [
 ]
 
 COUNTRY_RECODES = {
-    u'B1': u'BE',  # Belgium - French -> Belgium
-    u'B2': u'BE',  # Belgium - English -> Belgium
-    u'EN': u'UK',  # England -> United Kingdom
-    u'IE': u'UK',  # Ireland -> United Kingdom
-    u'SQ': u'UK',  # Scotland -> United Kingdom
-    u'WL': u'UK',  # Wales -> United Kingdom
+    u'QM': u'BE',  # Belgium - French -> Belgium
+    u'QN': u'BE',  # Belgium - Flemish -> Belgium
+    u'QO': u'GB',  # England -> United Kingdom
+    u'QP': u'GB',  # Northern Ireland-> United Kingdom
+    u'QQ': u'GB',  # Scotland -> United Kingdom
+    u'QR': u'GB',  # Wales -> United Kingdom
 }
 
 
@@ -143,9 +143,9 @@ class XLSXReportBuilder:
     def recode_countries(self):
         # squash recoded countries
         self.countries = [(c, n) for c, n in self.countries if c not in COUNTRY_RECODES]
-        # add UK and Belgium
+        # add GB and Belgium
         self.countries.append((u'BE', u'Belgium - French and Flemish'))
-        self.countries.append((u'UK', u'United Kingdom - England, Ireland, Scotland and Wales'))
+        self.countries.append((u'GB', u'United Kingdom - England, Northern Ireland, Scotland and Wales'))
         self.countries.sort(key=lambda p: p[1])
 
     def build(self):
