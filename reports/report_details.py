@@ -488,6 +488,32 @@ WS_INFO = {
             'historical': '10bF',
         },
     },
+    'ws_28b': {
+        '2015': {
+            'name': '28b',
+            'title': 'Breakdown of reporters  by region by medium PRINT RADIO TV INTERNET TWITTER by sex',
+            'desc': '',
+            'reports': [],
+        },
+        '2010': {
+            'name': '28b',
+            'title': 'Breakdown of reporters  by region by medium PRINT RADIO TV INTERNET TWITTER by sex',
+            'reports': [],
+        },
+    },
+    'ws_28c': {
+        '2015': {
+            'name': '28c',
+            'title': 'Breakdown of presenters  by region by medium by sex. TV and Radio',
+            'desc': '',
+            'reports': [],
+        },
+        '2010': {
+            'name': '28c',
+            'title': 'Breakdown of presenters  by region by medium by sex. TV and Radio',
+            'reports': [],
+        },
+    },
     'ws_29': {
         '2015': {
             'name': '29',
@@ -665,7 +691,7 @@ WS_INFO = {
             'name': '42',
             'title': 'Stories where issues of gender equality/inequality are raised by region',
             'desc': '',
-            'reports': ['global'],
+            'reports': [],
             'historical': '42',
         },
         '2010': {
@@ -711,7 +737,7 @@ WS_INFO = {
             'name': '45',
             'title': 'Stories where issues of gender equality/inequality are raised by sex of \'people in the news\' and by region',
             'desc': 'Breakdown of Stories where issues of gender equality/inequality are raised by sex of \'people in the news\' and by region',
-            'reports': ['global', 'region'],
+            'reports': [],
             'historical': '45',
         },
         '2010': {
@@ -832,7 +858,7 @@ WS_INFO = {
             'name': '53',
             'title': 'Internet - Female reporters in main stories',
             'desc': 'Internet - Sex of reporters in main stories',
-            'reports': ['global', 'region', 'country'],
+            'reports': [],
             'historical': '53',
         },
         '2010': {
@@ -847,7 +873,7 @@ WS_INFO = {
             'name': '54',
             'title': 'Internet - Overall presence of women',
             'desc': '',
-            'reports': ['global', 'region', 'country'],
+            'reports': [],
             'historical': '54',
         },
         '2010': {
@@ -1028,7 +1054,7 @@ WS_INFO = {
             'name': '66',
             'title': 'Twitter - Overall presence of women',
             'desc': '',
-            'reports': ['global', 'region', 'country'],
+            'reports': [],
             'historical': '66',
         },
         '2010': {
@@ -1043,7 +1069,7 @@ WS_INFO = {
             'name': '67',
             'title': 'Twitter - Female reporters & journalists',
             'desc': '',
-            'reports': ['global', 'region', 'country'],
+            'reports': [],
             'historical': '67',
         },
         '2010': {
@@ -1058,7 +1084,7 @@ WS_INFO = {
             'name': '68',
             'title': 'Twitter - Women\'s centrality',
             'desc': '',
-            'reports': ['global', 'region', 'country'],
+            'reports': [],
             'historical': '68',
         },
         '2010': {
@@ -1096,7 +1122,7 @@ WS_INFO = {
             'name': '71',
             'title': 'Key themes, women\'s overall presence',
             'desc': '',
-            'reports': ['global', 'region', 'country'],
+            'reports': [],
             'historical': '71',
         },
         '2010': {
@@ -1111,7 +1137,7 @@ WS_INFO = {
             'name': '72',
             'title': 'Key themes, female reporters',
             'desc': '',
-            'reports': ['global', 'region', 'country'],
+            'reports': [],
             'historical': '72',
         },
         '2010': {
@@ -1126,7 +1152,7 @@ WS_INFO = {
             'name': '73',
             'title': 'Key themes, selection of sources by sex of reporter',
             'desc': '',
-            'reports': ['global', 'region', 'country'],
+            'reports': [],
             'historical': '73',
         },
         '2010': {
@@ -1141,7 +1167,7 @@ WS_INFO = {
             'name': '74',
             'title': 'Key themes, women\'s centrality',
             'desc': '',
-            'reports': ['global', 'region', 'country'],
+            'reports': [],
             'historical': '74',
         },
         '2010': {
@@ -1156,7 +1182,7 @@ WS_INFO = {
             'name': '75',
             'title': 'Key themes, challenging stereotypes',
             'desc': '',
-            'reports': ['global', 'region', 'country'],
+            'reports': [],
             'historical': '75',
         },
         '2010': {
@@ -1171,7 +1197,7 @@ WS_INFO = {
             'name': '76',
             'title': 'Key themes, reference to gender equality/HR policies',
             'desc': '',
-            'reports': ['global', 'region', 'country'],
+            'reports': [],
             'historical': '76',
         },
         '2010': {
@@ -1186,7 +1212,7 @@ WS_INFO = {
             'name': '77',
             'title': 'Key themes, portrayal as victims',
             'desc': '',
-            'reports': ['global', 'region', 'country'],
+            'reports': [],
             'historical': '77',
         },
         '2010': {
@@ -1201,7 +1227,7 @@ WS_INFO = {
             'name': '78',
             'title': 'Key themes, portrayal as survivors',
             'desc': '',
-            'reports': ['global', 'region', 'country'],
+            'reports': [],
             'historical': '78',
         },
         '2010': {
@@ -1215,7 +1241,7 @@ WS_INFO = {
         '2015': {
             'name': '79',
             'title': 'Internet - Main topics by region',
-            'desc': 'Internet - Main topics by region',
+            'desc': 'Breakdown by sex of news subjects',
             'reports': ['global'],
             'historical': '79',
         },
@@ -1494,6 +1520,188 @@ WS_INFO = {
             'title': 'Twitter - Challenging Stereotypes',
             'desc': 'Twitter - Challenging Stereotypes',
             'reports': ['global'],
+        },
+    },
+    'ws_98': {
+        '2015': {
+            'name': '98',
+            'title': 'Twitter - Images',
+            'desc': '',
+            'reports': [],
+        },
+        '2010': {
+            'name': '98',
+            'title': 'Twitter - Images',
+            'desc': '',
+            'reports': [],
+        },
+    },
+    'ws_100': {
+        '2015': {
+            'name': '100',
+            'title': 'Is this story related to Covid19. By major topic, by medium',
+            'desc': 'Is this story related to Covid19. By major topic, by medium',
+            'reports': [],
+        },
+        '2010': {
+            'name': '100',
+            'title': 'Is this story related to Covid19. By major topic, by medium',
+            'desc': 'Is this story related to Covid19. By major topic, by medium',
+            'reports': [],
+        },
+    },
+    'ws_101': {
+        '2015': {
+            'name': '101',
+            'title': 'Covid stories:  reporters, by sex',
+            'desc': 'Covid stories:  reporters, by sex',
+            'reports': ['region', 'country'],
+        },
+        '2010': {
+            'name': '101',
+            'title': 'Covid stories:  reporters, by sex',
+            'desc': 'Covid stories:  reporters, by sex',
+            'reports': ['region', 'country'],
+        },
+    },
+    'ws_102': {
+        '2015': {
+            'name': '102',
+            'title': 'Covid stories: gender stereotypes, by major topic',
+            'desc': 'Covid stories: gender stereotypes, by major topic',
+            'reports': ['region', 'country'],
+        },
+        '2010': {
+            'name': '102',
+            'title': 'Covid stories: gender stereotypes, by major topic',
+            'desc': 'Covid stories: gender stereotypes, by major topic',
+            'reports': ['region', 'country'],
+        },
+    },
+    'ws_103': {
+        '2015': {
+            'name': '103',
+            'title': 'Covid stories: highlight gender inequalities, by major topic',
+            'desc': 'Covid stories: highlight gender inequalities, by major topic',
+            'reports': ['region', 'country'],
+        },
+        '2010': {
+            'name': '103',
+            'title': 'Covid stories: highlight gender inequalities, by major topic',
+            'desc': 'Covid stories: highlight gender inequalities, by major topic',
+            'reports': ['region', 'country'],
+        },
+    },
+    'ws_104': {
+        '2015': {
+            'name': '104',
+            'title': 'Covid stories:  news subjects and sources, by function in the news, by sex',
+            'desc': 'Covid stories:  news subjects and sources, by function in the news, by sex',
+            'reports': ['global', 'region', 'country'],
+        },
+        '2010': {
+            'name': '104',
+            'title': 'Covid stories:  news subjects and sources, by function in the news, by sex',
+            'desc': 'Covid stories:  news subjects and sources, by function in the news, by sex',
+            'reports': ['global', 'region', 'country'],
+        },
+    },
+    'ws_105': {
+        '2015': {
+            'name': '105',
+            'title': 'Covid stories:  news subjects and sources, survivors by sex',
+            'desc': 'Covid stories:  news subjects and sources, survivors by sex',
+            'reports': ['global', 'region', 'country'],
+        },
+        '2010': {
+            'name': '105',
+            'title': 'Covid stories:  news subjects and sources, survivors by sex',
+            'desc': 'Covid stories:  news subjects and sources, survivors by sex',
+            'reports': ['global', 'region', 'country'],
+        },
+    },
+    'ws_106': {
+        '2015': {
+            'name': '106',
+            'title': 'Covid stories:  news subjects and sources, by occupation',
+            'desc': 'Covid stories:  news subjects and sources, by occupation',
+            'reports': ['global', 'region', 'country'],
+        },
+        '2010': {
+            'name': '106',
+            'title': 'Covid stories:  news subjects and sources, by occupation',
+            'desc': 'Covid stories:  news subjects and sources, by occupation',
+            'reports': ['global', 'region', 'country'],
+        },
+    },
+    'ws_107': {
+        '2015': {
+            'name': '107',
+            'title': 'Special questions, by medium, by major topic',
+            'desc': 'Special questions, by medium, by major topic',
+            'reports': ['country'],
+        },
+        '2010': {
+            'name': '107',
+            'title': 'Special questions, by medium, by major topic',
+            'desc': 'Special questions, by medium, by major topic',
+            'reports': ['country'],
+        },
+    },
+    'ws_108': {
+        '2015': {
+            'name': '108',
+            'title': 'Special questions, by major topic, by sex of source',
+            'desc': 'Special questions, by major topic, by sex of source',
+            'reports': ['country'],
+        },
+        '2010': {
+            'name': '108',
+            'title': 'Special questions, by major topic, by sex of source',
+            'desc': 'Special questions, by major topic, by sex of source',
+            'reports': ['country'],
+        },
+    },
+    'ws_109': {
+        '2015': {
+            'name': '109',
+            'title': 'Special questions, by major topic, by reporter',
+            'desc': 'Special questions, by major topic, by reporter',
+            'reports': ['country'],
+        },
+        '2010': {
+            'name': '109',
+            'title': 'Special questions, by major topic, by reporter',
+            'desc': 'Special questions, by major topic, by reporter',
+            'reports': ['country'],
+        },
+    },
+    'ws_110': {
+        '2015': {
+            'name': '110',
+            'title': 'Special questions, by major topic, by rights/policy',
+            'desc': 'Special questions, by major topic, by rights/policy',
+            'reports': ['country'],
+        },
+        '2010': {
+            'name': '110',
+            'title': 'Special questions, by major topic, by rights/policy',
+            'desc': 'Special questions, by major topic, by rights/policy',
+            'reports': ['country'],
+        },
+    },
+    'ws_111': {
+        '2015': {
+            'name': '111',
+            'title': 'Special questions, by major topic, by gender stereotypes',
+            'desc': 'Special questions, by major topic, by gender stereotypes',
+            'reports': ['country'],
+        },
+        '2010': {
+            'name': '111',
+            'title': 'Special questions, by major topic, by gender stereotypes',
+            'desc': 'Special questions, by major topic, by gender stereotypes',
+            'reports': ['country'],
         },
     },
     'ws_s01': {
@@ -1898,6 +2106,34 @@ WS_INFO = {
             'name': 's27',
             'title': 'Internet, Twitter - Stories that clearly challenge stereotypes',
             'desc': 'Internet, Twitter - Stories that clearly challenge stereotypes',
+            'reports': ['global'],
+        },
+    },
+    'ws_s28': {
+        '2015': {
+            'name': 's28',
+            'title': 'Response to Question (z) is this story related to Covid & response to sex of person in the news',
+            'desc': 'News subjects in stories related to Covid19, by sex',
+            'reports': ['global'],
+        },
+        '2010': {
+            'name': 's28',
+            'title': 'Response to Question (z) is this story related to Covid & response to sex of person in the news',
+            'desc': 'News subjects in stories related to Covid19, by sex',
+            'reports': ['global'],
+        },
+    },
+    'ws_s29': {
+        '2015': {
+            'name': 's29',
+            'title': 'Response to Question (z) is this story related to Covid & response to sex of reporter',
+            'desc': 'Reporters in stories related to Covid19, by sex',
+            'reports': ['global'],
+        },
+        '2010': {
+            'name': 's29',
+            'title': 'Response to Question (z) is this story related to Covid & response to sex of reporter',
+            'desc': 'Reporters in stories related to Covid19, by sex',
             'reports': ['global'],
         },
     },

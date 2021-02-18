@@ -660,7 +660,7 @@ class XLSXReportBuilder:
         Rows: Subject Sex
         """
         counts = Counter()
-        for media_type, model in tm_person_models.items():
+        for media_type, model in person_models.items():
             rows = model.objects\
                     .values('sex')\
                     .filter(**{model.sheet_name() + '__country__in': self.country_list})\
@@ -674,8 +674,8 @@ class XLSXReportBuilder:
                 media_id = [media[0] for media in MEDIA_TYPES if media[1] == media_type][0]
                 counts.update({(media_id, r['sex']): r['n']})
 
-        self.tabulate(ws, counts, TM_MEDIA_TYPES, self.male_female, row_perc=False)
-        self.tabulate_historical(ws, '07', TM_MEDIA_TYPES, self.male_female, write_row_headings=False)
+        self.tabulate(ws, counts, MEDIA_TYPES, self.male_female, row_perc=False)
+        self.tabulate_historical(ws, '07', MEDIA_TYPES, self.male_female, write_row_headings=False)
 
     def ws_08(self, ws):
         """
@@ -1303,7 +1303,7 @@ class XLSXReportBuilder:
         """
         secondary_counts = OrderedDict()
 
-        for media_type, model in tm_journalist_models.items():
+        for media_type, model in journalist_models.items():
             counts = Counter()
             sheet_name = model.sheet_name()
             topic =  sheet_name + '__topic'
