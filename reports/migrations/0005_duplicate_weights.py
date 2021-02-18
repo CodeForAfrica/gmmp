@@ -6,9 +6,9 @@ from django.db import migrations, models
 def remove_duplicate_weights(apps, schema_editor):
     Weights = apps.get_model("reports", "Weights")
     db_alias = schema_editor.connection.alias
-    
+
     # Remove all transnational since new one will be created with new code
-    Weights.objects.using(db_alias).filter(country='T1').delete()
+    Weights.objects.using(db_alias).filter(country="T1").delete()
 
     # Remove any (country, media_type)  duplicate
     # Based on: https://stackoverflow.com/a/10290420
