@@ -476,7 +476,7 @@ class XLSXReportBuilder:
         self.tabulate(ws, counts_list[1], DM_MEDIA_TYPES, self.regions, row_perc=True, c=c, write_row_headings=False)
         c = ws.dim_colmax + 2
 
-        self.tabulate_historical(ws, '01', TM_MEDIA_TYPES, self.regions, c=c)
+        self.tabulate_historical(ws, '01', TM_MEDIA_TYPES+DM_MEDIA_TYPES, self.regions, c=c)
 
     def ws_02(self, ws):
         """
@@ -521,7 +521,7 @@ class XLSXReportBuilder:
             if historical_c is None:
                 historical_c = ws.dim_colmax + 2
 
-            self.tabulate_historical(ws, '02', TM_MEDIA_TYPES, region_countries, r=r, c=historical_c, write_year=first, write_col_headings=first)
+            self.tabulate_historical(ws, '02', TM_MEDIA_TYPES+DM_MEDIA_TYPES, region_countries, r=r, c=historical_c, write_year=first, write_col_headings=first)
             first = False
 
             r += (len(region_countries) + 2)
@@ -554,7 +554,7 @@ class XLSXReportBuilder:
                     counts.update({(media_id, region_id): row['n']})
 
         self.tabulate(ws, counts, MEDIA_TYPES, self.regions, raw_values=True, write_col_totals=False, unweighted=True)
-        self.tabulate_historical(ws, '03', TM_MEDIA_TYPES, self.regions, values_N=True)
+        self.tabulate_historical(ws, '03', TM_MEDIA_TYPES+DM_MEDIA_TYPES, self.regions, values_N=True)
 
     def ws_04(self, ws):
         """
@@ -4530,7 +4530,12 @@ class XLSXReportBuilder:
                 columns = cols
                 if canon('N') in data:
                     columns = columns + [('N', 'N')]
-
+                if canon('n_traditional') in data:
+                    columns.insert(3, ('n_digital', 'n_traditional'))
+                if canon('n_digital') in data:
+                    columns = columns + [('n_digital', 'n_digital')]
+                if canon('internet, twitter') in data:
+                    columns = columns + [('internet, twitter', 'internet, twitter')]
                 # for each minor column heading
                 for col_id, col_heading in columns:
                     col_heading = clean_title(col_heading)
@@ -4541,7 +4546,7 @@ class XLSXReportBuilder:
                     # column title
                     value_formats = formats
                     if write_col_headings:
-                        if col_heading != 'N':
+                        if col_heading != 'N' and col_heading !='n_digital' and col_heading !='n_traditional':
                             if values_per_col > 1:
                                 ws.merge_range(r - 2, c, r - 2, c + values_per_col - 1, col_heading, self.col_heading)
                             else:
