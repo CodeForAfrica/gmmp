@@ -202,12 +202,12 @@ COUNTRIES_OVERRIDE = {
     "BE": None,
     "QM": {'name': _('Belgium - French'), 'alpha3': 'WAL'}, # Wallonia
     "QN": {'name': _('Belgium - Flemish'), 'alpha3': 'VLG'},
-    "UK": None,
+    "GB": None,
     "QO": {'name': _('England'), 'alpha3': 'ENG'},
     "QP": {'name': _("Northern Ireland"), 'alpha3': 'NIR'},
     "QQ": {'name': _("Scotland"), 'alpha3': 'SCT'},
     "QR": {'name': _("Wales"), 'alpha3': 'WLS'},
-    "XI": {'name': _("International"), 'alpha3': 'XIN'},
+    "XI": {'name': _("Transnational"), 'alpha3': 'XIN'},
     "PS": {'name': _("Palestine"), 'alpha3': 'PSE'}
 }
 
