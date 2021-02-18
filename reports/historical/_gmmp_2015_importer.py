@@ -38,6 +38,19 @@ class GMMP2015ReportImporter(BaseReportImporter):
             col_heading_row,
             row_heading_col,
         )
+    
+    def extract_p_n(self, continental_data):
+        gender_data = {}
+        for x in continental_data:
+            p = continental_data[x]['%']
+            n = continental_data[x]['n']
+            for topic in p:
+                if gender_data.get(x):
+                    gender_data[x].update({topic: [p[topic], n[topic]]})
+                else:
+                    gender_data[x] = {topic: [p[topic], n[topic]]}
+
+        return gender_data
 
     def _slurp_secondary_table(self,
                           data,
