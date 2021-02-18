@@ -1,4 +1,5 @@
 from .canon import canon
+from .utils.countries import COUNTRIES
 from ._base_importer import BaseReportImporter
 from reports.report_details import get_regions
 
@@ -1078,7 +1079,6 @@ class GMMP2015ReportImporter(BaseReportImporter):
         )
 
     def import_57(self, sheet_info):
-        from .utils.countries.countries_for_57 import COUNTRIES
         all_data = {}
         for year, col_start, col_end in [
             (2015, 3, 7),
@@ -1086,7 +1086,8 @@ class GMMP2015ReportImporter(BaseReportImporter):
             data = {}
             all_data[year] = data
 
-            for country, (row_start, row_end) in COUNTRIES.items():
+            for country in COUNTRIES.keys():
+                row_start, row_end = COUNTRIES[country]['57']
                 country_data = {}
                 data[country] = country_data
 
@@ -1101,7 +1102,6 @@ class GMMP2015ReportImporter(BaseReportImporter):
         return all_data
 
     def import_58(self, sheet_info):
-        from .utils.countries.countries_for_58 import COUNTRIES
         all_data = {}
         for year, col_start, col_end in [
             (2015, 3, 7),
@@ -1109,7 +1109,8 @@ class GMMP2015ReportImporter(BaseReportImporter):
             data = {}
             all_data[year] = data
 
-            for country, (row_start, row_end) in COUNTRIES.items():
+            for country in COUNTRIES.keys():
+                row_start, row_end = COUNTRIES[country]['58']
                 country_data = {}
                 data[country] = country_data
 
@@ -1131,7 +1132,6 @@ class GMMP2015ReportImporter(BaseReportImporter):
         )
 
     def import_60(self, sheet_info):
-        from .utils.countries.countries_for_60 import COUNTRIES
         all_data = {}
         for year, col_start, col_end in [
             (2015, 3, 7),
@@ -1139,7 +1139,8 @@ class GMMP2015ReportImporter(BaseReportImporter):
             data = {}
             all_data[year] = data
 
-            for country, (row_start, row_end) in COUNTRIES.items():
+            for country in COUNTRIES.keys():
+                row_start, row_end = COUNTRIES[country]['60']
                 country_data = {}
                 data[country] = country_data
 
@@ -1154,7 +1155,6 @@ class GMMP2015ReportImporter(BaseReportImporter):
         return all_data
 
     def import_61(self, sheet_info):
-        from .utils.countries.countries_for_57 import COUNTRIES
         all_data = {}
         for year, col_start, col_end in [
             (2015, 3, 7),
@@ -1162,7 +1162,8 @@ class GMMP2015ReportImporter(BaseReportImporter):
             data = {}
             all_data[year] = data
 
-            for country, (row_start, row_end) in COUNTRIES.items():
+            for country in COUNTRIES.keys():
+                row_start, row_end = COUNTRIES[country]['57']
                 country_data = {}
                 data[country] = country_data
 
@@ -1177,7 +1178,6 @@ class GMMP2015ReportImporter(BaseReportImporter):
         return all_data
 
     def import_62(self, sheet_info):
-        from .utils.countries.countries_for_57 import COUNTRIES
         all_data = {}
         for year, col_start, col_end in [
             (2015, 3, 58),
@@ -1185,7 +1185,8 @@ class GMMP2015ReportImporter(BaseReportImporter):
             data = {}
             all_data[year] = data
 
-            for country, (row_start, row_end) in COUNTRIES.items():
+            for country in COUNTRIES.keys():
+                row_start, row_end = COUNTRIES[country]['57']
                 country_data = {}
                 data[country] = country_data
 
@@ -1200,7 +1201,6 @@ class GMMP2015ReportImporter(BaseReportImporter):
         return all_data
 
     def import_63(self, sheet_info):
-        from .utils.countries.countries_for_66 import COUNTRIES
         all_data = {}
         for year, col_start, col_end in [
             (2015, 3, 58),
@@ -1208,7 +1208,8 @@ class GMMP2015ReportImporter(BaseReportImporter):
             data = {}
             all_data[year] = data
 
-            for country, (row_start, row_end) in COUNTRIES.items():
+            for country in COUNTRIES.keys():
+                row_start, row_end = COUNTRIES[country]['66']
                 country_data = {}
                 data[country] = country_data
 
@@ -1223,7 +1224,6 @@ class GMMP2015ReportImporter(BaseReportImporter):
         return all_data
 
     def import_64(self, sheet_info):
-        from .utils.countries.countries_for_57 import COUNTRIES
         all_data = {}
         for year, col_start, col_end in [
             (2015, 3, 58),
@@ -1231,7 +1231,8 @@ class GMMP2015ReportImporter(BaseReportImporter):
             data = {}
             all_data[year] = data
 
-            for country, (row_start, row_end) in COUNTRIES.items():
+            for country in COUNTRIES.keys():
+                row_start, row_end = COUNTRIES[country]['57']
                 country_data = {}
                 data[country] = country_data
 
@@ -1246,7 +1247,6 @@ class GMMP2015ReportImporter(BaseReportImporter):
         return all_data
 
     def import_65(self, sheet_info):
-        from .utils.countries.countries_for_57 import COUNTRIES
         all_data = {}
         for year, col_start, col_end in [
             (2015, 3, 9),
@@ -1254,7 +1254,8 @@ class GMMP2015ReportImporter(BaseReportImporter):
             data = {}
             all_data[year] = data
 
-            for country, (row_start, row_end) in COUNTRIES.items():
+            for country in COUNTRIES.keys():
+                row_start, row_end = COUNTRIES[country]['57']
                 country_data = {}
                 data[country] = country_data
 
@@ -1269,7 +1270,6 @@ class GMMP2015ReportImporter(BaseReportImporter):
         return all_data
 
     def import_66(self, sheet_info):
-        from .utils.countries.countries_for_66 import COUNTRIES
         all_data = {}
         for year, col_start, col_end in [
             (2015, 3, 10),
@@ -1277,7 +1277,8 @@ class GMMP2015ReportImporter(BaseReportImporter):
             data = {}
             all_data[year] = data
 
-            for country, (row_start, row_end) in COUNTRIES.items():
+            for country in COUNTRIES.keys():
+                row_start, row_end = COUNTRIES[country]['66']
                 country_data = {}
                 data[country] = country_data
 
@@ -1299,7 +1300,6 @@ class GMMP2015ReportImporter(BaseReportImporter):
         )
 
     def import_68(self, sheet_info):
-        from .utils.countries.countries_for_57 import COUNTRIES
         all_data = {}
         for year, col_start, col_end in [
             (2015, 3, 9),
@@ -1307,7 +1307,8 @@ class GMMP2015ReportImporter(BaseReportImporter):
             data = {}
             all_data[year] = data
 
-            for country, (row_start, row_end) in COUNTRIES.items():
+            for country in COUNTRIES.keys():
+                row_start, row_end = COUNTRIES[country]['57']
                 country_data = {}
                 data[country] = country_data
 
@@ -1322,7 +1323,6 @@ class GMMP2015ReportImporter(BaseReportImporter):
         return all_data
 
     def import_68b(self, sheet_info):
-        from .utils.countries.countries_for_66 import COUNTRIES
         all_data = {}
         for year, col_start, col_end in [
             (2015, 3, 10),
@@ -1330,7 +1330,8 @@ class GMMP2015ReportImporter(BaseReportImporter):
             data = {}
             all_data[year] = data
 
-            for country, (row_start, row_end) in COUNTRIES.items():
+            for country in COUNTRIES.keys():
+                row_start, row_end = COUNTRIES[country]['66']
                 country_data = {}
                 data[country] = country_data
 
