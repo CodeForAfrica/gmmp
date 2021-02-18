@@ -1,5 +1,5 @@
 from .canon import canon
-from .utils.countries import COUNTRIES
+from reports.historical._countries import COUNTRIES
 from ._base_importer import BaseReportImporter
 from reports.report_details import get_regions
 
