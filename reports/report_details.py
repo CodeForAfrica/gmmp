@@ -2306,7 +2306,7 @@ REGION_COUNTRY_MAP = {
         'AL', 'AM', 'AT', 'BY', 'BE', 'BA', 'BG', 'HR', 'DK', 'EE', 'FI', 'FR',
         'GE', 'DE', 'GR', 'HU', 'IS', 'IE', 'IT', 'KZ', 'LU', 'MK', 'MT', 'MD',
         'ME', 'NL', 'NO', 'PL', 'PT', 'RO', 'RS', 'SK', 'SI', 'ES', 'SE', 'CH',
-        'TR', 'GB', 'QM', 'QN', 'WL', 'SQ', 'EN', 'UK', 'CY', 'RU', 'GL'],
+        'TR', 'GB', 'QM', 'QN', 'WL', 'SQ', 'EN', 'CY', 'RU', 'GL'],
     'Latin America': [
         'AR', 'BO', 'BR', 'CL', 'CO', 'CR', 'EC', 'SV', 'GT', 'MX', 'NI', 'PY',
         'PE', 'UY', 'VE'],
@@ -2315,9 +2315,8 @@ REGION_COUNTRY_MAP = {
     'North America': [
         'CA', 'US'],
     'Pacific Islands': [
-        'AU', 'FJ', 'NZ', 'WS', 'SB', 'TO'],
-    'Pacific': ['PG']
-    }
+        'AU', 'FJ', 'NZ', 'WS', 'SB', 'TO', 'PG'],
+}
 
 
 GROUP_TOPICS_MAP = OrderedDict([
