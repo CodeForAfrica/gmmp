@@ -7,10 +7,10 @@ def remove_duplicate_weights(apps, schema_editor):
     Weights = apps.get_model("reports", "Weights")
     db_alias = schema_editor.connection.alias
 
-    # Remove all transnational since new one will be created with new code
+    # Remove old transnational since a new one will be created with a new code
     Weights.objects.using(db_alias).filter(country="T1").delete()
 
-    # Remove any (country, media_type)  duplicate
+    # Remove all (country, media_type)  duplicates
     # Based on: https://stackoverflow.com/a/10290420
     last_seen_country = None
     last_seen_media_type = None
