@@ -3022,6 +3022,44 @@ class XLSXReportBuilder:
 
         self.tabulate_secondary_cols(ws, secondary_counts, AGREE_DISAGREE, all_regions, row_perc=True)
 
+    def ws_98(self, ws):
+        return
+    
+    def ws_100(self, ws):
+        return
+
+    def ws_101(self, ws):
+        return
+    
+    def ws_102(self, ws):
+        return
+    
+    def ws_103(self, ws):
+        return
+    
+    def ws_104(self, ws):
+        return
+    
+    def ws_105(self, ws):
+        return
+    
+    def ws_106(self, ws):
+        return
+    
+    def ws_107(self, ws):
+        return
+    
+    def ws_108(self, ws):
+        return
+    
+    def ws_109(self, ws):
+        return
+    
+    def ws_110(self, ws):
+        return
+
+    def ws_111(self, ws):
+        return
 
     def ws_s01(self, ws):
         """
@@ -3877,6 +3915,12 @@ class XLSXReportBuilder:
             self.tabulate(ws, counts, AGREE_DISAGREE, self.countries, raw_values=True, c=c, r=7, write_col_totals=False)
 
             c = ws.dim_colmax + 2
+    
+    def ws_s28(self, ws):
+        return
+    
+    def ws_s29(self, ws):
+        return
 
     def ws_sr01(self, ws):
         """
