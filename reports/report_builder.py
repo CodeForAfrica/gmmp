@@ -4534,8 +4534,6 @@ class XLSXReportBuilder:
                     columns.insert(3, ('n_digital', 'n_traditional'))
                 if canon('n_digital') in data:
                     columns = columns + [('n_digital', 'n_digital')]
-                if canon('internet, twitter') in data:
-                    columns = columns + [('internet, twitter', 'internet, twitter')]
                 # for each minor column heading
                 for col_id, col_heading in columns:
                     col_heading = clean_title(col_heading)

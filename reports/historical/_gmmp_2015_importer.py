@@ -180,7 +180,19 @@ class GMMP2015ReportImporter(BaseReportImporter):
                     row_start=row_start,
                     row_end=row_end,
                 )
-        return all_data
+        all_new_data = {}
+
+        for year in all_data:
+            if not all_new_data.get(year):
+                all_new_data[year] = {}
+            
+            for region in all_data[year]:
+                for media in all_data[year][region]:
+                    if all_new_data.get(year).get(media):
+                        all_new_data[year][media].update(all_data[year][region][media])
+                    else:
+                        all_new_data[year][media] = all_data[year][region][media]
+        return all_new_data
 
     def import_3(self, sheet_info):
         all_data = {}
