@@ -587,7 +587,7 @@ class XLSXReportBuilder:
         self.tabulate_secondary_cols(ws, counts_list[1], DM_MEDIA_TYPES, MAJOR_TOPICS, row_perc=False, c=c, show_N=True)
         c = ws.dim_colmax + 2
 
-        self.tabulate_historical(ws, '04', self.regions, MAJOR_TOPICS, c=c, r=7, skip_major_col_heading=True)
+        self.tabulate_historical(ws, '04', self.regions, MAJOR_TOPICS, c=c, r=7, skip_major_col_heading=True, skip_year=2015)
 
     def ws_05(self, ws):
         """
@@ -622,7 +622,7 @@ class XLSXReportBuilder:
         self.tabulate_secondary_cols(ws, counts_list[1], self.male_female, MAJOR_TOPICS, row_perc=True, c=c, write_row_headings=False)
         c = ws.dim_colmax + 2
 
-        self.tabulate_historical(ws, '05', self.male_female, MAJOR_TOPICS, c=c, r=7, skip_major_col_heading=True)
+        self.tabulate_historical(ws, '05', self.male_female, MAJOR_TOPICS, c=c, r=7, skip_major_col_heading=True, skip_year=2015)
 
     def ws_06(self, ws):
         """
@@ -4444,7 +4444,7 @@ class XLSXReportBuilder:
 
     def tabulate_historical(self, ws, current_ws, cols, rows, c=None, r=6, write_row_headings=True,
                             write_col_headings=True, show_N_and_P=False, major_cols=None,
-                            skip_major_col_heading=False, write_year=True, values_N=False):
+                            skip_major_col_heading=False, write_year=True, values_N=False, skip_year=None):
         """
         Write historical data table.
 
@@ -4498,6 +4498,8 @@ class XLSXReportBuilder:
             c += 1
 
         for year_i, year in enumerate(years):
+            if year == skip_year:
+                continue
             year_data = historical_data[year]
 
             if write_year:
