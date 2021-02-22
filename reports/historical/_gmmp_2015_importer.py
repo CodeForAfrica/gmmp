@@ -328,8 +328,40 @@ class GMMP2015ReportImporter(BaseReportImporter):
             row_end=15,
             row_heading_col=2,
         )
+        all_new_data = {}
+        for year in all_data:
+            for continent in all_data[year]:
+                for gender in all_data[year][continent]:
+                    # combine the % and n into one
+                    data = self.extractor(all_data[year][continent][gender])
+    
+                    if not data:
+                        continue
+                    if not all_new_data.get(year):
+                        all_new_data[year] = {}
+                    
+                    if all_new_data.get(year).get(continent):
+                        all_new_data[year][continent][gender].update(data)
+                    else:
+                        all_new_data[year][continent] = {}
+                        if not all_new_data.get(year).get(continent).get(gender):
+                            all_new_data[year][continent][gender] = {}
+                        all_new_data[year][continent][gender] = data
+        
+        return all_new_data
 
-        return all_data
+
+    def extractor(self, data):
+        p_n = {}    
+        for x in data:
+            p = data.get('%', {})
+            n = data.get('n', {})
+            if not p:
+                continue
+            for topic in p:
+                p_n[topic] = [p[topic], n[topic]]
+
+        return p_n
 
     def import_7(self, sheet_info):
         all_data = {}
