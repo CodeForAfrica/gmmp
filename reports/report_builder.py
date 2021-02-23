@@ -4530,10 +4530,8 @@ class XLSXReportBuilder:
                 columns = cols
                 if canon('N') in data:
                     columns = columns + [('N', 'N')]
-                if canon('n_traditional') in data:
-                    columns.insert(3, ('n_traditional', 'n_traditional'))
                 if canon('n_digital') in data:
-                    columns = columns + [('n_digital', 'n_digital')]
+                    columns = columns + [('N', 'n_digital')]
 
                 # for each minor column heading
                 for col_id, col_heading in columns:
@@ -4545,7 +4543,7 @@ class XLSXReportBuilder:
                     # column title
                     value_formats = formats
                     if write_col_headings:
-                        if col_heading != 'N' and col_heading !='n_digital' and col_heading !='n_traditional':
+                        if col_heading != 'N' and col_heading !='n_digital':
                             if values_per_col > 1:
                                 ws.merge_range(r - 2, c, r - 2, c + values_per_col - 1, col_heading, self.col_heading)
                             else:
