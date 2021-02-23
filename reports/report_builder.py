@@ -476,7 +476,7 @@ class XLSXReportBuilder:
         self.tabulate(ws, counts_list[1], DM_MEDIA_TYPES, self.regions, row_perc=True, c=c, write_row_headings=False)
         c = ws.dim_colmax + 2
 
-        self.tabulate_historical(ws, '01', TM_MEDIA_TYPES+DM_MEDIA_TYPES, self.regions, c=c)
+        self.tabulate_historical(ws, '01', MEDIA_TYPES, self.regions, c=c)
 
     def ws_02(self, ws):
         """
@@ -521,7 +521,7 @@ class XLSXReportBuilder:
             if historical_c is None:
                 historical_c = ws.dim_colmax + 2
 
-            self.tabulate_historical(ws, '02', TM_MEDIA_TYPES+DM_MEDIA_TYPES, region_countries, r=r, c=historical_c, write_year=first, write_col_headings=first)
+            self.tabulate_historical(ws, '02', MEDIA_TYPES, region_countries, r=r, c=historical_c, write_year=first, write_col_headings=first)
             first = False
 
             r += (len(region_countries) + 2)
@@ -554,7 +554,7 @@ class XLSXReportBuilder:
                     counts.update({(media_id, region_id): row['n']})
 
         self.tabulate(ws, counts, MEDIA_TYPES, self.regions, raw_values=True, write_col_totals=False, unweighted=True)
-        self.tabulate_historical(ws, '03', TM_MEDIA_TYPES+DM_MEDIA_TYPES, self.regions, values_N=True)
+        self.tabulate_historical(ws, '03', MEDIA_TYPES, self.regions, values_N=True)
 
     def ws_04(self, ws):
         """
