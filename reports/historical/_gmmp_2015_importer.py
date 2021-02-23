@@ -167,20 +167,20 @@ class GMMP2015ReportImporter(BaseReportImporter):
                     row_start=row_start,
                     row_end=row_end,
                 )
-            all_new_data = {}
 
-            # Convert the generated json to 2015 structure.
-            for year in all_data:
-                if not all_new_data.get(year):
-                    all_new_data[year] = {}
+        # Convert the generated json to 2015 structure.
+        for year, country_data_per_media_per_region in all_data.items():
+            year_data = {}
+            for _, country_data_per_media in country_data_per_media_per_region.items():
+                for media, country_data in country_data_per_media.items():
+                    if media not in year_data:    
+                        year_data[media] = {}
 
-                for region in all_data[year]:
-                    for media in all_data[year][region]:
-                        if all_new_data.get(year).get(media):
-                            all_new_data[year][media].update(all_data[year][region][media])
-                        else:
-                            all_new_data[year][media] = all_data[year][region][media]
-        return all_new_data
+                    year_data[media].update(country_data)
+            
+            # we can replace the data for the year since we're done with it
+            all_data[year] = year_data
+        return all_data
 
     def import_3(self, sheet_info):
         all_data = {}
