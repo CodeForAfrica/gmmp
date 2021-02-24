@@ -746,6 +746,7 @@ class XLSXReportBuilder:
                     counts.update({(r['space'], TOPIC_GROUPS[r['topic']]): r['n']})
 
         self.tabulate(ws, counts, SPACE, MAJOR_TOPICS, row_perc=False)
+        self.tabulate_historical(ws, '10', SPACE, MAJOR_TOPICS)
 
     def ws_11(self, ws):
         """
