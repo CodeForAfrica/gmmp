@@ -107,6 +107,19 @@ class GMMP2015ReportImporter(BaseReportImporter):
                 medium_data[medium][option] = option_data
                 col_start += (cols * cols_per_group)
             data[medium] = medium_data[medium]
+    
+    def combine_p_n(self, data):
+        combined_data = {}
+        for x in data:
+            p = data[x]['%']
+            n = data[x]['n']
+            for topic in p:
+                if combined_data.get(x):
+                    combined_data[x].update({topic: [p[topic], n[topic]]})
+                else:
+                    combined_data[x] = {topic: [p[topic], n[topic]]}
+
+        return combined_data
 
     def import_grid(self, grid_info, all_data=None):
         all_data = {} if not all_data else all_data
@@ -317,6 +330,18 @@ class GMMP2015ReportImporter(BaseReportImporter):
             row_heading_col=2,
         )
 
+        for year, country_data_per_media_per_region in all_data.items():
+            if year != 2010:
+                # 2015 data introduced the media rows.
+                country_data_per_media_per_region = {**country_data_per_media_per_region['print, radio, television'],
+                                                        **country_data_per_media_per_region['internet, twitter']}
+            year_data = {}
+            for continent, continent_data in country_data_per_media_per_region.items():
+                year_data[continent] = {}
+                for _, gender in continent_data.items():
+                    data = self.combine_p_n(continent_data)
+                    year_data[continent].update(data)
+            all_data[year] = year_data
         return all_data
 
     def import_7(self, sheet_info):
