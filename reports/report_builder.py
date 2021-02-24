@@ -767,6 +767,7 @@ class XLSXReportBuilder:
                     counts.update({(r['equality_rights'], TOPIC_GROUPS[r['topic']]): r['n']})
 
         self.tabulate(ws, counts, YESNO, MAJOR_TOPICS, row_perc=True)
+        self.tabulate_historical(ws, '11', [*YESNO], MAJOR_TOPICS, write_row_headings=False)
 
     def ws_12(self, ws):
         """
