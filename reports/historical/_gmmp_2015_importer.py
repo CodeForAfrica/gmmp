@@ -331,16 +331,15 @@ class GMMP2015ReportImporter(BaseReportImporter):
         )
 
         for year, country_data_per_media_per_region in all_data.items():
-            if year != 2010:
+            if year > 2010:
                 # 2015 data introduced the media rows.
                 country_data_per_media_per_region = {**country_data_per_media_per_region['print, radio, television'],
                                                         **country_data_per_media_per_region['internet, twitter']}
             year_data = {}
-            for continent, continent_data in country_data_per_media_per_region.items():
-                year_data[continent] = {}
-                for _, gender in continent_data.items():
-                    data = self.combine_p_n(continent_data)
-                    year_data[continent].update(data)
+            for region, region_data in country_data_per_media_per_region.items():
+                year_data[region] = {}
+                data = self.combine_p_n(region_data)
+                year_data[region].update(data)
             all_data[year] = year_data
         return all_data
 
