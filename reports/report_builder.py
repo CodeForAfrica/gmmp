@@ -10,6 +10,7 @@ from django.db import connection
 from django.db.models import Count, FieldDoesNotExist
 
 # 3rd Party
+from django_countries import countries
 import xlsxwriter
 
 # Project
@@ -348,7 +349,7 @@ class XLSXReportBuilder:
             for fld in obj._meta.fields:
                 attr = fld.attname
                 if attr == 'country':
-                    v = obj.country.code
+                    v = countries.alpha3(obj.country.code)
 
                 elif attr == 'country_region_id':
                     v = country_regions[obj.country_region_id]
@@ -376,7 +377,11 @@ class XLSXReportBuilder:
                 # write the looked-up value
                 actual_v = v
                 if attr in lookups:
-                    v = lookups[attr].get(v, v)
+                    choices = lookups[attr]
+                    if attr == 'country':
+                        v = choices.get(obj.country.code, v)
+                    else:
+                        v = choices.get(v, v)
                     if v is not None:
                         v = str(v)
                     ws.write(r + 1, c, v)
