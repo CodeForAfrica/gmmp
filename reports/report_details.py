@@ -1527,7 +1527,8 @@ WS_INFO = {
             'name': '98',
             'title': 'Twitter - Images',
             'desc': '',
-            'reports': [],
+            'historical': '98',
+            'reports': ['global'],
         },
         '2010': {
             'name': '98',
