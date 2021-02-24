@@ -820,6 +820,8 @@ class XLSXReportBuilder:
             secondary_counts[gender] = counts
 
         self.tabulate_secondary_cols(ws, secondary_counts, YESNO, MAJOR_TOPICS, row_perc=True)
+        c = ws.dim_colmax + 2
+        self.tabulate_historical(ws, '13', [*YESNO], MAJOR_TOPICS, write_row_headings=True, major_cols=self.male_female)
 
     def ws_14(self, ws):
         """
