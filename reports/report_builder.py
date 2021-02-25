@@ -1221,6 +1221,8 @@ class XLSXReportBuilder:
                 secondary_counts[region_name] = counts
 
             self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, SCOPE, row_perc=False, show_N=True)
+        c = ws.dim_colmax + 2
+        self.tabulate_historical(ws, '29', self.male_female, SCOPE, write_row_headings=True, c=c, major_cols=self.regions, show_N_and_P=True)
 
     def ws_30(self, ws):
         """
