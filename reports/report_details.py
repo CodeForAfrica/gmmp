@@ -1540,13 +1540,13 @@ WS_INFO = {
         '2015': {
             'name': '100',
             'title': 'Is this story related to Covid19. By major topic, by medium',
-            'desc': 'Is this story related to Covid19. By major topic, by medium',
-            'reports': [],
+            'desc': '',
+            'reports': ['global', ],
         },
         '2010': {
             'name': '100',
             'title': 'Is this story related to Covid19. By major topic, by medium',
-            'desc': 'Is this story related to Covid19. By major topic, by medium',
+            'desc': '',
             'reports': [],
         },
     },

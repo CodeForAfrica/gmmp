@@ -3031,7 +3031,24 @@ class XLSXReportBuilder:
         return
     
     def ws_100(self, ws):
-        return
+        counts_list = []
+        for media_types, models in SHEET_MEDIA_GROUPS:
+            counts = Counter()
+            for media_type, model in models.items():
+                for major_topic, topic_ids in GROUP_TOPICS_MAP.items():
+                    rows = model.objects\
+                            .values('covid19')\
+                            .filter(topic=major_topic)\
+                            .annotate(n=Count('id'))
+                    for r in rows:
+                        # Get media id's to assign to counts
+                        media_id = [media[0] for media in media_types if media[1] == media_type][0]
+                        counts.update({(media_id, int(major_topic)): r['n']})
+            counts_list.append(counts)
+    
+        self.tabulate(ws, counts_list[0], TM_MEDIA_TYPES, MAJOR_TOPICS, row_perc=True)
+        c = ws.dim_colmax + 2
+        self.tabulate(ws, counts_list[1], DM_MEDIA_TYPES, MAJOR_TOPICS, row_perc=True, c=c, write_row_headings=False)    
 
     def ws_101(self, ws):
         return
