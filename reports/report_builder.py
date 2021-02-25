@@ -4608,7 +4608,13 @@ class XLSXReportBuilder:
                         value = data[canon(col_heading)].get(canon(row_heading))
 
                         if value is None:
-                            value = ['n/a'] * values_per_col
+                            # check if it's due to having % and N
+                            p = data.get(canon(col_heading), {}).get('%', {})
+                            n = data.get(canon(col_heading), {}).get('n', {})
+                            if (p or n):
+                                value = [p.get(canon(row_heading), "n/a"), n.get(canon(row_heading), "n/a")]
+                            else:
+                                value = ['n/a'] * values_per_col
                         elif not isinstance(value, list):
                             value = [value]
 
