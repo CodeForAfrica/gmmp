@@ -90,7 +90,7 @@
         $('.field-special_qn_3').hide();
         $('.field-item_number').hide();
         $('.field-webpage_layer_no').hide();
-        // For TV, Twitter and Internet, do not hide age field
+        // For TV, Internet, or Twitter, do not hide age field
         if(!(($('#televisionsheet_form').length > 0) || ($('#internetnewssheet_form').length > 0) || ($('#twittersheet_form').length > 0))) {
             $('.field-age').hide();
         }else{
