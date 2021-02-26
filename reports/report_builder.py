@@ -1451,6 +1451,7 @@ class XLSXReportBuilder:
                     counts.update({(r['about_women'], TOPIC_GROUPS[r['topic']]): r['n']})
 
         self.tabulate(ws, counts, YESNO, MAJOR_TOPICS, row_perc=True)
+        self.tabulate_historical(ws, '38', YESNO, MAJOR_TOPICS, write_row_headings=False)
 
     def ws_39(self, ws):
         """
