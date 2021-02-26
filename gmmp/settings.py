@@ -20,8 +20,7 @@ env_path = Path(".") / ".env/.env"
 load_dotenv(dotenv_path=env_path)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = env.get("DJANGO_DEBUG", False) == 'True'
-DEBUG = False
+DEBUG = env.get("DJANGO_DEBUG", False) == 'True'
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
@@ -316,6 +315,6 @@ GSHEET_COUNTRY_USERS = {
 
 # Reports
 REPORTS_CURRENT_YEAR = env.get("GMMP_REPORTS_CURRENT_YEAR", "2020")
-REPORTS_HISTORICAL_YEAR = env.get("GMMP_REPORTS_HISTORICAL_YEAR", "2015")
+REPORTS_HISTORICAL_YEAR = env.get("GMMP_REPORTS_HISTORICAL_YEAR", "2010")
 if REPORTS_HISTORICAL_YEAR not in ["2010", "2015"]:
     raise ValueError("Invalid historical GMMP year: {}".format(REPORTS_HISTORICAL_YEAR))

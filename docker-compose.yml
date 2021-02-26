@@ -20,7 +20,7 @@ services:
     depends_on:
       - db
     environment:
-      - DATABASE_URL=postgresql://asciicfa:@host.docker.internal:5432/gmmp
+      - DATABASE_URL=postgresql://gmmp:gmmp@db:5432/gmmp
       - DJANGO_SECRET_KEY=somethingsecret
       - SITE_URL=http://localhost:8000
       - PGHOST=db

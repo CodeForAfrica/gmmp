@@ -349,7 +349,7 @@ class XLSXReportBuilder:
             for fld in obj._meta.fields:
                 attr = fld.attname
                 if attr == 'country':
-                    v = obj.country.code
+                    v = countries.alpha3(obj.country.code)
 
                 elif attr == 'country_region_id':
                     v = country_regions[obj.country_region_id]
@@ -377,7 +377,11 @@ class XLSXReportBuilder:
                 # write the looked-up value
                 actual_v = v
                 if attr in lookups:
-                    v = lookups[attr].get(v, v)
+                    choices = lookups[attr]
+                    if attr == 'country':
+                        v = choices.get(obj.country.code, v)
+                    else:
+                        v = choices.get(v, v)
                     if v is not None:
                         v = str(v)
                     ws.write(r + 1, c, v)
@@ -3024,32 +3028,7 @@ class XLSXReportBuilder:
         self.tabulate_secondary_cols(ws, secondary_counts, AGREE_DISAGREE, all_regions, row_perc=True)
 
     def ws_98(self, ws):
-        """
-        Cols: Major Topics, Images
-        Rows: Region
-        :: Twitter media type only
-        """
-        all_regions = add_transnational_to_regions(self.regions)
-        secondary_counts = OrderedDict()
-        model = sheet_models.get('Twitter')
-
-        for major_topic, topic_ids in GROUP_TOPICS_MAP.items():
-            counts = Counter()
-            rows = model.objects \
-                .values('url_and_multimedia', 'country_region__region') \
-                .filter(topic__in=topic_ids) \
-                .annotate(n=Count('id'))
-
-            rows = self.apply_weights(rows, model._meta.db_table, 'Twitter')
-
-            for row in rows:
-                region_id = [r[0] for r in all_regions if r[1] == row['region']][0]
-                counts.update({(row['url_and_multimedia'], region_id): row['n']})
-
-            major_topic_name = [mt[1] for mt in MAJOR_TOPICS if mt[0] == int(major_topic)][0]
-            secondary_counts[major_topic_name] = counts
-
-        self.tabulate_secondary_cols(ws, secondary_counts, AGREE_DISAGREE, all_regions, row_perc=True)
+        return
     
     def ws_100(self, ws):
         counts_list = []
@@ -3068,8 +3047,25 @@ class XLSXReportBuilder:
         self.tabulate_secondary_cols(ws, secondary_counts, YESNO, MAJOR_TOPICS, row_perc=True)
 
     def ws_101(self, ws):
-        return
-    
+        counts_list = []
+        for _, model in sheet_models.items():
+            counts = Counter()
+            sex = model.journalist_field_name() + '__sex'
+
+            rows = model.objects \
+                .values('covid19', 'topic', sex, 'country') \
+                .filter(**{model.journalist_field_name() + '__sex__in': self.male_female_ids}) \
+                .filter(country__in=self.country_list)\
+                .annotate(n=Count('id'))
+
+            rows = [row for row in rows if row['covid19'] == 1]
+
+            for row in rows:
+                counts.update({(row[sex], self.recode_country(row['country'])): row['n']})
+            counts_list.append(counts)
+
+        self.tabulate(ws, counts_list[0], self.male_female, self.countries, row_perc=True, show_N=True)
+
     def ws_102(self, ws):
         return
     
