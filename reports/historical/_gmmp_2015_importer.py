@@ -729,13 +729,13 @@ class GMMP2015ReportImporter(BaseReportImporter):
         self._slurp_secondary_table(
             data=data_2015,
             col_start=3,
-            end_index=34,
+            end_index=14,
             options=['print', 'radio', 'television'],
             cols=2,
             cols_per_group=2,
             major_col_heading_row=6,
             row_start=8,
-            row_end=14,
+            row_end=62,
             row_heading_col=2,
         )
 
