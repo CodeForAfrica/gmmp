@@ -1541,7 +1541,7 @@ WS_INFO = {
             'name': '100',
             'title': 'Is this story related to Covid19. By major topic, by medium',
             'desc': '',
-            'reports': ['global', ],
+            'reports': ['global', 'region', 'country'],
         },
         '2010': {
             'name': '100',
