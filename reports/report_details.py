@@ -495,22 +495,12 @@ WS_INFO = {
             'desc': '',
             'reports': [],
         },
-        '2010': {
-            'name': '28b',
-            'title': 'Breakdown of reporters  by region by medium PRINT RADIO TV INTERNET TWITTER by sex',
-            'reports': [],
-        },
     },
     'ws_28c': {
         '2015': {
             'name': '28c',
             'title': 'Breakdown of presenters  by region by medium by sex. TV and Radio',
             'desc': '',
-            'reports': [],
-        },
-        '2010': {
-            'name': '28c',
-            'title': 'Breakdown of presenters  by region by medium by sex. TV and Radio',
             'reports': [],
         },
     },
@@ -1527,12 +1517,7 @@ WS_INFO = {
             'name': '98',
             'title': 'Twitter - Images',
             'desc': '',
-            'reports': [],
-        },
-        '2010': {
-            'name': '98',
-            'title': 'Twitter - Images',
-            'desc': '',
+            'historical': '98',
             'reports': [],
         },
     },
@@ -1543,35 +1528,17 @@ WS_INFO = {
             'desc': '',
             'reports': ['global', 'region', 'country'],
         },
-        '2010': {
-            'name': '100',
-            'title': 'Is this story related to Covid19. By major topic, by medium',
-            'desc': '',
-            'reports': [],
-        },
     },
     'ws_101': {
         '2015': {
             'name': '101',
             'title': 'Covid stories:  reporters, by sex',
-            'desc': 'Covid stories:  reporters, by sex',
-            'reports': ['region', 'country'],
-        },
-        '2010': {
-            'name': '101',
-            'title': 'Covid stories:  reporters, by sex',
-            'desc': 'Covid stories:  reporters, by sex',
-            'reports': ['region', 'country'],
+            'desc': '',
+            'reports': ['global', 'region', 'country'],
         },
     },
     'ws_102': {
         '2015': {
-            'name': '102',
-            'title': 'Covid stories: gender stereotypes, by major topic',
-            'desc': 'Covid stories: gender stereotypes, by major topic',
-            'reports': ['region', 'country'],
-        },
-        '2010': {
             'name': '102',
             'title': 'Covid stories: gender stereotypes, by major topic',
             'desc': 'Covid stories: gender stereotypes, by major topic',
@@ -1585,21 +1552,9 @@ WS_INFO = {
             'desc': 'Covid stories: highlight gender inequalities, by major topic',
             'reports': ['region', 'country'],
         },
-        '2010': {
-            'name': '103',
-            'title': 'Covid stories: highlight gender inequalities, by major topic',
-            'desc': 'Covid stories: highlight gender inequalities, by major topic',
-            'reports': ['region', 'country'],
-        },
     },
     'ws_104': {
         '2015': {
-            'name': '104',
-            'title': 'Covid stories:  news subjects and sources, by function in the news, by sex',
-            'desc': 'Covid stories:  news subjects and sources, by function in the news, by sex',
-            'reports': ['global', 'region', 'country'],
-        },
-        '2010': {
             'name': '104',
             'title': 'Covid stories:  news subjects and sources, by function in the news, by sex',
             'desc': 'Covid stories:  news subjects and sources, by function in the news, by sex',
@@ -1613,21 +1568,9 @@ WS_INFO = {
             'desc': 'Covid stories:  news subjects and sources, survivors by sex',
             'reports': ['global', 'region', 'country'],
         },
-        '2010': {
-            'name': '105',
-            'title': 'Covid stories:  news subjects and sources, survivors by sex',
-            'desc': 'Covid stories:  news subjects and sources, survivors by sex',
-            'reports': ['global', 'region', 'country'],
-        },
     },
     'ws_106': {
         '2015': {
-            'name': '106',
-            'title': 'Covid stories:  news subjects and sources, by occupation',
-            'desc': 'Covid stories:  news subjects and sources, by occupation',
-            'reports': ['global', 'region', 'country'],
-        },
-        '2010': {
             'name': '106',
             'title': 'Covid stories:  news subjects and sources, by occupation',
             'desc': 'Covid stories:  news subjects and sources, by occupation',
@@ -1641,21 +1584,9 @@ WS_INFO = {
             'desc': 'Special questions, by medium, by major topic',
             'reports': ['country'],
         },
-        '2010': {
-            'name': '107',
-            'title': 'Special questions, by medium, by major topic',
-            'desc': 'Special questions, by medium, by major topic',
-            'reports': ['country'],
-        },
     },
     'ws_108': {
         '2015': {
-            'name': '108',
-            'title': 'Special questions, by major topic, by sex of source',
-            'desc': 'Special questions, by major topic, by sex of source',
-            'reports': ['country'],
-        },
-        '2010': {
             'name': '108',
             'title': 'Special questions, by major topic, by sex of source',
             'desc': 'Special questions, by major topic, by sex of source',
@@ -1669,12 +1600,6 @@ WS_INFO = {
             'desc': 'Special questions, by major topic, by reporter',
             'reports': ['country'],
         },
-        '2010': {
-            'name': '109',
-            'title': 'Special questions, by major topic, by reporter',
-            'desc': 'Special questions, by major topic, by reporter',
-            'reports': ['country'],
-        },
     },
     'ws_110': {
         '2015': {
@@ -1683,21 +1608,9 @@ WS_INFO = {
             'desc': 'Special questions, by major topic, by rights/policy',
             'reports': ['country'],
         },
-        '2010': {
-            'name': '110',
-            'title': 'Special questions, by major topic, by rights/policy',
-            'desc': 'Special questions, by major topic, by rights/policy',
-            'reports': ['country'],
-        },
     },
     'ws_111': {
         '2015': {
-            'name': '111',
-            'title': 'Special questions, by major topic, by gender stereotypes',
-            'desc': 'Special questions, by major topic, by gender stereotypes',
-            'reports': ['country'],
-        },
-        '2010': {
             'name': '111',
             'title': 'Special questions, by major topic, by gender stereotypes',
             'desc': 'Special questions, by major topic, by gender stereotypes',
@@ -2116,21 +2029,9 @@ WS_INFO = {
             'desc': 'News subjects in stories related to Covid19, by sex',
             'reports': ['global'],
         },
-        '2010': {
-            'name': 's28',
-            'title': 'Response to Question (z) is this story related to Covid & response to sex of person in the news',
-            'desc': 'News subjects in stories related to Covid19, by sex',
-            'reports': ['global'],
-        },
     },
     'ws_s29': {
         '2015': {
-            'name': 's29',
-            'title': 'Response to Question (z) is this story related to Covid & response to sex of reporter',
-            'desc': 'Reporters in stories related to Covid19, by sex',
-            'reports': ['global'],
-        },
-        '2010': {
             'name': 's29',
             'title': 'Response to Question (z) is this story related to Covid & response to sex of reporter',
             'desc': 'Reporters in stories related to Covid19, by sex',

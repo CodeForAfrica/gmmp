@@ -3047,8 +3047,25 @@ class XLSXReportBuilder:
         self.tabulate_secondary_cols(ws, secondary_counts, YESNO, MAJOR_TOPICS, row_perc=True)
 
     def ws_101(self, ws):
-        return
-    
+        counts_list = []
+        for _, model in sheet_models.items():
+            counts = Counter()
+            sex = model.journalist_field_name() + '__sex'
+
+            rows = model.objects \
+                .values('covid19', 'topic', sex, 'country') \
+                .filter(**{model.journalist_field_name() + '__sex__in': self.male_female_ids}) \
+                .filter(country__in=self.country_list)\
+                .annotate(n=Count('id'))
+
+            rows = [row for row in rows if row['covid19'] == 1]
+
+            for row in rows:
+                counts.update({(row[sex], self.recode_country(row['country'])): row['n']})
+            counts_list.append(counts)
+
+        self.tabulate(ws, counts_list[0], self.male_female, self.countries, row_perc=True, show_N=True)
+
     def ws_102(self, ws):
         return
     
