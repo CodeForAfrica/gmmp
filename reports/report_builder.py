@@ -1339,6 +1339,8 @@ class XLSXReportBuilder:
             secondary_counts[media_type] = counts
 
         self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, [y for x in TOPICS for y in x[1]], row_perc=False, show_N=True)
+        c = ws.dim_colmax + 2
+        self.tabulate_historical(ws, '32', self.male_female, [y for x in TOPICS for y in x[1]], write_row_headings=True, c=c, show_N_and_P=True, major_cols=TM_MEDIA_TYPES)
 
     def ws_34(self, ws):
         """
