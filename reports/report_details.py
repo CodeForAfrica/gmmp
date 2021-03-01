@@ -681,14 +681,8 @@ WS_INFO = {
             'name': '42',
             'title': 'Stories where issues of gender equality/inequality are raised by region',
             'desc': '',
-            'reports': [],
-            'historical': '42',
-        },
-        '2010': {
-            'name': '42',
-            'title': 'Breakdown of Stories where issues of gender equality/inequality are raised by region',
-            'desc': 'Stories where issues of gender equality/inequality are raised by region',
             'reports': ['global'],
+            'historical': '42',
         },
     },
     'ws_43': {
