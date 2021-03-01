@@ -746,6 +746,7 @@ class XLSXReportBuilder:
                     counts.update({(r['space'], TOPIC_GROUPS[r['topic']]): r['n']})
 
         self.tabulate(ws, counts, SPACE, MAJOR_TOPICS, row_perc=False)
+        self.tabulate_historical(ws, '10', SPACE, MAJOR_TOPICS)
 
     def ws_11(self, ws):
         """
@@ -766,6 +767,7 @@ class XLSXReportBuilder:
                     counts.update({(r['equality_rights'], TOPIC_GROUPS[r['topic']]): r['n']})
 
         self.tabulate(ws, counts, YESNO, MAJOR_TOPICS, row_perc=True)
+        self.tabulate_historical(ws, '11', [*YESNO], MAJOR_TOPICS, write_row_headings=False)
 
     def ws_12(self, ws):
         """
@@ -790,6 +792,8 @@ class XLSXReportBuilder:
             secondary_counts[region_name] = counts
 
         self.tabulate_secondary_cols(ws, secondary_counts, YESNO, MAJOR_TOPICS, row_perc=True)
+        c = ws.dim_colmax + 2
+        self.tabulate_historical(ws, '12', [*YESNO], MAJOR_TOPICS, c=c, r=7, major_cols=self.regions)
 
     def ws_13(self, ws):
         """
@@ -816,6 +820,8 @@ class XLSXReportBuilder:
             secondary_counts[gender] = counts
 
         self.tabulate_secondary_cols(ws, secondary_counts, YESNO, MAJOR_TOPICS, row_perc=True)
+        c = ws.dim_colmax + 2
+        self.tabulate_historical(ws, '13', [*YESNO], MAJOR_TOPICS, write_row_headings=True, major_cols=self.male_female)
 
     def ws_14(self, ws):
         """
@@ -1215,6 +1221,8 @@ class XLSXReportBuilder:
                 secondary_counts[region_name] = counts
 
             self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, SCOPE, row_perc=False, show_N=True)
+        c = ws.dim_colmax + 2
+        self.tabulate_historical(ws, '29', self.male_female, SCOPE, write_row_headings=True, c=c, major_cols=self.regions, show_N_and_P=True)
 
     def ws_30(self, ws):
         """
@@ -1273,6 +1281,8 @@ class XLSXReportBuilder:
                 secondary_counts[region_name] = counts
 
             self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, MAJOR_TOPICS, row_perc=False, show_N=True)
+        c = ws.dim_colmax + 2
+        self.tabulate_historical(ws, '30', self.male_female, MAJOR_TOPICS, write_row_headings=True, major_cols=self.regions, c=c, show_N_and_P=True)
 
     def ws_31(self, ws):
         """
@@ -1329,6 +1339,8 @@ class XLSXReportBuilder:
             secondary_counts[media_type] = counts
 
         self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, [y for x in TOPICS for y in x[1]], row_perc=False, show_N=True)
+        c = ws.dim_colmax + 2
+        self.tabulate_historical(ws, '32', self.male_female, [y for x in TOPICS for y in x[1]], write_row_headings=True, c=c, show_N_and_P=True, major_cols=TM_MEDIA_TYPES)
 
     def ws_34(self, ws):
         """
@@ -1439,6 +1451,7 @@ class XLSXReportBuilder:
                     counts.update({(r['about_women'], TOPIC_GROUPS[r['topic']]): r['n']})
 
         self.tabulate(ws, counts, YESNO, MAJOR_TOPICS, row_perc=True)
+        self.tabulate_historical(ws, '38', YESNO, MAJOR_TOPICS, write_row_headings=False)
 
     def ws_39(self, ws):
         """
@@ -4600,7 +4613,13 @@ class XLSXReportBuilder:
                         value = data[canon(col_heading)].get(canon(row_heading))
 
                         if value is None:
-                            value = ['n/a'] * values_per_col
+                            # check if it's due to having % and N
+                            p = data.get(canon(col_heading), {}).get('%', {})
+                            n = data.get(canon(col_heading), {}).get('n', {})
+                            if (p or n):
+                                value = [p.get(canon(row_heading), "n/a"), n.get(canon(row_heading), "n/a")]
+                            else:
+                                value = ['n/a'] * values_per_col
                         elif not isinstance(value, list):
                             value = [value]
 
