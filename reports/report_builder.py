@@ -100,6 +100,25 @@ def get_sheet_model_name_field(media_type):
     elif media_type == "Radio":
         return "channel"
 
+def sheet_name_to_int(sheet):
+    """
+    Helper function to convert sheet name to it's numerical equivalent taking
+    into account difference
+    e.g. returns 10 for ws_10
+    """
+    stripped_sheet = sheet.strip("wsr_")
+    try:
+        num = int(stripped_sheet)
+    except ValueError:
+        num = 0
+    if sheet.startswith("ws_sr"):
+        return 400 + num
+    
+    if sheet.startswith("ws_s"):
+        return 200 + num
+    
+    return num
+
 
 class XLSXReportBuilder:
     def __init__(self, form):
@@ -181,8 +200,8 @@ class XLSXReportBuilder:
             sheet_info = WS_INFO[sheet].get(self.historical_year)
             if sheet_info and ("reports" in sheet_info and self.report_type in sheet_info["reports"]):
                 report_type_sheets.append(sheet)
-                
-        sheets = sorted(report_type_sheets)
+
+        sheets = sorted(report_type_sheets, key=sheet_name_to_int)
 
         self.write_key_sheet(workbook, sheets)
 
