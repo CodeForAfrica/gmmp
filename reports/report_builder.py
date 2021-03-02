@@ -100,17 +100,22 @@ def get_sheet_model_name_field(media_type):
     elif media_type == "Radio":
         return "channel"
 
-def sheet_name_to_int(sheet):
+def sheet_name_to_num(sheet):
     """
     Helper function to convert sheet name to it's numerical equivalent taking
-    into account difference
-    e.g. returns 10 for ws_10
+    into account different type of sheets.
+    e.g. returns 10 for ws_10, 10.1 for ws_10b, and 202 for ws_s02.
+    Sheets are banded: 0 - 199 normal sheets, 200 - 399 s sheets, and 400+ for
+    sr sheets.
     """
-    stripped_sheet = sheet.strip("wsr_")
+    stripped_sheet = sheet.strip("wsrb_")
     try:
-        num = int(stripped_sheet)
+        num = int(stripped_sheet, 10)
     except ValueError:
-        num = 0
+       num = 0
+
+    if sheet.endswith("b"):
+        num += 0.1
     if sheet.startswith("ws_sr"):
         return 400 + num
     
@@ -201,7 +206,7 @@ class XLSXReportBuilder:
             if sheet_info and ("reports" in sheet_info and self.report_type in sheet_info["reports"]):
                 report_type_sheets.append(sheet)
 
-        sheets = sorted(report_type_sheets, key=sheet_name_to_int)
+        sheets = sorted(report_type_sheets, key=sheet_name_to_num)
 
         self.write_key_sheet(workbook, sheets)
 
