@@ -3080,7 +3080,24 @@ class XLSXReportBuilder:
         self.tabulate(ws, counts_list[0], self.male_female, self.countries, row_perc=True, show_N=True)
 
     def ws_102(self, ws):
-        return
+        """
+        Cols: Gender stereotypes
+        Rows: Major topic, covid stories only
+        """
+        counts = Counter()
+        for media_type, model in sheet_models.items():
+            rows = (
+                model.objects.values("stereotypes", "topic")
+                .filter(covid19=1, country__in=self.country_list)
+                .annotate(n=Count("id"))
+            )
+
+            rows = self.apply_weights(rows, model._meta.db_table, media_type)
+
+            for r in rows:
+                counts.update({(r["stereotypes"], TOPIC_GROUPS[r["topic"]]): r["n"]})
+
+        self.tabulate(ws, counts, AGREE_DISAGREE, MAJOR_TOPICS, row_perc=True)
     
     def ws_103(self, ws):
         return
