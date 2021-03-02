@@ -1643,6 +1643,7 @@ class XLSXReportBuilder:
                         counts.update({(TOPIC_GROUPS[r['topic']], r['stereotypes']): r['n']})
             secondary_counts[region] = counts
         self.tabulate_secondary_cols(ws, secondary_counts, AGREE_DISAGREE, MAJOR_TOPICS, row_perc=True)
+        self.tabulate_historical(ws, '46', AGREE_DISAGREE, MAJOR_TOPICS, write_row_headings=False, major_cols=self.regions)
 
     def ws_47(self, ws):
         """
