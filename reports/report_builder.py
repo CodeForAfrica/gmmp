@@ -1595,7 +1595,7 @@ class XLSXReportBuilder:
                         counts.update({(r['equality_rights'], region_id): r['n']})
             secondary_counts[gender] = counts
         self.tabulate_secondary_cols(ws, secondary_counts, YESNO, self.regions, row_perc=True)
-        self.tabulate_historical(ws, '44', self.male_female, self.regions, write_row_headings=False, r=7, skip_major_col_heading=True)
+        self.tabulate_historical(ws, '44', [*YESNO], self.regions, write_row_headings=False, major_cols=self.male_female)
 
     def ws_45(self, ws):
         """
