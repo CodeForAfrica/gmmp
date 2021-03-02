@@ -51,7 +51,7 @@ ALLOWED_HOSTS = ["*"]
 # Application definition
 
 INSTALLED_APPS = [
-    "gmmp",
+    "gmmp.apps.GmmpConfig",
     "jet.dashboard",
     "jet",
     "django.contrib.admin",
@@ -65,7 +65,7 @@ INSTALLED_APPS = [
     "django_countries",
     "gsheets",
     "forms",
-    "reports",
+    "reports.apps.ReportsConfig",
 ]
 
 AUTHENTICATION_BACKENDS = [
@@ -311,6 +311,10 @@ GSHEETS_SPECIAL_QUESTIONS = {
 GSHEET_COUNTRY_USERS = {
     'SPREADSHEET_ID': env.get("GSHEETS_COUNTRY_USERS_SPREADSHEET_ID", "1FjdgUbuCg5oYxv6my1E0Hw5gF1yDsOGb8Frm1HIXX3E"),
     'SHEET_NAME': env.get("GSHEETS_COUNTRY_USERS_SHEET_NAME", "DATA"),
+}
+GSHEETS_WEIGHTS = {
+    'SPREADSHEET_ID': env.get("GSHEETS_WEIGHTS_SPREADSHEET_ID"),
+    'GLOBAL_WEIGHTS_SHEET_NAME': env.get("GSHEETS_WEIGHTS_GLOBAL_WEIGHTS_SHEET_NAME", "GLOBAL DATA"),
 }
 
 # Reports
