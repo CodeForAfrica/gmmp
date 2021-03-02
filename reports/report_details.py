@@ -721,7 +721,7 @@ WS_INFO = {
             'name': '45',
             'title': 'Stories where issues of gender equality/inequality are raised by sex of \'people in the news\' and by region',
             'desc': 'Breakdown of Stories where issues of gender equality/inequality are raised by sex of \'people in the news\' and by region',
-            'reports': [],
+            'reports': ['global', 'region'],
             'historical': '45',
         },
         '2010': {
