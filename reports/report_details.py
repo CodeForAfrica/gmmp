@@ -857,14 +857,8 @@ WS_INFO = {
             'name': '54',
             'title': 'Internet - Overall presence of women',
             'desc': '',
-            'reports': [],
-            'historical': '54',
-        },
-        '2010': {
-            'name': '54',
-            'title': 'Internet - Overall presence of women',
-            'desc': 'Internet - Overall presence of women',
             'reports': ['global', 'region', 'country'],
+            'historical': '54',
         },
     },
     'ws_55': {
