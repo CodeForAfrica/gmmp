@@ -1,7 +1,6 @@
 # Python
 import io
 from collections import Counter, OrderedDict
-from itertools import count
 import logging
 import datetime
 
