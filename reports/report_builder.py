@@ -1912,6 +1912,7 @@ class XLSXReportBuilder:
         rows = self.apply_weights(rows, model.sheet_db_table(), "Internet")
         counts.update({(r['function'], self.recode_country(r['country'])): r['n'] for r in rows})
         self.tabulate(ws, counts, FUNCTION, self.countries, row_perc=True)
+        self.tabulate_historical(ws, '56', FUNCTION, self.countries)
 
     def ws_57(self, ws):
         """
