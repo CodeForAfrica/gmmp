@@ -1848,6 +1848,7 @@ class XLSXReportBuilder:
             secondary_counts[major_topic_name] = counts
 
         self.tabulate_secondary_cols(ws, secondary_counts, GENDER, self.countries, row_perc=True, filter_cols=filter_cols)
+        self.tabulate_historical(ws, '53', self.female, self.countries, major_cols=MAJOR_TOPICS)
 
     def ws_54(self, ws):
         """
