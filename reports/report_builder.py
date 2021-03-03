@@ -1,6 +1,7 @@
 # Python
 import io
 from collections import Counter, OrderedDict
+from itertools import count
 import logging
 import datetime
 
@@ -3083,8 +3084,25 @@ class XLSXReportBuilder:
         return
     
     def ws_103(self, ws):
-        return
-    
+        """
+        Cols: Gender inequalities
+        Rows: Major topic, covid stories only
+        """
+        counts = Counter()
+        for media_type, model in sheet_models.items():
+            if 'equality_rights' in [field_name.name for field_name in model._meta.get_fields()]:
+                rows = model.objects\
+                        .values('equality_rights', 'topic') \
+                        .filter(covid19=1, country__in=self.country_list) \
+                        .annotate(n=Count('id'))
+
+                rows = self.apply_weights(rows, model._meta.db_table, media_type)
+
+                for r in rows:
+                    counts.update({(r["equality_rights"], TOPIC_GROUPS[r["topic"]]): r["n"]})
+
+        self.tabulate(ws, counts, YESNO, MAJOR_TOPICS, row_perc=True) 
+        
     def ws_104(self, ws):
         return
     
