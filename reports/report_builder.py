@@ -3084,31 +3084,49 @@ class XLSXReportBuilder:
         self.tabulate_secondary_cols(ws, secondary_counts, YESNO, MAJOR_TOPICS, row_perc=True)
 
     def ws_101(self, ws):
-        counts_list = []
-        for _, model in sheet_models.items():
-            counts = Counter()
-            sex = model.journalist_field_name() + '__sex'
-
+        """
+        Cols: Reporters by sex
+        Rows: Major topic, covid stories only
+        """
+        counts = Counter()
+        for media_type, model in sheet_models.items():
             rows = model.objects \
-                .values('covid19', 'topic', sex, 'country') \
-                .filter(**{model.journalist_field_name() + '__sex__in': self.male_female_ids}) \
-                .filter(country__in=self.country_list)\
-                .annotate(n=Count('id'))
+                .values("topic", model.journalist_field_name() + "__sex") \
+                .filter(covid19=1,
+                        **{model.journalist_field_name() + "__sex__in": self.male_female_ids},
+                        country__in=self.country_list) \
+                .annotate(n=Count("id"))
 
-            rows = [row for row in rows if row['covid19'] == 1]
+            rows = self.apply_weights(rows, model._meta.db_table, media_type)
 
-            for row in rows:
-                counts.update({(row[sex], self.recode_country(row['country'])): row['n']})
-            counts_list.append(counts)
+            for r in rows:
+                counts.update({(r["sex"], TOPIC_GROUPS[r["topic"]]): r["n"]})
 
-        self.tabulate(ws, counts_list[0], self.male_female, self.countries, row_perc=True, show_N=True)
+        self.tabulate(ws, counts, GENDER, MAJOR_TOPICS, row_perc=True, show_N=True)
 
     def ws_102(self, ws):
         return
     
     def ws_103(self, ws):
-        return
-    
+        """
+        Cols: Gender inequalities
+        Rows: Major topic, covid stories only
+        """
+        counts = Counter()
+        for media_type, model in sheet_models.items():
+            if "equality_rights" in [field_name.name for field_name in model._meta.get_fields()]:
+                rows = model.objects\
+                        .values("equality_rights", "topic") \
+                        .filter(covid19=1, country__in=self.country_list) \
+                        .annotate(n=Count("id"))
+
+                rows = self.apply_weights(rows, model._meta.db_table, media_type)
+
+                for r in rows:
+                    counts.update({(r["equality_rights"], TOPIC_GROUPS[r["topic"]]): r["n"]})
+
+        self.tabulate(ws, counts, YESNO, MAJOR_TOPICS, row_perc=True) 
+        
     def ws_104(self, ws):
         return
     

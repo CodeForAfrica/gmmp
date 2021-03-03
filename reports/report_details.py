@@ -1549,8 +1549,8 @@ WS_INFO = {
         '2015': {
             'name': '103',
             'title': 'Covid stories: highlight gender inequalities, by major topic',
-            'desc': 'Covid stories: highlight gender inequalities, by major topic',
-            'reports': ['region', 'country'],
+            'desc': '',
+            'reports': ['global', 'region', 'country'],
         },
     },
     'ws_104': {
