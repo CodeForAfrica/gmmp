@@ -1821,6 +1821,7 @@ class XLSXReportBuilder:
             counts.update({(major_topic, self.recode_country(row['country'])): row['n']})
 
         self.tabulate(ws, counts, MAJOR_TOPICS, self.countries, row_perc=True)
+        self.tabulate_historical(ws, '52', [*MAJOR_TOPICS], self.countries,write_row_headings=False)
 
     def ws_53(self, ws):
         """
