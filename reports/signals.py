@@ -15,7 +15,7 @@ def update_or_create_weights_from_gsheetweights(
         country = countries.alpha2(row_data["Country"])
         print_weight = row_data["Print"]
         radio_weight = row_data["Radio"]
-        tv_weight = row_data["TV"]
+        television_weight = row_data["Television"]
         internet_weight = row_data["Internet"]
         twitter_weight = row_data["Twitter"]
         Weights.objects.update_or_create(
@@ -25,7 +25,9 @@ def update_or_create_weights_from_gsheetweights(
             country=country, media_type="Radio", defaults={"weight": radio_weight}
         )
         Weights.objects.update_or_create(
-            country=country, media_type="TV", defaults={"weight": tv_weight}
+            country=country,
+            media_type="Television",
+            defaults={"weight": television_weight},
         )
         Weights.objects.update_or_create(
             country=country, media_type="Internet", defaults={"weight": internet_weight}
@@ -36,7 +38,7 @@ def update_or_create_weights_from_gsheetweights(
         instance.country = country
         instance.print_weight = print_weight
         instance.radio_weight = radio_weight
-        instance.tv_weight = tv_weight
+        instance.tv_weight = television_weight
         instance.internet_weight = internet_weight
         instance.twitter_weight = twitter_weight
         instance.save()
