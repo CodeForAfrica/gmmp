@@ -3071,7 +3071,7 @@ class XLSXReportBuilder:
                 .values("topic", model.journalist_field_name() + "__sex") \
                 .filter(covid19=1,
                         **{model.journalist_field_name() + "__sex__in": self.male_female_ids},
-                        country__in=self.country_list)\
+                        country__in=self.country_list) \
                 .annotate(n=Count("id"))
 
             rows = self.apply_weights(rows, model._meta.db_table, media_type)
