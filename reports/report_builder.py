@@ -1494,7 +1494,7 @@ class XLSXReportBuilder:
             secondary_counts[region] = counts
 
         self.tabulate_secondary_cols(ws, secondary_counts, YESNO, [y for x in TOPICS for y in x[1]], row_perc=False, filter_cols=self.yes)
-        self.tabulate_historical(ws, '40', self.regions, [y for x in TOPICS for y in x[1]], write_row_headings=False, r=7)
+        self.tabulate_historical(ws, '40', self.yes, [y for x in TOPICS for y in x[1]], write_row_headings=False, major_cols=self.regions)
 
     def ws_41(self, ws):
         """

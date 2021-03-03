@@ -848,8 +848,6 @@ class GMMP2015ReportImporter(BaseReportImporter):
             row_end=62,
             row_heading_col=2,
         )
-        for key in data.keys():
-            data[key] = dict(data[key]['yes'])
         data_2010 = {}
         all_data[2010] = data_2010
         self.slurp_table(
@@ -862,6 +860,10 @@ class GMMP2015ReportImporter(BaseReportImporter):
             row_heading_col=2,
             col_heading_row=6,
         )
+        for key in data_2010.keys():
+            data_key = dict(data_2010[key])
+            data_2010[key] = {}
+            data_2010[key]['yes'] = data_key
 
         return all_data
 
