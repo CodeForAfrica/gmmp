@@ -887,7 +887,7 @@ def get_common_coding_data(data):
     # You will thus be required to further extract data for individual rows while saving the data into the database
     # e.g .get('countries').get(row)
     if data:
-        rows = [x for x in data["country_code"]]
+        rows = [x for x in data.get("country_code", [])]
         if not rows:
             return None
     else:

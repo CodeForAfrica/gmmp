@@ -282,7 +282,7 @@ def get_sheet(coding_dict):
         for map_name, sheetname in mapping.items():
             # access sheetinfo dictionary
             for main in sheetinfo:
-                if key in sheetname and map_name == main:
+                if key.strip() in sheetname and map_name == main:
                     for a, b in sheetinfo[main].items():
                         # rename columns
                         for col in dict_copy[key].columns:

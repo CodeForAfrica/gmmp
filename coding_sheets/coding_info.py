@@ -19,7 +19,7 @@ basicinfo_translations = {
         "Monitor code",
     ],
     "newspaper_name": ["Periódico", "Jornal", "Journal", "Newspaper"],
-    "channel": ["Canal", "Estação", "Channel"],
+    "channel": ["Canal", "Estação", "Channel", "Chaîne"],
     "start_time": [
         "Horario de comienzo del noticiero",
         "Horário de início do noticiário",
@@ -79,7 +79,8 @@ sheetname_mapping = {
     ],
     "Radio": [
         "RadioCoding",
-        "CODAGE D'EMMISSION RADIO",
+        "CODAGE D’EMISSION RADIO",
+        "CODAGE D’EMISSION RADIO ",
         "CODIFICACIÓN PARA RADIO",
         "CODIFICAÇÃO DE RADIO",
     ],
