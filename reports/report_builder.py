@@ -3126,7 +3126,7 @@ class XLSXReportBuilder:
                     counts.update({(r["equality_rights"], TOPIC_GROUPS[r["topic"]]): r["n"]})
 
         self.tabulate(ws, counts, YESNO, MAJOR_TOPICS, row_perc=True) 
-        
+
     def ws_104(self, ws):
         """
         Cols: Function in story
@@ -3134,23 +3134,24 @@ class XLSXReportBuilder:
         """
         r = 6
         self.write_col_headings(ws, FUNCTION)
+        gender_ids = [x[0] for x in GENDER]
 
         for major_topic, topic_ids in GROUP_TOPICS_MAP.items():
             counts = Counter()
             for media_type, model in person_models.items():
                 # some Person models don't have a function field
-                if 'function' in [field_name.name for field_name in model._meta.get_fields()]:
+                if "function" in [field_name.name for field_name in model._meta.get_fields()]:
                     rows = model.objects \
-                            .values('sex', 'function') \
-                            .filter(**{model.sheet_name() + '__covid19': 1}) \
-                            .filter(**{model.sheet_name() + '__country__in': self.country_list}) \
-                            .filter(**{model.sheet_name() + '__topic__in': topic_ids}) \
-                            .filter(sex__in=self.male_female_ids) \
-                            .annotate(n=Count('id'))
+                            .values("sex", "function") \
+                            .filter(**{model.sheet_name() + "__covid19": 1}) \
+                            .filter(**{model.sheet_name() + "__country__in": self.country_list}) \
+                            .filter(**{model.sheet_name() + "__topic__in": topic_ids}) \
+                            .filter(sex__in=gender_ids) \
+                            .annotate(n=Count("id"))
 
                     rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
 
-            counts.update({(r['function'], r['sex']): r['n'] for r in rows})
+            counts.update({(r["function"], r["sex"]): r["n"] for r in rows})
             major_topic_name = [mt[1] for mt in MAJOR_TOPICS if mt[0] == int(major_topic)][0]
             self.write_primary_row_heading(ws, major_topic_name, r=r)
             self.tabulate(ws, counts, FUNCTION, GENDER, row_perc=True, write_col_headings=False, r=r)
