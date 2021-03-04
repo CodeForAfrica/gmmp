@@ -835,14 +835,8 @@ WS_INFO = {
             'name': '53',
             'title': 'Internet - Female reporters in main stories',
             'desc': 'Internet - Sex of reporters in main stories',
-            'reports': [],
-            'historical': '53',
-        },
-        '2010': {
-            'name': '53',
-            'title': 'Internet - Female reporters in main stories',
-            'desc': 'Internet - Female reporters in main stories',
             'reports': ['global', 'region', 'country'],
+            'historical': '53',
         },
     },
     'ws_54': {
@@ -850,14 +844,8 @@ WS_INFO = {
             'name': '54',
             'title': 'Internet - Overall presence of women',
             'desc': '',
-            'reports': [],
-            'historical': '54',
-        },
-        '2010': {
-            'name': '54',
-            'title': 'Internet - Overall presence of women',
-            'desc': 'Internet - Overall presence of women',
             'reports': ['global', 'region', 'country'],
+            'historical': '54',
         },
     },
     'ws_55': {
@@ -867,12 +855,6 @@ WS_INFO = {
             'desc': 'Breakdown Internet - Occupation and function by sex of News Subjects',
             'reports': ['global', 'region', 'country'],
             'historical': '55',
-        },
-        '2010': {
-            'name': '55',
-            'title': 'Internet - Occupation of Female news subjects',
-            'desc': 'Internet - Occupation of Female news subjects',
-            'reports': ['global'],
         },
     },
     'ws_56': {

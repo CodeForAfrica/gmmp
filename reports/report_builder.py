@@ -1804,6 +1804,7 @@ class XLSXReportBuilder:
             counts.update({(major_topic, self.recode_country(row['country'])): row['n']})
 
         self.tabulate(ws, counts, MAJOR_TOPICS, self.countries, row_perc=True)
+        self.tabulate_historical(ws, '51', [*MAJOR_TOPICS], self.countries,write_row_headings=False)
 
     def ws_52(self, ws):
         """
@@ -1827,6 +1828,7 @@ class XLSXReportBuilder:
             counts.update({(major_topic, self.recode_country(row['country'])): row['n']})
 
         self.tabulate(ws, counts, MAJOR_TOPICS, self.countries, row_perc=True)
+        self.tabulate_historical(ws, '52', [*MAJOR_TOPICS], self.countries,write_row_headings=False)
 
     def ws_53(self, ws):
         """
@@ -1853,6 +1855,7 @@ class XLSXReportBuilder:
             secondary_counts[major_topic_name] = counts
 
         self.tabulate_secondary_cols(ws, secondary_counts, GENDER, self.countries, row_perc=True, filter_cols=filter_cols)
+        self.tabulate_historical(ws, '53', self.female, self.countries, major_cols=MAJOR_TOPICS)
 
     def ws_54(self, ws):
         """
@@ -1875,6 +1878,7 @@ class XLSXReportBuilder:
             major_topic_name = [mt[1] for mt in MAJOR_TOPICS if mt[0] == int(major_topic)][0]
             secondary_counts[major_topic_name] = counts
         self.tabulate_secondary_cols(ws, secondary_counts, GENDER, self.countries, row_perc=True)
+        self.tabulate_historical(ws, '54', [*GENDER], self.countries, major_cols=MAJOR_TOPICS)
 
     def ws_55(self, ws):
         """
@@ -1896,6 +1900,7 @@ class XLSXReportBuilder:
         rows = self.apply_weights(rows, model.sheet_db_table(), "Internet")
         counts.update({(r['occupation'], self.recode_country(r['country'])): r['n'] for r in rows})
         self.tabulate(ws, counts, OCCUPATION, self.countries, row_perc=True)
+        self.tabulate_historical(ws, '55', [*OCCUPATION], self.countries)
 
     def ws_56(self, ws):
         """
@@ -1914,6 +1919,7 @@ class XLSXReportBuilder:
         rows = self.apply_weights(rows, model.sheet_db_table(), "Internet")
         counts.update({(r['function'], self.recode_country(r['country'])): r['n'] for r in rows})
         self.tabulate(ws, counts, FUNCTION, self.countries, row_perc=True)
+        self.tabulate_historical(ws, '56', FUNCTION, self.countries)
 
     def ws_57(self, ws):
         """
