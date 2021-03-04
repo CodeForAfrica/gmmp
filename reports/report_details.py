@@ -1526,7 +1526,7 @@ WS_INFO = {
         '2015': {
             'name': '104',
             'title': 'Covid stories:  news subjects and sources, by function in the news, by sex',
-            'desc': 'Covid stories:  news subjects and sources, by function in the news, by sex',
+            'desc': '',
             'reports': ['global', 'region', 'country'],
         },
     },
