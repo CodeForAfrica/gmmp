@@ -4,43 +4,46 @@ from django.dispatch import receiver
 from django_countries import countries
 from gsheets.signals import sheet_row_processed
 
-from .models import Weights, GSheetCountryWeights
+from forms.modelutils import MEDIA_TYPES
+
+from .models import Weights, GSheetGlobalCountryWeights, GSheetRegionalCountryWeights
 
 
-@receiver(sheet_row_processed, sender=GSheetCountryWeights)
-def update_or_create_weights_from_gsheetweights(
+def _update_or_create_weights_from_gsheetcountryweights(
+    weight_type, instance, row_data
+):
+    country = countries.alpha2(row_data["Country"])
+    instance.country = country
+
+    for _, media_type in MEDIA_TYPES:
+        weight = row_data[media_type]
+        Weights.objects.update_or_create(
+            country=country,
+            weight_type=weight_type,
+            media_type=media_type,
+            defaults={"weight": weight},
+        )
+        media_weight_attr_name = f"{media_type.lower()}_weight"
+        setattr(instance, media_weight_attr_name, weight)
+
+    instance.save()
+
+
+@receiver(sheet_row_processed, sender=GSheetGlobalCountryWeights)
+def update_or_create_weights_from_gsheetglobalcountryweights(
     instance=None, created=None, row_data=None, **kwargs
 ):
     try:
-        country = countries.alpha2(row_data["Country"])
-        print_weight = row_data["Print"]
-        radio_weight = row_data["Radio"]
-        television_weight = row_data["Television"]
-        internet_weight = row_data["Internet"]
-        twitter_weight = row_data["Twitter"]
-        Weights.objects.update_or_create(
-            country=country, media_type="Print", defaults={"weight": print_weight}
-        )
-        Weights.objects.update_or_create(
-            country=country, media_type="Radio", defaults={"weight": radio_weight}
-        )
-        Weights.objects.update_or_create(
-            country=country,
-            media_type="Television",
-            defaults={"weight": television_weight},
-        )
-        Weights.objects.update_or_create(
-            country=country, media_type="Internet", defaults={"weight": internet_weight}
-        )
-        Weights.objects.update_or_create(
-            country=country, media_type="Twitter", defaults={"weight": twitter_weight}
-        )
-        instance.country = country
-        instance.print_weight = print_weight
-        instance.radio_weight = radio_weight
-        instance.tv_weight = television_weight
-        instance.internet_weight = internet_weight
-        instance.twitter_weight = twitter_weight
-        instance.save()
+        _update_or_create_weights_from_gsheetcountryweights("G", instance, row_data)
+    except (ObjectDoesNotExist, KeyError):
+        pass
+
+
+@receiver(sheet_row_processed, sender=GSheetRegionalCountryWeights)
+def update_or_create_weights_from_gsheetregionalcountryweights(
+    instance=None, created=None, row_data=None, **kwargs
+):
+    try:
+        _update_or_create_weights_from_gsheetcountryweights("R", instance, row_data)
     except (ObjectDoesNotExist, KeyError):
         pass
