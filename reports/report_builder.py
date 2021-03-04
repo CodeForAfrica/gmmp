@@ -148,6 +148,8 @@ class XLSXReportBuilder:
 
         self.country_list = [code for code, name in self.countries]
         self.region_list = [name for id, name in self.regions]
+        weight_type = "R" if self.report_type == "region" else "G"
+        self.weights = Weights.objects.filter(weight_type=weight_type)
 
         if self.report_type == 'global':
             self.recode_countries()
@@ -361,8 +363,7 @@ class XLSXReportBuilder:
         # Add column for weights
         if write_weights:
             ws.write(0, c, "Weight")
-            weights = Weights.objects.all()
-            weights = {(w.country, w.media_type): w.weight for w in weights}
+            weights = {(w.country, w.media_type): w.weight for w in self.weights}
 
         country_regions = CountryRegion.objects.all()
         country_regions = {cr.id: cr.region for cr in country_regions}
@@ -455,11 +456,13 @@ class XLSXReportBuilder:
         param db_table: name of relevant sheet table
         param: media_type: media type to weigh by
         """
+        weight_type = "R" if self.report_type == "region" else "G"
         query = rows.extra(
                 tables=['reports_weights'],
                 where=[
-                    'reports_weights.country = %s.country' % (db_table),
-                    'reports_weights.media_type = \'%s\'' % (media_type),
+                    f"reports_weights.country = {db_table}.country",
+                    f"reports_weights.weight_type = '{weight_type}'",
+                    f"reports_weights.media_type = '{media_type}'",
                 ]).annotate()
 
         raw_query, params = query.query.sql_with_params()
@@ -515,7 +518,7 @@ class XLSXReportBuilder:
         r = 6
         c = 2
 
-        weights = {(w.country, w.media_type): w.weight for w in Weights.objects.all()}
+        weights = {(w.country, w.media_type): w.weight for w in self.weights}
         first = True
         historical_c = None
 
