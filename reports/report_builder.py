@@ -1518,7 +1518,7 @@ class XLSXReportBuilder:
             secondary_counts[region] = counts
 
         self.tabulate_secondary_cols(ws, secondary_counts, YESNO, [y for x in TOPICS for y in x[1]], row_perc=False, filter_cols=self.yes)
-        self.tabulate_historical(ws, '40', self.regions, [y for x in TOPICS for y in x[1]], write_row_headings=False, r=7)
+        self.tabulate_historical(ws, '40', self.yes, [y for x in TOPICS for y in x[1]], write_row_headings=False, major_cols=self.regions)
 
     def ws_41(self, ws):
         """
@@ -1537,7 +1537,7 @@ class XLSXReportBuilder:
 
                 counts.update({(r['equality_rights'], r['topic']): r['n'] for r in rows})
         self.tabulate(ws, counts, YESNO, [y for x in TOPICS for y in x[1]], row_perc=False, show_N=True)
-        self.tabulate_historical(ws, '41', self.female, [y for x in TOPICS for y in x[1]], write_row_headings=False, r=6)
+        self.tabulate_historical(ws, '41', [*YESNO], [y for x in TOPICS for y in x[1]], write_row_headings=False, r=6, show_N_and_P=True)
 
     def ws_42(self, ws):
         """
@@ -1559,6 +1559,7 @@ class XLSXReportBuilder:
                     counts.update({(r['equality_rights'], r['topic']): r['n'] for r in rows})
             secondary_counts[region] = counts
         self.tabulate_secondary_cols(ws, secondary_counts, YESNO, [y for x in TOPICS for y in x[1]], row_perc=True)
+        self.tabulate_historical(ws, '42', [*YESNO], [y for x in TOPICS for y in x[1]], write_row_headings=False, major_cols=self.regions)
 
     def ws_43(self, ws):
         """
@@ -1587,6 +1588,7 @@ class XLSXReportBuilder:
                     counts.update({(r['equality_rights'], r['topic']): r['n'] for r in rows})
             secondary_counts[gender] = counts
         self.tabulate_secondary_cols(ws, secondary_counts, YESNO, [y for x in TOPICS for y in x[1]], row_perc=True)
+        self.tabulate_historical(ws, '43', [*YESNO], [y for x in TOPICS for y in x[1]], write_row_headings=False, major_cols=self.male_female)
 
     def ws_44(self, ws):
         """
@@ -1617,7 +1619,7 @@ class XLSXReportBuilder:
                         counts.update({(r['equality_rights'], region_id): r['n']})
             secondary_counts[gender] = counts
         self.tabulate_secondary_cols(ws, secondary_counts, YESNO, self.regions, row_perc=True)
-        self.tabulate_historical(ws, '44', self.male_female, self.regions, write_row_headings=False, r=7, skip_major_col_heading=True)
+        self.tabulate_historical(ws, '44', [*YESNO], self.regions, write_row_headings=False, major_cols=self.male_female)
 
     def ws_45(self, ws):
         """
@@ -1665,6 +1667,7 @@ class XLSXReportBuilder:
                         counts.update({(TOPIC_GROUPS[r['topic']], r['stereotypes']): r['n']})
             secondary_counts[region] = counts
         self.tabulate_secondary_cols(ws, secondary_counts, AGREE_DISAGREE, MAJOR_TOPICS, row_perc=True)
+        self.tabulate_historical(ws, '46', AGREE_DISAGREE, MAJOR_TOPICS, write_row_headings=False, major_cols=self.regions)
 
     def ws_47(self, ws):
         """
@@ -1684,6 +1687,7 @@ class XLSXReportBuilder:
                 counts.update({(r['stereotypes'], TOPIC_GROUPS[r['topic']]): r['n']})
 
         self.tabulate(ws, counts, AGREE_DISAGREE, MAJOR_TOPICS, row_perc=True)
+        self.tabulate_historical(ws, '47', AGREE_DISAGREE, MAJOR_TOPICS, write_row_headings=False)
 
     def ws_48(self, ws):
         """
@@ -1713,6 +1717,7 @@ class XLSXReportBuilder:
                         counts.update({(r['stereotypes'], TOPIC_GROUPS[r['topic']]): r['n']})
             secondary_counts[gender] = counts
         self.tabulate_secondary_cols(ws, secondary_counts, AGREE_DISAGREE, MAJOR_TOPICS, row_perc=True, show_N=True)
+        self.tabulate_historical(ws, '48', AGREE_DISAGREE, MAJOR_TOPICS, write_row_headings=False, major_cols=self.male_female, show_N_and_P=True)
 
     def ws_49(self, ws):
         """
@@ -1751,6 +1756,7 @@ class XLSXReportBuilder:
                 counts.update({(major_topic, region_id): row['n']})
 
             self.tabulate(ws, counts, MAJOR_TOPICS, self.regions, row_perc=True)
+            self.tabulate_historical(ws, '49', [*MAJOR_TOPICS], self.regions, write_row_headings=False)
 
     def ws_50(self, ws):
         """
@@ -1774,6 +1780,7 @@ class XLSXReportBuilder:
             counts.update({(major_topic, self.recode_country(row['country'])): row['n']})
 
         self.tabulate(ws, counts, MAJOR_TOPICS, self.countries, row_perc=True)
+        self.tabulate_historical(ws, '50', [*MAJOR_TOPICS], self.countries, write_row_headings=False)
 
     def ws_51(self, ws):
         """

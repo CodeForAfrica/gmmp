@@ -668,27 +668,14 @@ WS_INFO = {
             'reports': ['global', 'region', 'country'],
             'historical': '41',
         },
-        '2010': {
-            'name': '41',
-            'title': 'Breakdown of Stories where issues of gender equality/inequality are raised by topic',
-            'desc': 'Stories where issues of gender equality/inequality are raised by topic',
-            'reports': ['global', 'region', 'country'],
-            'historical': '16eF',
-        },
     },
     'ws_42': {
         '2015': {
             'name': '42',
             'title': 'Stories where issues of gender equality/inequality are raised by region',
             'desc': '',
-            'reports': [],
-            'historical': '42',
-        },
-        '2010': {
-            'name': '42',
-            'title': 'Breakdown of Stories where issues of gender equality/inequality are raised by region',
-            'desc': 'Stories where issues of gender equality/inequality are raised by region',
             'reports': ['global'],
+            'historical': '42',
         },
     },
     'ws_43': {
@@ -727,7 +714,7 @@ WS_INFO = {
             'name': '45',
             'title': 'Stories where issues of gender equality/inequality are raised by sex of \'people in the news\' and by region',
             'desc': 'Breakdown of Stories where issues of gender equality/inequality are raised by sex of \'people in the news\' and by region',
-            'reports': [],
+            'reports': ['global', 'region'],
             'historical': '45',
         },
         '2010': {
