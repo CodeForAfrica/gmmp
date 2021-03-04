@@ -1528,8 +1528,8 @@ WS_INFO = {
         '2015': {
             'name': '102',
             'title': 'Covid stories: gender stereotypes, by major topic',
-            'desc': 'Covid stories: gender stereotypes, by major topic',
-            'reports': ['region', 'country'],
+            'desc': '',
+            'reports': ['global', 'region', 'country'],
         },
     },
     'ws_103': {

@@ -3075,14 +3075,21 @@ class XLSXReportBuilder:
         return
     
     def ws_100(self, ws):
-        counts_list = []
+        """
+        Cols: Medium 
+        Rows: Major topic
+        """
         secondary_counts = OrderedDict()
-        for media_types, models in SHEET_MEDIA_GROUPS:
+        for _, models in SHEET_MEDIA_GROUPS:
             for media_type, model in models.items():
                 counts = Counter()
                 rows = model.objects\
-                        .values('covid19', 'topic')\
+                        .values('covid19', 'topic') \
+                        .filter(country__in=self.country_list) \
                         .annotate(n=Count('id'))
+                        
+                rows = self.apply_weights(rows, model._meta.db_table, media_type)
+            
                 for r in rows:
                     covid19 = 'Y' if r['covid19'] == 1 else 'N'
                     counts.update({(covid19, TOPIC_GROUPS[r['topic']]): r['n']})
@@ -3112,7 +3119,24 @@ class XLSXReportBuilder:
         self.tabulate(ws, counts, GENDER, MAJOR_TOPICS, row_perc=True, show_N=True)
 
     def ws_102(self, ws):
-        return
+        """
+        Cols: Gender stereotypes
+        Rows: Major topic, covid stories only
+        """
+        counts = Counter()
+        for media_type, model in sheet_models.items():
+            rows = (
+                model.objects.values("stereotypes", "topic")
+                .filter(covid19=1, country__in=self.country_list)
+                .annotate(n=Count("id"))
+            )
+
+            rows = self.apply_weights(rows, model._meta.db_table, media_type)
+
+            for r in rows:
+                counts.update({(r["stereotypes"], TOPIC_GROUPS[r["topic"]]): r["n"]})
+
+        self.tabulate(ws, counts, AGREE_DISAGREE, MAJOR_TOPICS, row_perc=True)
     
     def ws_103(self, ws):
         """
