@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 
-from reports.models import GSheetCountryWeights
+from reports.models import GSheetGlobalCountryWeights, GSheetRegionalCountryWeights
 
 
 class Command(BaseCommand):
@@ -9,4 +9,5 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         # NOTE(kilemensi): Don't call `syncgsheets` since it auto discovers
         #                  and sync **all** models
-        GSheetCountryWeights.pull_sheet()
+        GSheetGlobalCountryWeights.pull_sheet()
+        GSheetRegionalCountryWeights.pull_sheet()
