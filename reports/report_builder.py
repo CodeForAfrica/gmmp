@@ -1761,55 +1761,50 @@ class XLSXReportBuilder:
     def ws_50(self, ws):
         """
         Cols: Major Topics
-        Rows: Country
+        Rows: YES NO
         :: Internet media type only
         :: Only stories shared on Twitter
         """
         counts = Counter()
         model = sheet_models.get('Internet')
         rows = model.objects\
-                .values('topic', 'country')\
+                .values('topic', 'shared_via_twitter')\
                 .filter(country__in=self.country_list)\
-                .filter(shared_via_twitter='Y')\
                 .annotate(n=Count('id'))
-
         rows = self.apply_weights(rows, model._meta.db_table, 'Internet')
 
         for row in rows:
             major_topic = TOPIC_GROUPS[row['topic']]
-            counts.update({(major_topic, self.recode_country(row['country'])): row['n']})
+            counts.update({(major_topic, row['shared_via_twitter']): row['n']})
 
-        self.tabulate(ws, counts, MAJOR_TOPICS, self.countries, row_perc=True)
-        self.tabulate_historical(ws, '50', [*MAJOR_TOPICS], self.countries, write_row_headings=False)
+        self.tabulate(ws, counts, MAJOR_TOPICS, YESNO, show_N=True)
 
     def ws_51(self, ws):
         """
         Cols: Major Topics
-        Rows: Country
+        Rows: YES NO
         :: Internet media type only
         :: Only stories shared on Facebook
         """
         counts = Counter()
         model = sheet_models.get('Internet')
         rows = model.objects\
-                .values('topic', 'country')\
+                .values('topic', 'shared_on_facebook')\
                 .filter(country__in=self.country_list)\
-                .filter(shared_on_facebook='Y')\
                 .annotate(n=Count('id'))
 
         rows = self.apply_weights(rows, model._meta.db_table, 'Internet')
 
         for row in rows:
             major_topic = TOPIC_GROUPS[row['topic']]
-            counts.update({(major_topic, self.recode_country(row['country'])): row['n']})
+            counts.update({(major_topic, row['shared_on_facebook']): row['n']})
 
-        self.tabulate(ws, counts, MAJOR_TOPICS, self.countries, row_perc=True)
-        self.tabulate_historical(ws, '51', [*MAJOR_TOPICS], self.countries,write_row_headings=False)
+        self.tabulate(ws, counts, MAJOR_TOPICS, YESNO, show_N=True)
 
     def ws_52(self, ws):
         """
         Cols: Major Topics
-        Rows: Country
+        Rows: YES NO
         :: Internet media type only
         :: Only stories with reference to gener equality
         """
