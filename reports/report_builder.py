@@ -1811,19 +1811,17 @@ class XLSXReportBuilder:
         counts = Counter()
         model = sheet_models.get('Internet')
         rows = model.objects\
-                .values('topic', 'country')\
+                .values('topic', 'equality_rights')\
                 .filter(country__in=self.country_list)\
-                .filter(equality_rights='Y')\
                 .annotate(n=Count('id'))
 
         rows = self.apply_weights(rows, model._meta.db_table, 'Internet')
 
         for row in rows:
             major_topic = TOPIC_GROUPS[row['topic']]
-            counts.update({(major_topic, self.recode_country(row['country'])): row['n']})
+            counts.update({(major_topic, row['equality_rights']): row['n']})
 
-        self.tabulate(ws, counts, MAJOR_TOPICS, self.countries, row_perc=True)
-        self.tabulate_historical(ws, '52', [*MAJOR_TOPICS], self.countries,write_row_headings=False)
+        self.tabulate(ws, counts, MAJOR_TOPICS, YESNO, show_N=True)
 
     def ws_53(self, ws):
         """
