@@ -1936,27 +1936,21 @@ class XLSXReportBuilder:
     def ws_58(self, ws):
         """
         Cols: Sex of subject
-        Rows: Country, is photographed
-        :: Show all countries
+        Rows: is photographed
         :: Internet media type only
         """
-        r = 6
-        self.write_col_headings(ws, GENDER)
-
         counts = Counter()
         model = person_models.get('Internet')
-        for code, country in self.countries:
-            rows = model.objects\
-                    .values('sex', 'is_photograph')\
-                    .filter(**{model.sheet_name() + '__country':code})\
-                    .annotate(n=Count('id'))
+        country_field = '%s__country' % model.sheet_name()
+        
+        rows = model.objects\
+                .values(country_field, 'sex', 'is_photograph')\
+                .annotate(n=Count('id'))
 
-            rows = self.apply_weights(rows, model.sheet_db_table(), "Internet")
-            counts = {(row['sex'], row['is_photograph']): row['n'] for row in rows}
-
-            self.write_primary_row_heading(ws, country, r=r)
-            self.tabulate(ws, counts, GENDER, IS_PHOTOGRAPH, row_perc=True, write_col_headings=False, r=r)
-            r += len(IS_PHOTOGRAPH)
+        rows = self.apply_weights(rows, model.sheet_db_table(), "Internet")
+        for d in rows:
+           counts[d['sex'], d['is_photograph']] += d['n']
+        self.tabulate(ws, counts, GENDER, IS_PHOTOGRAPH, show_N=True)
 
     def ws_59(self, ws):
         """
