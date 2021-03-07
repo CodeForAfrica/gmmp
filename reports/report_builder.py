@@ -1975,6 +1975,7 @@ class XLSXReportBuilder:
         counts['col_title_def'] = 'Sex of reporter'
 
         self.tabulate(ws, counts, GENDER, GENDER, row_perc=False)
+        self.tabulate_historical(ws, '59', GENDER, GENDER)
 
     def ws_60(self, ws):
         """
