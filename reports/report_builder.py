@@ -1876,9 +1876,8 @@ class XLSXReportBuilder:
     def ws_55(self, ws):
         """
         Cols: Occupation
-        Rows: Country
-        :: Show all countries
-        :: Only female subjects
+        Rows: Gender
+        :: Show male and female
         :: Internet media type only
         """
         counts = Counter()
@@ -1899,21 +1898,21 @@ class XLSXReportBuilder:
     def ws_56(self, ws):
         """
         Cols: Function
-        Rows: Country
-        :: Show all countries
+        Rows: Male Female
         :: Internet media type only
         """
         counts = Counter()
         model = person_models.get('Internet')
         country_field = '%s__country' % model.sheet_name()
         rows = model.objects\
-                .values(country_field, 'function')\
+                .values(country_field, 'function', 'sex')\
                 .annotate(n=Count('id'))
 
         rows = self.apply_weights(rows, model.sheet_db_table(), "Internet")
-        counts.update({(r['function'], self.recode_country(r['country'])): r['n'] for r in rows})
-        self.tabulate(ws, counts, FUNCTION, self.countries, row_perc=True)
-        self.tabulate_historical(ws, '56', FUNCTION, self.countries)
+        counts.update({(r['function'], r['sex']): r['n'] for r in rows})
+        for d in rows:
+           counts[d['function'], d['sex']] += d['n']
+        self.tabulate(ws, counts, FUNCTION, self.male_female, show_N=True)
 
     def ws_57(self, ws):
         """
