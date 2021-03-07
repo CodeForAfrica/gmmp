@@ -1980,27 +1980,22 @@ class XLSXReportBuilder:
     def ws_60(self, ws):
         """
         Cols: Sex of subject
-        Rows: Country, age
-        :: Show all countries
+        Rows: age
         :: Internet media type only
         """
-        r = 6
-        self.write_col_headings(ws, GENDER)
-
         counts = Counter()
         model = person_models.get('Internet')
-        for code, country in self.countries:
-            rows = model.objects\
-                    .values('sex', 'age')\
-                    .filter(**{model.sheet_name() + '__country':code})\
-                    .annotate(n=Count('id'))
+        country_field = '%s__country' % model.sheet_name()
 
-            rows = self.apply_weights(rows, model.sheet_db_table(), "Internet")
-            counts = {(row['sex'], row['age']): row['n'] for row in rows}
+        rows = model.objects\
+                .values(country_field, 'sex', 'age')\
+                .annotate(n=Count('id'))
 
-            self.write_primary_row_heading(ws, country, r=r)
-            self.tabulate(ws, counts, GENDER, AGES, row_perc=True, write_col_headings=False, r=r)
-            r += len(AGES)
+        rows = self.apply_weights(rows, model.sheet_db_table(), "Internet")
+        for d in rows:
+           counts[d['sex'], d['age']] += d['n']
+
+        self.tabulate(ws, counts, GENDER, AGES, show_N=True)
 
     def ws_61(self, ws):
         """
