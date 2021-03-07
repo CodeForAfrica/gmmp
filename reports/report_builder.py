@@ -1886,14 +1886,15 @@ class XLSXReportBuilder:
         country_field = '%s__country' % model.sheet_name()
 
         rows = model.objects\
-                .values(country_field, 'occupation')\
-                .filter(sex=1)\
+                .values(country_field, 'occupation', 'sex')\
+                .exclude(sex=None)\
+                .exclude(occupation=None)\
                 .annotate(n=Count('id'))
 
         rows = self.apply_weights(rows, model.sheet_db_table(), "Internet")
-        counts.update({(r['occupation'], self.recode_country(r['country'])): r['n'] for r in rows})
-        self.tabulate(ws, counts, OCCUPATION, self.countries, row_perc=True)
-        self.tabulate_historical(ws, '55', [*OCCUPATION], self.countries)
+        for d in rows:
+           counts[d['occupation'], d['sex']] += d['n']
+        self.tabulate(ws, counts, OCCUPATION, self.male_female, show_N=True)
 
     def ws_56(self, ws):
         """
