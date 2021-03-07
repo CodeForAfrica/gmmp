@@ -1909,7 +1909,7 @@ class XLSXReportBuilder:
                 .annotate(n=Count('id'))
 
         rows = self.apply_weights(rows, model.sheet_db_table(), "Internet")
-        counts.update({(r['function'], r['sex']): r['n'] for r in rows})
+
         for d in rows:
            counts[d['function'], d['sex']] += d['n']
         self.tabulate(ws, counts, FUNCTION, self.male_female, show_N=True)
@@ -1917,29 +1917,21 @@ class XLSXReportBuilder:
     def ws_57(self, ws):
         """
         Cols: Sex of subject
-        Rows: Country, Family role
-        :: Show all countries
+        Rows: Family role
         :: Internet media type only
         """
-        r = 6
-        self.write_col_headings(ws, GENDER)
 
         counts = Counter()
         model = person_models.get('Internet')
-        for code, country in self.countries:
-            rows = model.objects\
-                    .values('sex', 'family_role')\
-                    .filter(**{model.sheet_name() + '__country':code})\
-                    .annotate(n=Count('id'))
+        country_field = '%s__country' % model.sheet_name()
+        rows = model.objects\
+                .values(country_field, 'sex', 'family_role')\
+                .annotate(n=Count('id'))
 
-            rows = self.apply_weights(rows, model.sheet_db_table(), "Internet")
-
-            counts = {(row['sex'], row['family_role']): row['n'] for row in rows}
-            # If only captured countries should be displayed use
-            # if counts.keys():
-            self.write_primary_row_heading(ws, country, r=r)
-            self.tabulate(ws, counts, GENDER, YESNO, row_perc=True, write_col_headings=False, r=r)
-            r += len(YESNO)
+        rows = self.apply_weights(rows, model.sheet_db_table(), "Internet")
+        for d in rows:
+           counts[d['sex'], d['family_role']] += d['n']
+        self.tabulate(ws, counts, GENDER, YESNO, show_N=True)
 
     def ws_58(self, ws):
         """
