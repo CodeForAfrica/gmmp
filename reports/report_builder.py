@@ -1880,20 +1880,24 @@ class XLSXReportBuilder:
         :: Show male and female
         :: Internet and Twitter media types
         """
-        counts = Counter()
-        model = person_models.get('Internet')
+        secondary_counts = OrderedDict()
 
-        rows = model.objects\
-                .values('occupation', 'sex')\
-                .filter(**{model.sheet_name() + "__country__in": self.country_list}) \
-                .exclude(sex=None)\
-                .exclude(occupation=None)\
-                .annotate(n=Count('id'))
+        for media_type, model in dm_person_models.items():
+            counts = Counter()
+            rows = model.objects\
+                    .values('occupation', 'sex')\
+                    .filter(**{model.sheet_name() + "__country__in": self.country_list}) \
+                    .exclude(sex=None)\
+                    .exclude(occupation=None)\
+                    .annotate(n=Count('id'))
 
-        rows = self.apply_weights(rows, model.sheet_db_table(), "Internet")
-        for d in rows:
-           counts[d['occupation'], d['sex']] += d['n']
-        self.tabulate(ws, counts, OCCUPATION, self.male_female, show_N=True)
+            rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
+            for d in rows:
+                counts[d['sex'], d['occupation']] += d['n']
+            
+            secondary_counts[media_type] = counts
+
+        self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, OCCUPATION, row_perc=True, show_N=True)
 
     def ws_56(self, ws):
         """
