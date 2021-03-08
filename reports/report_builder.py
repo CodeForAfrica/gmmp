@@ -2117,8 +2117,7 @@ class XLSXReportBuilder:
     def ws_65(self, ws):
         """
         Cols: Major Topic
-        Rows: Country, tweet or retweet
-        :: Show all countries
+        Rows: tweet or retweet
         :: Twitter media type only
         """
         r = 6
@@ -2126,19 +2125,18 @@ class XLSXReportBuilder:
 
         counts = Counter()
         model = sheet_models.get('Twitter')
-        for code, country in self.countries:
-            rows = model.objects\
-                    .values('topic', 'retweet')\
-                    .filter(country=code)\
-                    .annotate(n=Count('id'))
 
-            rows = self.apply_weights(rows, model._meta.db_table, "Twitter")
+        rows = model.objects\
+                .values('topic', 'retweet')\
+                .filter(country__in=self.country_list)\
+                .annotate(n=Count('id'))
 
-            counts = {(TOPIC_GROUPS[row['topic']], row['retweet']): row['n'] for row in rows}
+        rows = self.apply_weights(rows, model._meta.db_table, "Twitter")
 
-            self.write_primary_row_heading(ws, country, r=r)
-            self.tabulate(ws, counts, MAJOR_TOPICS, RETWEET, row_perc=False, write_col_headings=False, r=r)
-            r += len(RETWEET)
+        for row in rows:
+            counts[row['topic'], row['retweet']] += row['n']
+
+        self.tabulate(ws, counts,  MAJOR_TOPICS, RETWEET, show_N=True)
 
     def ws_66(self, ws):
         """
