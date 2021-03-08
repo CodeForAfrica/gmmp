@@ -3,7 +3,6 @@ import io
 from collections import Counter, OrderedDict
 import logging
 import datetime
-from typing import Sequence
 
 # Django
 from django.conf import settings
