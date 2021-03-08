@@ -851,8 +851,8 @@ WS_INFO = {
     'ws_55': {
         '2015': {
             'name': '55',
-            'title': 'Internet - Occupation of Female news subjects',
-            'desc': 'Breakdown Internet - Occupation and function by sex of News Subjects',
+            'title': 'Internet, Twitter  - Occupation of Female news subjects',
+            'desc': 'Breakdown Internet, Twitter - Occupation and function by sex of News Subjects',
             'reports': ['global', 'region', 'country'],
             'historical': '55',
         },
@@ -860,8 +860,8 @@ WS_INFO = {
     'ws_56': {
         '2015': {
             'name': '56',
-            'title': 'Internet - Functions of news subjects',
-            'desc': 'Internet - Functions of news subjects',
+            'title': 'Internet, Twitter - Functions of news subjects',
+            'desc': '',
             'reports': ['global', 'region', 'country'],
             'historical': '56',
         },
