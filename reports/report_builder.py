@@ -1903,20 +1903,23 @@ class XLSXReportBuilder:
         """
         Cols: Function
         Rows: Male Female
-        :: Internet media type only
+        :: Internet media and Twitter media types.
         """
-        counts = Counter()
-        model = person_models.get('Internet')
-        rows = model.objects\
-                .values('function', 'sex')\
-                .filter(**{model.sheet_name() + "__country__in": self.country_list}) \
-                .annotate(n=Count('id'))
+        secondary_counts = OrderedDict()
+        for media_type, model in dm_person_models.items():
+            counts = Counter()
+            rows = model.objects\
+                    .values('function', 'sex')\
+                    .filter(**{model.sheet_name() + "__country__in": self.country_list}) \
+                    .annotate(n=Count('id'))
 
-        rows = self.apply_weights(rows, model.sheet_db_table(), "Internet")
+            rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
 
-        for d in rows:
-           counts[d['function'], d['sex']] += d['n']
-        self.tabulate(ws, counts, FUNCTION, self.male_female, show_N=True)
+            for d in rows:
+                counts[d['sex'], d['function']] += d['n']
+            secondary_counts[media_type] = counts
+
+        self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, FUNCTION, row_perc=True, show_N=True)
 
     def ws_57(self, ws):
         """
