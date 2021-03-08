@@ -1549,8 +1549,8 @@ WS_INFO = {
     'ws_107': {
         '2015': {
             'name': '107',
-            'title': 'Special questions, by medium, by major topic',
-            'desc': 'Special questions, by medium, by major topic',
+            'title': 'Special questions, by major topic, by medium',
+            'desc': '',
             'reports': ['country'],
         },
     },
@@ -1558,7 +1558,7 @@ WS_INFO = {
         '2015': {
             'name': '108',
             'title': 'Special questions, by major topic, by sex of source',
-            'desc': 'Special questions, by major topic, by sex of source',
+            'desc': '',
             'reports': ['country'],
         },
     },
@@ -1566,7 +1566,7 @@ WS_INFO = {
         '2015': {
             'name': '109',
             'title': 'Special questions, by major topic, by reporter',
-            'desc': 'Special questions, by major topic, by reporter',
+            'desc': '',
             'reports': ['country'],
         },
     },
@@ -1574,7 +1574,7 @@ WS_INFO = {
         '2015': {
             'name': '110',
             'title': 'Special questions, by major topic, by rights/policy',
-            'desc': 'Special questions, by major topic, by rights/policy',
+            'desc': '',
             'reports': ['country'],
         },
     },
@@ -1582,7 +1582,7 @@ WS_INFO = {
         '2015': {
             'name': '111',
             'title': 'Special questions, by major topic, by gender stereotypes',
-            'desc': 'Special questions, by major topic, by gender stereotypes',
+            'desc': '',
             'reports': ['country'],
         },
     },
@@ -2291,3 +2291,9 @@ REPORTER_MEDIA = [
     'Radio',
     'Television'
 ]
+
+SPECIAL_QUESTIONS = OrderedDict([
+    ("special_qn_1", "Special Question 1"),
+    ("special_qn_2", "Special Question 2"),
+    ("special_qn_3", "Special Question 3"),
+])
