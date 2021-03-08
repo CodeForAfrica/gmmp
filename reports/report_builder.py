@@ -1878,14 +1878,14 @@ class XLSXReportBuilder:
         Cols: Occupation
         Rows: Gender
         :: Show male and female
-        :: Internet media type only
+        :: Internet and Twitter media types
         """
         counts = Counter()
         model = person_models.get('Internet')
-        country_field = '%s__country' % model.sheet_name()
 
         rows = model.objects\
-                .values(country_field, 'occupation', 'sex')\
+                .values('occupation', 'sex')\
+                .filter(**{model.sheet_name() + "__country__in": self.country_list}) \
                 .exclude(sex=None)\
                 .exclude(occupation=None)\
                 .annotate(n=Count('id'))
@@ -1903,9 +1903,9 @@ class XLSXReportBuilder:
         """
         counts = Counter()
         model = person_models.get('Internet')
-        country_field = '%s__country' % model.sheet_name()
         rows = model.objects\
-                .values(country_field, 'function', 'sex')\
+                .values('function', 'sex')\
+                .filter(**{model.sheet_name() + "__country__in": self.country_list}) \
                 .annotate(n=Count('id'))
 
         rows = self.apply_weights(rows, model.sheet_db_table(), "Internet")
@@ -1923,9 +1923,9 @@ class XLSXReportBuilder:
 
         counts = Counter()
         model = person_models.get('Internet')
-        country_field = '%s__country' % model.sheet_name()
         rows = model.objects\
-                .values(country_field, 'sex', 'family_role')\
+                .values('sex', 'family_role')\
+                .filter(**{model.sheet_name() + "__country__in": self.country_list}) \
                 .annotate(n=Count('id'))
 
         rows = self.apply_weights(rows, model.sheet_db_table(), "Internet")
@@ -1941,10 +1941,10 @@ class XLSXReportBuilder:
         """
         counts = Counter()
         model = person_models.get('Internet')
-        country_field = '%s__country' % model.sheet_name()
         
         rows = model.objects\
-                .values(country_field, 'sex', 'is_photograph')\
+                .values('sex', 'is_photograph')\
+                .filter(**{model.sheet_name() + "__country__in": self.country_list}) \
                 .annotate(n=Count('id'))
 
         rows = self.apply_weights(rows, model.sheet_db_table(), "Internet")
@@ -1985,10 +1985,10 @@ class XLSXReportBuilder:
         """
         counts = Counter()
         model = person_models.get('Internet')
-        country_field = '%s__country' % model.sheet_name()
 
         rows = model.objects\
-                .values(country_field, 'sex', 'age')\
+                .values('sex', 'age')\
+                .filter(**{model.sheet_name() + "__country__in": self.country_list}) \
                 .annotate(n=Count('id'))
 
         rows = self.apply_weights(rows, model.sheet_db_table(), "Internet")
