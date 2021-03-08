@@ -1981,8 +1981,8 @@ class XLSXReportBuilder:
         counts.update({(r['sex'], r['subject_sex']): r['n'] for r in rows})
         counts['col_title_def'] = 'Sex of reporter'
 
-        self.tabulate(ws, counts, GENDER, GENDER, row_perc=False)
-        self.tabulate_historical(ws, '59', GENDER, GENDER)
+        self.tabulate(ws, counts, self.male_female, self.male_female, row_perc=False)
+        self.tabulate_historical(ws, '59', self.male_female, self.male_female)
 
     def ws_60(self, ws):
         """
