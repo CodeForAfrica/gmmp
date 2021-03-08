@@ -2070,8 +2070,7 @@ class XLSXReportBuilder:
     def ws_63(self, ws):
         """
         Cols: Topic
-        Rows: Country, stereotypes challenged
-        :: Show all countries
+        Rows: stereotypes challenged
         :: Internet media type only
         """
         r = 6
@@ -2079,18 +2078,18 @@ class XLSXReportBuilder:
 
         counts = Counter()
         model = sheet_models.get('Internet')
-        for code, country in self.countries:
-            rows = model.objects\
-                    .values('topic', 'stereotypes')\
-                    .filter(country=code)\
-                    .annotate(n=Count('id'))
+        
+        rows = model.objects\
+                .values('topic', 'stereotypes')\
+                .filter(country__in=self.country_list)\
+                .annotate(n=Count('id'))
 
-            rows = self.apply_weights(rows, model._meta.db_table, "Internet")
-            counts = {(row['topic'], row['stereotypes']): row['n'] for row in rows}
+        rows = self.apply_weights(rows, model._meta.db_table, "Internet")
 
-            self.write_primary_row_heading(ws, country, r=r)
-            self.tabulate(ws, counts, [y for x in TOPICS for y in x[1]], AGREE_DISAGREE, row_perc=True, write_col_headings=False, r=r)
-            r += len(AGREE_DISAGREE)
+        for row in rows:
+            counts[row['topic'], row['stereotypes']] += row['n']
+
+        self.tabulate(ws, counts,  [y for x in TOPICS for y in x[1]], AGREE_DISAGREE, show_N=True)
 
     def ws_64(self, ws):
         """
