@@ -3225,8 +3225,34 @@ class XLSXReportBuilder:
             r += len(GENDER)
 
     def ws_106(self, ws):
-        return
-    
+        """
+        Cols: Occupation
+        Rows: Major topic, covid stories only, Sex of source
+        """
+        r = 6
+        self.write_col_headings(ws, OCCUPATION)
+        gender_ids = [x[0] for x in GENDER]
+
+        for major_topic, topic_ids in GROUP_TOPICS_MAP.items():
+            counts = Counter()
+            for media_type, model in person_models.items():
+                if "occupation" in [field_name.name for field_name in model._meta.get_fields()]:
+                    rows = model.objects \
+                            .values("sex", "occupation") \
+                            .filter(**{model.sheet_name() + "__covid19": 1}) \
+                            .filter(**{model.sheet_name() + "__country__in": self.country_list}) \
+                            .filter(**{model.sheet_name() + "__topic__in": topic_ids}) \
+                            .filter(sex__in=gender_ids) \
+                            .annotate(n=Count("id"))
+
+                    rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
+
+            counts.update({(r["occupation"], r["sex"]): r["n"] for r in rows})
+            major_topic_name = [mt[1] for mt in MAJOR_TOPICS if mt[0] == int(major_topic)][0]
+            self.write_primary_row_heading(ws, major_topic_name, r=r)
+            self.tabulate(ws, counts, OCCUPATION, GENDER, row_perc=True, write_col_headings=False, r=r)
+            r += len(GENDER)
+
     def ws_107(self, ws):
         return
     
