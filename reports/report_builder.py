@@ -2025,8 +2025,7 @@ class XLSXReportBuilder:
     def ws_61(self, ws):
         """
         Cols: Sex of subject
-        Rows: Country, is_quoted
-        :: Show all countries
+        Rows: is_quoted
         :: Internet media type only
         """
         r = 6
@@ -2034,18 +2033,17 @@ class XLSXReportBuilder:
 
         counts = Counter()
         model = person_models.get('Internet')
-        for code, country in self.countries:
-            rows = model.objects\
-                    .values('sex', 'is_quoted')\
-                    .filter(**{model.sheet_name() + '__country':code})\
-                    .annotate(n=Count('id'))
+        
+        rows = model.objects\
+                .values('sex', 'is_quoted')\
+                .filter(**{model.sheet_name() + "__country__in": self.country_list}) \
+                .annotate(n=Count('id'))
 
-            rows = self.apply_weights(rows, model.sheet_db_table(), "Internet")
-            counts = {(row['sex'], row['is_quoted']): row['n'] for row in rows}
+        rows = self.apply_weights(rows, model.sheet_db_table(), "Internet")
+        for row in rows:
+            counts[row['sex'], row['is_quoted']] += row['n']
 
-            self.write_primary_row_heading(ws, country, r=r)
-            self.tabulate(ws, counts, GENDER, YESNO, row_perc=True, write_col_headings=False, r=r)
-            r += len(YESNO)
+        self.tabulate(ws, counts, GENDER, YESNO, show_N=True)
 
     def ws_62(self, ws):
         """
