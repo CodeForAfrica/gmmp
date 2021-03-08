@@ -2094,8 +2094,7 @@ class XLSXReportBuilder:
     def ws_64(self, ws):
         """
         Cols: Topic
-        Rows: Country, about women
-        :: Show all countries
+        Rows: about women
         :: Internet media type only
         """
         r = 6
@@ -2103,18 +2102,17 @@ class XLSXReportBuilder:
 
         counts = Counter()
         model = sheet_models.get('Internet')
-        for code, country in self.countries:
-            rows = model.objects\
-                    .values('topic', 'about_women')\
-                    .filter(country=code)\
-                    .annotate(n=Count('id'))
+        
+        rows = model.objects\
+                .values('topic', 'about_women')\
+                .filter(country__in=self.country_list)\
+                .annotate(n=Count('id'))
 
-            rows = self.apply_weights(rows, model._meta.db_table, "Internet")
-            counts = {(row['topic'], row['about_women']): row['n'] for row in rows}
+        rows = self.apply_weights(rows, model._meta.db_table, "Internet")
+        for row in rows:
+            counts[row['topic'], row['about_women']] += row['n']
 
-            self.write_primary_row_heading(ws, country, r=r)
-            self.tabulate(ws, counts, [y for x in TOPICS for y in x[1]], YESNO, row_perc=True, write_col_headings=False, r=r)
-            r += len(YESNO)
+        self.tabulate(ws, counts,  [y for x in TOPICS for y in x[1]], YESNO, show_N=True)
 
     def ws_65(self, ws):
         """
