@@ -3236,19 +3236,139 @@ class XLSXReportBuilder:
             r += len(GENDER)
 
     def ws_107(self, ws):
-        return
-    
+        """
+        Cols: Medium 
+        Rows: SQ 1,2,3, Major topic
+        """
+        r = 6
+        self.write_col_headings(ws, MEDIA_TYPES)
+
+        for sq_field, sq in SPECIAL_QUESTIONS.items():
+            counts = Counter()
+            for media_type, model in person_models.items():
+                sheet_name = model.sheet_name()
+                rows = model.objects \
+                        .values(sq_field, f"{sheet_name}__topic") \
+                        .filter(**{f"{sheet_name}__country__in": self.country_list}) \
+                        .exclude(**{sq_field: ""}) \
+                        .annotate(n=Count("id"))
+
+                rows= self.apply_weights(rows, model.sheet_db_table(), media_type)
+
+                media_id = [id for id, name in MEDIA_TYPES if name == media_type][0]
+                counts.update({(media_id, TOPIC_GROUPS[r['topic']]): r['n'] for r in rows})
+
+            self.write_primary_row_heading(ws, sq, r=r)
+            self.tabulate(ws, counts, MEDIA_TYPES, MAJOR_TOPICS, row_perc=True, write_col_headings=False, r=r)
+            r += len(MAJOR_TOPICS)
+
     def ws_108(self, ws):
-        return
-    
+        """
+        Cols: People in the news, by sex 
+        Rows: SQ 1,2,3, Major topic
+        """
+        r = 6
+        self.write_col_headings(ws, GENDER)
+
+        gender_ids = [x[0] for x in GENDER]
+        for sq_field, sq in SPECIAL_QUESTIONS.items():
+            counts = Counter()
+            for media_type, model in person_models.items():
+                sheet_name = model.sheet_name()
+                rows = model.objects \
+                        .values(sq_field, "sex", f"{sheet_name}__topic") \
+                        .filter(**{f"{sheet_name}__country__in": self.country_list}) \
+                        .exclude(**{sq_field: ""}) \
+                        .filter(sex__in=gender_ids) \
+                        .annotate(n=Count("id"))
+
+                rows= self.apply_weights(rows, model.sheet_db_table(), media_type)
+
+                counts.update({(r["sex"], TOPIC_GROUPS[r['topic']]): r['n'] for r in rows})
+
+            self.write_primary_row_heading(ws, sq, r=r)
+            self.tabulate(ws, counts, GENDER, MAJOR_TOPICS, row_perc=True, write_col_headings=False, r=r)
+            r += len(MAJOR_TOPICS)
+
     def ws_109(self, ws):
-        return
-    
+        """
+        Cols: Reporters by sex
+        Rows: SQ 1,2,3, Major topic
+        """
+        r = 6
+        self.write_col_headings(ws, GENDER)
+
+        gender_ids = [x[0] for x in GENDER]
+        for sq_field, sq in SPECIAL_QUESTIONS.items():
+            counts = Counter()
+            for media_type, model in person_models.items():
+                sheet_name = model.sheet_name()
+                journalist_field_name = model._meta.get_field(model.sheet_name()).remote_field.model.journalist_field_name()
+                rows = model.objects \
+                        .values(sq_field, f"{sheet_name}__{journalist_field_name}__sex", f"{sheet_name}__topic") \
+                        .filter(**{f"{sheet_name}__country__in": self.country_list}) \
+                        .exclude(**{sq_field: ""}) \
+                        .filter(**{f"{sheet_name}__{journalist_field_name}__sex__in": gender_ids}) \
+                        .annotate(n=Count("id"))
+                        
+                rows= self.apply_weights(rows, model.sheet_db_table(), media_type)
+                counts.update({(r["sex"], TOPIC_GROUPS[r['topic']]): r['n'] for r in rows})
+
+            self.write_primary_row_heading(ws, sq, r=r)
+            self.tabulate(ws, counts, GENDER, MAJOR_TOPICS, row_perc=True, write_col_headings=False, r=r)
+            r += len(MAJOR_TOPICS)
+
     def ws_110(self, ws):
-        return
+        """
+        Cols: Rights 
+        Rows: SQ 1,2,3, Major topic
+        """
+        r = 6
+        self.write_col_headings(ws, YESNO)
+
+        for sq_field, sq in SPECIAL_QUESTIONS.items():
+            counts = Counter()
+            for media_type, model in person_models.items():
+                sheet_name = model.sheet_name()
+                rows = model.objects \
+                        .values(sq_field, f"{sheet_name}__equality_rights", f"{sheet_name}__topic") \
+                        .filter(**{f"{sheet_name}__country__in": self.country_list}) \
+                        .exclude(**{sq_field: ""}) \
+                        .annotate(n=Count("id"))
+
+                rows= self.apply_weights(rows, model.sheet_db_table(), media_type)
+
+                counts.update({(r["equality_rights"], TOPIC_GROUPS[r['topic']]): r['n'] for r in rows})
+
+            self.write_primary_row_heading(ws, sq, r=r)
+            self.tabulate(ws, counts, YESNO, MAJOR_TOPICS, row_perc=True, write_col_headings=False, r=r)
+            r += len(MAJOR_TOPICS)
 
     def ws_111(self, ws):
-        return
+        """
+        Cols: Gender stereotypes
+        Rows: SQ 1,2,3, Major topic
+        """
+        r = 6
+        self.write_col_headings(ws, AGREE_DISAGREE)
+
+        for sq_field, sq in SPECIAL_QUESTIONS.items():
+            counts = Counter()
+            for media_type, model in person_models.items():
+                sheet_name = model.sheet_name()
+                rows = model.objects \
+                        .values(sq_field, f"{sheet_name}__stereotypes", f"{sheet_name}__topic") \
+                        .filter(**{f"{sheet_name}__country__in": self.country_list}) \
+                        .exclude(**{sq_field: ""}) \
+                        .annotate(n=Count("id"))
+
+                rows= self.apply_weights(rows, model.sheet_db_table(), media_type)
+
+                counts.update({(r["stereotypes"], TOPIC_GROUPS[r['topic']]): r['n'] for r in rows})
+
+            self.write_primary_row_heading(ws, sq, r=r)
+            self.tabulate(ws, counts, AGREE_DISAGREE, MAJOR_TOPICS, row_perc=True, write_col_headings=False, r=r)
+            r += len(MAJOR_TOPICS)
 
     def ws_s01(self, ws):
         """
