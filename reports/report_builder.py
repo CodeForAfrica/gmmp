@@ -1343,6 +1343,9 @@ class XLSXReportBuilder:
         secondary_counts = OrderedDict()
 
         for media_type, model in journalist_models.items():
+            if media_type == 'Twitter':
+                # Skip twitter reporters
+                continue
             counts = Counter()
             sheet_name = model.sheet_name()
             topic =  sheet_name + '__topic'
