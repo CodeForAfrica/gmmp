@@ -21,7 +21,7 @@ from forms.models import (
     dm_person_models, dm_sheet_models, dm_journalist_models, all_models,
     broadcast_journalist_models)
 from forms.modelutils import (TOPICS, GENDER, SPACE, OCCUPATION, FUNCTION, SCOPE,
-    YESNO, AGES, SOURCE, VICTIM_OF, SURVIVOR_OF, IS_PHOTOGRAPH, AGREE_DISAGREE,
+    YESNO, AGES, AGES_PEOPLE_IN_THE_NEWS, SOURCE, VICTIM_OF, SURVIVOR_OF, IS_PHOTOGRAPH, AGREE_DISAGREE,
     RETWEET, TV_ROLE, MEDIA_TYPES, TM_MEDIA_TYPES, DM_MEDIA_TYPES, CountryRegion,
     TV_ROLE_ANNOUNCER, TV_ROLE_REPORTER, REPORTERS)
 from .report_details import *  # noqa
@@ -956,7 +956,7 @@ class XLSXReportBuilder:
 
         rows = self.apply_weights(rows, NewspaperPerson.sheet_db_table(), 'Print')
         counts.update({(r['sex'], r['age']): r['n'] for r in rows})
-        self.tabulate(ws, counts, self.male_female, AGES, row_perc=True)
+        self.tabulate(ws, counts, self.male_female, AGES_PEOPLE_IN_THE_NEWS, row_perc=True)
 
         self.tabulate_historical(ws, '18', self.male_female, AGES, write_row_headings=False)
 
