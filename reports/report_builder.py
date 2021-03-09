@@ -1941,8 +1941,7 @@ class XLSXReportBuilder:
                 .annotate(n=Count('id'))
 
         rows = self.apply_weights(rows, model.sheet_db_table(), "Internet")
-        for d in rows:
-           counts[d['sex'], d['family_role']] += d['n']
+        {counts.update({(row['sex'], row['family_role']): row['n']}) for row in rows}
         self.tabulate(ws, counts, GENDER, YESNO, show_N=True)
 
     def ws_58(self, ws):
@@ -2147,8 +2146,7 @@ class XLSXReportBuilder:
                 .annotate(n=Count('id'))
 
         rows = self.apply_weights(rows, model._meta.db_table, "Twitter")
-        counts.update({(TOPIC_GROUPS[row['topic']], self.recode_country(row['country'])): row['n'] for row in rows})
-
+        {counts.update({(TOPIC_GROUPS[row['topic']], self.recode_country(row['country'])): row['n'] })for row in rows}
         self.tabulate(ws, counts, MAJOR_TOPICS, self.countries, row_perc=True)
 
     def ws_68(self, ws):
@@ -2171,8 +2169,7 @@ class XLSXReportBuilder:
 
             rows = self.apply_weights(rows, model._meta.db_table, "Twitter")
 
-            counts = {(TOPIC_GROUPS[row['topic']], row['about_women']): row['n'] for row in rows}
-
+            {counts.update({(TOPIC_GROUPS[row['topic']], row['about_women']): row['n']}) for row in rows}
             self.write_primary_row_heading(ws, country, r=r)
             self.tabulate(ws, counts, MAJOR_TOPICS, YESNO, row_perc=False, write_col_headings=False, r=r)
             r += len(YESNO)
@@ -2196,8 +2193,7 @@ class XLSXReportBuilder:
                     .annotate(n=Count('id'))
 
             rows = self.apply_weights(rows, model._meta.db_table, "Twitter")
-            counts = {(TOPIC_GROUPS[row['topic']], row['stereotypes']): row['n'] for row in rows}
-
+            {counts.update({(TOPIC_GROUPS[row['topic']], row['stereotypes']): row['n']}) for row in rows}
             self.write_primary_row_heading(ws, country, r=r)
             self.tabulate(ws, counts, MAJOR_TOPICS, AGREE_DISAGREE, row_perc=True, write_col_headings=False, r=r)
             r += len(AGREE_DISAGREE)
