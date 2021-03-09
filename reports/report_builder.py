@@ -4226,10 +4226,46 @@ class XLSXReportBuilder:
             c = ws.dim_colmax + 2
     
     def ws_s28(self, ws):
-        return
-    
+        """
+        Cols: Sex of subject
+        Rows: Country
+        """
+        counts = Counter()
+        for _, model in person_models.items():
+            sheet_name = model.sheet_name()
+            country_field = f"{sheet_name}__country"
+            rows = model.objects \
+                    .values('sex', country_field) \
+                    .filter(**{f"{sheet_name}__covid19": 1}) \
+                    .filter(**{f"{country_field}__in": self.country_list}) \
+                    .filter(sex__in=self.male_female_ids) \
+                    .annotate(n=Count('id'))
+
+            for row in rows:
+                counts.update({(row['sex'], self.recode_country(row[country_field])): row['n']})
+
+        self.tabulate(ws, counts, self.male_female, self.countries, row_perc=True, show_N=True)
+
     def ws_s29(self, ws):
-        return
+        """
+        Cols: Sex of reporter
+        Rows: Country
+        """
+        counts = Counter()
+        for _, model in journalist_models.items():
+            sheet_name = model.sheet_name()
+            country_field = f"{sheet_name}__country"
+            rows = model.objects \
+                    .values('sex', country_field) \
+                    .filter(**{f"{sheet_name}__covid19": 1}) \
+                    .filter(**{f"{country_field}__in": self.country_list}) \
+                    .filter(sex__in=self.male_female_ids) \
+                    .annotate(n=Count('id'))
+
+            for row in rows:
+                counts.update({(row['sex'], self.recode_country(row[country_field])): row['n']})
+
+        self.tabulate(ws, counts, self.male_female, self.countries, row_perc=True, show_N=True)
 
     def ws_sr01(self, ws):
         """
