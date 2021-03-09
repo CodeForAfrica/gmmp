@@ -2007,128 +2007,97 @@ class XLSXReportBuilder:
     def ws_61(self, ws):
         """
         Cols: Sex of subject
-        Rows: Country, is_quoted
-        :: Show all countries
+        Rows: is_quoted
         :: Internet media type only
         """
-        r = 6
-        self.write_col_headings(ws, GENDER)
-
         counts = Counter()
         model = person_models.get('Internet')
-        for code, country in self.countries:
-            rows = model.objects\
-                    .values('sex', 'is_quoted')\
-                    .filter(**{model.sheet_name() + '__country':code})\
-                    .annotate(n=Count('id'))
+        
+        rows = model.objects\
+                .values('sex', 'is_quoted')\
+                .filter(**{model.sheet_name() + "__country__in": self.country_list}) \
+                .annotate(n=Count('id'))
 
-            rows = self.apply_weights(rows, model.sheet_db_table(), "Internet")
-            counts = {(row['sex'], row['is_quoted']): row['n'] for row in rows}
+        rows = self.apply_weights(rows, model.sheet_db_table(), "Internet")
+        {counts.update({(row['sex'], row['is_quoted']): row['n']}) for row in rows}
 
-            self.write_primary_row_heading(ws, country, r=r)
-            self.tabulate(ws, counts, GENDER, YESNO, row_perc=True, write_col_headings=False, r=r)
-            r += len(YESNO)
+        self.tabulate(ws, counts, GENDER, YESNO, show_N=True)
 
     def ws_62(self, ws):
         """
         Cols: Topic
-        Rows: Country, equality raised
-        :: Show all countries
+        Rows: equality raised
         :: Internet media type only
         """
-        r = 6
-        self.write_col_headings(ws, [y for x in TOPICS for y in x[1]])
-
         counts = Counter()
         model = sheet_models.get('Internet')
-        for code, country in self.countries:
-            rows = model.objects\
-                    .values('topic', 'equality_rights')\
-                    .filter(country=code)\
-                    .annotate(n=Count('id'))
+        rows = model.objects\
+                .values('topic', 'equality_rights')\
+                .filter(country__in=self.country_list)\
+                .annotate(n=Count('id'))
 
-            rows = self.apply_weights(rows, model._meta.db_table, "Internet")
-            counts = {(row['topic'], row['equality_rights']): row['n'] for row in rows}
-
-            self.write_primary_row_heading(ws, country, r=r)
-            self.tabulate(ws, counts, [y for x in TOPICS for y in x[1]], YESNO, row_perc=True, write_col_headings=False, r=r)
-            r += len(YESNO)
+        rows = self.apply_weights(rows, model._meta.db_table, "Internet")
+        {counts.update({(TOPIC_GROUPS[row["topic"]], row["equality_rights"]): row['n']}) for row in rows}
+        self.tabulate(ws, counts,  MAJOR_TOPICS, YESNO, show_N=True)
 
     def ws_63(self, ws):
         """
         Cols: Topic
-        Rows: Country, stereotypes challenged
-        :: Show all countries
+        Rows: stereotypes challenged
         :: Internet media type only
         """
-        r = 6
-        self.write_col_headings(ws, [y for x in TOPICS for y in x[1]])
-
         counts = Counter()
         model = sheet_models.get('Internet')
-        for code, country in self.countries:
-            rows = model.objects\
-                    .values('topic', 'stereotypes')\
-                    .filter(country=code)\
-                    .annotate(n=Count('id'))
+        
+        rows = model.objects\
+                .values('topic', 'stereotypes')\
+                .filter(country__in=self.country_list)\
+                .annotate(n=Count('id'))
 
-            rows = self.apply_weights(rows, model._meta.db_table, "Internet")
-            counts = {(row['topic'], row['stereotypes']): row['n'] for row in rows}
+        rows = self.apply_weights(rows, model._meta.db_table, "Internet")
 
-            self.write_primary_row_heading(ws, country, r=r)
-            self.tabulate(ws, counts, [y for x in TOPICS for y in x[1]], AGREE_DISAGREE, row_perc=True, write_col_headings=False, r=r)
-            r += len(AGREE_DISAGREE)
+        {counts.update({(TOPIC_GROUPS[row["topic"]], row["stereotypes"]): row['n']}) for row in rows}
+
+        self.tabulate(ws, counts,  MAJOR_TOPICS, AGREE_DISAGREE, show_N=True)
 
     def ws_64(self, ws):
         """
         Cols: Topic
-        Rows: Country, about women
-        :: Show all countries
+        Rows: about women
         :: Internet media type only
         """
-        r = 6
-        self.write_col_headings(ws, [y for x in TOPICS for y in x[1]])
-
         counts = Counter()
         model = sheet_models.get('Internet')
-        for code, country in self.countries:
-            rows = model.objects\
-                    .values('topic', 'about_women')\
-                    .filter(country=code)\
-                    .annotate(n=Count('id'))
+        
+        rows = model.objects\
+                .values('topic', 'about_women')\
+                .filter(country__in=self.country_list)\
+                .annotate(n=Count('id'))
 
-            rows = self.apply_weights(rows, model._meta.db_table, "Internet")
-            counts = {(row['topic'], row['about_women']): row['n'] for row in rows}
+        rows = self.apply_weights(rows, model._meta.db_table, "Internet")
+        {counts.update({(TOPIC_GROUPS[row["topic"]], row["about_women"]): row['n']}) for row in rows}
 
-            self.write_primary_row_heading(ws, country, r=r)
-            self.tabulate(ws, counts, [y for x in TOPICS for y in x[1]], YESNO, row_perc=True, write_col_headings=False, r=r)
-            r += len(YESNO)
+        self.tabulate(ws, counts, MAJOR_TOPICS, YESNO, show_N=True)
 
     def ws_65(self, ws):
         """
         Cols: Major Topic
-        Rows: Country, tweet or retweet
-        :: Show all countries
+        Rows: tweet or retweet
         :: Twitter media type only
         """
-        r = 6
-        self.write_col_headings(ws, MAJOR_TOPICS)
-
         counts = Counter()
         model = sheet_models.get('Twitter')
-        for code, country in self.countries:
-            rows = model.objects\
-                    .values('topic', 'retweet')\
-                    .filter(country=code)\
-                    .annotate(n=Count('id'))
 
-            rows = self.apply_weights(rows, model._meta.db_table, "Twitter")
+        rows = model.objects\
+                .values('topic', 'retweet')\
+                .filter(country__in=self.country_list)\
+                .annotate(n=Count('id'))
 
-            counts = {(TOPIC_GROUPS[row['topic']], row['retweet']): row['n'] for row in rows}
+        rows = self.apply_weights(rows, model._meta.db_table, "Twitter")
 
-            self.write_primary_row_heading(ws, country, r=r)
-            self.tabulate(ws, counts, MAJOR_TOPICS, RETWEET, row_perc=False, write_col_headings=False, r=r)
-            r += len(RETWEET)
+        {counts.update({(TOPIC_GROUPS[row["topic"]], row["retweet"]): row['n']}) for row in rows}
+
+        self.tabulate(ws, counts,  MAJOR_TOPICS, RETWEET, show_N=True)
 
     def ws_66(self, ws):
         """
