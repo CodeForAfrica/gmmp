@@ -2028,9 +2028,6 @@ class XLSXReportBuilder:
         Rows: is_quoted
         :: Internet media type only
         """
-        r = 6
-        self.write_col_headings(ws, GENDER)
-
         counts = Counter()
         model = person_models.get('Internet')
         
@@ -2051,9 +2048,6 @@ class XLSXReportBuilder:
         Rows: equality raised
         :: Internet media type only
         """
-        r = 6
-        self.write_col_headings(ws, [y for x in TOPICS for y in x[1]])
-
         counts = Counter()
         model = sheet_models.get('Internet')
         rows = model.objects\
@@ -2063,9 +2057,8 @@ class XLSXReportBuilder:
 
         rows = self.apply_weights(rows, model._meta.db_table, "Internet")
         for row in rows:
-            counts[row['topic'], row['equality_rights']] += row['n']
-        
-        self.tabulate(ws, counts,  [y for x in TOPICS for y in x[1]], YESNO, show_N=True)
+            counts[TOPIC_GROUPS[row['topic']], row['equality_rights']] += row['n']
+        self.tabulate(ws, counts,  MAJOR_TOPICS, YESNO, show_N=True)
 
     def ws_63(self, ws):
         """
@@ -2073,9 +2066,6 @@ class XLSXReportBuilder:
         Rows: stereotypes challenged
         :: Internet media type only
         """
-        r = 6
-        self.write_col_headings(ws, [y for x in TOPICS for y in x[1]])
-
         counts = Counter()
         model = sheet_models.get('Internet')
         
@@ -2087,9 +2077,9 @@ class XLSXReportBuilder:
         rows = self.apply_weights(rows, model._meta.db_table, "Internet")
 
         for row in rows:
-            counts[row['topic'], row['stereotypes']] += row['n']
+            counts[TOPIC_GROUPS[row['topic']], row['stereotypes']] += row['n']
 
-        self.tabulate(ws, counts,  [y for x in TOPICS for y in x[1]], AGREE_DISAGREE, show_N=True)
+        self.tabulate(ws, counts,  MAJOR_TOPICS, AGREE_DISAGREE, show_N=True)
 
     def ws_64(self, ws):
         """
@@ -2097,9 +2087,6 @@ class XLSXReportBuilder:
         Rows: about women
         :: Internet media type only
         """
-        r = 6
-        self.write_col_headings(ws, [y for x in TOPICS for y in x[1]])
-
         counts = Counter()
         model = sheet_models.get('Internet')
         
@@ -2110,9 +2097,9 @@ class XLSXReportBuilder:
 
         rows = self.apply_weights(rows, model._meta.db_table, "Internet")
         for row in rows:
-            counts[row['topic'], row['about_women']] += row['n']
+            counts[TOPIC_GROUPS[row['topic']], row['about_women']] += row['n']
 
-        self.tabulate(ws, counts,  [y for x in TOPICS for y in x[1]], YESNO, show_N=True)
+        self.tabulate(ws, counts, MAJOR_TOPICS, YESNO, show_N=True)
 
     def ws_65(self, ws):
         """
@@ -2120,9 +2107,6 @@ class XLSXReportBuilder:
         Rows: tweet or retweet
         :: Twitter media type only
         """
-        r = 6
-        self.write_col_headings(ws, MAJOR_TOPICS)
-
         counts = Counter()
         model = sheet_models.get('Twitter')
 
@@ -2134,7 +2118,7 @@ class XLSXReportBuilder:
         rows = self.apply_weights(rows, model._meta.db_table, "Twitter")
 
         for row in rows:
-            counts[row['topic'], row['retweet']] += row['n']
+            counts[TOPIC_GROUPS[row['topic']], row['retweet']] += row['n']
 
         self.tabulate(ws, counts,  MAJOR_TOPICS, RETWEET, show_N=True)
 
