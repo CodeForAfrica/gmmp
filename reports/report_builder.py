@@ -599,6 +599,7 @@ class XLSXReportBuilder:
                     rows = model.objects\
                             .values('topic')\
                             .filter(country_region__region=region)\
+                            .filter(country__in=self.country_list)\
                             .annotate(n=Count('id'))
 
                     rows = self.apply_weights(rows, model._meta.db_table, media_type)
@@ -608,7 +609,11 @@ class XLSXReportBuilder:
                         media_id = [media[0] for media in media_types if media[1] == media_type][0]
                         major_topic = TOPIC_GROUPS[r['topic']]
                         counts.update({(media_id, major_topic): r['n']})
-                secondary_counts[region] = counts
+                if self.report_type == 'country':
+                    # we are showing a single country data so use the contry name for the column name
+                    secondary_counts[self.countries[0][1]] = counts
+                else:
+                    secondary_counts[region] = counts
             counts_list.append(secondary_counts)
 
         self.tabulate_secondary_cols(ws, counts_list[0], TM_MEDIA_TYPES, MAJOR_TOPICS, row_perc=False, show_N=True)
