@@ -2037,8 +2037,7 @@ class XLSXReportBuilder:
                 .annotate(n=Count('id'))
 
         rows = self.apply_weights(rows, model.sheet_db_table(), "Internet")
-        for row in rows:
-            counts[row['sex'], row['is_quoted']] += row['n']
+        {counts.update({(row['sex'], row['is_quoted']): row['n']}) for row in rows}
 
         self.tabulate(ws, counts, GENDER, YESNO, show_N=True)
 
@@ -2056,8 +2055,7 @@ class XLSXReportBuilder:
                 .annotate(n=Count('id'))
 
         rows = self.apply_weights(rows, model._meta.db_table, "Internet")
-        for row in rows:
-            counts[TOPIC_GROUPS[row['topic']], row['equality_rights']] += row['n']
+        {counts.update({(TOPIC_GROUPS[row["topic"]], row["equality_rights"]): row['n']}) for row in rows}
         self.tabulate(ws, counts,  MAJOR_TOPICS, YESNO, show_N=True)
 
     def ws_63(self, ws):
@@ -2076,8 +2074,7 @@ class XLSXReportBuilder:
 
         rows = self.apply_weights(rows, model._meta.db_table, "Internet")
 
-        for row in rows:
-            counts[TOPIC_GROUPS[row['topic']], row['stereotypes']] += row['n']
+        {counts.update({(TOPIC_GROUPS[row["topic"]], row["stereotypes"]): row['n']}) for row in rows}
 
         self.tabulate(ws, counts,  MAJOR_TOPICS, AGREE_DISAGREE, show_N=True)
 
@@ -2096,8 +2093,7 @@ class XLSXReportBuilder:
                 .annotate(n=Count('id'))
 
         rows = self.apply_weights(rows, model._meta.db_table, "Internet")
-        for row in rows:
-            counts[TOPIC_GROUPS[row['topic']], row['about_women']] += row['n']
+        {counts.update({(TOPIC_GROUPS[row["topic"]], row["about_women"]): row['n']}) for row in rows}
 
         self.tabulate(ws, counts, MAJOR_TOPICS, YESNO, show_N=True)
 
@@ -2117,8 +2113,7 @@ class XLSXReportBuilder:
 
         rows = self.apply_weights(rows, model._meta.db_table, "Twitter")
 
-        for row in rows:
-            counts[TOPIC_GROUPS[row['topic']], row['retweet']] += row['n']
+        {counts.update({(TOPIC_GROUPS[row["topic"]], row["retweet"]): row['n']}) for row in rows}
 
         self.tabulate(ws, counts,  MAJOR_TOPICS, RETWEET, show_N=True)
 
