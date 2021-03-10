@@ -2178,10 +2178,10 @@ REGION_COUNTRY_MAP = {
         'ME', 'NL', 'NO', 'PL', 'PT', 'RO', 'RS', 'SK', 'SI', 'ES', 'SE', 'CH',
         'TR', 'GB', 'QM', 'QN', 'WL', 'SQ', 'EN', 'CY', 'RU', 'GL'],
     'Latin America': [
-        'AR', 'BO', 'BR', 'CL', 'CO', 'CR', 'EC', 'SV', 'GT', 'MX', 'NI', 'PY',
-        'PE', 'UY', 'VE'],
+        'AR', 'BO', 'BR', 'CL', 'CO', 'CR', 'EC', 'GT', 'HN', 'MX', 'NI', 'PE',
+        'PY', 'SV', 'UY', 'VE'],
     'Middle East': [
-        'EG', 'IL', 'LB', 'MA', 'PS', 'TN', 'JO'],
+        'EG', 'IL', 'IQ', 'LB', 'MA', 'PS', 'TN', 'JO'],
     'North America': [
         'CA', 'US'],
     'Pacific Islands': [

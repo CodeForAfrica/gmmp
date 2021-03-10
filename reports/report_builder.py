@@ -3114,9 +3114,14 @@ class XLSXReportBuilder:
         Rows: Major topic, covid stories only, Sex of source
         """
         r = 6
-        self.write_col_headings(ws, FUNCTION)
+        c = 2
+        for _, col_heading in FUNCTION:
+            ws.merge_range(r-2, c, r-2, c+1, clean_title(col_heading), self.col_heading)
+            ws.write(r - 1, c, "%")
+            ws.write(r - 1, c + 1, "N")
+            c += 2
+            
         gender_ids = [x[0] for x in GENDER]
-
         for major_topic, topic_ids in GROUP_TOPICS_MAP.items():
             counts = Counter()
             for media_type, model in person_models.items():
@@ -3135,7 +3140,7 @@ class XLSXReportBuilder:
             counts.update({(r["function"], r["sex"]): r["n"] for r in rows})
             major_topic_name = [mt[1] for mt in MAJOR_TOPICS if mt[0] == int(major_topic)][0]
             self.write_primary_row_heading(ws, major_topic_name, r=r)
-            self.tabulate(ws, counts, FUNCTION, GENDER, row_perc=True, write_col_headings=False, r=r)
+            self.tabulate(ws, counts, FUNCTION, GENDER, write_col_headings=False, write_col_totals=False, r=r, show_N=True)
             r += len(GENDER)    
 
     def ws_105(self, ws):
@@ -3144,9 +3149,14 @@ class XLSXReportBuilder:
         Rows: Major topic, covid stories only, Sex of source
         """
         r = 6
-        self.write_col_headings(ws, SURVIVOR_OF)
+        c = 2
+        for _, col_heading in SURVIVOR_OF:
+            ws.merge_range(r-2, c, r-2, c+1, clean_title(col_heading), self.col_heading)
+            ws.write(r - 1, c, "%")
+            ws.write(r - 1, c + 1, "N")
+            c += 2
+            
         gender_ids = [x[0] for x in GENDER]
-
         for major_topic, topic_ids in GROUP_TOPICS_MAP.items():
             counts = Counter()
             for media_type, model in person_models.items():
@@ -3165,7 +3175,7 @@ class XLSXReportBuilder:
             counts.update({(r["survivor_of"], r["sex"]): r["n"] for r in rows})
             major_topic_name = [mt[1] for mt in MAJOR_TOPICS if mt[0] == int(major_topic)][0]
             self.write_primary_row_heading(ws, major_topic_name, r=r)
-            self.tabulate(ws, counts, SURVIVOR_OF, GENDER, row_perc=True, write_col_headings=False, r=r)
+            self.tabulate(ws, counts, SURVIVOR_OF, GENDER, write_col_headings=False, write_col_totals=False, r=r, show_N=True)
             r += len(GENDER)
 
     def ws_106(self, ws):
@@ -3174,9 +3184,14 @@ class XLSXReportBuilder:
         Rows: Major topic, covid stories only, Sex of source
         """
         r = 6
-        self.write_col_headings(ws, OCCUPATION)
+        c = 2
+        for _, col_heading in OCCUPATION:
+            ws.merge_range(r-2, c, r-2, c+1, clean_title(col_heading), self.col_heading)
+            ws.write(r - 1, c, "%")
+            ws.write(r - 1, c + 1, "N")
+            c +=2
+            
         gender_ids = [x[0] for x in GENDER]
-
         for major_topic, topic_ids in GROUP_TOPICS_MAP.items():
             counts = Counter()
             for media_type, model in person_models.items():
@@ -3194,7 +3209,7 @@ class XLSXReportBuilder:
             counts.update({(r["occupation"], r["sex"]): r["n"] for r in rows})
             major_topic_name = [mt[1] for mt in MAJOR_TOPICS if mt[0] == int(major_topic)][0]
             self.write_primary_row_heading(ws, major_topic_name, r=r)
-            self.tabulate(ws, counts, OCCUPATION, GENDER, row_perc=True, write_col_headings=False, r=r)
+            self.tabulate(ws, counts, OCCUPATION, GENDER, write_col_headings=False, write_col_totals=False, r=r, show_N=True)
             r += len(GENDER)
 
     def ws_107(self, ws):
