@@ -3329,7 +3329,7 @@ class XLSXReportBuilder:
 
                 rows= self.apply_weights(rows, model.sheet_db_table(), media_type)
 
-                counts.update({(r["stereotypes"], TOPIC_GROUPS[r['topic']]): r['n'] for r in rows})
+                {counts.update({(r["stereotypes"], TOPIC_GROUPS[r['topic']]): r['n']}) for r in rows}
 
             self.write_primary_row_heading(ws, sq, r=r)
             self.tabulate(ws, counts, AGREE_DISAGREE, MAJOR_TOPICS, row_perc=True, write_col_headings=False, r=r)
