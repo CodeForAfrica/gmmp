@@ -1938,8 +1938,7 @@ class XLSXReportBuilder:
                 .annotate(n=Count('id'))
 
         rows = self.apply_weights(rows, model.sheet_db_table(), "Internet")
-        for d in rows:
-           counts[d['sex'], d['family_role']] += d['n']
+        {counts.update({(row['sex'], row['family_role']): row['n']}) for row in rows}
         self.tabulate(ws, counts, GENDER, YESNO, show_N=True)
 
     def ws_58(self, ws):
@@ -2144,8 +2143,7 @@ class XLSXReportBuilder:
                 .annotate(n=Count('id'))
 
         rows = self.apply_weights(rows, model._meta.db_table, "Twitter")
-        counts.update({(TOPIC_GROUPS[row['topic']], self.recode_country(row['country'])): row['n'] for row in rows})
-
+        {counts.update({(TOPIC_GROUPS[row['topic']], self.recode_country(row['country'])): row['n'] })for row in rows}
         self.tabulate(ws, counts, MAJOR_TOPICS, self.countries, row_perc=True)
 
     def ws_68(self, ws):
@@ -2168,8 +2166,7 @@ class XLSXReportBuilder:
 
             rows = self.apply_weights(rows, model._meta.db_table, "Twitter")
 
-            counts = {(TOPIC_GROUPS[row['topic']], row['about_women']): row['n'] for row in rows}
-
+            {counts.update({(TOPIC_GROUPS[row['topic']], row['about_women']): row['n']}) for row in rows}
             self.write_primary_row_heading(ws, country, r=r)
             self.tabulate(ws, counts, MAJOR_TOPICS, YESNO, row_perc=False, write_col_headings=False, r=r)
             r += len(YESNO)
@@ -2181,23 +2178,17 @@ class XLSXReportBuilder:
         :: Show all countries
         :: Twitter media type only
         """
-        r = 6
-        self.write_col_headings(ws, MAJOR_TOPICS)
-
         counts = Counter()
         model = sheet_models.get('Twitter')
-        for code, country in self.countries:
-            rows = model.objects\
-                    .values('topic', 'stereotypes')\
-                    .filter(country=code)\
-                    .annotate(n=Count('id'))
+        rows = model.objects\
+                .values('topic', 'stereotypes')\
+                .filter(country__in=self.country_list)\
+                .annotate(n=Count('id'))
 
-            rows = self.apply_weights(rows, model._meta.db_table, "Twitter")
-            counts = {(TOPIC_GROUPS[row['topic']], row['stereotypes']): row['n'] for row in rows}
+        rows = self.apply_weights(rows, model._meta.db_table, "Twitter")
+        {counts.update({(TOPIC_GROUPS[row["topic"]], row["stereotypes"]): row['n']}) for row in rows}
 
-            self.write_primary_row_heading(ws, country, r=r)
-            self.tabulate(ws, counts, MAJOR_TOPICS, AGREE_DISAGREE, row_perc=True, write_col_headings=False, r=r)
-            r += len(AGREE_DISAGREE)
+        self.tabulate(ws, counts, MAJOR_TOPICS, AGREE_DISAGREE, row_perc=True, write_col_headings=False)
 
     def ws_70(self, ws):
         ws.write(4, 0, 'See raw data sheets')
@@ -3227,7 +3218,7 @@ class XLSXReportBuilder:
                 rows= self.apply_weights(rows, model.sheet_db_table(), media_type)
 
                 media_id = [id for id, name in MEDIA_TYPES if name == media_type][0]
-                counts.update({(media_id, TOPIC_GROUPS[r['topic']]): r['n'] for r in rows})
+                {counts.update({(media_id, TOPIC_GROUPS[r['topic']]): r['n']}) for r in rows}
 
             self.write_primary_row_heading(ws, sq, r=r)
             self.tabulate(ws, counts, MEDIA_TYPES, MAJOR_TOPICS, row_perc=True, write_col_headings=False, r=r)
@@ -3255,7 +3246,7 @@ class XLSXReportBuilder:
 
                 rows= self.apply_weights(rows, model.sheet_db_table(), media_type)
 
-                counts.update({(r["sex"], TOPIC_GROUPS[r['topic']]): r['n'] for r in rows})
+                {counts.update({(r["sex"], TOPIC_GROUPS[r['topic']]): r['n']}) for r in rows}
 
             self.write_primary_row_heading(ws, sq, r=r)
             self.tabulate(ws, counts, GENDER, MAJOR_TOPICS, row_perc=True, write_col_headings=False, r=r)
@@ -3283,7 +3274,7 @@ class XLSXReportBuilder:
                         .annotate(n=Count("id"))
                         
                 rows= self.apply_weights(rows, model.sheet_db_table(), media_type)
-                counts.update({(r["sex"], TOPIC_GROUPS[r['topic']]): r['n'] for r in rows})
+                {counts.update({(r["sex"], TOPIC_GROUPS[r['topic']]): r['n']}) for r in rows}
 
             self.write_primary_row_heading(ws, sq, r=r)
             self.tabulate(ws, counts, GENDER, MAJOR_TOPICS, row_perc=True, write_col_headings=False, r=r)
@@ -3309,7 +3300,7 @@ class XLSXReportBuilder:
 
                 rows= self.apply_weights(rows, model.sheet_db_table(), media_type)
 
-                counts.update({(r["equality_rights"], TOPIC_GROUPS[r['topic']]): r['n'] for r in rows})
+                {counts.update({(r["equality_rights"], TOPIC_GROUPS[r['topic']]): r['n']}) for r in rows}
 
             self.write_primary_row_heading(ws, sq, r=r)
             self.tabulate(ws, counts, YESNO, MAJOR_TOPICS, row_perc=True, write_col_headings=False, r=r)
@@ -3335,7 +3326,7 @@ class XLSXReportBuilder:
 
                 rows= self.apply_weights(rows, model.sheet_db_table(), media_type)
 
-                counts.update({(r["stereotypes"], TOPIC_GROUPS[r['topic']]): r['n'] for r in rows})
+                {counts.update({(r["stereotypes"], TOPIC_GROUPS[r['topic']]): r['n']}) for r in rows}
 
             self.write_primary_row_heading(ws, sq, r=r)
             self.tabulate(ws, counts, AGREE_DISAGREE, MAJOR_TOPICS, row_perc=True, write_col_headings=False, r=r)
