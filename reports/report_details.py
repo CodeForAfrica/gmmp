@@ -2170,8 +2170,8 @@ REGION_COUNTRY_MAP = {
         'AF', 'BD', 'BT', 'CN', 'IN', 'ID', 'JP', 'KG', 'MY', 'MN', 'NP', 'PK', 'PH',
         'KR', 'TW', 'VU', 'VN', 'MO', 'HK', 'MM', 'KH'],
     'Caribbean': [
-        'AG', 'BS', 'BB', 'BZ', 'CU', 'DO', 'GD', 'GY', 'HT', 'JM', 'LC', 'VC',
-        'SR', 'TT', 'PR'],
+        'AG', 'BS', 'BB', 'BZ', 'CU', 'DO', 'DM', 'GD', 'GY', 'HT', 'JM', 'KY',
+        'LC', 'VC', 'SR', 'TT', 'PR'],
     'Europe': [
         'AL', 'AM', 'AT', 'BY', 'BE', 'BA', 'BG', 'HR', 'DK', 'EE', 'FI', 'FR',
         'GE', 'DE', 'GR', 'HU', 'IS', 'IE', 'IT', 'KZ', 'LU', 'MK', 'MT', 'MD',
