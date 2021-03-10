@@ -2181,22 +2181,17 @@ class XLSXReportBuilder:
         :: Show all countries
         :: Twitter media type only
         """
-        r = 6
-        self.write_col_headings(ws, MAJOR_TOPICS)
-
         counts = Counter()
         model = sheet_models.get('Twitter')
-        for code, country in self.countries:
-            rows = model.objects\
-                    .values('topic', 'stereotypes')\
-                    .filter(country=code)\
-                    .annotate(n=Count('id'))
+        rows = model.objects\
+                .values('topic', 'stereotypes')\
+                .filter(country__in=self.country_list)\
+                .annotate(n=Count('id'))
 
-            rows = self.apply_weights(rows, model._meta.db_table, "Twitter")
-            {counts.update({(TOPIC_GROUPS[row['topic']], row['stereotypes']): row['n']}) for row in rows}
-            self.write_primary_row_heading(ws, country, r=r)
-            self.tabulate(ws, counts, MAJOR_TOPICS, AGREE_DISAGREE, row_perc=True, write_col_headings=False, r=r)
-            r += len(AGREE_DISAGREE)
+        rows = self.apply_weights(rows, model._meta.db_table, "Twitter")
+        {counts.update({(TOPIC_GROUPS[row["topic"]], row["stereotypes"]): row['n']}) for row in rows}
+
+        self.tabulate(ws, counts, MAJOR_TOPICS, AGREE_DISAGREE, row_perc=True, write_col_headings=False)
 
     def ws_70(self, ws):
         ws.write(4, 0, 'See raw data sheets')
