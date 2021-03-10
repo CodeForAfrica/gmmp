@@ -3662,7 +3662,7 @@ class XLSXReportBuilder:
                     rows = rows.filter(role__in=role_ids)
 
                 for row in rows:
-                    counts.update({(row['sex'], row[country]): row['n']})
+                    counts.update({(row['sex'], self.recode_country(row[country])): row['n']})
                 secondary_counts[journo_type] = counts
 
             self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, self.countries, c=c, r=r, write_row_headings=write_row_headings, row_perc=True, show_N=True)
@@ -3747,7 +3747,8 @@ class XLSXReportBuilder:
                 if media_type in REPORTER_MEDIA:
                     rows = rows.filter(**{sheet_name + '__' + journo_name + '__role':REPORTERS})
 
-                counts.update({(r['sex'], r[country]): r['n'] for r in rows})
+                for row in rows:
+                    counts.update({(row['sex'], self.recode_country(row[country])): row['n']})
 
             secondary_counts[sex] = counts
 
