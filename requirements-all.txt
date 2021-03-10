@@ -12,3 +12,4 @@ django-guardian==2.3.0
 gunicorn[gevent]==20.0.4
 openpyxl==3.0.5
 python-dotenv==0.15.0
+sentry-sdk==1.0.0

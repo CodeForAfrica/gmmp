@@ -14,6 +14,8 @@ from django.utils.translation import gettext_lazy as _
 from os import environ as env
 from pathlib import Path 
 from dotenv import load_dotenv
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
 import django.conf.global_settings as DEFAULT_SETTINGS
 
 env_path = Path(".") / ".env/.env"
@@ -322,3 +324,13 @@ REPORTS_CURRENT_YEAR = env.get("GMMP_REPORTS_CURRENT_YEAR", "2020")
 REPORTS_HISTORICAL_YEAR = env.get("GMMP_REPORTS_HISTORICAL_YEAR", "2010")
 if REPORTS_HISTORICAL_YEAR not in ["2010", "2015"]:
     raise ValueError("Invalid historical GMMP year: {}".format(REPORTS_HISTORICAL_YEAR))
+
+# Sentry
+SENTRY_DNS = env.get("SENTRY_DNS")
+if SENTRY_DNS:
+    sentry_sdk.init(
+        dsn=SENTRY_DNS,
+        integrations=[DjangoIntegration()],
+        traces_sample_rate=1.0,
+        send_default_pii=True
+    )
