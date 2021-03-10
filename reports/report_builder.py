@@ -3221,7 +3221,7 @@ class XLSXReportBuilder:
                 rows= self.apply_weights(rows, model.sheet_db_table(), media_type)
 
                 media_id = [id for id, name in MEDIA_TYPES if name == media_type][0]
-                counts.update({(media_id, TOPIC_GROUPS[r['topic']]): r['n'] for r in rows})
+                {counts.update({(media_id, TOPIC_GROUPS[r['topic']]): r['n']}) for r in rows}
 
             self.write_primary_row_heading(ws, sq, r=r)
             self.tabulate(ws, counts, MEDIA_TYPES, MAJOR_TOPICS, row_perc=True, write_col_headings=False, r=r)
@@ -3249,7 +3249,7 @@ class XLSXReportBuilder:
 
                 rows= self.apply_weights(rows, model.sheet_db_table(), media_type)
 
-                counts.update({(r["sex"], TOPIC_GROUPS[r['topic']]): r['n'] for r in rows})
+                {counts.update({(r["sex"], TOPIC_GROUPS[r['topic']]): r['n']}) for r in rows}
 
             self.write_primary_row_heading(ws, sq, r=r)
             self.tabulate(ws, counts, GENDER, MAJOR_TOPICS, row_perc=True, write_col_headings=False, r=r)
@@ -3277,7 +3277,7 @@ class XLSXReportBuilder:
                         .annotate(n=Count("id"))
                         
                 rows= self.apply_weights(rows, model.sheet_db_table(), media_type)
-                counts.update({(r["sex"], TOPIC_GROUPS[r['topic']]): r['n'] for r in rows})
+                {counts.update({(r["sex"], TOPIC_GROUPS[r['topic']]): r['n']}) for r in rows}
 
             self.write_primary_row_heading(ws, sq, r=r)
             self.tabulate(ws, counts, GENDER, MAJOR_TOPICS, row_perc=True, write_col_headings=False, r=r)
@@ -3303,7 +3303,7 @@ class XLSXReportBuilder:
 
                 rows= self.apply_weights(rows, model.sheet_db_table(), media_type)
 
-                counts.update({(r["equality_rights"], TOPIC_GROUPS[r['topic']]): r['n'] for r in rows})
+                {counts.update({(r["equality_rights"], TOPIC_GROUPS[r['topic']]): r['n']}) for r in rows}
 
             self.write_primary_row_heading(ws, sq, r=r)
             self.tabulate(ws, counts, YESNO, MAJOR_TOPICS, row_perc=True, write_col_headings=False, r=r)
