@@ -14,9 +14,9 @@ tail -n 0 -f /app/logs/*.log &
 # Start Gunicorn processes
 echo Starting Gunicorn.
 exec gunicorn \
-  --timeout=60\
+  --timeout=${GMMP_GUNICORN_TIMEOUT:-60} \
   --bind=0.0.0.0:8000 \
-  --workers=3 \
+  --workers=${GMMP_GUNICORN_WORKERS:-3} \
   --worker-class=gevent \
   --log-level=info \
   --log-file=/app/logs/gunicorn.log \
