@@ -4280,8 +4280,10 @@ class XLSXReportBuilder:
                     # Newspaper journos don't have roles
                     rows = rows.filter(role__in=role_ids)
 
+                rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
+
                 for row in rows:
-                    region_id = [r[0] for r in all_regions if r[1] == row[region]][0]
+                    region_id = [r[0] for r in all_regions if r[1] == row["region"]][0]
                     counts.update({(row['sex'], region_id): row['n']})
 
             secondary_counts[journo_type] = counts
@@ -4295,8 +4297,10 @@ class XLSXReportBuilder:
                     .filter(sex__in=self.male_female_ids)\
                     .annotate(n=Count('id'))
 
+            rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
+
             for row in rows:
-                region_id = [r[0] for r in all_regions if r[1] == row[region]][0]
+                region_id = [r[0] for r in all_regions if r[1] == row["region"]][0]
                 counts.update({(row['sex'], region_id): row['n']})
 
         secondary_counts['Subjects'] = counts
@@ -4324,9 +4328,11 @@ class XLSXReportBuilder:
                         .filter(topic__in=topic_ids)\
                         .annotate(n=Count('id'))
 
+                rows = self.apply_weights(rows, model._meta.db_table, media_type)
+
                 for row in rows:
-                    region_id = [r[0] for r in all_regions if r[1] == row[region]][0]
-                    counts.update({(row[person_sex_field], region_id): row['n']})
+                    region_id = [r[0] for r in all_regions if r[1] == row["region"]][0]
+                    counts.update({(row["sex"], region_id): row['n']})
 
             major_topic_name = [mt[1] for mt in MAJOR_TOPICS if mt[0] == int(major_topic)][0]
             secondary_counts[major_topic_name] = counts
@@ -4354,8 +4360,10 @@ class XLSXReportBuilder:
                         .filter(function=function_id)\
                         .annotate(n=Count('id'))
 
+                rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
+
                 for row in rows:
-                    region_id = [r[0] for r in all_regions if r[1] == row[region]][0]
+                    region_id = [r[0] for r in all_regions if r[1] == row["region"]][0]
                     counts.update({(row['sex'], region_id): row['n']})
 
             secondary_counts[clean_title(function)] = counts
@@ -4383,8 +4391,10 @@ class XLSXReportBuilder:
                     .filter(is_photograph=code)\
                     .annotate(n=Count('id'))
 
+            rows = self.apply_weights(rows, model.sheet_db_table(), 'Print')
+
             for row in rows:
-                region_id = [r[0] for r in all_regions if r[1] == row[region]][0]
+                region_id = [r[0] for r in all_regions if r[1] == row["region"]][0]
                 counts.update({(row['sex'], region_id): row['n']})
 
 
@@ -4431,8 +4441,10 @@ class XLSXReportBuilder:
                     # Newspaper journos don't have roles
                     rows = rows.filter(role__in=role_ids)
 
+                rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
+
                 for row in rows:
-                    region_id = [reg[0] for reg in all_regions if reg[1] == row[region]][0]
+                    region_id = [reg[0] for reg in all_regions if reg[1] == row["region"]][0]
                     counts.update({(row['sex'], region_id): row['n']})
 
                 secondary_counts[journo_type] = counts
@@ -4470,9 +4482,11 @@ class XLSXReportBuilder:
                     # Newspaper journos don't have roles
                     rows = rows.filter(**{journo_role_field: REPORTERS})
 
+                rows = self.apply_weights(rows, model._meta.db_table, media_type)
+
                 for row in rows:
-                    region_id = [r[0] for r in all_regions if r[1] == row[region]][0]
-                    counts.update({(row[journo_sex_field], region_id): row['n']})
+                    region_id = [r[0] for r in all_regions if r[1] == row["region"]][0]
+                    counts.update({(row["sex"], region_id): row['n']})
 
             major_topic_name = [mt[1] for mt in MAJOR_TOPICS if mt[0] == int(major_topic)][0]
             secondary_counts[major_topic_name] = counts
@@ -4504,8 +4518,10 @@ class XLSXReportBuilder:
                 if media_type in REPORTER_MEDIA:
                     rows = rows.filter(**{sheet_name + '__' + journo_name + '__role':REPORTERS})
 
+                rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
+
                 for row in rows:
-                    region_id = [r[0] for r in all_regions if r[1] == row[region]][0]
+                    region_id = [r[0] for r in all_regions if r[1] == row["region"]][0]
                     counts.update({(row['sex'], region_id): row['n']})
 
 
@@ -4534,9 +4550,11 @@ class XLSXReportBuilder:
                 .filter(about_women='Y')\
                 .annotate(n=Count('id'))
 
+            rows = self.apply_weights(rows, model._meta.db_table, media_type)
+
             for row in rows:
                 major_topic = TOPIC_GROUPS[row['topic']]
-                region_id = [r[0] for r in all_regions if r[1] == row[region]][0]
+                region_id = [r[0] for r in all_regions if r[1] == row["region"]][0]
                 counts.update({(major_topic, region_id): row['n']})
 
         self.tabulate(ws, counts, MAJOR_TOPICS, all_regions, raw_values=True, write_col_totals=False)
@@ -4557,8 +4575,10 @@ class XLSXReportBuilder:
                 .filter(**{region + '__in': self.region_list})\
                 .annotate(n=Count('id'))
 
+            rows = self.apply_weights(rows, model._meta.db_table, media_type)
+
             for row in rows:
-                region_id = [r[0] for r in all_regions if r[1] == row[region]][0]
+                region_id = [r[0] for r in all_regions if r[1] == row["region"]][0]
                 counts.update({(row['inequality_women'], region_id): row['n']})
 
         self.tabulate(ws, counts, AGREE_DISAGREE, all_regions, row_perc=True, show_N=True)
@@ -4579,8 +4599,10 @@ class XLSXReportBuilder:
                 .filter(**{region + '__in': self.region_list})\
                 .annotate(n=Count('id'))
 
+            rows = self.apply_weights(rows, model._meta.db_table, media_type)
+
             for row in rows:
-                region_id = [r[0] for r in all_regions if r[1] == row[region]][0]
+                region_id = [r[0] for r in all_regions if r[1] == row["region"]][0]
                 counts.update({(row['stereotypes'], region_id): row['n']})
 
         self.tabulate(ws, counts, AGREE_DISAGREE, all_regions, row_perc=True, show_N=True)
