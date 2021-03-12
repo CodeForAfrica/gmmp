@@ -15,7 +15,9 @@ class GMMP2015ReportImporter(BaseReportImporter):
         # The continents in the sheet do not include 'pacific' but the get_regions()
         # function returns a list of which include 'pacific' so we're excluding that from
         # the list to be consistent with the sheet data
-        self.REGIONS = [region.lower() for _, region in get_regions() if region.lower() != 'pacific']
+        self.REGIONS = [
+            region.lower() for _, region in get_regions() if region.lower() != "pacific"
+        ]
 
     def slurp_table(
         self,
@@ -39,17 +41,18 @@ class GMMP2015ReportImporter(BaseReportImporter):
             row_heading_col,
         )
 
-    def _slurp_secondary_table(self,
-                          data,
-                          col_start,
-                          end_index,
-                          options,
-                          cols=3,
-                          cols_per_group=2,
-                          major_col_heading_row=6,
-                          row_start=8,
-                          row_end=14,
-                          row_heading_col=2,
+    def _slurp_secondary_table(
+        self,
+        data,
+        col_start,
+        end_index,
+        options,
+        cols=3,
+        cols_per_group=2,
+        major_col_heading_row=6,
+        row_start=8,
+        row_end=14,
+        row_heading_col=2,
     ):
         col_start, end_index = col_start, end_index
         while col_start < end_index:
@@ -67,20 +70,21 @@ class GMMP2015ReportImporter(BaseReportImporter):
                     row_heading_col=row_heading_col,
                 )
                 data[option] = option_data
-                col_start += (cols * cols_per_group)
+                col_start += cols * cols_per_group
 
-    def _slurp_tertiary_table(self,
-                              data,
-                              medium,
-                              options,
-                              col_start,
-                              end_index,
-                              cols=1,
-                              cols_per_group=2,
-                              major_col_heading_row=7,
-                              row_start=9,
-                              row_end=15,
-                              row_heading_col=2,
+    def _slurp_tertiary_table(
+        self,
+        data,
+        medium,
+        options,
+        col_start,
+        end_index,
+        cols=1,
+        cols_per_group=2,
+        major_col_heading_row=7,
+        row_start=9,
+        row_end=15,
+        row_heading_col=2,
     ):
         """
         Tables with three steps of categorisation:
@@ -105,7 +109,7 @@ class GMMP2015ReportImporter(BaseReportImporter):
                     row_heading_col=row_heading_col,
                 )
                 medium_data[medium][option] = option_data
-                col_start += (cols * cols_per_group)
+                col_start += cols * cols_per_group
             data[medium] = medium_data[medium]
 
     def import_grid(self, grid_info, all_data=None):
@@ -119,7 +123,7 @@ class GMMP2015ReportImporter(BaseReportImporter):
                 col_start=col_start,
                 col_end=col_end,
                 row_start=row_start,
-                row_end=row_end
+                row_end=row_end,
             )
         return all_data
 
@@ -139,21 +143,18 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
     def import_2(self, sheet_info):
         all_data = {}
-        for year, col_start, col_end in [
-            (2015, 3, 10),
-            (2010, 13, 16)
-        ]:
+        for year, col_start, col_end in [(2015, 3, 10), (2010, 13, 16)]:
             data = {}
             all_data[year] = data
             regions = {
-                'Africa': (7, 38),
-                'Asia': (41, 51),
-                'Caribbean': (54, 68),
-                'Europe': (71, 100),
-                'Latin America': (103, 116),
-                'Middle East': (119, 124),
-                'North America': (127, 128),
-                'Pacific Island': (131, 134),
+                "Africa": (7, 38),
+                "Asia": (41, 51),
+                "Caribbean": (54, 68),
+                "Europe": (71, 100),
+                "Latin America": (103, 116),
+                "Middle East": (119, 124),
+                "North America": (127, 128),
+                "Pacific Island": (131, 134),
             }
             for region, (row_start, row_end) in regions.items():
                 regional_data = dict()
@@ -173,11 +174,11 @@ class GMMP2015ReportImporter(BaseReportImporter):
             year_data = {}
             for _, country_data_per_media in country_data_per_media_per_region.items():
                 for media, country_data in country_data_per_media.items():
-                    if media not in year_data:    
+                    if media not in year_data:
                         year_data[media] = {}
 
                     year_data[media].update(country_data)
-            
+
             # we can replace the data for the year since we're done with it
             all_data[year] = year_data
         return all_data
@@ -191,11 +192,7 @@ class GMMP2015ReportImporter(BaseReportImporter):
             data = {}
             all_data[year] = data
             self.slurp_table(
-                self.ws,
-                data,
-                col_start=col_start,
-                col_end=col_end,
-                row_end=row_end
+                self.ws, data, col_start=col_start, col_end=col_end, row_end=row_end
             )
 
         return all_data
@@ -289,14 +286,14 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         self._slurp_tertiary_table(
             data=data_2015,
-            medium='print, radio, television',
+            medium="print, radio, television",
             options=self.REGIONS,
             col_start=3,
             end_index=18,
         )
         self._slurp_tertiary_table(
             data=data_2015,
-            medium='internet, twitter',
+            medium="internet, twitter",
             options=self.REGIONS,
             col_start=21,
             end_index=36,
@@ -329,11 +326,7 @@ class GMMP2015ReportImporter(BaseReportImporter):
             data = {}
             all_data[year] = data
             self.slurp_table(
-                self.ws,
-                data,
-                col_start=col_start,
-                col_end=col_end,
-                row_end=row_end
+                self.ws, data, col_start=col_start, col_end=col_end, row_end=row_end
             )
 
         return all_data
@@ -554,7 +547,7 @@ class GMMP2015ReportImporter(BaseReportImporter):
                 (2005, 13, 14, 7, 16),
                 (2010, 15, 17, 7, 16),
             ],
-            all_data=all_data
+            all_data=all_data,
         )
 
         return all_data
@@ -580,7 +573,7 @@ class GMMP2015ReportImporter(BaseReportImporter):
                 (2005, 9, 10, 7, 16),
                 (2010, 11, 13, 7, 16),
             ],
-            all_data=all_data
+            all_data=all_data,
         )
 
         return all_data
@@ -647,7 +640,7 @@ class GMMP2015ReportImporter(BaseReportImporter):
             data=data_2015,
             col_start=3,
             end_index=14,
-            options=['print', 'radio', 'television'],
+            options=["print", "radio", "television"],
             cols=2,
             cols_per_group=2,
             major_col_heading_row=6,
@@ -730,7 +723,7 @@ class GMMP2015ReportImporter(BaseReportImporter):
             data=data_2015,
             col_start=3,
             end_index=14,
-            options=['print', 'radio', 'television'],
+            options=["print", "radio", "television"],
             cols=2,
             cols_per_group=2,
             major_col_heading_row=6,
@@ -741,17 +734,28 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         return all_data
 
-    def import_35(self, sheet_info):
-        data_2015 = {}
-        all_data = {2015: data_2015}
+    def import_34(self, sheet_info):
+        return self.import_grid(
+            [
+                (2015, 3, 5, 7, 10),
+                (2010, 9, 9, 7, 10),
+                (2005, 8, 8, 7, 10),
+                (2000, 7, 7, 7, 10),
+            ]
+        )
 
+    def import_35(self, sheet_info):
+        all_data = {}
+
+        data_2015 = {}
+        all_data[2015] = data_2015
         self._slurp_secondary_table(
             data=data_2015,
             col_start=3,
             end_index=34,
             options=[
-                'Anchor, announcer or presenter: Usually in the television studio',
-                'Reporter: Usually outside the studio. Include reporters who do not appear on screen, but whose voice is heard (e.g. as voice-over).',
+                "Anchor, announcer or presenter: Usually in the television studio",
+                "Reporter: Usually outside the studio. Include reporters who do not appear on screen, but whose voice is heard (e.g. as voice-over).",
             ],
             cols=2,
             cols_per_group=2,
@@ -768,8 +772,8 @@ class GMMP2015ReportImporter(BaseReportImporter):
             col_start=12,
             end_index=13,
             options=[
-                'Anchor, announcer or presenter: Usually in the television studio',
-                'Reporter: Usually outside the studio. Include reporters who do not appear on screen, but whose voice is heard (e.g. as voice-over).',
+                "Anchor, announcer or presenter: Usually in the television studio",
+                "Reporter: Usually outside the studio. Include reporters who do not appear on screen, but whose voice is heard (e.g. as voice-over).",
             ],
             cols=1,
             cols_per_group=1,
@@ -782,12 +786,12 @@ class GMMP2015ReportImporter(BaseReportImporter):
         data_2010 = {}
         all_data[2010] = data_2010
         self._slurp_secondary_table(
-            data=data_2005,
+            data=data_2010,
             col_start=14,
             end_index=17,
             options=[
-                'Anchor, announcer or presenter: Usually in the television studio',
-                'Reporter: Usually outside the studio. Include reporters who do not appear on screen, but whose voice is heard (e.g. as voice-over).',
+                "Anchor, announcer or presenter: Usually in the television studio",
+                "Reporter: Usually outside the studio. Include reporters who do not appear on screen, but whose voice is heard (e.g. as voice-over).",
             ],
             cols=2,
             cols_per_group=1,
@@ -798,16 +802,6 @@ class GMMP2015ReportImporter(BaseReportImporter):
         )
 
         return all_data
-
-    def import_34(self, sheet_info):
-        return self.import_grid(
-            [
-                (2015, 3, 5, 7, 10),
-                (2010, 9, 9, 7, 10),
-                (2005, 8, 8, 7, 10),
-                (2000, 7, 7, 7, 10),
-            ]
-        )
 
     def import_36(self, sheet_info):
         return self.import_grid(
@@ -863,7 +857,7 @@ class GMMP2015ReportImporter(BaseReportImporter):
         for key in data_2010.keys():
             data_key = dict(data_2010[key])
             data_2010[key] = {}
-            data_2010[key]['yes'] = data_key
+            data_2010[key]["yes"] = data_key
 
         return all_data
 
@@ -993,7 +987,7 @@ class GMMP2015ReportImporter(BaseReportImporter):
             data=data_2015,
             col_start=3,
             end_index=18,
-            options=['female', 'male'],
+            options=["female", "male"],
             cols=4,
             cols_per_group=2,
             major_col_heading_row=6,
@@ -1091,7 +1085,7 @@ class GMMP2015ReportImporter(BaseReportImporter):
             all_data[year] = data
 
             for country in COUNTRIES.keys():
-                row_start, row_end = COUNTRIES[country]['57']
+                row_start, row_end = COUNTRIES[country]["57"]
                 country_data = {}
                 data[country] = country_data
 
@@ -1114,7 +1108,7 @@ class GMMP2015ReportImporter(BaseReportImporter):
             all_data[year] = data
 
             for country in COUNTRIES.keys():
-                row_start, row_end = COUNTRIES[country]['58']
+                row_start, row_end = COUNTRIES[country]["58"]
                 country_data = {}
                 data[country] = country_data
 
@@ -1144,7 +1138,7 @@ class GMMP2015ReportImporter(BaseReportImporter):
             all_data[year] = data
 
             for country in COUNTRIES.keys():
-                row_start, row_end = COUNTRIES[country]['60']
+                row_start, row_end = COUNTRIES[country]["60"]
                 country_data = {}
                 data[country] = country_data
 
@@ -1167,7 +1161,7 @@ class GMMP2015ReportImporter(BaseReportImporter):
             all_data[year] = data
 
             for country in COUNTRIES.keys():
-                row_start, row_end = COUNTRIES[country]['57']
+                row_start, row_end = COUNTRIES[country]["57"]
                 country_data = {}
                 data[country] = country_data
 
@@ -1190,7 +1184,7 @@ class GMMP2015ReportImporter(BaseReportImporter):
             all_data[year] = data
 
             for country in COUNTRIES.keys():
-                row_start, row_end = COUNTRIES[country]['57']
+                row_start, row_end = COUNTRIES[country]["57"]
                 country_data = {}
                 data[country] = country_data
 
@@ -1213,7 +1207,7 @@ class GMMP2015ReportImporter(BaseReportImporter):
             all_data[year] = data
 
             for country in COUNTRIES.keys():
-                row_start, row_end = COUNTRIES[country]['66']
+                row_start, row_end = COUNTRIES[country]["66"]
                 country_data = {}
                 data[country] = country_data
 
@@ -1236,7 +1230,7 @@ class GMMP2015ReportImporter(BaseReportImporter):
             all_data[year] = data
 
             for country in COUNTRIES.keys():
-                row_start, row_end = COUNTRIES[country]['57']
+                row_start, row_end = COUNTRIES[country]["57"]
                 country_data = {}
                 data[country] = country_data
 
@@ -1259,7 +1253,7 @@ class GMMP2015ReportImporter(BaseReportImporter):
             all_data[year] = data
 
             for country in COUNTRIES.keys():
-                row_start, row_end = COUNTRIES[country]['57']
+                row_start, row_end = COUNTRIES[country]["57"]
                 country_data = {}
                 data[country] = country_data
 
@@ -1282,7 +1276,7 @@ class GMMP2015ReportImporter(BaseReportImporter):
             all_data[year] = data
 
             for country in COUNTRIES.keys():
-                row_start, row_end = COUNTRIES[country]['66']
+                row_start, row_end = COUNTRIES[country]["66"]
                 country_data = {}
                 data[country] = country_data
 
@@ -1312,7 +1306,7 @@ class GMMP2015ReportImporter(BaseReportImporter):
             all_data[year] = data
 
             for country in COUNTRIES.keys():
-                row_start, row_end = COUNTRIES[country]['57']
+                row_start, row_end = COUNTRIES[country]["57"]
                 country_data = {}
                 data[country] = country_data
 
@@ -1335,7 +1329,7 @@ class GMMP2015ReportImporter(BaseReportImporter):
             all_data[year] = data
 
             for country in COUNTRIES.keys():
-                row_start, row_end = COUNTRIES[country]['66']
+                row_start, row_end = COUNTRIES[country]["66"]
                 country_data = {}
                 data[country] = country_data
 
@@ -1357,7 +1351,11 @@ class GMMP2015ReportImporter(BaseReportImporter):
             data=data_2015,
             col_start=3,
             end_index=17,
-            options=['political participation', 'peace and security', 'economic participation'],
+            options=[
+                "political participation",
+                "peace and security",
+                "economic participation",
+            ],
             cols=5,
             cols_per_group=1,
             major_col_heading_row=6,
@@ -1376,7 +1374,11 @@ class GMMP2015ReportImporter(BaseReportImporter):
             data=data_2015,
             col_start=3,
             end_index=17,
-            options=['political participation', 'peace and security', 'economic participation'],
+            options=[
+                "political participation",
+                "peace and security",
+                "economic participation",
+            ],
             cols=5,
             cols_per_group=1,
             major_col_heading_row=6,
@@ -1400,8 +1402,12 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         self._slurp_tertiary_table(
             data=data_2015,
-            options=['political participation', 'peace and security', 'economic participation'],
-            medium='print, radio, television',
+            options=[
+                "political participation",
+                "peace and security",
+                "economic participation",
+            ],
+            medium="print, radio, television",
             cols=3,
             col_start=3,
             end_index=11,
@@ -1413,8 +1419,12 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         self._slurp_tertiary_table(
             data=data_2015,
-            medium='internet, twitter',
-            options=['political participation', 'peace and security', 'economic participation'],
+            medium="internet, twitter",
+            options=[
+                "political participation",
+                "peace and security",
+                "economic participation",
+            ],
             cols=3,
             col_start=14,
             end_index=22,
@@ -1432,8 +1442,12 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         self._slurp_tertiary_table(
             data=data_2015,
-            medium='print, radio, television',
-            options=['political participation', 'peace and security', 'economic participation'],
+            medium="print, radio, television",
+            options=[
+                "political participation",
+                "peace and security",
+                "economic participation",
+            ],
             cols=3,
             col_start=3,
             end_index=17,
@@ -1445,8 +1459,12 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         self._slurp_tertiary_table(
             data=data_2015,
-            medium='internet, twitter',
-            options=['political participation', 'peace and security', 'economic participation'],
+            medium="internet, twitter",
+            options=[
+                "political participation",
+                "peace and security",
+                "economic participation",
+            ],
             cols=3,
             col_start=20,
             end_index=34,
@@ -1464,8 +1482,12 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         self._slurp_tertiary_table(
             data=data_2015,
-            medium='print, radio, television',
-            options=['political participation', 'peace and security', 'economic participation'],
+            medium="print, radio, television",
+            options=[
+                "political participation",
+                "peace and security",
+                "economic participation",
+            ],
             cols=3,
             col_start=20,
             end_index=34,
@@ -1477,8 +1499,12 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         self._slurp_tertiary_table(
             data=data_2015,
-            medium='internet, twitter',
-            options=['political participation', 'peace and security', 'economic participation'],
+            medium="internet, twitter",
+            options=[
+                "political participation",
+                "peace and security",
+                "economic participation",
+            ],
             col_start=14,
             end_index=22,
             cols_per_group=3,
@@ -1494,12 +1520,16 @@ class GMMP2015ReportImporter(BaseReportImporter):
         all_data = {2015: data_2015}
 
         first_data = {}
-        data_2015['Print, Radio, Television'] = first_data
+        data_2015["Print, Radio, Television"] = first_data
         self._slurp_secondary_table(
             data=first_data,
             col_start=3,
             end_index=35,
-            options=['political participation', 'peace and security', 'economic participation'],
+            options=[
+                "political participation",
+                "peace and security",
+                "economic participation",
+            ],
             cols=11,
             cols_per_group=1,
             major_col_heading_row=7,
@@ -1509,12 +1539,16 @@ class GMMP2015ReportImporter(BaseReportImporter):
         )
 
         second_data = {}
-        data_2015['Internet, Twitter'] = second_data
+        data_2015["Internet, Twitter"] = second_data
         self._slurp_secondary_table(
             data=second_data,
             col_start=38,
             end_index=70,
-            options=['political participation', 'peace and security', 'economic participation'],
+            options=[
+                "political participation",
+                "peace and security",
+                "economic participation",
+            ],
             cols=11,
             cols_per_group=1,
             major_col_heading_row=7,
@@ -1530,12 +1564,16 @@ class GMMP2015ReportImporter(BaseReportImporter):
         all_data = {2015: data_2015}
 
         first_data = {}
-        data_2015['Print, Radio, Television'] = first_data
+        data_2015["Print, Radio, Television"] = first_data
         self._slurp_secondary_table(
             data=first_data,
             col_start=3,
             end_index=35,
-            options=['political participation', 'peace and security', 'economic participation'],
+            options=[
+                "political participation",
+                "peace and security",
+                "economic participation",
+            ],
             cols=11,
             cols_per_group=1,
             major_col_heading_row=7,
@@ -1545,12 +1583,16 @@ class GMMP2015ReportImporter(BaseReportImporter):
         )
 
         second_data = {}
-        data_2015['Internet, Twitter'] = second_data
+        data_2015["Internet, Twitter"] = second_data
         self._slurp_secondary_table(
             data=second_data,
             col_start=38,
             end_index=70,
-            options=['political participation', 'peace and security', 'economic participation'],
+            options=[
+                "political participation",
+                "peace and security",
+                "economic participation",
+            ],
             cols=11,
             cols_per_group=1,
             major_col_heading_row=7,
@@ -1570,8 +1612,13 @@ class GMMP2015ReportImporter(BaseReportImporter):
             col_start=3,
             end_index=37,
             options=[
-                'politics and government', 'economy', 'science and health', 'social and legal', 'crime and violence',
-                'celebrity, arts and media, sports', 'other'
+                "politics and government",
+                "economy",
+                "science and health",
+                "social and legal",
+                "crime and violence",
+                "celebrity, arts and media, sports",
+                "other",
             ],
             cols=5,
             cols_per_group=1,
@@ -1589,15 +1636,15 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         self._slurp_tertiary_table(
             data=data_2015,
-            medium='Politics and Government',
+            medium="Politics and Government",
             options=[
-                'Women politicians, women electoral candidates...',
-                'Peace, negotiations, treaties',
-                'Other domestic politics, government, etc.',
-                'Global partnerships',
-                'Foreign/international politics, UN, peacekeeping',
-                'National defence, military spending, internal security, etc.',
-                'Other stories on politics (specify in comments)',
+                "Women politicians, women electoral candidates...",
+                "Peace, negotiations, treaties",
+                "Other domestic politics, government, etc.",
+                "Global partnerships",
+                "Foreign/international politics, UN, peacekeeping",
+                "National defence, military spending, internal security, etc.",
+                "Other stories on politics (specify in comments)",
             ],
             col_start=3,
             end_index=30,
@@ -1611,19 +1658,19 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         self._slurp_tertiary_table(
             data=data_2015,
-            medium='Economy',
+            medium="Economy",
             options=[
-                'Economic policies, strategies, modules, indicators, stock markets, etc',
-                'Economic crisis, state bailouts of companies, company takeovers and mergers, etc.',
-                'Poverty, housing, social welfare, aid, etc.',
-                'Womens participation in economic processes',
-                'Employment',
-                'Informal work, street vending, etc.',
-                'Other labour issues (strikes, trade unions, etc.)',
-                'Rural economy, agriculture, farming, land rights',
-                'Consumer issues, consumer protection, fraud...',
-                'Transport, traffic, roads...',
-                'Other stories on economy (specify in comments)'
+                "Economic policies, strategies, modules, indicators, stock markets, etc",
+                "Economic crisis, state bailouts of companies, company takeovers and mergers, etc.",
+                "Poverty, housing, social welfare, aid, etc.",
+                "Womens participation in economic processes",
+                "Employment",
+                "Informal work, street vending, etc.",
+                "Other labour issues (strikes, trade unions, etc.)",
+                "Rural economy, agriculture, farming, land rights",
+                "Consumer issues, consumer protection, fraud...",
+                "Transport, traffic, roads...",
+                "Other stories on economy (specify in comments)",
             ],
             col_start=31,
             end_index=74,
@@ -1637,17 +1684,17 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         self._slurp_tertiary_table(
             data=data_2015,
-            medium='Science and Health',
+            medium="Science and Health",
             options=[
-                'Science, technology, research, discoveries...',
-                'Medicine, health, hygiene, safety, (not EBOLA or HIV/AIDS)',
-                'EBOLA, treatment, response...',
-                'HIV and AIDS, policy, treatment, etc',
-                'Other epidemics, viruses, contagions, Influenza, BSE, SARS',
-                'Birth control, fertility, sterilization, termination...',
-                'Climate change, global warming',
-                'Environment, pollution, tourism',
-                'Other stories on science (specify in comments)',
+                "Science, technology, research, discoveries...",
+                "Medicine, health, hygiene, safety, (not EBOLA or HIV/AIDS)",
+                "EBOLA, treatment, response...",
+                "HIV and AIDS, policy, treatment, etc",
+                "Other epidemics, viruses, contagions, Influenza, BSE, SARS",
+                "Birth control, fertility, sterilization, termination...",
+                "Climate change, global warming",
+                "Environment, pollution, tourism",
+                "Other stories on science (specify in comments)",
             ],
             col_start=75,
             end_index=110,
@@ -1661,22 +1708,22 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         self._slurp_tertiary_table(
             data=data_2015,
-            medium='Social and Legal',
+            medium="Social and Legal",
             options=[
-                'Millennium Development Goals (MDGs), Post 2015 agenda, Sustainable Development Goals',
-                'Family relations, inter-generational conflict, parents',
-                'Human rights, womens rights, rights of sexual minorities, rights of religious minorities, etc.',
-                'Religion, culture, tradition, controversies...',
-                'Migration, refugees, xenophobia, ethnic conflict...',
-                'Other development issues, sustainability, etc.',
-                'Education, childcare, nursery, university, literacy',
-                'Womens movement, activism, demonstrations, etc',
-                'Changing gender relations (outside the home)',
-                'Family law, family codes, property law, inheritance...',
-                'Legal system, judiciary, legislation apart from family',
-                'Disaster, accident, famine, flood, plane crash, etc.',
-                'Riots, demonstrations, public disorder, etc.',
-                'Other stories on social/legal (specify in comments)'
+                "Millennium Development Goals (MDGs), Post 2015 agenda, Sustainable Development Goals",
+                "Family relations, inter-generational conflict, parents",
+                "Human rights, womens rights, rights of sexual minorities, rights of religious minorities, etc.",
+                "Religion, culture, tradition, controversies...",
+                "Migration, refugees, xenophobia, ethnic conflict...",
+                "Other development issues, sustainability, etc.",
+                "Education, childcare, nursery, university, literacy",
+                "Womens movement, activism, demonstrations, etc",
+                "Changing gender relations (outside the home)",
+                "Family law, family codes, property law, inheritance...",
+                "Legal system, judiciary, legislation apart from family",
+                "Disaster, accident, famine, flood, plane crash, etc.",
+                "Riots, demonstrations, public disorder, etc.",
+                "Other stories on social/legal (specify in comments)",
             ],
             col_start=111,
             end_index=166,
@@ -1690,15 +1737,15 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         self._slurp_tertiary_table(
             data=data_2015,
-            medium='Crime and Violence',
+            medium="Crime and Violence",
             options=[
-                'Non-violent crime, bribery, theft, drugs, corruption',
-                'Violent crime, murder, abduction, assault, etc.',
-                'Gender violence based on culture, family, inter-personal relations, feminicide, harassment, rape, sexual assault, trafficking, FGM...',
-                'Gender violence perpetuated by the State',
-                'Child abuse, sexual violence against children, neglect',
-                'War, civil war, terrorism, other state-based violence',
-                'Other crime/violence (specify in comments)'
+                "Non-violent crime, bribery, theft, drugs, corruption",
+                "Violent crime, murder, abduction, assault, etc.",
+                "Gender violence based on culture, family, inter-personal relations, feminicide, harassment, rape, sexual assault, trafficking, FGM...",
+                "Gender violence perpetuated by the State",
+                "Child abuse, sexual violence against children, neglect",
+                "War, civil war, terrorism, other state-based violence",
+                "Other crime/violence (specify in comments)",
             ],
             col_start=167,
             end_index=194,
@@ -1712,14 +1759,14 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         self._slurp_tertiary_table(
             data=data_2015,
-            medium='Celebrity, Arts and Media, Sports',
+            medium="Celebrity, Arts and Media, Sports",
             options=[
-                'Celebrity news, births, marriages, royalty, etc.',
-                'Arts, entertainment, leisure, cinema, books, dance',
-                'Media, (including internet), portrayal of women/men',
-                'Beauty contests, models, fashion, cosmetic surgery',
-                'Sports, events, players, facilities, training, funding',
-                'Other celebrity/arts/media news (specify in comments)',
+                "Celebrity news, births, marriages, royalty, etc.",
+                "Arts, entertainment, leisure, cinema, books, dance",
+                "Media, (including internet), portrayal of women/men",
+                "Beauty contests, models, fashion, cosmetic surgery",
+                "Sports, events, players, facilities, training, funding",
+                "Other celebrity/arts/media news (specify in comments)",
             ],
             col_start=195,
             end_index=218,
@@ -1733,9 +1780,9 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         self._slurp_tertiary_table(
             data=data_2015,
-            medium='Other',
+            medium="Other",
             options=[
-                'Other (only use as a last resort & explain)',
+                "Other (only use as a last resort & explain)",
             ],
             col_start=219,
             end_index=222,
@@ -1755,15 +1802,15 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         self._slurp_tertiary_table(
             data=data_2015,
-            medium='Politics and Government',
+            medium="Politics and Government",
             options=[
-                'Women politicians, women electoral candidates...',
-                'Peace, negotiations, treaties',
-                'Other domestic politics, government, etc.',
-                'Global partnerships',
-                'Foreign/international politics, UN, peacekeeping',
-                'National defence, military spending, internal security, etc.',
-                'Other stories on politics (specify in comments)',
+                "Women politicians, women electoral candidates...",
+                "Peace, negotiations, treaties",
+                "Other domestic politics, government, etc.",
+                "Global partnerships",
+                "Foreign/international politics, UN, peacekeeping",
+                "National defence, military spending, internal security, etc.",
+                "Other stories on politics (specify in comments)",
             ],
             col_start=3,
             end_index=30,
@@ -1777,19 +1824,19 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         self._slurp_tertiary_table(
             data=data_2015,
-            medium='Economy',
+            medium="Economy",
             options=[
-                'Economic policies, strategies, modules, indicators, stock markets, etc',
-                'Economic crisis, state bailouts of companies, company takeovers and mergers, etc.',
-                'Poverty, housing, social welfare, aid, etc.',
-                'Womens participation in economic processes',
-                'Employment',
-                'Informal work, street vending, etc.',
-                'Other labour issues (strikes, trade unions, etc.)',
-                'Rural economy, agriculture, farming, land rights',
-                'Consumer issues, consumer protection, fraud...',
-                'Transport, traffic, roads...',
-                'Other stories on economy (specify in comments)'
+                "Economic policies, strategies, modules, indicators, stock markets, etc",
+                "Economic crisis, state bailouts of companies, company takeovers and mergers, etc.",
+                "Poverty, housing, social welfare, aid, etc.",
+                "Womens participation in economic processes",
+                "Employment",
+                "Informal work, street vending, etc.",
+                "Other labour issues (strikes, trade unions, etc.)",
+                "Rural economy, agriculture, farming, land rights",
+                "Consumer issues, consumer protection, fraud...",
+                "Transport, traffic, roads...",
+                "Other stories on economy (specify in comments)",
             ],
             col_start=31,
             end_index=74,
@@ -1803,17 +1850,17 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         self._slurp_tertiary_table(
             data=data_2015,
-            medium='Science and Health',
+            medium="Science and Health",
             options=[
-                'Science, technology, research, discoveries...',
-                'Medicine, health, hygiene, safety, (not EBOLA or HIV/AIDS)',
-                'EBOLA, treatment, response...',
-                'HIV and AIDS, policy, treatment, etc',
-                'Other epidemics, viruses, contagions, Influenza, BSE, SARS',
-                'Birth control, fertility, sterilization, termination...',
-                'Climate change, global warming',
-                'Environment, pollution, tourism',
-                'Other stories on science (specify in comments)',
+                "Science, technology, research, discoveries...",
+                "Medicine, health, hygiene, safety, (not EBOLA or HIV/AIDS)",
+                "EBOLA, treatment, response...",
+                "HIV and AIDS, policy, treatment, etc",
+                "Other epidemics, viruses, contagions, Influenza, BSE, SARS",
+                "Birth control, fertility, sterilization, termination...",
+                "Climate change, global warming",
+                "Environment, pollution, tourism",
+                "Other stories on science (specify in comments)",
             ],
             col_start=75,
             end_index=110,
@@ -1827,22 +1874,22 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         self._slurp_tertiary_table(
             data=data_2015,
-            medium='Social and Legal',
+            medium="Social and Legal",
             options=[
-                'Millennium Development Goals (MDGs), Post 2015 agenda, Sustainable Development Goals',
-                'Family relations, inter-generational conflict, parents',
-                'Human rights, womens rights, rights of sexual minorities, rights of religious minorities, etc.',
-                'Religion, culture, tradition, controversies...',
-                'Migration, refugees, xenophobia, ethnic conflict...',
-                'Other development issues, sustainability, etc.',
-                'Education, childcare, nursery, university, literacy',
-                'Womens movement, activism, demonstrations, etc',
-                'Changing gender relations (outside the home)',
-                'Family law, family codes, property law, inheritance...',
-                'Legal system, judiciary, legislation apart from family',
-                'Disaster, accident, famine, flood, plane crash, etc.',
-                'Riots, demonstrations, public disorder, etc.',
-                'Other stories on social/legal (specify in comments)'
+                "Millennium Development Goals (MDGs), Post 2015 agenda, Sustainable Development Goals",
+                "Family relations, inter-generational conflict, parents",
+                "Human rights, womens rights, rights of sexual minorities, rights of religious minorities, etc.",
+                "Religion, culture, tradition, controversies...",
+                "Migration, refugees, xenophobia, ethnic conflict...",
+                "Other development issues, sustainability, etc.",
+                "Education, childcare, nursery, university, literacy",
+                "Womens movement, activism, demonstrations, etc",
+                "Changing gender relations (outside the home)",
+                "Family law, family codes, property law, inheritance...",
+                "Legal system, judiciary, legislation apart from family",
+                "Disaster, accident, famine, flood, plane crash, etc.",
+                "Riots, demonstrations, public disorder, etc.",
+                "Other stories on social/legal (specify in comments)",
             ],
             col_start=111,
             end_index=166,
@@ -1856,15 +1903,15 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         self._slurp_tertiary_table(
             data=data_2015,
-            medium='Crime and Violence',
+            medium="Crime and Violence",
             options=[
-                'Non-violent crime, bribery, theft, drugs, corruption',
-                'Violent crime, murder, abduction, assault, etc.',
-                'Gender violence based on culture, family, inter-personal relations, feminicide, harassment, rape, sexual assault, trafficking, FGM...',
-                'Gender violence perpetuated by the State',
-                'Child abuse, sexual violence against children, neglect',
-                'War, civil war, terrorism, other state-based violence',
-                'Other crime/violence (specify in comments)'
+                "Non-violent crime, bribery, theft, drugs, corruption",
+                "Violent crime, murder, abduction, assault, etc.",
+                "Gender violence based on culture, family, inter-personal relations, feminicide, harassment, rape, sexual assault, trafficking, FGM...",
+                "Gender violence perpetuated by the State",
+                "Child abuse, sexual violence against children, neglect",
+                "War, civil war, terrorism, other state-based violence",
+                "Other crime/violence (specify in comments)",
             ],
             col_start=167,
             end_index=194,
@@ -1878,14 +1925,14 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         self._slurp_tertiary_table(
             data=data_2015,
-            medium='Celebrity, Arts and Media, Sports',
+            medium="Celebrity, Arts and Media, Sports",
             options=[
-                'Celebrity news, births, marriages, royalty, etc.',
-                'Arts, entertainment, leisure, cinema, books, dance',
-                'Media, (including internet), portrayal of women/men',
-                'Beauty contests, models, fashion, cosmetic surgery',
-                'Sports, events, players, facilities, training, funding',
-                'Other celebrity/arts/media news (specify in comments)',
+                "Celebrity news, births, marriages, royalty, etc.",
+                "Arts, entertainment, leisure, cinema, books, dance",
+                "Media, (including internet), portrayal of women/men",
+                "Beauty contests, models, fashion, cosmetic surgery",
+                "Sports, events, players, facilities, training, funding",
+                "Other celebrity/arts/media news (specify in comments)",
             ],
             col_start=195,
             end_index=218,
@@ -1899,9 +1946,9 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         self._slurp_tertiary_table(
             data=data_2015,
-            medium='Other',
+            medium="Other",
             options=[
-                'Other (only use as a last resort & explain)',
+                "Other (only use as a last resort & explain)",
             ],
             col_start=219,
             end_index=222,
@@ -1921,15 +1968,15 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         self._slurp_tertiary_table(
             data=data_2015,
-            medium='Politics and Government',
+            medium="Politics and Government",
             options=[
-                'Women politicians, women electoral candidates...',
-                'Peace, negotiations, treaties',
-                'Other domestic politics, government, etc.',
-                'Global partnerships',
-                'Foreign/international politics, UN, peacekeeping',
-                'National defence, military spending, internal security, etc.',
-                'Other stories on politics (specify in comments)',
+                "Women politicians, women electoral candidates...",
+                "Peace, negotiations, treaties",
+                "Other domestic politics, government, etc.",
+                "Global partnerships",
+                "Foreign/international politics, UN, peacekeeping",
+                "National defence, military spending, internal security, etc.",
+                "Other stories on politics (specify in comments)",
             ],
             col_start=3,
             end_index=30,
@@ -1943,19 +1990,19 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         self._slurp_tertiary_table(
             data=data_2015,
-            medium='Economy',
+            medium="Economy",
             options=[
-                'Economic policies, strategies, modules, indicators, stock markets, etc',
-                'Economic crisis, state bailouts of companies, company takeovers and mergers, etc.',
-                'Poverty, housing, social welfare, aid, etc.',
-                'Womens participation in economic processes',
-                'Employment',
-                'Informal work, street vending, etc.',
-                'Other labour issues (strikes, trade unions, etc.)',
-                'Rural economy, agriculture, farming, land rights',
-                'Consumer issues, consumer protection, fraud...',
-                'Transport, traffic, roads...',
-                'Other stories on economy (specify in comments)'
+                "Economic policies, strategies, modules, indicators, stock markets, etc",
+                "Economic crisis, state bailouts of companies, company takeovers and mergers, etc.",
+                "Poverty, housing, social welfare, aid, etc.",
+                "Womens participation in economic processes",
+                "Employment",
+                "Informal work, street vending, etc.",
+                "Other labour issues (strikes, trade unions, etc.)",
+                "Rural economy, agriculture, farming, land rights",
+                "Consumer issues, consumer protection, fraud...",
+                "Transport, traffic, roads...",
+                "Other stories on economy (specify in comments)",
             ],
             col_start=31,
             end_index=74,
@@ -1969,17 +2016,17 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         self._slurp_tertiary_table(
             data=data_2015,
-            medium='Science and Health',
+            medium="Science and Health",
             options=[
-                'Science, technology, research, discoveries...',
-                'Medicine, health, hygiene, safety, (not EBOLA or HIV/AIDS)',
-                'EBOLA, treatment, response...',
-                'HIV and AIDS, policy, treatment, etc',
-                'Other epidemics, viruses, contagions, Influenza, BSE, SARS',
-                'Birth control, fertility, sterilization, termination...',
-                'Climate change, global warming',
-                'Environment, pollution, tourism',
-                'Other stories on science (specify in comments)',
+                "Science, technology, research, discoveries...",
+                "Medicine, health, hygiene, safety, (not EBOLA or HIV/AIDS)",
+                "EBOLA, treatment, response...",
+                "HIV and AIDS, policy, treatment, etc",
+                "Other epidemics, viruses, contagions, Influenza, BSE, SARS",
+                "Birth control, fertility, sterilization, termination...",
+                "Climate change, global warming",
+                "Environment, pollution, tourism",
+                "Other stories on science (specify in comments)",
             ],
             col_start=75,
             end_index=110,
@@ -1993,22 +2040,22 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         self._slurp_tertiary_table(
             data=data_2015,
-            medium='Social and Legal',
+            medium="Social and Legal",
             options=[
-                'Millennium Development Goals (MDGs), Post 2015 agenda, Sustainable Development Goals',
-                'Family relations, inter-generational conflict, parents',
-                'Human rights, womens rights, rights of sexual minorities, rights of religious minorities, etc.',
-                'Religion, culture, tradition, controversies...',
-                'Migration, refugees, xenophobia, ethnic conflict...',
-                'Other development issues, sustainability, etc.',
-                'Education, childcare, nursery, university, literacy',
-                'Womens movement, activism, demonstrations, etc',
-                'Changing gender relations (outside the home)',
-                'Family law, family codes, property law, inheritance...',
-                'Legal system, judiciary, legislation apart from family',
-                'Disaster, accident, famine, flood, plane crash, etc.',
-                'Riots, demonstrations, public disorder, etc.',
-                'Other stories on social/legal (specify in comments)'
+                "Millennium Development Goals (MDGs), Post 2015 agenda, Sustainable Development Goals",
+                "Family relations, inter-generational conflict, parents",
+                "Human rights, womens rights, rights of sexual minorities, rights of religious minorities, etc.",
+                "Religion, culture, tradition, controversies...",
+                "Migration, refugees, xenophobia, ethnic conflict...",
+                "Other development issues, sustainability, etc.",
+                "Education, childcare, nursery, university, literacy",
+                "Womens movement, activism, demonstrations, etc",
+                "Changing gender relations (outside the home)",
+                "Family law, family codes, property law, inheritance...",
+                "Legal system, judiciary, legislation apart from family",
+                "Disaster, accident, famine, flood, plane crash, etc.",
+                "Riots, demonstrations, public disorder, etc.",
+                "Other stories on social/legal (specify in comments)",
             ],
             col_start=111,
             end_index=166,
@@ -2022,15 +2069,15 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         self._slurp_tertiary_table(
             data=data_2015,
-            medium='Crime and Violence',
+            medium="Crime and Violence",
             options=[
-                'Non-violent crime, bribery, theft, drugs, corruption',
-                'Violent crime, murder, abduction, assault, etc.',
-                'Gender violence based on culture, family, inter-personal relations, feminicide, harassment, rape, sexual assault, trafficking, FGM...',
-                'Gender violence perpetuated by the State',
-                'Child abuse, sexual violence against children, neglect',
-                'War, civil war, terrorism, other state-based violence',
-                'Other crime/violence (specify in comments)'
+                "Non-violent crime, bribery, theft, drugs, corruption",
+                "Violent crime, murder, abduction, assault, etc.",
+                "Gender violence based on culture, family, inter-personal relations, feminicide, harassment, rape, sexual assault, trafficking, FGM...",
+                "Gender violence perpetuated by the State",
+                "Child abuse, sexual violence against children, neglect",
+                "War, civil war, terrorism, other state-based violence",
+                "Other crime/violence (specify in comments)",
             ],
             col_start=167,
             end_index=194,
@@ -2044,14 +2091,14 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         self._slurp_tertiary_table(
             data=data_2015,
-            medium='Celebrity, Arts and Media, Sports',
+            medium="Celebrity, Arts and Media, Sports",
             options=[
-                'Celebrity news, births, marriages, royalty, etc.',
-                'Arts, entertainment, leisure, cinema, books, dance',
-                'Media, (including internet), portrayal of women/men',
-                'Beauty contests, models, fashion, cosmetic surgery',
-                'Sports, events, players, facilities, training, funding',
-                'Other celebrity/arts/media news (specify in comments)',
+                "Celebrity news, births, marriages, royalty, etc.",
+                "Arts, entertainment, leisure, cinema, books, dance",
+                "Media, (including internet), portrayal of women/men",
+                "Beauty contests, models, fashion, cosmetic surgery",
+                "Sports, events, players, facilities, training, funding",
+                "Other celebrity/arts/media news (specify in comments)",
             ],
             col_start=195,
             end_index=218,
@@ -2065,9 +2112,9 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         self._slurp_tertiary_table(
             data=data_2015,
-            medium='Other',
+            medium="Other",
             options=[
-                'Other (only use as a last resort & explain)',
+                "Other (only use as a last resort & explain)",
             ],
             col_start=219,
             end_index=222,
@@ -2090,8 +2137,13 @@ class GMMP2015ReportImporter(BaseReportImporter):
             col_start=3,
             end_index=37,
             options=[
-                'politics and government', 'economy', 'science and health', 'social and legal', 'crime and violence',
-                'celebrity, arts and media, sports', 'other'
+                "politics and government",
+                "economy",
+                "science and health",
+                "social and legal",
+                "crime and violence",
+                "celebrity, arts and media, sports",
+                "other",
             ],
             cols=5,
             cols_per_group=1,
@@ -2147,7 +2199,7 @@ class GMMP2015ReportImporter(BaseReportImporter):
             data=data_2015,
             col_start=3,
             end_index=10,
-            options=['female', 'male'],
+            options=["female", "male"],
             cols=2,
             cols_per_group=2,
             major_col_heading_row=6,
@@ -2166,7 +2218,7 @@ class GMMP2015ReportImporter(BaseReportImporter):
             data=data_2015,
             col_start=3,
             end_index=14,
-            options=['female', 'male'],
+            options=["female", "male"],
             cols=3,
             cols_per_group=2,
             major_col_heading_row=6,
@@ -2185,7 +2237,7 @@ class GMMP2015ReportImporter(BaseReportImporter):
             data=data_2015,
             col_start=3,
             end_index=10,
-            options=['female', 'male'],
+            options=["female", "male"],
             cols=2,
             cols_per_group=2,
             major_col_heading_row=6,
@@ -2204,7 +2256,7 @@ class GMMP2015ReportImporter(BaseReportImporter):
             data=data_2015,
             col_start=3,
             end_index=30,
-            options=['female', 'male'],
+            options=["female", "male"],
             cols=7,
             cols_per_group=2,
             major_col_heading_row=6,
@@ -2223,7 +2275,7 @@ class GMMP2015ReportImporter(BaseReportImporter):
             data=data_2015,
             col_start=3,
             end_index=30,
-            options=['female', 'male'],
+            options=["female", "male"],
             cols=2,
             cols_per_group=2,
             major_col_heading_row=6,
@@ -2242,15 +2294,15 @@ class GMMP2015ReportImporter(BaseReportImporter):
             data = {}
             all_data[year] = data
             regions = {
-                'Africa': (7, 8),
-                'Asia': (9, 10),
-                'Caribbean': (11, 12),
-                'Europe': (13, 14),
-                'Latin America': (15, 16),
-                'Middle East': (17, 18),
-                'North America': (19, 20),
-                'Pacific Island': (21, 22),
-                'Transnational': (23, 24),
+                "Africa": (7, 8),
+                "Asia": (9, 10),
+                "Caribbean": (11, 12),
+                "Europe": (13, 14),
+                "Latin America": (15, 16),
+                "Middle East": (17, 18),
+                "North America": (19, 20),
+                "Pacific Island": (21, 22),
+                "Transnational": (23, 24),
             }
             for region, (row_start, row_end) in regions.items():
                 regional_data = dict()
@@ -2274,15 +2326,15 @@ class GMMP2015ReportImporter(BaseReportImporter):
             data = {}
             all_data[year] = data
             regions = {
-                'Africa': (7, 10),
-                'Asia': (11, 14),
-                'Caribbean': (15, 18),
-                'Europe': (19, 22),
-                'Latin America': (23, 26),
-                'Middle East': (27, 30),
-                'North America': (31, 34),
-                'Pacific Island': (35, 38),
-                'Transnational': (39, 42),
+                "Africa": (7, 10),
+                "Asia": (11, 14),
+                "Caribbean": (15, 18),
+                "Europe": (19, 22),
+                "Latin America": (23, 26),
+                "Middle East": (27, 30),
+                "North America": (31, 34),
+                "Pacific Island": (35, 38),
+                "Transnational": (39, 42),
             }
             for region, (row_start, row_end) in regions.items():
                 regional_data = dict()
@@ -2306,15 +2358,15 @@ class GMMP2015ReportImporter(BaseReportImporter):
             data = {}
             all_data[year] = data
             regions = {
-                'Africa': (7, 8),
-                'Asia': (9, 10),
-                'Caribbean': (11, 12),
-                'Europe': (13, 14),
-                'Latin America': (15, 16),
-                'Middle East': (17, 18),
-                'North America': (19, 20),
-                'Pacific Island': (21, 22),
-                'Transnational': (23, 24),
+                "Africa": (7, 8),
+                "Asia": (9, 10),
+                "Caribbean": (11, 12),
+                "Europe": (13, 14),
+                "Latin America": (15, 16),
+                "Middle East": (17, 18),
+                "North America": (19, 20),
+                "Pacific Island": (21, 22),
+                "Transnational": (23, 24),
             }
             for region, (row_start, row_end) in regions.items():
                 regional_data = dict()
@@ -2339,8 +2391,13 @@ class GMMP2015ReportImporter(BaseReportImporter):
             col_start=3,
             end_index=23,
             options=[
-                'politics and government', 'economy', 'science and health', 'social and legal', 'crime and violence',
-                'celebrity, arts and media, sports', 'other'
+                "politics and government",
+                "economy",
+                "science and health",
+                "social and legal",
+                "crime and violence",
+                "celebrity, arts and media, sports",
+                "other",
             ],
             cols=3,
             cols_per_group=1,
@@ -2358,15 +2415,15 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         self._slurp_tertiary_table(
             data=data_2015,
-            medium='Politics and Government',
+            medium="Politics and Government",
             options=[
-                'Women politicians, women electoral candidates...',
-                'Peace, negotiations, treaties',
-                'Other domestic politics, government, etc.',
-                'Global partnerships',
-                'Foreign/international politics, UN, peacekeeping',
-                'National defence, military spending, internal security, etc.',
-                'Other stories on politics (specify in comments)',
+                "Women politicians, women electoral candidates...",
+                "Peace, negotiations, treaties",
+                "Other domestic politics, government, etc.",
+                "Global partnerships",
+                "Foreign/international politics, UN, peacekeeping",
+                "National defence, military spending, internal security, etc.",
+                "Other stories on politics (specify in comments)",
             ],
             col_start=3,
             end_index=30,
@@ -2380,19 +2437,19 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         self._slurp_tertiary_table(
             data=data_2015,
-            medium='Economy',
+            medium="Economy",
             options=[
-                'Economic policies, strategies, modules, indicators, stock markets, etc',
-                'Economic crisis, state bailouts of companies, company takeovers and mergers, etc.',
-                'Poverty, housing, social welfare, aid, etc.',
-                'Womens participation in economic processes',
-                'Employment',
-                'Informal work, street vending, etc.',
-                'Other labour issues (strikes, trade unions, etc.)',
-                'Rural economy, agriculture, farming, land rights',
-                'Consumer issues, consumer protection, fraud...',
-                'Transport, traffic, roads...',
-                'Other stories on economy (specify in comments)'
+                "Economic policies, strategies, modules, indicators, stock markets, etc",
+                "Economic crisis, state bailouts of companies, company takeovers and mergers, etc.",
+                "Poverty, housing, social welfare, aid, etc.",
+                "Womens participation in economic processes",
+                "Employment",
+                "Informal work, street vending, etc.",
+                "Other labour issues (strikes, trade unions, etc.)",
+                "Rural economy, agriculture, farming, land rights",
+                "Consumer issues, consumer protection, fraud...",
+                "Transport, traffic, roads...",
+                "Other stories on economy (specify in comments)",
             ],
             col_start=31,
             end_index=74,
@@ -2406,17 +2463,17 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         self._slurp_tertiary_table(
             data=data_2015,
-            medium='Science and Health',
+            medium="Science and Health",
             options=[
-                'Science, technology, research, discoveries...',
-                'Medicine, health, hygiene, safety, (not EBOLA or HIV/AIDS)',
-                'EBOLA, treatment, response...',
-                'HIV and AIDS, policy, treatment, etc',
-                'Other epidemics, viruses, contagions, Influenza, BSE, SARS',
-                'Birth control, fertility, sterilization, termination...',
-                'Climate change, global warming',
-                'Environment, pollution, tourism',
-                'Other stories on science (specify in comments)',
+                "Science, technology, research, discoveries...",
+                "Medicine, health, hygiene, safety, (not EBOLA or HIV/AIDS)",
+                "EBOLA, treatment, response...",
+                "HIV and AIDS, policy, treatment, etc",
+                "Other epidemics, viruses, contagions, Influenza, BSE, SARS",
+                "Birth control, fertility, sterilization, termination...",
+                "Climate change, global warming",
+                "Environment, pollution, tourism",
+                "Other stories on science (specify in comments)",
             ],
             col_start=75,
             end_index=110,
@@ -2430,22 +2487,22 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         self._slurp_tertiary_table(
             data=data_2015,
-            medium='Social and Legal',
+            medium="Social and Legal",
             options=[
-                'Millennium Development Goals (MDGs), Post 2015 agenda, Sustainable Development Goals',
-                'Family relations, inter-generational conflict, parents',
-                'Human rights, womens rights, rights of sexual minorities, rights of religious minorities, etc.',
-                'Religion, culture, tradition, controversies...',
-                'Migration, refugees, xenophobia, ethnic conflict...',
-                'Other development issues, sustainability, etc.',
-                'Education, childcare, nursery, university, literacy',
-                'Womens movement, activism, demonstrations, etc',
-                'Changing gender relations (outside the home)',
-                'Family law, family codes, property law, inheritance...',
-                'Legal system, judiciary, legislation apart from family',
-                'Disaster, accident, famine, flood, plane crash, etc.',
-                'Riots, demonstrations, public disorder, etc.',
-                'Other stories on social/legal (specify in comments)'
+                "Millennium Development Goals (MDGs), Post 2015 agenda, Sustainable Development Goals",
+                "Family relations, inter-generational conflict, parents",
+                "Human rights, womens rights, rights of sexual minorities, rights of religious minorities, etc.",
+                "Religion, culture, tradition, controversies...",
+                "Migration, refugees, xenophobia, ethnic conflict...",
+                "Other development issues, sustainability, etc.",
+                "Education, childcare, nursery, university, literacy",
+                "Womens movement, activism, demonstrations, etc",
+                "Changing gender relations (outside the home)",
+                "Family law, family codes, property law, inheritance...",
+                "Legal system, judiciary, legislation apart from family",
+                "Disaster, accident, famine, flood, plane crash, etc.",
+                "Riots, demonstrations, public disorder, etc.",
+                "Other stories on social/legal (specify in comments)",
             ],
             col_start=111,
             end_index=166,
@@ -2459,15 +2516,15 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         self._slurp_tertiary_table(
             data=data_2015,
-            medium='Crime and Violence',
+            medium="Crime and Violence",
             options=[
-                'Non-violent crime, bribery, theft, drugs, corruption',
-                'Violent crime, murder, abduction, assault, etc.',
-                'Gender violence based on culture, family, inter-personal relations, feminicide, harassment, rape, sexual assault, trafficking, FGM...',
-                'Gender violence perpetuated by the State',
-                'Child abuse, sexual violence against children, neglect',
-                'War, civil war, terrorism, other state-based violence',
-                'Other crime/violence (specify in comments)'
+                "Non-violent crime, bribery, theft, drugs, corruption",
+                "Violent crime, murder, abduction, assault, etc.",
+                "Gender violence based on culture, family, inter-personal relations, feminicide, harassment, rape, sexual assault, trafficking, FGM...",
+                "Gender violence perpetuated by the State",
+                "Child abuse, sexual violence against children, neglect",
+                "War, civil war, terrorism, other state-based violence",
+                "Other crime/violence (specify in comments)",
             ],
             col_start=167,
             end_index=194,
@@ -2481,14 +2538,14 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         self._slurp_tertiary_table(
             data=data_2015,
-            medium='Celebrity, Arts and Media, Sports',
+            medium="Celebrity, Arts and Media, Sports",
             options=[
-                'Celebrity news, births, marriages, royalty, etc.',
-                'Arts, entertainment, leisure, cinema, books, dance',
-                'Media, (including internet), portrayal of women/men',
-                'Beauty contests, models, fashion, cosmetic surgery',
-                'Sports, events, players, facilities, training, funding',
-                'Other celebrity/arts/media news (specify in comments)',
+                "Celebrity news, births, marriages, royalty, etc.",
+                "Arts, entertainment, leisure, cinema, books, dance",
+                "Media, (including internet), portrayal of women/men",
+                "Beauty contests, models, fashion, cosmetic surgery",
+                "Sports, events, players, facilities, training, funding",
+                "Other celebrity/arts/media news (specify in comments)",
             ],
             col_start=195,
             end_index=218,
@@ -2502,9 +2559,9 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         self._slurp_tertiary_table(
             data=data_2015,
-            medium='Other',
+            medium="Other",
             options=[
-                'Other (only use as a last resort & explain)',
+                "Other (only use as a last resort & explain)",
             ],
             col_start=219,
             end_index=222,
@@ -2527,8 +2584,13 @@ class GMMP2015ReportImporter(BaseReportImporter):
             col_start=3,
             end_index=23,
             options=[
-                'politics and government', 'economy', 'science and health', 'social and legal', 'crime and violence',
-                'celebrity, arts and media, sports', 'other'
+                "politics and government",
+                "economy",
+                "science and health",
+                "social and legal",
+                "crime and violence",
+                "celebrity, arts and media, sports",
+                "other",
             ],
             cols=3,
             cols_per_group=1,
@@ -2549,8 +2611,13 @@ class GMMP2015ReportImporter(BaseReportImporter):
             col_start=3,
             end_index=37,
             options=[
-                'politics and government', 'economy', 'science and health', 'social and legal', 'crime and violence',
-                'celebrity, arts and media, sports', 'other'
+                "politics and government",
+                "economy",
+                "science and health",
+                "social and legal",
+                "crime and violence",
+                "celebrity, arts and media, sports",
+                "other",
             ],
             cols=5,
             cols_per_group=1,
@@ -2570,7 +2637,7 @@ class GMMP2015ReportImporter(BaseReportImporter):
             data=data_2015,
             col_start=3,
             end_index=14,
-            options=['presenter', 'reporter', 'subjects'],
+            options=["presenter", "reporter", "subjects"],
             cols=2,
             cols_per_group=2,
             major_col_heading_row=6,
@@ -2589,7 +2656,7 @@ class GMMP2015ReportImporter(BaseReportImporter):
             data=data_2015,
             col_start=3,
             end_index=14,
-            options=['print', 'radio', 'television'],
+            options=["print", "radio", "television"],
             cols=2,
             cols_per_group=2,
             major_col_heading_row=6,
@@ -2609,8 +2676,13 @@ class GMMP2015ReportImporter(BaseReportImporter):
             col_start=3,
             end_index=30,
             options=[
-                'politics and government', 'economy', 'science and health', 'social and legal', 'crime and violence',
-                'celebrity, arts and media, sports', 'other'
+                "politics and government",
+                "economy",
+                "science and health",
+                "social and legal",
+                "crime and violence",
+                "celebrity, arts and media, sports",
+                "other",
             ],
             cols=2,
             cols_per_group=2,
@@ -2631,20 +2703,34 @@ class GMMP2015ReportImporter(BaseReportImporter):
             col_start=3,
             end_index=114,
             options=[
-                'not stated', 'royalty, monarch, deposed monarch, etc.',
-                'government, politician, minister, spokesperson...', 'government employee, public servant, etc.',
-                'police, military, para-military, militia, fire officer', 'academic expert, lecturer, teacher',
-                'doctor, dentist, health specialist', 'health worker, social worker, childcare worker',
-                'science/technology professional, engineer, etc.', 'media professional, journalist, film-maker, etc.',
-                'lawyer, judge, magistrate, legal advocate, etc.', 'business person, exec, manager, stock broker...',
-                'office or service worker, non-management worker', 'tradesperson, artisan, labourer, truck driver, etc.',
-                'agriculture, mining, fishing, forestry', 'religious figure, priest, monk, rabbi, mullah, nun',
-                'activist or worker in civil society org., ngo, trade union', 'sex worker',
-                'celebrity, artist, actor, writer, singer, tv personality', 'sportsperson, athlete, player, coach, referee',
-                'student, pupil, schoolchild', ') only if no other occupation is given e.g. doctor/mother=code 6',
-                'child, young person no other occupation given', 'villager or resident no other occupation given',
-                'retired person, pensioner no other occupation given', 'criminal, suspect no other occupation given',
-                'unemployed no other occupation given', 'other only as last resort & explain',
+                "not stated",
+                "royalty, monarch, deposed monarch, etc.",
+                "government, politician, minister, spokesperson...",
+                "government employee, public servant, etc.",
+                "police, military, para-military, militia, fire officer",
+                "academic expert, lecturer, teacher",
+                "doctor, dentist, health specialist",
+                "health worker, social worker, childcare worker",
+                "science/technology professional, engineer, etc.",
+                "media professional, journalist, film-maker, etc.",
+                "lawyer, judge, magistrate, legal advocate, etc.",
+                "business person, exec, manager, stock broker...",
+                "office or service worker, non-management worker",
+                "tradesperson, artisan, labourer, truck driver, etc.",
+                "agriculture, mining, fishing, forestry",
+                "religious figure, priest, monk, rabbi, mullah, nun",
+                "activist or worker in civil society org., ngo, trade union",
+                "sex worker",
+                "celebrity, artist, actor, writer, singer, tv personality",
+                "sportsperson, athlete, player, coach, referee",
+                "student, pupil, schoolchild",
+                ") only if no other occupation is given e.g. doctor/mother=code 6",
+                "child, young person no other occupation given",
+                "villager or resident no other occupation given",
+                "retired person, pensioner no other occupation given",
+                "criminal, suspect no other occupation given",
+                "unemployed no other occupation given",
+                "other only as last resort & explain",
             ],
             cols=2,
             cols_per_group=2,
@@ -2665,8 +2751,14 @@ class GMMP2015ReportImporter(BaseReportImporter):
             col_start=3,
             end_index=34,
             options=[
-                'do not know', 'subject', 'spokesperson', 'expert or commentator', 'personal experience',
-                'eye witness', 'personal opinion', 'other'
+                "do not know",
+                "subject",
+                "spokesperson",
+                "expert or commentator",
+                "personal experience",
+                "eye witness",
+                "personal opinion",
+                "other",
             ],
             cols=2,
             cols_per_group=2,
@@ -2687,7 +2779,8 @@ class GMMP2015ReportImporter(BaseReportImporter):
             col_start=3,
             end_index=10,
             options=[
-                'Victim', 'Not a victim',
+                "Victim",
+                "Not a victim",
             ],
             cols=2,
             cols_per_group=2,
@@ -2707,7 +2800,7 @@ class GMMP2015ReportImporter(BaseReportImporter):
             data=data_2015,
             col_start=3,
             end_index=10,
-            options=['yes', 'no'],
+            options=["yes", "no"],
             cols=2,
             cols_per_group=2,
             major_col_heading_row=6,
@@ -2726,7 +2819,7 @@ class GMMP2015ReportImporter(BaseReportImporter):
             data=data_2015,
             col_start=3,
             end_index=10,
-            options=['yes', 'no'],
+            options=["yes", "no"],
             cols=2,
             cols_per_group=2,
             major_col_heading_row=6,
@@ -2745,7 +2838,7 @@ class GMMP2015ReportImporter(BaseReportImporter):
             data=data_2015,
             col_start=3,
             end_index=14,
-            options=['yes', 'no', 'do not know'],
+            options=["yes", "no", "do not know"],
             cols=2,
             cols_per_group=2,
             major_col_heading_row=6,
@@ -2762,9 +2855,9 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         self._slurp_tertiary_table(
             data=data_2015,
-            medium='Print',
+            medium="Print",
             options=[
-                'Reporter',
+                "Reporter",
             ],
             col_start=3,
             end_index=6,
@@ -2778,10 +2871,10 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         self._slurp_tertiary_table(
             data=data_2015,
-            medium='Radio',
+            medium="Radio",
             options=[
-                'Presenter',
-                'Reporter',
+                "Presenter",
+                "Reporter",
             ],
             col_start=7,
             end_index=14,
@@ -2795,10 +2888,10 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         self._slurp_tertiary_table(
             data=data_2015,
-            medium='Television',
+            medium="Television",
             options=[
-                'Presenter',
-                'Reporter',
+                "Presenter",
+                "Reporter",
             ],
             col_start=15,
             end_index=22,
@@ -2821,8 +2914,13 @@ class GMMP2015ReportImporter(BaseReportImporter):
             col_start=3,
             end_index=30,
             options=[
-                'politics and government', 'economy', 'science and health', 'social and legal', 'crime and violence',
-                'celebrity, arts and media, sports', 'other'
+                "politics and government",
+                "economy",
+                "science and health",
+                "social and legal",
+                "crime and violence",
+                "celebrity, arts and media, sports",
+                "other",
             ],
             cols=2,
             cols_per_group=2,
@@ -2849,7 +2947,7 @@ class GMMP2015ReportImporter(BaseReportImporter):
             data=data_2015,
             col_start=3,
             end_index=10,
-            options=['female', 'male'],
+            options=["female", "male"],
             cols=2,
             cols_per_group=2,
             major_col_heading_row=6,
@@ -2859,7 +2957,7 @@ class GMMP2015ReportImporter(BaseReportImporter):
         )
 
         return all_data
-    
+
     def import_s14(self, sheet_info):
         data = {}
         all_data = {self.year: data}
@@ -2915,7 +3013,7 @@ class GMMP2015ReportImporter(BaseReportImporter):
         return all_data
 
     def _secondary_import_s17(self, data, medium, col_start, end_index):
-        groups = ['reporter', 'subjects']
+        groups = ["reporter", "subjects"]
         medium_data = {}
         medium_data[medium] = {}
         while col_start < end_index:
@@ -2942,10 +3040,10 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         self._slurp_tertiary_table(
             data=data_2015,
-            medium='internet',
+            medium="internet",
             col_start=3,
             end_index=11,
-            options=['reporter', 'subjects'],
+            options=["reporter", "subjects"],
             cols=2,
             cols_per_group=2,
             major_col_heading_row=7,
@@ -2955,7 +3053,7 @@ class GMMP2015ReportImporter(BaseReportImporter):
         )
 
         n_data_2015 = {}
-        data_2015['internet']['n'] = n_data_2015
+        data_2015["internet"]["n"] = n_data_2015
         for col_start, col_end, row_start, row_end, col_heading_row in [
             (11, 11, 9, 122, 7),
         ]:
@@ -2971,10 +3069,10 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         self._slurp_tertiary_table(
             data=data_2015,
-            medium='twitter',
+            medium="twitter",
             col_start=23,
             end_index=30,
-            options=['reporter', 'subjects'],
+            options=["reporter", "subjects"],
             cols=2,
             cols_per_group=2,
             major_col_heading_row=7,
@@ -2990,8 +3088,8 @@ class GMMP2015ReportImporter(BaseReportImporter):
         all_data = {self.year: data}
 
         mediums = {
-            'internet': (3, 2),
-            'twitter': (10, 9),
+            "internet": (3, 2),
+            "twitter": (10, 9),
         }
 
         for medium, (col_start, row_heading_col) in mediums.items():
@@ -3018,12 +3116,17 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         self._slurp_tertiary_table(
             data=data_2015,
-            medium='internet',
+            medium="internet",
             col_start=3,
             end_index=30,
             options=[
-                'politics and government', 'economy', 'science and health', 'social and legal', 'crime and violence',
-                'celebrity, arts and media, sports', 'other'
+                "politics and government",
+                "economy",
+                "science and health",
+                "social and legal",
+                "crime and violence",
+                "celebrity, arts and media, sports",
+                "other",
             ],
             cols=2,
             cols_per_group=2,
@@ -3035,12 +3138,17 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         self._slurp_tertiary_table(
             data=data_2015,
-            medium='twitter',
+            medium="twitter",
             col_start=33,
             end_index=60,
             options=[
-                'politics and government', 'economy', 'science and health', 'social and legal', 'crime and violence',
-                'celebrity, arts and media, sports', 'other'
+                "politics and government",
+                "economy",
+                "science and health",
+                "social and legal",
+                "crime and violence",
+                "celebrity, arts and media, sports",
+                "other",
             ],
             cols=2,
             cols_per_group=2,
@@ -3057,25 +3165,39 @@ class GMMP2015ReportImporter(BaseReportImporter):
         all_data = {2015: data_2015}
 
         groups = [
-            'not stated', 'royalty, monarch, deposed monarch, etc.',
-            'government, politician, minister, spokesperson...', 'government employee, public servant, etc.',
-            'police, military, para-military, militia, fire officer', 'academic expert, lecturer, teacher',
-            'doctor, dentist, health specialist', 'health worker, social worker, childcare worker',
-            'science/technology professional, engineer, etc.', 'media professional, journalist, film-maker, etc.',
-            'lawyer, judge, magistrate, legal advocate, etc.', 'business person, exec, manager, stock broker...',
-            'office or service worker, non-management worker', 'tradesperson, artisan, labourer, truck driver, etc.',
-            'agriculture, mining, fishing, forestry', 'religious figure, priest, monk, rabbi, mullah, nun',
-            'activist or worker in civil society org., ngo, trade union', 'sex worker',
-            'celebrity, artist, actor, writer, singer, tv personality', 'sportsperson, athlete, player, coach, referee',
-            'student, pupil, schoolchild', ') only if no other occupation is given e.g. doctor/mother=code 6',
-            'child, young person no other occupation given', 'villager or resident no other occupation given',
-            'retired person, pensioner no other occupation given', 'criminal, suspect no other occupation given',
-            'unemployed no other occupation given', 'other only as last resort & explain',
+            "not stated",
+            "royalty, monarch, deposed monarch, etc.",
+            "government, politician, minister, spokesperson...",
+            "government employee, public servant, etc.",
+            "police, military, para-military, militia, fire officer",
+            "academic expert, lecturer, teacher",
+            "doctor, dentist, health specialist",
+            "health worker, social worker, childcare worker",
+            "science/technology professional, engineer, etc.",
+            "media professional, journalist, film-maker, etc.",
+            "lawyer, judge, magistrate, legal advocate, etc.",
+            "business person, exec, manager, stock broker...",
+            "office or service worker, non-management worker",
+            "tradesperson, artisan, labourer, truck driver, etc.",
+            "agriculture, mining, fishing, forestry",
+            "religious figure, priest, monk, rabbi, mullah, nun",
+            "activist or worker in civil society org., ngo, trade union",
+            "sex worker",
+            "celebrity, artist, actor, writer, singer, tv personality",
+            "sportsperson, athlete, player, coach, referee",
+            "student, pupil, schoolchild",
+            ") only if no other occupation is given e.g. doctor/mother=code 6",
+            "child, young person no other occupation given",
+            "villager or resident no other occupation given",
+            "retired person, pensioner no other occupation given",
+            "criminal, suspect no other occupation given",
+            "unemployed no other occupation given",
+            "other only as last resort & explain",
         ]
 
         self._slurp_tertiary_table(
             data=data_2015,
-            medium='internet',
+            medium="internet",
             col_start=3,
             end_index=114,
             options=groups,
@@ -3094,13 +3216,19 @@ class GMMP2015ReportImporter(BaseReportImporter):
         all_data = {2015: data_2015}
 
         groups = [
-            'do not know', 'subject', 'spokesperson', 'expert or commentator', 'personal experience',
-            'eye witness', 'personal opinion', 'other'
+            "do not know",
+            "subject",
+            "spokesperson",
+            "expert or commentator",
+            "personal experience",
+            "eye witness",
+            "personal opinion",
+            "other",
         ]
 
         self._slurp_tertiary_table(
             data=data_2015,
-            medium='internet',
+            medium="internet",
             col_start=3,
             end_index=34,
             options=groups,
@@ -3120,11 +3248,12 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         self._slurp_tertiary_table(
             data=data_2015,
-            medium='internet',
+            medium="internet",
             col_start=3,
             end_index=10,
             options=[
-                'victim', 'not a victim',
+                "victim",
+                "not a victim",
             ],
             cols=2,
             cols_per_group=2,
@@ -3142,11 +3271,12 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         self._slurp_tertiary_table(
             data=data_2015,
-            medium='internet',
+            medium="internet",
             col_start=3,
             end_index=10,
             options=[
-                'yes', 'no',
+                "yes",
+                "no",
             ],
             cols=2,
             cols_per_group=2,
@@ -3162,11 +3292,11 @@ class GMMP2015ReportImporter(BaseReportImporter):
         data_2015 = {}
         all_data = {2015: data_2015}
 
-        options = ['yes', 'no', 'do not know']
+        options = ["yes", "no", "do not know"]
 
         self._slurp_tertiary_table(
             data=data_2015,
-            medium='internet',
+            medium="internet",
             col_start=3,
             end_index=14,
             options=options,
@@ -3180,7 +3310,7 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         self._slurp_tertiary_table(
             data=data_2015,
-            medium='twitter',
+            medium="twitter",
             col_start=17,
             end_index=28,
             options=options,
@@ -3199,13 +3329,18 @@ class GMMP2015ReportImporter(BaseReportImporter):
         all_data = {2015: data_2015}
 
         groups = [
-            'politics and government', 'economy', 'science and health', 'social and legal', 'crime and violence',
-            'celebrity, arts and media, sports', 'other'
+            "politics and government",
+            "economy",
+            "science and health",
+            "social and legal",
+            "crime and violence",
+            "celebrity, arts and media, sports",
+            "other",
         ]
 
         self._slurp_tertiary_table(
             data=data_2015,
-            medium='internet',
+            medium="internet",
             col_start=3,
             end_index=30,
             options=groups,
@@ -3219,7 +3354,7 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         self._slurp_tertiary_table(
             data=data_2015,
-            medium='twitter',
+            medium="twitter",
             col_start=33,
             end_index=60,
             options=groups,
@@ -3238,8 +3373,8 @@ class GMMP2015ReportImporter(BaseReportImporter):
         all_data = {self.year: data}
 
         mediums = {
-            'internet': (3, 9),
-            'twitter': (12, 18),
+            "internet": (3, 9),
+            "twitter": (12, 18),
         }
 
         for medium, (col_start, col_end) in mediums.items():
@@ -3252,7 +3387,7 @@ class GMMP2015ReportImporter(BaseReportImporter):
                 col_end=col_end,
                 row_start=8,
                 row_end=121,
-                col_heading_row=6
+                col_heading_row=6,
             )
 
         return all_data
@@ -3262,8 +3397,8 @@ class GMMP2015ReportImporter(BaseReportImporter):
         all_data = {self.year: data}
 
         mediums = {
-            'internet': (3, 6),
-            'twitter': (9, 12),
+            "internet": (3, 6),
+            "twitter": (9, 12),
         }
 
         for medium, (col_start, col_end) in mediums.items():
@@ -3276,7 +3411,7 @@ class GMMP2015ReportImporter(BaseReportImporter):
                 col_end=col_end,
                 row_start=8,
                 row_end=121,
-                col_heading_row=6
+                col_heading_row=6,
             )
 
         return all_data
@@ -3289,7 +3424,7 @@ class GMMP2015ReportImporter(BaseReportImporter):
             data=data_2015,
             col_start=3,
             end_index=14,
-            options=['presenter', 'reporter', 'subjects'],
+            options=["presenter", "reporter", "subjects"],
             cols=2,
             cols_per_group=2,
             major_col_heading_row=6,
@@ -3309,8 +3444,13 @@ class GMMP2015ReportImporter(BaseReportImporter):
             col_start=3,
             end_index=30,
             options=[
-                'politics and government', 'economy', 'science and health', 'social and legal', 'crime and violence',
-                'celebrity, arts and media, sports', 'other'
+                "politics and government",
+                "economy",
+                "science and health",
+                "social and legal",
+                "crime and violence",
+                "celebrity, arts and media, sports",
+                "other",
             ],
             cols=2,
             cols_per_group=2,
@@ -3319,7 +3459,6 @@ class GMMP2015ReportImporter(BaseReportImporter):
             row_end=16,
             row_heading_col=2,
         )
-
 
         return all_data
 
@@ -3332,8 +3471,14 @@ class GMMP2015ReportImporter(BaseReportImporter):
             col_start=3,
             end_index=34,
             options=[
-                'do not know', 'subject', 'spokesperson', 'expert or commentator', 'personal experience',
-                'eye witness', 'personal opinion', 'other'
+                "do not know",
+                "subject",
+                "spokesperson",
+                "expert or commentator",
+                "personal experience",
+                "eye witness",
+                "personal opinion",
+                "other",
             ],
             cols=2,
             cols_per_group=2,
@@ -3353,7 +3498,7 @@ class GMMP2015ReportImporter(BaseReportImporter):
             data=data_2015,
             col_start=3,
             end_index=14,
-            options=['yes', 'no', 'do not know'],
+            options=["yes", "no", "do not know"],
             cols=2,
             cols_per_group=2,
             major_col_heading_row=6,
@@ -3370,11 +3515,11 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         self._slurp_tertiary_table(
             data=data_2015,
-            medium='Print',
+            medium="Print",
             col_start=3,
             end_index=6,
             options=[
-                'Reporter',
+                "Reporter",
             ],
             cols=2,
             cols_per_group=2,
@@ -3386,12 +3531,12 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         self._slurp_tertiary_table(
             data=data_2015,
-            medium='Radio',
+            medium="Radio",
             col_start=7,
             end_index=14,
             options=[
-                'Presenter',
-                'Reporter',
+                "Presenter",
+                "Reporter",
             ],
             cols=2,
             cols_per_group=2,
@@ -3403,12 +3548,12 @@ class GMMP2015ReportImporter(BaseReportImporter):
 
         self._slurp_tertiary_table(
             data=data_2015,
-            medium='Television',
+            medium="Television",
             col_start=15,
             end_index=22,
             options=[
-                'Presenter',
-                'Reporter',
+                "Presenter",
+                "Reporter",
             ],
             cols=2,
             cols_per_group=2,
@@ -3429,8 +3574,13 @@ class GMMP2015ReportImporter(BaseReportImporter):
             col_start=3,
             end_index=30,
             options=[
-                'politics and government', 'economy', 'science and health', 'social and legal', 'crime and violence',
-                'celebrity, arts and media, sports', 'other'
+                "politics and government",
+                "economy",
+                "science and health",
+                "social and legal",
+                "crime and violence",
+                "celebrity, arts and media, sports",
+                "other",
             ],
             cols=2,
             cols_per_group=2,
@@ -3450,7 +3600,7 @@ class GMMP2015ReportImporter(BaseReportImporter):
             data=data_2015,
             col_start=3,
             end_index=10,
-            options=['female', 'male'],
+            options=["female", "male"],
             cols=2,
             cols_per_group=2,
             major_col_heading_row=6,

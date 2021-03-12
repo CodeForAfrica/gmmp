@@ -924,7 +924,7 @@ class XLSXReportBuilder:
         Rows: Function
         """
         secondary_counts = OrderedDict()
-        for age_id, age in AGES:
+        for age_id, age in AGES_PEOPLE_IN_THE_NEWS:
             counts = Counter()
             for media_type, model in tm_person_models.items():
                 if 'function' and 'age' in [field_name.name for field_name in model._meta.get_fields()]:
@@ -982,8 +982,9 @@ class XLSXReportBuilder:
 
                 counts.update({(r['sex'], r['age']): r['n'] for r in rows})
 
-        self.tabulate_secondary_cols(ws, {'Television': counts}, self.male_female, AGES, row_perc=True)
-        self.tabulate_historical(ws, '19', self.male_female, AGES, major_cols=[(3, 'Television')], write_row_headings=False)
+        self.tabulate_secondary_cols(ws, {'Television': counts}, self.male_female, AGES_PEOPLE_IN_THE_NEWS, row_perc=True)
+        major_cols = [(3, 'Television')]
+        self.tabulate_historical(ws, '19', self.male_female, AGES, major_cols=major_cols, write_row_headings=True)
 
     def ws_20(self, ws):
         """
@@ -1427,10 +1428,9 @@ class XLSXReportBuilder:
         rows = self.apply_weights(rows, TelevisionJournalist.sheet_db_table(), 'Television')
         counts.update({(r['sex'], r['age']): r['n'] for r in rows})
 
-        self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, AGES, row_perc=False, show_N=True)
-
+        self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, AGES_PEOPLE_IN_THE_NEWS, row_perc=False, show_N=True)
         major_cols = [TV_ROLE_ANNOUNCER, TV_ROLE_REPORTER]
-        self.tabulate_historical(ws, '35', self.female, AGES, major_cols=major_cols, write_row_headings=False)
+        self.tabulate_historical(ws, '35', self.female, AGES, major_cols=major_cols)
 
     def ws_36(self, ws):
         """
@@ -1654,20 +1654,23 @@ class XLSXReportBuilder:
         Rows: Major Topics
         """
         secondary_counts = OrderedDict()
-        for region_id, region in self.regions:
+        for _, region in self.regions:
             counts = Counter()
             for media_type, model in tm_sheet_models.items():
                 if 'stereotypes' in [field_name.name for field_name in model._meta.get_fields()]:
-                    rows = model.objects\
-                            .values('stereotypes', 'topic')\
-                            .filter(country_region__region=region)\
+                    rows = model.objects \
+                            .values('stereotypes', 'topic') \
+                            .filter(country_region__region=region) \
                             .annotate(n=Count('id'))
 
                     rows = self.apply_weights(rows, model._meta.db_table, media_type)
 
-                    for r in rows:
-                        counts.update({(TOPIC_GROUPS[r['topic']], r['stereotypes']): r['n']})
+                    for row in rows:
+                        major_topic = TOPIC_GROUPS[row['topic']]
+                        counts.update({(row['stereotypes'], major_topic): row['n']})
+
             secondary_counts[region] = counts
+
         self.tabulate_secondary_cols(ws, secondary_counts, AGREE_DISAGREE, MAJOR_TOPICS, row_perc=True)
         self.tabulate_historical(ws, '46', AGREE_DISAGREE, MAJOR_TOPICS, write_row_headings=False, major_cols=self.regions)
 
@@ -2186,9 +2189,10 @@ class XLSXReportBuilder:
                 .annotate(n=Count('id'))
 
         rows = self.apply_weights(rows, model._meta.db_table, "Twitter")
-        {counts.update({(TOPIC_GROUPS[row["topic"]], row["stereotypes"]): row['n']}) for row in rows}
+        for row in rows:
+            counts.update({(TOPIC_GROUPS[row["topic"]], row["stereotypes"]): row['n']})
 
-        self.tabulate(ws, counts, MAJOR_TOPICS, AGREE_DISAGREE, row_perc=True, write_col_headings=False)
+        self.tabulate(ws, counts, MAJOR_TOPICS, AGREE_DISAGREE, row_perc=True)
 
     def ws_70(self, ws):
         ws.write(4, 0, 'See raw data sheets')
