@@ -272,7 +272,11 @@ JET_SIDE_MENU_ITEMS = [
         "label": _("General"),
         "app_label": "core",
         "items": [
-            {"label": _("Help"), "url": "#"},
+            {
+                "label": _("Help"),
+                "url": f"{SITE_URL}/static/help.pdf",
+                "url_blank": True,
+            },
             {
                 "label": _("Facebook Group"),
                 "url": "https://www.facebook.com/groups/1601794946722112/",
