@@ -1654,20 +1654,23 @@ class XLSXReportBuilder:
         Rows: Major Topics
         """
         secondary_counts = OrderedDict()
-        for region_id, region in self.regions:
+        for _, region in self.regions:
             counts = Counter()
             for media_type, model in tm_sheet_models.items():
                 if 'stereotypes' in [field_name.name for field_name in model._meta.get_fields()]:
-                    rows = model.objects\
-                            .values('stereotypes', 'topic')\
-                            .filter(country_region__region=region)\
+                    rows = model.objects \
+                            .values('stereotypes', 'topic') \
+                            .filter(country_region__region=region) \
                             .annotate(n=Count('id'))
 
                     rows = self.apply_weights(rows, model._meta.db_table, media_type)
 
-                    for r in rows:
-                        counts.update({(TOPIC_GROUPS[r['topic']], r['stereotypes']): r['n']})
+                    for row in rows:
+                        major_topic = TOPIC_GROUPS[row['topic']]
+                        counts.update({(row['stereotypes'], major_topic): row['n']})
+
             secondary_counts[region] = counts
+
         self.tabulate_secondary_cols(ws, secondary_counts, AGREE_DISAGREE, MAJOR_TOPICS, row_perc=True)
         self.tabulate_historical(ws, '46', AGREE_DISAGREE, MAJOR_TOPICS, write_row_headings=False, major_cols=self.regions)
 
