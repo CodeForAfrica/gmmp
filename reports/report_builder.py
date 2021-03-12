@@ -2186,9 +2186,10 @@ class XLSXReportBuilder:
                 .annotate(n=Count('id'))
 
         rows = self.apply_weights(rows, model._meta.db_table, "Twitter")
-        {counts.update({(TOPIC_GROUPS[row["topic"]], row["stereotypes"]): row['n']}) for row in rows}
+        for row in rows:
+            counts.update({(TOPIC_GROUPS[row["topic"]], row["stereotypes"]): row['n']})
 
-        self.tabulate(ws, counts, MAJOR_TOPICS, AGREE_DISAGREE, row_perc=True, write_col_headings=False)
+        self.tabulate(ws, counts, MAJOR_TOPICS, AGREE_DISAGREE, row_perc=True)
 
     def ws_70(self, ws):
         ws.write(4, 0, 'See raw data sheets')
