@@ -1521,6 +1521,7 @@ class XLSXReportBuilder:
         Rows: Major Topics
         """
         counts = Counter()
+        overall_column = ws.dim_colmax
         for media_type, model in tm_sheet_models.items():
             if 'about_women' in [field_name.name for field_name in model._meta.get_fields()]:
                 rows = model.objects\
@@ -1535,6 +1536,12 @@ class XLSXReportBuilder:
 
         self.tabulate(ws, counts, YESNO, MAJOR_TOPICS, row_perc=True)
         self.tabulate_historical(ws, '38', YESNO, MAJOR_TOPICS, write_row_headings=False)
+        overall_row = ws.dim_rowmax + 2
+        ws.write(overall_row, overall_column-1, "Overall", self.label)
+        yes_no_sum = sum(counts.values())
+        yes_sum = sum([counts[x] for x in counts if x[0] == 'Y'])
+        value = yes_sum/yes_no_sum
+        ws.write(overall_row, overall_column+1, value, self.P)
 
     def ws_39(self, ws):
         """
