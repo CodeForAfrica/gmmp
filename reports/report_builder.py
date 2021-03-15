@@ -1537,11 +1537,7 @@ class XLSXReportBuilder:
         self.tabulate(ws, counts, YESNO, MAJOR_TOPICS, row_perc=True)
         self.tabulate_historical(ws, '38', YESNO, MAJOR_TOPICS, write_row_headings=False)
         overall_row = ws.dim_rowmax + 2
-        ws.write(overall_row, overall_column-1, "Overall", self.label)
-        yes_no_sum = sum(counts.values())
-        yes_sum = sum([counts[x] for x in counts if x[0] == 'Y'])
-        value = yes_sum/yes_no_sum
-        ws.write(overall_row, overall_column+1, value, self.P)
+        self.write_yes_no_overall(ws, counts, c=overall_column, r=overall_row)
 
     def ws_39(self, ws):
         """
@@ -1592,6 +1588,7 @@ class XLSXReportBuilder:
         Rows: Topics
         """
         counts = Counter()
+        overall_column = ws.dim_colmax
         for media_type, model in tm_sheet_models.items():
             if 'equality_rights' in [field_name.name for field_name in model._meta.get_fields()]:
                 rows = model.objects\
@@ -1604,6 +1601,8 @@ class XLSXReportBuilder:
                 counts.update({(r['equality_rights'], r['topic']): r['n'] for r in rows})
         self.tabulate(ws, counts, YESNO, [y for x in TOPICS for y in x[1]], row_perc=False, show_N=True)
         self.tabulate_historical(ws, '41', [*YESNO], [y for x in TOPICS for y in x[1]], write_row_headings=False, r=6, show_N_and_P=True)
+        overall_row = ws.dim_rowmax + 2
+        self.write_yes_no_overall(ws, counts, c=overall_column, r=overall_row)
 
     def ws_42(self, ws):
         """
@@ -4710,6 +4709,13 @@ class XLSXReportBuilder:
 
         """
         ws.write(r, c, clean_title(heading), self.heading)
+    
+    def write_yes_no_overall(self, ws, counts, c, r):
+        yes_no_sum = sum(counts.values())
+        yes_sum = sum([counts[x] for x in counts if x[0] == 'Y'])
+        value = yes_sum/yes_no_sum
+        ws.write(r, c-1, "Overall", self.label)
+        ws.write(r, c+1, value, self.P)
 
     def tabulate_secondary_cols(self, ws, secondary_counts, cols, rows, row_perc=False, write_row_headings=True, write_col_totals=True, filter_cols=None, c=1, r=7, show_N=False, raw_values=False):
         """
