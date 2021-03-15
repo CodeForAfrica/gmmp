@@ -807,9 +807,16 @@ class XLSXReportBuilder:
 
                 for r in rows:
                     counts.update({(r['equality_rights'], TOPIC_GROUPS[r['topic']]): r['n']})
+        overall_column = ws.dim_colmax
+        yes_no_sum = sum(counts.values())
+        yes_sum = sum([counts[x] for x in counts if x[0]=='Y'])
+        overall_yes_perc = ((yes_sum * 100) / yes_no_sum) / 100
 
         self.tabulate(ws, counts, YESNO, MAJOR_TOPICS, row_perc=True)
         self.tabulate_historical(ws, '11', [*YESNO], MAJOR_TOPICS, write_row_headings=False)
+        overall_row = ws.dim_rowmax + 2
+        ws.write(overall_row, overall_column-1, "Overall", self.label)
+        ws.write(overall_row, overall_column, overall_yes_perc, self.P)
 
     def ws_12(self, ws):
         """
