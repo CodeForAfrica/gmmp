@@ -653,14 +653,14 @@ class XLSXReportBuilder:
         c = ws.dim_colmax + 2
         overall_row = ws.dim_rowmax+2
         for media_type in counts_list[0]:
-            overall_total_dm = sum([counts_list[0][media_type][x] for x in counts_list[0][media_type]])
+            overall_total_tm = sum([counts_list[0][media_type][x] for x in counts_list[0][media_type]])
             female_values = [x for x in counts_list[0][media_type] if x[0]==self.female_ids[0]]
-            overall_tm_female_value = sum([counts_list[0][media_type][x] for x in female_values]) / overall_total_dm
+            overall_tm_female_value = sum([counts_list[0][media_type][x] for x in female_values]) / overall_total_tm
 
         for media_type in counts_list[1]:
-            overall_total_tm = sum([counts_list[1][media_type][x] for x in counts_list[1][media_type]])
+            overall_total_dm = sum([counts_list[1][media_type][x] for x in counts_list[1][media_type]])
             female_values = [x for x in counts_list[1][media_type] if x[0]==self.female_ids[0]]
-            overall_dm_female_value = sum([counts_list[1][media_type][x] for x in female_values]) / overall_total_tm
+            overall_dm_female_value = sum([counts_list[1][media_type][x] for x in female_values]) / overall_total_dm
     
         ws.write(overall_row, overall_column, overall_tm_female_value, self.P)
         ws.write(overall_row, c, overall_dm_female_value, self.P)
