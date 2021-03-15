@@ -1191,6 +1191,7 @@ class XLSXReportBuilder:
         Rows: Region
         :: Reporters + Presenters
         """
+        overall_column = ws.dim_colmax
         if self.report_type == 'country':
             secondary_counts = OrderedDict()
             for media_type, model in tm_journalist_models.items():
@@ -1228,6 +1229,17 @@ class XLSXReportBuilder:
                 secondary_counts[media_type] = counts
             self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, self.regions, row_perc=True, show_N=True)
             self.tabulate_historical(ws, '28', self.male_female, self.regions, r=7)
+        overall_row = ws.dim_rowmax + 2
+        ws.write(overall_row, overall_column-1, "Overall", self.label)
+        overall_column +=1
+        for media_type in secondary_counts:
+            setattr(self, f"female_male_sum_{media_type}", sum(secondary_counts[media_type].values()))
+            setattr(self, f"female_sum_{media_type}", sum([secondary_counts[media_type][x] for x in secondary_counts[media_type] if x[0] in self.female_ids]))
+            value = getattr(self, f"female_sum_{media_type}")/getattr(self, f"female_male_sum_{media_type}")
+            ws.write(overall_row, overall_column, value, self.P)
+            ws.write(overall_row, overall_column, value, self.P)
+            ws.write(overall_row, overall_column, value, self.P)
+            overall_column +=4
 
     def ws_29(self, ws):
         """
