@@ -648,12 +648,28 @@ class XLSXReportBuilder:
                     counts.update({(r['sex'], TOPIC_GROUPS[r['topic']]): r['n']})
 
             counts_list.append(secondary_counts)
+        overall_column = ws.dim_colmax
         self.tabulate_secondary_cols(ws, counts_list[0], self.male_female, MAJOR_TOPICS, row_perc=True)
         c = ws.dim_colmax + 2
+        overall_row = ws.dim_rowmax+2
+        for media_type in counts_list[0]:
+            overall_total_dm = sum([counts_list[0][media_type][x] for x in counts_list[0][media_type]])
+            female_values = [x for x in counts_list[0][media_type] if x[0]==self.female_ids[0]]
+            overall_tm_female_value = sum([counts_list[0][media_type][x] for x in female_values]) / overall_total_dm
+
+        for media_type in counts_list[1]:
+            overall_total_tm = sum([counts_list[1][media_type][x] for x in counts_list[1][media_type]])
+            female_values = [x for x in counts_list[1][media_type] if x[0]==self.female_ids[0]]
+            overall_dm_female_value = sum([counts_list[1][media_type][x] for x in female_values]) / overall_total_tm
+    
+        ws.write(overall_row, overall_column, overall_tm_female_value, self.P)
+        ws.write(overall_row, c, overall_dm_female_value, self.P)
+
         self.tabulate_secondary_cols(ws, counts_list[1], self.male_female, MAJOR_TOPICS, row_perc=True, c=c, write_row_headings=False)
         c = ws.dim_colmax + 2
 
         self.tabulate_historical(ws, '05', self.male_female, MAJOR_TOPICS, c=c, r=7, skip_major_col_heading=True)
+        ws.write(overall_row, overall_column-1, "Overall", self.label)
 
     def ws_06(self, ws):
         """
