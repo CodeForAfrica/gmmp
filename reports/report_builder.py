@@ -867,10 +867,22 @@ class XLSXReportBuilder:
                     for r in rows:
                         counts.update({(r['equality_rights'], TOPIC_GROUPS[r['topic']]): r['n']})
             secondary_counts[gender] = counts
+        overall_column = ws.dim_colmax
+        female_male_yes_no_sum = 0
+        for count in secondary_counts:
+            female_male_yes_no_sum += sum(secondary_counts[count].values())
 
+        female_yes_sum = sum([secondary_counts['(1) Female'][x] for x in secondary_counts['(1) Female'] if x[0]=='Y'])
+        male_yes_sum = sum([secondary_counts['(2) Male'][x] for x in secondary_counts['(2) Male'] if x[0]=='Y'])
         self.tabulate_secondary_cols(ws, secondary_counts, YESNO, MAJOR_TOPICS, row_perc=True)
         c = ws.dim_colmax + 2
-        self.tabulate_historical(ws, '13', [*YESNO], MAJOR_TOPICS, write_row_headings=True, major_cols=self.male_female)
+        overall_row = ws.dim_rowmax+2
+        
+        ws.write(overall_row, overall_column, female_yes_sum/female_male_yes_no_sum, self.P)
+        ws.write(overall_row, overall_column+3, male_yes_sum/female_male_yes_no_sum, self.P)
+        ws.write(overall_row, overall_column-1, "Overall", self.label)
+
+        self.tabulate_historical(ws, '13', [*YESNO], MAJOR_TOPICS, write_row_headings=True, major_cols=self.male_female)        
 
     def ws_14(self, ws):
         """
