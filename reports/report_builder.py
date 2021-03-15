@@ -1304,6 +1304,7 @@ class XLSXReportBuilder:
         Rows: Major Topics
         :: Reporters only
         """
+        overall_column = ws.dim_colmax
         if self.report_type == 'country':
             secondary_counts = OrderedDict()
             for country_code, country_name in self.countries:
@@ -1356,6 +1357,15 @@ class XLSXReportBuilder:
 
             self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, MAJOR_TOPICS, row_perc=False, show_N=True)
         c = ws.dim_colmax + 2
+        overall_row = ws.dim_rowmax + 2
+        ws.write(overall_row, overall_column-1, "Overall", self.label)
+        overall_column +=1
+        for region in secondary_counts:
+            setattr(self, f"female_male_sum_{region}", sum(secondary_counts[region].values()))
+            setattr(self, f"female_sum_{region}", sum([secondary_counts[region][x] for x in secondary_counts[region] if x[0] in self.female_ids]))
+            value = getattr(self, f"female_sum_{region}")/getattr(self, f"female_male_sum_{region}")
+            ws.write(overall_row, overall_column, value, self.P)
+            overall_column +=4
         self.tabulate_historical(ws, '30', self.male_female, MAJOR_TOPICS, write_row_headings=True, major_cols=self.regions, c=c, show_N_and_P=True)
 
     def ws_31(self, ws):
