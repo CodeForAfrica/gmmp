@@ -2009,14 +2009,14 @@ WS_INFO = {
     },
     'ws_sr01': {
         '2015': {
-            'name': 'rs01',
+            'name': 'sr01',
             'title': 'Sex of presenters, reporters and news subjects by region',
             'desc': 'Sex of presenters, reporters and news subjects by region',
             'reports': ['global'],
             'historical': 'rs01',
         },
         '2010': {
-            'name': 'rs01',
+            'name': 'sr01',
             'title': 'Sex of presenters, reporters and news subjects by region',
             'desc': 'Sex of presenters, reporters and news subjects by region',
             'reports': ['global'],
