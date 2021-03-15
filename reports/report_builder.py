@@ -810,7 +810,7 @@ class XLSXReportBuilder:
         overall_column = ws.dim_colmax
         yes_no_sum = sum(counts.values())
         yes_sum = sum([counts[x] for x in counts if x[0]=='Y'])
-        overall_yes_perc = ((yes_sum * 100) / yes_no_sum) / 100
+        overall_yes_perc = ((yes_sum) / yes_no_sum)
 
         self.tabulate(ws, counts, YESNO, MAJOR_TOPICS, row_perc=True)
         self.tabulate_historical(ws, '11', [*YESNO], MAJOR_TOPICS, write_row_headings=False)
