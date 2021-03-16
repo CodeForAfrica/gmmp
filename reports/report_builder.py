@@ -1222,10 +1222,10 @@ class XLSXReportBuilder:
         ws.write(overall_row, overall_column-1, "Overall", self.label)
         overall_column +=1
         for media_type in secondary_counts:
-            female_male_sum = sum(secondary_counts[media_type].values())
-            female_sum = sum([secondary_counts[media_type][x] for x in secondary_counts[media_type] if x[0] in self.female_ids])
-            value = female_sum/female_male_sum
-            ws.write(overall_row, overall_column, value, self.P)
+            counts = secondary_counts[media_type]
+            value = sum([counts[x] for x in counts if x[0] in self.female_ids])
+            total = sum(counts.values())
+            self.write_overall_value(ws, value, total, overall_column, overall_row, write_overall=False)
             overall_column +=4
 
     def ws_29(self, ws):
