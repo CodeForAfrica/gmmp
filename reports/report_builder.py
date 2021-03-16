@@ -1846,6 +1846,8 @@ class XLSXReportBuilder:
         :: Only stories shared on Twitter
         """
         counts = Counter()
+        overall_counts = Counter()
+        overall_column = ws.dim_colmax
         model = sheet_models.get('Internet')
         rows = model.objects\
                 .values('topic', 'shared_via_twitter')\
@@ -1856,8 +1858,11 @@ class XLSXReportBuilder:
         for row in rows:
             major_topic = TOPIC_GROUPS[row['topic']]
             counts.update({(major_topic, row['shared_via_twitter']): row['n']})
+            overall_counts.update({(row['shared_via_twitter'], major_topic): row['n']})
 
         self.tabulate(ws, counts, MAJOR_TOPICS, YESNO, show_N=True)
+        overall_row = ws.dim_rowmax + 2
+        self.write_yes_no_overall(ws, overall_counts, overall_column, overall_row)
 
     def ws_51(self, ws):
         """
@@ -4726,7 +4731,7 @@ class XLSXReportBuilder:
         yes_no_sum = sum(counts.values())
         yes_sum = sum([counts[x] for x in counts if x[0] == 'Y'])
         value = yes_sum/yes_no_sum
-        ws.write(r, c-1, "Overall", self.label)
+        ws.write(r, c-1, "Overall Yes", self.label)
         ws.write(r, c+1, value, self.P)
     
     def write_agree_disagree_overall(self, ws, counts, c, r, write_overall=True):
