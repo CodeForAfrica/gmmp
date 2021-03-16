@@ -1743,6 +1743,7 @@ class XLSXReportBuilder:
         Rows: Major Topics
         """
         counts = Counter()
+        overall_column = ws.dim_colmax
         for media_type, model in tm_sheet_models.items():
             rows = model.objects\
                     .values('stereotypes', 'topic')\
@@ -1756,6 +1757,8 @@ class XLSXReportBuilder:
 
         self.tabulate(ws, counts, AGREE_DISAGREE, MAJOR_TOPICS, row_perc=True)
         self.tabulate_historical(ws, '47', AGREE_DISAGREE, MAJOR_TOPICS, write_row_headings=False)
+        overall_row = ws.dim_rowmax + 2
+        self.write_agree_disagree_overall(ws, c=overall_column, r=overall_row, counts=counts)
 
     def ws_48(self, ws):
         """
@@ -4716,6 +4719,13 @@ class XLSXReportBuilder:
         value = yes_sum/yes_no_sum
         ws.write(r, c-1, "Overall", self.label)
         ws.write(r, c+1, value, self.P)
+    
+    def write_agree_disagree_overall(self, ws, counts, c, r):
+        agree_disagree_sum = sum(counts.values())
+        agree_sum = sum([counts[x] for x in counts if x[0] == 1])
+        value = agree_sum/agree_disagree_sum
+        ws.write(r, c-1, "Overall", self.label)
+        ws.write(r, c, value, self.P)
 
     def tabulate_secondary_cols(self, ws, secondary_counts, cols, rows, row_perc=False, write_row_headings=True, write_col_totals=True, filter_cols=None, c=1, r=7, show_N=False, raw_values=False):
         """
