@@ -2285,6 +2285,8 @@ class XLSXReportBuilder:
         :: Twitter media type only
         """
         counts = Counter()
+        overall_counts = Counter()
+        overall_column = ws.dim_colmax
         model = sheet_models.get('Twitter')
         rows = model.objects\
                 .values('topic', 'stereotypes')\
@@ -2294,8 +2296,11 @@ class XLSXReportBuilder:
         rows = self.apply_weights(rows, model._meta.db_table, "Twitter")
         for row in rows:
             counts.update({(TOPIC_GROUPS[row["topic"]], row["stereotypes"]): row['n']})
+            overall_counts.update({(row['stereotypes'], TOPIC_GROUPS[row["topic"]]): row['n']})
 
         self.tabulate(ws, counts, MAJOR_TOPICS, AGREE_DISAGREE, row_perc=True)
+        overall_row = ws.dim_rowmax + 2
+        self.write_agree_disagree_overall(ws,overall_counts, overall_column, overall_row)
 
     def ws_70(self, ws):
         ws.write(4, 0, 'See raw data sheets')
