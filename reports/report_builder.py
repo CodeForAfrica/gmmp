@@ -626,6 +626,7 @@ class XLSXReportBuilder:
         Rows: Major Topic
         """
         counts_list = []
+        overall_column = ws.dim_colmax
         for media_types, models in PERSON_MEDIA_GROUPS:
             media_title = ', '.join(m[1] for m in media_types)
             secondary_counts = OrderedDict()
@@ -648,28 +649,19 @@ class XLSXReportBuilder:
                     counts.update({(r['sex'], TOPIC_GROUPS[r['topic']]): r['n']})
 
             counts_list.append(secondary_counts)
-        overall_column = ws.dim_colmax
         self.tabulate_secondary_cols(ws, counts_list[0], self.male_female, MAJOR_TOPICS, row_perc=True)
         c = ws.dim_colmax + 2
-        overall_row = ws.dim_rowmax+2
-        for media_type in counts_list[0]:
-            overall_total_tm = sum([counts_list[0][media_type][x] for x in counts_list[0][media_type]])
-            female_values = [x for x in counts_list[0][media_type] if x[0]==self.female_ids[0]]
-            overall_tm_female_value = sum([counts_list[0][media_type][x] for x in female_values]) / overall_total_tm
-
-        for media_type in counts_list[1]:
-            overall_total_dm = sum([counts_list[1][media_type][x] for x in counts_list[1][media_type]])
-            female_values = [x for x in counts_list[1][media_type] if x[0]==self.female_ids[0]]
-            overall_dm_female_value = sum([counts_list[1][media_type][x] for x in female_values]) / overall_total_dm
-    
-        ws.write(overall_row, overall_column, overall_tm_female_value, self.P)
-        ws.write(overall_row, c, overall_dm_female_value, self.P)
-
         self.tabulate_secondary_cols(ws, counts_list[1], self.male_female, MAJOR_TOPICS, row_perc=True, c=c, write_row_headings=False)
         c = ws.dim_colmax + 2
 
         self.tabulate_historical(ws, '05', self.male_female, MAJOR_TOPICS, c=c, r=7, skip_major_col_heading=True)
-        ws.write(overall_row, overall_column-1, "Overall", self.label)
+        overall_row = ws.dim_rowmax+2
+        write_overall = True
+        for media_type in counts_list:
+            for medium in media_type:
+                self.write_female_overall(ws, media_type[medium], overall_column, overall_row, write_overall)
+                write_overall= False
+                overall_column += 4
 
     def ws_06(self, ws):
         """
