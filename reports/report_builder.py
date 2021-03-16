@@ -1872,6 +1872,8 @@ class XLSXReportBuilder:
         :: Only stories shared on Facebook
         """
         counts = Counter()
+        overall_counts = Counter()
+        overall_column = ws.dim_colmax
         model = sheet_models.get('Internet')
         rows = model.objects\
                 .values('topic', 'shared_on_facebook')\
@@ -1883,8 +1885,11 @@ class XLSXReportBuilder:
         for row in rows:
             major_topic = TOPIC_GROUPS[row['topic']]
             counts.update({(major_topic, row['shared_on_facebook']): row['n']})
+            overall_counts.update({(row['shared_on_facebook'], major_topic): row['n']})
 
         self.tabulate(ws, counts, MAJOR_TOPICS, YESNO, show_N=True)
+        overall_row = ws.dim_rowmax + 2
+        self.write_yes_no_overall(ws, overall_counts, overall_column, overall_row)
 
     def ws_52(self, ws):
         """
