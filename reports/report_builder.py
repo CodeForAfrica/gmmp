@@ -1348,10 +1348,10 @@ class XLSXReportBuilder:
         ws.write(overall_row, overall_column-1, "Overall", self.label)
         overall_column +=1
         for region in secondary_counts:
-            setattr(self, f"female_male_sum_{region}", sum(secondary_counts[region].values()))
-            setattr(self, f"female_sum_{region}", sum([secondary_counts[region][x] for x in secondary_counts[region] if x[0] in self.female_ids]))
-            value = getattr(self, f"female_sum_{region}")/getattr(self, f"female_male_sum_{region}")
-            ws.write(overall_row, overall_column, value, self.P)
+            counts = secondary_counts[region]
+            value = sum([counts[x] for x in counts if x[0] in self.female_ids])
+            total = sum(counts.values())
+            self.write_overall_value(ws, value, total, overall_column, overall_row, write_overall=False)
             overall_column +=4
         self.tabulate_historical(ws, '30', self.male_female, MAJOR_TOPICS, write_row_headings=True, major_cols=self.regions, c=c, show_N_and_P=True)
 
