@@ -1766,6 +1766,7 @@ class XLSXReportBuilder:
         Rows: Major Topics
         """
         secondary_counts = OrderedDict()
+        overall_column = ws.dim_colmax
         for gender_id, gender in self.male_female:
             counts = Counter()
             for media_type, model in tm_journalist_models.items():
@@ -1789,6 +1790,11 @@ class XLSXReportBuilder:
             secondary_counts[gender] = counts
         self.tabulate_secondary_cols(ws, secondary_counts, AGREE_DISAGREE, MAJOR_TOPICS, row_perc=True, show_N=True)
         self.tabulate_historical(ws, '48', AGREE_DISAGREE, MAJOR_TOPICS, write_row_headings=False, major_cols=self.male_female, show_N_and_P=True)
+        overall_row = ws.dim_rowmax + 2
+        # Female Overall 
+        self.write_agree_disagree_overall(ws, secondary_counts[self.male_female[0][1]], overall_column+1, overall_row)
+        # Male Overall
+        self.write_agree_disagree_overall(ws, secondary_counts[self.male_female[1][1]], overall_column+5, overall_row, write_overall=False)
 
     def ws_49(self, ws):
         """
@@ -4720,11 +4726,12 @@ class XLSXReportBuilder:
         ws.write(r, c-1, "Overall", self.label)
         ws.write(r, c+1, value, self.P)
     
-    def write_agree_disagree_overall(self, ws, counts, c, r):
+    def write_agree_disagree_overall(self, ws, counts, c, r, write_overall=True):
         agree_disagree_sum = sum(counts.values())
         agree_sum = sum([counts[x] for x in counts if x[0] == 1])
         value = agree_sum/agree_disagree_sum
-        ws.write(r, c-1, "Overall", self.label)
+        if write_overall:
+            ws.write(r, c-1, "Overall", self.label)
         ws.write(r, c, value, self.P)
 
     def tabulate_secondary_cols(self, ws, secondary_counts, cols, rows, row_perc=False, write_row_headings=True, write_col_totals=True, filter_cols=None, c=1, r=7, show_N=False, raw_values=False):
