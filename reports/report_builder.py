@@ -2190,6 +2190,7 @@ class XLSXReportBuilder:
         :: Twitter media type only
         """
         counts = Counter()
+        overall_column = ws.dim_colmax
         model = sheet_models.get('Twitter')
 
         rows = model.objects\
@@ -2202,6 +2203,8 @@ class XLSXReportBuilder:
         {counts.update({(TOPIC_GROUPS[row["topic"]], row["retweet"]): row['n']}) for row in rows}
 
         self.tabulate(ws, counts,  MAJOR_TOPICS, RETWEET, show_N=True)
+        overall_row = ws.dim_rowmax + 2
+        self.write_tweet_overall(ws, counts, overall_column, overall_row)
 
     def ws_66(self, ws):
         """
@@ -4771,6 +4774,13 @@ class XLSXReportBuilder:
             value = topic_sum / all_topics_sum
             ws.write(r, c, value, self.P)
             c+=1
+
+    def write_tweet_overall(self, ws, counts, c, r):
+        tweet_retweet_sum = sum(counts.values())
+        tweet_sum = sum([counts[x] for x in counts if x[1] == 1])
+        value = tweet_sum/tweet_retweet_sum
+        ws.write(r, c-1, "Overall Original Tweets", self.label)
+        ws.write(r, c+1, value, self.P)
 
     def tabulate_secondary_cols(self, ws, secondary_counts, cols, rows, row_perc=False, write_row_headings=True, write_col_totals=True, filter_cols=None, c=1, r=7, show_N=False, raw_values=False):
         """
