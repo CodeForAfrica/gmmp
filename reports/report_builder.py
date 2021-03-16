@@ -3203,6 +3203,7 @@ class XLSXReportBuilder:
         Rows: Major topic, covid stories only
         """
         counts = Counter()
+        overall_column = ws.dim_colmax
         for media_type, model in sheet_models.items():
             rows = (
                 model.objects.values("stereotypes", "topic")
@@ -3216,6 +3217,8 @@ class XLSXReportBuilder:
                 counts.update({(r["stereotypes"], TOPIC_GROUPS[r["topic"]]): r["n"]})
 
         self.tabulate(ws, counts, AGREE_DISAGREE, MAJOR_TOPICS, row_perc=True)
+        overall_row = ws.dim_rowmax + 2
+        self.write_agree_disagree_overall(ws, counts, overall_column, overall_row)
     
     def ws_103(self, ws):
         """
