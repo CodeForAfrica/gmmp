@@ -2124,6 +2124,8 @@ class XLSXReportBuilder:
         :: Internet media type only
         """
         counts = Counter()
+        overall_counts = Counter()
+        overall_column = ws.dim_colmax
         model = sheet_models.get('Internet')
         rows = model.objects\
                 .values('topic', 'equality_rights')\
@@ -2132,7 +2134,10 @@ class XLSXReportBuilder:
 
         rows = self.apply_weights(rows, model._meta.db_table, "Internet")
         {counts.update({(TOPIC_GROUPS[row["topic"]], row["equality_rights"]): row['n']}) for row in rows}
+        {overall_counts.update({(row["equality_rights"], TOPIC_GROUPS[row["topic"]]): row['n']}) for row in rows}
         self.tabulate(ws, counts,  MAJOR_TOPICS, YESNO, show_N=True)
+        overall_row = ws.dim_rowmax + 2
+        self.write_yes_no_overall(ws, overall_counts, overall_column, overall_row)
 
     def ws_63(self, ws):
         """
