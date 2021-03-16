@@ -850,6 +850,7 @@ class XLSXReportBuilder:
         Rows: Topics
         """
         secondary_counts = OrderedDict()
+        overall_column = ws.dim_colmax
         for gender_id, gender in self.male_female:
             counts = Counter()
             for media_type, model in tm_journalist_models.items():
@@ -866,23 +867,15 @@ class XLSXReportBuilder:
 
                     for r in rows:
                         counts.update({(r['equality_rights'], TOPIC_GROUPS[r['topic']]): r['n']})
-            secondary_counts[gender] = counts
-        overall_column = ws.dim_colmax
-        female_male_yes_no_sum = 0
-        for count in secondary_counts:
-            female_male_yes_no_sum += sum(secondary_counts[count].values())
-
-        female_yes_sum = sum([secondary_counts['(1) Female'][x] for x in secondary_counts['(1) Female'] if x[0]=='Y'])
-        male_yes_sum = sum([secondary_counts['(2) Male'][x] for x in secondary_counts['(2) Male'] if x[0]=='Y'])
+            secondary_counts[gender] = counts      
         self.tabulate_secondary_cols(ws, secondary_counts, YESNO, MAJOR_TOPICS, row_perc=True)
-        c = ws.dim_colmax + 2
-        overall_row = ws.dim_rowmax+2
-        
-        ws.write(overall_row, overall_column, female_yes_sum/female_male_yes_no_sum, self.P)
-        ws.write(overall_row, overall_column+3, male_yes_sum/female_male_yes_no_sum, self.P)
-        ws.write(overall_row, overall_column-1, "Overall", self.label)
-
         self.tabulate_historical(ws, '13', [*YESNO], MAJOR_TOPICS, write_row_headings=True, major_cols=self.male_female)        
+        overall_row = ws.dim_rowmax + 2
+        write_overall = True
+        for gender in secondary_counts:
+            self.write_yes_no_overall(ws, secondary_counts[gender], overall_column, overall_row, write_overall)
+            overall_column+=2
+            write_overall = False
 
     def ws_14(self, ws):
         """
