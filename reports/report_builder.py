@@ -2146,6 +2146,8 @@ class XLSXReportBuilder:
         :: Internet media type only
         """
         counts = Counter()
+        overall_counts = Counter()
+        overall_column = ws.dim_colmax
         model = sheet_models.get('Internet')
         
         rows = model.objects\
@@ -2156,8 +2158,11 @@ class XLSXReportBuilder:
         rows = self.apply_weights(rows, model._meta.db_table, "Internet")
 
         {counts.update({(TOPIC_GROUPS[row["topic"]], row["stereotypes"]): row['n']}) for row in rows}
+        {overall_counts.update({(row["stereotypes"], TOPIC_GROUPS[row["topic"]]): row['n']}) for row in rows}
 
         self.tabulate(ws, counts,  MAJOR_TOPICS, AGREE_DISAGREE, show_N=True)
+        overall_row = ws.dim_rowmax + 2
+        self.write_agree_disagree_overall(ws,overall_counts, overall_column, overall_row)
 
     def ws_64(self, ws):
         """
@@ -4754,7 +4759,7 @@ class XLSXReportBuilder:
         agree_sum = sum([counts[x] for x in counts if x[0] == 1])
         value = agree_sum/agree_disagree_sum
         if write_overall:
-            ws.write(r, c-1, "Overall", self.label)
+            ws.write(r, c-1, "Overall Agree", self.label)
         ws.write(r, c, value, self.P)
     
     def write_topic_overall(self, ws, counts, c, r, write_overall=True):
