@@ -807,7 +807,9 @@ class XLSXReportBuilder:
         self.tabulate(ws, counts, YESNO, MAJOR_TOPICS, row_perc=True)
         self.tabulate_historical(ws, '11', [*YESNO], MAJOR_TOPICS, write_row_headings=False)
         overall_row = ws.dim_rowmax + 2
-        self.write_yes_no_overall(ws, counts, overall_column, overall_row)
+        value = sum([counts[x] for x in counts if x[0] == 'Y'])
+        total = sum(counts.values())
+        self.write_overall_value(ws, value, total, overall_column, overall_row, write_overall=True)
 
     def ws_12(self, ws):
         """
@@ -4759,7 +4761,7 @@ class XLSXReportBuilder:
 
         """
         ws.write(r, c, clean_title(heading), self.heading)
-    
+
     def write_overall_value(self, ws, value, total, c, r, write_overall, overall_label = "Overall"):
         p_value = value / total
         if write_overall:
