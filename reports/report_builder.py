@@ -1899,6 +1899,8 @@ class XLSXReportBuilder:
         :: Only stories with reference to gener equality
         """
         counts = Counter()
+        overall_counts = Counter()
+        overall_column = ws.dim_colmax
         model = sheet_models.get('Internet')
         rows = model.objects\
                 .values('topic', 'equality_rights')\
@@ -1910,8 +1912,11 @@ class XLSXReportBuilder:
         for row in rows:
             major_topic = TOPIC_GROUPS[row['topic']]
             counts.update({(major_topic, row['equality_rights']): row['n']})
+            overall_counts.update({(row['equality_rights'], major_topic): row['n']})
 
         self.tabulate(ws, counts, MAJOR_TOPICS, YESNO, show_N=True)
+        overall_row = ws.dim_rowmax + 2
+        self.write_yes_no_overall(ws, overall_counts, overall_column, overall_row)
 
     def ws_53(self, ws):
         """
