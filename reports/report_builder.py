@@ -796,6 +796,7 @@ class XLSXReportBuilder:
         Rows: Major Topics
         """
         counts = Counter()
+        overall_column = ws.dim_colmax
         for media_type, model in tm_sheet_models.items():
             if 'equality_rights' in [field_name.name for field_name in model._meta.get_fields()]:
                 rows = model.objects\
@@ -807,16 +808,11 @@ class XLSXReportBuilder:
 
                 for r in rows:
                     counts.update({(r['equality_rights'], TOPIC_GROUPS[r['topic']]): r['n']})
-        overall_column = ws.dim_colmax
-        yes_no_sum = sum(counts.values())
-        yes_sum = sum([counts[x] for x in counts if x[0]=='Y'])
-        overall_yes_perc = ((yes_sum) / yes_no_sum)
 
         self.tabulate(ws, counts, YESNO, MAJOR_TOPICS, row_perc=True)
         self.tabulate_historical(ws, '11', [*YESNO], MAJOR_TOPICS, write_row_headings=False)
         overall_row = ws.dim_rowmax + 2
-        ws.write(overall_row, overall_column-1, "Overall", self.label)
-        ws.write(overall_row, overall_column, overall_yes_perc, self.P)
+        self.write_yes_no_overall(ws, counts, overall_column, overall_row)
 
     def ws_12(self, ws):
         """
