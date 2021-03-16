@@ -1802,6 +1802,7 @@ class XLSXReportBuilder:
         Rows: Region
         :: Internet media type only
         """
+        overall_column = ws.dim_colmax
         if self.report_type == 'country':
             counts = Counter()
             model = sheet_models.get('Internet')
@@ -1834,6 +1835,8 @@ class XLSXReportBuilder:
 
             self.tabulate(ws, counts, MAJOR_TOPICS, self.regions, row_perc=True)
             self.tabulate_historical(ws, '49', [*MAJOR_TOPICS], self.regions, write_row_headings=False)
+        overall_row = ws.dim_rowmax + 2
+        self.write_topic_overall(ws, counts, overall_column, overall_row)
 
     def ws_50(self, ws):
         """
@@ -4733,6 +4736,16 @@ class XLSXReportBuilder:
         if write_overall:
             ws.write(r, c-1, "Overall", self.label)
         ws.write(r, c, value, self.P)
+    
+    def write_topic_overall(self, ws, counts, c, r, write_overall=True):
+        if write_overall:
+            ws.write(r, c-1, "Overall", self.label)
+        all_topics_sum = sum(counts.values())
+        for topic, _ in MAJOR_TOPICS:
+            topic_sum = sum([counts[x] for x in counts if x[0] == topic])
+            value = topic_sum / all_topics_sum
+            ws.write(r, c, value, self.P)
+            c+=1
 
     def tabulate_secondary_cols(self, ws, secondary_counts, cols, rows, row_perc=False, write_row_headings=True, write_col_totals=True, filter_cols=None, c=1, r=7, show_N=False, raw_values=False):
         """
