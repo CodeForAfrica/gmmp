@@ -866,8 +866,11 @@ class XLSXReportBuilder:
         overall_row = ws.dim_rowmax + 2
         write_overall = True
         for gender in secondary_counts:
-            self.write_yes_no_overall(ws, secondary_counts[gender], overall_column, overall_row, write_overall)
-            overall_column+=2
+            counts = secondary_counts[gender]
+            value = sum([counts[x] for x in counts if x[0] == 'Y'])
+            total = sum(counts.values())
+            self.write_overall_value(ws, value, total, overall_column, overall_row, write_overall)
+            overall_column+=3
             write_overall = False
 
     def ws_14(self, ws):
