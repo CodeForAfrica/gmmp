@@ -3226,6 +3226,7 @@ class XLSXReportBuilder:
         Rows: Major topic, covid stories only
         """
         counts = Counter()
+        overall_column = ws.dim_colmax
         for media_type, model in sheet_models.items():
             if "equality_rights" in [field_name.name for field_name in model._meta.get_fields()]:
                 rows = model.objects\
@@ -3239,6 +3240,8 @@ class XLSXReportBuilder:
                     counts.update({(r["equality_rights"], TOPIC_GROUPS[r["topic"]]): r["n"]})
 
         self.tabulate(ws, counts, YESNO, MAJOR_TOPICS, row_perc=True) 
+        overall_row = ws.dim_rowmax + 2
+        self.write_yes_no_overall(ws, counts, overall_column, overall_row)
 
     def ws_104(self, ws):
         """
