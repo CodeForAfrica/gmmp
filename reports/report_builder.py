@@ -3179,6 +3179,7 @@ class XLSXReportBuilder:
         Rows: Major topic, covid stories only
         """
         counts = Counter()
+        overall_column = ws.dim_colmax
         for media_type, model in sheet_models.items():
             rows = model.objects \
                 .values("topic", model.journalist_field_name() + "__sex") \
@@ -3193,6 +3194,8 @@ class XLSXReportBuilder:
                 counts.update({(r["sex"], TOPIC_GROUPS[r["topic"]]): r["n"]})
 
         self.tabulate(ws, counts, GENDER, MAJOR_TOPICS, row_perc=True, show_N=True)
+        overall_row = ws.dim_rowmax + 2
+        self.write_female_overall(ws, counts, overall_column, overall_row)
 
     def ws_102(self, ws):
         """
@@ -4800,6 +4803,14 @@ class XLSXReportBuilder:
         tweet_sum = sum([counts[x] for x in counts if x[1] == 1])
         value = tweet_sum/tweet_retweet_sum
         ws.write(r, c-1, "Overall Original Tweets", self.label)
+        ws.write(r, c+1, value, self.P)
+
+    def write_female_overall(self, ws, counts, c, r, write_overall=True):
+        male_female_sum = sum(counts.values())
+        female_sum = sum([counts[x] for x in counts if x[0] in self.female_ids])
+        if write_overall:
+            ws.write(r, c-1, "Overall Female", self.label)
+        value = female_sum/male_female_sum
         ws.write(r, c+1, value, self.P)
 
     def tabulate_secondary_cols(self, ws, secondary_counts, cols, rows, row_perc=False, write_row_headings=True, write_col_totals=True, filter_cols=None, c=1, r=7, show_N=False, raw_values=False):
