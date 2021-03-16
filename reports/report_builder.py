@@ -3142,6 +3142,7 @@ class XLSXReportBuilder:
         Rows: Major topic
         """
         secondary_counts = OrderedDict()
+        overall_column = grand_total_column = ws.dim_colmax
         for _, models in SHEET_MEDIA_GROUPS:
             for media_type, model in models.items():
                 counts = Counter()
@@ -3158,6 +3159,19 @@ class XLSXReportBuilder:
                 secondary_counts[media_type] = counts
     
         self.tabulate_secondary_cols(ws, secondary_counts, YESNO, MAJOR_TOPICS, row_perc=True)
+        overall_row = ws.dim_rowmax + 2
+        grand_total_yes_no = 0
+        grand_total_yes = 0
+        write_overall=True
+        for medium in secondary_counts:
+            grand_total_yes_no += sum(secondary_counts[medium].values())
+            grand_total_yes += sum([secondary_counts[medium][x] for x in secondary_counts[medium] if x[0] == 'Y'])
+            self.write_yes_no_overall(ws, secondary_counts[medium], overall_column, overall_row, write_overall, overall_message="OVERALL BY MEDIUM")
+            overall_column+=3
+            write_overall= False     
+        grand_total_value = grand_total_yes/grand_total_yes_no
+        ws.write(overall_row+2, grand_total_column-1, "GRAND TOTAL", self.label)
+        ws.write(overall_row+2, grand_total_column+1, grand_total_value, self.P)
 
     def ws_101(self, ws):
         """
@@ -4755,11 +4769,12 @@ class XLSXReportBuilder:
         """
         ws.write(r, c, clean_title(heading), self.heading)
     
-    def write_yes_no_overall(self, ws, counts, c, r):
+    def write_yes_no_overall(self, ws, counts, c, r, write_overall=True, overall_message="Overall Yes"):
         yes_no_sum = sum(counts.values())
         yes_sum = sum([counts[x] for x in counts if x[0] == 'Y'])
         value = yes_sum/yes_no_sum
-        ws.write(r, c-1, "Overall Yes", self.label)
+        if write_overall:
+            ws.write(r, c-1, overall_message, self.label)
         ws.write(r, c+1, value, self.P)
     
     def write_agree_disagree_overall(self, ws, counts, c, r, write_overall=True):
