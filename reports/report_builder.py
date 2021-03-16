@@ -659,7 +659,10 @@ class XLSXReportBuilder:
         write_overall = True
         for media_type in counts_list:
             for medium in media_type:
-                self.write_female_overall(ws, media_type[medium], overall_column, overall_row, write_overall)
+                counts = media_type[medium]
+                value = sum([counts[x] for x in counts if x[0] in self.female_ids])
+                total = sum(counts.values())
+                self.write_overall_value(ws, value, total, overall_column, overall_row, write_overall)
                 write_overall= False
                 overall_column += 4
 
@@ -1214,11 +1217,9 @@ class XLSXReportBuilder:
         ws.write(overall_row, overall_column-1, "Overall", self.label)
         overall_column +=1
         for media_type in secondary_counts:
-            setattr(self, f"female_male_sum_{media_type}", sum(secondary_counts[media_type].values()))
-            setattr(self, f"female_sum_{media_type}", sum([secondary_counts[media_type][x] for x in secondary_counts[media_type] if x[0] in self.female_ids]))
-            value = getattr(self, f"female_sum_{media_type}")/getattr(self, f"female_male_sum_{media_type}")
-            ws.write(overall_row, overall_column, value, self.P)
-            ws.write(overall_row, overall_column, value, self.P)
+            female_male_sum = sum(secondary_counts[media_type].values())
+            female_sum = sum([secondary_counts[media_type][x] for x in secondary_counts[media_type] if x[0] in self.female_ids])
+            value = female_sum/female_male_sum
             ws.write(overall_row, overall_column, value, self.P)
             overall_column +=4
 
@@ -4759,6 +4760,12 @@ class XLSXReportBuilder:
         """
         ws.write(r, c, clean_title(heading), self.heading)
     
+    def write_overall_value(self, ws, value, total, c, r, write_overall, overall_label = "Overall"):
+        p_value = value / total
+        if write_overall:
+            ws.write(r, c-1, overall_label, self.label)
+        ws.write(r, c, p_value, self.P)
+
     def write_yes_no_overall(self, ws, counts, c, r, write_overall=True, overall_message="Overall Yes"):
         yes_no_sum = sum(counts.values())
         yes_sum = sum([counts[x] for x in counts if x[0] == 'Y'])
