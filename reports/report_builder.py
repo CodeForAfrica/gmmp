@@ -626,6 +626,7 @@ class XLSXReportBuilder:
         Rows: Major Topic
         """
         counts_list = []
+        overall_column = ws.dim_colmax
         for media_types, models in PERSON_MEDIA_GROUPS:
             media_title = ', '.join(m[1] for m in media_types)
             secondary_counts = OrderedDict()
@@ -654,6 +655,16 @@ class XLSXReportBuilder:
         c = ws.dim_colmax + 2
 
         self.tabulate_historical(ws, '05', self.male_female, MAJOR_TOPICS, c=c, r=7, skip_major_col_heading=True)
+        overall_row = ws.dim_rowmax+2
+        write_overall = True
+        for media_type in counts_list:
+            for medium in media_type:
+                counts = media_type[medium]
+                value = sum([counts[x] for x in counts if x[0] in self.female_ids])
+                total = sum(counts.values())
+                self.write_overall_value(ws, value, total, overall_column, overall_row, write_overall)
+                write_overall= False
+                overall_column += 4
 
     def ws_06(self, ws):
         """
@@ -780,6 +791,7 @@ class XLSXReportBuilder:
         Rows: Major Topics
         """
         counts = Counter()
+        overall_column = ws.dim_colmax
         for media_type, model in tm_sheet_models.items():
             if 'equality_rights' in [field_name.name for field_name in model._meta.get_fields()]:
                 rows = model.objects\
@@ -794,6 +806,10 @@ class XLSXReportBuilder:
 
         self.tabulate(ws, counts, YESNO, MAJOR_TOPICS, row_perc=True)
         self.tabulate_historical(ws, '11', [*YESNO], MAJOR_TOPICS, write_row_headings=False)
+        overall_row = ws.dim_rowmax + 2
+        value = sum([counts[x] for x in counts if x[0] == 'Y'])
+        total = sum(counts.values())
+        self.write_overall_value(ws, value, total, overall_column, overall_row, write_overall=True)
 
     def ws_12(self, ws):
         """
@@ -827,6 +843,7 @@ class XLSXReportBuilder:
         Rows: Topics
         """
         secondary_counts = OrderedDict()
+        overall_column = ws.dim_colmax
         for gender_id, gender in self.male_female:
             counts = Counter()
             for media_type, model in tm_journalist_models.items():
@@ -843,11 +860,18 @@ class XLSXReportBuilder:
 
                     for r in rows:
                         counts.update({(r['equality_rights'], TOPIC_GROUPS[r['topic']]): r['n']})
-            secondary_counts[gender] = counts
-
+            secondary_counts[gender] = counts      
         self.tabulate_secondary_cols(ws, secondary_counts, YESNO, MAJOR_TOPICS, row_perc=True)
-        c = ws.dim_colmax + 2
-        self.tabulate_historical(ws, '13', [*YESNO], MAJOR_TOPICS, write_row_headings=True, major_cols=self.male_female)
+        self.tabulate_historical(ws, '13', [*YESNO], MAJOR_TOPICS, write_row_headings=True, major_cols=self.male_female)        
+        overall_row = ws.dim_rowmax + 2
+        write_overall = True
+        for gender in secondary_counts:
+            counts = secondary_counts[gender]
+            value = sum([counts[x] for x in counts if x[0] == 'Y'])
+            total = sum(counts.values())
+            self.write_overall_value(ws, value, total, overall_column, overall_row, write_overall)
+            overall_column+=3
+            write_overall = False
 
     def ws_14(self, ws):
         """
@@ -1156,6 +1180,7 @@ class XLSXReportBuilder:
         Rows: Region
         :: Reporters + Presenters
         """
+        overall_column = ws.dim_colmax
         if self.report_type == 'country':
             secondary_counts = OrderedDict()
             for media_type, model in tm_journalist_models.items():
@@ -1193,6 +1218,15 @@ class XLSXReportBuilder:
                 secondary_counts[media_type] = counts
             self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, self.regions, row_perc=True, show_N=True)
             self.tabulate_historical(ws, '28', self.male_female, self.regions, r=7)
+        overall_row = ws.dim_rowmax + 2
+        ws.write(overall_row, overall_column-1, "Overall", self.label)
+        overall_column +=1
+        for media_type in secondary_counts:
+            counts = secondary_counts[media_type]
+            value = sum([counts[x] for x in counts if x[0] in self.female_ids])
+            total = sum(counts.values())
+            self.write_overall_value(ws, value, total, overall_column, overall_row, write_overall=False)
+            overall_column +=4
 
     def ws_29(self, ws):
         """
@@ -1257,6 +1291,7 @@ class XLSXReportBuilder:
         Rows: Major Topics
         :: Reporters only
         """
+        overall_column = ws.dim_colmax
         if self.report_type == 'country':
             secondary_counts = OrderedDict()
             for country_code, country_name in self.countries:
@@ -1309,6 +1344,15 @@ class XLSXReportBuilder:
 
             self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, MAJOR_TOPICS, row_perc=False, show_N=True)
         c = ws.dim_colmax + 2
+        overall_row = ws.dim_rowmax + 2
+        ws.write(overall_row, overall_column-1, "Overall", self.label)
+        overall_column +=1
+        for region in secondary_counts:
+            counts = secondary_counts[region]
+            value = sum([counts[x] for x in counts if x[0] in self.female_ids])
+            total = sum(counts.values())
+            self.write_overall_value(ws, value, total, overall_column, overall_row, write_overall=False)
+            overall_column +=4
         self.tabulate_historical(ws, '30', self.male_female, MAJOR_TOPICS, write_row_headings=True, major_cols=self.regions, c=c, show_N_and_P=True)
 
     def ws_31(self, ws):
@@ -1464,6 +1508,7 @@ class XLSXReportBuilder:
         Rows: Major Topics
         """
         counts = Counter()
+        overall_column = ws.dim_colmax
         for media_type, model in tm_sheet_models.items():
             if 'about_women' in [field_name.name for field_name in model._meta.get_fields()]:
                 rows = model.objects\
@@ -1478,6 +1523,10 @@ class XLSXReportBuilder:
 
         self.tabulate(ws, counts, YESNO, MAJOR_TOPICS, row_perc=True)
         self.tabulate_historical(ws, '38', YESNO, MAJOR_TOPICS, write_row_headings=False)
+        overall_row = ws.dim_rowmax + 2
+        value = sum([counts[x] for x in counts if x[0] == 'Y'])
+        total = sum(counts.values())
+        self.write_overall_value(ws, value, total, overall_column, overall_row, write_overall=True)     
 
     def ws_39(self, ws):
         """
@@ -1528,6 +1577,7 @@ class XLSXReportBuilder:
         Rows: Topics
         """
         counts = Counter()
+        overall_column = ws.dim_colmax
         for media_type, model in tm_sheet_models.items():
             if 'equality_rights' in [field_name.name for field_name in model._meta.get_fields()]:
                 rows = model.objects\
@@ -1540,6 +1590,11 @@ class XLSXReportBuilder:
                 counts.update({(r['equality_rights'], r['topic']): r['n'] for r in rows})
         self.tabulate(ws, counts, YESNO, [y for x in TOPICS for y in x[1]], row_perc=False, show_N=True)
         self.tabulate_historical(ws, '41', [*YESNO], [y for x in TOPICS for y in x[1]], write_row_headings=False, r=6, show_N_and_P=True)
+        overall_row = ws.dim_rowmax + 2
+        value = sum([counts[x] for x in counts if x[0] == 'Y'])
+        total = sum(counts.values())
+        ws.write(overall_row, overall_column-1, "Overall", self.label)
+        self.write_overall_value(ws, value, total, overall_column+1, overall_row, write_overall=False)
 
     def ws_42(self, ws):
         """
@@ -1680,6 +1735,7 @@ class XLSXReportBuilder:
         Rows: Major Topics
         """
         counts = Counter()
+        overall_column = ws.dim_colmax
         for media_type, model in tm_sheet_models.items():
             rows = model.objects\
                     .values('stereotypes', 'topic')\
@@ -1693,6 +1749,10 @@ class XLSXReportBuilder:
 
         self.tabulate(ws, counts, AGREE_DISAGREE, MAJOR_TOPICS, row_perc=True)
         self.tabulate_historical(ws, '47', AGREE_DISAGREE, MAJOR_TOPICS, write_row_headings=False)
+        overall_row = ws.dim_rowmax + 2
+        value = sum([counts[x] for x in counts if x[0] == 1])
+        total = sum(counts.values())
+        self.write_overall_value(ws, value, total, overall_column, overall_row, write_overall=True)
 
     def ws_48(self, ws):
         """
@@ -1700,6 +1760,7 @@ class XLSXReportBuilder:
         Rows: Major Topics
         """
         secondary_counts = OrderedDict()
+        overall_column = ws.dim_colmax
         for gender_id, gender in self.male_female:
             counts = Counter()
             for media_type, model in tm_journalist_models.items():
@@ -1723,6 +1784,17 @@ class XLSXReportBuilder:
             secondary_counts[gender] = counts
         self.tabulate_secondary_cols(ws, secondary_counts, AGREE_DISAGREE, MAJOR_TOPICS, row_perc=True, show_N=True)
         self.tabulate_historical(ws, '48', AGREE_DISAGREE, MAJOR_TOPICS, write_row_headings=False, major_cols=self.male_female, show_N_and_P=True)
+        overall_row = ws.dim_rowmax + 2
+        # Female Overall
+        counts = secondary_counts[self.male_female[0][1]]
+        value = sum([counts[x] for x in counts if x[0] == 1])
+        total = sum(counts.values())
+        self.write_overall_value(ws, value, total, overall_column, overall_row, write_overall=True)
+        # Male Overall
+        counts = secondary_counts[self.male_female[1][1]]
+        value = sum([counts[x] for x in counts if x[0] == 1])
+        total = sum(counts.values())
+        self.write_overall_value(ws, value, total, overall_column+5, overall_row, write_overall=True)     
 
     def ws_49(self, ws):
         """
@@ -1730,6 +1802,7 @@ class XLSXReportBuilder:
         Rows: Region
         :: Internet media type only
         """
+        overall_column = ws.dim_colmax
         if self.report_type == 'country':
             counts = Counter()
             model = sheet_models.get('Internet')
@@ -1762,6 +1835,14 @@ class XLSXReportBuilder:
 
             self.tabulate(ws, counts, MAJOR_TOPICS, self.regions, row_perc=True)
             self.tabulate_historical(ws, '49', [*MAJOR_TOPICS], self.regions, write_row_headings=False)
+        overall_row = ws.dim_rowmax + 2
+        total = sum(counts.values())
+        write_overall=True
+        for topic, _ in MAJOR_TOPICS:
+            value = sum([counts[x] for x in counts if x[0] == topic])
+            self.write_overall_value(ws, value, total, overall_column, overall_row, write_overall)
+            write_overall=False
+            overall_column+=1
 
     def ws_50(self, ws):
         """
@@ -1771,6 +1852,7 @@ class XLSXReportBuilder:
         :: Only stories shared on Twitter
         """
         counts = Counter()
+        overall_column = ws.dim_colmax
         model = sheet_models.get('Internet')
         rows = model.objects\
                 .values('topic', 'shared_via_twitter')\
@@ -1783,6 +1865,11 @@ class XLSXReportBuilder:
             counts.update({(major_topic, row['shared_via_twitter']): row['n']})
 
         self.tabulate(ws, counts, MAJOR_TOPICS, YESNO, show_N=True)
+        overall_row = ws.dim_rowmax + 2
+        value = sum([counts[x] for x in counts if x[1] == 'Y'])
+        total = sum(counts.values())
+        ws.write(overall_row, overall_column-1, "Overall Yes", self.label)
+        self.write_overall_value(ws, value, total, overall_column+1, overall_row, write_overall=False)
 
     def ws_51(self, ws):
         """
@@ -1792,6 +1879,7 @@ class XLSXReportBuilder:
         :: Only stories shared on Facebook
         """
         counts = Counter()
+        overall_column = ws.dim_colmax
         model = sheet_models.get('Internet')
         rows = model.objects\
                 .values('topic', 'shared_on_facebook')\
@@ -1805,6 +1893,11 @@ class XLSXReportBuilder:
             counts.update({(major_topic, row['shared_on_facebook']): row['n']})
 
         self.tabulate(ws, counts, MAJOR_TOPICS, YESNO, show_N=True)
+        overall_row = ws.dim_rowmax + 2
+        value = sum([counts[x] for x in counts if x[1] == 'Y'])
+        total = sum(counts.values())
+        ws.write(overall_row, overall_column-1, "Overall Yes", self.label)
+        self.write_overall_value(ws, value, total, overall_column+1, overall_row, write_overall=False)
 
     def ws_52(self, ws):
         """
@@ -1814,6 +1907,7 @@ class XLSXReportBuilder:
         :: Only stories with reference to gener equality
         """
         counts = Counter()
+        overall_column = ws.dim_colmax
         model = sheet_models.get('Internet')
         rows = model.objects\
                 .values('topic', 'equality_rights')\
@@ -1827,6 +1921,11 @@ class XLSXReportBuilder:
             counts.update({(major_topic, row['equality_rights']): row['n']})
 
         self.tabulate(ws, counts, MAJOR_TOPICS, YESNO, show_N=True)
+        overall_row = ws.dim_rowmax + 2
+        value = sum([counts[x] for x in counts if x[1] == 'Y'])
+        total = sum(counts.values())
+        ws.write(overall_row, overall_column-1, "Overall Yes", self.label)
+        self.write_overall_value(ws, value, total, overall_column+1, overall_row, write_overall=False)
 
     def ws_53(self, ws):
         """
@@ -2034,6 +2133,7 @@ class XLSXReportBuilder:
         :: Internet media type only
         """
         counts = Counter()
+        overall_column = ws.dim_colmax
         model = sheet_models.get('Internet')
         rows = model.objects\
                 .values('topic', 'equality_rights')\
@@ -2043,6 +2143,11 @@ class XLSXReportBuilder:
         rows = self.apply_weights(rows, model._meta.db_table, "Internet")
         {counts.update({(TOPIC_GROUPS[row["topic"]], row["equality_rights"]): row['n']}) for row in rows}
         self.tabulate(ws, counts,  MAJOR_TOPICS, YESNO, show_N=True)
+        overall_row = ws.dim_rowmax + 2
+        value = sum([counts[x] for x in counts if x[1] == 'Y'])
+        total = sum(counts.values())
+        ws.write(overall_row, overall_column-1, "Overall Yes", self.label)
+        self.write_overall_value(ws, value, total, overall_column+1, overall_row, write_overall=False)
 
     def ws_63(self, ws):
         """
@@ -2051,6 +2156,7 @@ class XLSXReportBuilder:
         :: Internet media type only
         """
         counts = Counter()
+        overall_column = ws.dim_colmax
         model = sheet_models.get('Internet')
         
         rows = model.objects\
@@ -2063,6 +2169,11 @@ class XLSXReportBuilder:
         {counts.update({(TOPIC_GROUPS[row["topic"]], row["stereotypes"]): row['n']}) for row in rows}
 
         self.tabulate(ws, counts,  MAJOR_TOPICS, AGREE_DISAGREE, show_N=True)
+        overall_row = ws.dim_rowmax + 2
+        value = sum([counts[x] for x in counts if x[1] == 1])
+        total = sum(counts.values())
+        ws.write(overall_row, overall_column-1, "Overall Agree", self.label)
+        self.write_overall_value(ws, value, total, overall_column+1, overall_row, write_overall=False)
 
     def ws_64(self, ws):
         """
@@ -2090,6 +2201,7 @@ class XLSXReportBuilder:
         :: Twitter media type only
         """
         counts = Counter()
+        overall_column = ws.dim_colmax
         model = sheet_models.get('Twitter')
 
         rows = model.objects\
@@ -2102,6 +2214,11 @@ class XLSXReportBuilder:
         {counts.update({(TOPIC_GROUPS[row["topic"]], row["retweet"]): row['n']}) for row in rows}
 
         self.tabulate(ws, counts,  MAJOR_TOPICS, RETWEET, show_N=True)
+        overall_row = ws.dim_rowmax + 2
+        value = sum([counts[x] for x in counts if x[1] == 1])
+        total = sum(counts.values())
+        ws.write(overall_row, overall_column-1, "Overall Original Tweets", self.label)
+        self.write_overall_value(ws, value, total, overall_column+1, overall_row, write_overall=False)
 
     def ws_66(self, ws):
         """
@@ -2182,6 +2299,7 @@ class XLSXReportBuilder:
         :: Twitter media type only
         """
         counts = Counter()
+        overall_column = ws.dim_colmax
         model = sheet_models.get('Twitter')
         rows = model.objects\
                 .values('topic', 'stereotypes')\
@@ -2193,6 +2311,10 @@ class XLSXReportBuilder:
             counts.update({(TOPIC_GROUPS[row["topic"]], row["stereotypes"]): row['n']})
 
         self.tabulate(ws, counts, MAJOR_TOPICS, AGREE_DISAGREE, row_perc=True)
+        overall_row = ws.dim_rowmax + 2
+        value = sum([counts[x] for x in counts if x[1] == 1])
+        total = sum(counts.values())
+        self.write_overall_value(ws, value, total, overall_column, overall_row, write_overall=True)
 
     def ws_70(self, ws):
         ws.write(4, 0, 'See raw data sheets')
@@ -3034,6 +3156,7 @@ class XLSXReportBuilder:
         Rows: Major topic
         """
         secondary_counts = OrderedDict()
+        overall_column = grand_total_column = ws.dim_colmax
         for _, models in SHEET_MEDIA_GROUPS:
             for media_type, model in models.items():
                 counts = Counter()
@@ -3050,6 +3173,22 @@ class XLSXReportBuilder:
                 secondary_counts[media_type] = counts
     
         self.tabulate_secondary_cols(ws, secondary_counts, YESNO, MAJOR_TOPICS, row_perc=True)
+        overall_row = ws.dim_rowmax + 2
+        grand_total_yes_no = 0
+        grand_total_yes = 0
+        write_overall=True
+        for medium in secondary_counts:
+            counts = secondary_counts[medium]
+            total = sum(counts.values())
+            grand_total_yes_no += total
+            value = sum([counts[x] for x in counts if x[0] == 'Y'])
+            grand_total_yes += value
+
+            self.write_overall_value(ws, value, total, overall_column, overall_row, write_overall, overall_label="OVERALL BY MEDIUM")
+
+            overall_column+=3
+            write_overall= False     
+        self.write_overall_value(ws, grand_total_yes, grand_total_yes_no, grand_total_column, overall_row+3, write_overall=True, overall_label="GRAND TOTAL")
 
     def ws_101(self, ws):
         """
@@ -3057,6 +3196,7 @@ class XLSXReportBuilder:
         Rows: Major topic, covid stories only
         """
         counts = Counter()
+        overall_column = ws.dim_colmax
         for media_type, model in sheet_models.items():
             rows = model.objects \
                 .values("topic", model.journalist_field_name() + "__sex") \
@@ -3071,6 +3211,11 @@ class XLSXReportBuilder:
                 counts.update({(r["sex"], TOPIC_GROUPS[r["topic"]]): r["n"]})
 
         self.tabulate(ws, counts, GENDER, MAJOR_TOPICS, row_perc=True, show_N=True)
+        overall_row = ws.dim_rowmax + 2
+        total = sum(counts.values())
+        value = sum([counts[x] for x in counts if x[0] in self.female_ids])
+        ws.write(overall_row, overall_column-1, "Overall Female", self.label)
+        self.write_overall_value(ws, value, total, overall_column+1, overall_row, write_overall=False)
 
     def ws_102(self, ws):
         """
@@ -3078,6 +3223,7 @@ class XLSXReportBuilder:
         Rows: Major topic, covid stories only
         """
         counts = Counter()
+        overall_column = ws.dim_colmax
         for media_type, model in sheet_models.items():
             rows = (
                 model.objects.values("stereotypes", "topic")
@@ -3091,6 +3237,10 @@ class XLSXReportBuilder:
                 counts.update({(r["stereotypes"], TOPIC_GROUPS[r["topic"]]): r["n"]})
 
         self.tabulate(ws, counts, AGREE_DISAGREE, MAJOR_TOPICS, row_perc=True)
+        overall_row = ws.dim_rowmax + 2
+        total = sum(counts.values())
+        value = sum([counts[x] for x in counts if x[0] == 1])
+        self.write_overall_value(ws, value, total, overall_column, overall_row, write_overall=True, overall_label="Overall Agree")
     
     def ws_103(self, ws):
         """
@@ -3098,6 +3248,7 @@ class XLSXReportBuilder:
         Rows: Major topic, covid stories only
         """
         counts = Counter()
+        overall_column = ws.dim_colmax
         for media_type, model in sheet_models.items():
             if "equality_rights" in [field_name.name for field_name in model._meta.get_fields()]:
                 rows = model.objects\
@@ -3111,6 +3262,10 @@ class XLSXReportBuilder:
                     counts.update({(r["equality_rights"], TOPIC_GROUPS[r["topic"]]): r["n"]})
 
         self.tabulate(ws, counts, YESNO, MAJOR_TOPICS, row_perc=True) 
+        overall_row = ws.dim_rowmax + 2
+        total = sum(counts.values())
+        value = sum([counts[x] for x in counts if x[0] == 'Y'])
+        self.write_overall_value(ws, value, total, overall_column, overall_row, write_overall=True, overall_label="Overall Yes")  
 
     def ws_104(self, ws):
         """
@@ -4646,6 +4801,14 @@ class XLSXReportBuilder:
 
         """
         ws.write(r, c, clean_title(heading), self.heading)
+
+    def write_overall_value(self, ws, value, total, c, r, write_overall, overall_label = "Overall"):
+        if total == 0:
+            total = 1
+        p_value = value / total
+        if write_overall:
+            ws.write(r, c-1, overall_label, self.label)
+        ws.write(r, c, p_value, self.P)
 
     def tabulate_secondary_cols(self, ws, secondary_counts, cols, rows, row_perc=False, write_row_headings=True, write_col_totals=True, filter_cols=None, c=1, r=7, show_N=False, raw_values=False):
         """
