@@ -75,7 +75,7 @@ def get_response(coding_dict):
         # edit column names
         for col in dict_copy[key].columns:
             for mark in col_markers:
-                if mark in col:
+                if type(col) != float and mark in col:
                     dict_copy[key].rename(columns={col: new_col}, inplace=True)
                     dict_copy[key].columns = (
                         dict_copy[key]

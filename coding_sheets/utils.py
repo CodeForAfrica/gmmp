@@ -226,7 +226,7 @@ def get_all_coding_data(coding_data, row):
     # into one long string
     key = int(row)
     comments = coding_data.get("comments") if coding_data.get("comments") else {}
-    merged_comment = comments.get(row) if comments.get(row) else ""
+    merged_comment = str(comments.get(row)) if comments.get(row) else ""
     for comment in comments:
         comment_id = int(comment)
         if comment_id <= key:
