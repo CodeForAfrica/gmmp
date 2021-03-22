@@ -3513,24 +3513,35 @@ class XLSXReportBuilder:
         Rows: SQ 1,2,3, Major topic
         """
         r = 6
-        self.write_col_headings(ws, AGREE_DISAGREE)
+        c = 2
+        for _, col_heading in AGREE_DISAGREE:
+            ws.merge_range(r-2, c, r-2, c+1, clean_title(col_heading), self.col_heading)
+            ws.write(r - 1, c, "Yes")
+            ws.write(r - 1, c + 1, "No")
+            c += 2
 
+        secondary_counts = OrderedDict()
         for sq_field, sq in SPECIAL_QUESTIONS.items():
-            counts = Counter()
-            for media_type, model in person_models.items():
-                sheet_name = model.sheet_name()
-                rows = model.objects \
-                        .values(sq_field, f"{sheet_name}__stereotypes", f"{sheet_name}__topic") \
-                        .filter(**{f"{sheet_name}__country__in": self.country_list}) \
-                        .exclude(**{sq_field: ""}) \
-                        .annotate(n=Count("id"))
+            for stereotype_id, stereotype in AGREE_DISAGREE:
+                counts = Counter()
+                for media_type, model in person_models.items():
+                    sheet_name = model.sheet_name()
+                    rows = model.objects \
+                            .values(sq_field, f"{sheet_name}__stereotypes", f"{sheet_name}__topic") \
+                            .filter(**{f"{sheet_name}__country__in": self.country_list}) \
+                            .exclude(**{sq_field: ""}) \
+                            .filter(**{f"{sheet_name}__stereotypes": stereotype_id}) \
+                            .annotate(n=Count("id"))
 
-                rows= self.apply_weights(rows, model.sheet_db_table(), media_type)
+                    rows= self.apply_weights(rows, model.sheet_db_table(), media_type)
 
-                {counts.update({(r["stereotypes"], TOPIC_GROUPS[r['topic']]): r['n']}) for r in rows}
+                    for row in rows:
+                        counts.update({(row[sq_field], TOPIC_GROUPS[row['topic']]): row['n']})
+
+                secondary_counts[stereotype] = counts
 
             self.write_primary_row_heading(ws, sq, r=r)
-            self.tabulate(ws, counts, AGREE_DISAGREE, MAJOR_TOPICS, row_perc=True, write_col_headings=False, r=r)
+            self.tabulate_secondary_cols(ws, secondary_counts, YESNO, MAJOR_TOPICS, row_perc=False, write_primary_col_headins=False, write_col_headings=False, write_col_totals=False, r=r, raw_values=True)
             r += len(MAJOR_TOPICS)
 
     def ws_s01(self, ws):
