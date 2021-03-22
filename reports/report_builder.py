@@ -4810,13 +4810,15 @@ class XLSXReportBuilder:
             ws.write(r, c-1, overall_label, self.label)
         ws.write(r, c, p_value, self.P)
 
-    def tabulate_secondary_cols(self, ws, secondary_counts, cols, rows, row_perc=False, write_row_headings=True, write_col_totals=True, filter_cols=None, c=1, r=7, show_N=False, raw_values=False):
+    def tabulate_secondary_cols(self, ws, secondary_counts, cols, rows, row_perc=False, write_row_headings=True, write_primary_col_headins=True, write_col_headings=True, write_col_totals=True, filter_cols=None, c=1, r=7, show_N=False, raw_values=False):
         """
         :param ws: worksheet to write to
         :param secondary_counts: dict in following format:
             {'Primary column heading': Count object, ...}
         :param list cols: list of `(col_id, col_title)` tuples of column ids and titles
         :param list rows: list of `(row_id, row_heading)` tuples of row ids and titles
+        :param write_row_headings: See `tabulate` below.
+        :param write_primary_col_headings: Should we write the primary col headings i.e. keys in `secondary_counts` dict.
         :param bool row_perc: should percentages by calculated by row instead of column (default: False)
         """
 
@@ -4843,14 +4845,16 @@ class XLSXReportBuilder:
             sec_cols += 1
 
         for field, counts in secondary_counts.items():
-            if sec_cols > 1:
-                ws.merge_range(r-3, c, r-3, c+sec_cols-1, clean_title(field), self.sec_col_heading)
-            else:
-                ws.write(r-3, c, clean_title(field), self.sec_col_heading)
+            if write_primary_col_headins:
+                if sec_cols > 1:
+                    ws.merge_range(r-3, c, r-3, c+sec_cols-1, clean_title(field), self.sec_col_heading)
+                else:
+                    ws.write(r-3, c, clean_title(field), self.sec_col_heading)
 
             self.tabulate(ws, counts, cols, rows, row_perc=row_perc, write_row_headings=False,
-                          write_row_totals=write_row_totals, write_col_totals=write_col_totals,
-                          filter_cols=filter_cols, r=r, c=c, show_N=show_N, raw_values=raw_values)
+                          write_col_headings=write_col_headings, write_row_totals=write_row_totals,
+                          write_col_totals=write_col_totals, filter_cols=filter_cols, r=r, c=c,
+                          show_N=show_N, raw_values=raw_values)
             c += sec_cols
 
     def tabulate(self, ws, counts, cols, rows, row_perc=False,
