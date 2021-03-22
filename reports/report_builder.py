@@ -3348,7 +3348,7 @@ class XLSXReportBuilder:
             ws.merge_range(r-2, c, r-2, c+1, clean_title(col_heading), self.col_heading)
             ws.write(r - 1, c, "%")
             ws.write(r - 1, c + 1, "N")
-            c +=2
+            c += 2
             
         gender_ids = [x[0] for x in GENDER]
         for major_topic, topic_ids in GROUP_TOPICS_MAP.items():
@@ -3377,11 +3377,17 @@ class XLSXReportBuilder:
         Rows: SQ 1,2,3, Major topic
         """
         r = 6
-        self.write_col_headings(ws, MEDIA_TYPES)
-
+        c = 2
+        for _, col_heading in MEDIA_TYPES:
+            ws.merge_range(r-2, c, r-2, c+1, clean_title(col_heading), self.col_heading)
+            ws.write(r - 1, c, "Yes")
+            ws.write(r - 1, c + 1, "No")
+            c += 2
+        
         for sq_field, sq in SPECIAL_QUESTIONS.items():
-            counts = Counter()
+            secondary_counts = OrderedDict()
             for media_type, model in person_models.items():
+                counts = Counter()
                 sheet_name = model.sheet_name()
                 rows = model.objects \
                         .values(sq_field, f"{sheet_name}__topic") \
@@ -3389,13 +3395,15 @@ class XLSXReportBuilder:
                         .exclude(**{sq_field: ""}) \
                         .annotate(n=Count("id"))
 
-                rows= self.apply_weights(rows, model.sheet_db_table(), media_type)
+                rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
 
-                media_id = [id for id, name in MEDIA_TYPES if name == media_type][0]
-                {counts.update({(media_id, TOPIC_GROUPS[r['topic']]): r['n']}) for r in rows}
+                for row in rows:
+                    counts.update({(row[sq_field], TOPIC_GROUPS[row['topic']]): row['n']})
 
+                secondary_counts[media_type] = counts
+                
             self.write_primary_row_heading(ws, sq, r=r)
-            self.tabulate(ws, counts, MEDIA_TYPES, MAJOR_TOPICS, row_perc=True, write_col_headings=False, r=r)
+            self.tabulate_secondary_cols(ws, secondary_counts, YESNO, MAJOR_TOPICS, row_perc=False, write_primary_col_headins=False, write_col_headings=False, write_col_totals=False, r=r, raw_values=True)
             r += len(MAJOR_TOPICS)
 
     def ws_108(self, ws):
