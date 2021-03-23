@@ -3296,7 +3296,8 @@ class XLSXReportBuilder:
 
                     rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
 
-            counts.update({(r["function"], r["sex"]): r["n"] for r in rows})
+                    counts.update({(r["function"], r["sex"]): r["n"] for r in rows})
+
             major_topic_name = [mt[1] for mt in MAJOR_TOPICS if mt[0] == int(major_topic)][0]
             self.write_primary_row_heading(ws, major_topic_name, r=r)
             self.tabulate(ws, counts, FUNCTION, GENDER, write_col_headings=False, write_col_totals=False, r=r, show_N=True)
@@ -3331,7 +3332,8 @@ class XLSXReportBuilder:
 
                     rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
 
-            counts.update({(r["survivor_of"], r["sex"]): r["n"] for r in rows})
+                    counts.update({(r["survivor_of"], r["sex"]): r["n"] for r in rows})
+
             major_topic_name = [mt[1] for mt in MAJOR_TOPICS if mt[0] == int(major_topic)][0]
             self.write_primary_row_heading(ws, major_topic_name, r=r)
             self.tabulate(ws, counts, SURVIVOR_OF, GENDER, write_col_headings=False, write_col_totals=False, r=r, show_N=True)
@@ -3365,7 +3367,8 @@ class XLSXReportBuilder:
 
                     rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
 
-            counts.update({(r["occupation"], r["sex"]): r["n"] for r in rows})
+                    counts.update({(r["occupation"], r["sex"]): r["n"] for r in rows})
+
             major_topic_name = [mt[1] for mt in MAJOR_TOPICS if mt[0] == int(major_topic)][0]
             self.write_primary_row_heading(ws, major_topic_name, r=r)
             self.tabulate(ws, counts, OCCUPATION, GENDER, write_col_headings=False, write_col_totals=False, r=r, show_N=True)
