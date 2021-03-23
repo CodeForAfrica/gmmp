@@ -3379,9 +3379,9 @@ class XLSXReportBuilder:
         r = 6
         c = 2
         for _, col_heading in MEDIA_TYPES:
-            ws.merge_range(r-2, c, r-2, c+1, clean_title(col_heading), self.col_heading)
-            ws.write(r - 1, c, "Yes")
-            ws.write(r - 1, c + 1, "No")
+            ws.merge_range(r-2, c, r-2, c+1, clean_title(col_heading), self.sec_col_heading)
+            ws.write(r - 1, c, "Yes", self.col_heading)
+            ws.write(r - 1, c + 1, "No", self.col_heading)
             c += 2
         
         secondary_counts = OrderedDict()
@@ -3413,15 +3413,18 @@ class XLSXReportBuilder:
         """
         r = 6
         c = 2
-        for _, col_heading in GENDER:
-            ws.merge_range(r-2, c, r-2, c+1, clean_title(col_heading), self.col_heading)
-            ws.write(r - 1, c, "Yes")
-            ws.write(r - 1, c + 1, "No")
-            c += 2
+        # Write definitions of column heading titles
+        ws.write(r-1, c-1, "Sex of source", self.col_heading_def)
+        for _, sec_col_heading in YESNO:
+            ws.merge_range(r-2, c, r-2, c+len(GENDER)-1, clean_title(sec_col_heading), self.sec_col_heading)
+            for _, col_heading in GENDER:
+                ws.write(r-1, c, clean_title(col_heading), self.col_heading)
+                c += 1
+
 
         secondary_counts = OrderedDict()
         for sq_field, sq in SPECIAL_QUESTIONS.items():
-            for gender_id, gender in GENDER:
+            for yes_no, _ in YESNO:
                 counts = Counter()
                 for media_type, model in person_models.items():
                     sheet_name = model.sheet_name()
@@ -3429,18 +3432,18 @@ class XLSXReportBuilder:
                             .values(sq_field, "sex", f"{sheet_name}__topic") \
                             .filter(**{f"{sheet_name}__country__in": self.country_list}) \
                             .exclude(**{sq_field: ""}) \
-                            .filter(sex=gender_id) \
+                            .filter(**{sq_field: yes_no}) \
                             .annotate(n=Count("id"))
 
                     rows= self.apply_weights(rows, model.sheet_db_table(), media_type)
 
                     for row in rows:
-                        counts.update({(row[sq_field], TOPIC_GROUPS[row['topic']]): row['n']})
+                        counts.update({(row["sex"], TOPIC_GROUPS[row['topic']]): row['n']})
 
-                secondary_counts[gender] = counts
+                secondary_counts[yes_no] = counts
 
             self.write_primary_row_heading(ws, sq, r=r)
-            self.tabulate_secondary_cols(ws, secondary_counts, YESNO, MAJOR_TOPICS, row_perc=False, write_primary_col_headins=False, write_col_headings=False, write_col_totals=False, r=r, raw_values=True)
+            self.tabulate_secondary_cols(ws, secondary_counts, GENDER, MAJOR_TOPICS, row_perc=False, write_primary_col_headins=False, write_col_headings=False, write_col_totals=False, r=r, raw_values=True)
             r += len(MAJOR_TOPICS)
 
     def ws_109(self, ws):
@@ -3450,15 +3453,17 @@ class XLSXReportBuilder:
         """
         r = 6
         c = 2
-        for _, col_heading in GENDER:
-            ws.merge_range(r-2, c, r-2, c+1, clean_title(col_heading), self.col_heading)
-            ws.write(r - 1, c, "Yes")
-            ws.write(r - 1, c + 1, "No")
-            c += 2
+        # Write definitions of column heading titles
+        ws.write(r-1, c-1, "Sex of reporter", self.col_heading_def)
+        for _, sec_col_heading in YESNO:
+            ws.merge_range(r-2, c, r-2, c+len(GENDER)-1, clean_title(sec_col_heading), self.sec_col_heading)
+            for _, col_heading in GENDER:
+                ws.write(r-1, c, clean_title(col_heading), self.col_heading)
+                c += 1
 
         secondary_counts = OrderedDict()
         for sq_field, sq in SPECIAL_QUESTIONS.items():
-            for gender_id, gender in GENDER:
+            for yes_no, _ in YESNO:
                 counts = Counter()
                 for media_type, model in person_models.items():
                     sheet_name = model.sheet_name()
@@ -3467,18 +3472,18 @@ class XLSXReportBuilder:
                             .values(sq_field, f"{sheet_name}__{journalist_field_name}__sex", f"{sheet_name}__topic") \
                             .filter(**{f"{sheet_name}__country__in": self.country_list}) \
                             .exclude(**{sq_field: ""}) \
-                            .filter(**{f"{sheet_name}__{journalist_field_name}__sex": gender_id}) \
+                            .filter(**{sq_field: yes_no}) \
                             .annotate(n=Count("id"))
                             
                     rows= self.apply_weights(rows, model.sheet_db_table(), media_type)
 
                     for row in rows:
-                        counts.update({(row[sq_field], TOPIC_GROUPS[row['topic']]): row['n']})
+                        counts.update({(row["sex"], TOPIC_GROUPS[row['topic']]): row['n']})
        
-                secondary_counts[gender] = counts
+                secondary_counts[yes_no] = counts
 
             self.write_primary_row_heading(ws, sq, r=r)
-            self.tabulate_secondary_cols(ws, secondary_counts, YESNO, MAJOR_TOPICS, row_perc=False, write_primary_col_headins=False, write_col_headings=False, write_col_totals=False, r=r, raw_values=True)
+            self.tabulate_secondary_cols(ws, secondary_counts, GENDER, MAJOR_TOPICS, row_perc=False, write_primary_col_headins=False, write_col_headings=False, write_col_totals=False, r=r, raw_values=True)
             r += len(MAJOR_TOPICS)
 
     def ws_110(self, ws):
@@ -3488,15 +3493,17 @@ class XLSXReportBuilder:
         """
         r = 6
         c = 2
-        for _, col_heading in YESNO:
-            ws.merge_range(r-2, c, r-2, c+1, clean_title(col_heading), self.col_heading)
-            ws.write(r - 1, c, "Yes")
-            ws.write(r - 1, c + 1, "No")
-            c += 2
+        # Write definitions of column heading titles
+        ws.write(r-1, c-1, "Does this story make reference to gender equality or human rights", self.col_heading_def)
+        for _, sec_col_heading in YESNO:
+            ws.merge_range(r-2, c, r-2, c+len(YESNO)-1, clean_title(sec_col_heading), self.sec_col_heading)
+            for _, col_heading in YESNO:
+                ws.write(r-1, c, clean_title(col_heading), self.col_heading)
+                c += 1
 
         secondary_counts = OrderedDict()
         for sq_field, sq in SPECIAL_QUESTIONS.items():
-            for equality_right_id, equality_right in YESNO:
+            for yes_no, _ in YESNO:
                 counts = Counter()
                 for media_type, model in person_models.items():
                     sheet_name = model.sheet_name()
@@ -3504,15 +3511,15 @@ class XLSXReportBuilder:
                             .values(sq_field, f"{sheet_name}__equality_rights", f"{sheet_name}__topic") \
                             .filter(**{f"{sheet_name}__country__in": self.country_list}) \
                             .exclude(**{sq_field: ""}) \
-                            .filter(**{f"{sheet_name}__equality_rights": equality_right_id}) \
+                            .filter(**{sq_field: yes_no}) \
                             .annotate(n=Count("id"))
 
                     rows= self.apply_weights(rows, model.sheet_db_table(), media_type)
 
                     for row in rows:
-                        counts.update({(row[sq_field], TOPIC_GROUPS[row['topic']]): row['n']})
+                        counts.update({(row["equality_rights"], TOPIC_GROUPS[row['topic']]): row['n']})
 
-                secondary_counts[equality_right] = counts
+                secondary_counts[yes_no] = counts
 
             self.write_primary_row_heading(ws, sq, r=r)
             self.tabulate_secondary_cols(ws, secondary_counts, YESNO, MAJOR_TOPICS, row_perc=False, write_primary_col_headins=False, write_col_headings=False, write_col_totals=False, r=r, raw_values=True)
@@ -3525,15 +3532,17 @@ class XLSXReportBuilder:
         """
         r = 6
         c = 2
-        for _, col_heading in AGREE_DISAGREE:
-            ws.merge_range(r-2, c, r-2, c+1, clean_title(col_heading), self.col_heading)
-            ws.write(r - 1, c, "Yes")
-            ws.write(r - 1, c + 1, "No")
-            c += 2
+        # Write definitions of column heading titles
+        ws.write(r-1, c-1, "This story clearly challenges gender stereotypes", self.col_heading_def)
+        for _, sec_col_heading in YESNO:
+            ws.merge_range(r-2, c, r-2, c+len(AGREE_DISAGREE)-1, clean_title(sec_col_heading), self.sec_col_heading)
+            for _, col_heading in AGREE_DISAGREE:
+                ws.write(r-1, c, clean_title(col_heading), self.col_heading)
+                c += 1
 
         secondary_counts = OrderedDict()
         for sq_field, sq in SPECIAL_QUESTIONS.items():
-            for stereotype_id, stereotype in AGREE_DISAGREE:
+            for yes_no, _ in YESNO:
                 counts = Counter()
                 for media_type, model in person_models.items():
                     sheet_name = model.sheet_name()
@@ -3541,18 +3550,18 @@ class XLSXReportBuilder:
                             .values(sq_field, f"{sheet_name}__stereotypes", f"{sheet_name}__topic") \
                             .filter(**{f"{sheet_name}__country__in": self.country_list}) \
                             .exclude(**{sq_field: ""}) \
-                            .filter(**{f"{sheet_name}__stereotypes": stereotype_id}) \
+                            .filter(**{sq_field: yes_no}) \
                             .annotate(n=Count("id"))
 
                     rows= self.apply_weights(rows, model.sheet_db_table(), media_type)
 
                     for row in rows:
-                        counts.update({(row[sq_field], TOPIC_GROUPS[row['topic']]): row['n']})
+                        counts.update({(row["stereotypes"], TOPIC_GROUPS[row['topic']]): row['n']})
 
-                secondary_counts[stereotype] = counts
+                secondary_counts[yes_no] = counts
 
             self.write_primary_row_heading(ws, sq, r=r)
-            self.tabulate_secondary_cols(ws, secondary_counts, YESNO, MAJOR_TOPICS, row_perc=False, write_primary_col_headins=False, write_col_headings=False, write_col_totals=False, r=r, raw_values=True)
+            self.tabulate_secondary_cols(ws, secondary_counts, AGREE_DISAGREE, MAJOR_TOPICS, row_perc=False, write_primary_col_headins=False, write_col_headings=False, write_col_totals=False, r=r, raw_values=True)
             r += len(MAJOR_TOPICS)
 
     def ws_s01(self, ws):
