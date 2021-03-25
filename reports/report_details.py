@@ -2187,6 +2187,8 @@ REGION_COUNTRY_MAP = {
         'CA', 'US'],
     'Pacific Islands': [
         'AU', 'FJ', 'NZ', 'WS', 'SB', 'TO', 'PG'],
+    'Transnational': [
+        'XI'],
 }
 
 
