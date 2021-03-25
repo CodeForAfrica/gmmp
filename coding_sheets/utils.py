@@ -494,7 +494,7 @@ def save_newspaper_news_data(
         for row in newspaper_coding_data.get("story_label", []):
 
             sheet_data = get_data_for_newspaper_coding(newspaper_coding_data, row)
-            if check_country_region_missing(country, sheet_name, row, sheet_data):
+            if check_country_region_missing(country, sheet_name, "NewspaperCoding", row, sheet_data):
                 # Skip this row
                 continue
             newspaper_news_serializer = NewspaperSheetSerializer(data=sheet_data)
@@ -569,7 +569,7 @@ def save_radio_news_data(
         for row in radio_coding_data.get("story_label", []):
 
             sheet_data = get_data_for_radio(radio_coding_data, row)
-            if check_country_region_missing(country, sheet_name, row, sheet_data):
+            if check_country_region_missing(country, sheet_name, "RadioCoding", row, sheet_data):
                 # Skip this row
                 continue
             radio_news_serializer = RadioSheetSerializer(data=sheet_data)
@@ -642,7 +642,7 @@ def save_tv_news_data(country, sheet_name, tv_coding_data, journalist_tv_coding_
 
             sheet_data = get_data_for_tv(tv_coding_data, row)
 
-            if check_country_region_missing(country, sheet_name, row, sheet_data):
+            if check_country_region_missing(country, sheet_name, "TVCoding", row, sheet_data):
                 # Skip this row
                 continue
             tv_news_serializer = TelevisionSheetSerializer(data=sheet_data)
@@ -719,7 +719,7 @@ def save_internent_news_data(
         for row in internet_coding_data.get("story_label", []):
 
             sheet_data = get_data_for_internent_coding(internet_coding_data, row)
-            if check_country_region_missing(country, sheet_name, row, sheet_data):
+            if check_country_region_missing(country, sheet_name, "InternetCoding", row, sheet_data):
                 # Skip this row
                 continue
             internet_news_sheet_serializer = InternetNewsSheetSerializer(
@@ -797,7 +797,7 @@ def save_twitter_news_data(
         for row in twitter_coding_data.get("story_label", []):
 
             sheet_data = get_data_for_twitter_coding(twitter_coding_data, row)
-            if check_country_region_missing(country, sheet_name, row, sheet_data):
+            if check_country_region_missing(country, sheet_name, "TwitterCoding", row, sheet_data):
                 # Skip this row
                 continue
             twitter_news_serializer = TwitterSheetSerializer(data=sheet_data)
@@ -1078,12 +1078,12 @@ def check_proccessed_row(country, sheet_name, sheet_tab, row):
     return processed_sheet
 
 
-def check_country_region_missing(country, sheet_name, row, sheet_data):
+def check_country_region_missing(country, sheet_name, coding, row, sheet_data):
     if not sheet_data.get("country_region"):
         save_unprocessed_row(
             country,
             sheet_name,
-            "TwitterCoding",
+            coding,
             row,
             "country_region is missing",
         )
