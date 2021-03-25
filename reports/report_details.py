@@ -2176,7 +2176,8 @@ REGION_COUNTRY_MAP = {
         'AL', 'AM', 'AT', 'BY', 'BE', 'BA', 'BG', 'HR', 'DK', 'EE', 'FI', 'FR',
         'GE', 'DE', 'GR', 'HU', 'IS', 'IE', 'IT', 'KZ', 'LU', 'MK', 'MT', 'MD',
         'ME', 'NL', 'NO', 'PL', 'PT', 'RO', 'RS', 'SK', 'SI', 'ES', 'SE', 'CH',
-        'TR', 'GB', 'QM', 'QN', 'WL', 'SQ', 'EN', 'CY', 'RU', 'GL'],
+        'TR', 'GB', 'QM', 'QN', 'QO', 'QP', 'QQ', 'QR', 'WL', 'SQ', 'EN', 'CY',
+        'RU', 'GL'],
     'Latin America': [
         'AR', 'BO', 'BR', 'CL', 'CO', 'CR', 'EC', 'GT', 'HN', 'MX', 'NI', 'PE',
         'PY', 'SV', 'UY', 'VE'],
