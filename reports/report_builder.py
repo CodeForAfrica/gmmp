@@ -3389,8 +3389,8 @@ class XLSXReportBuilder:
         
         secondary_counts = OrderedDict()
         for sq_field, sq in SPECIAL_QUESTIONS.items():
-            counts = Counter()
             for media_type, model in person_models.items():
+                counts = Counter()
                 sheet_name = model.sheet_name()
                 rows = model.objects \
                         .values(sq_field, f"{sheet_name}__topic") \
@@ -3403,7 +3403,7 @@ class XLSXReportBuilder:
                 for row in rows:
                     counts.update({(row[sq_field], TOPIC_GROUPS[row['topic']]): row['n']})
 
-                secondary_counts[media_type] = Counter(counts)
+                secondary_counts[media_type] = counts
             self.write_primary_row_heading(ws, sq, r=r)
             self.tabulate_secondary_cols(ws, secondary_counts, YESNO, MAJOR_TOPICS, row_perc=False, write_primary_col_headins=False, write_col_headings=False, write_col_totals=False, r=r, raw_values=True)
             r += len(MAJOR_TOPICS)
