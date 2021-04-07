@@ -2072,14 +2072,14 @@ WS_INFO = {
             'name': 'sr05',
             'title': 'Presenters and reporters, by region, by medium',
             'desc': '',
-            'reports': ['global'],
+            'reports': ['global', 'region', 'country'],
             'historical': 'sr05',
         },
         '2010': {
             'name': 'sr05',
             'title': 'Presenters and reporters, by region, by medium',
             'desc': 'Presenters and reporters, by region, by medium',
-            'reports': ['global'],
+            'reports': ['global', 'region', 'country'],
         },
     },
     'ws_sr06': {
