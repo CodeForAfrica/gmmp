@@ -108,7 +108,7 @@ def sheet_name_to_num(sheet):
     Sheets are banded: 0 - 199 normal sheets, 200 - 399 s sheets, and 400+ for
     sr sheets.
     """
-    stripped_sheet = sheet.strip("wsrb_")
+    stripped_sheet = sheet.strip("wsrb_").strip("wsrc_")
     try:
         num = int(stripped_sheet, 10)
     except ValueError:
@@ -116,6 +116,8 @@ def sheet_name_to_num(sheet):
 
     if sheet.endswith("b"):
         num += 0.1
+    if sheet.endswith("c"):
+        num += 0.2
     if sheet.startswith("ws_sr"):
         return 400 + num
     
@@ -1305,7 +1307,76 @@ class XLSXReportBuilder:
                 write_row_headings = False
     
     def ws_28c(self, ws):
-        pass
+        c = 1
+        r = 8
+        write_row_headings = True
+        all_regions = add_transnational_to_regions(self.regions)
+
+        for media_type, model in journalist_models.items():
+            if media_type in broadcast_journalist_models:
+                presenter = [('Presenter',[1, 3])]
+            else:
+                presenter = [('Presenter',[])]
+            col = c + (1 if write_row_headings else 0)
+            merge_range = (len(presenter) * len(self.male_female) * 2) - 1
+
+            ws.merge_range(r-4, col, r-4, col + merge_range, clean_title(media_type), self.col_heading)
+
+            secondary_counts = OrderedDict()
+            if self.report_type == 'country':
+                for journo_type, role_ids in presenter:
+                    counts = Counter()
+                    if not role_ids:
+                        secondary_counts[journo_type] = counts
+                        continue
+                    country = model.sheet_name() + '__country'
+                    rows = model.objects\
+                        .values('sex', country)\
+                        .filter(**{country + '__in': self.country_list})\
+                        .filter(sex__in=self.male_female_ids)\
+                        .annotate(n=Count('id'))
+
+                    if media_type in REPORTER_MEDIA:
+                        # Newspaper journos don't have roles
+                        rows = rows.filter(role__in=role_ids)
+
+                    rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
+
+                    for row in rows:
+                        counts.update({(row['sex'], row['country']): row['n']})
+
+                    secondary_counts[journo_type] = counts
+                self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, self.countries, row_perc=True, show_N=True, c=c, r=r, write_row_headings=write_row_headings)
+
+                c += (len(presenter) * len(self.male_female) * 2) + (1 if write_row_headings else 0)
+                write_row_headings = False
+            else:
+                for journo_type, role_ids in presenter:
+                    counts = Counter()
+                    region = model.sheet_name() + '__country_region__region'
+
+                    rows = model.objects\
+                            .values('sex', region)\
+                            .filter(**{region + '__in': self.region_list})\
+                            .filter(sex__in=self.male_female_ids)\
+                            .annotate(n=Count('id'))
+
+                    if media_type in REPORTER_MEDIA:
+                        # Newspaper journos don't have roles
+                        rows = rows.filter(role__in=role_ids)
+
+                    rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
+
+                    for row in rows:
+                        region_id = [reg[0] for reg in all_regions if reg[1] == row["region"]][0]
+                        counts.update({(row['sex'], region_id): row['n']})
+
+                    secondary_counts[journo_type] = counts
+
+                self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, all_regions, row_perc=True, show_N=True, c=c, r=r, write_row_headings=write_row_headings)
+
+                c += (len(presenter) * len(self.male_female) * 2) + (1 if write_row_headings else 0)
+                write_row_headings = False
 
     def ws_29(self, ws):
         """
