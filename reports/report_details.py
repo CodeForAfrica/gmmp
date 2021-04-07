@@ -493,7 +493,7 @@ WS_INFO = {
             'name': '28b',
             'title': 'Breakdown of reporters  by region by medium PRINT RADIO TV INTERNET TWITTER by sex',
             'desc': '',
-            'reports': [],
+            'reports': ['global', 'region', 'country'],
         },
     },
     'ws_28c': {
@@ -501,7 +501,7 @@ WS_INFO = {
             'name': '28c',
             'title': 'Breakdown of presenters  by region by medium by sex. TV and Radio',
             'desc': '',
-            'reports': [],
+            'reports': ['global', 'region', 'country'],
         },
     },
     'ws_29': {
