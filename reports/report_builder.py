@@ -4629,7 +4629,7 @@ class XLSXReportBuilder:
         write_row_headings = True
         all_regions = add_transnational_to_regions(self.regions)
 
-        for media_type, model in tm_journalist_models.items():
+        for media_type, model in journalist_models.items():
             if media_type in broadcast_journalist_models:
                 presenter_reporter = [('Presenter',[1, 3]), ('Reporter', [2])]
             else:
