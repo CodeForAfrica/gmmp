@@ -108,7 +108,7 @@ def sheet_name_to_num(sheet):
     Sheets are banded: 0 - 199 normal sheets, 200 - 399 s sheets, and 400+ for
     sr sheets.
     """
-    stripped_sheet = sheet.strip("wsrb_").strip("wsrc_")
+    stripped_sheet = sheet.strip("wsrbc_")
     try:
         num = int(stripped_sheet, 10)
     except ValueError:
@@ -1234,7 +1234,7 @@ class XLSXReportBuilder:
         """
         Cols: Media; Journo Type; Sex
         Rows: Country
-        :: Newspaper, Television, Radio, Twitter, Internet by global, region and country
+        :: Newspaper, Television, Radio, Twitter, Internet by region and country
         """
         c = 1
         r = 8
@@ -1307,6 +1307,11 @@ class XLSXReportBuilder:
                 write_row_headings = False
     
     def ws_28c(self, ws):
+        """
+        Cols: Media; Journo Type; Sex
+        Rows: Country
+        :: Radio, Television by region and country
+        """
         c = 1
         r = 8
         write_row_headings = True
