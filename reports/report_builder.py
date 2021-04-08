@@ -1183,6 +1183,7 @@ class XLSXReportBuilder:
         :: Reporters + Presenters
         """
         overall_column = ws.dim_colmax
+        all_regions = add_transnational_to_regions(self.regions)
         if self.report_type == 'country':
             secondary_counts = OrderedDict()
             for media_type, model in tm_journalist_models.items():
@@ -1214,11 +1215,11 @@ class XLSXReportBuilder:
                 rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
 
                 for row in rows:
-                    region_id = [r[0] for r in self.regions if r[1] == row['region']][0]
+                    region_id = [r[0] for r in all_regions if r[1] == row['region']][0]
 
                     counts.update({(row['sex'], region_id): row['n']})
                 secondary_counts[media_type] = counts
-            self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, self.regions, row_perc=True, show_N=True)
+            self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, all_regions, row_perc=True, show_N=True)
             self.tabulate_historical(ws, '28', self.male_female, self.regions, r=7)
         overall_row = ws.dim_rowmax + 2
         ws.write(overall_row, overall_column-1, "Overall", self.label)
