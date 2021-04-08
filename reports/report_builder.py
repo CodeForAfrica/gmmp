@@ -1312,11 +1312,8 @@ class XLSXReportBuilder:
         write_row_headings = True
         all_regions = add_transnational_to_regions(self.regions)
 
-        for media_type, model in journalist_models.items():
-            if media_type in broadcast_journalist_models:
-                presenter = [('Presenter',[1, 3])]
-            else:
-                presenter = [('Presenter',[])]
+        for media_type, model in broadcast_journalist_models.items():
+            presenter = [('Presenter',[1, 3])]
             col = c + (1 if write_row_headings else 0)
             merge_range = (len(presenter) * len(self.male_female) * 2) - 1
 
@@ -1326,9 +1323,6 @@ class XLSXReportBuilder:
             if self.report_type == 'country':
                 for journo_type, role_ids in presenter:
                     counts = Counter()
-                    if not role_ids:
-                        secondary_counts[journo_type] = counts
-                        continue
                     country = model.sheet_name() + '__country'
                     rows = model.objects\
                         .values('sex', country)\
