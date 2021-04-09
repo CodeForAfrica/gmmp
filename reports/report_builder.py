@@ -28,7 +28,7 @@ from .report_details import *  # noqa
 from reports.models import Weights
 from reports.historical import Historical, canon
 from reports.report_csv import (generate_csv, ws_05_csv, ws_09_csv,
-    ws_15_csv, ws_28b_csv, ws_28c_csv, ws_30_csv, ws_38_csv, )
+    ws_15_csv, ws_28b_csv, ws_28c_csv, ws_30_csv, ws_38_csv, ws_41_csv, )
 
 SHEET_MEDIA_GROUPS = [
     (TM_MEDIA_TYPES, tm_sheet_models),
@@ -1744,7 +1744,7 @@ class XLSXReportBuilder:
         self.tabulate_secondary_cols(ws, secondary_counts, YESNO, [y for x in TOPICS for y in x[1]], row_perc=False, filter_cols=self.yes)
         self.tabulate_historical(ws, '40', self.yes, [y for x in TOPICS for y in x[1]], write_row_headings=False, major_cols=self.regions)
 
-    def ws_41(self, ws):
+    def ws_41(self, ws, gen_csv=False):
         """
         Cols: Equality rights raised
         Rows: Topics
@@ -1761,13 +1761,16 @@ class XLSXReportBuilder:
                 rows = self.apply_weights(rows, model._meta.db_table, media_type)
 
                 counts.update({(r['equality_rights'], r['topic']): r['n'] for r in rows})
-        self.tabulate(ws, counts, YESNO, [y for x in TOPICS for y in x[1]], row_perc=False, show_N=True)
-        self.tabulate_historical(ws, '41', [*YESNO], [y for x in TOPICS for y in x[1]], write_row_headings=False, r=6, show_N_and_P=True)
-        overall_row = ws.dim_rowmax + 2
-        value = sum([counts[x] for x in counts if x[0] == 'Y'])
-        total = sum(counts.values())
-        ws.write(overall_row, overall_column-1, "Overall", self.label)
-        self.write_overall_value(ws, value, total, overall_column+1, overall_row, write_overall=False)
+        if gen_csv:
+            generate_csv("stories_with_gender_equality", ["Topic", "Answer", "Count"], counts, ws_41_csv)    
+        else:
+            self.tabulate(ws, counts, YESNO, [y for x in TOPICS for y in x[1]], row_perc=False, show_N=True)
+            self.tabulate_historical(ws, '41', [*YESNO], [y for x in TOPICS for y in x[1]], write_row_headings=False, r=6, show_N_and_P=True)
+            overall_row = ws.dim_rowmax + 2
+            value = sum([counts[x] for x in counts if x[0] == 'Y'])
+            total = sum(counts.values())
+            ws.write(overall_row, overall_column-1, "Overall", self.label)
+            self.write_overall_value(ws, value, total, overall_column+1, overall_row, write_overall=False)
 
     def ws_42(self, ws):
         """
