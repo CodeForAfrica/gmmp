@@ -149,6 +149,8 @@ class XLSXReportBuilder:
             self.report_type = 'global'
 
         self.country_list = [code for code, name in self.countries]
+        all_regions = add_transnational_to_regions(self.regions)
+        self.all_region_list = [name for id, name in all_regions]
         self.region_list = [name for id, name in self.regions]
 
         if self.report_type == 'global':
@@ -1208,7 +1210,7 @@ class XLSXReportBuilder:
                 region = model.sheet_name() + '__country_region__region'
                 rows = model.objects\
                         .values('sex', region)\
-                        .filter(**{region + '__in': self.region_list})\
+                        .filter(**{region + '__in': self.all_region_list})\
                         .filter(sex__in=self.male_female_ids)\
                         .annotate(n=Count('id'))
 
@@ -1286,7 +1288,7 @@ class XLSXReportBuilder:
 
                     rows = model.objects\
                             .values('sex', region)\
-                            .filter(**{region + '__in': self.region_list})\
+                            .filter(**{region + '__in': self.all_region_list})\
                             .filter(sex__in=self.male_female_ids)\
                             .annotate(n=Count('id'))
 
@@ -1357,7 +1359,7 @@ class XLSXReportBuilder:
 
                     rows = model.objects\
                             .values('sex', region)\
-                            .filter(**{region + '__in': self.region_list})\
+                            .filter(**{region + '__in': self.all_region_list})\
                             .filter(sex__in=self.male_female_ids)\
                             .annotate(n=Count('id'))
 
@@ -4637,7 +4639,7 @@ class XLSXReportBuilder:
 
                 rows = model.objects\
                     .values('sex', region)\
-                    .filter(**{region + '__in': self.region_list})\
+                    .filter(**{region + '__in': self.all_region_list})\
                     .filter(sex__in=self.male_female_ids)\
                     .annotate(n=Count('id'))
 
@@ -4658,7 +4660,7 @@ class XLSXReportBuilder:
             region = model.sheet_name() + '__country_region__region'
             rows = model.objects\
                     .values('sex', region)\
-                    .filter(**{region + '__in': self.region_list})\
+                    .filter(**{region + '__in': self.all_region_list})\
                     .filter(sex__in=self.male_female_ids)\
                     .annotate(n=Count('id'))
 
@@ -4688,7 +4690,7 @@ class XLSXReportBuilder:
                 person_sex_field = '%s__sex' % model.person_field_name()
                 rows = model.objects\
                         .values(person_sex_field, region)\
-                        .filter(**{region + '__in': self.region_list})\
+                        .filter(**{region + '__in': self.all_region_list})\
                         .filter(**{person_sex_field + '__in': self.male_female_ids})\
                         .filter(topic__in=topic_ids)\
                         .annotate(n=Count('id'))
@@ -4720,7 +4722,7 @@ class XLSXReportBuilder:
                 region = model.sheet_name() + '__country_region__region'
                 rows = model.objects\
                         .values('sex', region)\
-                        .filter(**{region + '__in': self.region_list})\
+                        .filter(**{region + '__in': self.all_region_list})\
                         .filter(sex__in=self.male_female_ids)\
                         .filter(function=function_id)\
                         .annotate(n=Count('id'))
@@ -4751,7 +4753,7 @@ class XLSXReportBuilder:
             region = model.sheet_name() + '__country_region__region'
             rows = model.objects\
                     .values('sex', region)\
-                    .filter(**{region + '__in': self.region_list})\
+                    .filter(**{region + '__in': self.all_region_list})\
                     .filter(sex__in=self.male_female_ids)\
                     .filter(is_photograph=code)\
                     .annotate(n=Count('id'))
@@ -4798,7 +4800,7 @@ class XLSXReportBuilder:
 
                 rows = model.objects\
                         .values('sex', region)\
-                        .filter(**{region + '__in': self.region_list})\
+                        .filter(**{region + '__in': self.all_region_list})\
                         .filter(sex__in=self.male_female_ids)\
                         .annotate(n=Count('id'))
 
@@ -4838,7 +4840,7 @@ class XLSXReportBuilder:
 
                 rows = model.objects\
                     .values(journo_sex_field, region)\
-                    .filter(**{region + '__in': self.region_list})\
+                    .filter(**{region + '__in': self.all_region_list})\
                     .filter(**{journo_sex_field + '__in': self.male_female_ids})\
                     .filter(topic__in=topic_ids)\
                     .annotate(n=Count('id'))
@@ -4875,7 +4877,7 @@ class XLSXReportBuilder:
                 region = model.sheet_name() + '__country_region__region'
                 rows = model.objects\
                         .values('sex', region)\
-                        .filter(**{region + '__in': self.region_list})\
+                        .filter(**{region + '__in': self.all_region_list})\
                         .filter(**{sheet_name + '__' + journo_name + '__sex':sex_id})\
                         .filter(sex__in=self.male_female_ids)\
                         .annotate(n=Count('id'))
@@ -4911,7 +4913,7 @@ class XLSXReportBuilder:
         for media_type, model in tm_sheet_models.items():
             rows = model.objects\
                 .values('topic', region)\
-                .filter(**{region + '__in': self.region_list})\
+                .filter(**{region + '__in': self.all_region_list})\
                 .filter(about_women='Y')\
                 .annotate(n=Count('id'))
 
@@ -4937,7 +4939,7 @@ class XLSXReportBuilder:
         for media_type, model in tm_sheet_models.items():
             rows = model.objects\
                 .values('inequality_women', region)\
-                .filter(**{region + '__in': self.region_list})\
+                .filter(**{region + '__in': self.all_region_list})\
                 .annotate(n=Count('id'))
 
             rows = self.apply_weights(rows, model._meta.db_table, media_type)
@@ -4961,7 +4963,7 @@ class XLSXReportBuilder:
         for media_type, model in tm_sheet_models.items():
             rows = model.objects\
                 .values('stereotypes', region)\
-                .filter(**{region + '__in': self.region_list})\
+                .filter(**{region + '__in': self.all_region_list})\
                 .annotate(n=Count('id'))
 
             rows = self.apply_weights(rows, model._meta.db_table, media_type)
