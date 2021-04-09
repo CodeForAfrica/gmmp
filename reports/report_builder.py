@@ -149,7 +149,7 @@ class XLSXReportBuilder:
             self.report_type = 'global'
 
         self.country_list = [code for code, name in self.countries]
-        self.all_regions = add_transnational_to_regions(self.regions)
+        self.all_regions = add_transnational_to_regions(self.regions) if self.report_type == 'global' else self.regions
         self.all_region_list = [name for id, name in self.all_regions]
         self.region_list = [name for id, name in self.regions]
 
@@ -1185,7 +1185,6 @@ class XLSXReportBuilder:
         :: Reporters + Presenters
         """
         overall_column = ws.dim_colmax
-        all_regions = self.all_regions if self.report_type == 'global' else self.regions
         if self.report_type == 'country':
             secondary_counts = OrderedDict()
             for media_type, model in tm_journalist_models.items():
@@ -1217,11 +1216,11 @@ class XLSXReportBuilder:
                 rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
 
                 for row in rows:
-                    region_id = [r[0] for r in all_regions if r[1] == row['region']][0]
+                    region_id = [r[0] for r in self.all_regions if r[1] == row['region']][0]
 
                     counts.update({(row['sex'], region_id): row['n']})
                 secondary_counts[media_type] = counts
-            self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, all_regions, row_perc=True, show_N=True)
+            self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, self.all_regions, row_perc=True, show_N=True)
             self.tabulate_historical(ws, '28', self.male_female, self.regions, r=7)
         overall_row = ws.dim_rowmax + 2
         ws.write(overall_row, overall_column-1, "Overall", self.label)
@@ -1242,7 +1241,6 @@ class XLSXReportBuilder:
         c = 1
         r = 8
         write_row_headings = True
-        all_regions = self.all_regions if self.report_type == 'global' else self.regions
 
         for media_type, model in journalist_models.items():
             if media_type in broadcast_journalist_models:
@@ -1299,12 +1297,12 @@ class XLSXReportBuilder:
                     rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
 
                     for row in rows:
-                        region_id = [reg[0] for reg in all_regions if reg[1] == row["region"]][0]
+                        region_id = [reg[0] for reg in self.all_regions if reg[1] == row["region"]][0]
                         counts.update({(row['sex'], region_id): row['n']})
 
                     secondary_counts[journo_type] = counts
 
-                self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, all_regions, row_perc=True, show_N=True, c=c, r=r, write_row_headings=write_row_headings)
+                self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, self.all_regions, row_perc=True, show_N=True, c=c, r=r, write_row_headings=write_row_headings)
 
                 c += (len(reporter) * len(self.male_female) * 2) + (1 if write_row_headings else 0)
                 write_row_headings = False
@@ -1318,7 +1316,6 @@ class XLSXReportBuilder:
         c = 1
         r = 8
         write_row_headings = True
-        all_regions = self.all_regions if self.report_type == 'global' else self.regions
 
         for media_type, model in broadcast_journalist_models.items():
             presenter = [('Presenter',[1, 3])]
@@ -1370,12 +1367,12 @@ class XLSXReportBuilder:
                     rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
 
                     for row in rows:
-                        region_id = [reg[0] for reg in all_regions if reg[1] == row["region"]][0]
+                        region_id = [reg[0] for reg in self.all_regions if reg[1] == row["region"]][0]
                         counts.update({(row['sex'], region_id): row['n']})
 
                     secondary_counts[journo_type] = counts
 
-                self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, all_regions, row_perc=True, show_N=True, c=c, r=r, write_row_headings=write_row_headings)
+                self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, self.all_regions, row_perc=True, show_N=True, c=c, r=r, write_row_headings=write_row_headings)
 
                 c += (len(presenter) * len(self.male_female) * 2) + (1 if write_row_headings else 0)
                 write_row_headings = False
