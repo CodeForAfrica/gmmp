@@ -30,11 +30,25 @@ def ws_15_csv(writer, counts_list, row):
 def ws_28b_csv(writer, counts_list, row, **kwargs):
     medium = kwargs['medium']
     regions = kwargs['regions']
-    
     for reporter in counts_list[row]:
         gender = get_gender(reporter[0])
-        region = regions[reporter[1]][1]
+        if type(regions) == dict:
+            region = regions[reporter[1]]
+        else:
+            region = regions[reporter[1]][1]
         writer.writerow({'Region': region, 'Medium': medium, 'Gender': gender, 'Count': counts_list[row][reporter]})
+
+def ws_28c_csv(writer, counts_list, row, **kwargs):
+    medium = kwargs['medium']
+    regions = kwargs['regions']
+    
+    for presenter in counts_list[row]:
+        gender = get_gender(presenter[0])
+        if type(regions) == dict:
+            region = regions[presenter[1]]
+        else:
+            region = regions[presenter[1]][1]
+        writer.writerow({'Region': region, 'Medium': medium, 'Gender': gender, 'Count': counts_list[row][presenter]})
 
 def generate_csv(csv_name, fieldnames, counts_list, func, **kwargs):
     filename = f'csv/{csv_name}.csv'
