@@ -56,6 +56,10 @@ def ws_30_csv(writer, counts_list, row, **kwargs):
         topic = [t for t in MAJOR_TOPICS if t[0] == reporter[1]][0][1]
         writer.writerow({'Region': row, 'Topic': topic, 'Gender': gender, 'Count': counts_list[row][reporter]})
 
+def ws_38_csv(writer, counts_list, row, **kwargs):
+    topic = [t for t in MAJOR_TOPICS if t[0] == row[1]][0][1]
+    writer.writerow({'Topic': topic, 'Answer': row[0], 'Count': counts_list[row]})
+
 def generate_csv(csv_name, fieldnames, counts_list, func, **kwargs):
     filename = f'csv/{csv_name}.csv'
     file_exists = os.path.isfile(filename)
