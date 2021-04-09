@@ -1240,7 +1240,7 @@ class XLSXReportBuilder:
         c = 1
         r = 8
         write_row_headings = True
-        all_regions = add_transnational_to_regions(self.regions)
+        all_regions = add_transnational_to_regions(self.regions) if self.report_type == 'global' else self.regions
 
         for media_type, model in journalist_models.items():
             if media_type in broadcast_journalist_models:
@@ -1316,7 +1316,7 @@ class XLSXReportBuilder:
         c = 1
         r = 8
         write_row_headings = True
-        all_regions = add_transnational_to_regions(self.regions)
+        all_regions = add_transnational_to_regions(self.regions) if self.report_type == 'global' else self.regions
 
         for media_type, model in broadcast_journalist_models.items():
             presenter = [('Presenter',[1, 3])]
