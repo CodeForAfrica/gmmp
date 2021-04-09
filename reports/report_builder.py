@@ -1183,7 +1183,7 @@ class XLSXReportBuilder:
         :: Reporters + Presenters
         """
         overall_column = ws.dim_colmax
-        all_regions = add_transnational_to_regions(self.regions)
+        all_regions = add_transnational_to_regions(self.regions) if self.report_type == 'global' else self.regions
         if self.report_type == 'country':
             secondary_counts = OrderedDict()
             for media_type, model in tm_journalist_models.items():
