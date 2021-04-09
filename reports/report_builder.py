@@ -28,7 +28,7 @@ from .report_details import *  # noqa
 from reports.models import Weights
 from reports.historical import Historical, canon
 from reports.report_csv import (generate_csv, ws_05_csv, ws_09_csv,
-    ws_15_csv, ws_28b_csv, ws_28c_csv, ws_30_csv, ws_38_csv, ws_41_csv, )
+    ws_15_csv, ws_28b_csv, ws_28c_csv, ws_30_csv, ws_38_csv, ws_41_csv, ws_47_csv, )
 
 SHEET_MEDIA_GROUPS = [
     (TM_MEDIA_TYPES, tm_sheet_models),
@@ -1905,7 +1905,7 @@ class XLSXReportBuilder:
         self.tabulate_secondary_cols(ws, secondary_counts, AGREE_DISAGREE, MAJOR_TOPICS, row_perc=True)
         self.tabulate_historical(ws, '46', AGREE_DISAGREE, MAJOR_TOPICS, write_row_headings=False, major_cols=self.regions)
 
-    def ws_47(self, ws):
+    def ws_47(self, ws, gen_csv=False):
         """
         Cols: Stereotypes
         Rows: Major Topics
@@ -1922,13 +1922,15 @@ class XLSXReportBuilder:
 
             for r in rows:
                 counts.update({(r['stereotypes'], TOPIC_GROUPS[r['topic']]): r['n']})
-
-        self.tabulate(ws, counts, AGREE_DISAGREE, MAJOR_TOPICS, row_perc=True)
-        self.tabulate_historical(ws, '47', AGREE_DISAGREE, MAJOR_TOPICS, write_row_headings=False)
-        overall_row = ws.dim_rowmax + 2
-        value = sum([counts[x] for x in counts if x[0] == 1])
-        total = sum(counts.values())
-        self.write_overall_value(ws, value, total, overall_column, overall_row, write_overall=True)
+        if gen_csv:
+            generate_csv("stories_with_stereotypes", ["Topic", "Answer", "Count"], counts, ws_47_csv)    
+        else:
+            self.tabulate(ws, counts, AGREE_DISAGREE, MAJOR_TOPICS, row_perc=True)
+            self.tabulate_historical(ws, '47', AGREE_DISAGREE, MAJOR_TOPICS, write_row_headings=False)
+            overall_row = ws.dim_rowmax + 2
+            value = sum([counts[x] for x in counts if x[0] == 1])
+            total = sum(counts.values())
+            self.write_overall_value(ws, value, total, overall_column, overall_row, write_overall=True)
 
     def ws_48(self, ws):
         """

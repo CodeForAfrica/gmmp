@@ -1,6 +1,6 @@
 import csv, os
 from .report_details import *  # noqa
-from forms.modelutils import (TOPICS, FUNCTION, )
+from forms.modelutils import (TOPICS, FUNCTION, YESNO, )
 
 def get_gender(gender_id):
     return "Female" if gender_id==1 else "Male"
@@ -64,6 +64,11 @@ def ws_41_csv(writer, counts_list, row, **kwargs):
     all_topics = [y for x in TOPICS for y in x[1]]
     topic = [x[1] for x in all_topics if x[0] == row[1]][0]
     writer.writerow({'Topic': topic[4:].strip(), 'Answer': row[0], 'Count': counts_list[row]})
+
+def ws_47_csv(writer, counts_list, row, **kwargs):
+    topic = [t for t in MAJOR_TOPICS if t[0] == row[1]][0][1]
+    answer = 'Agree' if row[0] == 1 else 'Disagree'
+    writer.writerow({'Topic': topic, 'Answer': answer, 'Count': counts_list[row]})
 
 def generate_csv(csv_name, fieldnames, counts_list, func, **kwargs):
     filename = f'csv/{csv_name}.csv'
