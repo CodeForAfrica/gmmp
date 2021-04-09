@@ -70,6 +70,12 @@ def ws_47_csv(writer, counts_list, row, **kwargs):
     answer = 'Agree' if row[0] == 1 else 'Disagree'
     writer.writerow({'Topic': topic, 'Answer': answer, 'Count': counts_list[row]})
 
+def ws_48_csv(writer, counts_list, row, **kwargs):
+    topic = [t for t in MAJOR_TOPICS if t[0] == row[1]][0][1]
+    answer = 'Agree' if row[0] == 1 else 'Disagree'
+    gender = get_gender(kwargs['gender'])
+    writer.writerow({'Topic': topic, 'Gender': gender, 'Answer': answer, 'Count': counts_list[row]})
+
 def generate_csv(csv_name, fieldnames, counts_list, func, **kwargs):
     filename = f'csv/{csv_name}.csv'
     file_exists = os.path.isfile(filename)

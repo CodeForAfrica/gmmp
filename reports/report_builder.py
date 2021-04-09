@@ -28,7 +28,7 @@ from .report_details import *  # noqa
 from reports.models import Weights
 from reports.historical import Historical, canon
 from reports.report_csv import (generate_csv, ws_05_csv, ws_09_csv,
-    ws_15_csv, ws_28b_csv, ws_28c_csv, ws_30_csv, ws_38_csv, ws_41_csv, ws_47_csv, )
+    ws_15_csv, ws_28b_csv, ws_28c_csv, ws_30_csv, ws_38_csv, ws_41_csv, ws_47_csv, ws_48_csv, )
 
 SHEET_MEDIA_GROUPS = [
     (TM_MEDIA_TYPES, tm_sheet_models),
@@ -1932,7 +1932,7 @@ class XLSXReportBuilder:
             total = sum(counts.values())
             self.write_overall_value(ws, value, total, overall_column, overall_row, write_overall=True)
 
-    def ws_48(self, ws):
+    def ws_48(self, ws, gen_csv=False):
         """
         Cols: Sex of reporter, Stereotypes
         Rows: Major Topics
@@ -1960,19 +1960,22 @@ class XLSXReportBuilder:
                     for r in rows:
                         counts.update({(r['stereotypes'], TOPIC_GROUPS[r['topic']]): r['n']})
             secondary_counts[gender] = counts
-        self.tabulate_secondary_cols(ws, secondary_counts, AGREE_DISAGREE, MAJOR_TOPICS, row_perc=True, show_N=True)
-        self.tabulate_historical(ws, '48', AGREE_DISAGREE, MAJOR_TOPICS, write_row_headings=False, major_cols=self.male_female, show_N_and_P=True)
-        overall_row = ws.dim_rowmax + 2
-        # Female Overall
-        counts = secondary_counts[self.male_female[0][1]]
-        value = sum([counts[x] for x in counts if x[0] == 1])
-        total = sum(counts.values())
-        self.write_overall_value(ws, value, total, overall_column, overall_row, write_overall=True)
-        # Male Overall
-        counts = secondary_counts[self.male_female[1][1]]
-        value = sum([counts[x] for x in counts if x[0] == 1])
-        total = sum(counts.values())
-        self.write_overall_value(ws, value, total, overall_column+5, overall_row, write_overall=True)     
+            if gen_csv:
+                generate_csv("stories_with_stereotypes_48", ["Topic", "Gender", "Answer", "Count"], counts, ws_48_csv, gender=gender_id)
+        if not gen_csv:
+            self.tabulate_secondary_cols(ws, secondary_counts, AGREE_DISAGREE, MAJOR_TOPICS, row_perc=True, show_N=True)
+            self.tabulate_historical(ws, '48', AGREE_DISAGREE, MAJOR_TOPICS, write_row_headings=False, major_cols=self.male_female, show_N_and_P=True)
+            overall_row = ws.dim_rowmax + 2
+            # Female Overall
+            counts = secondary_counts[self.male_female[0][1]]
+            value = sum([counts[x] for x in counts if x[0] == 1])
+            total = sum(counts.values())
+            self.write_overall_value(ws, value, total, overall_column, overall_row, write_overall=True)
+            # Male Overall
+            counts = secondary_counts[self.male_female[1][1]]
+            value = sum([counts[x] for x in counts if x[0] == 1])
+            total = sum(counts.values())
+            self.write_overall_value(ws, value, total, overall_column+5, overall_row, write_overall=True)     
 
     def ws_49(self, ws):
         """
