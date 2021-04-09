@@ -1,4 +1,4 @@
-import csv
+import csv, os
 from .report_details import *  # noqa
 from forms.modelutils import (TOPICS, FUNCTION, )
 
@@ -27,9 +27,21 @@ def ws_15_csv(writer, counts_list, row):
 
         writer.writerow({'Function': function, 'Gender': gender, 'Count': counts_list[row]})
 
-def generate_csv(csv_name, fieldnames, counts_list, func):
-    with open(f'csv/{csv_name}.csv', 'a+') as csv_file:
+def ws_28b_csv(writer, counts_list, row, **kwargs):
+    medium = kwargs['medium']
+    regions = kwargs['regions']
+    
+    for reporter in counts_list[row]:
+        gender = get_gender(reporter[0])
+        region = regions[reporter[1]][1]
+        writer.writerow({'Region': region, 'Medium': medium, 'Gender': gender, 'Count': counts_list[row][reporter]})
+
+def generate_csv(csv_name, fieldnames, counts_list, func, **kwargs):
+    filename = f'csv/{csv_name}.csv'
+    file_exists = os.path.isfile(filename)
+    with open(filename, 'a+') as csv_file:
         writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
-        writer.writeheader()
+        if not file_exists:
+            writer.writeheader()
         for row in (counts_list):
-            func(writer, counts_list, row)
+            func(writer, counts_list, row, **kwargs)
