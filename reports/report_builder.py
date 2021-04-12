@@ -29,7 +29,7 @@ from reports.models import Weights
 from reports.historical import Historical, canon
 from reports.report_csv import (generate_csv, ws_05_csv, ws_09_csv,
     ws_15_csv, ws_28b_csv, ws_28c_csv, ws_30_csv, ws_38_csv, ws_41_csv, ws_47_csv, ws_48_csv, ws_83_csv,
-    ws_85_csv, ws_92_csv, ws_93_csv, ws_97_csv, )
+    ws_85_csv, ws_92_csv, ws_93_csv, ws_97_csv, ws_100_csv, )
 
 SHEET_MEDIA_GROUPS = [
     (TM_MEDIA_TYPES, tm_sheet_models),
@@ -3322,7 +3322,7 @@ class XLSXReportBuilder:
     def ws_98(self, ws):
         return
     
-    def ws_100(self, ws):
+    def ws_100(self, ws, gen_csv=False):
         """
         Cols: Medium 
         Rows: Major topic
@@ -3343,24 +3343,27 @@ class XLSXReportBuilder:
                     covid19 = 'Y' if r['covid19'] == 1 else 'N'
                     counts.update({(covid19, TOPIC_GROUPS[r['topic']]): r['n']})
                 secondary_counts[media_type] = counts
-    
-        self.tabulate_secondary_cols(ws, secondary_counts, YESNO, MAJOR_TOPICS, row_perc=True)
-        overall_row = ws.dim_rowmax + 2
-        grand_total_yes_no = 0
-        grand_total_yes = 0
-        write_overall=True
-        for medium in secondary_counts:
-            counts = secondary_counts[medium]
-            total = sum(counts.values())
-            grand_total_yes_no += total
-            value = sum([counts[x] for x in counts if x[0] == 'Y'])
-            grand_total_yes += value
+        
+        if gen_csv:
+            generate_csv("related_to_covid19_100", ["Topic", "Medium", "Yes/No", "Count"], secondary_counts, ws_100_csv)
+        else:
+            self.tabulate_secondary_cols(ws, secondary_counts, YESNO, MAJOR_TOPICS, row_perc=True)
+            overall_row = ws.dim_rowmax + 2
+            grand_total_yes_no = 0
+            grand_total_yes = 0
+            write_overall=True
+            for medium in secondary_counts:
+                counts = secondary_counts[medium]
+                total = sum(counts.values())
+                grand_total_yes_no += total
+                value = sum([counts[x] for x in counts if x[0] == 'Y'])
+                grand_total_yes += value
 
-            self.write_overall_value(ws, value, total, overall_column, overall_row, write_overall, overall_label="OVERALL BY MEDIUM")
+                self.write_overall_value(ws, value, total, overall_column, overall_row, write_overall, overall_label="OVERALL BY MEDIUM")
 
-            overall_column+=3
-            write_overall= False     
-        self.write_overall_value(ws, grand_total_yes, grand_total_yes_no, grand_total_column, overall_row+3, write_overall=True, overall_label="GRAND TOTAL")
+                overall_column+=3
+                write_overall= False     
+            self.write_overall_value(ws, grand_total_yes, grand_total_yes_no, grand_total_column, overall_row+3, write_overall=True, overall_label="GRAND TOTAL")
 
     def ws_101(self, ws):
         """
