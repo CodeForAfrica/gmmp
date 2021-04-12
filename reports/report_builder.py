@@ -29,7 +29,7 @@ from reports.models import Weights
 from reports.historical import Historical, canon
 from reports.report_csv import (generate_csv, ws_05_csv, ws_09_csv,
     ws_15_csv, ws_28b_csv, ws_28c_csv, ws_30_csv, ws_38_csv, ws_41_csv, ws_47_csv, ws_48_csv, ws_83_csv,
-    ws_85_csv, ws_92_csv, ws_93_csv, ws_97_csv, ws_100_csv, )
+    ws_85_csv, ws_92_csv, ws_93_csv, ws_97_csv, ws_100_csv, ws_101_csv, )
 
 SHEET_MEDIA_GROUPS = [
     (TM_MEDIA_TYPES, tm_sheet_models),
@@ -3365,7 +3365,7 @@ class XLSXReportBuilder:
                 write_overall= False     
             self.write_overall_value(ws, grand_total_yes, grand_total_yes_no, grand_total_column, overall_row+3, write_overall=True, overall_label="GRAND TOTAL")
 
-    def ws_101(self, ws):
+    def ws_101(self, ws, gen_csv=False):
         """
         Cols: Reporters by sex
         Rows: Major topic, covid stories only
@@ -3384,13 +3384,15 @@ class XLSXReportBuilder:
 
             for r in rows:
                 counts.update({(r["sex"], TOPIC_GROUPS[r["topic"]]): r["n"]})
-
-        self.tabulate(ws, counts, GENDER, MAJOR_TOPICS, row_perc=True, show_N=True)
-        overall_row = ws.dim_rowmax + 2
-        total = sum(counts.values())
-        value = sum([counts[x] for x in counts if x[0] in self.female_ids])
-        ws.write(overall_row, overall_column-1, "Overall Female", self.label)
-        self.write_overall_value(ws, value, total, overall_column+1, overall_row, write_overall=False)
+        if gen_csv:
+            generate_csv("covid19_reporters_101", ["Topic", "Gender", "Count"], counts, ws_101_csv)
+        else:
+            self.tabulate(ws, counts, GENDER, MAJOR_TOPICS, row_perc=True, show_N=True)
+            overall_row = ws.dim_rowmax + 2
+            total = sum(counts.values())
+            value = sum([counts[x] for x in counts if x[0] in self.female_ids])
+            ws.write(overall_row, overall_column-1, "Overall Female", self.label)
+            self.write_overall_value(ws, value, total, overall_column+1, overall_row, write_overall=False)
 
     def ws_102(self, ws):
         """

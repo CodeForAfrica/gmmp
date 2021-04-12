@@ -133,6 +133,13 @@ def ws_100_csv(writer, counts_list, row, **kwargs):
         count = counts_list[row][answer_topic]
         writer.writerow({'Topic': topic, 'Medium': row, 'Yes/No': yes_no, 'Count': count})
 
+def ws_101_csv(writer, counts_list, row, **kwargs):
+    gender, topic = row
+    gender = get_gender(gender)
+    topic = [t for t in MAJOR_TOPICS if t[0] == topic][0][1]
+    count = counts_list[row]
+    writer.writerow({'Topic': topic, 'Gender': gender, 'Count': count})
+
 def generate_csv(csv_name, fieldnames, counts_list, func, **kwargs):
     filename = f'csv/{csv_name}.csv'
     file_exists = os.path.isfile(filename)
