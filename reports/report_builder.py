@@ -28,7 +28,8 @@ from .report_details import *  # noqa
 from reports.models import Weights
 from reports.historical import Historical, canon
 from reports.report_csv import (generate_csv, ws_05_csv, ws_09_csv,
-    ws_15_csv, ws_28b_csv, ws_28c_csv, ws_30_csv, ws_38_csv, ws_41_csv, ws_47_csv, ws_48_csv, ws_83_csv, )
+    ws_15_csv, ws_28b_csv, ws_28c_csv, ws_30_csv, ws_38_csv, ws_41_csv, ws_47_csv, ws_48_csv, ws_83_csv,
+    ws_85_csv, )
 
 SHEET_MEDIA_GROUPS = [
     (TM_MEDIA_TYPES, tm_sheet_models),
@@ -2892,7 +2893,7 @@ class XLSXReportBuilder:
             write_row_headings = False
 
 
-    def ws_83(self, ws, gen_csv=True):
+    def ws_83(self, ws, gen_csv=False):
         """
         Cols: Major Topics, Reporters by sex
         Rows: Region
@@ -2947,7 +2948,7 @@ class XLSXReportBuilder:
 
         self.tabulate(ws, counts, OCCUPATION, self.all_regions, row_perc=True, show_N=True)
 
-    def ws_85(self, ws):
+    def ws_85(self, ws, gen_csv=False):
         """
         Cols: Function
         Rows: Region
@@ -2966,8 +2967,10 @@ class XLSXReportBuilder:
         for row in rows:
             region_id = [r[0] for r in self.all_regions if r[1] == row['region']][0]
             counts.update({(row['function'], region_id): row['n']})
-
-        self.tabulate(ws, counts, FUNCTION, self.all_regions, row_perc=True, show_N=True)
+        if gen_csv:
+            generate_csv("function_of_subjects_85", ["Region", "Function", "Count"], counts, ws_85_csv, regions=self.all_regions)
+        else:
+            self.tabulate(ws, counts, FUNCTION, self.all_regions, row_perc=True, show_N=True)
 
     def ws_86(self, ws):
         """

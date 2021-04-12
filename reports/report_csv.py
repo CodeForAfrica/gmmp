@@ -91,6 +91,15 @@ def ws_83_csv(writer, counts_list, row, **kwargs):
         gender = get_gender(gender)
         writer.writerow({'Topic': row, 'Region': region, 'Gender': gender, 'Count': count})
 
+def ws_85_csv(writer, counts_list, row, **kwargs):
+    regions = kwargs['regions']
+    function, region = row
+    region = [x[1] for x in regions if x[0] == region][0]
+    function = [func[1] for func in FUNCTION if func[0] == function]
+    if function:
+        function = function[0][4:] # [4:] is used to remove the (number) part
+        writer.writerow({'Region': region, 'Function': function, 'Count': counts_list[row]})
+
 def generate_csv(csv_name, fieldnames, counts_list, func, **kwargs):
     filename = f'csv/{csv_name}.csv'
     file_exists = os.path.isfile(filename)
