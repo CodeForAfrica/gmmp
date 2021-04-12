@@ -100,6 +100,14 @@ def ws_85_csv(writer, counts_list, row, **kwargs):
         function = function[0][4:] # [4:] is used to remove the (number) part
         writer.writerow({'Region': region, 'Function': function, 'Count': counts_list[row]})
 
+def ws_92_csv(writer, counts_list, row, **kwargs):
+    topic, agree_disagree = row
+    count = counts_list[row]
+    region = kwargs['region']
+    topic = [t for t in MAJOR_TOPICS if t[0] == topic][0][1]
+    agree_disagree = 'Agree' if agree_disagree == 1 else 'Disagree'
+    writer.writerow({'Region': region, 'Topic': topic, 'Answer': agree_disagree, 'Count': counts_list[row]})
+
 def generate_csv(csv_name, fieldnames, counts_list, func, **kwargs):
     filename = f'csv/{csv_name}.csv'
     file_exists = os.path.isfile(filename)

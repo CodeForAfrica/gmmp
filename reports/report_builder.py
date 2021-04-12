@@ -29,7 +29,7 @@ from reports.models import Weights
 from reports.historical import Historical, canon
 from reports.report_csv import (generate_csv, ws_05_csv, ws_09_csv,
     ws_15_csv, ws_28b_csv, ws_28c_csv, ws_30_csv, ws_38_csv, ws_41_csv, ws_47_csv, ws_48_csv, ws_83_csv,
-    ws_85_csv, )
+    ws_85_csv, ws_92_csv, )
 
 SHEET_MEDIA_GROUPS = [
     (TM_MEDIA_TYPES, tm_sheet_models),
@@ -3131,7 +3131,7 @@ class XLSXReportBuilder:
             self.tabulate(ws, counts, MAJOR_TOPICS, YESNO, row_perc=True, write_col_headings=False, r=r)
             r += len(YESNO)
 
-    def ws_92(self, ws):
+    def ws_92(self, ws, gen_csv=False):
         """
         Cols: Major Topic
         Rows: Region, stereotypes
@@ -3153,11 +3153,12 @@ class XLSXReportBuilder:
             for row in rows:
                 major_topic = TOPIC_GROUPS[row['topic']]
                 counts.update({(major_topic, row['stereotypes']): row['n']})
-
-            self.write_primary_row_heading(ws, region, r=r)
-            self.tabulate(ws, counts, MAJOR_TOPICS, AGREE_DISAGREE, row_perc=True, write_col_headings=False, r=r)
-            r += len(AGREE_DISAGREE)
-
+            if not gen_csv:
+                self.write_primary_row_heading(ws, region, r=r)
+                self.tabulate(ws, counts, MAJOR_TOPICS, AGREE_DISAGREE, row_perc=True, write_col_headings=False, r=r)
+                r += len(AGREE_DISAGREE)
+            else:
+                generate_csv("stereotypes_challenged_92", ["Region", "Topic", "Answer", "Count"], counts, ws_92_csv, region=region)
 
     def ws_93(self, ws):
         """
