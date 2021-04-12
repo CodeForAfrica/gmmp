@@ -27,7 +27,7 @@ from forms.modelutils import (TOPICS, GENDER, SPACE, OCCUPATION, FUNCTION, SCOPE
 from .report_details import *  # noqa
 from reports.models import Weights
 from reports.historical import Historical, canon
-from reports.report_csv import (generate_csv, ws_05_csv, ws_09_csv,
+from reports.report_csv import (generate_csv, ws_05_csv, ws_06_csv, ws_09_csv,
     ws_15_csv, ws_28b_csv, ws_28c_csv, ws_30_csv, ws_38_csv, ws_41_csv, ws_47_csv, ws_48_csv, ws_83_csv,
     ws_85_csv, ws_92_csv, ws_93_csv, ws_97_csv, ws_100_csv, ws_101_csv, ws_102_csv, ws_104_csv, )
 
@@ -702,10 +702,13 @@ class XLSXReportBuilder:
                     for r in rows:
                         counts.update({(r['sex'], TOPIC_GROUPS[r['topic']]): r['n']})
                 secondary_counts[region] = counts
-            self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, MAJOR_TOPICS, row_perc=True, filter_cols=self.female, show_N=True, c=c, r=8)
-            c = ws.dim_colmax + 2
-
-        self.tabulate_historical(ws, '06', self.female, MAJOR_TOPICS, major_cols=self.regions, show_N_and_P=True, r=7)
+            if gen_csv:
+                generate_csv("women_in_news_topics_06", ["Region", "Topic", "Gender", "Count"], secondary_counts, ws_06_csv)
+            else:
+                self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, MAJOR_TOPICS, row_perc=True, filter_cols=self.female, show_N=True, c=c, r=8)
+                c = ws.dim_colmax + 2
+        if not gen_csv:
+            self.tabulate_historical(ws, '06', self.female, MAJOR_TOPICS, major_cols=self.regions, show_N_and_P=True, r=7)
 
     def ws_07(self, ws):
         """
