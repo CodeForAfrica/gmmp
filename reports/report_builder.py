@@ -3075,10 +3075,10 @@ class XLSXReportBuilder:
         r = 6
         self.write_col_headings(ws, MAJOR_TOPICS)
 
-        counts = Counter()
         model = sheet_models.get('Internet')
 
         for region_id, region in self.all_regions:
+            counts = Counter()
             rows = model.objects\
                     .values('topic', 'equality_rights')\
                     .filter(country_region__region=region)\
@@ -3102,10 +3102,10 @@ class XLSXReportBuilder:
         r = 6
         self.write_col_headings(ws, MAJOR_TOPICS)
 
-        counts = Counter()
         model = sheet_models.get('Internet')
 
         for region_id, region in self.all_regions:
+            counts = Counter()
             rows = model.objects\
                     .values('topic', 'stereotypes')\
                     .filter(country_region__region=region)\
@@ -3130,10 +3130,10 @@ class XLSXReportBuilder:
         r = 6
         self.write_col_headings(ws, MAJOR_TOPICS)
 
-        counts = Counter()
         model = sheet_models.get('Internet')
 
         for region_id, region in self.all_regions:
+            counts = Counter()
             rows = model.objects\
                     .values('topic', 'about_women')\
                     .filter(country_region__region=region)\
