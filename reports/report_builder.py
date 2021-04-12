@@ -29,7 +29,7 @@ from reports.models import Weights
 from reports.historical import Historical, canon
 from reports.report_csv import (generate_csv, ws_05_csv, ws_09_csv,
     ws_15_csv, ws_28b_csv, ws_28c_csv, ws_30_csv, ws_38_csv, ws_41_csv, ws_47_csv, ws_48_csv, ws_83_csv,
-    ws_85_csv, ws_92_csv, ws_93_csv, ws_97_csv, ws_100_csv, ws_101_csv, ws_102_csv, )
+    ws_85_csv, ws_92_csv, ws_93_csv, ws_97_csv, ws_100_csv, ws_101_csv, ws_102_csv, ws_104_csv, )
 
 SHEET_MEDIA_GROUPS = [
     (TM_MEDIA_TYPES, tm_sheet_models),
@@ -3446,7 +3446,7 @@ class XLSXReportBuilder:
         value = sum([counts[x] for x in counts if x[0] == 'Y'])
         self.write_overall_value(ws, value, total, overall_column, overall_row, write_overall=True, overall_label="Overall Yes")  
 
-    def ws_104(self, ws):
+    def ws_104(self, ws, gen_csv=False):
         """
         Cols: Function in story
         Rows: Major topic, covid stories only, Sex of source
@@ -3476,11 +3476,13 @@ class XLSXReportBuilder:
                     rows = self.apply_weights(rows, model.sheet_db_table(), media_type)
 
                     counts.update({(r["function"], r["sex"]): r["n"] for r in rows})
-
-            major_topic_name = [mt[1] for mt in MAJOR_TOPICS if mt[0] == int(major_topic)][0]
-            self.write_primary_row_heading(ws, major_topic_name, r=r)
-            self.tabulate(ws, counts, FUNCTION, GENDER, write_col_headings=False, write_col_totals=False, r=r, show_N=True)
-            r += len(GENDER)    
+                major_topic_name = [mt[1] for mt in MAJOR_TOPICS if mt[0] == int(major_topic)][0]
+            if gen_csv:
+                generate_csv("stories_by_function_104", ["Topic", "Gender", "Function", "Count"], counts, ws_104_csv, topic=major_topic_name)
+            else:
+                self.write_primary_row_heading(ws, major_topic_name, r=r)
+                self.tabulate(ws, counts, FUNCTION, GENDER, write_col_headings=False, write_col_totals=False, r=r, show_N=True)
+                r += len(GENDER)    
 
     def ws_105(self, ws):
         """

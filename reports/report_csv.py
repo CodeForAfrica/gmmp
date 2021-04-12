@@ -147,6 +147,15 @@ def ws_102_csv(writer, counts_list, row, **kwargs):
     count = counts_list[row]
     writer.writerow({'Topic': topic, 'Agree/Disagree': agree_disagree, 'Count': count})
 
+def ws_104_csv(writer, counts_list, row, **kwargs):
+    function, gender = row
+    function = [func[1] for func in FUNCTION if func[0] == function]
+    if function:
+        function = function[0][4:] # [4:] is used to remove the (number) part
+        gender = get_gender(gender)
+        count = counts_list[row]
+        writer.writerow({'Topic': kwargs['topic'], 'Gender': gender, 'Function': function, 'Count': count})
+
 def generate_csv(csv_name, fieldnames, counts_list, func, **kwargs):
     filename = f'csv/{csv_name}.csv'
     file_exists = os.path.isfile(filename)
