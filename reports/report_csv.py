@@ -140,6 +140,13 @@ def ws_101_csv(writer, counts_list, row, **kwargs):
     count = counts_list[row]
     writer.writerow({'Topic': topic, 'Gender': gender, 'Count': count})
 
+def ws_102_csv(writer, counts_list, row, **kwargs):
+    agree_disagree, topic = row
+    topic = [t for t in MAJOR_TOPICS if t[0] == topic][0][1]
+    agree_disagree = 'Agree' if agree_disagree == 1 else 'Disagree'
+    count = counts_list[row]
+    writer.writerow({'Topic': topic, 'Agree/Disagree': agree_disagree, 'Count': count})
+
 def generate_csv(csv_name, fieldnames, counts_list, func, **kwargs):
     filename = f'csv/{csv_name}.csv'
     file_exists = os.path.isfile(filename)

@@ -29,7 +29,7 @@ from reports.models import Weights
 from reports.historical import Historical, canon
 from reports.report_csv import (generate_csv, ws_05_csv, ws_09_csv,
     ws_15_csv, ws_28b_csv, ws_28c_csv, ws_30_csv, ws_38_csv, ws_41_csv, ws_47_csv, ws_48_csv, ws_83_csv,
-    ws_85_csv, ws_92_csv, ws_93_csv, ws_97_csv, ws_100_csv, ws_101_csv, )
+    ws_85_csv, ws_92_csv, ws_93_csv, ws_97_csv, ws_100_csv, ws_101_csv, ws_102_csv, )
 
 SHEET_MEDIA_GROUPS = [
     (TM_MEDIA_TYPES, tm_sheet_models),
@@ -3394,7 +3394,7 @@ class XLSXReportBuilder:
             ws.write(overall_row, overall_column-1, "Overall Female", self.label)
             self.write_overall_value(ws, value, total, overall_column+1, overall_row, write_overall=False)
 
-    def ws_102(self, ws):
+    def ws_102(self, ws, gen_csv=False):
         """
         Cols: Gender stereotypes
         Rows: Major topic, covid stories only
@@ -3412,12 +3412,14 @@ class XLSXReportBuilder:
 
             for r in rows:
                 counts.update({(r["stereotypes"], TOPIC_GROUPS[r["topic"]]): r["n"]})
-
-        self.tabulate(ws, counts, AGREE_DISAGREE, MAJOR_TOPICS, row_perc=True)
-        overall_row = ws.dim_rowmax + 2
-        total = sum(counts.values())
-        value = sum([counts[x] for x in counts if x[0] == 1])
-        self.write_overall_value(ws, value, total, overall_column, overall_row, write_overall=True, overall_label="Overall Agree")
+        if gen_csv:
+            generate_csv("gender_stereotypes_102", ["Topic", "Agree/Disagree", "Count"], counts, ws_102_csv)
+        else:
+            self.tabulate(ws, counts, AGREE_DISAGREE, MAJOR_TOPICS, row_perc=True)
+            overall_row = ws.dim_rowmax + 2
+            total = sum(counts.values())
+            value = sum([counts[x] for x in counts if x[0] == 1])
+            self.write_overall_value(ws, value, total, overall_column, overall_row, write_overall=True, overall_label="Overall Agree")
     
     def ws_103(self, ws):
         """
