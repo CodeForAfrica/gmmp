@@ -22,7 +22,6 @@ def ws_05_csv(writer, counts_list, row, **kwargs):
 
 def ws_06_csv(writer, counts_list, row, **kwargs):
     for topic, gender in counts_list[row]:
-        # import pdb; pdb.set_trace()
         count = counts_list[row][(gender, topic)]
         gender = get_gender(gender)
         topic_name = [x for x in MAJOR_TOPICS if x[0] == topic][0][1]
