@@ -180,7 +180,7 @@ class XLSXReportBuilder:
         self.countries.append((u'GB', u'United Kingdom - England, Northern Ireland, Scotland and Wales'))
         self.countries.sort(key=lambda p: p[1])
 
-    def build(self):
+    def build(self, csv_sheets=[]):
         """
         Generate an Excel spreadsheet and return it as a string.
         """
@@ -221,7 +221,10 @@ class XLSXReportBuilder:
             ws = workbook.add_worksheet(sheet_info['name'])
             self.write_headers(ws, sheet_info['title'], sheet_info['desc'])
             self.log.info("Building sheet %s", sheet)
-            getattr(self, sheet)(ws)
+            if sheet in csv_sheets:
+                getattr(self, sheet)(ws, True)
+            else:
+                getattr(self, sheet)(ws)
             self.log.info("Completed sheet %s", sheet)
 
         if not settings.DEBUG:
