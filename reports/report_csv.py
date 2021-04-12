@@ -106,7 +106,15 @@ def ws_92_csv(writer, counts_list, row, **kwargs):
     region = kwargs['region']
     topic = [t for t in MAJOR_TOPICS if t[0] == topic][0][1]
     agree_disagree = 'Agree' if agree_disagree == 1 else 'Disagree'
-    writer.writerow({'Region': region, 'Topic': topic, 'Answer': agree_disagree, 'Count': counts_list[row]})
+    writer.writerow({'Region': region, 'Topic': topic, 'Answer': agree_disagree, 'Count': count})
+
+def ws_93_csv(writer, counts_list, row, **kwargs):
+    topic, yes_no = row
+    count = counts_list[row]
+    region = kwargs['region']
+    topic = [t for t in MAJOR_TOPICS if t[0] == topic][0][1]
+    yes_no = 'Yes' if yes_no == 'Y' else 'No'
+    writer.writerow({'Region': region, 'Topic': topic, 'Answer': yes_no, 'Count': count})
 
 def generate_csv(csv_name, fieldnames, counts_list, func, **kwargs):
     filename = f'csv/{csv_name}.csv'
