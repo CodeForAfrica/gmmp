@@ -28,7 +28,7 @@ from .report_details import *  # noqa
 from reports.models import Weights
 from reports.historical import Historical, canon
 from reports.report_csv import (generate_csv, ws_05_csv, ws_09_csv,
-    ws_15_csv, ws_28b_csv, ws_28c_csv, ws_30_csv, ws_38_csv, ws_41_csv, ws_47_csv, ws_48_csv, )
+    ws_15_csv, ws_28b_csv, ws_28c_csv, ws_30_csv, ws_38_csv, ws_41_csv, ws_47_csv, ws_48_csv, ws_83_csv, )
 
 SHEET_MEDIA_GROUPS = [
     (TM_MEDIA_TYPES, tm_sheet_models),
@@ -2892,7 +2892,7 @@ class XLSXReportBuilder:
             write_row_headings = False
 
 
-    def ws_83(self, ws):
+    def ws_83(self, ws, gen_csv=True):
         """
         Cols: Major Topics, Reporters by sex
         Rows: Region
@@ -2917,8 +2917,11 @@ class XLSXReportBuilder:
 
             major_topic_name = [mt[1] for mt in MAJOR_TOPICS if mt[0] == int(major_topic)][0]
             secondary_counts[major_topic_name] = counts
-
-        self.tabulate_secondary_cols(ws, secondary_counts, GENDER, self.all_regions, row_perc=True)
+        
+        if gen_csv:
+            generate_csv("stories_with_stereotypes_83", ["Topic", "Region", "Gender", "Count"], secondary_counts, ws_83_csv, regions=self.all_regions)
+        else:
+            self.tabulate_secondary_cols(ws, secondary_counts, GENDER, self.all_regions, row_perc=True)
 
     def ws_84(self, ws):
         """

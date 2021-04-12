@@ -3,7 +3,14 @@ from .report_details import *  # noqa
 from forms.modelutils import (TOPICS, FUNCTION, YESNO, )
 
 def get_gender(gender_id):
-    return "Female" if gender_id==1 else "Male"
+    if gender_id == 1:
+        return "Female"
+    elif gender_id == 2:
+        return "Male"
+    elif gender_id == 3:
+        return "Transgender"
+    else:
+        return "Don't Know"
 
 def ws_05_csv(writer, counts_list, row):
     for media_type in row:
@@ -75,6 +82,14 @@ def ws_48_csv(writer, counts_list, row, **kwargs):
     answer = 'Agree' if row[0] == 1 else 'Disagree'
     gender = get_gender(kwargs['gender'])
     writer.writerow({'Topic': topic, 'Gender': gender, 'Answer': answer, 'Count': counts_list[row]})
+
+def ws_83_csv(writer, counts_list, row, **kwargs):
+    regions = kwargs['regions']
+    for gender, region in counts_list[row]:
+        count = counts_list[row][(gender, region)]
+        region = [x[1] for x in regions if x[0] == region][0]
+        gender = get_gender(gender)
+        writer.writerow({'Topic': row, 'Region': region, 'Gender': gender, 'Count': count})
 
 def generate_csv(csv_name, fieldnames, counts_list, func, **kwargs):
     filename = f'csv/{csv_name}.csv'
