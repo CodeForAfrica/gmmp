@@ -182,7 +182,7 @@ def ws_104_dataset(writer, counts_list, row, **kwargs):
         count = counts_list[row]
         writer.writerow({'Topic': kwargs['topic'], 'Gender': gender, 'Function': function, 'Count': count})
 
-def generate_dataset(csv_name, fieldnames, counts_list, func, **kwargs):
+def tabulate_dataset(csv_name, fieldnames, counts_list, func, **kwargs):
     filename = f'dataset/{csv_name}.csv'
     file_exists = os.path.isfile(filename)
     with open(filename, 'a+') as csv_file:
