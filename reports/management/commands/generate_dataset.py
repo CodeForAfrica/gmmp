@@ -1,6 +1,5 @@
 import os
 import csv
-from pathlib import Path
 from django.core.management.base import BaseCommand
 from django.conf import settings
 
@@ -32,8 +31,8 @@ class Command(BaseCommand):
         if options["chart"]:
             chart_filename = options.get("chart-filename") if options.get("chart-filename") else "gmmp_dataset"
             fieldnames = ['Title', 'Description']
-            path = Path(f"/app/dataset/{chart_filename}.csv")
-            with open(path, 'w') as csv_file:
+            filename = f"dataset/{chart_filename}.csv"
+            with open(filename, 'w') as csv_file:
                 writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
                 writer.writeheader()
                 for ws in WS_INFO:
