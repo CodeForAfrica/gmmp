@@ -1,10 +1,9 @@
 import os
 import csv
 from django.core.management.base import BaseCommand
-from django.conf import settings
 
 from reports.report_builder import XLSXReportBuilder
-from reports.report_details import WS_INFO
+from reports.report_dataset import generate_chart_desc
 
 from reports.forms import GlobalForm
 
@@ -31,16 +30,7 @@ class Command(BaseCommand):
         if options["chart"]:
             chart_filename = options.get("chart-filename") if options.get("chart-filename") else "gmmp_dataset"
             fieldnames = ['Title', 'Description']
-            filename = f"dataset/{chart_filename}.csv"
-            with open(filename, 'w') as csv_file:
-                writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
-                writer.writeheader()
-                for ws in WS_INFO:
-                    if ws in dataset_sheets:
-                        data = WS_INFO[ws][settings.REPORTS_HISTORICAL_YEAR]
-                        title = data.get('title')
-                        description = data.get('desc')
-                        writer.writerow({'Title': title, 'Description': description})
+            generate_chart_desc(chart_filename, dataset_sheets)
 
         form = GlobalForm()
         xlsx = XLSXReportBuilder(form).build(dataset_sheets=dataset_sheets)

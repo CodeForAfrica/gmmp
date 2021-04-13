@@ -1,4 +1,7 @@
 import csv, os
+from django.conf import settings
+from reports.report_details import WS_INFO
+
 from .report_details import *  # noqa
 from forms.modelutils import (TOPICS, FUNCTION, YESNO, GENDER, )
 
@@ -191,3 +194,16 @@ def tabulate_dataset(csv_name, fieldnames, counts_list, func, **kwargs):
             writer.writeheader()
         for row in (counts_list):
             func(writer, counts_list, row, **kwargs)
+
+def generate_chart_desc(chart_filename, dataset_sheets):
+    fieldnames = ['Title', 'Description']
+    filename = f"dataset/{chart_filename}.csv"
+    with open(filename, 'w') as csv_file:
+        writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
+        writer.writeheader()
+        for ws in WS_INFO:
+            if ws in dataset_sheets:
+                data = WS_INFO[ws][settings.REPORTS_HISTORICAL_YEAR]
+                title = data.get('title')
+                description = data.get('desc')
+                writer.writerow({'Title': title, 'Description': description})
