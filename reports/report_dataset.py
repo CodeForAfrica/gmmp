@@ -1,16 +1,12 @@
 import csv, os
 from .report_details import *  # noqa
-from forms.modelutils import (TOPICS, FUNCTION, YESNO, )
+from forms.modelutils import (TOPICS, FUNCTION, YESNO, GENDER, )
 
 def get_gender(gender_id):
-    if gender_id == 1:
-        return "Female"
-    elif gender_id == 2:
-        return "Male"
-    elif gender_id == 3:
-        return "Transgender"
-    else:
-        return "Don't Know"
+    from reports.report_builder import clean_title
+
+    gender = [x[1] for x in GENDER if x[0] == gender_id][0]
+    return clean_title(gender)
 
 def ws_05_dataset(writer, counts_list, row, **kwargs):
     for media_type in row:
@@ -21,7 +17,7 @@ def ws_05_dataset(writer, counts_list, row, **kwargs):
             writer.writerow({'Topic': topic_name, 'Gender': gender, 'Medium': media_type, 'Count': row[media_type][topic]})
 
 def ws_06_dataset(writer, counts_list, row, **kwargs):
-    for topic, gender in counts_list[row]:
+    for gender, topic in counts_list[row]:
         count = counts_list[row][(gender, topic)]
         gender = get_gender(gender)
         topic_name = [x for x in MAJOR_TOPICS if x[0] == topic][0][1]
