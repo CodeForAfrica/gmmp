@@ -27,9 +27,9 @@ from forms.modelutils import (TOPICS, GENDER, SPACE, OCCUPATION, FUNCTION, SCOPE
 from .report_details import *  # noqa
 from reports.models import Weights
 from reports.historical import Historical, canon
-from reports.report_dataset import (generate_dataset, ws_05_csv, ws_06_csv, ws_09_csv,
-    ws_15_csv, ws_28b_csv, ws_28c_csv, ws_30_csv, ws_38_csv, ws_41_csv, ws_47_csv, ws_48_csv, ws_83_csv,
-    ws_85_csv, ws_92_csv, ws_93_csv, ws_97_csv, ws_100_csv, ws_101_csv, ws_102_csv, ws_104_csv, )
+from reports.report_dataset import (generate_dataset, ws_05_dataset, ws_06_dataset, ws_09_dataset,
+    ws_15_dataset, ws_28b_dataset, ws_28c_dataset, ws_30_dataset, ws_38_dataset, ws_41_dataset, ws_47_dataset, ws_48_dataset, ws_83_dataset,
+    ws_85_dataset, ws_92_dataset, ws_93_dataset, ws_97_dataset, ws_100_dataset, ws_101_dataset, ws_102_dataset, ws_104_dataset, )
 
 SHEET_MEDIA_GROUPS = [
     (TM_MEDIA_TYPES, tm_sheet_models),
@@ -661,7 +661,7 @@ class XLSXReportBuilder:
             counts_list.append(secondary_counts)
         if gen_csv:
             # Generate CSV
-            generate_dataset("ws_05", ["Topic", "Gender", "Medium", "Count"], counts_list, ws_05_csv)
+            generate_dataset("ws_05", ["Topic", "Gender", "Medium", "Count"], counts_list, ws_05_dataset)
         else:
             self.tabulate_secondary_cols(ws, counts_list[0], self.male_female, MAJOR_TOPICS, row_perc=True)
             c = ws.dim_colmax + 2
@@ -706,7 +706,7 @@ class XLSXReportBuilder:
                         counts.update({(r['sex'], TOPIC_GROUPS[r['topic']]): r['n']})
                 secondary_counts[region] = counts
             if gen_csv:
-                generate_dataset("ws_06", ["Region", "Topic", "Gender", "Count"], secondary_counts, ws_06_csv)
+                generate_dataset("ws_06", ["Region", "Topic", "Gender", "Count"], secondary_counts, ws_06_dataset)
             else:
                 self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, MAJOR_TOPICS, row_perc=True, filter_cols=self.female, show_N=True, c=c, r=8)
                 c = ws.dim_colmax + 2
@@ -776,7 +776,7 @@ class XLSXReportBuilder:
 
             counts.update({(r['sex'], r['topic']): r['n'] for r in rows})
         if gen_csv:
-            generate_dataset("ws_09", ["Topic", "Gender", "Count"], counts, ws_09_csv)
+            generate_dataset("ws_09", ["Topic", "Gender", "Count"], counts, ws_09_dataset)
         else:
             self.tabulate(ws, counts, self.male_female,  [y for x in TOPICS for y in x[1]], row_perc=True, filter_cols=self.female)
             self.tabulate_historical(ws, '09', self.female, [y for x in TOPICS for y in x[1]], write_row_headings=False)
@@ -933,7 +933,7 @@ class XLSXReportBuilder:
 
                 counts.update({(r['sex'], r['function']): r['n'] for r in rows})
         if gen_csv:
-            generate_dataset("ws_15", ["Function", "Gender", "Count"], counts, ws_15_csv)
+            generate_dataset("ws_15", ["Function", "Gender", "Count"], counts, ws_15_dataset)
         else:
             self.tabulate(ws, counts, self.male_female, FUNCTION, row_perc=True, filter_cols=self.female)
             self.tabulate_historical(ws, '15', self.female, FUNCTION, write_row_headings=False)
@@ -1293,7 +1293,7 @@ class XLSXReportBuilder:
 
                     secondary_counts[journo_type] = counts
                 if gen_csv:
-                    generate_dataset("ws_28b", ["Region", "Medium", "Gender", "Count"], secondary_counts, ws_28b_csv, medium=media_type, regions=dict(self.countries))
+                    generate_dataset("ws_28b", ["Region", "Medium", "Gender", "Count"], secondary_counts, ws_28b_dataset, medium=media_type, regions=dict(self.countries))
                 else:
                     self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, self.countries, row_perc=True, show_N=True, c=c, r=r, write_row_headings=write_row_headings)
 
@@ -1322,7 +1322,7 @@ class XLSXReportBuilder:
 
                     secondary_counts[journo_type] = counts
                 if gen_csv:
-                    generate_dataset("ws_28b", ["Region", "Medium", "Gender", "Count"], secondary_counts, ws_28b_csv, medium=media_type, regions=self.all_regions)    
+                    generate_dataset("ws_28b", ["Region", "Medium", "Gender", "Count"], secondary_counts, ws_28b_dataset, medium=media_type, regions=self.all_regions)    
                 else:
                     self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, self.all_regions, row_perc=True, show_N=True, c=c, r=r, write_row_headings=write_row_headings)
                     c += (len(reporter) * len(self.male_female) * 2) + (1 if write_row_headings else 0)
@@ -1367,7 +1367,7 @@ class XLSXReportBuilder:
 
                     secondary_counts[journo_type] = counts
                 if gen_csv:
-                    generate_dataset("ws_28c", ["Region", "Medium", "Gender", "Count"], secondary_counts, ws_28c_csv, medium=media_type, regions=dict(self.countries))
+                    generate_dataset("ws_28c", ["Region", "Medium", "Gender", "Count"], secondary_counts, ws_28c_dataset, medium=media_type, regions=dict(self.countries))
                 else:
                     self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, self.countries, row_perc=True, show_N=True, c=c, r=r, write_row_headings=write_row_headings)
 
@@ -1396,7 +1396,7 @@ class XLSXReportBuilder:
 
                     secondary_counts[journo_type] = counts
                 if gen_csv:
-                    generate_dataset("ws_28c", ["Region", "Medium", "Gender", "Count"], secondary_counts, ws_28c_csv, medium=media_type, regions=self.all_regions)
+                    generate_dataset("ws_28c", ["Region", "Medium", "Gender", "Count"], secondary_counts, ws_28c_dataset, medium=media_type, regions=self.all_regions)
                 else:
                     self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, self.all_regions, row_perc=True, show_N=True, c=c, r=r, write_row_headings=write_row_headings)
                     c += (len(presenter) * len(self.male_female) * 2) + (1 if write_row_headings else 0)
@@ -1519,7 +1519,7 @@ class XLSXReportBuilder:
             if not gen_csv:
                 self.tabulate_secondary_cols(ws, secondary_counts, self.male_female, MAJOR_TOPICS, row_perc=False, show_N=True)
         if gen_csv:
-            generate_dataset("ws_30", ["Region", "Topic", "Gender", "Count"], secondary_counts, ws_30_csv)    
+            generate_dataset("ws_30", ["Region", "Topic", "Gender", "Count"], secondary_counts, ws_30_dataset)    
         else:
             c = ws.dim_colmax + 2
             overall_row = ws.dim_rowmax + 2
@@ -1699,7 +1699,7 @@ class XLSXReportBuilder:
                 for r in rows:
                     counts.update({(r['about_women'], TOPIC_GROUPS[r['topic']]): r['n']})
         if gen_csv:
-            generate_dataset("ws_38", ["Topic", "Answer", "Count"], counts, ws_38_csv)    
+            generate_dataset("ws_38", ["Topic", "Answer", "Count"], counts, ws_38_dataset)    
         else:
             self.tabulate(ws, counts, YESNO, MAJOR_TOPICS, row_perc=True)
             self.tabulate_historical(ws, '38', YESNO, MAJOR_TOPICS, write_row_headings=False)
@@ -1769,7 +1769,7 @@ class XLSXReportBuilder:
 
                 counts.update({(r['equality_rights'], r['topic']): r['n'] for r in rows})
         if gen_csv:
-            generate_dataset("ws_41", ["Topic", "Answer", "Count"], counts, ws_41_csv)    
+            generate_dataset("ws_41", ["Topic", "Answer", "Count"], counts, ws_41_dataset)    
         else:
             self.tabulate(ws, counts, YESNO, [y for x in TOPICS for y in x[1]], row_perc=False, show_N=True)
             self.tabulate_historical(ws, '41', [*YESNO], [y for x in TOPICS for y in x[1]], write_row_headings=False, r=6, show_N_and_P=True)
@@ -1930,7 +1930,7 @@ class XLSXReportBuilder:
             for r in rows:
                 counts.update({(r['stereotypes'], TOPIC_GROUPS[r['topic']]): r['n']})
         if gen_csv:
-            generate_dataset("ws_47", ["Topic", "Answer", "Count"], counts, ws_47_csv)    
+            generate_dataset("ws_47", ["Topic", "Answer", "Count"], counts, ws_47_dataset)    
         else:
             self.tabulate(ws, counts, AGREE_DISAGREE, MAJOR_TOPICS, row_perc=True)
             self.tabulate_historical(ws, '47', AGREE_DISAGREE, MAJOR_TOPICS, write_row_headings=False)
@@ -1968,7 +1968,7 @@ class XLSXReportBuilder:
                         counts.update({(r['stereotypes'], TOPIC_GROUPS[r['topic']]): r['n']})
             secondary_counts[gender] = counts
             if gen_csv:
-                generate_dataset("ws_48", ["Topic", "Gender", "Answer", "Count"], counts, ws_48_csv, gender=gender_id)
+                generate_dataset("ws_48", ["Topic", "Gender", "Answer", "Count"], counts, ws_48_dataset, gender=gender_id)
         if not gen_csv:
             self.tabulate_secondary_cols(ws, secondary_counts, AGREE_DISAGREE, MAJOR_TOPICS, row_perc=True, show_N=True)
             self.tabulate_historical(ws, '48', AGREE_DISAGREE, MAJOR_TOPICS, write_row_headings=False, major_cols=self.male_female, show_N_and_P=True)
@@ -2926,7 +2926,7 @@ class XLSXReportBuilder:
             secondary_counts[major_topic_name] = counts
         
         if gen_csv:
-            generate_dataset("ws_83", ["Topic", "Region", "Gender", "Count"], secondary_counts, ws_83_csv, regions=self.all_regions)
+            generate_dataset("ws_83", ["Topic", "Region", "Gender", "Count"], secondary_counts, ws_83_dataset, regions=self.all_regions)
         else:
             self.tabulate_secondary_cols(ws, secondary_counts, GENDER, self.all_regions, row_perc=True)
 
@@ -2974,7 +2974,7 @@ class XLSXReportBuilder:
             region_id = [r[0] for r in self.all_regions if r[1] == row['region']][0]
             counts.update({(row['function'], region_id): row['n']})
         if gen_csv:
-            generate_dataset("ws_85", ["Region", "Function", "Count"], counts, ws_85_csv, regions=self.all_regions)
+            generate_dataset("ws_85", ["Region", "Function", "Count"], counts, ws_85_dataset, regions=self.all_regions)
         else:
             self.tabulate(ws, counts, FUNCTION, self.all_regions, row_perc=True, show_N=True)
 
@@ -3164,7 +3164,7 @@ class XLSXReportBuilder:
                 self.tabulate(ws, counts, MAJOR_TOPICS, AGREE_DISAGREE, row_perc=True, write_col_headings=False, r=r)
                 r += len(AGREE_DISAGREE)
             else:
-                generate_dataset("ws_92", ["Region", "Topic", "Answer", "Count"], counts, ws_92_csv, region=region)
+                generate_dataset("ws_92", ["Region", "Topic", "Answer", "Count"], counts, ws_92_dataset, region=region)
 
     def ws_93(self, ws, gen_csv=False):
         """
@@ -3193,7 +3193,7 @@ class XLSXReportBuilder:
                 self.tabulate(ws, counts, MAJOR_TOPICS, YESNO, row_perc=True, write_col_headings=False, r=r)
                 r += len(YESNO)
             else:
-                generate_dataset("ws_93", ["Region", "Topic", "Answer", "Count"], counts, ws_93_csv, region=region)
+                generate_dataset("ws_93", ["Region", "Topic", "Answer", "Count"], counts, ws_93_dataset, region=region)
 
     def ws_94(self, ws):
         """
@@ -3323,7 +3323,7 @@ class XLSXReportBuilder:
         if not gen_csv:
             self.tabulate_secondary_cols(ws, secondary_counts, AGREE_DISAGREE, self.all_regions, row_perc=True)
         else:
-            generate_dataset("ws_97", ["Region", "Topic", "Agree/Disagree", "Count"], secondary_counts, ws_97_csv, regions=self.all_regions)
+            generate_dataset("ws_97", ["Region", "Topic", "Agree/Disagree", "Count"], secondary_counts, ws_97_dataset, regions=self.all_regions)
 
     def ws_98(self, ws):
         return
@@ -3351,7 +3351,7 @@ class XLSXReportBuilder:
                 secondary_counts[media_type] = counts
         
         if gen_csv:
-            generate_dataset("ws_100", ["Topic", "Medium", "Yes/No", "Count"], secondary_counts, ws_100_csv)
+            generate_dataset("ws_100", ["Topic", "Medium", "Yes/No", "Count"], secondary_counts, ws_100_dataset)
         else:
             self.tabulate_secondary_cols(ws, secondary_counts, YESNO, MAJOR_TOPICS, row_perc=True)
             overall_row = ws.dim_rowmax + 2
@@ -3391,7 +3391,7 @@ class XLSXReportBuilder:
             for r in rows:
                 counts.update({(r["sex"], TOPIC_GROUPS[r["topic"]]): r["n"]})
         if gen_csv:
-            generate_dataset("ws_101", ["Topic", "Gender", "Count"], counts, ws_101_csv)
+            generate_dataset("ws_101", ["Topic", "Gender", "Count"], counts, ws_101_dataset)
         else:
             self.tabulate(ws, counts, GENDER, MAJOR_TOPICS, row_perc=True, show_N=True)
             overall_row = ws.dim_rowmax + 2
@@ -3419,7 +3419,7 @@ class XLSXReportBuilder:
             for r in rows:
                 counts.update({(r["stereotypes"], TOPIC_GROUPS[r["topic"]]): r["n"]})
         if gen_csv:
-            generate_dataset("ws_102", ["Topic", "Agree/Disagree", "Count"], counts, ws_102_csv)
+            generate_dataset("ws_102", ["Topic", "Agree/Disagree", "Count"], counts, ws_102_dataset)
         else:
             self.tabulate(ws, counts, AGREE_DISAGREE, MAJOR_TOPICS, row_perc=True)
             overall_row = ws.dim_rowmax + 2
@@ -3484,7 +3484,7 @@ class XLSXReportBuilder:
                     counts.update({(r["function"], r["sex"]): r["n"] for r in rows})
                 major_topic_name = [mt[1] for mt in MAJOR_TOPICS if mt[0] == int(major_topic)][0]
             if gen_csv:
-                generate_dataset("ws_104", ["Topic", "Gender", "Function", "Count"], counts, ws_104_csv, topic=major_topic_name)
+                generate_dataset("ws_104", ["Topic", "Gender", "Function", "Count"], counts, ws_104_dataset, topic=major_topic_name)
             else:
                 self.write_primary_row_heading(ws, major_topic_name, r=r)
                 self.tabulate(ws, counts, FUNCTION, GENDER, write_col_headings=False, write_col_totals=False, r=r, show_N=True)
