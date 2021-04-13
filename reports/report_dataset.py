@@ -164,7 +164,7 @@ def ws_104_csv(writer, counts_list, row, **kwargs):
         writer.writerow({'Topic': kwargs['topic'], 'Gender': gender, 'Function': function, 'Count': count})
 
 def generate_dataset(csv_name, fieldnames, counts_list, func, **kwargs):
-    filename = f'csv/{csv_name}.csv'
+    filename = f'dataset/{csv_name}.csv'
     file_exists = os.path.isfile(filename)
     with open(filename, 'a+') as csv_file:
         writer = csv.DictWriter(csv_file, fieldnames=fieldnames)

@@ -1,3 +1,4 @@
+import os
 from django.core.management.base import BaseCommand
 from reports.report_builder import XLSXReportBuilder
 
@@ -11,6 +12,8 @@ class Command(BaseCommand):
         parser.add_argument('-w','--worksheets', nargs='+', help='Worksheets to generate dataset', required=False)
 
     def handle(self, *args, **options):
+        # Create the dataset directory if it doesn't exist
+        os.makedirs("dataset", exist_ok=True)
         if options['worksheets']:
             dataset_sheets = options['worksheets']
         else:
