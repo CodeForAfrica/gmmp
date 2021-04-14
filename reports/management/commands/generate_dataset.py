@@ -13,7 +13,7 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument("-w","--worksheets", nargs="+", help="Worksheets to generate dataset", required=False)
-        parser.add_argument("-cf", "--chart-filename", action="store_true", help="Filename to store the Wazimap-NG chart descriptions")
+        parser.add_argument("-d", "--dataset-details", action="store_true", help="Filename to store the selected worksheet details")
 
     def handle(self, *args, **options):
         # Create the dataset directory if it doesn't exist
@@ -26,7 +26,7 @@ class Command(BaseCommand):
                                 "ws_83", "ws_85", "ws_92", "ws_93", "ws_97", "ws_100", "ws_101", 
                                 "ws_102", "ws_104"]
 
-        chart_filename = options.get("chart-filename") if options.get("chart-filename") else "gmmp_dataset"
+        chart_filename = options.get("dataset-details") if options.get("dataset-details") else "gmmp_dataset"
         fieldnames = ['Title', 'Description']
         generate_chart_desc(chart_filename, dataset_sheets)
 
