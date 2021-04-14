@@ -13,7 +13,6 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument("-w","--worksheets", nargs="+", help="Worksheets to generate dataset", required=False)
-        parser.add_argument("-c", "--chart", action="store_true", help="Generate names and descriptions for Wazimap-NG chart.")
         parser.add_argument("-cf", "--chart-filename", action="store_true", help="Filename to store the Wazimap-NG chart descriptions")
 
     def handle(self, *args, **options):
@@ -27,10 +26,9 @@ class Command(BaseCommand):
                                 "ws_83", "ws_85", "ws_92", "ws_93", "ws_97", "ws_100", "ws_101", 
                                 "ws_102", "ws_104"]
 
-        if options["chart"]:
-            chart_filename = options.get("chart-filename") if options.get("chart-filename") else "gmmp_dataset"
-            fieldnames = ['Title', 'Description']
-            generate_chart_desc(chart_filename, dataset_sheets)
+        chart_filename = options.get("chart-filename") if options.get("chart-filename") else "gmmp_dataset"
+        fieldnames = ['Title', 'Description']
+        generate_chart_desc(chart_filename, dataset_sheets)
 
         form = GlobalForm()
         xlsx = XLSXReportBuilder(form).build(dataset_sheets=dataset_sheets)
