@@ -196,7 +196,7 @@ def tabulate_dataset(csv_name, fieldnames, counts_list, func, **kwargs):
             func(writer, counts_list, row, **kwargs)
 
 def generate_chart_desc(chart_filename, dataset_sheets):
-    fieldnames = ['Title', 'Description']
+    fieldnames = ['Name', 'Title', 'Description']
     filename = f"dataset/{chart_filename}.csv"
     with open(filename, 'w') as csv_file:
         writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
@@ -206,4 +206,4 @@ def generate_chart_desc(chart_filename, dataset_sheets):
                 data = WS_INFO[ws][settings.REPORTS_HISTORICAL_YEAR]
                 title = data.get('title')
                 description = data.get('desc')
-                writer.writerow({'Title': title, 'Description': description})
+                writer.writerow({'Name': ws, 'Title': title, 'Description': description})

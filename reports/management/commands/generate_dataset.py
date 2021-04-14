@@ -27,7 +27,6 @@ class Command(BaseCommand):
                                 "ws_102", "ws_104"]
 
         chart_filename = options.get("dataset-details") if options.get("dataset-details") else "gmmp_dataset"
-        fieldnames = ['Title', 'Description']
         generate_chart_desc(chart_filename, dataset_sheets)
 
         form = GlobalForm()
