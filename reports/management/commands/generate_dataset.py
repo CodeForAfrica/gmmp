@@ -3,7 +3,7 @@ import csv
 from django.core.management.base import BaseCommand
 
 from reports.report_builder import XLSXReportBuilder
-from reports.report_dataset import generate_chart_desc
+from reports.report_dataset import generate_dataset_desc
 
 from reports.forms import GlobalForm
 
@@ -27,7 +27,7 @@ class Command(BaseCommand):
                                 "ws_102", "ws_104"]
 
         chart_filename = options.get("dataset-details") if options.get("dataset-details") else "gmmp_dataset"
-        generate_chart_desc(chart_filename, dataset_sheets)
+        generate_dataset_desc(chart_filename, dataset_sheets)
 
         form = GlobalForm()
         xlsx = XLSXReportBuilder(form).build(dataset_sheets=dataset_sheets)

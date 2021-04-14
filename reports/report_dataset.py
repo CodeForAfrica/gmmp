@@ -195,7 +195,7 @@ def tabulate_dataset(csv_name, fieldnames, counts_list, func, **kwargs):
         for row in (counts_list):
             func(writer, counts_list, row, **kwargs)
 
-def generate_chart_desc(chart_filename, dataset_sheets):
+def generate_dataset_desc(chart_filename, dataset_sheets):
     fieldnames = ['Name', 'Title', 'Description']
     filename = f"dataset/{chart_filename}.csv"
     with open(filename, 'w') as csv_file:
