@@ -5,8 +5,7 @@ from reports.report_details import WS_INFO
 from .report_details import *  # noqa
 from forms.modelutils import (TOPICS, FUNCTION, YESNO, GENDER, )
 
-DATASET_YEAR = 2020
-GLOBAL_GEOGRAPHY = 'IN'
+GLOBAL_GEOGRAPHY = 'GB'
 
 regions_code = {
     "Africa": "AF",
@@ -39,14 +38,14 @@ def ws_05_dataset(writer, counts_list, row, **kwargs):
             gender = get_gender(topic[0])
 
             writer.writerow({'Topic': topic_name, 'Gender': gender, 'Medium': media_type, 
-                                                    'Year': DATASET_YEAR, 'Geography': GLOBAL_GEOGRAPHY, 'Count': row[media_type][topic]})
+                                                    'Year': settings.REPORTS_CURRENT_YEAR, 'Geography': GLOBAL_GEOGRAPHY, 'Count': row[media_type][topic]})
 
 def ws_06_dataset(writer, counts_list, row, **kwargs):
     for gender, topic in counts_list[row]:
         count = counts_list[row][(gender, topic)]
         gender = get_gender(gender)
         topic_name = [x for x in MAJOR_TOPICS if x[0] == topic][0][1]
-        writer.writerow({'Topic': topic_name, 'Gender': gender, 'Region': row, 'Year': DATASET_YEAR, 'Geography': regions_code[row], 'Count': count})
+        writer.writerow({'Topic': topic_name, 'Gender': gender, 'Region': row, 'Year': settings.REPORTS_CURRENT_YEAR, 'Geography': regions_code[row], 'Count': count})
 
 def ws_09_dataset(writer, counts_list, row, **kwargs):
     from reports.report_builder import clean_title
@@ -54,14 +53,14 @@ def ws_09_dataset(writer, counts_list, row, **kwargs):
     topic = [y for x in TOPICS for y in x[1] if y[0]==row[1]][0][1]
     gender = get_gender(row[0])
 
-    writer.writerow({'Topic': clean_title(topic), 'Gender': gender, 'Year': DATASET_YEAR, 'Geography': GLOBAL_GEOGRAPHY, 'Count': counts_list[row]})
+    writer.writerow({'Topic': clean_title(topic), 'Gender': gender, 'Year': settings.REPORTS_CURRENT_YEAR, 'Geography': GLOBAL_GEOGRAPHY, 'Count': counts_list[row]})
 
 def ws_15_dataset(writer, counts_list, row, **kwargs):
     function = [func[1] for func in FUNCTION if func[0] == row[1]]
     if function:
         gender = get_gender(row[0])
 
-        writer.writerow({'Function': clear_function(function[0]), 'Gender': gender, 'Year': DATASET_YEAR, 'Geography': GLOBAL_GEOGRAPHY, 'Count': counts_list[row]})
+        writer.writerow({'Function': clear_function(function[0]), 'Gender': gender, 'Year': settings.REPORTS_CURRENT_YEAR, 'Geography': GLOBAL_GEOGRAPHY, 'Count': counts_list[row]})
 
 def ws_28b_dataset(writer, counts_list, row, **kwargs):
     medium = kwargs['medium']
@@ -72,7 +71,7 @@ def ws_28b_dataset(writer, counts_list, row, **kwargs):
             region = regions[reporter[1]]
         else:
             region = regions[reporter[1]][1]
-        writer.writerow({'Region': region, 'Medium': medium, 'Gender': gender, 'Year': DATASET_YEAR, 'Geography': regions_code[region], 'Count': counts_list[row][reporter]})
+        writer.writerow({'Region': region, 'Medium': medium, 'Gender': gender, 'Year': settings.REPORTS_CURRENT_YEAR, 'Geography': regions_code[region], 'Count': counts_list[row][reporter]})
 
 def ws_28c_dataset(writer, counts_list, row, **kwargs):
     medium = kwargs['medium']
@@ -84,7 +83,7 @@ def ws_28c_dataset(writer, counts_list, row, **kwargs):
             region = regions[presenter[1]]
         else:
             region = regions[presenter[1]][1]
-        writer.writerow({'Region': region, 'Medium': medium, 'Gender': gender, 'Year': DATASET_YEAR, 'Geography': regions_code[region], 'Count': counts_list[row][presenter]})
+        writer.writerow({'Region': region, 'Medium': medium, 'Gender': gender, 'Year': settings.REPORTS_CURRENT_YEAR, 'Geography': regions_code[region], 'Count': counts_list[row][presenter]})
 
 def ws_30_dataset(writer, counts_list, row, **kwargs):
     from reports.report_builder import clean_title
@@ -92,27 +91,27 @@ def ws_30_dataset(writer, counts_list, row, **kwargs):
     for reporter in counts_list[row]:
         gender = get_gender(reporter[0])
         topic = [t for t in MAJOR_TOPICS if t[0] == reporter[1]][0][1]
-        writer.writerow({'Region': row, 'Topic': clean_title(topic), 'Gender': gender, 'Year': DATASET_YEAR, 'Geography': GLOBAL_GEOGRAPHY, 'Count': counts_list[row][reporter]})
+        writer.writerow({'Region': row, 'Topic': clean_title(topic), 'Gender': gender, 'Year': settings.REPORTS_CURRENT_YEAR, 'Geography': GLOBAL_GEOGRAPHY, 'Count': counts_list[row][reporter]})
 
 def ws_38_dataset(writer, counts_list, row, **kwargs):
     from reports.report_builder import clean_title
 
     topic = [t for t in MAJOR_TOPICS if t[0] == row[1]][0][1]
-    writer.writerow({'Topic': clean_title(topic), 'Answer': row[0], 'Year': DATASET_YEAR, 'Geography': GLOBAL_GEOGRAPHY, 'Count': counts_list[row]})
+    writer.writerow({'Topic': clean_title(topic), 'Answer': row[0], 'Year': settings.REPORTS_CURRENT_YEAR, 'Geography': GLOBAL_GEOGRAPHY, 'Count': counts_list[row]})
 
 def ws_41_dataset(writer, counts_list, row, **kwargs):
     from reports.report_builder import clean_title
 
     all_topics = [y for x in TOPICS for y in x[1]]
     topic = [x[1] for x in all_topics if x[0] == row[1]][0]
-    writer.writerow({'Topic': clean_title(topic), 'Answer': row[0], 'Year': DATASET_YEAR, 'Geography': GLOBAL_GEOGRAPHY, 'Count': counts_list[row]})
+    writer.writerow({'Topic': clean_title(topic), 'Answer': row[0], 'Year': settings.REPORTS_CURRENT_YEAR, 'Geography': GLOBAL_GEOGRAPHY, 'Count': counts_list[row]})
 
 def ws_47_dataset(writer, counts_list, row, **kwargs):
     from reports.report_builder import clean_title
 
     topic = [t for t in MAJOR_TOPICS if t[0] == row[1]][0][1]
     answer = 'Agree' if row[0] == 1 else 'Disagree'
-    writer.writerow({'Topic': clean_title(topic), 'Answer': answer, 'Year': DATASET_YEAR, 'Geography': GLOBAL_GEOGRAPHY, 'Count': counts_list[row]})
+    writer.writerow({'Topic': clean_title(topic), 'Answer': answer, 'Year': settings.REPORTS_CURRENT_YEAR, 'Geography': GLOBAL_GEOGRAPHY, 'Count': counts_list[row]})
 
 def ws_48_dataset(writer, counts_list, row, **kwargs):
     from reports.report_builder import clean_title
@@ -120,7 +119,7 @@ def ws_48_dataset(writer, counts_list, row, **kwargs):
     topic = [t for t in MAJOR_TOPICS if t[0] == row[1]][0][1]
     answer = 'Agree' if row[0] == 1 else 'Disagree'
     gender = get_gender(kwargs['gender'])
-    writer.writerow({'Topic': clean_title(topic), 'Gender': gender, 'Answer': answer, 'Year': DATASET_YEAR, 'Geography': GLOBAL_GEOGRAPHY, 'Count': counts_list[row]})
+    writer.writerow({'Topic': clean_title(topic), 'Gender': gender, 'Answer': answer, 'Year': settings.REPORTS_CURRENT_YEAR, 'Geography': GLOBAL_GEOGRAPHY, 'Count': counts_list[row]})
 
 def ws_83_dataset(writer, counts_list, row, **kwargs):
     regions = kwargs['regions']
@@ -128,7 +127,7 @@ def ws_83_dataset(writer, counts_list, row, **kwargs):
         count = counts_list[row][(gender, region)]
         region = [x[1] for x in regions if x[0] == region][0]
         gender = get_gender(gender)
-        writer.writerow({'Topic': row, 'Region': region, 'Gender': gender, 'Year': DATASET_YEAR, 'Geography': regions_code[region], 'Count': count})
+        writer.writerow({'Topic': row, 'Region': region, 'Gender': gender, 'Year': settings.REPORTS_CURRENT_YEAR, 'Geography': regions_code[region], 'Count': count})
 
 def ws_85_dataset(writer, counts_list, row, **kwargs):
     regions = kwargs['regions']
@@ -136,7 +135,7 @@ def ws_85_dataset(writer, counts_list, row, **kwargs):
     region = [x[1] for x in regions if x[0] == region][0]
     function = [func[1] for func in FUNCTION if func[0] == function]
     if function:
-        writer.writerow({'Region': region, 'Function': clear_function(function[0]), 'Year': DATASET_YEAR, 'Geography': regions_code[region], 'Count': counts_list[row]})
+        writer.writerow({'Region': region, 'Function': clear_function(function[0]), 'Year': settings.REPORTS_CURRENT_YEAR, 'Geography': regions_code[region], 'Count': counts_list[row]})
 
 def ws_92_dataset(writer, counts_list, row, **kwargs):
     from reports.report_builder import clean_title
@@ -146,7 +145,7 @@ def ws_92_dataset(writer, counts_list, row, **kwargs):
     region = kwargs['region']
     topic = [t for t in MAJOR_TOPICS if t[0] == topic][0][1]
     agree_disagree = 'Agree' if agree_disagree == 1 else 'Disagree'
-    writer.writerow({'Region': region, 'Topic': clean_title(topic), 'Answer': agree_disagree, 'Year': DATASET_YEAR, 'Geography': regions_code[region], 'Count': count})
+    writer.writerow({'Region': region, 'Topic': clean_title(topic), 'Answer': agree_disagree, 'Year': settings.REPORTS_CURRENT_YEAR, 'Geography': regions_code[region], 'Count': count})
 
 def ws_93_dataset(writer, counts_list, row, **kwargs):
     from reports.report_builder import clean_title
@@ -156,7 +155,7 @@ def ws_93_dataset(writer, counts_list, row, **kwargs):
     region = kwargs['region']
     topic = [t for t in MAJOR_TOPICS if t[0] == topic][0][1]
     yes_no = 'Yes' if yes_no == 'Y' else 'No'
-    writer.writerow({'Region': region, 'Topic': clean_title(topic), 'Answer': yes_no, 'Year': DATASET_YEAR, 'Geography': regions_code[region], 'Count': count})
+    writer.writerow({'Region': region, 'Topic': clean_title(topic), 'Answer': yes_no, 'Year': settings.REPORTS_CURRENT_YEAR, 'Geography': regions_code[region], 'Count': count})
 
 def ws_97_dataset(writer, counts_list, row, **kwargs):
     regions = kwargs['regions']
@@ -165,7 +164,7 @@ def ws_97_dataset(writer, counts_list, row, **kwargs):
         agree_disagree = 'Agree' if answer == 1 else 'Disagree'
         region = [x[1] for x in regions if x[0] == region][0]
         count = counts_list[row][region_answer]
-        writer.writerow({'Region': region, 'Topic': row, 'Agree/Disagree': agree_disagree, 'Year': DATASET_YEAR, 'Geography': regions_code[region], 'Count': count})
+        writer.writerow({'Region': region, 'Topic': row, 'Agree/Disagree': agree_disagree, 'Year': settings.REPORTS_CURRENT_YEAR, 'Geography': regions_code[region], 'Count': count})
 
 def ws_100_dataset(writer, counts_list, row, **kwargs):
     from reports.report_builder import clean_title
@@ -175,7 +174,7 @@ def ws_100_dataset(writer, counts_list, row, **kwargs):
         yes_no = 'Yes' if answer == 'Y' else 'No'
         topic = [t for t in MAJOR_TOPICS if t[0] == topic][0][1]
         count = counts_list[row][answer_topic]
-        writer.writerow({'Topic': clean_title(topic), 'Medium': row, 'Yes/No': yes_no, 'Year': DATASET_YEAR, 'Geography': GLOBAL_GEOGRAPHY, 'Count': count})
+        writer.writerow({'Topic': clean_title(topic), 'Medium': row, 'Yes/No': yes_no, 'Year': settings.REPORTS_CURRENT_YEAR, 'Geography': GLOBAL_GEOGRAPHY, 'Count': count})
 
 def ws_101_dataset(writer, counts_list, row, **kwargs):
     from reports.report_builder import clean_title
@@ -184,7 +183,7 @@ def ws_101_dataset(writer, counts_list, row, **kwargs):
     gender = get_gender(gender)
     topic = [t for t in MAJOR_TOPICS if t[0] == topic][0][1]
     count = counts_list[row]
-    writer.writerow({'Topic': clean_title(topic), 'Gender': gender, 'Year': DATASET_YEAR, 'Geography': GLOBAL_GEOGRAPHY, 'Count': count})
+    writer.writerow({'Topic': clean_title(topic), 'Gender': gender, 'Year': settings.REPORTS_CURRENT_YEAR, 'Geography': GLOBAL_GEOGRAPHY, 'Count': count})
 
 def ws_102_dataset(writer, counts_list, row, **kwargs):
     from reports.report_builder import clean_title
@@ -193,7 +192,7 @@ def ws_102_dataset(writer, counts_list, row, **kwargs):
     topic = [t for t in MAJOR_TOPICS if t[0] == topic][0][1]
     agree_disagree = 'Agree' if agree_disagree == 1 else 'Disagree'
     count = counts_list[row]
-    writer.writerow({'Topic': clean_title(topic), 'Agree/Disagree': agree_disagree, 'Year': DATASET_YEAR, 'Geography': GLOBAL_GEOGRAPHY, 'Count': count})
+    writer.writerow({'Topic': clean_title(topic), 'Agree/Disagree': agree_disagree, 'Year': settings.REPORTS_CURRENT_YEAR, 'Geography': GLOBAL_GEOGRAPHY, 'Count': count})
 
 def ws_104_dataset(writer, counts_list, row, **kwargs):
     function, gender = row
@@ -201,7 +200,7 @@ def ws_104_dataset(writer, counts_list, row, **kwargs):
     if function:
         gender = get_gender(gender)
         count = counts_list[row]
-        writer.writerow({'Topic': kwargs['topic'], 'Gender': gender, 'Function': clear_function(function[0]), 'Year': DATASET_YEAR, 'Geography': GLOBAL_GEOGRAPHY, 'Count': count})
+        writer.writerow({'Topic': kwargs['topic'], 'Gender': gender, 'Function': clear_function(function[0]), 'Year': settings.REPORTS_CURRENT_YEAR, 'Geography': GLOBAL_GEOGRAPHY, 'Count': count})
 
 def tabulate_dataset(csv_name, fieldnames, counts_list, func, **kwargs):
     filename = f'dataset/{csv_name}.csv'
