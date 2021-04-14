@@ -189,7 +189,7 @@ def tabulate_dataset(csv_name, fieldnames, counts_list, func, **kwargs):
     filename = f'dataset/{csv_name}.csv'
     file_exists = os.path.isfile(filename)
     with open(filename, 'a+') as csv_file:
-        writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
+        writer = csv.DictWriter(csv_file, fieldnames=fieldnames, quoting=csv.QUOTE_NONE, escapechar=' ')
         if not file_exists:
             writer.writeheader()
         for row in (counts_list):
