@@ -11,6 +11,12 @@ def get_gender(gender_id):
     gender = [x[1] for x in GENDER if x[0] == gender_id][0]
     return clean_title(gender)
 
+def clear_function(text):
+    from reports.report_builder import clean_title
+
+    text = clean_title(text)
+    return text[text.find(']')+1:].lstrip()
+
 def ws_05_dataset(writer, counts_list, row, **kwargs):
     for media_type in row:
         for topic in row[media_type]:
@@ -35,12 +41,11 @@ def ws_09_dataset(writer, counts_list, row, **kwargs):
     writer.writerow({'Topic': clean_title(topic), 'Gender': gender, 'Count': counts_list[row]})
 
 def ws_15_dataset(writer, counts_list, row, **kwargs):
-    from reports.report_builder import clean_title
     function = [func[1] for func in FUNCTION if func[0] == row[1]]
     if function:
         gender = get_gender(row[0])
 
-        writer.writerow({'Function': clean_title(function), 'Gender': gender, 'Count': counts_list[row]})
+        writer.writerow({'Function': clear_function(function[0]), 'Gender': gender, 'Count': counts_list[row]})
 
 def ws_28b_dataset(writer, counts_list, row, **kwargs):
     medium = kwargs['medium']
@@ -110,14 +115,12 @@ def ws_83_dataset(writer, counts_list, row, **kwargs):
         writer.writerow({'Topic': row, 'Region': region, 'Gender': gender, 'Count': count})
 
 def ws_85_dataset(writer, counts_list, row, **kwargs):
-    from reports.report_builder import clean_title
-
     regions = kwargs['regions']
     function, region = row
     region = [x[1] for x in regions if x[0] == region][0]
     function = [func[1] for func in FUNCTION if func[0] == function]
     if function:
-        writer.writerow({'Region': region, 'Function': clean_title(function), 'Count': counts_list[row]})
+        writer.writerow({'Region': region, 'Function': clear_function(function[0]), 'Count': counts_list[row]})
 
 def ws_92_dataset(writer, counts_list, row, **kwargs):
     from reports.report_builder import clean_title
@@ -180,16 +183,15 @@ def ws_104_dataset(writer, counts_list, row, **kwargs):
     function, gender = row
     function = [func[1] for func in FUNCTION if func[0] == function]
     if function:
-        function = function[0][4:] # [4:] is used to remove the (number) part
         gender = get_gender(gender)
         count = counts_list[row]
-        writer.writerow({'Topic': kwargs['topic'], 'Gender': gender, 'Function': function, 'Count': count})
+        writer.writerow({'Topic': kwargs['topic'], 'Gender': gender, 'Function': clear_function(function[0]), 'Count': count})
 
 def tabulate_dataset(csv_name, fieldnames, counts_list, func, **kwargs):
     filename = f'dataset/{csv_name}.csv'
     file_exists = os.path.isfile(filename)
     with open(filename, 'a+') as csv_file:
-        writer = csv.DictWriter(csv_file, fieldnames=fieldnames, quoting=csv.QUOTE_NONE, escapechar=' ')
+        writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
         if not file_exists:
             writer.writeheader()
         for row in (counts_list):
