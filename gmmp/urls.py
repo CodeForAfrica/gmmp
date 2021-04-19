@@ -15,7 +15,6 @@ admin.site.site_url = settings.ADMIN_SITE_SITE_URL
 admin.site.index_title = settings.ADMIN_SITE_INDEX_TITLE
 
 urlpatterns = (
-    [re_path("wazimap/", TemplateView.as_view(template_name="index.html"))]+
     i18n_patterns(
         # grappelli URLS
         path("grappelli/", include("grappelli.urls")),
