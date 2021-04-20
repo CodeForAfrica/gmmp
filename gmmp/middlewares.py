@@ -1,6 +1,7 @@
 from django.shortcuts import redirect
 from whitenoise.middleware import WhiteNoiseMiddleware
-# this is a sample code, you can change for your use case
+
+
 class ProtectedStaticFileMiddleware(WhiteNoiseMiddleware):
     def process_request(self, request):
         # check user authentication
