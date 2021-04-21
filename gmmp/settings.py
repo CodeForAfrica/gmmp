@@ -105,7 +105,7 @@ if DEBUG:
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": ["gmmp/static/wazimap", ],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
