@@ -79,7 +79,13 @@ AUTHENTICATION_BACKENDS = [
 ANONYMOUS_USER_NAME = None
 GUARDIAN_RAISE_403 = True
 
+if DEBUG:
+    INSTALLED_APPS += [
+        "debug_toolbar",
+    ]
+
 MIDDLEWARE = [
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.locale.LocaleMiddleware",
@@ -92,15 +98,10 @@ MIDDLEWARE = [
 
 ]
 
-
-if DEBUG:
-    INSTALLED_APPS += [
-        "debug_toolbar",
-    ]
-    MIDDLEWARE += [
-        "debug_toolbar.middleware.DebugToolbarMiddleware",
-    ]
-
+INTERNAL_IPS = [
+    '127.0.0.1'
+]
+DEBUG_TOOLBAR_CONFIG = {"SHOW_TOOLBAR_CALLBACK" : lambda x: True}
 
 TEMPLATES = [
     {

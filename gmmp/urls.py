@@ -1,3 +1,4 @@
+import debug_toolbar
 from django.conf import settings
 from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls.static import static
@@ -16,8 +17,6 @@ admin.site.index_title = settings.ADMIN_SITE_INDEX_TITLE
 
 urlpatterns = (
     i18n_patterns(
-        # grappelli URLS
-        path("grappelli/", include("grappelli.urls")),
         # Django JET URLS
         re_path(r"^jet/", include("jet.urls", "jet")),
         # Django JET dashboard URLS
@@ -48,6 +47,7 @@ urlpatterns = (
         path('reports/', include('reports.urls')),
         prefix_default_language=False,
     )
+    + [path('__debug__/', include(debug_toolbar.urls))]
     + [path("", include("gsheets.urls"))]
     + [path("i18n/", include("django.conf.urls.i18n"))]
     + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
