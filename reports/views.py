@@ -49,7 +49,7 @@ class ReportView(View):
             filename = 'GMMP Report: %s - %s' % (choice, date.today())
 
             response = HttpResponse(xlsx, content_type='application/vnd.ms-excel')
-            response['Content-Disposition'] = 'attachment; filename=%s.xlsx' % filename
+            response['Content-Disposition'] = f'attachment; filename="{filename}.xlsx"'
             return response
             # context = {'form' : filter_form}
             # return render(
