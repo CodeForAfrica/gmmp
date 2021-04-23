@@ -61,6 +61,13 @@ COUNTRY_RECODES = {
     u'QR': u'GB',  # Wales -> United Kingdom
 }
 
+COUNTRY_ENCODES = {
+    'BE': [('QM', 'Belgium - French and Flemish'), ('QN', 'Belgium - French and Flemish')],
+    'GB': [('QO', 'United Kingdom - England, Northern Ireland, Scotland and Wales'),
+            ('QP', 'United Kingdom - England, Northern Ireland, Scotland and Wales'),
+            ('QQ', 'United Kingdom - England, Northern Ireland, Scotland and Wales'),
+            ('QR', 'United Kingdom - England, Northern Ireland, Scotland and Wales')]
+}
 
 # =================
 # General utilities
@@ -151,6 +158,9 @@ class XLSXReportBuilder:
             self.regions = get_regions()
             self.report_type = 'global'
 
+        if self.report_type == 'country':
+            self.decode_countries()
+
         self.country_list = [code for code, name in self.countries]
         self.all_regions = add_transnational_to_regions(self.regions) if self.report_type == 'global' else self.regions
         self.all_region_list = [name for id, name in self.all_regions]
@@ -179,6 +189,11 @@ class XLSXReportBuilder:
         self.countries.append((u'BE', u'Belgium - French and Flemish'))
         self.countries.append((u'GB', u'United Kingdom - England, Northern Ireland, Scotland and Wales'))
         self.countries.sort(key=lambda p: p[1])
+    
+    def decode_countries(self):
+        countries = [(c, n) for c, n in self.countries if c in COUNTRY_ENCODES]
+        if countries:
+            self.countries = COUNTRY_ENCODES[countries[0][0]]
 
     def build(self, dataset_sheets=[]):
         """
