@@ -27,7 +27,11 @@ def get_countries():
     for model in sheet_models.values():
         rows = model.objects.values('country')
         captured_country_codes.update([r['country'] for r in rows])
-    return [(code, name) for code, name in list(countries) if code in captured_country_codes]
+    all_countries = [(code, name) for code, name in list(countries) if code in captured_country_codes]
+    all_countries.append(('BE', 'Belgium - French and Flemish'))
+    all_countries.append(('GB', 'United Kingdom - England, Northern Ireland, Scotland and Wales'))
+    all_countries.sort(key=lambda p: p[1])
+    return all_countries
 
 
 def get_region_countries(region):
