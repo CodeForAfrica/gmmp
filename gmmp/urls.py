@@ -5,10 +5,11 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.urls import include, path, re_path
-from django.views.generic.base import RedirectView, TemplateView
+from django.views.generic.base import RedirectView
 
 from gmmp import settings
 from gmmp.views import CustomPassowrdResetView, CustomPasswordResetDoneView
+from reports.views import WazimapView
 
 admin.site.site_header = settings.ADMIN_SITE_SITE_HEADER
 admin.site.site_title = settings.ADMIN_SITE_SITE_TITLE
@@ -45,6 +46,7 @@ urlpatterns = (
         path("admin/", admin.site.urls),
         re_path(r"^$", RedirectView.as_view(url="/admin"), name="go-to-admin"),
         path('reports/', include('reports.urls')),
+        path('genmap', WazimapView.as_view(), name='genmap'),
         prefix_default_language=False,
     )
     + [path('__debug__/', include(debug_toolbar.urls))]
