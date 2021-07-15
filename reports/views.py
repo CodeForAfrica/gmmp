@@ -86,7 +86,6 @@ def data_export(request):
 class WazimapView(View):
     template_name = 'index.html'
     
-    @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
         return render(
             request,
