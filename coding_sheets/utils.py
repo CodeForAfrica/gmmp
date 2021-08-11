@@ -267,7 +267,7 @@ def get_all_coding_data(coding_data, row):
         "media_name": media_name,
         "twitter_handle": twitter_handle,
         "retweet": retweet,
-        "about_women": "Y" if about_women == "Y" else "N",
+        "about_women": "Y" if about_women == "1" else "N",
         "inequality_women": int(inequality_women) if inequality_women else "",
         "stereotypes": int(stereotypes) if stereotypes else "",
         "url_and_multimedia": merged_comment or "N/A",
